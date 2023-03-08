@@ -379,7 +379,7 @@ class RadioProfile (RadioProfileWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "save_radio_profile() failed. Unable to save Radio profile"
+            kwargs['fail_msg'] = "Unable to save Radio profile"
             self.screen.save_screen_shot()
             self.common_validation.failed(**kwargs)
             return -1
@@ -425,8 +425,7 @@ class RadioProfile (RadioProfileWebElements):
             self.utils.print_info(" Attribute Text: " + str(enabled_text))
 
             if enabled_text.find("disabled") != -1:
-                kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
-                                     f"Channel with is not by default {channel_width}"
+                kwargs['fail_msg'] = f"Channel with is not by default {channel_width}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -436,8 +435,7 @@ class RadioProfile (RadioProfileWebElements):
             element = self.web.get_element(locator)
 
             if element == None:
-                kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
-                                     f" Button does not exist {channel}"
+                kwargs['fail_msg'] = f" Button does not exist {channel}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -446,26 +444,22 @@ class RadioProfile (RadioProfileWebElements):
 
             if mode == 'enabled':
                 if enabled_text.find("enabled") == -1:
-                    kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
-                                         f"channel is not by default {channel}"
+                    kwargs['fail_msg'] = f"channel is not by default {channel}"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'disabled':
                 if enabled_text.find("disabled") == -1:
-                    kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
-                                         f"channel is by default {channel}"
+                    kwargs['fail_msg'] = f"channel is by default {channel}"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'included':
                 if enabled_text.find("included") == -1:
-                    kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
-                                         f"channel is not included: {channel}"
+                    kwargs['fail_msg'] = f"channel is not included: {channel}"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif mode == 'excluded':
                 if enabled_text.find("excluded") == -1:
-                    kwargs['fail_msg'] = "verify_radio_profile_channel_width_and_channels() failed." \
-                                         f"channel is not excluded: {channel}"
+                    kwargs['fail_msg'] = f"channel is not excluded: {channel}"
                     self.common_validation.failed(**kwargs)
                     return -1
         kwargs['pass_msg'] = "Verified radio profile channel width and channels"
@@ -490,7 +484,7 @@ class RadioProfile (RadioProfileWebElements):
             element = self.web.get_element(locator)
 
             if element is None:
-                kwargs['fail_msg'] = f"select_radio_profile_excluded_channels() failed. Channel does not exist {channel}"
+                kwargs['fail_msg'] = f"Channel does not exist {channel}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -498,8 +492,7 @@ class RadioProfile (RadioProfileWebElements):
                 element.click()
                 self.utils.print_info("select the channel to be exclusive " + str(channel))
             except Exception:
-                kwargs['fail_msg'] = "select_radio_profile_excluded_channels() failed. " \
-                                     f"Not able to select the channel to be exclusive {str(channel)}"
+                kwargs['fail_msg'] = f"Not able to select the channel to be exclusive {str(channel)}"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -599,7 +592,7 @@ class RadioProfile (RadioProfileWebElements):
             else:
                 radio_profile_info["background_scan"] = 'OFF'
         except Exception:
-            kwargs['fail_msg'] = "get_radio_profile_details() failed. Fail to retrieve one of the fields"
+            kwargs['fail_msg'] = "Fail to retrieve one of the fields"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -644,7 +637,7 @@ class RadioProfile (RadioProfileWebElements):
                 self.get_channel_width_exclusions_unii_8().click()
 
         except Exception:
-            kwargs['fail_msg'] = f"verify_uni_group_channels() failed. Not able to click {str(group_channel)}"
+            kwargs['fail_msg'] = f"Not able to click {str(group_channel)}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -670,14 +663,13 @@ class RadioProfile (RadioProfileWebElements):
 
         cells = self.get_radio_profile_table_cells()
         if not cells:
-            kwargs['fail_msg'] = "delete_radio_profile() failed. Radio Profile table is empty"
+            kwargs['fail_msg'] = "Radio Profile table is empty"
             self.common_validation.fault(**kwargs)
             return -1
 
         row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
         if not row:
-            kwargs['fail_msg'] = "delete_radio_profile() failed. " \
-                                 f"Not able to find the radio profile in table {profile_name}"
+            kwargs['fail_msg'] = f"Not able to find the radio profile in table {profile_name}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -698,7 +690,7 @@ class RadioProfile (RadioProfileWebElements):
         cells = self.get_radio_profile_table_cells()
         row = self._search_radio_profile_in_table(len(radio_profile_table_header), cells, profile_name)
         if row:
-            kwargs['fail_msg'] = f"delete_radio_profile() failed. Not able to delete the radio profile {profile_name}"
+            kwargs['fail_msg'] = f"Not able to delete the radio profile {profile_name}"
             self.common_validation.failed(**kwargs)
             return -1
 
