@@ -223,7 +223,6 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return -1
 
-        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['connected'], _preload_content=False)
         while retry_value < retry_count:
             # get Device information
             api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['connected'], _preload_content=False)
@@ -264,10 +263,9 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return -1
 
-        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
         while retry_value < retry_count:
             # get Device information
-            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['connected'], _preload_content=False)
             self.valid_http_response(api_response)
             data = json.loads(api_response.data)
             if data.get('connected', False):
@@ -304,10 +302,9 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return -1
 
-        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
         while retry_value < retry_count:
             # get Device information
-            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['device_admin_state'], _preload_content=False)
             self.valid_http_response(api_response)
             data = json.loads(api_response.data)
             device_admin_state = data.get('device_admin_state', '')
@@ -499,7 +496,7 @@ class XapiDevices(XapiHelper):
 
         while retry_value < retry_count:
             # get Device information
-            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['device_admin_state'], _preload_content=False)
             self.valid_http_response(api_response)
             data = json.loads(api_response.data)
             device_admin_state = data.get('device_admin_state', '')
