@@ -3645,7 +3645,7 @@ class Navigator(NavigatorWebElements):
                 else:
                     not_visible_count += 1
                     self.utils.print_info(f"The 'loading' mask is NOT visible Count: {not_visible_count} "
-                                          f"of {not_visible_max}")
+                                          f"of {not_visible_wait}")
 
                 # The spinner may not have started by the time this function was called.  It's possible the spinner
                 # was visible and already disappeared, it's also possible the spinner was not made visible yet and
