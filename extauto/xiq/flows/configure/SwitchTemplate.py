@@ -192,7 +192,7 @@ class SwitchTemplate(object):
 
                 return rc
 
-    def get_sw_template_row(self, sw_template):
+    def get_sw_template_row(self, sw_template, **kwargs):
         """
         - Get the switch template row element on Network Policy's Switch Templates Grid
         - Keyword Usage
@@ -201,22 +201,21 @@ class SwitchTemplate(object):
         :param sw_template: name of the sw_template
         :return: Switch Template Cell present on row
         """
-        self.utils.print_info("Getting the switch template rows")
-
-        # import sys, pdb
-        # pdb.Pdb(stdout=sys.__stdout__).set_trace()
-
+        self.utils.print_info("Getting the switch template rows.")
         rows = self.sw_template_web_elements.get_sw_template_rows()
         if not rows:
-            self.utils.print_info("Switch templates not exists in switch device template page")
+            kwargs['fail_msg'] = "There are no device templates defined in switch template page"
+            self.common_validation.failed(**kwargs)
             return False
         for row in rows:
             cells = self.sw_template_web_elements.get_sw_template_row_cell(row, 'dgrid-row')
             for cell in cells:
                 if sw_template in cell.text:
+                    kwargs['pass_msg'] = f"Found {sw_template} in switch template rows."
+                    self.common_validation.passed(**kwargs)
                     return cell
 
-    def select_sw_template(self, nw_policy, sw_template):
+    def select_sw_template(self, nw_policy, sw_template, **kwargs):
         """
         - This Keyword will Select the Switch Template on Network Policy
         - Keyword Usage
@@ -229,19 +228,23 @@ class SwitchTemplate(object):
         self._set_nw_policy_if_needed()
 
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
-        sleep(5)
+        self.navigator.wait_until_loading_is_done()
         self.utils.print_info("Click on Device Template tab button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.navigator.wait_until_loading_is_done()
 
         tab = self.sw_template_web_elements.get_sw_template_tab_button()
         if tab.is_displayed():
             self.utils.print_info("Click on Switch Templates tab")
             self.auto_actions.click(tab)
-            sleep(2)
+            self.navigator.wait_until_loading_is_done()
 
         row = self.get_sw_template_row(sw_template)
+        self.utils.print_info("Clicking on Switch Template.")
         self.auto_actions.click(row)
+        self.navigator.wait_until_loading_is_done()
+        kwargs['pass_msg'] = f"Successfully selecting the switch template {sw_template}."
+        self.common_validation.passed(**kwargs)
         return 1
 
     def assign_switch_template(self, nw_policy, sw_template_name, **kwargs):
@@ -4068,6 +4071,7 @@ class SwitchTemplate(object):
 
         """
         This keyword is used to remove ports from LAG
+        :param device: either stack or standalone
         :param main_lag_port: Master port
         :param ports: list with all ports that need to be removed
         """
@@ -4102,3 +4106,48 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
         kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"
         self.common_validation.passed(**kwargs)
+
+    def global_mac_locking_status_change(self, policy_name, template_name, **kwargs):
+        """
+         - This keyword will enable mac locking from Device Template(Device Configuration)
+         It Assumes That Already Created a Network Policy with a Template
+        :param: policy_name The name of the policy to use.
+        :param: template_name The name of the template from policy.
+        :return: 1 if success , -1 if error
+        - Keyword Usage: global mac locking status change  ${NW_POLICY}  ${SW_TEMPLATE_NAME}
+        """
+        status = kwargs.get("status", "OFF")
+        if self.select_sw_template(policy_name, template_name) != 1:
+            kwargs["fail_msg"] = "Not found the network policy. Make sure that it was created before."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        enable_mac = self.sw_template_web_elements.get_sw_template_enable_mac_locking()
+        if not enable_mac.is_selected() and status == "ON":
+            self.utils.print_info("Enabling MAC Locking...")
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking)
+        elif enable_mac.is_selected() and status == "OFF":
+            self.utils.print_info("Disabling MAC Locking...")
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking)
+        elif enable_mac.is_selected() and status == "ON":
+            kwargs["pass_msg"] = "Already enabled MAC locking. Nothing to do!"
+            self.common_validation.passed(**kwargs)
+            return 1
+        elif not enable_mac.is_selected() and status == "OFF":
+            kwargs["pass_msg"] = "Already disabled MAC locking. Nothing to do!"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs["fail_msg"] = "Could not enable mac locking."
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        confirmation_button = self.sw_template_web_elements.get_sw_template_enable_mac_locking_confirm_message_yes_button()
+        if confirmation_button and status == "ON":
+            self.utils.print_info("Selecting YES in confirmation pop-up.")
+            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking_confirm_message_yes_button)
+        self.utils.print_info("Saving changes...")
+        self.switch_template_save()
+        kwargs["pass_msg"] = f"Successfully changed MAC Locking state to {status}"
+        self.common_validation.passed(**kwargs)
+        return 1
