@@ -10470,12 +10470,18 @@ class Devices:
         - ``Change Manage Device Status    UNMANAGE    device_mac=${DEVICE_MAC}``
         - ``Change Manage Device Status    MANAGE    device_mac=${DEVICE_NAME}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device Serial
         :param device_mac: device MAC address
         :param device_name: device name
         :param manage_type: Manage/Unmanage device
         :return: 1 if the management status was changed
         """
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_change_manage_device_status(manage_type=manage_type, device_serial=device_serial, device_mac=device_mac, device_name=device_name, **kwargs)
 
         # Commented on 1/18/23 because it is unused
         # manage_setting = 'MANAGE'
