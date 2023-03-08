@@ -550,3 +550,52 @@ class XapiDevices(XapiHelper):
 
         return self.xapiBaseDeviceApi.xapi_base_change_device_status_to_unmanage(id=id)
 
+    def xapi_change_manage_device_status(self, manage_type='MANAGE', device_serial=None, device_mac=None, device_name=None, **kwargs):
+        """
+            This Keyword changes the management status of the device.
+            - Keyword Usage:
+            - ``Change Manage Device Status    MANAGE      device_serial=${DEVICE_SERIAL}``
+            - ``Change Manage Device Status    UNMANAGE    device_mac=${DEVICE_MAC}``
+            - ``Change Manage Device Status    MANAGE    device_mac=${DEVICE_NAME}``
+
+            :param device_serial: device Serial
+            :param device_mac: device MAC address
+            :param manage_type: Manage/Unmanage device
+            :return: 1 if the management status was changed
+        """
+
+
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['device_admin_state'], _preload_content=False)
+        self.valid_http_response(api_response)
+        data = json.loads(api_response.data)
+        device_admin_state = data.get('device_admin_state', '')
+        if manage_type == "MANAGE":
+            if device_admin_state == "MANAGED":
+                kwargs['pass_msg'] = "Device is already in managed state, thus nothing was changed"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.xapiBaseDeviceApi.xapi_base_change_device_status_to_manage(id=id)
+                kwargs['pass_msg'] = "Device was changed to managed state"
+                self.common_validation.passed(**kwargs)
+                return 1
+        elif manage_type == "UNMANAGE":
+            if device_admin_state == "UNMANAGED":
+                kwargs['pass_msg'] = "Device is already in unmanaged state, thus nothing was changed"
+                self.common_validation.passed(**kwargs)
+                return 1
+            else:
+                self.xapiBaseDeviceApi.xapi_base_change_device_status_to_unmanage(id=id)
+                kwargs['pass_msg'] = "Device was changed to unmanaged state"
+                self.common_validation.passed(**kwargs)
+                return 1
+        else:
+            kwargs['fail_msg'] = f"Failed - device_admin_state '{device_admin_state}' does not match either 'MANAGED' or 'UNMANAGED' or manage_type '{manage_type}' is not a valid option"
+            self.common_validation.fault(**kwargs)
+            return -1
