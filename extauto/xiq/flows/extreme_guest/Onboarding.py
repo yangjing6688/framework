@@ -1,5 +1,5 @@
 from time import sleep
-from extauto.common.CloudDriver import CloudDriver
+
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -96,10 +96,17 @@ class Onboarding(object):
         self.auto_actions.select_drop_down_options(
             self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_items(), condition_type)
         sleep(2)
-        if not ((condition_type == 'Social Type') or (condition_type == 'User Type') or (condition_type == 'Any')):
+
+        if not ((condition_type == 'Social Type') or (condition_type == 'User Type') or (condition_type == 'Any') or (condition_type == 'User’s Device Count >')):
             self.utils.print_info("Entering Condition Value  ", condition_value)
             self.auto_actions.send_keys(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_value(),
                                         condition_value)
+
+        if (condition_type == 'User’s Device Count >'):
+            self.utils.print_info("Entering user Condition Value  ", condition_value)
+            self.auto_actions.send_keys(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_condition_dropdown_value_Device_count(),
+                                        condition_value)
+
         sleep(2)
         self.utils.print_info("Clicking Action Drop Down Button")
         self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_action_dropdown)
@@ -138,6 +145,15 @@ class Onboarding(object):
 
         self.utils.print_info("Clicking OK Button")
         self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button)
+
+        try:
+            if self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_get_close_button().is_displayed():
+                self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_get_close_button)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Click Duplicate OK Button")
+        except Exception:
+            self.utils.print_info("OK Button is already clicked")
+            self.screen.save_screen_shot()
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -289,6 +305,15 @@ class Onboarding(object):
 
         self.utils.print_info("Clicking OK Button")
         self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_rule_add_save_ok_button)
+
+        try:
+            if self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_get_close_button().is_displayed():
+                self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_get_close_button)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Click Duplicate OK Button")
+        except Exception:
+            self.utils.print_info("OK Button is already clicked")
+            self.screen.save_screen_shot()
 
         self.screen.save_screen_shot()
         sleep(2)

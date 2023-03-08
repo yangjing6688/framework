@@ -1,4 +1,4 @@
-from extauto.xiq.defs.RSWebElementsDefinitions import *
+from extauto.xiq.defs.RSWebElementsDefinitions import RSWebElementsDefinitions
 from extauto.common.WebElementHandler import WebElementHandler
 
 
@@ -258,7 +258,10 @@ class RSWebElements(RSWebElementsDefinitions):
 
         :return:
         """
-        parent = self.weh.get_element(self.user_group_dialog_window)
+
+        # Commented on 1/18/23 because it is unused
+        # parent = self.weh.get_element(self.user_group_dialog_window)
+        self.weh.get_element(self.user_group_dialog_window)
         return self.weh.get_elements(self.user_group_select_dialog_local_db_tab)
 
     def get_user_group_select_dialog_usergroup_rows(self):
@@ -302,4 +305,79 @@ class RSWebElements(RSWebElementsDefinitions):
 
     def get_radius_server_group_delete_confirm_button(self):
         return self.weh.get_element(self.radius_server_group_delete_confirm_button)
+
+    def get_add_an_ad_server_btn(self):
+        return self.weh.get_element(self.add_an_ad_server_btn)
+
+    def get_add_ad_server_name(self):
+        return self.weh.get_element(self.add_ad_server_name)
+
+    def get_ad_server_domain(self):
+        return self.weh.get_element(self.ad_server_domain)
+
+    def get_ad_server_domain_manual_opt(self):
+        return self.weh.get_element(self.ad_server_domain_manual_opt)
+
+    def get_add_ad_server_sel_btn(self):
+        return self.weh.get_element(self.add_ad_server_sel_btn)
+
+    def get_add_ad_server_dns_server_sel_btn(self):
+        return self.weh.get_element(self.add_ad_server_dns_server_sel_btn)
+
+    def get_add_ad_server_dns_server_sel_items(self):
+        return self.weh.get_elements(self.add_ad_server_dns_server_sel_items)
+
+    def get_add_ad_server_ip_items(self):
+        return self.weh.get_elements(self.add_ad_server_ip_items)
+
+    def get_add_ad_server_host_items(self):
+        return self.weh.get_elements(self.add_ad_server_host_items)
+
+    def get_add_ad_server_btn(self):
+        return self.weh.get_element(self.add_ad_server_btn)
+
+    def get_add_ad_server_ip_or_host(self):
+        return self.weh.get_elements(self.add_ad_server_ip_or_host)
+
+    def get_add_ad_server_host_name(self):
+        return self.weh.get_element(self.add_ad_server_host_name)
+
+    def get_ad_server_basdn(self):
+        return self.weh.get_element(self.ad_server_basdn)
+
+    def get_ad_server_short_domain_name(self):
+        return self.weh.get_element(self.ad_server_short_domain_name)
+
+    def get_ad_server_realm(self):
+        return self.weh.get_element(self.ad_server_realm)
+
+    def get_ad_server_enable_tls(self):
+        return self.weh.get_element(self.ad_server_enable_tls)
+
+    def get_ad_server_next_btn(self):
+        return self.weh.get_element(self.ad_server_next_btn)
+
+    def get_ad_server_done_btn(self):
+        return self.weh.get_element(self.ad_server_done_btn)
+
+    def get_add_server_update_device_and_retrieves_basedn_status(self):
+        return self.weh.get_elements(self.add_server_update_device_and_retrieves_basedn_status)
+
+    def get_add_server_join_ad_status(self):
+        return self.weh.get_element(self.add_server_join_ad_status)
+
+    def get_add_server_validate_user_status(self):
+        return self.weh.get_element(self.add_server_validate_user_status)
+
+    def get_ad_server_domain_admin_login(self):
+        return self.weh.get_element(self.ad_server_domain_admin_login)
+
+    def get_ad_server_domain_admin_psswd(self):
+        return self.weh.get_element(self.ad_server_domain_admin_psswd)
+
+    def get_ad_server_domain_user_login(self):
+        return self.weh.get_element(self.ad_server_domain_user_login)
+
+    def get_ad_server_domain_user_psswd(self):
+        return self.weh.get_element(self.ad_server_domain_user_psswd)
 

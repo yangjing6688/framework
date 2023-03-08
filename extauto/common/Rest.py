@@ -2,7 +2,6 @@ import json
 import requests
 import base64
 import subprocess
-import re
 from urllib3.exceptions import InsecureRequestWarning
 
 from extauto.common.Utils import Utils
@@ -264,3 +263,16 @@ class Rest:
         data = r.text
 
         return data
+
+    def validate_unresolved_directive(self, url):
+        """
+        This method is used to validate the string in html page
+        :param url:
+        :return: integer
+        """
+        x = requests.get(url)
+        contents = x.text
+
+        value = contents.find("Unresolved directive")
+
+        return value

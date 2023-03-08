@@ -1,6 +1,7 @@
-from extauto.xiq.defs.LicenseManagementWebElementsDefs import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.LicenseManagementWebElementsDefs import LicenseManagementWebElementsDefs
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class LicenseManagementWebElements(LicenseManagementWebElementsDefs):
@@ -122,12 +123,12 @@ class LicenseManagementWebElements(LicenseManagementWebElementsDefs):
         """
         return self.weh.get_element(self.entitlements_table_feature_col, row)
 
-    def get_entitlements_row_devices_value(self, row):
+    def get_entitlements_row_total_value(self, row):
         """
         :param row: row to return the devices value for
-        :return: value in the Devices column for the specified row of the Entitlements table
+        :return: value in the Total column for the specified row of the Entitlements table
         """
-        return self.weh.get_element(self.entitlements_table_devices_col, row)
+        return self.weh.get_element(self.entitlements_table_total_col, row)
 
     def get_entitlements_row_available_value(self, row):
         """
@@ -178,7 +179,3 @@ class LicenseManagementWebElements(LicenseManagementWebElementsDefs):
 
     def get_account_successfully_linked(self):
         return self.weh.get_element(self.account_successfully_linked)
-
-
-
-

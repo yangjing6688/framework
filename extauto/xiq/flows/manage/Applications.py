@@ -1,5 +1,4 @@
 from time import sleep
-from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -162,7 +161,7 @@ class Applications(object):
         self.auto_actions.click_reference(self.app_web_elements.get_manage_apps_cell)
         sleep(3)
 
-        self.utils.print_info("Click on Edit button")
+        self.utils.print_info("Click on Delete button")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_delete)
         sleep(3)
 
@@ -174,7 +173,7 @@ class Applications(object):
         self.utils.print_info(tool_tp_text)
 
         self.utils.print_info("clicking on application dialog box close button")
-        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_tab)
+        self.auto_actions.click_reference(self.app_web_elements.get_application_dialogbox_close_button)
 
         if "Custom Application was successfully deleted." in tool_tp_text[-1]:
             kwargs['pass_msg'] = "Custom Application was successfully deleted."

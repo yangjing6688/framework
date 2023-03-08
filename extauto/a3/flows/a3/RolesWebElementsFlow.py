@@ -1,6 +1,10 @@
-from common.AutoActions import *
+from time import sleep
+
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
 from a3.elements.RolesWebElements import RolesWebElements
-from a3.elements.GlobalSettingWebElements import *
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from xiq.flows.common.DeviceCommon import DeviceCommon
 
 
@@ -57,5 +61,3 @@ class RolesWebElementsFlow(RolesWebElements):
             self.utils.print_info("Unable to navigate to Roles")
             self.screen.save_screen_shot()
             return -1
-
-

@@ -1,7 +1,7 @@
 from time import sleep
+
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.common.WebElementHandler import *
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
@@ -153,48 +153,20 @@ class Navigator(NavigatorWebElements):
                 self.utils.print_info("Manage page is present")
                 if self.auto_actions.click_reference(self.get_devices_nav) == 1:
                     self.utils.print_info("Clicking Devices Tab...")
-                    sleep(10)
+                    self.wait_until_devices_load_spinner_cleared()
                     self.enable_page_size(page_size='100')
                     kwargs['pass_msg'] = "Navigation Successful to Devices Sub tab on Monitor Tab"
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
                     self.utils.print_info("Unable to navigate to Devices tab")
-                    self.screen.save_screen_shot()
                     kwargs['fail_msg'] = "'navigate_to_devices()' -> Unable to navigate to Devices tab"
-                    self.common_validation.failed(**kwargs)
+                    self.common_validation.fault(**kwargs)
                     return -1
             else:
                 kwargs['fail_msg'] = "'navigate_to_devices()' -> Manage page is not present"
                 self.common_validation.fault(**kwargs)
                 return -1
-
-    def navigate_to_ssids(self, **kwargs):
-        """
-        - This keyword Navigates to SSIDs Menu on Common Objects
-        - Flow Configure --> Common Objects --> Policy --> SSIDs
-        - Keyword Usage
-        - ``Navigate To SSIDs``
-
-        :return: 1 if Navigation Successful
-        """
-        self.navigate_to_configure_tab()
-
-        self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
-        sleep(2)
-
-        if self.get_ssid_option() is None:
-            self.utils.print_info("SSID menu is NOT visible. Clicking Policy...")
-            self.auto_actions.click_reference(self.get_policy_toggle)
-            sleep(2)
-        self.utils.print_info("SSID menu is visible. Selecting...")
-        self.auto_actions.click_reference(self.get_ssid_option)
-        sleep(2)
-
-        kwargs['pass_msg'] = "Successfully Navigated to SSIDs Menu on Common Objects"
-        self.common_validation.passed(**kwargs)
-        return 1
 
     def navigate_to_tools_page(self):
         """
@@ -208,80 +180,71 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_devices()
         self.navigate_to_device_utilities_tools()
 
-    def navigate_configure_network_policies(self, **kwargs):
-        """
-        - This keyword Navigates to Network Policies On Configure Menu
-        - Flow Configure--> Network Policies
-        - Keyword Usage
-        - ``Navigate Configure Network Policies``
+    # ## Commented on 1/18/23 because this is a duplicate of a function below.
+    # ## The second function to be declared will be used. Thus, this function was commented
+    #
+    # def navigate_configure_network_policies(self, **kwargs):
+    #     """
+    #     - This keyword Navigates to Network Policies On Configure Menu
+    #     - Flow Configure--> Network Policies
+    #     - Keyword Usage
+    #     - ``Navigate Configure Network Policies``
 
-        :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
-        """
-        self.utils.print_info("Selecting Configure tab...")
-        if self.get_configure_tab().is_displayed():
-            self.navigate_to_configure_tab()
-            sleep(2)
-        else:
-            kwargs['fail_msg'] = "'navigate_configure_network_policies()' -> Configure tab is not displayed"
-            self.common_validation.failed(**kwargs)
-            return -2
+    #     :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
+    #     """
+    #     self.utils.print_info("Selecting Configure tab...")
+    #     if self.get_configure_tab().is_displayed():
+    #         self.navigate_to_configure_tab()
+    #         sleep(2)
+    #     else:
+    #         kwargs['fail_msg'] = "'navigate_configure_network_policies()' -> Configure tab is not displayed"
+    #         self.common_validation.failed(**kwargs)
+    #         return -2
 
-        return self.navigate_to_network_policies_tab()
+    #     return self.navigate_to_network_policies_tab()
 
-    def navigate_configure_common_objects(self):
-        """
-        - This keyword Navigates to Common Objects On Configure Menu
-        - Flow: Configure --> Common Objects
-        - Keyword Usage
-        - ``Navigate Configure Common Objects``
+    # ## Commented on 1/18/23 because this is a duplicate of a function below.
+    # ## The second function to be declared will be used. Thus, this function was commented
+    #
+    # def navigate_to_network_policies_tab(self, **kwargs):
+    #     """
+    #     - This keyword Navigates to Network Policies
+    #     - Keyword Usage
+    #     - ``Navigate To Network Policies Tab``
 
-        :return: -1 if Navigation Not Successful to Configure Menu else return None
-        """
-        self.navigate_to_configure_tab()
-
-        self.utils.print_info("Selecting Common Objects")
-        self.auto_actions.click_reference(self.get_common_objects_sub_tab)
-        sleep(5)
-
-    def navigate_to_network_policies_tab(self, **kwargs):
-        """
-        - This keyword Navigates to Network Policies
-        - Keyword Usage
-        - ``Navigate To Network Policies Tab``
-
-        :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
-        """
-        network_policy_tab_display = False
-        try_cnt = 0
-        while not network_policy_tab_display:
-            self.utils.print_info("Navigate to Configure Tab first")
-            self.navigate_to_configure_tab()
-            if self.get_subtab_head_img_nav():
-                self.utils.print_info("Selecting Network Policies Tab...")
-                self.auto_actions.click_reference(self.get_network_policies_sub_tab)
-                sleep(2)
-                network_policy_tab_display = True
-            else:
-                sleep(2)
-                self.utils.print_info("Network Policy tab is NOT displayed, try to navigate to the tab again")
-                self.screen.save_screen_shot()
-                try_cnt += 1
-                if try_cnt == 10:
-                    self.utils.print_info(
-                        f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
-                    kwargs['fail_msg'] = f"The MAX {try_cnt} times trying is reached, need figure out manually why the" \
-                                         f" Network Policy tab can NOT be displayed"
-                    self.common_validation.fault(**kwargs)
-                    return False
-        if network_policy_tab_display:
-            kwargs['pass_msg'] = "Navigation Successful to Network Policies On Configure Menu"
-            self.common_validation.passed(**kwargs)
-            return 1
-        else:
-            kwargs['fail_msg'] = "'navigate_to_network_policies_tab()' -> Navigation to Network Policies On" \
-                                 " Configure Menu was not successful"
-            self.common_validation.failed(**kwargs)
-            return -1
+    #     :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
+    #     """
+    #     network_policy_tab_display = False
+    #     try_cnt = 0
+    #     while not network_policy_tab_display:
+    #         self.utils.print_info("Navigate to Configure Tab first")
+    #         self.navigate_to_configure_tab()
+    #         if self.get_subtab_head_img_nav():
+    #             self.utils.print_info("Selecting Network Policies Tab...")
+    #             self.auto_actions.click_reference(self.get_network_policies_sub_tab)
+    #             sleep(2)
+    #             network_policy_tab_display = True
+    #         else:
+    #             sleep(2)
+    #             self.utils.print_info("Network Policy tab is NOT displayed, try to navigate to the tab again")
+    #             self.screen.save_screen_shot()
+    #             try_cnt += 1
+    #             if try_cnt == 10:
+    #                 self.utils.print_info(
+    #                     f"The MAX {try_cnt} times trying is reached, need figure out manually why the Network Policy tab can NOT be displayed")
+    #                 kwargs['fail_msg'] = f"The MAX {try_cnt} times trying is reached, need figure out manually why the" \
+    #                                      " Network Policy tab can NOT be displayed"
+    #                 self.common_validation.fault(**kwargs)
+    #                 return False
+    #     if network_policy_tab_display:
+    #         kwargs['pass_msg'] = "Navigation Successful to Network Policies On Configure Menu"
+    #         self.common_validation.passed(**kwargs)
+    #         return 1
+    #     else:
+    #         kwargs['fail_msg'] = "'navigate_to_network_policies_tab()' -> Navigation to Network Policies On" \
+    #                              " Configure Menu was not successful"
+    #         self.common_validation.failed(**kwargs)
+    #         return -1
 
     def navigate_to_clients_tab(self, **kwargs):
         """
@@ -581,7 +544,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_configure_common_objects()
         self.utils.print_info("Click on common authentication tab")
         self.navigate_to_common_object_authentication_tab()
-        self.utils.print_info("Click on AAA server Settings...")
+        self.utils.print_info("Click on AD Server...")
         self.auto_actions.click_reference(self.get_common_object_authentication_ad_servers)
         sleep(5)
 
@@ -2043,7 +2006,7 @@ class Navigator(NavigatorWebElements):
             kwargs['pass_msg'] = "Navigation Successful to MANAGE->Application"
             self.common_validation.passed(**kwargs)
             return 1
-        except Exception as e:
+        except Exception:
             kwargs['fail_msg'] = "'navigate_manage_application()' - > Unable to Navigate to  Manage--> Application"
             self.common_validation.failed(**kwargs)
             return -1
@@ -3702,6 +3665,60 @@ class Navigator(NavigatorWebElements):
             self.common_validation.fault(**kwargs)
             return -1
 
+    def wait_until_devices_load_spinner_cleared(self, retry_duration=1, retry_count=180, **kwargs):
+        """
+        - This keyword waits until the Manage > Devices 'loading' mask is cleared.
+        - This keyword by default loops every 1 second for 180 times to check for the 'loading' mask.
+        - Flow:
+        -   Assumes that the 'Manage --> Devices' view is already visible.
+        -   Check for the 'loading' mask
+        - Keyword Usage:
+        - ``Wait Until Devices Load Mask Cleared   retry_duration=1    retry_count=180``
+
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if the 'loading' mask is cleared within the specified time, else -1
+        """
+        count = 1
+        not_visible_count = 0
+        not_visible_max   = 2
+
+        while count <= retry_count:
+            self.utils.print_info(f"Checking for 'loading' mask: loop {count}")
+            load_mask = self.get_table_load_spinner()
+
+            if not load_mask:
+                self.utils.print_info(f"Unable to get 'loading' mask: loop {count}")
+            else:
+                # Determine if the mask is visible
+                is_visible = load_mask.value_of_css_property("display") == "block"
+
+                # If the spinner is visible then we need to wait for it to no longer be visible
+                if is_visible:
+                    not_visible_count = 0
+                    self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
+                else:
+                    not_visible_count += 1
+                    self.utils.print_info(f"The 'loading' mask is NOT visible Count: {not_visible_count} of {not_visible_max}")
+
+                # We want to make sure the spinner is not visible for two seconds because
+                # it can start out as not visible before this function is called.  In other words we might get to this
+                # function before the spinner starts.
+                if not_visible_count >= not_visible_max:
+                    kwargs['pass_msg'] = "The 'loading' mask is no longer visible"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+
+
+                # Sleep for ~one second then try again
+                count += 1
+                sleep(retry_duration)
+
+        # After trying {retry_count} times we the spinner never went away or we couldn't get it from selenium
+        kwargs['fail_msg'] = f"The 'loading' mask is either still visible or could not be obtained after {retry_count} tries"
+        self.common_validation.failed(**kwargs)
+        return -1
+
     def navigate_to_port_configuration_d360(self, **kwargs):
         """
         - Assumes that D360 poge is already open
@@ -3742,7 +3759,7 @@ class Navigator(NavigatorWebElements):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def enable_page_size(self, page_size='50', **kwargs):
+    def enable_page_size(self, page_size=None, **kwargs):
         """
         - This keyword clicks the page size of that page
         - Flow Manage--> Common --> Navigator
@@ -3756,12 +3773,19 @@ class Navigator(NavigatorWebElements):
 
         while try_again:
             try:
-                page_size_element = self.get_page_size()
-                if page_size_element != None:
+                # The default for get_page_size is currently 100.  If user didn't
+                # specify a specific desired page size we'll used the default
+                # from get_page_size()
+                if page_size is None:
+                    page_size_element = self.get_page_size()
+                else:
+                    page_size_element = self.get_page_size(page_size)
+                if page_size_element is not None:
                     self.utils.print_info(f'Clicking on page size of {page_size_element.text}')
                     if self.auto_actions.click(page_size_element) == 1:
                         kwargs['pass_msg'] = f" Clicked on page size of {page_size_element.text}"
                         self.common_validation.passed(**kwargs)
+                        self.wait_until_devices_load_spinner_cleared()
                         return 1
                     else:
                         if counter == 5:
@@ -3769,23 +3793,26 @@ class Navigator(NavigatorWebElements):
                             self.common_validation.failed(**kwargs)
                             return -1
                         else:
-                            self.utils.print_info(f"trying again...")
+                            self.utils.print_info("trying again...")
                             self.auto_actions.scroll_down()
                             counter += 1
                 else:
+                    # If the element is not present then the table likely has less than 10 entries.  This should be
+                    # considered a success.
                     return 1
             except Exception as e:
                 self.utils.print_info(f"enable_device_page_size, got exception: {e}, with counter: {counter}")
                 if counter == 5:
-                    kwargs['fail_msg'] = f"'enable_page_size()' -> Not able to click on page size with" \
+                    kwargs['fail_msg'] = "'enable_page_size()' -> Not able to click on page size with" \
                                          f" exception: {e}, counter: {counter}"
                     self.common_validation.fault(**kwargs)
                     return -1
                 else:
-                    self.utils.print_info(f"trying again...")
+                    self.utils.print_info("trying again...")
                 counter += 1
                 sleep(5)
 
+    # There is a duplicate of this function above that was commented out on 1/18/23
     def navigate_configure_network_policies(self, **kwargs):
         """
          - This keyword Navigates to Network Policies On Configure Menu
@@ -3809,7 +3836,7 @@ class Navigator(NavigatorWebElements):
         - This keyword Navigates to Common Objects On Configure Menu
         - Flow: Configure --> Common Objects
         - Keyword Usage
-         - ``Navigate Configure Common Objects``
+        - ``Navigate Configure Common Objects``
 
         :return: -1 if Navigation Not Successful to Configure Menu else return None
         """
@@ -3819,11 +3846,13 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_common_objects_sub_tab)
         sleep(5)
 
+    # There is a duplicate of this function above that was commented out on 1/18/23
     def navigate_to_network_policies_tab(self, **kwargs):
         """
-         - This keyword Navigates to Network Policies
-         - Keyword Usage
-          - ``Navigate To Network Policies Tab``
+        - This keyword Navigates to Network Policies
+        - Keyword Usage
+        - ``Navigate To Network Policies Tab``
+
         :return: 1 if Navigation Successful to Network Policies On Configure Menu else return -1
         """
         network_policy_tab_display = False
@@ -3849,16 +3878,17 @@ class Navigator(NavigatorWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"Unable to Navigate to Network Policies Menu"
+            kwargs['fail_msg'] = "Unable to Navigate to Network Policies Menu"
             self.common_validation.failed(**kwargs)
             return -1
 
-    def navigate_to_ssids(self):
+    def navigate_to_ssids(self, **kwargs):
         """
         - This keyword Navigates to SSIDs Menu on Common Objects
         - Flow Configure --> Common Objects --> Policy --> SSIDs
         - Keyword Usage
-         - ``Navigate To SSIDs``
+        - ``Navigate To SSIDs``
+
         :return: 1 if Navigation Successful
         """
         self.navigate_to_configure_tab()
@@ -3875,4 +3905,6 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_ssid_option)
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully Navigated to SSIDs Menu on Common Objects"
+        self.common_validation.passed(**kwargs)
         return 1

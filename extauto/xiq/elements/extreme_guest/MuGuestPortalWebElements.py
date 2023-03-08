@@ -1,10 +1,13 @@
-from xiq.defs.extreme_guest.MuGuestPortalWebElementsDefs import MuGuestPortalWebElementsDefs
+from time import sleep
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from extauto.common.WebElementHandler import *
-from extauto.common.Screen import *
-from time import sleep
+
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
+from xiq.defs.extreme_guest.MuGuestPortalWebElementsDefs import MuGuestPortalWebElementsDefs
 
 
 class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):
@@ -99,6 +102,9 @@ class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):
 
     def get_social_wifi_all_login_success_page(self):
         return self.weh.get_element(self.social_wifi_all_login_success_page, self.driver)
+
+    def get_social_wifi_max_count_error(self):
+        return self.weh.get_element(self.social_wifi_max_count_error, self.driver)
 
     def get_social_wifi_all_google_icon(self):
         return self.weh.get_element(self.social_wifi_all_google_icon, self.driver)
@@ -228,6 +234,9 @@ class MuGuestPortalWebElements(MuGuestPortalWebElementsDefs):
 
     def get_sponsor_guest_access_login_success_page(self):
         return self.weh.get_element(self.sponsor_guest_access_login_success_page, self.driver)
+
+    def get_social_wifi_access_denied_error(self):
+        return self.weh.get_element(self.social_wifi_access_denied_error, self.driver)
 
     def get_username_field(self):
         return self.weh.get_element(self.username_field, self.driver)

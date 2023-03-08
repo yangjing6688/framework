@@ -374,6 +374,21 @@ class WinMuConnect(object):
             print(line)
         return -1
 
+    def check_internet_connectivity(self):
+        """
+        - Check MU machine Internet connectivity with curl and Firefox detect portal
+        - Keyword Usage:
+        - ``MU1.Check Internet Connectivity``
+
+        :return: 1 if Internet is available, else -1
+        """
+        cmd = 'curl http://detectportal.firefox.com/success.txt'
+        curl_out = self._execute_commands(cmd)
+        if (len(curl_out) == 1) and re.fullmatch('success', curl_out[0]):
+            return 1
+        else:
+            return -1
+
     def ping_check(self, destination):
         """
         - Ping the destination address
@@ -407,7 +422,7 @@ class WinMuConnect(object):
         :return: 1 if ping success else -1
         """
         cmd = 'ping ' + str(destination) + ' -n ' + str(count)
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
+        subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
 
     @staticmethod
     def _execute_commands(cmd):

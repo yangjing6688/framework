@@ -416,8 +416,7 @@ class CommonObjectsWebElementsDefinitions:
 
     page_size_element = \
         {
-            'CSS_SELECTOR': '.J-page-size.ui-page-size',
-            'wait_for': 2
+            'CSS_SELECTOR': '.J-page-size.ui-page-size'
         }
 
     next_page_element = \
@@ -607,6 +606,17 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_wifi0_radio_operating_mode_combox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dualGHzArea"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_radio_operating_mode_combox_list = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dualGHzArea"]//*[@data-automation-tag="automation-chzn-results-ctn"]/li',
+            'wait_for': 3
+        }
 
     common_object_wifi0_radio_profile_textbox = \
         {
@@ -1273,6 +1283,12 @@ class CommonObjectsWebElementsDefinitions:
     policy_port_types_confirmation_button = \
         {
             'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 1
+        }
+
+    ui_tipbox_error = \
+        {
+            'XPATH': '//div[contains(@class,"ui-tipbox-error")]/div[@class="ui-tipbox-con"]/h3',
             'wait_for': 1
         }
 

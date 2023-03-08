@@ -1,15 +1,16 @@
 from time import sleep
 
-from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.flows.manage.Client import *
-from extauto.xiq.flows.manage.Devices import *
+from extauto.xiq.flows.manage.Client import Client
+from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
-from extauto.xiq.elements.DeviceActions import *
-from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
-from extauto.xiq.elements.MLInsightsPlanWebElements import *
-from extauto.xiq.elements.Device360WebElements import *
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.elements.MLInsightsPlanWebElements import MLInsightsPlanWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
 
 class Location:
@@ -25,9 +26,10 @@ class Location:
         self.devices_web_elements = DevicesWebElements()
         self.ml_insights_plan_web_elements = MLInsightsPlanWebElements()
         self.d360_web_elements = Device360WebElements()
+        self.common_validation = CommonValidation()
 
 
-    def assign_location_with_hyperlink(self, device_serial=None, dev_location=None):
+    def assign_location_with_hyperlink(self, device_serial=None, dev_location=None, **kwargs):
         """
         - This keyword assigns location to device by clicking on Assign Location hyperlink in Devices page.
         - Flow: Manage --> Devices --> based on device serial clicks on the Assign Location hyperlink present in Devices grid.
@@ -53,13 +55,15 @@ class Location:
                         self.screen.save_screen_shot()
                         return self._assign_location(device_serial, dev_location)
             else:
-                self.utils.print_info("Unable to access Devices Grid")
+                kwargs['fail_msg'] = "Unable to access Devices Grid"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Device serial is not provided")
+            kwargs['fail_msg'] = "Device serial is not provided"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def assign_location_with_device_actions(self, device_serial=None, dev_location=None):
+    def assign_location_with_device_actions(self, device_serial=None, dev_location=None, **kwargs):
         """
         - This keyword assigns location to device by clicking on Actions button in Devices page.
         - Flow: Manage --> Devices --> selects the device based on serial number --> Actions --> Assign Location
@@ -72,7 +76,7 @@ class Location:
         """
 
         self.navigator.navigate_to_devices()
-        if self.devices.select_ap(device_serial):
+        if self.devices.select_device(device_serial=device_serial, skip_navigation=True):
             self.utils.print_info("Clicking on Actions Button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
@@ -85,10 +89,11 @@ class Location:
             return self._assign_location(device_serial, dev_location)
 
         else:
-            self.utils.print_info("Device not found in Devices Grid")
+            kwargs['fail_msg'] = "Device not found in Devices Grid"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def _assign_location(self, device_serial='default', dev_location='default'):
+    def _assign_location(self, device_serial='default', dev_location='default', **kwargs):
         """
         - This keyword assigns the specified location to the specified device and confirms the assignment was successful.
 
@@ -107,13 +112,17 @@ class Location:
 
             if expected_location.strip() in observed_location:
                 self.utils.print_info("Successfully Assigned Location")
+                kwargs['pass_msg'] = "Successfully Assigned Location"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info("Unable to Assign Location")
+                kwargs['fail_msg'] = "Unable to Assign Location"
+                self.common_validation.failed(**kwargs)
                 return -1
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to Assign Location to device")
+            kwargs['fail_msg'] = "Unable to Assign Location to device"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def select_location(self, sel_loc):
@@ -200,7 +209,7 @@ class Location:
 
         return ret_val
 
-    def _verify_device_location(self, device_serial="default", location_floor='default'):
+    def _verify_device_location(self, device_serial="default", location_floor='default', **kwargs):
         """
         - This keyword  verifies the location of device
 
@@ -212,16 +221,21 @@ class Location:
             try:
                 row = self.devices.get_manage_device_row(device_serial)
                 if location_floor not in row.text:
-                    self.utils.print_info("Location is not assigned to the Device")
+                    kwargs['fail_msg'] = "Location is not assigned to the Device"
+                    self.common_validation.failed(**kwargs)
                     return -1
 
-                self.utils.print_info("Location is assigned to the Device")
+                kwargs['pass_msg'] = "Location is assigned to the Device"
+                self.common_validation.passed(**kwargs)
                 return 1
             except Exception as e:
                 self.utils.print_info(e)
-                self.utils.print_info("Unable to Assign Location to device")
+                kwargs['fail_msg'] = "Unable to Assign Location to device"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "Unsuccessfully navigate to devices"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_device_location(self, device_serial="default"):
@@ -234,7 +248,7 @@ class Location:
         """
         return self.devices.get_device_details(device_serial, 'LOCATION')
 
-    def _verify_client_location(self, client_name='default', location_floor='default'):
+    def _verify_client_location(self, client_name='default', location_floor='default', **kwargs):
         """
         - This keyword verifies the location of client
 
@@ -246,15 +260,21 @@ class Location:
             try:
                 row = self.client.get_client_row(client_name)
                 if location_floor not in row.text:
-                    self.utils.print_info("Location is not assigned to Client")
+                    kwargs['fail_msg'] = "Location is not assigned to Client"
+                    self.common_validation.failed(**kwargs)
                     return -1
                 self.utils.print_info("Location is assigned to Client")
+                kwargs['pass_msg'] = "Location is assigned to Client"
+                self.common_validation.passed(**kwargs)
                 return 1
             except Exception as e:
                 self.utils.print_info(e)
-                self.utils.print_info("Unable to Verify Client Location")
+                kwargs['fail_msg'] = "Unable to Verify Client Location"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
+            kwargs['fail_msg'] = "Unsuccessfully navigate to clients"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_assigned_floor(self, device_serial):
@@ -270,7 +290,7 @@ class Location:
         self.device.get_device_location_link()
 
 
-    def create_location_building_floor(self, location, building, floor, width="50", height="50"):
+    def create_location_building_floor(self, location, building, floor, width="50", height="50", **kwargs):
         """
         - This function is to create location, building and floor in MLInsights >> N360plan
 
@@ -324,9 +344,11 @@ class Location:
         self.auto_actions.click_reference(self.ml_insights_plan_web_elements.get_manage_left_pane_click)
         self.auto_actions.click_reference(self.ml_insights_plan_web_elements.get_manage_devices_click)
 
+        kwargs['pass_msg'] = "Successfully create location, building and floor in MLInsights >> N360plan"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def delete_location_building_floor(self, location, building, floor):
+    def delete_location_building_floor(self, location, building, floor, **kwargs):
         """
         - This function is to delete location, building and floor in MLInsights >> N360plan
 
@@ -370,11 +392,14 @@ class Location:
                     try_cn += 1
                     self.utils.print_info('Try click n360 more action again...')
                     if try_cn == 5:
-                        self.utils.print_info(f"Max {try_cn} attempts reach....")
+                        kwargs['fail_msg'] = f"Max {try_cn} attempts reach."
+                        self.common_validation.failed(**kwargs)
                         return -1
 
         else:
             self.utils.print_info("The floor doesn't exist ")
+            kwargs['pass_msg'] = "The floor doesn't exist"
+            self.common_validation.passed(**kwargs)
             return 1
         self.utils.print_info("Searching Building ....")
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_plan_search_box(), building)
@@ -398,10 +423,12 @@ class Location:
                     try_cn += 1
                     self.utils.print_info('Try click n360 more action again...')
                     if try_cn == 5:
-                        self.utils.print_info(f"Max {try_cn} attempts reach....")
+                        kwargs['fail_msg'] = f"Max {try_cn} attempts reach."
+                        self.common_validation.failed(**kwargs)
                         return -1
         else:
-            self.utils.print_info("The build doesn't exist ")
+            kwargs['pass_msg'] = "The build doesn't exist"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Searching Location ....")
@@ -424,14 +451,16 @@ class Location:
                     try_cn += 1
                     self.utils.print_info('Try click n360 more action again...')
                     if try_cn == 5:
-                        self.utils.print_info(f"Max {try_cn} attempts reach....")
+                        kwargs['fail_msg'] = f"Max {try_cn} attempts reach."
+                        self.common_validation.failed(**kwargs)
                         return -1
         else:
-            self.utils.print_info("The Location doesn't exist ")
+            kwargs['pass_msg'] = "The location doesn't exist"
+            self.common_validation.passed(**kwargs)
             return 1
         return 1
 
-    def assign_location_using_hostname(self, device_host, dev_location=None):
+    def assign_location_using_hostname(self, device_host, dev_location=None, **kwargs):
         """
         - This keyword assigns location to device by clicking on Assign Location hyperlink in Devices page.
         - Flow: Manage --> Devices --> based on hostname clicks on the Assign Location hyperlink present in Devices grid.
@@ -457,10 +486,12 @@ class Location:
                         self.screen.save_screen_shot()
                         return self._assign_location(device_host, dev_location)
             else:
-                self.utils.print_info("Unable to access Devices Grid")
+                kwargs['fail_msg'] = "Unable to access Devices Grid"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Switch host is not provided")
+            kwargs['fail_msg'] = "Switch host is not provided"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_device_location_using_hostname(self, device_host="default"):
@@ -473,7 +504,7 @@ class Location:
         """
         return self.devices.get_device_details(device_host, 'LOCATION')
 
-    def assign_location_with_device_actions_using_hostname(self, device_name="default", dev_location=None):
+    def assign_location_with_device_actions_using_hostname(self, device_name="default", dev_location=None, **kwargs):
         """
         - This keyword assigns location to device by clicking on Actions button in Devices page.
         - Flow: Manage --> Devices --> selects the device based on host name --> Actions --> Assign Location
@@ -486,7 +517,7 @@ class Location:
         """
 
         self.navigator.navigate_to_devices()
-        if self.devices.select_device(device_name):
+        if self.devices.select_device(device_name=device_name, skip_navigation=True):
             self.utils.print_info("Clicking on Actions Button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
@@ -499,7 +530,8 @@ class Location:
             return self._assign_location(device_name, dev_location)
 
         else:
-            self.utils.print_info("Device not found in Devices Grid")
+            kwargs['fail_msg'] = "Device not found in Devices Grid"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def input_new_snmp_location(self, new_locn):
@@ -518,7 +550,7 @@ class Location:
 
         return 1
 
-    def create_first_organization(self, organization, street, city, country, width="50", height="50"):
+    def create_first_organization(self, organization, street, city, country, width="50", height="50", **kwargs):
         '''
         This keyword create new organization if this isn't created
         - Keyword Usage:
@@ -548,13 +580,15 @@ class Location:
             self.auto_actions.click_reference(self.ml_insights_plan_web_elements.get_create_new_map_btn)
             self.utils.print_info("New map button found")
         else:
-            self.utils.print_info("Organisation already existed")
+            kwargs['pass_msg'] = "Organisation already existed"
+            self.common_validation.passed(**kwargs)
             return 1
         if self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text():
             self.auto_actions.click_reference(self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text)
             sleep(3)
         else:
-            self.utils.print_info("Organisation already existed")
+            kwargs['pass_msg'] = "Organisation already existed"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_plan_map_organization_text(),organization)
@@ -580,12 +614,14 @@ class Location:
             if found_country:
                 self.utils.print_info("Country found")
         else:
-            self.utils.print_info("List country not found")
+            kwargs['fail_msg'] = "List country not found"
+            self.common_validation.failed(**kwargs)
             return -1
         if self.auto_actions.click_reference(self.ml_insights_plan_web_elements.get_n360_plan_map_save_btn):
             self.utils.print_info("Click on save button")
         else:
-            self.utils.print_info("Save button not found")
+            kwargs['fail_msg'] = "Save button not found"
+            self.common_validation.failed(**kwargs)
             return -1
         # sleep(3)
 
@@ -631,6 +667,7 @@ class Location:
         #Comment below lines until XIQ-8469 will be resolved
         #self.auto_actions.send_keys(self.ml_insights_plan_web_elements.get_n360_height_floor(), height)
         #sleep(3)
-        self.utils.print_info("Click n360 apply button")
+        kwargs['pass_msg'] = "Click n360 apply button"
         self.auto_actions.click_reference(self.ml_insights_plan_web_elements.get_n360_apply_button)
+        self.common_validation.passed(**kwargs)
         return 1

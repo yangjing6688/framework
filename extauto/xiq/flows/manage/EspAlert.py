@@ -3,9 +3,9 @@ from time import sleep
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.EspAlertWebElements import EspAlertWebElements
-import re
 import json
 
 
@@ -16,12 +16,13 @@ class EspAlert(EspAlertWebElements):
         self.screen = Screen()
         self.utils = Utils()
         self.auto_actions = AutoActions()
+        self.common_validation = CommonValidation()
+
     def create_alert_policy_dynamic(self,policy,when):
         """
         - This can be used in Alert Policy page
         - Keyword Usage
         - ``Create Alert Policy Dynamic  ${policy}  ${when}``
-        :return: returns 1 if successfully show configred policies and not configured policies tab else -1
         - policy attribute
         -   policy_type: event/metric
         -   source_parent:
@@ -29,6 +30,8 @@ class EspAlert(EspAlertWebElements):
         -   trigger_type: immediate
         -   threshold_operator: GE(>=)/GT(>)/LE(<=)/LT(<)/EQ(=)/NE(!=)
         -   threshold_input:
+
+        :return: returns 1 if successfully show configred policies and not configured policies tab else -1
         """
         sleep(2)
         self.utils.print_info("Click on <Add New Policy> button")
@@ -54,11 +57,13 @@ class EspAlert(EspAlertWebElements):
         self.auto_actions.click_reference(self.get_save)
         sleep(5)
         return self.find_when_in_configured_grid(when)
-    def go_to_policy_and_check_tab(self,configred_title,not_configured_title):
+
+    def go_to_policy_and_check_tab(self,configred_title,not_configured_title, **kwargs):
         """
         - Go to policy page and check configured policies and not configured policies tab
         - Keyword Usage
         - ``Go To Policy And Check Tab  ${configred_title}  ${not_configured_title}``
+
         :return: returns 1 if successfully show configred policies and not configured policies tab else -1
         """
         sleep(3)
@@ -77,15 +82,20 @@ class EspAlert(EspAlertWebElements):
         self.utils.print_info(not_configured_tab_title)
 
         if configured_tab_title == configred_title and not_configured_tab_title == not_configured_title:
+            kwargs['pass_msg'] = "successfully show configred policies and not configured policies tab"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "unsuccessfully show configred policies and not configured policies tab."
+            self.common_validation.failed(**kwargs)
             return -1
+
     def create_alert_policy(self,policy_type,source_parent,source,trigger_type,when,threshold_operator="",threshold_input=""):
         """
         - Go to policy page and check create alert policy works
         - Keyword Usage
         - ``Create Alert Policy  ${policy_type}  ${source_parent}  ${source}  ${trigger_type}  ${when}  ${threshold_operator}  ${threshold_input}``
+
         :return: returns 1 if successfully create alert policy else -1
         """
         sleep(2)
@@ -112,28 +122,37 @@ class EspAlert(EspAlertWebElements):
         self.auto_actions.click_reference(self.get_save)
         sleep(5)
         return self.find_when_in_configured_grid(when)
-    def find_when_in_configured_grid(self,when):
+
+    def find_when_in_configured_grid(self,when, **kwargs):
         """
         - Go to policy page and find alert policy in configured grid
         - Keyword Usage
         - ``Find When In Configured Grid  ${when}``
+
         :return: returns 1 if successfully matched else -1
         """
         sleep(1)
         if self.get_configured_grid_rows():
             for row in self.get_configured_grid_rows():
                 if self.get_when_in_rows(row).text == when:
+                    kwargs['pass_msg'] = "successfully matched"
+                    self.common_validation.passed(**kwargs)
                     return 1
             self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "Didn't found row in get configured grid rows"
+            #self.common_validation.failed(**kwargs)
             return -1
         else:
-            self.screen.save_screen_shot()
+            kwargs['fail_msg'] = "unsuccessfully matched"
+            #self.common_validation.failed(**kwargs)
             return -1
-    def delete_alert_policy(self,when):
+
+    def delete_alert_policy(self,when, **kwargs):
         """
         - Go to policy page and delete alert policy in configured grid
         - Keyword Usage
         - ``Delete Alert Policy  ${when}``
+
         :return: returns 1 if successfully delete alert policy else -1
         """
         sleep(2)
@@ -144,14 +163,19 @@ class EspAlert(EspAlertWebElements):
                 self.auto_actions.click_reference(self.get_del_confirm_ok)
                 sleep(5)
                 if self.find_when_in_configured_grid(when) == -1:
+                    kwargs['pass_msg'] = "successfully delete alert policy"
+                    self.common_validation.passed(**kwargs)
                     return 1
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = "unsuccessfully delete alert policy"
+        self.common_validation.failed(**kwargs)
         return -1
-    def search_in_unconfigure_grid(self,event_search_input,metric_search_input):
+
+    def search_in_unconfigure_grid(self,event_search_input,metric_search_input, **kwargs):
         """
         - Go to policy page and search in unconfigured grid
         - Keyword Usage
         - ``Search In Unconfigure Grid  ${event_search_input}  ${metric_search_input}``
+
         :return: returns 1 if successfully search else -1
         """
         sleep(2)
@@ -172,25 +196,34 @@ class EspAlert(EspAlertWebElements):
             self.auto_actions.send_keys(self.get_unconfigured_search_input(), metric_search_input)
             return self.find_desc_in_unconfigured_grid(metric_search_input)
         else:
+            kwargs['fail_msg'] = "unsuccessfully search"
+            self.common_validation.failed(**kwargs)
             return -1
-    def find_desc_in_unconfigured_grid(self,desc):
+
+    def find_desc_in_unconfigured_grid(self,desc, **kwargs):
         """
         - Go to policy page and find event/metric in unconfigured grid
         - Keyword Usage
         - ``Find Desc In Unconfigured Grid  ${when}``
+
         :return: returns 1 if successfully matched else -1
         """
         sleep(1)
         for row in self.get_unconfigured_grid_rows():
             if self.get_desc_in_unconfigured_grid_rows(row).text == desc:
+                kwargs['pass_msg'] = "successfully matched"
+                self.common_validation.passed(**kwargs)
                 return 1
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = "unsuccessfully matched"
+        self.common_validation.failed(**kwargs)
         return -1
-    def create_alert_policy_by_unconfigured_grid(self,policy_type,when,trigger_type,threshold_operator="",threshold_input=""):
+
+    def create_alert_policy_by_unconfigured_grid(self,policy_type,when,trigger_type,threshold_operator="",threshold_input="", **kwargs):
         """
         - Go to policy page and check create alert policy by unconfigure event/metric works
         - Keyword Usage
         - ``Create Alert Policy By Unconfigured Grid  ${policy_type}  ${when}  ${trigger_type}  ${threshold_operator}  ${threshold_input}``
+
         :return: returns 1 if successfully create alert policy else -1
         """
         sleep(2)
@@ -226,14 +259,16 @@ class EspAlert(EspAlertWebElements):
                 self.auto_actions.click_reference(self.get_configred_tab_txt)
                 sleep(2)
                 return self.find_when_in_configured_grid(when)
-        self.utils.print_info("failed match with "+when)
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = f"failed match with {when}"
+        self.common_validation.failed(**kwargs)
         return -1
-    def edit_alert_policy(self,when,severity,desc):
+
+    def edit_alert_policy(self,when,severity,desc, **kwargs):
         """
         - Go to policy page and check edit alert policy works
         - Keyword Usage
         - ``Edit Alert Policy  ${when}  ${severity}  ${desc}``
+
         :return: returns 1 if successfully edit alert policy else -1
         """
         sleep(2)
@@ -253,15 +288,20 @@ class EspAlert(EspAlertWebElements):
         for row in self.get_configured_grid_rows():
             if self.get_when_in_rows(row).text == when:
                 if self.get_severity_in_rows(row).text.lower() == severity:
+                    kwargs['pass_msg'] = "successfully edit alert policy "
+                    self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    self.screen.save_screen_shot()
+                    kwargs['fail_msg'] = "unsuccessfully edit alert policy"
+                    self.common_validation.failed(**kwargs)
                     return -1
-    def toggle_alert_policy_status(self,when):
+
+    def toggle_alert_policy_status(self,when, **kwargs):
         """
         - Go to policy page and check disable alert policy works
         - Keyword Usage
         - ``Toggle Alert Policy Status  ${when}``
+
         :return: returns 1 if successfully disable alert policy else -1
         """
         sleep(2)
@@ -281,14 +321,19 @@ class EspAlert(EspAlertWebElements):
             if self.get_when_in_rows(row).text == when:
                 self.utils.print_info("Chkecking status slide toggle for: "+when)
                 if self.get_status_slide_toggle(row).text.lower() == status_target:
+                    kwargs['pass_msg'] = "successfully disable alert policy"
+                    self.common_validation.passed(**kwargs)
                     return 1
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = "unsuccessfully disable alert policy"
+        self.common_validation.failed(**kwargs)
         return -1
-    def subscribe_alert_policy(self,when,name):
+
+    def subscribe_alert_policy(self,when,name, **kwargs):
         """
         - Go to policy page and check subscribe alert policy works
         - Keyword Usage
         - ``Subscribe Alert Policy  ${when}``
+
         :return: returns 1 if successfully subscribe alert policy else -1
         """
         sleep(2)
@@ -305,9 +350,13 @@ class EspAlert(EspAlertWebElements):
                     for text in subscribed_texts:
                         self.utils.print_info(f"text:{text}")
                         if text.text == name:
+                            kwargs['pass_msg'] = "successfully subscribe alert policy"
+                            self.common_validation.passed(**kwargs)
                             return 1
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = "unsuccessfully subscribe alert policy"
+        self.common_validation.failed(**kwargs)
         return -1
+
     def go_to_alert_policy(self):
         sleep(3)
         self.utils.switch_to_iframe(CloudDriver().cloud_driver)
@@ -315,21 +364,28 @@ class EspAlert(EspAlertWebElements):
         self.utils.print_info("Going to Policy page")
         self.auto_actions.click_reference(self.get_go_to_policy)
         sleep(2)
+
     def go_out_alerts(self):
         self.utils.switch_to_default(CloudDriver().cloud_driver)
+
     def get_json_from_string(self, json_string):
         return json.loads(json_string)
-    def check_alert_detail(self,summary):
+
+    def check_alert_detail(self,summary, **kwargs):
         """
         - Go to policy page and check alert detail exist
         - Keyword Usage
         - ``Check Alert Detail  ${summary}``
+
         :return: returns 1 if successfully check alert detail exist else -1
         """
         detail_rows = self.get_detail_grid_rows()
         if detail_rows:
             for row in detail_rows:
                 if self.get_summary_in_row(row).text == summary:
+                    kwargs['pass_msg'] = "successfully check alert detail exist"
+                    self.common_validation.passed(**kwargs)
                     return 1
-        self.screen.save_screen_shot()
+        kwargs['fail_msg'] = "unsuccessfully check alert detail exist"
+        self.common_validation.failed(**kwargs)
         return -1

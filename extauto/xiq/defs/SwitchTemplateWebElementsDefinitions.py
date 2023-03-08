@@ -42,7 +42,8 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_enable_stp = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpMode-stp']"
+            'XPATH': "//*[@data-dojo-attach-point='stpMode-stp']",
+            'wait_for': 5
         }
 
     sw_template_enable_rstp = \
@@ -153,6 +154,18 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_assign_create_new = \
         {
             'XPATH': '//a[@type="createPortType"]',
+            'wait_for': 5
+        }
+
+    sw_template_assign_advanced_actions = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-advancedactions"]',
+            'wait_for': 5
+        }
+
+    sw_template_assign_advanced_actions_aggr = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-aggregate"]',
             'wait_for': 5
         }
 
@@ -356,14 +369,14 @@ class SwitchTemplateWebElementDefinitions:
 
     switch_temp_cancel_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="cancelButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-switch-template-cancel-btn"]',
             'index': 3,
             'wait_for': 5
         }
 
     switch_temp_save_button = \
         {
-            'XPATH': '//button[@class="btn btn-primary"][@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-switch-template-save-btn"]',
             'wait_for': 5
         }
 
@@ -376,6 +389,18 @@ class SwitchTemplateWebElementDefinitions:
     complete_stack_all_rows = \
         {
             "CSS_SELECTOR": '.active-result',
+            'wait_for': 5
+        }
+
+    aggr_ports_across_stack_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="switch-template-aggregate-for-stack"]',
+            'wait_for': 5
+        }
+
+    aggr_ports_standalone_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="switch-template-aggregate-for-exos"]',
             'wait_for': 5
         }
 
@@ -423,7 +448,7 @@ class SwitchTemplateWebElementDefinitions:
 
     save_button_template = \
         {
-            'XPATH': '//*[@class="bottom"]//*[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//fixed-bar[@class="bottom"]/button[@data-dojo-attach-point="saveButton"][text() = "Save"]',
             'wait_for': 2
         }
 
@@ -602,6 +627,91 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    lacp_toggle_button = \
+        {
+            'XPATH': '//*[contains(@data-automation-tag,"lag-lacp-toggle")]',
+            'wait_for': 2
+        }
+
+    lag_remove_port_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="lag-remove-port-button"]',
+            'wait_for': 2
+        }
+
+    lag_add_port_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="lag-add-port-button"]',
+            'wait_for': 2
+        }
+
+    select_ports_available = \
+        {
+            'XPATH': '//select[@data-dojo-attach-point="portsAvailable"]//option',
+            'wait_for': 5
+        }
+
+    cancel_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="lag-cancel-button"]',
+            'wait_for': 5
+        }
+
+    save_port_type_button = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-automation-tag="lag-save-button"]',
+            'wait_for': 5
+        }
+
+    switch_temp_save_button_v2 = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 5,
+            'index': 1
+        }
+
+    lag_span = \
+        {
+            'CSS_SELECTOR': '.link-type-agg-prime .control-label.portInterface  [data-automation-tag="lag-edit-lag-${lag}"]',
+            'wait_for': 10
+        }
+
+    available_port = \
+        {
+            'XPATH': '//option[@data-automation-tag="lag-available-port-${port}"]',
+            'wait_for': 5
+        }
+
+    selected_port = \
+        {
+            'XPATH': '//option[@data-automation-tag="lag-selected-port-${port}"]',
+            'wait_for': 5
+        }
+
+    port_settings_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-settings"]',
+            'wait_for': 5
+        }
+
+    available_slot = \
+        {
+            'XPATH': '//select[@data-automation-tag="lag-slots-available"]//option[@value="${slot}"]',
+            'wait_for': 5
+        }
+
+    error_message = \
+        {
+            'XPATH': '//*[contains(@class, "ui-tipbox-error")]//*[@data-dojo-attach-point="textEl"]',
+            'wait_for': 1,
+        }
+
+    template_link = \
+        {
+            'XPATH': '//a[text()="${template}"]',
+            'wait_for': 5
+        }
+
     select_all_rows = \
         {
             'XPATH': '//div[@id="ah/util/AHGrid_1_rowSelector_-1"]',
@@ -747,6 +857,12 @@ class SwitchTemplateWebElementDefinitions:
     template_slot = \
         {
             'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
+            'wait_for': 5
+        }
+
+    port_in_agg = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portsInAgg"]//option',
             'wait_for': 5
         }
 
@@ -1098,4 +1214,10 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_device_max_age_drop_down_all_items = \
         {
             'CSS_SELECTOR': '.active-result'
+        }
+
+    device_template_no_of_ports = \
+        {
+            'CSS_SELECTOR': '.state-expanded.state-type-access-port',
+            'wait_for': 10
         }

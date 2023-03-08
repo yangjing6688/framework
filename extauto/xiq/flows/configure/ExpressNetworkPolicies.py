@@ -42,7 +42,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.auto_actions.click(auth_dropdown)
             sleep(2)
         else:
-            self.utils.print_info(f"Unable to find drop down to select Wireless Auth Type")
+            self.utils.print_info("Unable to find drop down to select Wireless Auth Type")
             self.screen.save_screen_shot()
             return -1
 
@@ -52,7 +52,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             if self.auto_actions.select_drop_down_options(auth_els, auth_type):
                 return 1
         else:
-            self.utils.print_info(f"Unable to find Wireless Auth Type drop down elements")
+            self.utils.print_info("Unable to find Wireless Auth Type drop down elements")
             self.screen.save_screen_shot()
             return -1
 
@@ -93,20 +93,20 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
                 self.auto_actions.click(express_btn)
                 sleep(2)
             else:
-                kwargs['fail_msg'] = f"Unable to find button to create express policy"
+                kwargs['fail_msg'] = "Unable to find button to create express policy"
                 self.common_validation.fault(**kwargs)
                 return -1
 
         cancel_button = self.get_network_policy_cancel_button()
 
-        self.utils.print_info(f"Enter the Network policy name")
+        self.utils.print_info("Enter the Network policy name")
         name_field = self.get_policy_name_text()
         if name_field:
             self.auto_actions.send_keys(name_field, policy_name)
         else:
             if cancel_button:
                 self.auto_actions.click(cancel_button)
-            kwargs['fail_msg'] = f"Unable to find field to enter Policy Name"
+            kwargs['fail_msg'] = "Unable to find field to enter Policy Name"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -118,7 +118,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         else:
             if cancel_button:
                 self.auto_actions.click(cancel_button)
-            kwargs['fail_msg'] = f"Unable to find check box to select Create Wireless Network"
+            kwargs['fail_msg'] = "Unable to find check box to select Create Wireless Network"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -139,7 +139,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         else:
             if cancel_button:
                 self.auto_actions.click(cancel_button)
-            kwargs['fail_msg'] = f"Unable to find field to enter SSID"
+            kwargs['fail_msg'] = "Unable to find field to enter SSID"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -155,13 +155,13 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
                 else:
                     if cancel_button:
                         self.auto_actions.click(cancel_button)
-                    kwargs['fail_msg'] = f"Unable to find field to enter CWP name"
+                    kwargs['fail_msg'] = "Unable to find field to enter CWP name"
                     self.common_validation.fault(**kwargs)
                     return -1
         else:
             if cancel_button:
                 self.auto_actions.click(cancel_button)
-            kwargs['fail_msg'] = f"Unable to find check box to select Create CWP"
+            kwargs['fail_msg'] = "Unable to find check box to select Create CWP"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -173,7 +173,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         else:
             if cancel_button:
                 self.auto_actions.click(cancel_button)
-            kwargs['fail_msg'] = f"Unable to find Create button to create the policy"
+            kwargs['fail_msg'] = "Unable to find Create button to create the policy"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -186,7 +186,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
             self.auto_actions.click(done_btn)
             sleep(2)
         else:
-            kwargs['fail_msg'] = f"Unable to find Done button after creating the policy"
+            kwargs['fail_msg'] = "Unable to find Done button after creating the policy"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -197,18 +197,18 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         for chk in range(2):
             try:
                 done_btn_exists = self.get_network_policy_dialog_done_button()
-                if done_btn_exists:
-                    if chk == 2:
-                        kwargs['fail_msg'] = f"Unable to close Express popup"
-                        self.common_validation.fault(**kwargs)
-                        return -1
-                    sleep(2)
-                    self.auto_actions.click(done_btn)
-                    sleep(2)
-                else:
-                    break
-            except:
-                pass
+                if done_btn_exists is not None:
+                    if done_btn_exists.is_displayed():
+                        if chk == 2:
+                            kwargs['fail_msg'] = "Unable to close Express popup"
+                            self.common_validation.fault(**kwargs)
+                            return -1
+                        sleep(2)
+                        self.auto_actions.click(done_btn)
+                        sleep(2)
+                    else:
+                        break
+            except Exception:
                 break
 
         kwargs['pass_msg'] = "Successfully created open auth express network policy"

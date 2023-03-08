@@ -1,8 +1,11 @@
-from extauto.xiq.flows.manage.Client import *
-from extauto.xiq.flows.manage.Devices import *
-from extauto.xiq.flows.common.Navigator import *
-from extauto.xiq.elements.Network360MonitorElements import *
+from time import sleep
+
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.Network360MonitorElements import Network360MonitorElements
+from extauto.common.AutoActions import AutoActions
 from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 
 
 class Network360Monitor:
@@ -65,7 +68,6 @@ class Network360Monitor:
         matches = self.n360_elements.get_n360_monitor_search_matches()
         if matches:
             for match in matches:
-                search_matches = []
                 self.utils.print_info("Search Results: ", match.text)
                 if floor_name == match.text:
                     self.utils.print_info("Clicking on the match: ", floor_name)
@@ -84,7 +86,7 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        kwargs['fail_msg'] = f"'get_devices_from_network360monitor_floor()' -> No APs found on floor: " \
+                        kwargs['fail_msg'] = "'get_devices_from_network360monitor_floor()' -> No APs found on floor: " \
                                              f"{floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
@@ -130,7 +132,6 @@ class Network360Monitor:
         self.utils.print_info("Getting all matching floors")
         matches = self.n360_elements.get_n360_monitor_search_matches()
         if matches:
-            search_matches = []
             for match in matches:
                 self.utils.print_info("Search Results: ", match.text)
                 if floor_name == match.text:
@@ -146,7 +147,7 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        kwargs['fail_msg'] = f"'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
+                        kwargs['fail_msg'] = "'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
                                              f"{floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
@@ -172,7 +173,7 @@ class Network360Monitor:
                             clients_on_floor.append(client_mac.text)
                         self.utils.print_info("Connected Clients on floor: ", clients_on_floor[1:])
                     else:
-                        kwargs['fail_msg'] = f"'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
+                        kwargs['fail_msg'] = "'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
                                              f"{floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1

@@ -4,6 +4,7 @@ from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
+from extauto.common.CommonValidation import CommonValidation
 
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
@@ -27,6 +28,7 @@ class Switch(SwitchWebElements):
         self.dialogue_web_elements = DialogWebElements()
         self.login_web_elements = LoginWebElements()
         self.devices = Devices()
+        self.common_validation = CommonValidation()
 
     @deprecated("Please use onboard_device_quick(...)")
     def onboard_switch(self, switch_serial, switch_make="default", device_os="default", location=None, switch_type="Real", entry_type="Manual"):
@@ -45,13 +47,11 @@ class Switch(SwitchWebElements):
         :return: 1 if Switch OnBoarding is Successful without Error Message
         """
 
-
-        if self.devices.search_device(device_serial=switch_serial) == 1:
+        if self.devices.search_device(device_serial=switch_serial, ignore_failure=True) == 1:
             self.utils.print_info(f"Switch with {switch_serial} serial number already onboarded")
             return 1
         else:
             self.utils.print_info(f"Onboarding Switch with serial number '{switch_serial}'")
-
 
         self.utils.print_info("Clicking on ADD button...")
         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_button)
@@ -113,14 +113,14 @@ class Switch(SwitchWebElements):
         if "," in switch_serial:
             switch_serial_list = switch_serial.split(",")
             for serial in switch_serial_list:
-                if self.devices.search_device(device_serial=serial):
+                if self.devices.search_device(device_serial=serial, ignore_failure=True) == 1:
                     self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {serial}")
                 else:
                     self.utils.print_error(f"Switch with serial no. {serial} is not successfully onboarded...")
                     return -1
             return 1
         else:
-            if self.devices.search_device(device_serial=switch_serial):
+            if self.devices.search_device(device_serial=switch_serial, ignore_failure=True) == 1:
                 self.utils.print_info(f"Successfully Onboarded Switch With Serial no. {switch_serial}")
                 return 1
             else:
@@ -129,7 +129,7 @@ class Switch(SwitchWebElements):
 
 
 
-    def select_switch(self, sw_serial):
+    def select_switch(self, sw_serial, **kwargs):
         """
         - This keyword Select Aerohive Switch based on Switch Serial Number From Devices Grid
         - Flow  Manage--> Devices--> Select Aerohive SWitch
@@ -145,7 +145,11 @@ class Switch(SwitchWebElements):
                 self.utils.print_info("Found Switch Row: ", row.text)
                 self.auto_actions.click_reference(self.get_switch_name)
                 sleep(2)
+                kwargs['pass_msg'] = "Aerohive Switch selected Successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
+        kwargs['fail_msg'] = "Aerohive Switch selected unsuccessfully"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def get_switch_port_details(self, sw_serial, port_number):
@@ -183,7 +187,7 @@ class Switch(SwitchWebElements):
         port_status = None
         port_details = self.get_switch_port_details(sw_serial, port_number)
         for value in port_details:
-           if "Port Status" in value:
-               port_status = value.split("Port Status")[-1]
-               break
+            if "Port Status" in value:
+                port_status = value.split("Port Status")[-1]
+                break
         return port_status

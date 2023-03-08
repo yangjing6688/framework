@@ -1,6 +1,6 @@
 import time
-from extauto.xiq.defs.DevicesWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DevicesWebElementsDefinitions import DevicesWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DevicesWebElements(DevicesWebElementsDefinitions):
@@ -88,6 +88,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
+    def get_device_config_audit_button(self, row):
+        return self.weh.get_element(self.device_config_audit, row)
+
     def get_device_conn_status_after_ten_min(self, row):
         return self.weh.get_element(self.device_conn_status_after_ten_min, row)
 
@@ -147,18 +150,6 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: device action button
         """
         return self.weh.get_element(self.device_action_button)
-
-    def get_os_change_exos(self):
-        """
-        :return: change os button
-        """
-        return self.weh.get_element(self.device_os_change_exos)
-
-    def get_os_change_voss(self):
-        """
-        :return: change os button
-        """
-        return self.weh.get_element(self.device_os_change_voss)
 
     def get_os_change_error_message(self):
         """
@@ -262,6 +253,19 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_simulated_devices_dropdown(self):
         return self.weh.get_element(self.simulated_device_dropdown)
+
+    def get_simulated_device_dropdown_table(self):
+        return self.weh.get_element(self.simulated_device_dropdown_table)
+
+    def get_simulated_device_dropdown_table_rows(self, table):
+        return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
+
+    def get_simulated_devices_dropdown_items(self):
+        parent = self.get_simulated_devices_dropdown()
+        return self.weh.get_elements(self.simulated_device_dropdown_items, parent)
+
+    def get_simulation_device_count_input_field(self):
+        return self.weh.get_element(self.simulation_device_count_input_field)
 
     def get_add_another_device(self):
         return self.weh.get_element(self.add_another_device)
@@ -852,6 +856,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.device_service_tag_textbox)
 
     def get_devices_quick_add_devices_menu_item(self):
+        return self.weh.get_element(self.devices_quick_add_devices_menu_item)
+
+        # jefjones - removed for now
         menus = self.weh.get_elements(self.devices_add_devices_menu)
         for menu in menus:
             if menu.is_displayed():
@@ -1137,7 +1144,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return el
         else:
             return None
- 
+
     def get_sfdc_username(self):
         return self.weh.get_element(self.sfdc_username)
 
@@ -1200,7 +1207,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_sort_time_stamp(self):
         return self.weh.get_element(self.sort_time_stamp)
-      
+
     def get_field_description_more_button(self, row):
         el = self.weh.get_element(self.field_description_more_button, row)
         if el:
@@ -1219,24 +1226,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_number_of_rows(self):
         return self.weh.get_elements(self.number_of_rows)
 
-    def get_simulated_device_dropdown_table(self):
-        return self.weh.get_element(self.simulated_device_dropdown_table)
-
-    def get_simulated_device_dropdown_table_rows(self, table):
-        return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
-
-    def get_manage_devices_table_load_mask(self):
-        return self.weh.get_element(self.manage_devices_table_load_mask)
-
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)
-    
+
     def get_device_page_size_100(self):
         return self.weh.get_element(self.device_page_size_100)
 
-    def get_simulation_device_count_input_field(self):
-        return self.weh.get_element(self.simulation_device_count_input_field)
-      
     def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
         return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
 
@@ -1340,7 +1335,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_device_serial_number(self, row, field='field-serialNumber'):
         """
-        :param device_row: the device parent row
+        :param row: the device parent row
         :param field: serial number field in attribute
         :return: Devices -> Device Row -> serial # column
         """
@@ -1348,3 +1343,44 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         for cell in cells:
             if field in cell.get_attribute("class"):
                 return cell
+
+    def get_global_settings_management_dialog(self):
+        return self.weh.get_element(self.global_settings_management_dialog)
+
+    def get_global_settings_management_dialog_yes_button(self):
+        return self.weh.get_element(self.global_settings_management_dialog_yes_button)
+
+    def device_actions_change_os_button(self):
+        """
+        :return: change os button
+        """
+        elements = self.weh.get_elements(self.device_actions_change_os)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def utilities_button(self):
+        return self.weh.get_element(self.utilities_path)
+
+    def restart_pse(self):
+        return self.weh.get_element(self.restart_pse_path)
+
+    def pse_yes(self):
+        return self.weh.get_element(self.pse_yes_path)
+
+    def loading_bar(self):
+        elements = self.weh.get_elements(self.loading_bar_path)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def closing_window(self):
+        el = self.weh.get_element(self.closing_window_path)
+        if el.is_displayed():
+            return el
+
+    def get_pse_reset_status(self):
+        el = self.weh.get_element(self.pse_reset_status)
+        if el.is_displayed():
+            return el
+

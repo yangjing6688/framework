@@ -38,20 +38,19 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         self.utils.print_info("Navigating to the License Management page..")
         if self.navigator.navigate_to_license_mgmt() == 1:
-            kwargs['pass_msg'] = "'open_license_management_page()' -> License Management page was opened"
+            kwargs['pass_msg'] = "License Management page was opened"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'open_license_management_page()' -> Failed to open License Management page"
+            kwargs['fail_msg'] = "Failed to open License Management page"
             self.common_validation.failed(**kwargs)
             return -1
 
-    def is_entitlements_table_empty(self, **kwargs):
+    def _is_entitlements_table_empty(self):
         """
+        - This is a helper
         - Checks if the Entitlements table is empty.
         - Assumes the License Management page is already being displayed.
-        - Keyword Usage
-        - ``Is Entitlements Table Empty``
 
         :return: 1 if Entitlements Table is empty ("No records found." is displayed), else -1
         """
@@ -67,22 +66,55 @@ class LicenseManagement(LicenseManagementWebElements):
 
         return ret_val
 
-    def is_legacy_table_empty(self, **kwargs):
+    def verify_entitlements_table_empty(self, **kwargs):
         """
-        - Checks if the Legacy Entitlements table is empty.
+        - Checks if the Entitlements table is empty.
         - Assumes the License Management page is already being displayed.
         - Keyword Usage
-        - ``Is Legacy Table Empty``
+        - ``Verify Entitlements Table Empty``
+
+        :return: 1 if Entitlements Table is empty ("No records found." is displayed), else -1
+        """
+        if self._is_entitlements_table_empty():
+            kwargs['pass_msg'] = "Entitlements Table is empty (No records found. is displayed)"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = "Entitlements Table is not empty (Records found. is displayed)"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _is_legacy_table_empty(self):
+        """
+        - This is a helper
+        - Checks if the Legacy Entitlements table is empty.
+        - Assumes the License Management page is already being displayed.
 
         :return: 1 if Legacy Entitlements Table is empty ("No data" is displayed), else -1
         """
         no_data_el = self.lic_mgt_web_elements.get_legacy_no_data()
         if no_data_el and no_data_el.is_displayed():
-            kwargs['pass_msg'] = "'is_legacy_table_empty()' -> Legacy Entitlements table is empty"
+            self.utils.print_info("Legacy Entitlements table is empty")
+            return 1
+        else:
+            self.utils.print_info("Legacy Entitlements table is not empty")
+            return -1
+
+    def verify_legacy_table_empty(self, **kwargs):
+        """
+        - Checks if the Legacy Entitlements table is empty.
+        - Assumes the License Management page is already being displayed.
+        - Keyword Usage
+        - ``Verify Legacy Table Empty``
+
+        :return: 1 if Legacy Entitlements Table is empty ("No data" is displayed), else -1
+        """
+        if self._is_legacy_table_empty():
+            kwargs['pass_msg'] = "Legacy Entitlements table is empty"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'is_legacy_table_empty()' -> Legacy Entitlements table is not empty"
+            kwargs['fail_msg'] = "Legacy Entitlements table is not empty"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -95,12 +127,12 @@ class LicenseManagement(LicenseManagementWebElements):
 
         :return: 1 if Entitlements Table is not empty, else -1
         """
-        if self.is_entitlements_table_empty() == 1:
-            kwargs['fail_msg'] = "'confirm_entitlements_table_contains_data()' -> Entitlements table does not contain data"
+        if self._is_entitlements_table_empty() == 1:
+            kwargs['fail_msg'] = "Entitlements table does not contain data"
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['pass_msg'] = "'confirm_entitlements_table_contains_data()' -> Entitlements table contains data"
+            kwargs['pass_msg'] = "Entitlements table contains data"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -113,13 +145,12 @@ class LicenseManagement(LicenseManagementWebElements):
 
         :return: 1 if Legacy Entitlements Table is not empty, else -1
         """
-        if self.is_legacy_table_empty() == 1:
-            kwargs['fail_msg'] = "'confirm_legacy_table_contains_data()' -> Legacy Entitlements table does " \
-                                 "not contain data"
+        if self._is_legacy_table_empty() == 1:
+            kwargs['fail_msg'] = "Legacy Entitlements table does not contain data"
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['pass_msg'] = "'confirm_legacy_table_contains_data()' -> Legacy Entitlements table contains data"
+            kwargs['pass_msg'] = "Legacy Entitlements table contains data"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -139,11 +170,11 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.utils.print_info(ek)
                 if re.search(ekey, ek):
                     self.utils.switch_to_default(CloudDriver().cloud_driver)
-                    kwargs['pass_msg'] = "'verify_ek_in_legacy_ek_table()' -> Legacy EK exists in the legacy ek table."
+                    kwargs['pass_msg'] = "Legacy EK exists in the legacy ek table."
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = "'verify_ek_in_legacy_ek_table()' -> Legacy EK not found the the table."
+                    kwargs['fail_msg'] = "Legacy EK not found the the table."
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -153,11 +184,11 @@ class LicenseManagement(LicenseManagementWebElements):
         """
         cont_sales_btn = self.lic_mgt_web_elements.get_contact_sales_btn()
         if cont_sales_btn.is_displayed():
-            kwargs['pass_msg'] = "'verify_contact_sales_btn_dispalyed()' -> Contact Sales Button is displayed."
+            kwargs['pass_msg'] = "Contact Sales Button is displayed."
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'verify_contact_sales_btn_dispalyed()' -> Contact Sales Button is NOT displayed."
+            kwargs['fail_msg'] = "Contact Sales Button is NOT displayed."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -175,23 +206,20 @@ class LicenseManagement(LicenseManagementWebElements):
             if xiq_link_status.is_displayed():
                 self.utils.print_info(xiq_link_status.text)
             else:
-                kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> XIQ Successfully linked to a customer " \
-                                     "account msg is not displayed."
+                kwargs['fail_msg'] = "XIQ Successfully linked to a customer account msg is not displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
             if extr_lic_portal_link.is_displayed():
                 self.utils.print_info("Extreme Licensing Portal link is dispalyed.")
             else:
-                kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> Extreme Licensing Portal link is not " \
-                                     "displayed."
+                kwargs['fail_msg'] = "Extreme Licensing Portal link is not displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
-            kwargs['pass_msg'] = "'verify_xiq_linked_to_extr_portal()' -> Successfully verify XIQ is linked to " \
-                                 "extreme portal"
+            kwargs['pass_msg'] = "Successfully verify XIQ is linked to extreme portal"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'verify_xiq_linked_to_extr_portal()' -> XIQ is not linked to Extreme Portal."
+            kwargs['fail_msg'] = "XIQ is not linked to Extreme Portal."
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -209,24 +237,20 @@ class LicenseManagement(LicenseManagementWebElements):
             if cust_partner_info.is_displayed():
                 self.utils.print_info("Tooltip Info to customers/partners is displayed.")
             else:
-                kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Tooltip Info to customers/partners" \
-                                     " is not displayed."
+                kwargs['fail_msg'] = "Tooltip Info to customers/partners is not displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
             if xiq_not_link_status.is_displayed():
                 self.utils.print_info("XIQ is not linked to extreme portal status is displayed.")
             else:
-                kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> XIQ not linked status is not " \
-                                     "displayed."
+                kwargs['fail_msg'] = "XIQ not linked status is not displayed."
                 self.common_validation.failed(**kwargs)
                 return -2
-            kwargs['pass_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Successfully verify XIQ is not " \
-                                 "linked to extreme portal"
+            kwargs['pass_msg'] = "Successfully verify XIQ is not linked to extreme portal"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'verify_xiq_not_linked_to_extr_portal()' -> Link XIQ to Extreme Portal button is " \
-                                 "not displayed."
+            kwargs['fail_msg'] = "Link XIQ to Extreme Portal button is not displayed."
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -253,26 +277,24 @@ class LicenseManagement(LicenseManagementWebElements):
                     sleep(5)
                     unlink = self.verify_xiq_not_linked_to_extr_portal()
                     if unlink == 1:
-                        kwargs['pass_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink is successful..."
+                        kwargs['pass_msg'] = "Unlink is successful..."
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful..."
+                        kwargs['fail_msg'] = "Unlink NOT successful..."
                         self.common_validation.failed(**kwargs)
                         return -1
                 else:
                     self.utils.print_info("Unlink NOT successful...")
-                    kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful..."
+                    kwargs['fail_msg'] = "Unlink NOT successful..."
                     self.common_validation.failed(**kwargs)
                     return -1
-            except Exception as e:
-                self.utils.print_info("Unlink NOT successful.")
-                kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink NOT successful."
+            except Exception:
+                kwargs['fail_msg'] = "Unlink NOT successful."
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
-            self.utils.print_info("Unlink button is not visible.")
-            kwargs['fail_msg'] = "'unlink_xiq_from_extr_portal()' -> Unlink button is not visible."
+            kwargs['fail_msg'] = "Unlink button is not visible."
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -344,25 +366,24 @@ class LicenseManagement(LicenseManagementWebElements):
                 self.auto_actions.click_reference(self.lic_mgt_web_elements.get_upgrade_continue_btn)
                 sleep(10)
                 self.utils.print_info("Redirected to SFDC for oauth...")
-            except Exception as e:
+            except Exception:
                 self.utils.print_info("No confirmation dialog is shown.")
-            kwargs['pass_msg'] = "initiate_link_xiq_to_extr_portal_from_lic_mgt -> Successfully linking"
+            kwargs['pass_msg'] = "Successfully linking"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "initiate_link_xiq_to_extr_portal_from_lic_mgt -> Link to Extreme Portal button is " \
-                                 "not displayed."
+            kwargs['fail_msg'] = "Link to Extreme Portal button is not displayed."
             self.common_validation.fault(**kwargs)
             return -1
 
-    def navigate_and_get_entitlement_counts_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def navigate_and_get_entitlement_counts_for_feature(self, feature="XIQ-PIL-S-C"):
         """
         - Navigates to the License Management page and returns counts from the Entitlements table as a dictionary.
         - Keyword Usage:
         - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature``
-        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-PIL-S-C``
-        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-NAV-S-C``
-        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    XIQ-PIL-S-C``
+        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    XIQ-NAV-S-C``
+        - ``${COUNTS}=   Navigate and Get Entitlement Counts For Feature    XIQ-NAC-S``
 
         :return: Returns counts from the Entitlements table as a dictionary
         """
@@ -372,34 +393,34 @@ class LicenseManagement(LicenseManagementWebElements):
 
         return self.get_entitlement_counts_for_feature(feature)
 
-    def navigate_and_get_entitlement_device_count_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def navigate_and_get_entitlement_total_count_for_feature(self, feature="XIQ-PIL-S-C"):
         """
-        - Gets the entitlement "Device Count" for the specified feature.
+        - Gets the entitlement "Total" count for the specified feature.
         - Keyword Usage:
-        - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature``
-        - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-PIL-S-C``
-        - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-NAV-S-C``
-        - ``${COUNT}=   Navigate and Get Entitlement Device Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Navigate and Get Entitlement Total Count For Feature``
+        - ``${COUNT}=   Navigate and Get Entitlement Total Count For Feature    XIQ-PIL-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Total Count For Feature    XIQ-NAV-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Total Count For Feature    XIQ-NAC-S``
 
-        :param feature: feature to return the device count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
+        :param feature: feature to return the Total count for;  XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S
         :return: total number of devices allotted to the specified feature
         """
         self.utils.print_info("Navigate to License Management page")
         self.navigator.navigate_to_license_management()
         sleep(2)
 
-        return self.get_entitlement_device_count_for_feature(feature)
+        return self.get_entitlement_total_count_for_feature(feature)
 
-    def navigate_and_get_entitlement_available_count_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def navigate_and_get_entitlement_available_count_for_feature(self, feature="XIQ-PIL-S-C"):
         """
         - Gets the entitlement "Available" count for the specified feature.
         - Keyword Usage:
         - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature``
-        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-PIL-S-C``
-        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-NAV-S-C``
-        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    XIQ-PIL-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    XIQ-NAV-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Available Count For Feature    XIQ-NAC-S``
 
-        :param feature: feature to return the available count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
+        :param feature: feature to return the available count for;  XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S
         :return: total number of available licenses allotted to the specified feature
         """
         self.utils.print_info("Navigate to License Management page")
@@ -408,16 +429,16 @@ class LicenseManagement(LicenseManagementWebElements):
 
         return self.get_entitlement_available_count_for_feature(feature)
 
-    def navigate_and_get_entitlement_activated_count_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def navigate_and_get_entitlement_activated_count_for_feature(self, feature="XIQ-PIL-S-C"):
         """
         - Gets the entitlement "Activated" count for the specified feature.
         - Keyword Usage:
         - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature``
-        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-PIL-S-C``
-        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-NAV-S-C``
-        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    XIQ-PIL-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    XIQ-NAV-S-C``
+        - ``${COUNT}=   Navigate and Get Entitlement Activated Count For Feature    XIQ-NAC-S``
 
-        :param feature: feature to return the activated count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
+        :param feature: feature to return the activated count for;  XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S
         :return: total number of activations allotted to the specified feature
         """
         self.utils.print_info("Navigate to License Management page")
@@ -426,21 +447,21 @@ class LicenseManagement(LicenseManagementWebElements):
 
         return self.get_entitlement_activated_count_for_feature(feature)
 
-    def get_entitlement_counts_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def get_entitlement_counts_for_feature(self, feature="XIQ-PIL-S-C"):
         """
         - Returns counts of the specified feature from the Entitlements table as a dictionary
         - Keyword Usage
         - ``${COUNTS}=   Get Entitlement Counts For Feature``
-        - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-PIL-S-C``
-        - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-NAV-S-C``
-        - ``${COUNTS}=   Get Entitlement Counts For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNTS}=   Get Entitlement Counts For Feature    XIQ-PIL-S-C``
+        - ``${COUNTS}=   Get Entitlement Counts For Feature    XIQ-NAV-S-C``
+        - ``${COUNTS}=   Get Entitlement Counts For Feature    XIQ-NAC-S``
 
         :return: Returns counts for the specified feature from the Entitlements table as a dictionary
         """
         licenses = dict()
         activated_count = 0
         available_count = 0
-        devices_count = 0
+        total_count = 0
 
         rows = self.get_entitlements_rows()
         if rows:
@@ -464,11 +485,11 @@ class LicenseManagement(LicenseManagementWebElements):
                         self.utils.print_debug(f"Activated value is {activated_text}")
                         activated_count += int(activated_text)
 
-                        # Calculate the count from the Devices column
-                        devices_value = self.get_entitlements_row_devices_value(row)
-                        devices_text = devices_value.text
-                        self.utils.print_debug(f"Devices value is {devices_text}")
-                        devices_count += int(devices_text)
+                        # Calculate the count from the Total column
+                        total_value = self.get_entitlements_row_total_value(row)
+                        total_text = total_value.text
+                        self.utils.print_debug(f"Total value is {total_text}")
+                        total_count += int(total_text)
 
                         # We need to keep looping in case the features are split onto multiple table rows
                 else:
@@ -481,24 +502,24 @@ class LicenseManagement(LicenseManagementWebElements):
         licenses['feature'] = feature
         licenses['available'] = available_count
         licenses['activated'] = activated_count
-        licenses['devices'] = devices_count
+        licenses['total'] = total_count
 
         self.utils.print_info(f"Returning license counts: {licenses}")
         return licenses
 
-    def get_entitlement_device_count_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def get_entitlement_total_count_for_feature(self, feature="XIQ-PIL-S-C"):
         """
         - Gets the entitlement "Devices" value for the specified feature.
         - Keyword Usage:
-        - ``${COUNT}=   Get Entitlement Device Count For Feature``
-        - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-PIL-S-C``
-        - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-NAV-S-C``
-        - ``${COUNT}=   Get Entitlement Device Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Get Entitlement Total Count For Feature``
+        - ``${COUNT}=   Get Entitlement Total Count For Feature    XIQ-PIL-S-C``
+        - ``${COUNT}=   Get Entitlement Total Count For Feature    XIQ-NAV-S-C``
+        - ``${COUNT}=   Get Entitlement Total Count For Feature    XIQ-NAC-S``
 
-        :param feature: feature to return the device count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
+        :param feature: feature to return the total count for;  XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S
         :return: total number of devices allotted to the specified feature
         """
-        device_count = 0
+        total_count = 0
 
         table_row_list = self.get_entitlements_rows()
         if table_row_list:
@@ -509,28 +530,28 @@ class LicenseManagement(LicenseManagementWebElements):
                     if feature_value:
                         self.utils.print_debug(f"{feature_value.text} matches desired feature {feature}")
                         if feature_value.text == feature:
-                            devices_value = self.get_entitlements_row_devices_value(table_row)
-                            devices_text = devices_value.text
-                            self.utils.print_debug(f"Devices value is {devices_text}")
-                            device_count += int(devices_text)
+                            total_value = self.get_entitlements_row_total_value(table_row)
+                            total_text = total_value.text
+                            self.utils.print_debug(f"Total value is {total_text}")
+                            total_count += int(total_text)
                         else:
                             self.utils.print_debug(f"{feature_value.text} does not match desired feature {feature}")
         else:
             self.utils.print_info("Entitlements table is empty")
 
-        self.utils.print_info(f"Returning DEVICES count {device_count} for feature {feature}")
-        return device_count
+        self.utils.print_info(f"Returning TOTAL count {total_count} for feature {feature}")
+        return total_count
 
-    def get_entitlement_available_count_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def get_entitlement_available_count_for_feature(self, feature="XIQ-PIL-S-C"):
         """
         - Gets the entitlement "Available" value for the specified feature.
         - Keyword Usage:
         - ``${COUNT}=   Get Entitlement Available Count For Feature``
-        - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-PIL-S-C``
-        - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-NAV-S-C``
-        - ``${COUNT}=   Get Entitlement Available Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Get Entitlement Available Count For Feature    XIQ-PIL-S-C``
+        - ``${COUNT}=   Get Entitlement Available Count For Feature    XIQ-NAV-S-C``
+        - ``${COUNT}=   Get Entitlement Available Count For Feature    XIQ-NAC-S``
 
-        :param feature: feature to return the available count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
+        :param feature: feature to return the available count for;  XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S
         :return: total number of available licenses allotted to the specified feature
         """
         available_count = 0
@@ -556,16 +577,16 @@ class LicenseManagement(LicenseManagementWebElements):
         self.utils.print_info(f"Returning AVAILABLE count {available_count} for feature {feature}")
         return available_count
 
-    def get_entitlement_activated_count_for_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def get_entitlement_activated_count_for_feature(self, feature="XIQ-PIL-S-C"):
         """
         - Gets the entitlement "Activated" value for the specified feature.
         - Keyword Usage:
         - ``${COUNT}=   Get Entitlement Activated Count For Feature``
-        - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-PIL-S-C``
-        - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-NAV-S-C``
-        - ``${COUNT}=   Get Entitlement Activated Count For Feature    PRD-XIQ-NAC-S``
+        - ``${COUNT}=   Get Entitlement Activated Count For Feature    XIQ-PIL-S-C``
+        - ``${COUNT}=   Get Entitlement Activated Count For Feature    XIQ-NAV-S-C``
+        - ``${COUNT}=   Get Entitlement Activated Count For Feature    XIQ-NAC-S``
 
-        :param feature: feature to return the activated count for;  PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
+        :param feature: feature to return the activated count for;  XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S
         :return: total number of activated licenses for the specified feature
         """
         activated_count = 0
@@ -592,19 +613,19 @@ class LicenseManagement(LicenseManagementWebElements):
         return activated_count
 
     def wait_until_entitlement_counts_for_feature_matches(self, feature, expected_available, expected_activated,
-                                                          expected_devices, retry_duration=30, retry_count=30, **kwargs):
+                                                          expected_total, retry_duration=30, retry_count=30, **kwargs):
         """
-        - This keyword is used to wait until the entitlement counts (Available, Activated, Devices) for the specified
+        - This keyword is used to wait until the entitlement counts (Available, Activated, Total) for the specified
         - feature match the expected value.
         - Keyword Usage:
-        - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-PIL-S-C    9    1       1``
-        - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-NAV-S-C    2    0       0``
-        - ``Wait Until Entitlement Counts For Feature Matches    PRD-XIQ-NAC-S      0    1000    1000``
+        - ``Wait Until Entitlement Counts For Feature Matches    XIQ-PIL-S-C    9    1       1``
+        - ``Wait Until Entitlement Counts For Feature Matches    XIQ-NAV-S-C    2    0       0``
+        - ``Wait Until Entitlement Counts For Feature Matches    XIQ-NAC-S      0    1000    1000``
 
-        :param feature: type of license entitlement to check the counts of (PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S)
+        :param feature: type of license entitlement to check the counts of (XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S)
         :param expected_available: expected value for the "Available" column for the specified license entitlement feature
         :param expected_activated: expected value for the "Activated" column for the specified license entitlement feature
-        :param expected_devices: expected value for the "Devices" column for the specified license entitlement feature
+        :param expected_total: expected value for the "Total" column for the specified license entitlement feature
         :param retry_duration: duration between each retry
         :param retry_count: number of times to retry
         :return: 1 if counts for feature matches within time, else -1
@@ -624,102 +645,100 @@ class LicenseManagement(LicenseManagementWebElements):
             counts_dict = self.get_entitlement_counts_for_feature(feature)
             available_count = counts_dict["available"]
             activated_count = counts_dict["activated"]
-            devices_count = counts_dict["devices"]
+            total_count = counts_dict["total"]
 
             # Compare the counts with what is expected for the specified feature
             if available_count == int(expected_available) and \
                activated_count == int(expected_activated) and \
-               devices_count == int(expected_devices):
-                kwargs['pass_msg'] = f"wait_until_entitlement_counts_for_feature_matches -> " \
+               total_count == int(expected_total):
+                kwargs['pass_msg'] = "wait_until_entitlement_counts_for_feature_matches -> " \
                                      f"Counts for {feature} are at the expected values:\n"  \
                                      f"  Available: {expected_available}\n" \
                                      f"  Activated: {expected_activated}\n" \
-                                     f"  Devices:   {expected_devices}"
+                                     f"  Total:     {expected_total}"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"Counts for {feature} are not at expected values.\n"
-                                      f"Current values are:\n"
+                                      "Current values are:\n"
                                       f"  Available: {available_count}\n"
                                       f"  Activated: {activated_count}\n"
-                                      f"  Devices:   {devices_count}\n"
-                                      f"Expected values are:\n"
+                                      f"  Total:     {total_count}\n"
+                                      "Expected values are:\n"
                                       f"  Available: {expected_available}\n"
                                       f"  Activated: {expected_activated}\n"
-                                      f"  Devices:   {expected_devices}\n"
+                                      f"  Total:     {expected_total}\n"
                                       f"Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
         kwargs['fail_msg'] = f"wait_until_entitlement_counts_for_feature_matches -> Counts for {feature} are not at " \
-                             f"expected values. Please check."
+                             "expected values. Please check."
         self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_until_entitlement_device_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
+    def wait_until_entitlement_total_count_for_feature_matches(self, expected, feature="XIQ-PIL-S-C",
                                                                 retry_duration=30, retry_count=30, **kwargs):
         """
-        - This keyword is used to wait until the device count for the specified license entitlement matches the
+        - This keyword is used to wait until the total device count for the specified license entitlement matches the
         - expected value.
         - Keyword Usage:
-        - ``Wait Until Entitlement Device Count For Feature Matches    1``
-        - ``Wait Until Entitlement Device Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
-        - ``Wait Until Entitlement Device Count For Feature Matches    3  retry_duration=10    retry_count=12``
-        - ``Wait Until Entitlement Device Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
-        - ``Wait Until Entitlement Device Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
-        - ``Wait Until Entitlement Device Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
+        - ``Wait Until Entitlement Total Count For Feature Matches    1``
+        - ``Wait Until Entitlement Total Count For Feature Matches    0  feature=XIQ-NAV-S-C``
+        - ``Wait Until Entitlement Total Count For Feature Matches    3  retry_duration=10    retry_count=12``
+        - ``Wait Until Entitlement Total Count For Feature Matches    2  feature=XIQ-PIL-S-C    retry_duration=60    retry_count=5``
+        - ``Wait Until Entitlement Total Count For Feature Matches    1  feature=XIQ-NAV-S-C    retry_duration=30    retry_count=10``
+        - ``Wait Until Entitlement Total Count For Feature Matches    1  feature=XIQ-NAC-S      retry_duration=15    retry_count=8``
 
-        :param expected: expected number of devices for specified license entitlement feature
-        :param feature: type of license entitlement to check the device count of (e.g., PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S)
+        :param expected: expected number of total devices for specified license entitlement feature
+        :param feature: type of license entitlement to check the device count of (e.g., XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S)
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if device count for feature matches within time, else -1
         """
 
-        device_count = 0
+        total_count = 0
         count = 1
 
         while count <= retry_count:
-            self.utils.print_info(f"Device Count Check for feature {feature} - Loop: {count}")
+            self.utils.print_info(f"Total Count Check for feature {feature} - Loop: {count}")
 
             # Navigate away from and back to page to force a refresh of the data
             self.navigator.navigate_to_devices()
             self.navigator.navigate_to_license_management()
 
-            # Check the device count for the specified feature
-            device_count = self.get_entitlement_device_count_for_feature(feature)
-            if device_count == int(expected):
-                kwargs['pass_msg'] = f"wait_until_entitlement_device_count_for_feature_matches -> Device count for " \
-                                     f"{feature} is at expected value {expected}"
+            # Check the total count for the specified feature
+            total_count = self.get_entitlement_total_count_for_feature(feature)
+            if total_count == int(expected):
+                kwargs['pass_msg'] = f"Total count for {feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info(f"Device count for {feature} is {device_count}, not expected value {expected}. "
+                self.utils.print_info(f"Total count for {feature} is {total_count}, not expected value {expected}. "
                                       f"Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlement_device_count_for_feature_matches -> Device count for " \
-                             f"{feature} is {device_count}, not expected value {expected}. Please check."
+        kwargs['fail_msg'] = f"Total count for {feature} is {total_count}, not expected value {expected}. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_until_entitlement_available_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
+    def wait_until_entitlement_available_count_for_feature_matches(self, expected, feature="XIQ-PIL-S-C",
                                                                    retry_duration=30, retry_count=30, **kwargs):
         """
         - This keyword is used to wait until the available count for the specified license entitlement matches the
         - expected value.
         - Keyword Usage:
         - ``Wait Until Entitlement Available Count For Feature Matches    1``
-        - ``Wait Until Entitlement Available Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
+        - ``Wait Until Entitlement Available Count For Feature Matches    0  feature=XIQ-NAV-S-C``
         - ``Wait Until Entitlement Available Count For Feature Matches    3  retry_duration=10    retry_count=12``
-        - ``Wait Until Entitlement Available Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
-        - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
-        - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
+        - ``Wait Until Entitlement Available Count For Feature Matches    2  feature=XIQ-PIL-S-C    retry_duration=60    retry_count=5``
+        - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=XIQ-NAV-S-C    retry_duration=30    retry_count=10``
+        - ``Wait Until Entitlement Available Count For Feature Matches    1  feature=XIQ-NAC-S      retry_duration=15    retry_count=8``
 
         :param expected: expected number of available licenses for specified license entitlement feature
-        :param feature: type of license entitlement to check the available count of (e.g., PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S)
+        :param feature: type of license entitlement to check the available count of (e.g., XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S)
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if available count for feature matches within time, else -1
@@ -738,8 +757,7 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the available count for the specified feature
             available_count = self.get_entitlement_available_count_for_feature(feature)
             if available_count == int(expected):
-                kwargs['pass_msg'] = f"wait_until_entitlement_available_count_for_feature_matches -> available " \
-                                     f"count for {feature} is at expected value {expected}"
+                kwargs['pass_msg'] = f"available count for {feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
@@ -748,27 +766,26 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlement_available_count_for_feature_matches -> Available count for " \
-                             f"{feature} is {available_count}, not expected value {expected}. Please check."
+        kwargs['fail_msg'] = f"Available count for {feature} is {available_count}, not expected value {expected}. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_until_entitlement_activated_count_for_feature_matches(self, expected, feature="PRD-XIQ-PIL-S-C",
+    def wait_until_entitlement_activated_count_for_feature_matches(self, expected, feature="XIQ-PIL-S-C",
                                                                    retry_duration=30, retry_count=30, **kwargs):
         """
         - This keyword is used to wait until the activated count for the specified license entitlement matches the
         - expected value.
         - Keyword Usage:
         - ``Wait Until Entitlement Activated Count For Feature Matches    1``
-        - ``Wait Until Entitlement Activated Count For Feature Matches    0  feature=PRD-XIQ-NAV-S-C``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    0  feature=XIQ-NAV-S-C``
         - ``Wait Until Entitlement Activated Count For Feature Matches    3  retry_duration=10    retry_count=12``
-        - ``Wait Until Entitlement Activated Count For Feature Matches    2  feature=PRD-XIQ-PIL-S-C    retry_duration=60    retry_count=5``
-        - ``Wait Until Entitlement Activated Count For Feature Matches    1  feature=PRD-XIQ-NAV-S-C    retry_duration=30    retry_count=10``
-        - ``Wait Until Entitlement Activated Count For Feature Matches    1  feature=PRD-XIQ-NAC-S      retry_duration=15    retry_count=8``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    2  feature=XIQ-PIL-S-C    retry_duration=60    retry_count=5``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    1  feature=XIQ-NAV-S-C    retry_duration=30    retry_count=10``
+        - ``Wait Until Entitlement Activated Count For Feature Matches    1  feature=XIQ-NAC-S      retry_duration=15    retry_count=8``
 
         :param expected: expected number of activated licenses for specified license entitlement feature
-        :param feature: type of license entitlement to check the activated count of (e.g., PRD-XIQ-PIL-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S)
+        :param feature: type of license entitlement to check the activated count of (e.g., XIQ-PIL-S-C, XIQ-NAV-S-C, XIQ-NAC-S)
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if activated count for feature matches within time, else -1
@@ -787,8 +804,7 @@ class LicenseManagement(LicenseManagementWebElements):
             # Check the activated count for the specified feature
             activated_count = self.get_entitlement_activated_count_for_feature(feature)
             if activated_count == int(expected):
-                kwargs['pass_msg'] = f"wait_until_entitlement_activated_count_for_feature_matches -> Activated count " \
-                                     f"for {feature} is at expected value {expected}"
+                kwargs['pass_msg'] = f"Activated count for {feature} is at expected value {expected}"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
@@ -797,8 +813,8 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlement_activated_count_for_feature_matches -> Activated count for" \
-                             f" {feature} is {activated_count}, not expected value {expected}. Please check."
+        kwargs['fail_msg'] = f"Activated count for{feature} is {activated_count}, not expected value {expected}. " \
+                             f"Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
         return -1
@@ -817,7 +833,7 @@ class LicenseManagement(LicenseManagementWebElements):
         :return: 1 if Entitlements table is empty within time, else -1
         """
 
-        device_count = 0
+        # device_count = 0
         count = 1
 
         while count <= retry_count:
@@ -828,8 +844,8 @@ class LicenseManagement(LicenseManagementWebElements):
             self.navigator.navigate_to_license_management()
 
             # Check if the Entitlements table is empty yet
-            if self.is_entitlements_table_empty() == 1:
-                kwargs['pass_msg'] = "wait_until_entitlements_table_empty -> Entitlements table is empty"
+            if self._is_entitlements_table_empty() == 1:
+                kwargs['pass_msg'] = "Entitlements table is empty"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
@@ -837,22 +853,21 @@ class LicenseManagement(LicenseManagementWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = f"wait_until_entitlements_table_empty -> Entitlements table did not become" \
-                             f" empty within specified time. Please check."
+        kwargs['fail_msg'] = "Entitlements table did not become empty within specified time. Please check."
         sleep(2)
         self.common_validation.failed(**kwargs)
         return -1
 
-    def confirm_entitlements_table_contains_feature(self, feature="PRD-XIQ-PIL-S-C"):
+    def confirm_entitlements_table_contains_feature(self, feature="XIQ-PIL-S-C"):
         """
         - Checks if the Entitlements table contains feature
         - Assumes the License Management page is already being displayed.
         - Keyword Usage
-        - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-PIL-S-C``
-        - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-C0PILOT-S-C``
-        - ``Confirm Entitlements Table Contains Feature   PRD-XIQ-NAV-S-C``
+        - ``Confirm Entitlements Table Contains Feature   XIQ-PIL-S-C``
+        - ``Confirm Entitlements Table Contains Feature   XIQ-C0PILOT-S-C``
+        - ``Confirm Entitlements Table Contains Feature   XIQ-NAV-S-C``
 
-        :param feature: feature to search for in table;  PRD-XIQ-PIL-S-C, PRD-XIQ-COPILOT-S-C, PRD-XIQ-NAV-S-C, PRD-XIQ-NAC-S
+        :param feature: feature to search for in table;  XIQ-PIL-S-C, XIQ-COPILOT-S-C, XIQ-NAV-S-C, XIQ-NAC-S
         :return: 1 if Entitlements Table contains feature, else -1
         """
 

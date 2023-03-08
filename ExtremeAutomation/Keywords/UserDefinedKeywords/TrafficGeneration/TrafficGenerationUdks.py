@@ -7,7 +7,6 @@ from ExtremeAutomation.Keywords.TrafficKeywords.TrafficTransmitKeywords import T
 from ExtremeAutomation.Keywords.TrafficKeywords.TrafficStreamConfigurationKeywords import TrafficStreamConfigurationKeywords
 from ExtremeAutomation.Keywords.TrafficKeywords.EzTrafficValidation.TrafficValidationKeywords import TrafficValidationKeywords
 from ExtremeAutomation.Keywords.TrafficKeywords.Utils.Constants.PacketTypeConstants import PacketTypeConstants
-import time
 
 
 class TrafficGenerationUdks():
@@ -56,7 +55,7 @@ class TrafficGenerationUdks():
                            checksum=None,   packet_len=None, **kwargs):
         self.trafficPacketCreationKeywords.create_packet(packet_name, self.packetTypeConstants.ETH2_IPV4_PACKET,   vlan_id,    vlan_prio,   vlan_tpid, packet_len, **kwargs)
         self.trafficPacketCreationKeywords.set_ethernet2(packet_name, dmac,      smac, **kwargs)
-        self.trafficPacketCreationKeywords.set_ipv4(packet_name, dip, sip, header_len, ttl, proto, 
+        self.trafficPacketCreationKeywords.set_ipv4(packet_name, dip, sip, header_len, ttl, proto,
                                                     tos, total_len, id, flags, frag_offset, checksum, **kwargs)
 
     def Create_IPv4_ICMP_Packet(self,  packet_name, dmac=None,       smac=None,          vlan_id=None,
@@ -102,7 +101,7 @@ class TrafficGenerationUdks():
         self.trafficPacketCreationKeywords.set_ipv4(packet_name, dip,       sip,      header_len, ttl,         proto,
                                                     tos,         total_len, id,       flags,      frag_offset, checksum, **kwargs)
         self.trafficPacketCreationKeywords.set_tcp(packet_name, src_port,  dst_port, seq_num,    ack_num,     window,
-                                                   ns_flag,     cwr_flag,  ece_flag, urg_flag,   ack_flag,    psh_flag, 
+                                                   ns_flag,     cwr_flag,  ece_flag, urg_flag,   ack_flag,    psh_flag,
                                                    rst_flag,    syn_flag,  fin_flag, **kwargs)
 
     def Create_IPv4_SNAP_Packet(self, packet_name, dmac=None,       smac=None,          vlan_id=None,
@@ -111,7 +110,7 @@ class TrafficGenerationUdks():
                                 header_len=None, ttl=None,           proto=None,
                                 tos=None,        total_len=None,     id=None,
                                 flags=None,      frag_offset=None,   checksum=None,
-                                packet_len=None, **kwargs):       
+                                packet_len=None, **kwargs):
         self.trafficPacketCreationKeywords.create_packet(packet_name, self.packetTypeConstants.ETH_SNAP_IPV4_PACKET,   vlan_id,    vlan_prio,   vlan_tpid, packet_len, **kwargs)
         self.trafficPacketCreationKeywords.set_ethernet(packet_name, dmac,      smac, *kwargs)
         self.trafficPacketCreationKeywords.set_ipv4(packet_name, dip,       sip,      header_len, ttl,         proto,
@@ -125,7 +124,7 @@ class TrafficGenerationUdks():
                                                 frag_offset=None, checksum=None,      src_port=None,
                                                 dst_port=None,    vxlan_flags=None,   group_id=None,
                                                 vni=None,         packet_len=None, **kwargs):
-        self.trafficPacketCreationKeywords.create_packet(packet_name, self.packetTypeConstants.ETH2_VXLAN_UDP_IPV4_PACKET,   vlan_id,    
+        self.trafficPacketCreationKeywords.create_packet(packet_name, self.packetTypeConstants.ETH2_VXLAN_UDP_IPV4_PACKET,   vlan_id,
                                                          vlan_prio,   vlan_tpid, packet_len, **kwargs)
         self.trafficPacketCreationKeywords.set_ethernet2(packet_name, dmac,         smac, **kwargs)
         self.trafficPacketCreationKeywords.set_ipv4(packet_name, dip,          sip,         header_len, ttl,         proto,
@@ -398,9 +397,9 @@ class TrafficGenerationUdks():
         tx_packet_a = self.trafficPacketCreationKeywords.get_packet(tx_packet)
         rx_packet_a = self.trafficPacketCreationKeywords.get_packet(rx_packet)
         if tx_packet_a and rx_packet_a:
-            self.Start_Capture_with_DMAC_and_SMAC_Filter(tx_port, 
-                                                         rx_packet_a.get_destination_mac(), 
-                                                         rx_packet_a.get_source_mac(), 
+            self.Start_Capture_with_DMAC_and_SMAC_Filter(tx_port,
+                                                         rx_packet_a.get_destination_mac(),
+                                                         rx_packet_a.get_source_mac(),
                                                          rx_packet_a.get_destination_mac_mask(),
                                                          rx_packet_a.get_source_mac_mask())
             self.trafficTransmitKeywords.start_transmit_on_port_and_wait(tx_port, **kwargs)
@@ -431,14 +430,14 @@ class TrafficGenerationUdks():
         rx_packet_a = self.trafficPacketCreationKeywords.get_packet(rx_packet_name_a)
         rx_packet_b = self.trafficPacketCreationKeywords.get_packet(rx_packet_name_b)
         if rx_packet_a and rx_packet_b:
-            self.Start_Capture_with_DMAC_and_SMAC_Filter(port_a, 
-                                                         rx_packet_a.get_destination_mac(), 
-                                                         rx_packet_a.get_source_mac(), 
+            self.Start_Capture_with_DMAC_and_SMAC_Filter(port_a,
+                                                         rx_packet_a.get_destination_mac(),
+                                                         rx_packet_a.get_source_mac(),
                                                          rx_packet_a.get_destination_mac_mask(),
                                                          rx_packet_a.get_source_mac_mask())
-            self.Start_Capture_with_DMAC_and_SMAC_Filter(port_b, 
-                                                         rx_packet_b.get_destination_mac(), 
-                                                         rx_packet_b.get_source_mac(), 
+            self.Start_Capture_with_DMAC_and_SMAC_Filter(port_b,
+                                                         rx_packet_b.get_destination_mac(),
+                                                         rx_packet_b.get_source_mac(),
                                                          rx_packet_b.get_destination_mac_mask(),
                                                          rx_packet_b.get_source_mac_mask())
             self.trafficTransmitKeywords.start_transmit_on_port(port_a, **kwargs)
@@ -463,14 +462,14 @@ class TrafficGenerationUdks():
         tx_packet_a = self.trafficPacketCreationKeywords.get_packet(tx_packet_name_a)
         tx_packet_b = self.trafficPacketCreationKeywords.get_packet(tx_packet_name_b)
         if tx_packet_a and tx_packet_b:
-            self.Start_Capture_with_DMAC_and_SMAC_Filter(port_a, 
-                                                         tx_packet_b.get_destination_mac(), 
-                                                         tx_packet_b.get_source_mac(), 
+            self.Start_Capture_with_DMAC_and_SMAC_Filter(port_a,
+                                                         tx_packet_b.get_destination_mac(),
+                                                         tx_packet_b.get_source_mac(),
                                                          tx_packet_b.get_destination_mac_mask(),
                                                          tx_packet_b.get_source_mac_mask())
-            self.Start_Capture_with_DMAC_and_SMAC_Filter(port_b, 
-                                                         tx_packet_a.get_destination_mac(), 
-                                                         tx_packet_a.get_source_mac(), 
+            self.Start_Capture_with_DMAC_and_SMAC_Filter(port_b,
+                                                         tx_packet_a.get_destination_mac(),
+                                                         tx_packet_a.get_source_mac(),
                                                          tx_packet_a.get_destination_mac_mask(),
                                                          tx_packet_a.get_source_mac_mask())
             self.trafficTransmitKeywords.start_transmit_on_port(port_a, **kwargs)
@@ -487,7 +486,3 @@ class TrafficGenerationUdks():
             self.trafficPacketInspectionKeywords.capture_inspection_random_list(port_b, rx_packet_name_b,  5, **kwargs)
         else:
             print("You must define the packets to use this keyword")
-            
-    
-    
-   

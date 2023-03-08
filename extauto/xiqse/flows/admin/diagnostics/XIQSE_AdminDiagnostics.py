@@ -739,7 +739,7 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Onboard Status Check - Loop: ", count)
+            self.utils.print_info(f"Onboard Status Check - Loop: {count}")
             self.xiqse_table.xiqse_refresh_table()
 
             col_value = self.xiqse_xiq_device_message_details_get_onboard_status(device_ip, device_type)
@@ -789,7 +789,7 @@ class XIQSE_AdminDiagnostics(AdminDiagnosticsWebElements):
                 else:
                     col_value = self.xiqse_xiq_device_message_details_get_onboard_status(xiqse_ip, "XIQ_SE")
                     if col_value and col_value == "UNKNOWN":
-                        self.utils.print_info(f"XIQSE has UNKNOWN onboard status - sending request to onboard")
+                        self.utils.print_info("XIQSE has UNKNOWN onboard status - sending request to onboard")
                         ret_val = self.xiqse_xiq_device_message_details_auto_onboard_xiqse(email_value, pwd_value)
                         if ret_val == -1:
                             self.utils.print_info("Unable to onboard XIQ-SE to XIQ")

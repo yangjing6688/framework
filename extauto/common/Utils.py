@@ -30,25 +30,6 @@ class Utils:
         self.print_log("Toast Message For ", conf_str, " : ", toast)
         return toast
 
-    def grep(self, output_buffer, search_str):
-        """
-        - greps the second variable in the first string
-        - Keyword Usage:
-        -  ``Grep   ${OUTPUT}     Version``
-
-        :param output_buffer: Buffer in which we grep for search_str
-        :param search_str: search string which will be looked inside output_buffer for a match
-        :return: returns 1 if finds a match else 0
-        """
-
-        self.print_log("Searching for : ", search_str, " in : ", output_buffer)
-        if search_str in output_buffer:
-            self.print_log("Found Match")
-            return 1
-        else:
-            self.print_log("No Match Found")
-            return 0
-
     def get_random_string(self, length="default"):
         """
         - Get the random string of specified length, default length is 10 characters
@@ -124,9 +105,9 @@ class Utils:
         :return: returns none
         """
 
-        print ("*HTML* " \
-              "<a href=" + first + "> <img src=" + first + " width=\"500px\"></a> " \
-                "<a href=" + second + "> <img src=" + second + " width=\"500px\"></a> " \
+        print ("*HTML* "
+              "<a href=" + first + "> <img src=" + first + " width=\"500px\"></a> "
+                "<a href=" + second + "> <img src=" + second + " width=\"500px\"></a> "
                 "<a href=" + third + "> <img src=" + third + " width=\"500px\"></a>")
 
     def decode_to_ascii(self, _str):
@@ -155,22 +136,6 @@ class Utils:
             return 0
         else:
             return 1
-
-    def check_match(self, target_string, match):
-        """
-        - Check the match string in the target string
-        - Keyword Usage:
-        -  ``Check Match  ${TARGET_STRING}   ${MATHC}``
-
-        :param target_string:  target string
-        :param match: search string in the target string
-        :return: 1 if match string in target string else -1
-        """
-        self.print_log("Searching for : ", match, " in :", target_string)
-        if match in target_string:
-            return 1
-        else:
-            return -1
 
     def print_log(self, *words):
         """
@@ -253,17 +218,6 @@ class Utils:
         if "DEBUG" in BuiltIn().get_variable_value("${LOG_LEVEL}"):
             BuiltIn().log_to_console(line)
 
-    def has_number(self, input_string):
-        """
-        - check the input string has the digit on it
-        - Keyword Usage:
-        -  ``Has Number  ${INPUT_STRING}``
-
-        :param input_string:
-        :return: True if digit in input string else False
-        """
-        return any(char.isdigit() for char in input_string)
-
     def get_utc_time_difference(self, t1, t2):
         """
         - Get the time difference between t2 and t1
@@ -322,7 +276,9 @@ class Utils:
         - Note this is not a keyword to use inside the robot framework script. only used in libs
         """
 
-        output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
+        # Commented on 1/18/23 because variable is unused
+        # output_folder = BuiltIn().get_variable_value("${OUTPUT DIR}")
+        BuiltIn().get_variable_value("${OUTPUT DIR}")
 
         print("*HTML* <a href=" + file_name + "> <img src=" + file_name
               + " width=\"600px\" style=\"border:5px solid red\"></a>")
@@ -570,49 +526,6 @@ class Utils:
             t -= 1
         self.print_info(" count down:{} Minutes Completed".format(t))
 
-    def get_half_of(self, _time):
-        """
-        - This method accepts time in minutes divides by 2 and returns the value
-
-        :param _time: in minutes
-        :return:
-        """
-        half = (int(_time) * 60) / 2
-
-        self.print_info("Returning Half time: ", half, " seconds for: ", _time, " minutes")
-
-        return half
-
-    def split_string_into_3_parts(self, info):
-        """
-        - This keyword splits a string in to 3 equal parts
-
-        :param info: input string
-        :return: returns 3 strings by dividing the input string
-        """
-        self.print_info("Input String: ", info)
-
-        length = len(info)
-        seg1 = round(length/3)
-        part1 = info[:seg1]
-        seg2 = seg1*2
-        part2 = info[seg1:seg2]
-        part3 = info[seg2:]
-        return part1, part2, part3
-
-    def get_first_half_of_mac(self, mac):
-        """
-        - This keyword returns the first half of a MAC
-
-        :param mac: MAC
-        :return: returns first half of MAC
-        """
-        self.print_info("Input MAC: ", mac)
-        length = len(mac)
-        seg = round(length / 2)
-        mac_first_half = mac[:seg]
-        return mac_first_half
-
     def get_first_half_of_network_policy(self, network_policy):
         """
         - This keyword returns the first half of a Network Policy
@@ -625,51 +538,6 @@ class Utils:
         seg = round(length / 2)
         net_first_half = network_policy[:seg]
         return net_first_half
-
-    def get_second_half_of_network_policy(self, net):
-        lenght = len(net)
-        seg = round(lenght / 2)
-        net_secondhalf = net[seg:]
-        return net_secondhalf
-
-    def get_last_6_digts_of_MAC(self, mac):
-        length = len(mac)
-        st = length - 6
-        remaining_mac = mac[st:]
-        return remaining_mac
-
-    def get_second_half_of_MAC(self, mac):
-        length = len(mac)
-        seg = round(length / 2)
-        mac_second_half = mac[seg:]
-        return mac_second_half
-
-    def convert_MAC_to_upper(self, mac):
-        upper_case = mac.upper()
-        return upper_case
-
-    def convert_MAC_to_lower(self, mac):
-        lower_case = mac.lower()
-        return lower_case
-
-    def convert_mac_to_random_case(self, mac):
-        random_case = ""
-        for i in mac:
-            if i.isalpha():
-                rand1 = random.randint(1, 2)
-                if rand1 == 1:
-                    random_case = random_case + i.lower()
-                else:
-                    random_case = random_case + i.upper()
-            else:
-                random_case = random_case + i
-        return random_case
-
-    def partial_ip(self, ip):
-        length = len(ip)
-        length -= 2
-        ip = ip[:length]
-        return ip
 
     def switch_to_default(self, driver):
         """
@@ -779,7 +647,7 @@ class Utils:
         time_info["minutes"] = minutes
         time_info["seconds"] = seconds
 
-        self.print_debug(f"**** Milliseconds Converted To Days/Hours/Minutes/Seconds ****")
+        self.print_debug("**** Milliseconds Converted To Days/Hours/Minutes/Seconds ****")
         for key, value in time_info.items():
             self.print_info(f"{key}: {value}")
 
@@ -1115,3 +983,30 @@ class Utils:
         :return: True if file exist else False
         """
         return os.path.isfile(file_name)
+
+
+    def get_suite_resource_path(self, suite_file):
+        """
+        Get current test suite resource path.
+        param suite_file: the full path of robot file, get via robot ${SUITE SOURCE}
+        return: the Resource path
+        example:
+          suite_file is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/TestCases/xapi_UploadFloorPlan_XIQ5401.robot
+          suite resource path is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/Resources
+        """
+
+        suite_resource_path = '/'.join(suite_file.split('/')[:-2]) + '/Resources'
+        return suite_resource_path
+
+    def get_feature_path(self, suite_file):
+        """
+        Get current test feature path.
+        param suite_file: the full path of robot file, get via robot ${SUITE SOURCE}
+        return: the feature full path
+        example:
+          suite_file is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location/TestCases/xapi_UploadFloorPlan_XIQ5401.robot
+          feature path is: extreme_automation_tests/Tests/Robot/Functional/XAPI/Location
+        """
+
+        feature_path = '/'.join(suite_file.split('/')[:-2])
+        return feature_path

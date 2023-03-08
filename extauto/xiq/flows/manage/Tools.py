@@ -1,13 +1,14 @@
 from time import sleep
+from robot.libraries.BuiltIn import BuiltIn
 
-from extauto.common.CloudDriver import CloudDriver
-from extauto.common.Cli import *
-from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-from extauto.common.WebElementHandler import *
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.Cli import Cli
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 from extauto.xiq.elements.ToolsElements import ToolsElements
-from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
@@ -65,18 +66,20 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.select_ap(ap_serial=serial):
+        if self.devices.select_device(device_serial=serial, skip_navigation=True):
             error = self.dialog_web_elements.get_tooltip_text()
             if error:
                 self.utils.print_info("Error: ", error)
                 if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                         in error:
-                    kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least one unmanaged device."
+                    kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least " \
+                                         "one unmanaged device."
                     self.common_validation.failed(**kwargs)
                     return -1
                 elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
                         in error:
-                    kwargs['fail_msg'] = "The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device."
+                    kwargs['fail_msg'] = "The requested operation cannot be performed because you have selected at " \
+                                         "least one unmanaged/disconnected device."
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -114,7 +117,7 @@ class Tools:
                 self.utils.print_info("Found AP MAC in row: ", row.text)
                 self.utils.print_info("Closing the Dialog page")
                 self.auto_actions.click_reference(self.tools_elements.get_neighbor_info_close_button)
-                kwargs['pass_msg'] = "Successful found AP with MAC " +  mac + " in Layer 2 Neighbor Information table"
+                kwargs['pass_msg'] = f"Successful found AP with MAC {mac} in Layer 2 Neighbor Information table"
                 self.common_validation.passed(**kwargs)
                 return 1
 
@@ -138,21 +141,23 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.search_ap(ap_serial=serial):
-            if self.devices.select_ap(ap_serial=serial):
+        if self.devices.search_device(device_serial=serial, skip_navigation=True, ignore_failure=True) == 1:
+            if self.devices.select_device(device_serial=serial):
                 error = self.dialog_web_elements.get_tooltip_text()
                 self.utils.print_info("Possible Error : " + error)
                 if error:
                     self.utils.print_info("Error: ", error)
                     if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                             in error:
-                        kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least one unmanaged device."
+                        kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at " \
+                                             "least one unmanaged device."
                         self.common_validation.failed(**kwargs)
                         return -1
                     elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
                             in error:
                         kwargs[
-                            'fail_msg'] = "The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device."
+                            'fail_msg'] = "The requested operation cannot be performed because you have selected " \
+                                          "at least one unmanaged/disconnected device."
                         self.common_validation.failed(**kwargs)
                         return -1
 
@@ -283,10 +288,9 @@ class Tools:
         self.auto_actions.click(ssh_avail_button)
         sleep(5)
 
-
-        if self.devices.select_ap(serial_num):
+        if self.devices.select_device(device_serial=serial_num):
             self.utils.print_info("clicking on ssh RUN button")
-            run_button = self.tools_elements.get_run_button()
+            _ = self.tools_elements.get_run_button()
             if not ssh_avail_button:
                 kwargs['fail_msg'] = "Unable to click on ssh availability"
                 self.common_validation.failed(**kwargs)
@@ -333,7 +337,6 @@ class Tools:
                 self.common_validation.passed(**kwargs)
                 return ip_addr, port_num
             else:
-                self.utils.print_info("AP does not exists in the list")
                 kwargs['fail_msg'] = "AP does not exists in the list"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -406,7 +409,7 @@ class Tools:
             ${host}    lock device  ${MAC_STA_IP}  ${MAC_STA_USERID}  ${MAC_STA_PASS}  ${SSID}
         """
         self.utils.print_info("Lock Device")
-        rc = self.cli.mac_wifi_connection(host, username, passwd, ssid, ssid_passwd, mode='fail', ntimes=11)
+        _ = self.cli.mac_wifi_connection(host, username, passwd, ssid, ssid_passwd, mode='fail', ntimes=11)
         return self.cli.get_mac_hostname(host, username, passwd)
 
     def verify_device_lock(self, host):
@@ -460,8 +463,8 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         # Verify the AP info
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
             self.click_til_element_avail(self.tools_elements.get_device_info_btn())
@@ -501,8 +504,8 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.device_diag_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify the device info
         if mode == "online":
@@ -596,8 +599,8 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         # Verify if AP exists and selected
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
             self.click_til_element_avail(self.tools_elements.get_device_diag_btn())
@@ -643,8 +646,8 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.client_info_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a vlan
         if mode == "online":  # device must be onboarded
@@ -686,8 +689,8 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.client_info_list)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a download
         if mode == "online":  # device must be onboarded
@@ -704,7 +707,7 @@ class Tools:
             assert button_status.is_enabled() != 1, "tech data button should be disabled"
             self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-    def get_value_in_tbl(self, grids, field):
+    def get_value_in_tbl(self, grids, field, **kwargs):
         """
         Get value from table list
 
@@ -718,11 +721,14 @@ class Tools:
         rows = self.web.get_elements(grids)
         for row in rows:
             if field == row.text:
+                kwargs['pass_msg'] = f"It's able to find the item in list : {field}"
+                self.common_validation.passed(**kwargs)
                 return 1
-        self.utils.print_info("Not able to find the item in list" + field)
+        kwargs['fail_msg'] = f"Not able to find the item in list : {field}"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_til_elements_avail(self, locator, seconds=60, elements=True):
+    def wait_til_elements_avail(self, locator, seconds=60, elements=True, **kwargs):
         """
         wait until elements or element is present. If it is a table, there is a least one row
 
@@ -736,22 +742,28 @@ class Tools:
         """
         self.utils.print_info("wait_until_appears")
         while seconds > 0:
-            time.sleep(5)
+            sleep(5)
             if elements:
                 self.utils.print_info("get elements")
                 rows = self.web.get_elements(locator)
                 if len(rows) > 0:
+                    kwargs['pass_msg'] = "element is a grid"
+                    self.common_validation.passed(**kwargs)
                     return 1
             else:
                 self.utils.print_info("get element")
                 element = self.web.get_element(locator)
                 if element.is_enabled() and element.is_displayed():
+                    kwargs['pass_msg'] = "element is displayed or element is enabled"
+                    self.common_validation.passed(**kwargs)
                     return 1
             seconds = seconds - 5
         sleep(5)
+        kwargs['fail_msg'] = "element is not a grid"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_til_ap_change_status(self, ap_sn, ap_name, seconds, exp_status):
+    def wait_til_ap_change_status(self, ap_sn, ap_name, seconds, exp_status, **kwargs):
         """
         Wait until a device is connected or disconnected
 
@@ -765,15 +777,20 @@ class Tools:
             self.wait_til_ap_change_status(ap_sn, ap_name, 180, "green")
         """
         while seconds > 0:
-            time.sleep(5)
-            cur_ap_status = self.devices.get_ap_status(ap_sn, ap_name)
-            self.utils.print_info("Current Status : " + str(cur_ap_status) + ' and expected staus: ' + str(exp_status))
+            sleep(5)
+            cur_ap_status = self.devices.get_device_status(device_serial=ap_sn, device_name=ap_name)
+            self.utils.print_info("Current Status : " + str(cur_ap_status) + ' and expected status: ' + str(exp_status))
             if cur_ap_status == "green" and exp_status == "green":
-                self.utils.print_info("AP is online")
+                kwargs['pass_msg'] = "AP is online"
+                self.common_validation.passed(**kwargs)
                 return 1
             elif cur_ap_status != "green" and exp_status == "red":
+                kwargs['pass_msg'] = f"Current AP status : {cur_ap_status}"
+                self.common_validation.passed(**kwargs)
                 return 1
             seconds = seconds - 5
+        kwargs['fail_msg'] = "Unsuccessfully change status for AP"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def enable_disable_device(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
@@ -817,7 +834,7 @@ class Tools:
             seconds = seconds - 3
         self.builtin.fail("Not able to click " + element.text)
 
-    def installer_role_diagnostics_ping(self):
+    def installer_role_diagnostics_ping(self, **kwargs):
         """
         - This keyword is for testing Ping utility from Installer Role
         - Flow: Installer Role -> Select a device ->  Utilities -> Diagnostics -> Ping
@@ -849,6 +866,9 @@ class Tools:
         self.auto_actions.click_reference(self.tools_elements.get_device_ping_close)
 
         if 'ping statistics' in output and '5 packets transmitted' in output:
+            kwargs['pass_msg'] = "Operation is successful"
+            self.common_validation.passed(**kwargs)
             return 1
-
+        kwargs['fail_msg'] = "Operation is unsuccessful"
+        self.common_validation.failed(**kwargs)
         return -1

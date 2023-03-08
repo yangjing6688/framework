@@ -1,4 +1,4 @@
-extauto.xiqse.flows.wireless.dashboard package
+XIQSE Flows Wireless Dashboards Keywords
 ==============================================
 
 Module contents

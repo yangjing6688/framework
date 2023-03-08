@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.common.CommonViewWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.common.CommonViewWebElementsDefinitions import CommonViewWebElementsDefinitions
 import re
 
 

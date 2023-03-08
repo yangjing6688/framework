@@ -1,5 +1,5 @@
-from extauto.xiq.defs.CommonObjectsWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.CommonObjectsWebElementsDefinitions import CommonObjectsWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
@@ -250,7 +250,7 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         elements = self.weh.get_elements(self.cwp_save_button)
         return self.get_dislayed_element(elements)
 
-    def get_paze_size_element(self, page_size='50'):
+    def get_page_size_element(self, page_size='50'):
         if els := self.weh.get_elements(self.page_size_element):
             for el in els:
                 if str(page_size) in el.text:
@@ -457,6 +457,12 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_common_object_wifi0_radio_profile_button(self):
         return self.weh.get_element(self.common_object_wifi0_radio_profile_button)
+
+    def get_common_object_wifi0_radio_operating_mode_combox(self):
+        return self.weh.get_element(self.common_object_wifi0_radio_operating_mode_combox)
+
+    def get_common_object_wifi0_radio_operating_mode_combox_list(self):
+        return self.weh.get_elements(self.common_object_wifi0_radio_operating_mode_combox_list)
 
     def get_common_object_wifi0_radio_profile_textbox(self):
         return self.weh.get_element(self.common_object_wifi0_radio_profile_textbox)
@@ -755,6 +761,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
 
     def get_policy_port_types_confirmation_button(self):
         return self.weh.get_element(self.policy_port_types_confirmation_button)
+
+    def get_ui_tipbox_error(self):
+        return self.weh.get_element(self.ui_tipbox_error)
 
     def get_next_page_element_disabled(self):
         return self.weh.get_element(self.next_page_element_disabled)

@@ -1,4 +1,4 @@
-from extauto.xiq.defs.UserProfileWebElementsDef import *
+from extauto.xiq.defs.UserProfileWebElementsDef import UserProfileWebElementsDef
 from extauto.common.WebElementHandler import WebElementHandler
 
 
@@ -79,14 +79,50 @@ class UserProfileWebElements(UserProfileWebElementsDef):
     def get_user_profile_vlan_rows(self):
         return self.weh.get_elements(self.user_profile_vlan_rows)
 
-    def get_user_profile_vlan_row_href(self, row):
-        return self.weh.get_element(self.user_profile_vlan_row_cell_href, row)
+    def get_user_profile_vlan_row_select_rule_href(self, row):
+        return self.weh.get_element(self.user_profile_vlan_row_cell_select_rule_href, row)
+
+    def get_user_profile_vlan_row_add_rule_href(self, row):
+        return self.weh.get_element(self.user_profile_vlan_row_cell_add_rule_href, row)
 
     def get_user_profile_vlan_row_rule_rows(self):
         return self.weh.get_elements(self.user_profile_vlan_row_rule_rows)
 
     def get_user_profile_vlan_row_rule_link_btn(self):
         return self.weh.get_element(self.user_profile_vlan_row_rule_link_btn)
+
+    def get_user_profile_vlan_row_rule_cancel_btn(self):
+        return self.weh.get_element(self.user_profile_vlan_row_rule_cancel_btn)
+
+    def get_user_profile_assignment_name(self):
+        return self.weh.get_element(self.user_profile_assignment_name)
+
+    def get_user_profile_assignment_description(self):
+        return self.weh.get_element(self.user_profile_assignment_description)
+
+    def get_user_profile_assignment_add_assignment_rule(self):
+        return self.weh.get_element(self.user_profile_assignment_add_assignment_rule)
+
+    def get_user_profile_assignment_add_user_group(self):
+        return self.weh.get_element(self.user_profile_assignment_add_user_group)
+
+    def get_user_profile_assignment_add_client_os_type(self):
+        return self.weh.get_element(self.user_profile_assignment_add_client_os_type)
+
+    def get_user_profile_assignment_add_user_group_rows(self):
+        return self.weh.get_elements(self.user_profile_assignment_add_user_group_rows)
+
+    def get_user_profile_assignment_add_client_os_type_rows(self):
+        return self.weh.get_elements(self.user_profile_assignment_add_client_os_type_rows)
+
+    def get_user_profile_assignment_add_client_os_type_checked_row(self, row):
+        return self.weh.get_element(self.user_profile_assignment_add_client_os_type_checked_row, row)
+
+    def get_user_profile_assignment_add_assignment_rule_select_btn(self):
+        return self.weh.get_element(self.user_profile_assignment_add_asssignment_rule_select_btn)
+
+    def get_user_profile_assignment_save_btn(self):
+        return self.weh.get_element(self.user_profile_assignment_save_btn)
 
     def get_apply_different_user_profile_to_various_clients_chkbx(self):
         return self.weh.get_element(self.apply_different_user_profile_to_various_clients_chkbx)

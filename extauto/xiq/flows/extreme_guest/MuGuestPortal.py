@@ -48,12 +48,15 @@ class MuGuestPortal(MuGuestPortalWebElements):
         self.get_gp_page_screen_shot()
         sleep(2)
 
-        if self.get_social_wifi_all_login_success_page().is_displayed():
-            return 1
-        else:
-            kwargs['fail_msg'] = "'validate_eguest_social_login_with_facebook()' -> Could not connect with internet" \
-                                 " with social login type facebook"
-            self.common_validation.failed(**kwargs)
+        try:
+            if self.get_social_wifi_all_login_success_page().is_displayed():
+                return 1
+            else:
+                kwargs['fail_msg'] = "'validate_eguest_social_login_with_facebook()' -> Could not connect with internet" \
+                                    " with social login type facebook"
+                self.common_validation.failed(**kwargs)
+                return -1
+        except Exception:
             return -1
 
     def validate_eguest_social_login_with_linkedin(self, username, password, **kwargs):
@@ -177,6 +180,19 @@ class MuGuestPortal(MuGuestPortalWebElements):
             self.utils.print_info("Click error after login in button")
             self.auto_actions.click_reference(self.get_user_registration_social_wifi_login_error_page)
             sleep(3)
+
+        if self.get_social_wifi_max_count_error():
+            self.utils.print_info("Getting max count error")
+            self.get_gp_page_screen_shot()
+            sleep(2)
+            return -1
+
+        if self.get_social_wifi_access_denied_error():
+            kwargs['pass_msg'] = "Getting access denied error"
+            self.common_validation.passed(**kwargs)
+            self.get_gp_page_screen_shot()
+            sleep(2)
+            return -1
 
         self.get_gp_page_screen_shot()
         sleep(2)
@@ -327,6 +343,66 @@ class MuGuestPortal(MuGuestPortalWebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+    def validate_sponsored_guest_access_wrong_password(self, email, password, onboarding_action, wrong_password,login_email = 'null', **kwargs):
+        """
+        - Validate the Sponsor Action on the Guest Access using wrong password
+        - Validate User with Captive Web Portal Sponsor Form Login
+        - Keyword Usage:
+        - ``Validate Sponsored Guest Access  ${USER_EMAL}   ${USER_PASSWORD} ${ONBOARDING_ACTION}  ${LOGIN_EMAIL}    ${WRONG_PASSWORD}``
+
+        :param email: email to retrieve passcode
+        :param password: email password
+        :param onboarding_action: onboarding action to determine sponsor or user and passcode length
+        :param login_email: Sponsor Name
+        :return: 1 if successfully registered else -1
+        """
+        emailto = 'user'
+        if onboarding_action == 'Send One-Time-Passcode to Sponsor' or onboarding_action == 'Send Passcode to Sponsor':
+            emailto = 'sponsor'
+        passcode_length = 8
+        if 'One-Time-Passcode' in onboarding_action:
+            passcode_length = 4
+        password = self.gmail.get_sponsor_action_login_credential(email, password, emailto, passcode_length)
+        if not(login_email == 'null'):
+            email = login_email
+        self.utils.print_info("Username: ", email)
+        self.utils.print_info("Passcode: ", wrong_password)
+        sleep(2)
+
+        self.utils.print_info("Enter Guest Username")
+        self.auto_actions.send_keys(self.get_sponsor_guest_access_username_field(), email)
+
+        self.utils.print_info("Enter Guest Password")
+        self.auto_actions.send_keys(self.get_sponsor_guest_access_password_field(), wrong_password)
+
+        self.utils.print_info("Clicking Signin Button")
+        self.auto_actions.click_reference(self.get_sponsor_guest_access_signin_btn)
+        sleep(2)
+
+        if self.get_sponsor_guest_access_login_error_button():
+            self.utils.print_info("Click Send Anyway after login in button")
+            self.auto_actions.click_reference(self.get_sponsor_guest_access_login_error_button)
+            sleep(3)
+
+        self.get_gp_page_screen_shot()
+        sleep(2)
+
+        if self.get_sponsor_guest_access_login_success_page():
+            kwargs['pass_msg'] = "Validated the Sponsor Action on the Guest Access"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        elif self.get_social_wifi_access_denied_error():
+            kwargs['pass_msg'] = "Getting access denied error"
+            self.common_validation.passed(**kwargs)
+            self.get_gp_page_screen_shot()
+            sleep(2)
+            return -1
+        else:
+            kwargs['fail_msg'] = "'validate_sponsored_guest_access()' -> Registration was not Successful!"
+            self.common_validation.failed(**kwargs)
+            return -1
+
     def check_if_sponsor_mobile_is_displayed(self, **kwargs):
         """
         - Check if the sponsor mobile field is present in Sponsor Form
@@ -401,12 +477,19 @@ class MuGuestPortal(MuGuestPortalWebElements):
             kwargs['pass_msg'] = "Registration Successful!"
             self.common_validation.passed(**kwargs)
             return 1
+
+        elif self.get_registration_status() == 'Onboarding Policy is not available':
+            self.utils.print_info("Onboarding Policy is not available")
+            sleep(2)
+            kwargs['pass_msg'] = "Onboarding Policy is not available"
+            self.common_validation.passed(**kwargs)
+            return -1
+
         else:
             self.utils.print_info(self.get_sponsor_guest_access_register_guest_registration_status_text())
-
-        kwargs['fail_msg'] = "'register_device_for_guest_access()' -> Registration was not Successful!"
-        self.common_validation.failed(**kwargs)
-        return -1
+            kwargs['fail_msg'] = "'register_device_for_guest_access()' -> Registration was not Successful!"
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def register_device_with_email_for_guest_access(self, visitor_email, **kwargs):
         """

@@ -1,21 +1,19 @@
 from time import sleep
 import re
+
+from extauto.common.AutoActions import AutoActions
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
-from extauto.common.AutoActions import AutoActions
+from extauto.common.WebElementHandler import WebElementHandler
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DeviceConfigElements import DeviceConfigElements
+from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 from extauto.xiq.elements.CommonObjectsWebElements import CommonObjectsWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 
-from extauto.common.WebElementHandler import WebElementHandler
-from extauto.common.CloudDriver import CloudDriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as ec
-from extauto.common.CloudDriver import CloudDriver
-from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Tools import Tools
 from extauto.xiq.flows.manage.Devices import Devices
 
@@ -28,6 +26,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions = AutoActions()
         self.device_common = DeviceCommon()
         self.web = WebElementHandler()
+        self.devices_web_elements = DevicesWebElements()
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.cobj_web_elements = CommonObjectsWebElements()
         self.common_validation = CommonValidation()
@@ -44,7 +43,8 @@ class DeviceConfig(DeviceConfigElements):
         """
         ssid_broadcast_name = override_args.get('override_ssid_broadcast_name')
         override_psk_password = override_args.get('override_psk_password')
-        reassign_cwp = override_args.get('reassign_cwp')
+        # Commented on 1/18/23 because it is unused
+        # reassign_cwp = override_args.get('reassign_cwp')
 
         self.utils.print_info("Click on WiFi0 interface tab")
         self.auto_actions.click_reference(self.get_wifi0_interface_tab)
@@ -85,7 +85,7 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.click_reference(self.get_wireless_interface_toggle)
             self.utils.print_info("able to click toggle")
 
-    def override_client_mode_in_device_config(self, device_mac='', interface='', **client_mode_profile):
+    def override_client_mode_in_device_config(self, device_mac='', interface='', *client_mode_profile, **kwargs):
         """
         - This keyword is used to modify or override the client mode settings in wireless interface settings page
         - override wireless interface settings includes client mode options of radio usage
@@ -101,7 +101,8 @@ class DeviceConfig(DeviceConfigElements):
         """
         self.utils.print_info("Navigating to device 360 page")
         if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
-            self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+            kwargs['fail_msg'] = f"Device not found in the device row grid with mac:{device_mac}"
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("click on configuration tab")
         self.auto_actions.click_reference(self.get_configuration_tab)
@@ -136,7 +137,7 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Click Add(+)")
             self.auto_actions.click_reference(self.get_override_add_client_mode_wifi1_profile)
         else:
-            self.utils.print_info(f"Can you specify interface(wifi0 or wifi1)?")
+            self.utils.print_info("Can you specify interface(wifi0 or wifi1)?")
 
         self._override_client_mode_wifi0_1(**client_mode_profile)
         sleep(3)
@@ -150,8 +151,12 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.click_reference(self.get_close_device360_dialog_window)
 
         if 'Interface Settings were updated successfully.' in tool_tp_text:
+            kwargs['pass_msg'] = "interface setting updated success"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "interface setting updated unsuccess"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def _override_client_mode_wifi0_1(self, **client_mode_profile):
@@ -172,7 +177,7 @@ class DeviceConfig(DeviceConfigElements):
         if cm_enable_local_web_page.upper() == 'DISABLE':
             self.utils.print_info(f"Enable Local Web Page: {cm_enable_local_web_page}")
             self.auto_actions.click_reference(self.get_override_wifi0_1_cm_local_web_page_checkbox)
-            self.utils.print_info(f"Click Add(+)")
+            self.utils.print_info("Click Add(+)")
             self.auto_actions.click_reference(self.get_override_wifi0_1_cm_local_web_page_add)
             self.utils.print_info(f"Enter SSID Name: {cm_ssid_name}")
             self.auto_actions.send_keys(self.get_override_wifi0_1_cm_local_web_page_ssid_textbox(), cm_ssid_name)
@@ -186,7 +191,7 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.select_drop_down_options(self.get_override_wifi0_1_cm_local_web_key_type_dropdown_option(), cm_key_type)
             self.screen.save_screen_shot()
             sleep(2)
-            self.utils.print_info(f"Click Add button")
+            self.utils.print_info("Click Add button")
             self.auto_actions.click_reference(self.cobj_web_elements.get_common_object_wifi0_1_cm_local_web_page_add_button)
         self.utils.print_info(f"Enter DHCP Server Scope: {dhcp_server_scope}")
         self.auto_actions.send_keys(self.get_override_wifi0_1_client_mode_profile_dhcp_server_scope(), dhcp_server_scope)
@@ -194,7 +199,7 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("Click Save Client Mode Profile")
         self.auto_actions.click_reference(self.get_override_wifi0_1_client_mode_profile_save)
 
-    def override_psk_ssid_settings(self, device_serials='', **override_args):
+    def override_psk_ssid_settings(self, device_serials='', *override_args, **kwargs):
         """
         - This keyword is used to modify or override the psk ssid settings in wireless interface settings page
         - override wireless interface settings includes SSID Broadcast name, PSK password, reassigning the cwp
@@ -242,7 +247,8 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info(tool_tp_text)
         for text in tool_tp_text:
             if "Interface Settings were updated successfully" in text:
-                self.utils.print_info(f"{text}")
+                kwargs['pass_msg'] = f"{text}"
+                self.common_validation.passed(**kwargs)
                 return 1
 
     def _get_override_wifi0_psk_ssid_settings(self):
@@ -261,7 +267,7 @@ class DeviceConfig(DeviceConfigElements):
 
         return ovr_ssid_brdcst_name, ovr_psk_password
 
-    def get_override_psk_ssid_settings(self, device_mac, interface):
+    def get_override_psk_ssid_settings(self, device_mac, interface, **kwargs):
         """
         - This keyword works only with device updated with psk network
         - Get the override psk ssid settings from device360 configure interface wireless settings page
@@ -280,7 +286,8 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Navigating to device 360 page")
         if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
-            self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+            kwargs['fail_msg'] = f"Device not found in the device row grid with mac:{device_mac}"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("click on configuration tab")
@@ -341,7 +348,7 @@ class DeviceConfig(DeviceConfigElements):
         # to do
         pass
 
-    def override_devices_config_wireless_channel(self, device_serials='', interface='WiFi0', override_channel='6'):
+    def override_devices_config_wireless_channel(self, device_serials='', interface='WiFi0', override_channel='6', **kwargs):
         """
         - This keyword is used to override the wireless channel
         - This keyword is used with multiple devices
@@ -390,7 +397,8 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info(tool_tp_text)
         for text in tool_tp_text:
             if "Interface Settings were updated successfully" in text:
-                self.utils.print_info(f"{text}")
+                kwargs['pass_msg'] = f"{text}"
+                self.common_validation.passed(**kwargs)
                 return 1
 
     def _override_wifi0_radio_profile(self, override_radio_profile):
@@ -427,7 +435,7 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info(f"select the radio profile:{override_radio_profile}")
         self.auto_actions.select_drop_down_options(self.get_wireless_wifi1_radio_profile_options(), override_radio_profile)
 
-    def override_single_device_config_wireless_radio_profile(self, device_serial='', interface='WiFi0', override_radio_prof='radio_ng_ng0'):
+    def override_single_device_config_wireless_radio_profile(self, device_serial='', interface='WiFi0', override_radio_prof='radio_ng_ng0', **kwargs):
         """
         - Override the WiFi0 interface radio profile
 
@@ -458,10 +466,11 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info(tool_tp_text)
         for text in tool_tp_text:
             if "Interface Settings were updated successfully" in text:
-                self.utils.print_info(f"{text}")
+                kwargs['pass_msg'] = f"{text}"
+                self.common_validation.passed(**kwargs)
                 return 1
 
-    def override_devices_config_wireless_radio_profile(self, device_serials='', interface='WiFi0', override_radio_prof='radio_ng_ng0'):
+    def override_devices_config_wireless_radio_profile(self, device_serials='', interface='WiFi0', override_radio_prof='radio_ng_ng0', **kwargs):
         """
         - This keyword is used to override the radio profile
         - This keyword is used with multiple devices
@@ -505,10 +514,11 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info(tool_tp_text)
         for text in tool_tp_text:
             if "Interface Settings were updated successfully" in text:
-                self.utils.print_info(f"{text}")
+                kwargs['pass_msg'] = f"{text}"
+                self.common_validation.passed(**kwargs)
                 return 1
 
-    def _configure_wifi0_interface_radio_status(self, status=''):
+    def _configure_wifi0_interface_radio_status(self, status='', **kwargs):
         """
         - Configure WiFi0 Interface Status on Device Override
 
@@ -534,9 +544,11 @@ class DeviceConfig(DeviceConfigElements):
                 self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_off_button)
                 self.screen.save_screen_shot()
                 sleep(2)
+        kwargs['pass_msg'] = "Successfully configure wifi0 interface radio"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def _configure_wifi1_interface_radio_status(self, status=''):
+    def _configure_wifi1_interface_radio_status(self, status='', **kwargs):
         """
         - Configure WiFi1 Interface Radio Status on Device Override
 
@@ -561,9 +573,11 @@ class DeviceConfig(DeviceConfigElements):
                 self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi1_off_button)
                 self.screen.save_screen_shot()
                 sleep(2)
+        kwargs['pass_msg'] = "Successfully configure wifi1 interface radio"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def change_multiple_devices_wireless_interface_radio_status(self, device_serials='', interface_name='', status=''):
+    def change_multiple_devices_wireless_interface_radio_status(self, device_serials='', interface_name='', status='', **kwargs):
         """
         - This Keyword will Change Status(ON/OFF) of Wireless Interface for Multiple Devices
         - Flow:MANAGE-->Devices-->Select Multiple devices-->Edit-->Interface settings-->wireless interfaces-->Radio Status
@@ -608,11 +622,15 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Interface Settings were updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "Interface Settings were updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Interface Settings were updated unsuccessfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def change_single_device_wireless_interface_radio_status(self, device_serial=None, interface_name=None, status=None):
+    def change_single_device_wireless_interface_radio_status(self, device_serial=None, interface_name=None, status=None, **kwargs):
         """
         - This Keyword will Change Status(ON/OFF) of Wireless Interface of a single device
         - Flow:MANAGE-->Devices-->Select Multiple devices-->Edit-->Interface settings-->wireless interfaces-->Radio Status
@@ -654,11 +672,15 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Interface Settings were updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "Interface Settings were updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Interface Settings were updated unsuccessfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def change_device_host_name(self, new_host_name, device_mac="", device_name=""):
+    def change_device_host_name(self, new_host_name, device_mac="", device_name="", **kwargs):
         """
         - This keyword will Change the Host Name of the Device
         - Flow : Click AP MAC or Name Link --> Configure-->Device Configuration--> Host Name
@@ -707,8 +729,12 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         if "Device configuration was updated successfully" in tool_tip_text:
+            kwargs['pass_msg'] = "Device configuration was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Device configuration was updated unsuccessfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def _check_wifi0_radio_status(self):
@@ -795,11 +821,11 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         if wifi_interface_name.upper() == "WIFI0":
-           radio_status = self._check_wifi0_radio_status()
-           self.utils.print_info("Close the device360 page dialog window")
-           self.auto_actions.click_reference(self.get_close_device360_dialog_window)
-           sleep(2)
-           return radio_status
+            radio_status = self._check_wifi0_radio_status()
+            self.utils.print_info("Close the device360 page dialog window")
+            self.auto_actions.click_reference(self.get_close_device360_dialog_window)
+            sleep(2)
+            return radio_status
 
         if wifi_interface_name.upper() == "WIFI1":
             radio_status = self._check_wifi1_radio_status()
@@ -808,7 +834,7 @@ class DeviceConfig(DeviceConfigElements):
             sleep(2)
             return radio_status
 
-    def _configure_wifi0_transmission_power(self, transmission_mode='', power_value=''):
+    def _configure_wifi0_transmission_power(self, transmission_mode='', power_value='', **kwargs):
         """
         - Configure WiFi0 Transmission Power on Device Override
 
@@ -853,9 +879,11 @@ class DeviceConfig(DeviceConfigElements):
                         break
                     count += 1
             self.screen.save_screen_shot()
+        kwargs['pass_msg'] = "Successfully confiruge wifi0 transmission power"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def _configure_wifi1_transmission_power(self, transmission_mode='', power_value=''):
+    def _configure_wifi1_transmission_power(self, transmission_mode='', power_value='', **kwargs):
         """
         - Configure WiFi1 Transmission Power on Device Override
 
@@ -901,10 +929,12 @@ class DeviceConfig(DeviceConfigElements):
                         break
                     count += 1
             self.screen.save_screen_shot()
+        kwargs['pass_msg'] = "Successfully confiruge wifi1 transmission power"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def change_transmission_power_to_multiple_devices(self, device_serials='', interface_name='', transmission_mode='',
-                                                      power_value= ''):
+                                                      power_value= '', **kwargs):
         """
         - This Keyword will Change the Transmission of Wireless Interface
         - Go To MANAGE-->Devices-->Select All devices-->Edit-->Interface settings-->wireless interfaces
@@ -954,11 +984,15 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "Interface Settings were updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "Interface Settings were updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "change_transmission_power_to_multiple_devices() -> Interface Settings were updated unsuccessfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def override_config_device_template(self, template_name, device_mac="", device_name=""):
+    def override_config_device_template(self, template_name, device_mac="", device_name="", **kwargs):
         """
         - This keyword will Change the Template Name of the Device
         - Flow : Click AP MAC or Name Link --> Configure-->Device Configuration--> Device Template
@@ -1009,8 +1043,12 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         if "Device configuration was updated successfully" in tool_tip_text:
+            kwargs['pass_msg'] = "Device configuration was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Device configuration was updated unsuccessfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def check_device_configured_template(self, device_mac="", device_name=""):
@@ -1049,7 +1087,7 @@ class DeviceConfig(DeviceConfigElements):
 
         return template_text
 
-    def override_config_exos_device_template(self, template_name, device_mac="", device_name=""):
+    def override_config_exos_device_template(self, template_name, device_mac="", device_name="", **kwargs):
         """
         - This keyword will Change the Template Name of the Device
         - Flow : Click SW MAC or Name Link --> Configure-->Device Configuration--> Device Template
@@ -1102,12 +1140,15 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         if "Device configuration was updated successfully" in tool_tip_text:
-            self.utils.print_info("Device configuration was updated successfully")
+            kwargs['pass_msg'] = "Device configuration was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Device configuration was updated unsuccessfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def configure_supplemental_cli_for_device(self, suppl_cli_name="", suppl_cli_cmds="", device_mac="", device_name=""):
+    def configure_supplemental_cli_for_device(self, suppl_cli_name="", suppl_cli_cmds="", device_mac="", device_name="", **kwargs):
         """
         - This keyword will Configure Supplemental Cli on Device
         - Flow : Click AP MAC or Name Link --> Configure-->Device Configuration--> Device Template
@@ -1155,7 +1196,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.send_keys(self.get_device_config_supplemental_cli_enter_commands(), suppl_cli_cmds)
 
 
-        self.utils.print_info(f"Saving Supplemental Cli Configs")
+        self.utils.print_info("Saving Supplemental Cli Configs")
         self.auto_actions.click_reference(self.get_device_config_supplemental_cli_save_button)
         self.screen.save_screen_shot()
 
@@ -1174,12 +1215,15 @@ class DeviceConfig(DeviceConfigElements):
 
 
         if "Device configuration was updated successfully" in tool_tip_text:
-            self.utils.print_info("Device configuration was updated successfully")
+            kwargs['pass_msg'] = "Device configuration was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Device configuration was updated unsuccessfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def select_configure_supplemental_cli_for_device(self, suppl_cli_name="", device_mac="", device_name=""):
+    def select_configure_supplemental_cli_for_device(self, suppl_cli_name="", device_mac="", device_name="", **kwargs):
         """
         - This keyword will Configure Supplemental Cli on Device
         - Flow : Click AP MAC or Name Link --> Configure-->Device Configuration--> Device Template
@@ -1232,12 +1276,15 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         if "Device configuration was updated successfully" in tool_tip_text:
-            self.utils.print_info("Device configuration was updated successfully")
+            kwargs['pass_msg'] = "Device configuration was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Device configuration was updated unsuccessfully"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def check_config_audit_delta_match(self, serial=''):
+    def check_config_audit_delta_match(self, serial=None, mac=None):
         """
         - This keyword is used to select the check device configuration in Delta in Manage --> Device page
         - Assumes that navigated to the Manage --> Device page
@@ -1245,29 +1292,45 @@ class DeviceConfig(DeviceConfigElements):
         - ``Check Config Audit Delta Match     serials=${DEVICE1_SERIAL} ``
 
         :param serial: device serial number
+        :param mac: device MAC address
         :return: 1 in case of success else -1
         """
 
-        self.utils.print_info("Click on Device Config Audit tab")
-        self.auto_actions.click_reference(self.get_device_config_audit_view)
-        sleep(20)
-        self.screen.save_screen_shot()
+        delta_configs = 'Cannot retrieve delta configs'
 
-        self.utils.print_info("Click on Device Config Audit Delta View")
-        self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
-        sleep(20)
-        self.screen.save_screen_shot()
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
         sleep(5)
 
-        self.utils.print_info("Get the Config content from Device Config Audit Delta View")
-        delta_configs = self.get_device_config_audit_delta_view_content().text
-        self.utils.print_info("Delta Configs : ", delta_configs)
+        device_row = None
 
-        self.auto_actions.click_reference(self.get_device_config_audit_view_close_button)
+        if serial:
+            device_row = self.devices.get_device_row(device_serial=serial)
+        elif mac:
+            device_row = self.devices.get_device_row(device_mac=mac)
+
+        if device_row:
+            self.utils.print_info("Click on Configuration Audit button")
+            self.auto_actions.click(self.devices_web_elements.get_device_config_audit_button(device_row))
+            sleep(10)
+
+            self.utils.print_info("Click on Device Config Audit Delta View")
+            self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
+            sleep(10)
+            self.screen.save_screen_shot()
+            sleep(5)
+
+            self.utils.print_info("Get the Config content from Device Config Audit Delta View")
+            delta_configs = self.get_device_config_audit_delta_view_content().text
+            self.utils.print_info("Delta Configs : ", delta_configs)
+
+            self.auto_actions.click_reference(self.get_device_config_audit_view_close_button)
+
+        self.devices.deselect_all_devices()
 
         return delta_configs
 
-    def delete_common_object_supplemental_cli(self, suppl_cli_name):
+    def delete_common_object_supplemental_cli(self, suppl_cli_name, **kwargs):
         """
         - This keyword will Deletes Supplemental Cli under Common objects -> Basic
         - Flow : Click AP MAC or Name Link --> Common objects -> Basic -> Supplemental Cli
@@ -1300,7 +1363,9 @@ class DeviceConfig(DeviceConfigElements):
             return 1
 
         self.utils.print_info("row.text: ", row.text)
-        selected_checkbox = self.get_supplemental_cli_select_checkbox(row).click()
+        # Commented on 1/18/23 because variable is unused
+        # selected_checkbox = self.get_supplemental_cli_select_checkbox(row).click()
+        self.get_supplemental_cli_select_checkbox(row).click()
         self.screen.save_screen_shot()
 
         self.utils.print_info("Deleting Supplemental CLI Object...")
@@ -1309,6 +1374,8 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.click_reference(self.get_supplemental_cli_delete_confirm_button())
         sleep(2)
 
+        kwargs['pass_msg'] = "Successfully delete common object supplemental cli"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def select_supplemental_cli_row(self, suppl_cli_name):
@@ -1372,7 +1439,7 @@ class DeviceConfig(DeviceConfigElements):
 
         return template_text
 
-    def device360_event_select_severity(self, severity):
+    def device360_event_select_severity(self, severity, **kwargs):
         """
         - This keyword is used to select the severity in D360 Event configuration
         - Assumes that navigated to the Manage --> Device page --> Events page
@@ -1397,11 +1464,15 @@ class DeviceConfig(DeviceConfigElements):
         sleep(3)
         if self.auto_actions.select_drop_down_options(self.get_severity_dropdown_options(), severity):
             sleep(3)
+            kwargs['pass_msg'] = "Successfully select the severnity"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "UnSuccessfully select the severnity"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def device_override_change_wifi2_interface_status(self, device_serial='', interface_status=''):
+    def device_override_change_wifi2_interface_status(self, device_serial='', interface_status='', **kwargs):
         """
         - This Keyword will Enable/Disable the WIFI2 interface status at device override configuration.
         - Flow: Manage-->Devices-->select Device with serial number->Edit-->configuration-->interface settings
@@ -1469,8 +1540,12 @@ class DeviceConfig(DeviceConfigElements):
 
             self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
             if "Interface Settings were updated successfully." in tool_tip_text:
+                kwargs['pass_msg'] = "Interface Settings were updated successfully"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
+                kwargs['fail_msg'] = "Interface Settings were updated unsuccessfully"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
             self.utils.print_info("Click Interface Settings Cancel Button.")
@@ -1481,10 +1556,11 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.click_reference(self.get_close_dialog)
             self.screen.save_screen_shot()
             sleep(2)
-
+            kwargs['pass_msg'] = "Successfully change wifi2 interface status"
+            self.common_validation.passed(**kwargs)
             return 1
 
-    def configure_wifi2_transmission_power(self, transmission_mode='', power_value="default"):
+    def configure_wifi2_transmission_power(self, transmission_mode='', power_value="default", **kwargs):
         """
         - - This keyword will Configure the WiFi2 interface power status of AP4000 or AP4000U
         - Flow : Click AP MAC Link --> Configure-->Wireless Interfaces--> WiFi2 interface --> Transmission Power
@@ -1535,9 +1611,11 @@ class DeviceConfig(DeviceConfigElements):
 
         self.utils.print_info("Close the device360 page dialog window")
         self.get_close_device360_dialog_window().click()
+        kwargs['pass_msg'] = "successfully configure wifi2 transmission power"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def override_ap_config_wireless_channel(self, device_mac, interface='WiFi0', override_channel='6'):
+    def override_ap_config_wireless_channel(self, device_mac, interface='WiFi0', override_channel='6', **kwargs):
         """
         - This keyword will configure the WiFi0-1-2 interface channel
         - Flow : Manage --> Device --> Click AP MAC Link --> Configure--> Interface Settings --> Wireless Interface
@@ -1586,7 +1664,7 @@ class DeviceConfig(DeviceConfigElements):
                 self.auto_actions.click_reference(self.get_wireless_wifi2_channel_dropdown)
                 self.auto_actions.select_drop_down_options(self.get_wireless_interface_wifi2_channel_options(), override_channel)
             else:
-                self.utils.print_info(f"Can you specify interface(wifi0, wifi1, or wifi1)?")
+                self.utils.print_info("Can you specify interface(wifi0, wifi1, or wifi1)?")
 
             self.utils.print_info("Click on interface settings save button")
             self.auto_actions.click_reference(self.get_interface_settings_save_button)
@@ -1598,11 +1676,16 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.click_reference(self.get_close_device360_dialog_window)
 
             if 'Interface Settings were updated successfully.' in tool_tp_text:
+                kwargs['pass_msg'] = "Interface Settings were updated successfully."
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
+                kwargs['fail_msg'] = "Interface Settings were updated unsuccessfully."
+                self.common_validation.failed(**kwargs)
                 return -1
-        except:
-            self.utils.print_info("Not able to navigate/set to the page")
+        except Exception:
+            kwargs['fail_msg'] = "Not able to navigate/set to the page"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def get_override_ap_configure_wifi_details(self, device_mac, wifi_interface_config, **kwargs):
@@ -1676,6 +1759,7 @@ class DeviceConfig(DeviceConfigElements):
         :return: wifi0_profile if Get WiFi0 Profile Successfully else None
         """
         radio_status_wifi0 = wifi0_profile.get('radio_status', 'None')  # radio_status=get or yes
+        radio_operating_mode_wifi0 = wifi0_profile.get('operating_mode', 'None')
         radio_profile_wifi0 = wifi0_profile.get('radio_profile', 'None')
         client_mode_status_wifi0 = wifi0_profile.get('client_mode', 'None')
         client_access_status_wifi0 = wifi0_profile.get('client_access', 'None')
@@ -1693,6 +1777,10 @@ class DeviceConfig(DeviceConfigElements):
             if wifi0_profile['radio_status'] == 'Off':
                 return wifi0_profile
         self.auto_actions.scroll_down()
+
+        if radio_operating_mode_wifi0 != 'None':
+            wifi0_profile['operating_mode'] = self.get_default_wireless_wifi0_radio_operating_mode_drop_down().text
+            self.utils.print_info("Get Radio Profile status on WiFi0 Interface: ", wifi0_profile['operating_mode'])
 
         if radio_profile_wifi0 != 'None':
             wifi0_profile['radio_profile'] = self.get_default_wireless_wifi0_radio_profile_drop_down().text
@@ -1718,7 +1806,7 @@ class DeviceConfig(DeviceConfigElements):
             if sensor_status_wifi0 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
                 wifi0_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.get_wireless_wifi0_radio_usage_sensor_checkbox().is_selected())
         finally:
@@ -1781,7 +1869,7 @@ class DeviceConfig(DeviceConfigElements):
             if sensor_status_wifi1 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
                 wifi1_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.get_wireless_wifi1_radio_usage_sensor_checkbox().is_selected())
         finally:
@@ -1805,7 +1893,7 @@ class DeviceConfig(DeviceConfigElements):
         try:
             self.utils.print_info("Click on WiFi2 interface tab")
             self.auto_actions.click_reference(self.get_wifi2_interface_tab)
-        except:
+        except Exception:
             return wifi2_profile
 
         if radio_status_wifi2 != 'None':
@@ -1836,7 +1924,7 @@ class DeviceConfig(DeviceConfigElements):
             if sensor_status_wifi2 != 'None':
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
                 wifi2_profile['sensor'] = 'UIDisable'
-        except:
+        except Exception:
             wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
                 self.get_wireless_wifi2_radio_usage_sensor_checkbox().is_selected())
         finally:
@@ -1923,7 +2011,7 @@ class DeviceConfig(DeviceConfigElements):
         """
         return 'On' if boolean else 'Off'
 
-    def override_wifi2_channel(self, channel_input='default'):
+    def override_wifi2_channel(self, channel_input='default', **kwargs):
         """
         - - This keyword will Configure the WiFi2 interface power status of AP4000 or AP4000U
         - Flow : Click AP MAC Link --> Configure-->Wireless Interfaces--> WiFi2 interface --> Channel Dropdown
@@ -1943,8 +2031,9 @@ class DeviceConfig(DeviceConfigElements):
             element.click()
             CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
-        except:
-            self.utils.print_info(" Not able to configure any channel; leaving as default.")
+        except Exception:
+            kwargs['fail_msg'] = "Not able to configure any channel; leaving as default."
+            self.common_validation.fault(**kwargs)
             return -1
 
         element = self.get_wireless_wifi2_channel_dropdown()
@@ -1964,6 +2053,8 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("Close the device360 page dialog window")
         self.get_close_device360_dialog_window().click()
 
+        kwargs['pass_msg'] = "Successfully override wifi2 channel"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_unique_clients_number(self, device_mac=""):
@@ -1980,7 +2071,7 @@ class DeviceConfig(DeviceConfigElements):
             if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
                 self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
                 return -1
-        except:
+        except Exception:
             self.utils.print_info("Not able to navigate to the page")
         sleep(5)
 
@@ -2007,7 +2098,7 @@ class DeviceConfig(DeviceConfigElements):
             if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
                 self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
                 return -1
-        except:
+        except Exception:
             self.utils.print_info("Not able to navigate to the page")
         sleep(5)
 
@@ -2045,7 +2136,7 @@ class DeviceConfig(DeviceConfigElements):
 
         return client_info
 
-    def navigate_to_device_config_device_config_dhcp(self, device_mac, dhcp="ENABLE"):
+    def navigate_to_device_config_device_config_dhcp(self, device_mac, dhcp="ENABLE", **kwargs):
         """
         - This keyword will retrieve the all settings in the device configuration interface WiFi2 page
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> Device Configuration -->dhcp
@@ -2082,13 +2173,15 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Close Dialogue Window")
             self.auto_actions.click_reference(self.get_close_dialog)
             sleep(2)
-        except:
-            self.utils.print_info("Not able to navigate to the page")
+        except Exception:
+            kwargs['fail_msg'] = "Not able to navigate to the page"
+            self.common_validation.fault(**kwargs)
             return -1
-
+        kwargs['pass_msg'] = "Successfully navigate to device config dhcp"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def navigate_to_device_config_interface_wireless(self, device_mac, interface='wifi2'):
+    def navigate_to_device_config_interface_wireless(self, device_mac, interface='wifi2', **kwargs):
         """
         - This keyword will retrieve the all settings in the device configuration interface WiFi2 page
         - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> wireless --> WiFi2
@@ -2150,9 +2243,11 @@ class DeviceConfig(DeviceConfigElements):
                     self._go_to_wireless_interface_settings_page()
                     self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
-        except:
+        except Exception:
             self.utils.print_info("Not able to navigate to the page")
 
+        kwargs['pass_msg'] = "Successfully navigate to device config interface wireless"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def get_device_configuration_interface_WiFi2_details(self):
@@ -2251,7 +2346,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.click_reference(self.get_close_D360_popup)
         self.utils.print_info("able to close D360 popup page")
 
-    def verify_page_details(self, dic1=None, dic2=None):
+    def verify_page_details(self, dic1=None, dic2=None, **kwargs):
 
         """
         - This keyword will validate key value pair on any page.
@@ -2288,12 +2383,14 @@ class DeviceConfig(DeviceConfigElements):
                     return -1
 
             if not found:
-                self.utils.print_info("Page does not contain the value ")
+                kwargs['fail_msg'] = "Page does not contain the value"
+                self.common_validation.failed(**kwargs)
                 return -1
-
+        kwargs['pass_msg'] = "Successfully verify page details"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def enable_radio_status(self, mode, interface='wifi2'):
+    def enable_radio_status(self, mode, interface='wifi2', **kwargs):
         """
         - This keyword will disable the radio status button on the page
                 manage - device - configuration - interface - wiffi2
@@ -2313,13 +2410,16 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Click on the radio status button " + mode)
                     self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_wifi2_radio_status)
                     self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save2_button)
-        except:
-            self.utils.print_info("Can not enable the radio status button")
+        except Exception:
+            kwargs['fail_msg'] = "Can not enable the radio status button"
+            self.common_validation.fault(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Successfully enable radio status"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def disable_radio_status(self, mode, interface='wifi2'):
+    def disable_radio_status(self, mode, interface='wifi2', **kwargs):
 
         """
         - This keyword will enable the radio status button on the page
@@ -2340,13 +2440,16 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Click on the radio status button " + mode)
                     self.auto_actions.click_reference(self.get_device_override_configure_interface_settings_wifi2_radio_status)
                     self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save2_button)
-        except:
-            self.utils.print_info("Not able not enable the radio status button")
+        except Exception:
+            kwargs['fail_msg'] = "Not able not enable the radio status button"
+            self.common_validation.fault(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Successfully disable radio status"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def make_interface_channels_included_excluded(self, channels, mode='default', interface='wifi2'):
+    def make_interface_channels_included_excluded(self, channels, mode='default', interface='wifi2', **kwargs):
         """
         - The keyword excludes or includes the channels
                 Managed - device - configuration - interface setting - wireless - wifi2
@@ -2387,13 +2490,16 @@ class DeviceConfig(DeviceConfigElements):
                         self.utils.print_info(" Click on the channel " + str(channel))
                         CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
 
-        except:
-            self.utils.print_info(" Not able to click on the channel ")
+        except Exception:
+            kwargs['fail_msg'] = "Not able to click on the channel"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info(" Click on the Save Interface Setting ")
         self.get_manage_devices_edit_wireless_interface_save2_button().click()
 
+        kwargs['pass_msg'] = "Successfully make interface channels included excluded"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def check_interface_channel_width_and_channels(self, channels, mode='included', channel_width='default',
@@ -2489,7 +2595,7 @@ class DeviceConfig(DeviceConfigElements):
 
         return 1
 
-    def configure_custom_radio_profile(self, profile_name='default', interface='wifi2'):
+    def configure_custom_radio_profile(self, profile_name='default', interface='wifi2', **kwargs):
         """
         - The keyword selects a custom radio profile from the radio profile drop down list either on page wifi2, wifi1, wifi0
             flow: Managed - device - configuration - interface setting - wireless - either (wifi1, wifi2, wifi0)
@@ -2530,9 +2636,12 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save2_button)
 
         if element.text != profile_name:
-            self.utils.print_info(" Radio profile does not match after selecting the profile name " + str(element.text))
+            kwargs['fail_msg'] = f"Radio profile does not match after selecting the profile name {str(element.text)}"
+            self.common_validation.failed(**kwargs)
             return -1
 
+        kwargs['pass_msg'] = "Successfully configure custom radio profile"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def _check_wifi_client_access_status(self, interface='wifi2'):
@@ -2604,7 +2713,7 @@ class DeviceConfig(DeviceConfigElements):
             else:
                 return 'OFF'
 
-    def enabe_override_channel_exclusion_setting_in_radio_profile(self, interface='default'):
+    def enabe_override_channel_exclusion_setting_in_radio_profile(self, interface='default', **kwargs):
 
         """
         - Enable the override the channel exclusion setting in radio profile
@@ -2628,6 +2737,8 @@ class DeviceConfig(DeviceConfigElements):
             element = self.get_wireless_wifi0_override_channel_exclusion_setting_radio_profile_checkbox()
             if not element.is_selected():
                 CloudDriver().cloud_driver.execute_script("arguments[0].click();", element)
+        kwargs['pass_msg'] = "Successfully enable override channel"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def _go_to_wired_interface_settings_page(self):
@@ -2642,7 +2753,7 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("able to click toggle")
 
     def device_override_create_imago_tag_profile(self, device_serial='', profile_name='', server='', channel='',
-                                                 fcc_mode=True, server_port='default'):
+                                                 fcc_mode=True, server_port='default', **kwargs):
         """
         - This Keyword will Crete ImagoTag Profile at device override configuration.
         - Flow: Manage-->Devices-->select Device with serial number->Edit-->configuration-->interface settings
@@ -2745,7 +2856,8 @@ class DeviceConfig(DeviceConfigElements):
 
             self.utils.print_info("Close the device360 page dialog window")
             self.get_close_device360_dialog_window().click()
-
+            kwargs['pass_msg'] = "Successfully create imago tag profile"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info("Unable to Edit Image Tag Policy Successfully")
@@ -2755,7 +2867,8 @@ class DeviceConfig(DeviceConfigElements):
 
             self.utils.print_info("Close the device360 page dialog window")
             self.get_close_device360_dialog_window().click()
-
+            kwargs['fail_msg'] = "UnSuccessfully create imago tag profile"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_device_config_audit_delta(self, device_mac, **kwargs):
@@ -3009,6 +3122,24 @@ class DeviceConfig(DeviceConfigElements):
             self.common_validation.failed(**kwargs)
             return -1
 
+    def clear_audit_commands(self, audit):
+        """
+            - This keyword is used to "clean" the output from audit-delta of the commands that sometimes appear at the beginning of the output
+
+        :param audit: the output from audit-delta
+        :return: audit_clean: a list with the output from audit-delta without the commands that sometimes appear at
+            the beginning of the output
+        """
+        audit_list = list(audit.split('\n'))
+        audit_clean = []
+        print(audit_list)
+        for i in audit_list:
+            if not i.startswith('#'):
+                audit_clean.append(i)
+            elif 'save configuration y' in audit_list:
+                audit_list.remove('save configuration y')
+        return audit_clean
+
     def configure_device_function(self, ap_serial, device_function='AP'):
         """
         - This keyword will configure device function as AP or Router
@@ -3027,7 +3158,7 @@ class DeviceConfig(DeviceConfigElements):
         ap_selected = False
         while not ap_selected:
             try_cnt = 0
-            if self.devices.select_ap(ap_serial):
+            if self.devices.select_device(device_serial=ap_serial, ignore_failure=True) == 1:
                 self.utils.print_info(f"Edit AP serial {ap_serial} to go AP page...")
                 self.auto_actions.click_reference(self.get_edit_button)
                 device_360_page = self.get_device_360_page()
@@ -3194,7 +3325,7 @@ class DeviceConfig(DeviceConfigElements):
                         delay=4,
                         silent_failure=True
                     )
-                except:
+                except Exception:
                     pass
 
                 self.devices.select_device(device_mac=dut.mac)

@@ -1,14 +1,12 @@
 import re
 from time import sleep
 from extauto.common.AutoActions import AutoActions
-import subprocess
 from extauto.common.Cli import Cli
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.xiq.flows.manage.Location import *
+from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.common.Navigator import Navigator
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
 
@@ -24,6 +22,7 @@ class Device360Stack(Device360WebElements):
         self.navigator = Navigator()
         self.dev360 = Device360WebElements()
         self.devices_web_elements = DevicesWebElements()
+        self.common_validation = CommonValidation()
 
     def device360_get_title_stack_info(self):
         """
@@ -170,7 +169,7 @@ class Device360Stack(Device360WebElements):
             self.utils.print_info("Could not determine value for Memory Usage")
             device360_info["memory_usage"] = ""
 
-        self.utils.print_info(f"****************** Device360 Left Side Bar Information ************************")
+        self.utils.print_info("****************** Device360 Left Side Bar Information ************************")
         for key, value in device360_info.items():
             self.utils.print_info(f"{key}: {value}")
 
@@ -382,7 +381,7 @@ class Device360Stack(Device360WebElements):
             self.utils.print_info("Could not determine value for Stack Member Status")
             device360_info["stack_mem_status"] = ""
 
-        self.utils.print_info(f"****************** Device360 Top Bar Information ************************")
+        self.utils.print_info("****************** Device360 Top Bar Information ************************")
         for key, value in device360_info.items():
             self.utils.print_info(f"{key}: {value}")
 
@@ -528,7 +527,7 @@ class Device360Stack(Device360WebElements):
         else:
             device360_info["stack_mgmt_status"] = ""
 
-        self.utils.print_info(f"****************** Stack System Information ************************")
+        self.utils.print_info("****************** Stack System Information ************************")
         for key, value in device360_info.items():
             self.utils.print_info(f"{key}:{value}")
 
@@ -616,13 +615,13 @@ class Device360Stack(Device360WebElements):
             device360_info["port_mode"] = ""
             device360_info["port_speed"] = ""
 
-        self.utils.print_info(f"****************** Stack Port Table Information ************************")
+        self.utils.print_info("****************** Stack Port Table Information ************************")
         for key, value in device360_info.items():
             self.utils.print_info(f"{key}:{value}")
 
         return device360_info
 
-    def get_switch_stack_device360_port_table_information(self, device_mac="", device_name="", port_number=""):
+    def get_switch_stack_device360_port_table_information(self, device_mac="", device_name="", port_number="", **kwargs):
         """
         - This keyword gets EXOS/VOSS Switch stack Port table information from device360 page
         - Flow : Manage --> Devices--> Select Device stack-->Device stack 360 Page
@@ -638,14 +637,14 @@ class Device360Stack(Device360WebElements):
 
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
-            device_row = self.dev.get_device_row(device_mac)
+            device_row = self.dev.get_device_row(device_mac=device_mac)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_mac(device_mac)
                 sleep(8)
 
         if device_name:
             self.utils.print_info("Checking Search Result with Device Name : ", device_name)
-            device_row = self.dev.get_device_row(device_name)
+            device_row = self.dev.get_device_row(device_name=device_name)
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
                 sleep(8)
@@ -703,7 +702,7 @@ class Device360Stack(Device360WebElements):
                             "port_speed"] = self.dev360.get_device360_switch_port_table_port_speed(
                             row).text
 
-                        self.utils.print_info( f"************** Switch Port Table Information ********************")
+                        self.utils.print_info( "************** Switch Port Table Information ********************")
                         for key, value in switch_stack_device360_info.items():
                             self.utils.print_info(f"{key}:{value}")
 
@@ -728,8 +727,9 @@ class Device360Stack(Device360WebElements):
                     sleep(8)
 
             else:
-                self.utils.print_info("Unable to get Port Table Information")
+                kwargs['fail_msg'] = "Unable to get Port Table Information"
                 self.screen.save_screen_shot()
                 self.auto_actions.click_reference(self.dev360.get_close_dialog)
                 self.screen.save_screen_shot()
+                self.common_validation.failed(**kwargs)
                 return -1

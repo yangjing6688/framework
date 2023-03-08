@@ -1,4 +1,4 @@
-extauto.xiqse.flows.admin.certificates package
+XIQSE Flows Admin Certificates Keywords
 ==============================================
 
 Module contents

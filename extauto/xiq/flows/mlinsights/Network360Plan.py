@@ -63,7 +63,7 @@ class Network360Plan:
 
             return search_matches
         else:
-            kwargs['fail_msg'] = f"'search_floor_in_network360plan()' -> No search matches found"
+            kwargs['fail_msg'] = "'search_floor_in_network360plan()' -> No search matches found"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -91,7 +91,6 @@ class Network360Plan:
             items = self.n360_elements.get_n360_plan_search_matches()
             matches = copy.copy(items)
             if matches:
-                search_matches = []
                 for match in matches:
                     self.utils.print_info("Search Results: ", match.text)
                     if floor_name == match.text:
@@ -143,7 +142,7 @@ class Network360Plan:
                     else:
                         self.utils.print_info("No search matches found: ")
             else:
-                kwargs['fail_msg'] = f"No search matches found"
+                kwargs['fail_msg'] = "No search matches found"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -209,14 +208,14 @@ class Network360Plan:
             if tootip_already_exist:
                 if "already exists" in tootip_already_exist:
                     self.utils.print_info(f"{tootip_already_exist}")
-                    kwargs['pass_msg'] = f"'import_map_in_network360plan()' -> Map with Same Name Already Imported, " \
-                                         f"So No need to Import Again"
+                    kwargs['pass_msg'] = "'import_map_in_network360plan()' -> Map with Same Name Already Imported, " \
+                                         "So No need to Import Again"
 
                     self.utils.print_info("Click Close Button")
                     self.auto_actions.click_reference(self.n360_elements.get_tooltip_close_button)
                     sleep(2)
                     self.common_validation.passed(**kwargs)
                     return 1
-        kwargs['fail_msg'] = f"'import_map_in_network360plan()' -> Failed to import map in network 360 plan"
+        kwargs['fail_msg'] = "'import_map_in_network360plan()' -> Failed to import map in network 360 plan"
         self.common_validation.fault(**kwargs)
         return -1
