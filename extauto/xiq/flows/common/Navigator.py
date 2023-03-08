@@ -3621,9 +3621,10 @@ class Navigator(NavigatorWebElements):
         :param retry_count: retry count
         :return: 1 if the 'loading' mask is cleared within the specified time, else -1
         """
-        count = 1
+        count             = 1
+        visible_count     = 0
         not_visible_count = 0
-        not_visible_max   = 2
+        not_visible_wait  = 5
 
         while count <= retry_count:
             self.utils.print_info(f"Checking for 'loading' mask: loop {count}")
@@ -3637,21 +3638,22 @@ class Navigator(NavigatorWebElements):
 
                 # If the spinner is visible then we need to wait for it to no longer be visible
                 if is_visible:
+                    # Reset the not_visible_count since we've now seen the spinner
                     not_visible_count = 0
-                    self.utils.print_info(f"The 'loading' mask is still visible. Waiting for {retry_duration} seconds...")
+                    visible_count += 1
+                    self.utils.print_info(f"The 'loading' mask is visible Count: {visible_count}")
                 else:
                     not_visible_count += 1
                     self.utils.print_info(f"The 'loading' mask is NOT visible Count: {not_visible_count} "
-                                          f"of {not_visible_max}")
+                                          f"of {not_visible_wait}")
 
-                # We want to make sure the spinner is not visible for two seconds because
-                # it can start out as not visible before this function is called.  In other words we might get to this
-                # function before the spinner starts.
-                if not_visible_count >= not_visible_max:
+                # The spinner may not have started by the time this function was called.  It's possible the spinner
+                # was visible and already disappeared, it's also possible the spinner was not made visible yet and
+                # is expected to appear soon.  We'll wait for the spinner to not be visible for {not_visible_wait} seconds
+                if not_visible_count >= not_visible_wait:
                     kwargs['pass_msg'] = "The 'loading' mask is no longer visible"
                     self.common_validation.passed(**kwargs)
                     return 1
-
 
                 # Sleep for ~one second then try again
                 count += 1
