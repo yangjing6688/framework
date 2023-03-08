@@ -12536,19 +12536,6 @@ class Devices:
         :param dut: DUT Device
         :return: 1 if the PSE reset have been completed else -1
         """
-
-    def get_device_latest_version(self, dut, **kwargs):
-        """
-        - This method is used to get the device latest version
-        - dut - dut from .yaml testbed file (ex: ap1, netelem1}
-        - Keyword Usage:
-        - ``Get Device Latest Version   ${device1}``
-
-        :return: returned_version of the device
-        """
-        latest_version = -1
-        device_selected = False
-
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
@@ -12598,6 +12585,22 @@ class Devices:
             kwargs['fail_msg'] = f"The function was not designed for {dut.cli_type} OS System"
             self.common_validation.fault(**kwargs)
             return -1
+
+    def get_device_latest_version(self, dut, **kwargs):
+        """
+        - This method is used to get the device latest version
+        - dut - dut from .yaml testbed file (ex: ap1, netelem1}
+        - Keyword Usage:
+        - ``Get Device Latest Version   ${device1}``
+
+        :return: returned_version of the device
+        """
+        latest_version = -1
+        device_selected = False
+
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+        self.refresh_devices_page()
 
         if self.select_device(device_mac=dut.mac):
             device_selected = True
