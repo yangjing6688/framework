@@ -81,7 +81,7 @@ class ExtremeGuest(object):
                 self.auto_actions.click_reference(self.guest_web_elem.get_extreme_guest_subscription_page_open_ssid_checkbox)
             else:
                 self.utils.print_info("Add SSID before continuing")
-                kwargs['fail_msg'] = "'go_to_extreme_guest_landing_page()' -> Add SSID before continuing"
+                kwargs['fail_msg'] = "Add SSID before continuing"
                 self.common_validation.failed(**kwargs)
                 return 0
 
@@ -232,7 +232,7 @@ class ExtremeGuest(object):
             self.common_validation.passed(**kwargs)
             return 1
 
-        kwargs['fail_msg'] = "'check_help_information()' -> Help information is not displayed"
+        kwargs['fail_msg'] = "Help information is not displayed"
         self.common_validation.failed(**kwargs)
         return 0
 
@@ -302,7 +302,7 @@ class ExtremeGuest(object):
             self.common_validation.passed(**kwargs)
             return 1
 
-        kwargs['fail_msg'] = "'apply_selected_open_ssid()' -> Row is not present"
+        kwargs['fail_msg'] = "Row is not present"
         self.common_validation.failed(**kwargs)
         return 0
 
@@ -328,7 +328,7 @@ class ExtremeGuest(object):
         else:
             self.utils.print_info("SSID list is not available for selection ")
 
-        kwargs['fail_msg'] = "'check_created_ssid_table()' -> SSID list is not available for selection"
+        kwargs['fail_msg'] = "SSID list is not available for selection"
         self.common_validation.failed(**kwargs)
         return 0
 
@@ -428,7 +428,6 @@ class ExtremeGuest(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("User Already Subscribed Extreme Guest Page")
-            kwargs['fail_msg'] = "'check_guest_subscription()' -> User Already Subscribed Extreme Guest Page"
+            kwargs['fail_msg'] = "User Already Subscribed Extreme Guest Page"
             self.common_validation.failed(**kwargs)
             return -1

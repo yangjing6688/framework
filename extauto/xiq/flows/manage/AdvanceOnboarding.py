@@ -165,7 +165,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                     self.auto_actions.send_keys(self.get_advance_onboard_mac_textfield(), device_mac)
                     sleep(3)
                 if self.get_advance_onboard_mac_textfield().is_displayed() and device_mac == None:
-                    kwargs['fail_msg'] = "advance_onboard_device() - >>> The Wing device needs the 'device_mac' to be passed into this method"
+                    kwargs['fail_msg'] = "The Wing device needs the 'device_mac' to be passed into this method"
                     self.commonValidation.fault(**kwargs)
 
         else:
@@ -187,20 +187,20 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                             self.utils.print_info("Specifying CSV file '" + csv_location + "' for VOSS device")
                             self.auto_actions.send_keys(upload_button, csv_location)
                         else:
-                            kwargs['fail_msg'] = "advance_onboard_device() - >>> CSV file could not be specified - upload button not located\n"
+                            kwargs['fail_msg'] = "CSV file could not be specified - upload button not located\n"
                             kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                             self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                             self.commonValidation.fault(**kwargs)
                             return -1
                     else:
-                        kwargs['fail_msg'] = "advance_onboard_device() - >>> CSV file was not specified\n"
+                        kwargs['fail_msg'] = "CSV file was not specified\n"
                         kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                         self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                         self.commonValidation.fault(**kwargs)
                         return -1
 
             else:
-                kwargs['fail_msg'] = "advance_onboard_device() - >>> Unsupported device type " + device_make + "\n"
+                kwargs['fail_msg'] = "Unsupported device type " + device_make + "\n"
                 kwargs['fail_msg'] += ">>> Clicking Cancel and exiting - device NOT on-boarded"
                 self.auto_actions.click_reference(self.devices_web_elements.get_devices_add_devices_cancel_button)
                 self.commonValidation.failed(**kwargs)
@@ -237,8 +237,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
         self.utils.print_info("Validating ToolTip Message on Advance Onboard Page")
         if success_message:
             if not "Device(s) Successfully Onboarded" in success_message:
-                self.utils.print_info("Tooltip Validation Failed on Advance Onboard Page")
-                kwargs['fail_msg'] = "advance_onboard_device() - Error: Tooltip Validation Failed on Advance Onboard Page"
+                kwargs['fail_msg'] = "Error: Tooltip Validation Failed on Advance Onboard Page"
                 self.commonValidation.fault(**kwargs)
                 return -1
 
@@ -280,7 +279,7 @@ class AdvanceOnboarding(AdvanceOnboardingWebElements):
                         count += 1
                         self.utils.print_info(f"new count value {count} of max reties {max_retries}")
 
-        kwargs['fail_msg'] = f"advance_onboard_device() - Fail Onboarded {device_make} device(s) with {serial}"
+        kwargs['fail_msg'] = f"Fail Onboarded {device_make} device(s) with {serial}"
         self.commonValidation.failed(**kwargs)
         return -1
 
