@@ -153,3 +153,4 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
             def with_html(message):
                 method_mapping.get(level_number)(message, html=True)
             return with_html
+
