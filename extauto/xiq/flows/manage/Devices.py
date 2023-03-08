@@ -27,8 +27,7 @@ from extauto.common.Utils import Utils
 from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
 from ExtremeAutomation.Utilities.deprecated import deprecated
-from extauto.xiq.xapi.devices.XapiDevices import XapiDevices
-from tools.xapi.XapiHelper import XapiHelper
+from extauto.xiq.xapi.manage.XapiDevices import XapiDevices
 from ExtremeAutomation.Utilities.deprecated import unsupported
 
 
@@ -57,7 +56,6 @@ class Devices:
         self.web_element_ctrl = WebElementController()
         self.web_elements_handler = WebElementHandler()
         self.cloud_driver = CloudDriver()
-        self.xapiHelper = XapiHelper()
         self.xapiDevices = XapiDevices()
 
     @deprecated("Please use onboard_device_quick(...)")
@@ -1326,10 +1324,19 @@ class Devices:
         - Keyword Usage:
         - ``Reboot Device  ${DEVICE_SERIAL}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device serial number
         :param device_mac: device mac address
         :return: None
         """
+
+        # Execute the XAPI call and return the value
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_reboot_device(device_serial, device_mac, **kwargs)
+
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
@@ -1373,6 +1380,10 @@ class Devices:
         :param activate_time: activation time for Extreme Networks devices running images, by default set to 60 seconds
         :return: returned_version of the device, or -1 if it was unable to perform the upgrade
         """
+
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+
         returned_version = -1
         device_selected = False
         device_dict = device_dict[0]
@@ -1625,7 +1636,7 @@ class Devices:
         os_persona = device_dict.get("digital_twin_persona")
 
         # Execute the XAPI call and return the value
-        if self.xapiHelper.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled():
             return self.xapiDevices.xapi_onboard_device_quick(device_dict, **kwargs)
 
         if "csv_location" in device_dict:
@@ -2462,7 +2473,7 @@ class Devices:
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-        if self.xapiHelper.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled():
             return self.xapiDevices.xapi_delete_device( device_serial=device_serial,
                                                         device_name=device_name,
                                                         device_mac=device_mac,
@@ -2667,9 +2678,11 @@ class Devices:
 
         :return: 1 if device found else -1
         """
-        if self.xapiHelper.is_xapi_enabled():
+
+        # We need to skip this when we are selecting a device
+        if self.xapiDevices.is_xapi_enabled() and not select_device:
             return self.xapiDevices.xapi_search_device(device_serial=device_serial,
-                                                       device_name=device_name,
+                                                        device_name=device_name,
                                                        device_mac=device_mac,
                                                        **kwargs)
         device_keys = {}
@@ -4014,7 +4027,7 @@ class Devices:
         :param column_array: The device array of columns to get data for
         :return: object map of data columns to data, spaces are replaced with _
         """
-        if self.xapiHelper.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled():
             return self.xapiDevices.xapi_get_device_column_information(device_serial, column_array)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -4094,7 +4107,7 @@ class Devices:
         :return: 1 if device connected within time else -1
         """
 
-        if self.xapiHelper.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled():
             return self.xapiDevices.xapi_wait_until_device_online(device_serial=device_serial, device_mac=device_mac, retry_duration=retry_duration, retry_count=retry_count, **kwargs)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -4160,12 +4173,20 @@ class Devices:
         - ``Wait Until Device Offline       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
         - ``Wait Until Device Offline       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device serial number to check the device connected status
         :param device_mac: device mac to check the device connected status
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if device disconnected within time, else -1
         """
+
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_wait_until_device_offline(device_serial=device_serial, device_mac=device_mac, retry_duration=retry_duration, retry_count=retry_count, **kwargs)
+
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
 
@@ -5505,7 +5526,7 @@ class Devices:
         :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
 
-        if self.xapiHelper.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled():
             return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, retry_duration=retry_duration, retry_count=retry_count)
 
         # UI Support
@@ -10441,12 +10462,18 @@ class Devices:
         - ``Change Manage Device Status    UNMANAGE    device_mac=${DEVICE_MAC}``
         - ``Change Manage Device Status    MANAGE    device_mac=${DEVICE_NAME}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device Serial
         :param device_mac: device MAC address
         :param device_name: device name
         :param manage_type: Manage/Unmanage device
         :return: 1 if the management status was changed
         """
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_change_manage_device_status(manage_type=manage_type, device_serial=device_serial, device_mac=device_mac, device_name=device_name, **kwargs)
 
         # Commented on 1/18/23 because it is unused
         # manage_setting = 'MANAGE'

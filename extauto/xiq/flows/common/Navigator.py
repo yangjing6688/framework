@@ -3910,3 +3910,59 @@ class Navigator(NavigatorWebElements):
         kwargs['pass_msg'] = "Successfully Navigated to SSIDs Menu on Common Objects"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def wait_until_loading_is_done(self, **kwargs):
+        """
+        This keyword checks whether the page is still waiting for backend information to populate grids and waits until
+        all the date is loaded.
+        It usually shows as a rotating spinner wheel which disappears when all the info is loaded.
+        :return: None
+        """
+
+        retry = 1
+        load_grid_complete = False
+        load_spinner_complete = False
+        grid_marks = self.get_grid_loading_wheel()
+        grid_spinners = self.get_grid_spinner()
+        if grid_marks:
+            self.utils.print_info(f"Found {len(grid_marks)} loading grids on the page.")
+            self.utils.print_info("Checking if the grid is still loading.")
+            while not load_grid_complete and retry < 10:
+                grids_fully_loaded = 0
+                for grid_mark in grid_marks:
+                    if grid_mark.get_attribute("style") != "" and "none" not in grid_mark.get_attribute("style"):
+                        self.utils.print_info(f"Grid is still loading. Retry: {retry}")
+                        retry += 1
+                        sleep(2)
+                    else:
+                        self.utils.print_info("Grid is not loading anymore.")
+                        grids_fully_loaded += 1
+                if grids_fully_loaded == len(grid_marks):
+                    load_grid_complete = True
+                else:
+                    grid_marks = self.get_grid_loading_wheel()
+        else:
+            self.utils.print_info("Grid loader is not present on this page. No wait is needed.")
+        retry = 1
+        if grid_spinners:
+            self.utils.print_info(f"Found {len(grid_spinners)} spinners on the page.")
+            self.utils.print_info("Checking if spinner is still loading.")
+            while not load_spinner_complete and retry < 10:
+                spinner_fully_loaded = 0
+                for spinner in grid_spinners:
+                    if "fn-hidden" not in spinner.get_attribute("class"):
+                        self.utils.print_info(f"Spinner is still loading. Retry: {retry}")
+                        retry += 1
+                        sleep(2)
+                    else:
+                        self.utils.print_info("Spinner is not loading anymore.")
+                        spinner_fully_loaded += 1
+                if spinner_fully_loaded == len(grid_spinners):
+                    load_spinner_complete = True
+                else:
+                    grid_spinners = self.get_grid_spinner()
+        else:
+            self.utils.print_info("Spinner is not present on this page. No wait is needed.")
+        kwargs['pass_msg'] = "Page finished loading."
+        self.common_validation.passed(**kwargs)
+        return 1
