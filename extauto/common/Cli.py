@@ -2748,6 +2748,27 @@ class Cli(object):
         self.commonValidation.passed(**kwargs)
         return 1
 
+    def show_maclocking_on_the_ports_in_cli(self, dut, **kwargs):
+        """
+         - This keyword will return a list of pairs(port number and mac locking state for each port) for EXOS devices.
+        :param: dut: device to be tested
+        :return: a list of pairs(port number and mac locking state for each port)
+        :return: -1 if error
+        """
+        if dut.cli_type.upper() != "EXOS":
+            kwargs["fail_msg"] = "Wrong cli_type"
+            self.commonValidation.fault(**kwargs)
+        self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                            max_wait=10, interval=2)
+        output = self.networkElementCliSend.send_cmd(dut.name, 'show mac-locking',
+                                                     max_wait=10, interval=2)
+        p = re.compile(r'(^\d+)\s+(ena|dis)', re.M)
+        match_port_mac_locking_state = re.findall(p, output[0].return_text)
+        self.utils.print_info(f"{match_port_mac_locking_state}")
+        kwargs["pass_msg"] = "Collected CLI MAC info."
+        self.commonValidation.passed(**kwargs)
+        return match_port_mac_locking_state
+
 
 if __name__ == '__main__':
     from pytest_testconfig import config
