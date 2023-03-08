@@ -11478,6 +11478,7 @@ class Device360(Device360WebElements):
         if message:
             return message
         else:
+            self.screen.save_screen_shot()
             return None
 
     def device360_navigate_to_pse_tab(self, **kwargs):
