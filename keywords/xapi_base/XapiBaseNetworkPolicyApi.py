@@ -465,7 +465,10 @@ class XapiBaseNetworkPolicyApi(XapiHelper):
         :param async_req bool: execute request asynchronously
         :param int page: Page number, min = 1
         :param int limit: Page Size, min = 1, max = 100
-        :param list[str] policy_names: The list of policy names
+        :param list[str] policy_names: The list of full network policy names to filter the query
+        :param str keyword: The keyword to partial search by network policy name
+        :param list[XiqNetworkPolicyField] fields: The network policy fields to return
+        :param XiqNetworkPolicyView view: The views to return network policy fields (Check fields for each view at XiqNetworkPolicyView schema)
         :param _preload_content: if False, the urllib3.HTTPResponse object will
                                  be returned without reading/decoding response
                                  data. Default is True.

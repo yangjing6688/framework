@@ -4,6 +4,7 @@ import json
 from time import sleep
 import pprint
 from extauto.common.Utils import Utils
+from ExtremeAutomation.Library.Utils.DotDict import DotDict
 
 try:
     import extremecloudiq
@@ -329,3 +330,60 @@ class XapiHelper():
             self.common_validation.fault(**kwargs)
             return -1
 
+
+    def convertPreloadContentDataToObject(self, object_string):
+        """
+            When using the _preload_content=False with any XAPI SDK keyword, you
+            will get back a byte string data from the SDK. This method will convert
+            that byte string to a JSON object
+        :param object_string: The object string to convert (btye string) (repsonse.data from the XAPI SDK call)
+        :return: The json object for the string
+        """
+        # Decode UTF-8 bytes to Unicode, and convert single quotes
+        # to double quotes to make it valid JSON
+        json_friendly = object_string.decode('utf8').replace("'", '"')
+        data = json.loads(json_friendly)
+        return DotDict(data)
+
+    def checkDictKeysInOriginalDict(self, original_dict, check_dict, level=0):
+        """
+            Check the keys from the check dict to the keys in the check dict
+        :param original_dict:  The base dict for all of the key values
+        :param check_dict:  The dict to check againsted the original_dict
+        :param level: Always set to 0, unless this is called internally from this function
+        :return: True, if all of the keys exist, false if they don't
+        """
+        return_value = True
+        if isinstance(original_dict, dict) and isinstance(check_dict, dict):
+            check_top_level_keys = check_dict.keys()
+            original_top_level_keys = original_dict.keys()
+
+            for check_key in check_top_level_keys:
+                level_tabs = '\t' * level
+                if check_key not in original_top_level_keys:
+                    print(f"{level_tabs}Mising key: {check_key}")
+                    return_value = False
+                else:
+                    print(f"{level_tabs}key: {check_key}")
+                check_value = check_dict[check_key]
+                if check_key in original_dict:
+                    orignal_value = original_dict[check_key]
+                else:
+                    orignal_value = original_dict
+                if isinstance(check_value, dict):
+                    return_value = checkDictKeysInArray(orignal_value, check_value, level + 1)
+        return return_value
+
+
+    def convertEnableDisableToBool(self, value):
+        """
+            Convert enable (set to lower case) to True and Disable to False.
+        :param value:
+        :return: enable returns True and Disable returns False
+        """
+        if not isinstance(value, bool):
+            if str(value).lower() == 'disable':
+                return False
+            else:
+                return True
+        return value
