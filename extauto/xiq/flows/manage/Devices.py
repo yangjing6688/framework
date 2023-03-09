@@ -12262,14 +12262,12 @@ class Devices:
         if self.devices_web_elements.get_ui_banner_warning_message():
             tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
             message = tool_tp_text_warning.text
-            if "add CoPilot licenses" in tool_tp_text_warning.text:
+            if "add CoPilot licenses" in message:
                 self.screen.save_screen_shot()
-                # kwargs['pass_msg'] = f"{message}"
                 kwargs['pass_msg'] = f" Banner message: {message}"
                 self.common_validation.passed(**kwargs)
                 return True
             else:
-                # message = tool_tp_text_warning.text
                 self.screen.save_screen_shot()
                 kwargs['pass_msg'] = f"Banner message: {message}"
                 self.common_validation.failed(**kwargs)
