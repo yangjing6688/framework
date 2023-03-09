@@ -50,8 +50,7 @@ class AdditionalSettings(AdditionalSettingsWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "search_ntp_server_classification_entry() failed. " \
-                             "NTP server Classification Entry NOT found"
+        kwargs['fail_msg'] = "NTP server Classification Entry NOT found"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -98,8 +97,7 @@ class AdditionalSettings(AdditionalSettingsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "search_ntp_server_classification_entries() failed. " \
-                                 "NTP server Classification Entries NOT found"
+            kwargs['fail_msg'] = "NTP server Classification Entries NOT found"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -136,7 +134,6 @@ class AdditionalSettings(AdditionalSettingsWebElements):
             self.common_validation.passed(**kwargs)
             return ntp_count
         else:
-            kwargs['fail_msg'] = "get_total_counts_of_ntp_server_classification_entry() failed. " \
-                                 "NTP Server Classification Entries Not Found on Network Policy"
+            kwargs['fail_msg'] = "NTP Server Classification Entries Not Found on Network Policy"
             self.common_validation.failed(**kwargs)
             return -1

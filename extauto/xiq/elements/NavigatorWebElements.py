@@ -720,3 +720,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_unknown_error_tooltip_close_icon(self):
         return self.weh.get_element(self.unknown_error_tooltip_close_icon)
+    
+    def get_grid_loading_wheel(self):
+        return self.weh.get_elements(self.grid_loading_wheel)
+
+    def get_grid_spinner(self):
+        return self.weh.get_elements(self.grid_spinner)

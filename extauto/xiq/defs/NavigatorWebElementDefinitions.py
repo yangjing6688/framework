@@ -1359,3 +1359,15 @@ class NavigatorWebElementDefinitions:
     unknown_error_tooltip_close_icon = {
         'XPATH': '//*[contains(@class,"ui-tipbox-close")]'
     }
+
+    grid_loading_wheel = \
+        {
+            'XPATH': '//div[@class="grid-mark"]',
+            'wait_for': 5
+        }
+
+    grid_spinner = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="spinner"]',
+            'wait_for': 5
+        }

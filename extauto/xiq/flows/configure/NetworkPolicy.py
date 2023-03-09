@@ -16,7 +16,6 @@ from extauto.common.CommonValidation import CommonValidation
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.manage.Tools import Tools
 from extauto.xiq.flows.common.Navigator import Navigator
-from extauto.xiq.flows.common.Login import Login
 from extauto.xiq.flows.manage.Devices import Devices
 from extauto.xiq.flows.configure.WirelessNetworks import WirelessNetworks
 
@@ -32,6 +31,8 @@ from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
 import extauto.xiq.flows.configure.SwitchTemplate
+from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
+
 
 
 
@@ -60,7 +61,7 @@ class NetworkPolicy(object):
         self.use_existing_policy = False
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.switch_template = extauto.xiq.flows.configure.SwitchTemplate.SwitchTemplate()
-        self.login = Login()
+        self.xapiNetworkPolicy = XapiNetworkPolicy()
 
     def select_network_policy_row(self, policy):
         """
@@ -150,7 +151,7 @@ class NetworkPolicy(object):
         """
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
-            kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
+            kwargs['fail_msg'] = "Failed to navigate to network policies list page"
             self.common_validation.fault(**kwargs)
         sleep(2)
 
@@ -174,9 +175,14 @@ class NetworkPolicy(object):
         :return: 1 if network policy creation is success
         """
 
+        # This code is currently disabled until the XAPI support SSID creation
+        # if self.xapiNetworkPolicy.xapiNetworkPolicy.is_xapi_enabled():
+        #    return self.xapiNetworkPolicy.xapi_create_network_policy(policy, wireless_profile, cli_type, **kwargs)
+
+        # UI code to add a new network policy
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
-            kwargs['fail_msg'] = "create_network_policy() -> Failed to navigate to network policies list page"
+            kwargs['fail_msg'] = "Failed to navigate to network policies list page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -185,13 +191,12 @@ class NetworkPolicy(object):
 
         self.utils.print_info("Checking for network policy add button")
         if self.np_web_elements.check_np_add_button() == -2:
-            kwargs['fail_msg'] = "create_network_policy() failed. Add button is not enabled for the user"
+            kwargs['fail_msg'] = "Add button is not enabled for the user"
             self.common_validation.fault(**kwargs)
             return -1
 
         if self._search_network_policy_in_list_view(policy) == 1:
-            kwargs['fail_msg'] = "create_network_policy() failed. " \
-                                           f"Network policy {policy} already exists in the network polices list"
+            kwargs['fail_msg'] = f"Network policy {policy} already exists in the network polices list"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -214,19 +219,16 @@ class NetworkPolicy(object):
 
         for tip_text in reversed(tool_tp_text):
             if "The Network Policy cannot be saved because" in tip_text:
-                kwargs['fail_msg'] = "create_network_policy() failed." \
-                                               f"The Network Policy cannot be saved because {tip_text}"
+                kwargs['fail_msg'] = f"The Network Policy cannot be saved because {tip_text}"
                 self.common_validation.fault(**kwargs)
                 return -1
             if "Your account does not have permission to perform that action" in tip_text:
-                kwargs['fail_msg'] = "create_network_policy() failed." \
-                                               f"Your account does not have permission to perform that action {tip_text}"
+                kwargs['fail_msg'] = f"Your account does not have permission to perform that action {tip_text}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
             if "Unable to access data" in tip_text:
-                kwargs['fail_msg'] = "create_network_policy() failed." \
-                                               f"Not able to save the network policy {tip_text}"
+                kwargs['fail_msg'] = f"Not able to save the network policy {tip_text}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -253,11 +255,21 @@ class NetworkPolicy(object):
         - Keyword Usage:
         - ``Delete Network Policy    ${POLICY_NAME}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param policy: Name of the policy to delete
         :return: 1 if deleted else -1
         """
+
+        if self.xapiNetworkPolicy.is_xapi_enabled():
+            policies = []
+            policies.append(policy)
+            return self.xapiNetworkPolicy.delete_network_polices(policies, **kwargs)
+
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
-            kwargs['fail_msg'] = "delete_network_policy() failed. Couldn't Navigate to policies list view page"
+            kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -280,11 +292,11 @@ class NetworkPolicy(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             elif "The Network Policy cannot be removed " in value:
-                kwargs['fail_msg'] = f"delete_network_policy() failed. The Network Policy cannot be removed, {value}!"
+                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}!"
                 self.common_validation.fault(**kwargs)
                 return -1
             elif "An unknown error has occurred" in value:
-                kwargs['fail_msg'] = f" delete_network_policy() failed. Unable to delete the network policy, {value}!"
+                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -293,8 +305,7 @@ class NetworkPolicy(object):
         #    for a few moments.
         for chk in range(2):
             if chk == 2:
-                kwargs['fail_msg'] = "delete_network_policy() failed. " \
-                                     f"Unable to perform the delete for network policy {policy}!"
+                kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
                 self.common_validation.failed(**kwargs)
                 return -1
             if self._search_network_policy_in_list_view(policy) == 1:
@@ -311,9 +322,17 @@ class NetworkPolicy(object):
         - Keyword Usage:
         - ``Delete Network Policies   ${POLICY1}   ${POLICY2}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param policies: list of network polices to delete
         :return: 1 if deleted successfully else -1
         """
+
+        if self.xapiNetworkPolicy.is_xapi_enabled():
+            return self.xapiNetworkPolicy.xapi_delete_network_polices(policies, **kwargs)
+
 
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
@@ -395,15 +414,23 @@ class NetworkPolicy(object):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def delete_all_network_policies(self, exclude_list=''):
+    def delete_all_network_policies(self, exclude_list='', **kwargs):
         """
         - Delete all network policies from the grid expect exclude_list policies
         - keyword Usage:
         - ``Delete All Network Policies  exclude_list=${POLICY1},${POLICY2)``
 
+         Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param exclude_list: list of policies to exclude from delete
         :return: 1 if deleted successfully else -1
         """
+
+        if self.xapiNetworkPolicy.is_xapi_enabled():
+            return self.xapiNetworkPolicy.xapi_delete_network_polices(exclude_list=exclude_list, **kwargs)
+
         exclude_list = exclude_list.split(",")
         np_list = self._get_network_policy_list()
         if np_list == -2:
@@ -573,12 +600,12 @@ class NetworkPolicy(object):
         self.utils.print_info(tool_tp_text)
         for tip_text in tool_tp_text:
             if "An unknown error has" in tip_text:
-                kwargs['fail_msg'] = f"deploy_network_policy() failed. {tip_text} occurred while assigning nw policy"
+                kwargs['fail_msg'] = f"{tip_text} occurred while assigning nw policy"
                 self.common_validation.fault(**kwargs)
                 return -1
 
         if not self._select_device_row(devices):
-            kwargs['fail_msg'] = "deploy_network_policy() failed. Device is not available in the deploy policy page"
+            kwargs['fail_msg'] = "Device is not available in the deploy policy page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -668,7 +695,6 @@ class NetworkPolicy(object):
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
                 kwargs['fail_msg'] = f"Config push to AP taking more than {max_config_push_wait} seconds"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -681,8 +707,7 @@ class NetworkPolicy(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "deploy_network_policy() failed." \
-                                 "Network Policy in Devices grid does not matches with the deployed one..."
+            kwargs['fail_msg'] = "Network Policy in Devices grid does not matches with the deployed one..."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -749,11 +774,11 @@ class NetworkPolicy(object):
                                     self.common_validation.passed(**kwargs)
                                     return 1
                                 else:
-                                    kwargs['fail_msg'] = "navigate_to_np_edit_tab() failed. Edit button not found!"
+                                    kwargs['fail_msg'] = "Edit button not found!"
                                     self.common_validation.fault(**kwargs)
                                     return -1
                 else:
-                    kwargs['fail_msg'] = "navigate_to_np_edit_tab() failed. Rows were not found!"
+                    kwargs['fail_msg'] = "Rows were not found!"
                     self.common_validation.failed(**kwargs)
                     return -1
             except selenium.common.exceptions.StaleElementReferenceException as e:
@@ -768,8 +793,7 @@ class NetworkPolicy(object):
                     self.auto_actions.click_reference(self.np_web_elements.get_next_page_element)
                     current_page += 1
                 else:
-                    kwargs['fail_msg'] = "navigate_to_np_edit_tab() failed. " \
-                                         f"This is the last page: {current_page}. Network policy was not found in " \
+                    kwargs['fail_msg'] = f"This is the last page: {current_page}. Network policy was not found in " \
                                          f"all {current_page} pages. It was deleted or not created at all."
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -812,7 +836,7 @@ class NetworkPolicy(object):
         if policy_name:
             return self.delete_network_policy(policy_name)
         else:
-            kwargs['fail_msg'] = f"delete_network_policy_with_ssid() failed. Unable to find policy with SSID {ssid_name}"
+            kwargs['fail_msg'] = f"Unable to find policy with SSID {ssid_name}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -943,7 +967,7 @@ class NetworkPolicy(object):
         """
         self.navigate_to_np_edit_tab(policy_name)
         if not self._select_ssid(ssid) == 1:
-            kwargs['fail_msg'] = f"navigate_wireless_ssid() failed. SSID: {ssid} not selected"
+            kwargs['fail_msg'] = f"SSID: {ssid} not selected"
             self.common_validation.failed(**kwargs)
             return -1
         return 1
@@ -1036,8 +1060,7 @@ class NetworkPolicy(object):
                 self.utils.print_info(f"Failed to go to Wireless Networks tab, try {try_cnt} times")
                 sleep(1)
                 if try_cnt == 10:
-                    kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. " \
-                                         f"Max {try_cnt} times to switch to Wireless Networks tab, " \
+                    kwargs['fail_msg'] = f"Max {try_cnt} times to switch to Wireless Networks tab, " \
                                          "but still failed, need figure out issue manually"
                     self.common_validation.fault(**kwargs)
                     return -1
@@ -1054,7 +1077,7 @@ class NetworkPolicy(object):
                 if check_box:
                     self.auto_actions.click(check_box)
                 else:
-                    kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to select row"
+                    kwargs['fail_msg'] = "Unable to select row"
                     self.common_validation.fault(**kwargs)
                     return -1
 
@@ -1068,11 +1091,11 @@ class NetworkPolicy(object):
                     self.screen.save_screen_shot()
                     sleep(5)
                 else:
-                    kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable click the confirm Yes button"
+                    kwargs['fail_msg'] = "Unable click the confirm Yes button"
                     self.common_validation.fault(**kwargs)
                     return -1
             else:
-                kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to click the Delete button"
+                kwargs['fail_msg'] = "Unable to click the Delete button"
                 self.common_validation.fault(**kwargs)
                 return -1
         reuse_button = self.wireless_element.get_wireless_re_use_button()
@@ -1088,7 +1111,7 @@ class NetworkPolicy(object):
                         if check_box_reusable:
                             self.auto_actions.click(check_box_reusable)
                         else:
-                            kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to select SSID"
+                            kwargs['fail_msg'] = "Unable to select SSID"
                             self.common_validation.fault(**kwargs)
                             return -1
                 self.utils.print_info(" Clicking  delete button ")
@@ -1108,23 +1131,23 @@ class NetworkPolicy(object):
                             self.common_validation.passed(**kwargs)
                             return 1
                         else:
-                            kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. SSIDs were NOT successfully deleted"
+                            kwargs['fail_msg'] = "SSIDs were NOT successfully deleted"
                             self.common_validation.failed(**kwargs)
                             return -1
                     else:
-                        kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to click on confirm yes button"
+                        kwargs['fail_msg'] = "Unable to click on confirm yes button"
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to click the delete button"
+                    kwargs['fail_msg'] = "Unable to click the delete button"
                     self.common_validation.fault(**kwargs)
                     return -1
             else:
-                kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to gather SSID rows"
+                kwargs['fail_msg'] = "Unable to gather SSID rows"
                 self.common_validation.fault(**kwargs)
                 return -1
 
-        kwargs['fail_msg'] = "delete_all_ssid_in_policy() failed. Unable to delete all SSIDs"
+        kwargs['fail_msg'] = "Unable to delete all SSIDs"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -1154,7 +1177,7 @@ class NetworkPolicy(object):
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
-                        kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. Unable to select row"
+                        kwargs['fail_msg'] = "Unable to select row"
                         self.common_validation.fault(**kwargs)
                         return -1
 
@@ -1180,7 +1203,7 @@ class NetworkPolicy(object):
                                         if check_box_reusable:
                                             self.auto_actions.click(check_box_reusable)
                                         else:
-                                            kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. Unable to select SSID"
+                                            kwargs['fail_msg'] = "Unable to select SSID"
                                             self.common_validation.fault(**kwargs)
                                             return -1
                             self.utils.print_info(" Clicking  delete button ")
@@ -1200,38 +1223,31 @@ class NetworkPolicy(object):
                                         self.common_validation.passed(**kwargs)
                                         return 1
                                     else:
-                                        kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
-                                                             "SSIDs were NOT successfully deleted"
+                                        kwargs['fail_msg'] = "SSIDs were NOT successfully deleted"
                                         self.common_validation.failed(**kwargs)
                                         return -1
                                 else:
-                                    kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
-                                                         "Unable to click on confirm yes button"
+                                    kwargs['fail_msg'] = "Unable to click on confirm yes button"
                                     self.common_validation.fault(**kwargs)
                                     return -1
                             else:
-                                kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
-                                                     "Unable to click the delete button"
+                                kwargs['fail_msg'] = "Unable to click the delete button"
                                 self.common_validation.fault(**kwargs)
                                 return -1
                         else:
-                            kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
-                                                 "Unable to gather SSID rows"
+                            kwargs['fail_msg'] = "Unable to gather SSID rows"
                             self.common_validation.fault(**kwargs)
                             return -1
                     else:
-                        kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
-                                             "Unable click the reusable [select] button"
+                        kwargs['fail_msg'] = "Unable click the reusable [select] button"
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
-                                         "Unable click the confirm Yes button"
+                    kwargs['fail_msg'] = "Unable click the confirm Yes button"
                     self.common_validation.fault(**kwargs)
                     return -1
             else:
-                kwargs['fail_msg'] = "delete_single_ssid_in_policy() failed. " \
-                                  "Unable to click the Delete button"
+                kwargs['fail_msg'] = "Unable to click the Delete button"
                 self.common_validation.fault(**kwargs)
                 return -1
         return -1
@@ -1342,7 +1358,7 @@ class NetworkPolicy(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "enable_ibeacon_service_in_network_policy() failed. Failed to enable ibeacon service"
+            kwargs['fail_msg'] = "Failed to enable ibeacon service"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1393,7 +1409,7 @@ class NetworkPolicy(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "disable_ibeacon_service_in_network_policy() failed. Failed to disable ibeacon service"
+            kwargs['fail_msg'] = "Failed to disable ibeacon service"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1448,8 +1464,7 @@ class NetworkPolicy(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "configure_access_security_pre_authentication_status() failed. " \
-                                 "Failed to configure access security pre authentication"
+            kwargs['fail_msg'] = "Failed to configure access security pre authentication"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1491,15 +1506,13 @@ class NetworkPolicy(object):
         """
         self.navigator.navigate_to_devices()
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
-            kwargs['fail_msg'] = "create_switching_routing_network_policy() failed. " \
-                                 "Failed to navigate to network policies list."
+            kwargs['fail_msg'] = "Failed to navigate to network policies list."
             self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Checking for network policy add button")
         if self.np_web_elements.check_np_add_button() == -2:
-            kwargs['fail_msg'] = "create_switching_routing_network_policy() failed. " \
-                                 "Add button is not enabled for the user."
+            kwargs['fail_msg'] = "Add button is not enabled for the user."
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -1535,14 +1548,12 @@ class NetworkPolicy(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             if "Your account does not have permission to perform that action" in tip_text:
-                kwargs['fail_msg'] = "create_switching_routing_network_policy() failed. " \
-                                     f"Your account does not have permission to perform that action {tip_text}"
+                kwargs['fail_msg'] = f"Your account does not have permission to perform that action {tip_text}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
             if "Unable to access data" in tip_text:
-                kwargs['fail_msg'] = "create_switching_routing_network_policy() failed. " \
-                                     f"not able to save the network policy {tip_text}"
+                kwargs['fail_msg'] = f"not able to save the network policy {tip_text}"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -1611,7 +1622,7 @@ class NetworkPolicy(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "edit_network_policy_type() failed. Failed to edit network policy"
+            kwargs['fail_msg'] = "Failed to edit network policy"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1654,15 +1665,12 @@ class NetworkPolicy(object):
         self.utils.print_info(tool_tp_text)
         for tip_text in tool_tp_text:
             if "An unknown error has" in tip_text:
-                kwargs['fail_msg'] = "deploy_stack_network_policy() failed. " \
-                                     f"{tip_text} occurred while assigning nw policy"
+                kwargs['fail_msg'] = f"{tip_text} occurred while assigning nw policy"
                 self.common_validation.fault(**kwargs)
                 return -1
 
         if not self._select_device_row(device_mac):
-            self.utils.print_info("Device is not available in the deploy policy page")
-            kwargs['fail_msg'] = "deploy_stack_network_policy() failed. " \
-                                 "Device is not available in the deploy policy page"
+            kwargs['fail_msg'] = "Device is not available in the deploy policy page"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -1734,7 +1742,7 @@ class NetworkPolicy(object):
             self.utils.print_info("Click on perform update button ")
             self.auto_actions.click_reference(self.np_web_elements.get_perform_update_policy_button)
         else:
-            kwargs['fail_msg'] = "deploy_stack_network_policy() failed. The perform update button was not found"
+            kwargs['fail_msg'] = "The perform update button was not found"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -1790,7 +1798,7 @@ class NetworkPolicy(object):
                 return True
 
         self.auto_actions.click_reference(self.wireless_element.get_wireless_ssid_select_cancel_button)
-        kwargs['fail_msg'] = f"select_ssid_in_policy() failed. SSID: {ssid} not present"
+        kwargs['fail_msg'] = f"SSID: {ssid} not present"
         self.common_validation.failed(**kwargs)
         return False
 
@@ -2143,7 +2151,7 @@ class NetworkPolicy(object):
             return 1
 
         else:
-            kwargs['fail_msg'] = "create_owe_ssid() failed. Failed to configure OWE SSID"
+            kwargs['fail_msg'] = "Failed to configure OWE SSID"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2273,28 +2281,23 @@ class NetworkPolicy(object):
                                     self.common_validation.passed(**kwargs)
                                     return 1
                                 else:
-                                    kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
-                                                         "Unable to click on the Select button"
+                                    kwargs['fail_msg'] = "Unable to click on the Select button"
                                     self.common_validation.fault(**kwargs)
                                     return -1
                             else:
-                                kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
-                                                     f"Unable to select row {row.text}"
+                                kwargs['fail_msg'] = f"Unable to select row {row.text}"
                                 self.common_validation.fault(**kwargs)
                                 return -1
                 else:
-                    kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
-                                         "Unable to locate gather the Management Options"
+                    kwargs['fail_msg'] = "Unable to locate gather the Management Options"
                     self.common_validation.fault(**kwargs)
                     return -1
             else:
-                kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
-                                     "Unable to locate Re-Use Management Options button"
+                kwargs['fail_msg'] = "Unable to locate Re-Use Management Options button"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "select_network_policy_management_option() failed. " \
-                                 "Unable to locate management options on/off button"
+            kwargs['fail_msg'] = "Unable to locate management options on/off button"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2333,8 +2336,7 @@ class NetworkPolicy(object):
                                 self.common_validation.failed(**kwargs)
                                 return -1
                 else:
-                    kwargs['fail_msg'] = "add_user_group_to_network_policy_ssid() failed. " \
-                                               "No User Group item found in the SSID."
+                    kwargs['fail_msg'] = "No User Group item found in the SSID."
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -2916,8 +2918,6 @@ class NetworkPolicy(object):
         :return: random policy name
         """
         return f"test_policy_{str(time.time())[::-1][:5]}"
-
-
 
     def open_network_policy_ssid_page(self, policy_name, ssid_name, **kwargs):
         """

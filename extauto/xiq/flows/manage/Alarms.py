@@ -69,8 +69,7 @@ class Alarms(AlarmsWebElements):
                 self.commonValidation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info(f"Alarm Row Not Cleared Successfully with Search string {search_string}")
-                kwargs['fail_msg'] = f"clear_alarm() -> Alarm Row Not Cleared Successfully with Search string {search_string}"
+                kwargs['fail_msg'] = f"Alarm Row Not Cleared Successfully with Search string {search_string}"
                 self.commonValidation.failed(**kwargs)
                 return -1
         else:
@@ -137,7 +136,6 @@ class Alarms(AlarmsWebElements):
             return alarm_details
 
         else:
-            self.utils.print_info(f"Unable to Find Alarm with string {search_string}")
-            kwargs['fail_msg'] = f"get_alarm_details() -> Unable to Find Alarm with string {search_string}"
+            kwargs['fail_msg'] = f"Unable to Find Alarm with string {search_string}"
             self.commonValidation.failed(**kwargs)
             return -1
