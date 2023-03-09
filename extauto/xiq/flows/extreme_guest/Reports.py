@@ -1,11 +1,13 @@
-from extauto.common.CloudDriver import CloudDriver
 from time import sleep
+
+# from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestReportsWebElements import ExtremeGuestReportsWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Reports(object):
@@ -18,6 +20,7 @@ class Reports(object):
         self.auto_actions = AutoActions()
         self.reports_web_elem = ExtremeGuestReportsWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def _get_extreme_guest_manage_reports_page_user_row(self, search_string):
         """
@@ -30,16 +33,17 @@ class Reports(object):
         rows = self.reports_web_elem.get_extreme_guest_manage_reports_grid_rows()
         if rows:
             for row in rows:
-                self.utils.print_info(f"row: ", row)
+                self.utils.print_info(f"row: {row}")
                 cell = self.reports_web_elem.get_extreme_guest_manage_reports_grid_row_cells(row, "reports",
                                                                                              search_string)
                 if cell:
                     self.utils.print_info("returning rows")
                     return row
 
-    def _select_extreme_guest_manage_page_user_row_cell(self, search_string, cell="checkbox"):
+    def _select_extreme_guest_manage_page_user_row_cell(self, search_string, cell="checkbox", **kwargs):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -59,11 +63,15 @@ class Reports(object):
                                                                                           search_string))
                 sleep(2)
                 return 1
+
+        kwargs['fail_msg'] = "Unable to get row"
+        self.common_validation.fault(**kwargs)
         return 0
 
     def _get_extreme_guest_generated_reports_page_user_row(self, search_string):
         """
         Getting the row in Open SSID is same for all the objects
+
         :param search_string:
         :return:
         """
@@ -81,6 +89,7 @@ class Reports(object):
     def _select_extreme_guest_generated_page_user_row(self, search_string, cell="checkbox"):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """
@@ -99,14 +108,14 @@ class Reports(object):
         """
         self.ext_guest.go_to_analyze_page()
         self.utils.print_info("Clicking on Extreme Guest Manage Reports Tab")
-        self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_tab())
+        self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
     def _add_edit_manage_guest_report(self, report_name, report_type, report_format, period, dashboard_name, save_type,
-                                      scope):
+                                      scope, **kwargs):
         """
         :param report_name:
         :param report_type:
@@ -121,7 +130,7 @@ class Reports(object):
             f"report_name: {report_name}, report_type: {report_type}, report_format: {report_format}, save_type: {save_type}, scope: {scope}, period: {period}, dashboard_name: {dashboard_name}")
         if report_type:
             self.utils.print_info("Clicking report type dropdown")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_type_dropdown())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_type_dropdown)
             self.utils.print_info("selecting report type", report_type)
             self.auto_actions.select_drop_down_options(
                 self.reports_web_elem.get_extreme_guest_manage_reports_add_report_type_dropdown_items(), report_type)
@@ -129,8 +138,8 @@ class Reports(object):
             if report_type == "Guest Visit History":
                 if period:
                     self.utils.print_info("Clicking report period dropdown")
-                    self.auto_actions.click(
-                        self.reports_web_elem.get_extreme_guest_manage_reports_add_report_period_dropdown())
+                    self.auto_actions.click_reference(
+                        self.reports_web_elem.get_extreme_guest_manage_reports_add_report_period_dropdown)
                     self.utils.print_info("selecting period", period)
                     self.auto_actions.select_drop_down_options(
                         self.reports_web_elem.get_extreme_guest_manage_reports_add_report_period_dropdown_items(),
@@ -142,8 +151,8 @@ class Reports(object):
 
             elif report_type == "Dashboard Report":
                 self.utils.print_info("Clicking report dashboard name dropdown")
-                self.auto_actions.click(
-                    self.reports_web_elem.get_extreme_guest_manage_reports_add_report_dashboard_name_dropdown())
+                self.auto_actions.click_reference(
+                    self.reports_web_elem.get_extreme_guest_manage_reports_add_report_dashboard_name_dropdown)
                 self.utils.print_info("selecting dashboard name", dashboard_name)
                 self.auto_actions.select_drop_down_options(
                     self.reports_web_elem.get_extreme_guest_manage_reports_add_report_dashboard_name_dropdown_items(),
@@ -152,8 +161,8 @@ class Reports(object):
 
         if report_format:
             self.utils.print_info("Clicking report format dropdown")
-            self.auto_actions.click(
-                self.reports_web_elem.get_extreme_guest_manage_reports_add_report_format_dropdown())
+            self.auto_actions.click_reference(
+                self.reports_web_elem.get_extreme_guest_manage_reports_add_report_format_dropdown)
             self.utils.print_info("selecting report format", report_format)
             self.auto_actions.select_drop_down_options(
                 self.reports_web_elem.get_extreme_guest_manage_reports_add_report_format_dropdown_items(),
@@ -162,21 +171,21 @@ class Reports(object):
 
         if save_type == "save":
             self.utils.print_info("Clicking save button")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_button)
             sleep(2)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             sleep(5)
             if self._get_extreme_guest_manage_reports_page_user_row(report_name):
                 self.utils.print_info("Save successful")
                 return 1
         elif save_type == "run":
             self.utils.print_info("Clicking run button")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_run_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_run_button)
             sleep(2)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             sleep(5)
             self.utils.print_info("Clicking on Extreme Guest Generated Reports Tab")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_generated_reports_tab())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_generated_reports_tab)
             sleep(2)
             if self._get_extreme_guest_generated_reports_page_user_row(report_name):
                 self.utils.print_info("Run successful")
@@ -186,35 +195,39 @@ class Reports(object):
 
             self.screen.save_screen_shot()
             sleep(2)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_run_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_save_run_button)
             sleep(10)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             sleep(5)
             if self._get_extreme_guest_manage_reports_page_user_row(report_name):
                 self.utils.print_info("Save successful. Checking for Run state..")
                 sleep(2)
                 self.utils.print_info("Clicking on Extreme Guest Generated Reports Tab")
-                self.auto_actions.click(self.reports_web_elem.get_extreme_guest_generated_reports_tab())
+                self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_generated_reports_tab)
                 sleep(2)
                 if self._get_extreme_guest_generated_reports_page_user_row(report_name):
                     self.utils.print_info("Run successful")
                     return 1
+
+        kwargs['fail_msg'] = "Unable to create/edit report"
+        self.common_validation.fault(**kwargs)
         return 0
 
-    def select_scope_for_add_manage_report_page(self, scope):
+    def select_scope_for_add_manage_report_page(self, scope, **kwargs):
         """
         - This keyword selects a location in the Eguest Users --> Create Bulk users Vouchers Page
         - It is assumed that location is already created
         - Flow : Eguest Essentials --> More Insights --> Settings --> Users --> Add user--> Create Bulk users Vouchers
         - Keyword Usage:
-         - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
+        - ``Select Location For Create Bulk Vouchers Page ${LOCATION}``
+
         :param scope: location to select, in a comma-separated list format;
                e.g., Extreme Networks,Bangalore,Ecospace,Floor 1
         :return: 1 if location is selected, else -1'
         """
         ret_val = -1
         self.utils.print_info("Clicking Location Drop Down Button in add reports")
-        self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_scope_dropdown())
+        self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_scope_dropdown)
         sleep(2)
         if scope:
             try:
@@ -290,7 +303,8 @@ class Reports(object):
                 self.utils.print_info(e)
                 self.utils.print_info("Unable to select location")
         else:
-            self.utils.print_info("Cannot select location - location not specified")
+            kwargs['fail_msg'] = "Cannot select location - location not specified"
+            self.common_validation.fault(**kwargs)
 
         return ret_val
 
@@ -310,7 +324,7 @@ class Reports(object):
             f"report_name: {report_name}, report_type: {report_type}, report_format: {report_format}, save_type: {save_type}, scope: {scope}, period: {period}, dashboard_name: {dashboard_name}")
         self.go_to_manage_reports_tab()
         self.utils.print_info("Click on create report button")
-        self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_button())
+        self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_button)
         self.utils.print_info("Entering Report name", report_name)
         self.auto_actions.send_keys(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_name_field(),
                                     report_name)
@@ -325,14 +339,15 @@ class Reports(object):
         self.go_to_manage_reports_tab()
         if self._select_extreme_guest_manage_page_user_row_cell(report_name):
             self.utils.print_info("Deleting Manage Report: ", report_name)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_delete_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_delete_button)
             sleep(2)
             self.utils.print_info("Clicking OK to delete")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             sleep(2)
             self.utils.print_info("Clicking OK")
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             return 1
+
         return 0
 
     def delete_extreme_guest_generated_report(self, report_name):
@@ -343,9 +358,9 @@ class Reports(object):
         self.go_to_generated_reports_tab()
         if self._select_extreme_guest_generated_page_user_row(report_name):
             self.utils.print_info("Deleting Generated Report: ", report_name)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_generated_reports_delete_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_generated_reports_delete_button)
             sleep(2)
-            self.auto_actions.click(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button())
+            self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_manage_reports_add_report_ok_button)
             return 1
         return 0
 
@@ -356,7 +371,7 @@ class Reports(object):
         self.utils.print_info("Navigating to Generated Reports Page")
         self.ext_guest.go_to_analyze_page()
         self.utils.print_info("Clicking on Extreme Guest Generated Reports Tab")
-        self.auto_actions.click(self.reports_web_elem.get_extreme_guest_generated_reports_tab())
+        self.auto_actions.click_reference(self.reports_web_elem.get_extreme_guest_generated_reports_tab)
         sleep(2)
 
         self.screen.save_screen_shot()

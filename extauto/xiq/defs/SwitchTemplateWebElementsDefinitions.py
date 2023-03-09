@@ -20,13 +20,13 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_name_textfield = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='tplName']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-name']",
             'wait_for': 5
         }
 
     sw_template_save_btn = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='saveButton']",
+            'XPATH': "//fixed-bar[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
         }
 
@@ -49,6 +49,12 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_enable_rstp = \
         {
             'XPATH': "//*[@data-dojo-attach-point='stpMode-rstp']",
+            'wait_for': 5
+        }
+
+    sw_template_enable_mstp = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='stpMode-mstp']",
             'wait_for': 5
         }
 
@@ -76,6 +82,12 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_row_cells = \
         {
             'CSS_SELECTOR': '.J-tmplName',
+            'wait_for': 5
+        }
+
+    sw_template_row_table_cells = \
+        {
+            'CSS_SELECTOR': '.dgrid-cell',
             'wait_for': 5
         }
 
@@ -142,6 +154,18 @@ class SwitchTemplateWebElementDefinitions:
     sw_template_assign_create_new = \
         {
             'XPATH': '//a[@type="createPortType"]',
+            'wait_for': 5
+        }
+
+    sw_template_assign_advanced_actions = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-advancedactions"]',
+            'wait_for': 5
+        }
+
+    sw_template_assign_advanced_actions_aggr = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-aggregate"]',
             'wait_for': 5
         }
 
@@ -345,14 +369,14 @@ class SwitchTemplateWebElementDefinitions:
 
     switch_temp_cancel_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="cancelButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-switch-template-cancel-btn"]',
             'index': 3,
             'wait_for': 5
         }
 
     switch_temp_save_button = \
         {
-            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-switch-template-save-btn"]',
             'wait_for': 5
         }
 
@@ -365,6 +389,18 @@ class SwitchTemplateWebElementDefinitions:
     complete_stack_all_rows = \
         {
             "CSS_SELECTOR": '.active-result',
+            'wait_for': 5
+        }
+
+    aggr_ports_across_stack_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="switch-template-aggregate-for-stack"]',
+            'wait_for': 5
+        }
+
+    aggr_ports_standalone_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="switch-template-aggregate-for-exos"]',
             'wait_for': 5
         }
 
@@ -382,7 +418,7 @@ class SwitchTemplateWebElementDefinitions:
 
     select_all_ports_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="selectAllButton"]',
+            'XPATH': '//button[@data-dojo-attach-point="selectAllButton"]',
             'wait_for': 2
         }
 
@@ -412,7 +448,7 @@ class SwitchTemplateWebElementDefinitions:
 
     save_button_template = \
         {
-            'XPATH': '//*[@class="bottom"]//*[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//fixed-bar[@class="bottom"]/button[@data-dojo-attach-point="saveButton"][text() = "Save"]',
             'wait_for': 2
         }
 
@@ -436,8 +472,8 @@ class SwitchTemplateWebElementDefinitions:
 
     priority_options = \
         {
-            'XPATH': '//*[@class="line clearfix priority"]//*[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-bridge-dropdown-chzn-arrow-down"]'
+
         }
 
     low_value_option = \
@@ -458,10 +494,14 @@ class SwitchTemplateWebElementDefinitions:
             'wait_for': 2
         }
 
+    priority_items_select_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-bridge-dropdown-chzn-results-ctn"]'
+        }
+
     priority_items_select = \
         {
-            'XPATH': '//div[@class="pse-profileobject-form ui-dialog-content"]//ul[@class="chzn-results qa-chzn-results-priority"]//li[contains(@class,"active-result")]',
-            'wait_for': 2
+            'CSS_SELECTOR': '.active-result'
         }
 
     power_mode_items_select = \
@@ -520,7 +560,8 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_supplemental_cli_on_button = \
         {
-            'XPATH': '//input[@data-dojo-attach-point="enabledControl"]',
+            'XPATH': '//section[@data-dojo-attach-point="advSettingsCtn"]'
+                     '//input[@data-dojo-attach-point="enabledControl"]',
             'wait_for': 1
         }
 
@@ -584,4 +625,599 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': "//*[@class='bottom']//*[@data-dojo-attach-point='saveButton']",
             'wait_for': 5
+        }
+
+    lacp_toggle_button = \
+        {
+            'XPATH': '//*[contains(@data-automation-tag,"lag-lacp-toggle")]',
+            'wait_for': 2
+        }
+
+    lag_remove_port_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="lag-remove-port-button"]',
+            'wait_for': 2
+        }
+
+    lag_add_port_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="lag-add-port-button"]',
+            'wait_for': 2
+        }
+
+    select_ports_available = \
+        {
+            'XPATH': '//select[@data-dojo-attach-point="portsAvailable"]//option',
+            'wait_for': 5
+        }
+
+    cancel_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="lag-cancel-button"]',
+            'wait_for': 5
+        }
+
+    save_port_type_button = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-automation-tag="lag-save-button"]',
+            'wait_for': 5
+        }
+
+    switch_temp_save_button_v2 = \
+        {
+            'XPATH': '//fixed-bar[@class="bottom"]//button[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 5,
+            'index': 1
+        }
+
+    lag_span = \
+        {
+            'CSS_SELECTOR': '.link-type-agg-prime .control-label.portInterface  [data-automation-tag="lag-edit-lag-${lag}"]',
+            'wait_for': 10
+        }
+
+    available_port = \
+        {
+            'XPATH': '//option[@data-automation-tag="lag-available-port-${port}"]',
+            'wait_for': 5
+        }
+
+    selected_port = \
+        {
+            'XPATH': '//option[@data-automation-tag="lag-selected-port-${port}"]',
+            'wait_for': 5
+        }
+
+    port_settings_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-settings"]',
+            'wait_for': 5
+        }
+
+    available_slot = \
+        {
+            'XPATH': '//select[@data-automation-tag="lag-slots-available"]//option[@value="${slot}"]',
+            'wait_for': 5
+        }
+
+    error_message = \
+        {
+            'XPATH': '//*[contains(@class, "ui-tipbox-error")]//*[@data-dojo-attach-point="textEl"]',
+            'wait_for': 1,
+        }
+
+    template_link = \
+        {
+            'XPATH': '//a[text()="${template}"]',
+            'wait_for': 5
+        }
+
+    select_all_rows = \
+        {
+            'XPATH': '//div[@id="ah/util/AHGrid_1_rowSelector_-1"]',
+            'wait_for': 5
+        }
+
+    confirm_message_yes_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 5
+        }
+
+    sw_template_adv_tab_textfield = \
+        {
+            'XPATH': '//input[@data-automation-tag="automation-switch-template-name"]',
+            'wait_for': 2
+        }
+
+    sw_template_save_btn_adv_tab = \
+        {
+            'XPATH': '//*[@class = "bottom"]//*[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgrade_device_text = \
+        {
+            'XPATH': '//*[contains(text(),"Upgrade device firmware upon device authentication")]/text()',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgrade_device_on_off_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableUploadAuthExos"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upload_config_text = \
+        {
+            'XPATH': '//*[contains(text(),"Upload configuration automatically")]/text()',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upload_configuration_on_off_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="configPushAuto"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgr_firm_latest_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="downloadFirmwareOption-latest"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_upgr_firm_specific_button = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="downloadFirmwareOption-specific"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-container-ctn"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_items = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-drop-ctn"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_items_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-results-ctn"]'
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_items_all_items = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_item16 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-16"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_sett_forward_delay_drop_down_item15 = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-15"]',
+            'wait_for': 2
+        }
+
+    sw_template_adv_settings_download_specific_firmware_drop_down_button = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="importImageArea"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    sw_template_adv_settings_download_specific_firmware_drop_down_items = \
+        {
+            'XPATH': '//ul[@class="chzn-results qa-chzn-results-deviceimagemetadata"]//li[contains(@class,"active-result")]',
+            'wait_for': 2
+        }
+
+    sw_template_row_cells_hyperlink = \
+        {
+            'CSS_SELECTOR': '.J-tmplName',
+            'wait_for': 10
+        }
+
+    sw_template_stp_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-stp"]',
+            'wait_for': 5
+        }
+
+    sw_template_port_details_tab = \
+        {
+            'XPATH': '//label[@data-dojo-attach-point="configuration-ports-tab-details"]',
+            'wait_for': 5
+        }
+
+    sw_template_stp_port_rows = \
+        {
+            'XPATH': '//portentry-row[contains(@componentpath, "PortSTPEntry")]',
+            'wait_for': 5
+        }
+
+    sw_template_path_cost_row = \
+        {
+            'XPATH': './/input[@data-dojo-attach-point="pathCostField"]',
+            'wait_for': 5
+        }
+
+    template_slot = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-${slot}"]',
+            'wait_for': 5
+        }
+
+    port_in_agg = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portsInAgg"]//option',
+            'wait_for': 5
+        }
+
+    sw_template_hyperlink = \
+        {
+            'XPATH': "//a[@class='J-tmplName']",
+            'wait_for': 5
+        }
+
+    sw_template_enable_mac_locking = \
+        {
+            'XPATH': "//input[@data-automation-tag='template-maclock-enable']",
+            'wait_for': 5
+        }
+    sw_template_enable_mac_locking_confirm_message_yes_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="automation-confirm-message-yes-button"]',
+            'wait_for': 5
+        }
+
+    sw_template_auto_cfg = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="configPushAuto"]',
+            'wait_for': 5
+        }
+
+    sw_template_auto_revert_enabled = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enableAutoRevert"]',
+            'wait_for': 5
+        }
+
+    sw_template_auto_revert_msg = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-upload-config-auto-enable-revert"]',
+            'wait_for': 5
+        }
+
+    sw_template_notification_yes_btn = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
+            'wait_for': 5
+        }
+
+    sw_template_assign_existing_trunk_choice_second_dialog_box_save_button = \
+        {
+            'XPATH': '//div[@class="ui-dialog-bottom clearfix"]//button[@data-dojo-attach-point="saveButton"]'
+        }
+
+    pse_error_message = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="textEl"]',
+            'index': 0,
+        }
+
+    sw_template_port_details_interface_all_rows = \
+        {
+            'CSS_SELECTOR': '.state-expanded.state-type-autoSense-port'
+        }
+
+    sw_template_port_details_row_interface_value = \
+        {
+            'CSS_SELECTOR': '.is-not-prime'
+        }
+
+    sw_template_port_details_row_combo = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-port-details-port-type']",
+            'wait_for': 5
+        }
+
+    sw_template_port_details_combo_list = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='containerNode,textDirNode']",
+            'wait_for': 5
+        }
+
+    sw_template_port_details_row_port_type_list = \
+        {
+            'CSS_SELECTOR': '.dijitReset.dijitMenuItem'
+        }
+
+    sw_template_port_details_port_type_editor_name = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-name']"
+        }
+
+    sw_template_port_details_port_type_editor_description = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-description']"
+        }
+
+    sw_template_port_details_port_type_editor_status = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-status']"
+        }
+
+    sw_template_port_details_port_type_editor_auto_sense_status = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-auto-sense-status']"
+        }
+
+    sw_template_port_details_port_type_editor_access = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-access']"
+        }
+
+    sw_template_port_details_port_type_editor_trunk = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-trunk']"
+        }
+
+    sw_template_port_details_port_type_editor_cancel = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-cancel']"
+        }
+
+    sw_template_port_details_port_type_editor_previous = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-prev']"
+        }
+
+    sw_template_port_details_port_type_editor_next = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-next']"
+        }
+
+    sw_template_port_details_port_type_editor_save = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-save']"
+        }
+
+    sw_template_port_details_port_type_editor_duplex_arrow = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-duplex-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_duplex_options_container = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-duplex-chzn-results-ctn']"
+        }
+
+    sw_template_port_details_port_type_editor_duplex_arrow_options = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+    sw_template_port_details_port_type_editor_speed_arrow = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-speed-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_speed_options_container = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-speed-chzn-results-ctn']"
+        }
+
+    sw_template_port_details_port_type_editor_speed_arrow_options = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+    sw_template_port_details_port_type_options = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+    sw_template_port_details_port_type_editor_client_reporting = \
+        {
+            'XPATH': '//*[@id="hcApp/deviceConfig/switchFeatures/porttypes/steps/PortTypesSettingsView_3"]/div[2]/div[2]/div[1]/span[2]/label/input'
+        }
+
+    sw_template_port_details_port_type_editor_cdp_receive = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-cdp']"
+        }
+
+    sw_template_port_details_port_type_editor_lldp_transmit = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-lldp-tx']"
+        }
+
+    sw_template_port_details_port_type_editor_lldp_receive = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-lldp-rx']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_broadcast = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-sc-broadcast']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_unicast = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-sc-unicast']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_multicast = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-sc-multicast']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_threshold = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-sc-threshold-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_rate_limit_type = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-sc-rate-limit-type-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_sc_rate_limit_value = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-sc-rate-limit-value']"
+        }
+
+    sw_template_port_details_port_type_editor_port_name_and_usage_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-info']"
+        }
+
+    sw_template_port_details_port_type_editor_transmission_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-trans']"
+        }
+
+    sw_template_port_details_port_type_editor_storm_control_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-storm-control']"
+        }
+
+    sw_template_port_details_port_type_editor_summary_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-summary']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-vlan']"
+        }
+
+    sw_template_port_details_port_type_editor_stp_tab = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-step-stp']"
+        }
+
+    device_switch_select_button = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-device-templates-reusable-btn']"
+        }
+
+    sw_template_table_rows = \
+        {
+            'CSS_SELECTOR': '.dojoxGridRow'
+        }
+
+    switch_template_device_configuration_igmp_settings = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-igmp-toggle']"
+        }
+
+    switch_template_device_configuration_igmp_immediate_leave = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-immediate-leave']"
+        }
+
+    switch_template_device_configuration_igmp_suppress_independent = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-suppress-independent']"
+        }
+
+    switch_template_device_configuration_mtu_1522 = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='ethMtu-min']"
+        }
+
+    switch_template_device_configuration_mtu_1950 = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='ethMtu-mid']"
+        }
+
+    switch_template_device_configuration_mtu_9600 = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='ethMtu-max']"
+        }
+
+    switch_template_device_configuration_pse_enable = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-pse-toggle']"
+        }
+
+    switch_template_device_configuration_pse_budget = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-switch-template-pse-budget']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_stp_enable = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-enable']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_edge_port_enable = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-edge-port']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_bdu_protection = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-stp-bpdu-prot-chzn-arrow-down']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_priority = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-stp-priority-chzn-drop-ctn']"
+        }
+
+    sw_template_port_details_port_type_editor_spanning_tree_path_cost = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-stp-path-cost']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_native_vlan = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-native-vlan-input']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_add_button = \
+        {
+            'XPATH': "//*[@data-automation-tag='automation-port-type-editor-native-vlan-add-btn']"
+        }
+
+    sw_template_port_details_port_type_editor_vlan_allowed_vlans = \
+        {
+            'XPATH': "//*[@data-automation-tag='port-type-editor-allowed-vlans']"
+        }
+
+    sw_template_device_max_age_drop_down_items = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-age-dropdown-chzn-arrow-down"]',
+            'wait_for': 2
+        }
+
+    sw_template_device_max_age_delay_items_container = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-switch-template-age-dropdown-chzn-results-ctn"]'
+        }
+
+    sw_template_device_max_age_drop_down_all_items = \
+        {
+            'CSS_SELECTOR': '.active-result'
+        }
+
+    device_template_no_of_ports = \
+        {
+            'CSS_SELECTOR': '.state-expanded.state-type-access-port',
+            'wait_for': 10
         }

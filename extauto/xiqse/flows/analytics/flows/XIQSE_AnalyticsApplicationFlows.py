@@ -18,9 +18,9 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
 
     def xiqse_applicationflows_open_search(self):
         """
-         - This keyword opens the search box on the Analytics > Application Flows Tab
-         - Keyword Usage
-          - ``XIQSE ApplicationFlows Open Search``
+        - This keyword opens the search box on the Analytics > Application Flows Tab
+        - Keyword Usage
+        - ``XIQSE ApplicationFlows Open Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -30,11 +30,11 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "true":
-                self.utils.print_info(f"Clicking Search button")
+                self.utils.print_info("Clicking Search button")
                 self.auto_actions.click(search_btn)
                 sleep(2)
             else:
-                self.utils.print_info(f"Search field already open")
+                self.utils.print_info("Search field already open")
             ret_val = 1
         else:
             self.utils.print_info("Unable to find the Search button")
@@ -44,9 +44,9 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
 
     def xiqse_applicationflows_enter_search_text(self, value):
         """
-         - This keyword enters text into the search field on the Analytics Application Flows Tab
-         - Keyword Usage
-          - ``XIQSE ApplicationFlows Enter Search Text    My Event To Find``
+        - This keyword enters text into the search field on the Analytics Application Flows Tab
+        - Keyword Usage
+        - ``XIQSE ApplicationFlows Enter Search Text    My Event To Find``
 
         :param value: string to enter in the search box
         :return: 1 if action was successful, else -1
@@ -70,9 +70,9 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
 
     def xiqse_applicationflows_trigger_search(self):
         """
-         - This keyword clicks the search button in the search box on the Analytics> Application Flows Tab to perform the search
-         - Keyword Usage
-          - ``XIQSE ApplicationFlows Trigger Search``
+        - This keyword clicks the search button in the search box on the Analytics> Application Flows Tab to perform the search
+        - Keyword Usage
+        - ``XIQSE ApplicationFlows Trigger Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -82,11 +82,11 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Search button to perform the search")
+                self.utils.print_info("Clicking Search button to perform the search")
                 self.auto_actions.click(search_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Search button to perform the search")
@@ -96,9 +96,9 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
 
     def xiqse_applicationflows_clear_search(self):
         """
-         - This keyword clicks the clear button in the search box on the Application Flows tab to clear the search
-         - Keyword Usage
-          - ``XIQSE ApplicationFlows Clear Search``
+        - This keyword clicks the clear button in the search box on the Application Flows tab to clear the search
+        - Keyword Usage
+        - ``XIQSE ApplicationFlows Clear Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -108,11 +108,11 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
         search_text = self.get_search_text_field()
         if clear_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Clear button")
+                self.utils.print_info("Clicking Clear button")
                 self.auto_actions.click(clear_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Clear button")
@@ -122,9 +122,9 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
 
     def xiqse_applicationflows_wait_for_search_to_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits for the search to complete on the Application Flows Tab
-         - Keyword Usage
-          - ``XIQSE ApplicationFlows Wait For Search To Complete``
+        - This keyword waits for the search to complete on the Application Flows Tab
+        - Keyword Usage
+        - ``XIQSE ApplicationFlows Wait For Search To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the search to be complete
         :param retry_count:    number of times to check for the search to be complete
@@ -135,10 +135,10 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
             self.utils.print_info(f"Waiting for search to complete: loop {count}")
             load_mask = self.view_el.get_load_mask()
             if load_mask:
-                self.utils.print_info(f"Search still in progress...")
+                self.utils.print_info("Search still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Search has completed")
+                self.utils.print_info("Search has completed")
                 return 1
             count += 1
 
@@ -148,10 +148,10 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
 
     def xiqse_application_flows_perform_search(self, value, retry_duration=10, retry_count=30):
         """
-         - This keyword performs a search on the Application Flows Tab
-         - Keyword Usage
-          - ``XIQSE Application Flows Perform Search   My Search String``
-          - ``XIQSE Application Flows Perform Search   My Search String  retry_duration=5  retry_count=10``
+        - This keyword performs a search on the Application Flows Tab
+        - Keyword Usage
+        - ``XIQSE Application Flows Perform Search   My Search String``
+        - ``XIQSE Application Flows Perform Search   My Search String  retry_duration=5  retry_count=10``
 
         :param value:          string to search for
         :param retry_duration: amount of time to wait in between each check for the search to be complete
@@ -198,8 +198,3 @@ class XIQSE_AnalyticsApplicationFlows(AnalyticsApplicationFlowsWebElements):
             self.screen.save_screen_shot()
 
         return ret_val
-
-
-
-
-

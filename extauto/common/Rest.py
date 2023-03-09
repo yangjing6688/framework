@@ -241,3 +241,38 @@ class Rest:
         self.utils.print_info("Time: ", total_time)
 
         return response_code
+
+    def get_http_response_code(self, url):
+        """
+        This method used to get the status code of url
+        :param url:
+        :return: status code
+        """
+        r = requests.get(url)
+        response_code = r.status_code
+
+        return response_code
+
+    def get_http_data(self, url):
+        """
+        This method is used to get the data from url
+        :param url:
+        :return: data
+        """
+        r = requests.get(url)
+        data = r.text
+
+        return data
+
+    def validate_unresolved_directive(self, url):
+        """
+        This method is used to validate the string in html page
+        :param url:
+        :return: integer
+        """
+        x = requests.get(url)
+        contents = x.text
+
+        value = contents.find("Unresolved directive")
+
+        return value

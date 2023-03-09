@@ -1,14 +1,18 @@
-from extauto.xiq.elements.FilterManageDeviceWebElements import *
-from extauto.xiq.elements.FilterManageClientsWebElements import *
-from extauto.xiq.elements.DeviceActions import *
-from extauto.xiq.flows.manage.Devices import *
-from extauto.xiq.flows.manage.Tools import Tools
-from extauto.xiq.flows.configure.NetworkPolicy import *
-from extauto.xiq.flows.configure.WirelessNetworks import *
-from extauto.xiq.flows.configure.UserGroups import *
-from extauto.xiq.flows.configure.ExpressNetworkPolicies import *
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
+from time import sleep
+
+from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.elements.FilterManageDeviceWebElements import FilterManageDeviceWebElements
+from extauto.xiq.elements.FilterManageClientsWebElements import FilterManageClientWebElements
+from extauto.xiq.elements.DeviceActions import DeviceActions
+from extauto.xiq.flows.manage.Devices import Devices
+from extauto.xiq.flows.manage.Tools import Tools
+from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
+from extauto.xiq.flows.configure.ExpressNetworkPolicies import ExpressNetworkPolicies
+from extauto.xiq.flows.common.Navigator import Navigator
+import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 
 
 class FilterManageDevices():
@@ -31,8 +35,8 @@ class FilterManageDevices():
         """ Verification of the filtering of the devices by the network policy
             prequist: Require at least two onboard APs with each policy
             Usage of test case:
-            Test1:  Filter Device By Policy
-                    filter device by policy
+            Test1: Filter Device By Policy
+            filter device by policy
         """
         sn_list, policy_list = self.check_available_devices()
         self.expand_and_collapse_filters(self.filter_element.get_network_policy_filter_link())
@@ -77,8 +81,8 @@ class FilterManageDevices():
             prequist: Require at least one real device and one simulated device
             Usage of test case:
             Test1: Filter Device By Device Type
-                   filter by device type  real device
-                   filter by device type  simulated device
+            filter by device type  real device
+            filter by device type  simulated device
         """
         self.utils.print_info(" -----  Filter the " + filter + " ---- ")
         total_sim_devices, total_real_devices = self.check_available_devices('device type')
@@ -114,7 +118,7 @@ class FilterManageDevices():
         sn_list, policy_list = self.get_column_values_from_device_page()
         self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         if not sn_list or len(sn_list) == 0: return -1, "The device list is empty"
-        status =  self.device.get_ap_status(ap_sn)
+        status = self.device.get_device_status(device_serial=ap_sn)
 
         if status == 'green':
             self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
@@ -142,7 +146,7 @@ class FilterManageDevices():
             Usage of test case:
 
             Test1: Filter By Device Production Type
-                   filter device production type
+            filter device production type
         """
         self.clear_all_filters()
         self.expand_default_filters()
@@ -182,8 +186,8 @@ class FilterManageDevices():
             prequist: Require at least one AP and one Fasthpath / Hive OS switch
             Ussage of test case:
             Test1: Filter By Device Function
-                   filter device by function  ap model
-                   filter device by function  sw model
+            filter device by function  ap model
+            filter device by function  sw model
         """
         self.utils.print_info(" ----- Filter the " + filter + " ----- ")
         ap_lst, sw_lst = self.check_available_devices()
@@ -213,8 +217,8 @@ class FilterManageDevices():
         """ Verification of the devices by the device mangement state
             prequist: Require at least one or more onboard devices
             Usage of test case:
-                Test1: Filter By Device Management State
-                       filter device by management state
+            Test1: Filter By Device Management State
+            filter device by management state
         """
         sn_list, host_list = self.check_available_devices(real_device=True)
         if sn_list == -1: return -1, host_list
@@ -249,11 +253,11 @@ class FilterManageDevices():
         """ verification of the devices by software version
             prequist: Require at least two or more onboard different hardware devices
             usage of test case:
-                Test1: Filter By Device Software Version
-                       filter device by software version
+            Test1: Filter By Device Software Version
+            filter device by software version
         """
         soft_lst = self.check_available_devices('firmware version')
-        if soft_lst == -1: return -1, error
+        if soft_lst == -1: return -1, "error"
         self.utils.print_info(" Bwfoew Available hardware models " + str(soft_lst))
         real_modeL_lst =  self.parse_string(soft_lst)
         self.utils.print_info(" Available hardware models" + str(real_modeL_lst))
@@ -279,9 +283,9 @@ class FilterManageDevices():
 
         """ Verification of the filtering of the devices by audit status
             prequist: Require at least two or more onboard devices with a different policy
-            usage of test case :
-                 Test1: Filter By Device audit status
-                        filter device by audit status
+            usage of test case
+            Test1: Filter By Device audit status
+            filter device by audit status
         """
         sn_list, policy_list = self.check_available_devices(real_device=True)
         if sn_list == -1: return -1, policy_list
@@ -317,9 +321,10 @@ class FilterManageDevices():
         """ Verification of the filtering of the devices by ssid
             prequist: Require at least two onboard devices with with two different wireless networks
             usage of test case:
-                Test1: Filter Device By ssid
-                       filter device by ssid
-                Jira: APC-39526 - The SSID list in the SSID filter does not update accordingly
+            Test1: Filter Device By ssid
+            filter device by ssid
+
+            Jira: APC-39526 - The SSID list in the SSID filter does not update accordingly
         """
         sn_list, policy_list = self.check_available_devices(real_device=True, ap_type=True)
         if sn_list == -1: return -1, policy_list
@@ -331,17 +336,20 @@ class FilterManageDevices():
         cnt = 0
         for policy in policy_list:
             for ssid in policy_ssid[policy]:
-                 cnt = cnt + 1
-                 if cnt > 3: break
-                 self.utils.print_info(" ------ Filter the ssid ------ " + str(ssid) + ' in the policy ' + str(policy))
-                 ssid_element = self.filter_element.get_device_ssid_filter_checkbox(str(ssid))
-                 self.select_filter_by(ssid_element, filter_name='ssid')
-                 self.utils.print_info(" Validate the filter ")
-                 sn_list, policy_list = self.get_column_values_from_device_page()
-                 if not policy_list or len(policy_list) == 0: return -1, "The device list is empty with the ssid filter " + str(ssid)
-                 policy_list = list(dict.fromkeys(policy_list))
-                 if policy_list[0] != policy: return -1, " Policy does not match " + str(policy_list[0] + ' ' + str(policy))
-                 self.select_filter_by(ssid_element, filter_name='ssid', reset=True)
+                cnt = cnt + 1
+                if cnt > 3:
+                    break
+                self.utils.print_info(" ------ Filter the ssid ------ " + str(ssid) + ' in the policy ' + str(policy))
+                ssid_element = self.filter_element.get_device_ssid_filter_checkbox(str(ssid))
+                self.select_filter_by(ssid_element, filter_name='ssid')
+                self.utils.print_info(" Validate the filter ")
+                sn_list, policy_list = self.get_column_values_from_device_page()
+                if not policy_list or len(policy_list) == 0:
+                    return -1, "The device list is empty with the ssid filter " + str(ssid)
+                policy_list = list(dict.fromkeys(policy_list))
+                if policy_list[0] != policy:
+                    return -1, " Policy does not match " + str(policy_list[0] + ' ' + str(policy))
+                self.select_filter_by(ssid_element, filter_name='ssid', reset=True)
 
         return str(1), None
 
@@ -350,9 +358,9 @@ class FilterManageDevices():
         """ Verification of the filtering of the devices by user profiles
             prequist: Require at least one onboard devices with a network policy
             usage of test case:
-                Test1: Filter By Device user profile
-                       filter device by user profiles  guest
-                       filter device by user profiles  profile
+            Test1: Filter By Device user profile
+            filter device by user profiles  guest
+            filter device by user profiles  profile
         """
         self.utils.print_info(" ----- Filter the " + filter + " -----")
         sn_list, policy_list = self.check_available_devices(real_device=True, ap_type=True)
@@ -395,10 +403,10 @@ class FilterManageDevices():
 
         """ Verification of the filtering of the clients based on the device function
             prequist: AP and switch need to be onboarded and need one client to switch and one client connect to AP
-                Usage of test case:
-                    Test1: Filter Client By Device Function
-                        client.filter client by device function  client ap
-                        client.filter client by device function  client switch
+            Usage of test case:
+            Test1: Filter Client By Device Function
+            client.filter client by device function  client ap
+            client.filter client by device function  client switch
             Jira: APC - 3741
         """
         self.utils.print_info(" ----- Filter the " + filter + " -----")
@@ -449,8 +457,8 @@ class FilterManageDevices():
         """ Verification of the clients based on the os type
             prequist: One or two clients should be connected via Wifi either Windows, Mac OS
             Usage of test case:
-                Test1: Filter Client By OS Type
-                       filter client by os type
+            Test1: Filter Client By OS Type
+            filter client by os type
         """
 
         self.utils.print_info(" ----- Filter the " + filter  + "-----" )
@@ -489,8 +497,8 @@ class FilterManageDevices():
         """ Verification of the Clients based on the SSID
             prequist: 1 Ap should be onboarded with wireless network
             Usage of test case:
-              Test1: Filter Client By Client SSID
-                     filter client by ssid
+            Test1: Filter Client By Client SSID
+            filter client by ssid
         """
         self.utils.print_info("----- filter the " + filter + " ------ " )
         if filter in ['client ssid']:
@@ -523,9 +531,9 @@ class FilterManageDevices():
         """ Verification of the filtering of the Clients based on the SSID
             prequist: 1 Ap should be onboarded with wireless network
             Usage of test case:
-              Test1: Filter Client By User Profiles
-                filter client by user profiles  ${ssid_name}   client guess profile
-                filter client by user profiles  ${ssid_name}   client default profile
+            Test1: Filter Client By User Profiles
+            filter client by user profiles  ${ssid_name}   client guess profile
+            filter client by user profiles  ${ssid_name}   client default profile
         """
 
         if filter in ['client guest profile']:
@@ -571,16 +579,17 @@ class FilterManageDevices():
         return str(1), None
 
     def set_device_type_filter(self, filter='All', select='true'):
-        """ Sets the device type filter to the specified value
-            Usage of test case:
-                Set Device Type Filter  All  true
-                Set Device Type Filter  Plan Devices  true
-                Set Device Type Filter  Real Devices  true
-                Set Device Type Filter  Simulated Devices  true
-                Set Device Type Filter  All  false
-                Set Device Type Filter  Plan Devices  false
-                Set Device Type Filter  Real Devices  false
-                Set Device Type Filter  Simulated Devices  false
+        """
+        Sets the device type filter to the specified value
+        Usage of test case:
+            Set Device Type Filter  All  true
+            Set Device Type Filter  Plan Devices  true
+            Set Device Type Filter  Real Devices  true
+            Set Device Type Filter  Simulated Devices  true
+            Set Device Type Filter  All  false
+            Set Device Type Filter  Plan Devices  false
+            Set Device Type Filter  Real Devices  false
+            Set Device Type Filter  Simulated Devices  false
 
         :param filter: name of the filter to set
         :param select: indicates whether the filter check box should be selected (true) or deselected (false)
@@ -594,7 +603,7 @@ class FilterManageDevices():
         # Expand the Device Types filter section if it is not yet expanded
         device_type_filter_collapsed = self.filter_element.get_device_type_filter_link_collapsed()
         if device_type_filter_collapsed and device_type_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_type_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_type_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -611,16 +620,17 @@ class FilterManageDevices():
         return self.toggle_filter_check_box(element, select)
 
     def set_device_connection_state_filter(self, filter='All', select='true'):
-        """ Sets the device connection state filter to the specified value
-            Usage of test case:
-                Set Device Connection State Filter  All  true
-                Set Device Connection State Filter  Connected  true
-                Set Device Connection State Filter  Disconnected  true
-                Set Device Connection State Filter  Pre-Provisioned  true
-                Set Device Connection State Filter  All  false
-                Set Device Connection State Filter  Connected  false
-                Set Device Connection State Filter  Disconnected  false
-                Set Device Connection State Filter  Pre-Provisioned  false
+        """
+        Sets the device connection state filter to the specified value
+        Usage of test case:
+            Set Device Connection State Filter  All  true
+            Set Device Connection State Filter  Connected  true
+            Set Device Connection State Filter  Disconnected  true
+            Set Device Connection State Filter  Pre-Provisioned  true
+            Set Device Connection State Filter  All  false
+            Set Device Connection State Filter  Connected  false
+            Set Device Connection State Filter  Disconnected  false
+            Set Device Connection State Filter  Pre-Provisioned  false
 
         :param filter: name of the filter to set
         :param select: indicates whether the filter check box should be selected (true) or deselected (false)
@@ -634,7 +644,7 @@ class FilterManageDevices():
         # Expand the Device Connection State filter section if it is not yet expanded
         connection_state_filter_collapsed = self.filter_element.get_device_state_filter_link_collapsed()
         if connection_state_filter_collapsed and connection_state_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_state_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_state_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -676,7 +686,7 @@ class FilterManageDevices():
         # Expand the Device Management State filter section if it is not yet expanded
         mgmt_state_filter_collapsed = self.filter_element.get_device_data_management_state_filter_link_collapsed()
         if mgmt_state_filter_collapsed and mgmt_state_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_data_management_state_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_data_management_state_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -716,7 +726,7 @@ class FilterManageDevices():
         # Expand the Device Function filter section if it is not yet expanded
         func_filter_collapsed = self.filter_element.get_device_function_filter_link_collapsed()
         if func_filter_collapsed and func_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_function_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_function_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -752,7 +762,7 @@ class FilterManageDevices():
         # Expand the Device Product Type filter section if it is not yet expanded
         prod_filter_collapsed = self.filter_element.get_device_function_filter_link_collapsed()
         if prod_filter_collapsed and prod_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_function_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_function_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -786,7 +796,7 @@ class FilterManageDevices():
         # Expand the Device Software Version filter section if it is not yet expanded
         soft_ver_filter_collapsed = self.filter_element.get_device_soft_version_link_collapsed()
         if soft_ver_filter_collapsed and soft_ver_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_device_soft_version_link())
+            self.auto_actions.click_reference(self.filter_element.get_device_soft_version_link)
 
         # Get the check box element to toggle
         element = None
@@ -823,7 +833,7 @@ class FilterManageDevices():
         # Expand the Cloud Config Group filter section if it is not yet expanded
         ccg_filter_collapsed = self.filter_element.get_cloud_config_group_filter_link_collapsed()
         if ccg_filter_collapsed and ccg_filter_collapsed.is_displayed():
-            self.auto_actions.click(self.filter_element.get_cloud_config_group_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_cloud_config_group_filter_link)
 
         # Get the check box element to toggle
         element = None
@@ -909,6 +919,7 @@ class FilterManageDevices():
     # supported functions
     def clear_all_filters(self, navigator='device filter'):
         """ Clearing all applied and saved filters
+
             :param navigator: navigator to a filtered page
         """
         self.utils.print_info("Start --> Clear all filters ")
@@ -916,31 +927,31 @@ class FilterManageDevices():
             self.navigator.navigate_to_devices()
             if not self.filter_element.get_device_type_filter_link().is_displayed():
                 self.utils.print_info("Expand the filter toggle ")
-                self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+                self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         elif navigator == 'client filter':
             self.navigator.navigate_to_clients()
             if not self.client_element.get_filter_client_device_function_link().is_displayed():
-                self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+                self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         elif navigator == 'ml_insight filter':
             self.navigator.navigate_to_client360()
             if not self.client_element.get_filter_client_device_function_link().is_displayed():
-                self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+                self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         elif navigator == 'application':
             self.navigator.navigate_manage_application()
-            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
 
         all_filters = self.filter_element.get_my_saved_filter_list()
         if all_filters:
             self.utils.print_info("Start clearing my filter ")
             for index in range(1, len(all_filters) + 1):
-                self.auto_actions.click(self.filter_element.get_list_del_index_filter())
+                self.auto_actions.click_reference(self.filter_element.get_list_del_index_filter)
                 self.tools.wait_til_elements_avail(self.filter_element.dialog_yes_filter_btn, 60, False)
                 self.tools.click_til_element_avail(self.filter_element.get_del_yes_btn())
 
         all_applied_filters = self.filter_element.get_applied_filter_list()
         if all_applied_filters:
             self.utils.print_info("start clearing the applied filters ")
-            self.auto_actions.click(self.filter_element.get_applied_clear_filter_link())
+            self.auto_actions.click_reference(self.filter_element.get_applied_clear_filter_link)
             sleep(3)
         self.utils.print_info("Exit --> Clear all filters ")
 
@@ -948,6 +959,7 @@ class FilterManageDevices():
 
     def expand_and_collapse_filters(self, element, filter_type='policy', collapse=False):
         """ expand and collapse the filter links
+
             :param element : link of filter
             :param filter_type: page contains the filters
             :param collapse: collapse the filter toggle when it is true
@@ -962,13 +974,14 @@ class FilterManageDevices():
         sleep(5)
         self.auto_actions.click(element)
         if collapse:
-            self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+            self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         self.utils.print_info(" Exit --> Expand / collapse filters " + filter_type)
 
         return 1
 
     def select_filter_by(self, *locators, filter_name = 'default', reset=False):
         """ expand and collapse the filter links
+
             :param locators : list of checkboxs
             :param reset : clear the checkbox when it is true
         """
@@ -993,17 +1006,18 @@ class FilterManageDevices():
     def save_filter(self):
 
         """ create a filter and save the filter
+
         :param: None
         :return filter_name (name of filter)
         """
 
         self.utils.print_info("Start --> Save filter ")
         filter_name = self.utils.get_random_string(8)
-        self.auto_actions.click(self.filter_element.get_save_filter_btn())
+        self.auto_actions.click_reference(self.filter_element.get_save_filter_btn)
         self.tools.wait_til_elements_avail(self.filter_element.dialog_input_filter_filename_txt, 30, False)
         self.utils.print_info(" Enter the filter saved name  " + filter_name + ' and click on Save')
         self.auto_actions.send_keys(self.filter_element.get_enter_filter_name_txt(), filter_name)
-        self.auto_actions.click(self.filter_element.get_dialog_save_btn())
+        self.auto_actions.click_reference(self.filter_element.get_dialog_save_btn)
         self.utils.print_info("Exit --> Save filter ")
 
         return filter_name
@@ -1011,6 +1025,7 @@ class FilterManageDevices():
     def get_column_values_from_device_page(self, filter='default'):
 
         """ verify if the polices are assigned to all devices
+
             :param  grid : a list of column values on the device page
             :return list of column values
         """
@@ -1048,7 +1063,7 @@ class FilterManageDevices():
         elif filter in ['client device function', 'client connection', 'client os type', 'client ssid']:
             sleep(5)
             if self.client_element.get_page_size_100_link().is_displayed():
-                self.auto_actions.click(self.client_element.get_page_size_100_link())
+                self.auto_actions.click_reference(self.client_element.get_page_size_100_link)
             if filter == 'client device function': elements = self.client_element.get_filter_client_device_list()
             elif filter == 'client connection' :   elements = self.client_element.get_filter_client_connection_list()
             elif filter == 'client os type'    :   return  self.get_elements_text(self.client_element.get_filter_client_os_type_list())
@@ -1070,6 +1085,7 @@ class FilterManageDevices():
 
     def get_elements_text(self, elements):
         """ get_elements_text
+
             :param: list of elements
             :return list of texts
         """
@@ -1086,23 +1102,24 @@ class FilterManageDevices():
 
     def action_change_managed_state(self, ap, state="managed"):
         """ change a managed state of ap
+
             :param: ap: ap's serial number
             :param: state is either managed or unmanaged
             :return True
         """
         self.utils.print_info(" Start --> the action managed state " + str(ap))
-        self.device.select_ap(ap)
+        self.device.select_device(device_serial=ap)
         self.utils.print_info(" Click on the action button  ")
-        self.auto_actions.click(self.device_actions.get_device_actions_button())
+        self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
         self.auto_actions.move_to_element(self.device_actions.get_device_actions_change_management_status())
         self.tools.wait_til_elements_avail(self.filter_element.action_managed_device_link, 30, False)
         self.utils.print_info(" Change the managed state to  " + state)
         if state == "managed":
-            self.auto_actions.click(self.filter_element.get_action_managed_device())
+            self.auto_actions.click_reference(self.filter_element.get_action_managed_device)
         else:
-            self.auto_actions.click(self.filter_element.get_action_unmanaged_device())
-        self.auto_actions.click(self.filter_element.get_del_yes_btn())
-        self.auto_actions.click(self.filter_element.get_action_close_dialog())
+            self.auto_actions.click_reference(self.filter_element.get_action_unmanaged_device)
+        self.auto_actions.click_reference(self.filter_element.get_del_yes_btn)
+        self.auto_actions.click_reference(self.filter_element.get_action_close_dialog)
         self.utils.print_info(" Exit --> the Action managed state  ")
 
         return 1
@@ -1128,7 +1145,9 @@ class FilterManageDevices():
 
     def expand_default_filters(self):
         self.utils.print_info(" Start --> Expand the default filters ")
-        self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
+        element = self.filter_element.device_state_connected_filter_chkbox
+        if not element:
+            self.expand_and_collapse_filters(self.filter_element.get_device_state_filter_link(), filter_type='device state')
         self.select_filter_by(self.filter_element.device_state_connected_filter_chkbox, filter_name='connected')
         self.expand_and_collapse_filters(self.filter_element.get_device_function_filter_link(), filter_type='device function')
         self.expand_and_collapse_filters(self.filter_element.get_user_profile_filter_link(), filter_type='device user profile')
@@ -1169,6 +1188,7 @@ class FilterManageDevices():
     def user_profile_filter_error(self, user_profile=None):
         """
         - Checks for error after selecting user profile which is not assigned to any device, ie, it should not throw error "can not get the required device list"
+
         :param user_profile: name of the user profile
         :return: 1 if successful
         """
@@ -1176,7 +1196,7 @@ class FilterManageDevices():
         self.utils.print_info("Clicking on filter")
         sleep(5)
         self.utils.print_info(self.filter_element.get_filter_toggle_link())
-        self.auto_actions.click(self.filter_element.get_filter_toggle_link())
+        self.auto_actions.click_reference(self.filter_element.get_filter_toggle_link)
         sleep(10)
         self.utils.print_info("getting user profile grid")
         eles = self.filter_element.get_user_profile_grid()

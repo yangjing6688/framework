@@ -19,7 +19,7 @@ class ClientMonitor(ClientMonitorWebElements):
         - Flow: Manage --> Client Monitor & Diagnosis --> Client Monitor
         - get ths issue authentication counts from authentication status card
         - Keyword Usage:
-         - ``Get Authentication Counts``
+        - ``Get Authentication Counts``
 
         :return: client authentication issue count
         """
@@ -27,7 +27,7 @@ class ClientMonitor(ClientMonitorWebElements):
         self.screen.save_screen_shot()
         sleep(2)
 
-        self.auto_actions.click(self.get_client_monitor_tab())
+        self.auto_actions.click_reference(self.get_client_monitor_tab)
         sleep(2)
         auth_issue_count = self.get_auth_issue_counts_status_card().text
         self.utils.print_info(f"Authentication issue count:{auth_issue_count}")
@@ -38,7 +38,7 @@ class ClientMonitor(ClientMonitorWebElements):
         - Flow: Manage --> Tools --> Client Monitor
         - Get the client issue entries from the client issue grid rows,
         - Keyword Usage:
-         - ``Get Client Issue Entries   ${CLIENT_MAC}``
+        - ``Get Client Issue Entries   ${CLIENT_MAC}``
 
         :param search_string: sting to search the client issue rows, it may be detected time, client mac
         :param issue_type: type of the issue i.e Authentication, Association, Networking
@@ -47,18 +47,18 @@ class ClientMonitor(ClientMonitorWebElements):
         """
         client_issue_details = {}
         self.navigator.navigate_to_tools_page()
-        self.auto_actions.click(self.get_client_monitor_tab())
+        self.auto_actions.click_reference(self.get_client_monitor_tab)
         sleep(2)
 
         self.utils.print_info("click on issue type drop down")
-        self.auto_actions.click(self.get_issue_type_drop_down())
+        self.auto_actions.click_reference(self.get_issue_type_drop_down)
         sleep(2)
 
         issue_type_els = self.get_issue_type_drop_down_options(self.get_issue_type_drop_down())
         self.auto_actions.select_drop_down_options(issue_type_els, issue_type)
 
         self.utils.print_info("click on issue state drop down")
-        self.auto_actions.click(self.get_issue_status_drop_down())
+        self.auto_actions.click_reference(self.get_issue_status_drop_down)
         sleep(2)
 
         issue_state_els = self.get_issue_status_drop_down_options(self.get_issue_status_drop_down())

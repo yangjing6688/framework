@@ -1,5 +1,5 @@
-from extauto.xiq.defs.GlobalSettingWebElementDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.GlobalSettingWebElementDefinitions import GlobalSettingWebElementDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class GlobalSettingWebElements(GlobalSettingWebElementDefinitions):
@@ -40,7 +40,10 @@ class GlobalSettingWebElements(GlobalSettingWebElementDefinitions):
         return self.weh.get_elements(self.global_settings_organization_scroll_get_colour, parent)
 
     def get_global_settings_account_organizations_add_button(self):
-        return self.weh.get_elements(self.global_settings_account_organizations_add_button)
+        elements = self.weh.get_elements(self.global_settings_account_organizations_add_button)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_global_settings_account_organizations_save_button(self):
         return self.weh.get_element(self.global_settings_account_organization_save_button)

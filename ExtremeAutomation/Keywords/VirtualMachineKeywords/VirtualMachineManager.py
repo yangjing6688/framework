@@ -30,8 +30,8 @@ class VirtualMachineManager(VirtualMachineKeywordBaseClass):
         if virtual_machine_type == self.constants.OS_VIRTUAL_BOX and vm.connection_method == AgentConstants.TYPE_SSH:
             vm.oper_sys = EndsystemElementConstants.OS_LINUX
             vm.platform = EndsystemElementConstants.PLATFORM_LINUX_BASE
-            vm.login_prompt = "login as:"
-            vm.pass_prompt = "password:"
+            vm.login_prompt = ["login as:"]
+            vm.pass_prompt = ["password:"]
             vm.main_prompt = "$"
             vm.end_of_line = "\r\n"
 

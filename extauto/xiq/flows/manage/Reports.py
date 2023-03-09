@@ -5,6 +5,7 @@ from extauto.common.Utils import Utils
 from extauto.xiq.flows.common.Navigator import Navigator
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.ReportsWebElements import ReportsWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Reports(ReportsWebElements):
@@ -14,13 +15,14 @@ class Reports(ReportsWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
 
-    def get_default_network_summary_report(self, *email_list):
+    def get_default_network_summary_report(self, *email_list, **kwargs):
         """
         - Flow: Manage --> Reports
         - Default summary report will generate the reports with default options
         - Keyword Usage:
-         - ``Get Default Network Summary Report  @{EMAIL_LIST}``
+        - ``Get Default Network Summary Report  @{EMAIL_LIST}``
 
         :param email_list: list of the emails to send the reports
         :return: 1
@@ -36,7 +38,7 @@ class Reports(ReportsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on report send button")
-        self.auto_actions.click(self.get_generate_report_button())
+        self.auto_actions.click_reference(self.get_generate_report_button)
         sleep(3)
 
         self.screen.save_screen_shot()
@@ -45,6 +47,9 @@ class Reports(ReportsWebElements):
         self.utils.print_info(tool_tip_text)
         for text in tool_tip_text:
             if "Your report is generating" in text:
-                self.utils.print_info(f"Tool tip text: {text}")
+                kwargs['pass_msg'] = f"Tool tip text: {text}"
+                self.common_validation.passed(**kwargs)
                 return 1
+        kwargs['pass_msg'] = "Successfully get default network summary report"
+        self.common_validation.passed(**kwargs)
         return 1

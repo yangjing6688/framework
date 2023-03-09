@@ -22,11 +22,11 @@ class XIQSE_ControlPolicyDomainSave(ControlPolicyDomainSaveWebElements):
 
     def xiqse_control_policy_save_domain(self):
         """
-         - This keyword saves the current domain by selecting "Save Domain" menu from "Open/Manage Domain(s)"
+        - This keyword saves the current domain by selecting "Save Domain" menu from "Open/Manage Domain(s)"
              dropdown menu and goes through the save domain process.
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse control policy save domain
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse control policy save domain
 
         :return: 1 if action was successful, else -1
         """
@@ -41,7 +41,7 @@ class XIQSE_ControlPolicyDomainSave(ControlPolicyDomainSaveWebElements):
                 if save_status:
                     # Save Successful message is detected
                     self.utils.print_info("Save Domain...Successful!")
-                    self.auto_actions.click(self.get_save_ok_bttn())
+                    self.auto_actions.click_reference(self.get_save_ok_bttn)
                     ret_val = 1
                     break
                 else:
@@ -53,4 +53,3 @@ class XIQSE_ControlPolicyDomainSave(ControlPolicyDomainSaveWebElements):
             self.screen.save_screen_shot()
 
         return ret_val
-

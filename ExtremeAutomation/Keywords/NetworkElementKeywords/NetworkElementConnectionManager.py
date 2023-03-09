@@ -11,8 +11,6 @@ from ExtremeAutomation.Keywords.BaseClasses.NetworkElementKeywordBaseClass impor
 
 import inspect
 import logging
-import sys
-import copy
 
 
 logger = logging.getLogger(__name__)
@@ -73,14 +71,14 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
             try:
                 dev.connect()
             except socket.error:
-                self.logger.log_debug("Agent connection attempt #" + str(i) + " failed.")
+                self.logger.log_debug(f"Agent connection attempt #{i} failed.")
             time.sleep(5)
             i += 1
 
         if not dev.current_agent.logged_in:
             if not expect_error:
-                raise FailureException("Unable to establish a connection with network element " + net_elem_name +
-                                       " within " + max_wait + " seconds.")
+                raise FailureException(f"Unable to establish a connection with network element {net_elem_name} \
+                                         within {max_wait} seconds.")
             else:
                 self.logger.log_info("Device connection and/or login was unsuccessful. Error was expected.")
         else:
@@ -216,7 +214,7 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                 dev.current_agent = killAgentDict[skey]['current_agent']
                 try:
                     dev.disconnect()
-                except:
+                except Exception:
                     pass
         self.device_collection.remove_device(net_elem_nam)
 
@@ -261,23 +259,26 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         logger.debug("[+]Called from file      : %s()", callingfile_name)
 
         dev, _, _ = self._init_keyword(net_elem_name, **kwargs)
-        if kwargs.get("snmp_info", False):
-            snmp_info = kwargs["snmp_info"]
-        else:
-            try:
-                variables = RobotUtils.get_variables(no_decoration=True)
-            except Exception as e:
-                raise e
 
-            if variables is None:
-                snmp_info = None
-            else:
-                netelem_num = NetworkElementUtils.get_device_number(variables, net_elem_name)
-                self.add_agent_kwarg(dev, "verify_cert", kwargs)
-                self.add_agent_kwarg(dev, "auth_mode", kwargs)
-                self.add_agent_kwarg(dev, "headers", kwargs)
-                self.add_agent_kwarg(dev, "oauth", kwargs)
-                snmp_info = NetworkElementUtils.get_snmp_info(variables, netelem_num)
+        # Commented out on Feb 9, 2023 by psadej because it is not used
+        #
+        # if kwargs.get("snmp_info", False):
+        #     snmp_info = kwargs["snmp_info"]
+        # else:
+        #     try:
+        #         variables = RobotUtils.get_variables(no_decoration=True)
+        #     except Exception as e:
+        #         raise e
+
+        #     if variables is None:
+        #         snmp_info = None
+        #     else:
+        #         netelem_num = NetworkElementUtils.get_device_number(variables, net_elem_name)
+        #         self.add_agent_kwarg(dev, "verify_cert", kwargs)
+        #         self.add_agent_kwarg(dev, "auth_mode", kwargs)
+        #         self.add_agent_kwarg(dev, "headers", kwargs)
+        #         self.add_agent_kwarg(dev, "oauth", kwargs)
+        #         snmp_info = NetworkElementUtils.get_snmp_info(variables, netelem_num)
 
         ip, port = NetworkElementUtils.get_console_ip_port(dev, net_elem_name, connection_method, True)
         if connection_port:
@@ -380,11 +381,14 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
         aerohive_sw = NetworkElementUtils.get_device_names_from_variables(variables, "aerohive_sw")
         # We consider router as an netelem
         router = NetworkElementUtils.get_device_names_from_variables(variables, "router")
+        # We consider wing as an netelem
+        wing = NetworkElementUtils.get_device_names_from_variables(variables, "wing")
 
         # Add the results together
         netelems.extend(ap)
         netelems.extend(aerohive_sw)
         netelems.extend(router)
+        netelems.extend(wing)
         netelem_dict = {}
         for netelem in netelems:
             netelem_id = netelem
@@ -485,5 +489,3 @@ class NetworkElementConnectionManager(NetworkElementKeywordBaseClass):
                                           "skip_connect": skip_connect}
 
         return netelem_dict
-    
-

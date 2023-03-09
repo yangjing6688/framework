@@ -1,4 +1,7 @@
-from extauto.common.AutoActions import *
+from time import sleep
+
+from extauto.common.AutoActions import AutoActions
+from extauto.common.Utils import Utils
 from extauto.xiq.elements.ExpSettingsWebElements import ExpSettingsWebElements
 
 
@@ -34,7 +37,7 @@ class ExpirationSettings(ExpSettingsWebElements):
 
         self.auto_actions.scroll_down()
         self.utils.print_info("click on time period drop down")
-        self.auto_actions.click(self.get_valid_for_time_period_in_drop_down())
+        self.auto_actions.click_reference(self.get_valid_for_time_period_in_drop_down)
         sleep(2)
 
         self.utils.print_info("select in time period option")
@@ -42,7 +45,7 @@ class ExpirationSettings(ExpSettingsWebElements):
         sleep(2)
 
         self.utils.print_info("click on after time period drop down")
-        self.auto_actions.click(self.get_valid_for_time_period_after_drop_down())
+        self.auto_actions.click_reference(self.get_valid_for_time_period_after_drop_down)
         sleep(2)
 
         self.utils.print_info("select after time period option")
@@ -52,7 +55,7 @@ class ExpirationSettings(ExpSettingsWebElements):
             self.auto_actions.send_keys(self.get_access_key_must_be_used_within(), access_key_must_be_used_within)
 
             self.utils.print_info("click on the access key must be used withing drop down")
-            self.auto_actions.click(self.get_access_key_must_be_used_within_period_drop_down())
+            self.auto_actions.click_reference(self.get_access_key_must_be_used_within_period_drop_down)
             sleep(2)
 
             self.auto_actions.select_drop_down_options(self.get_access_key_must_be_used_within_period_optns(),
@@ -72,7 +75,7 @@ class ExpirationSettings(ExpSettingsWebElements):
             self.auto_actions.send_keys(self.get_delete_cred_after_input_field(), delete_cred_after_time)
 
             self.utils.print_info("Select the delete after drop down")
-            self.auto_actions.click(self.get_delete_cred_after_drop_down())
+            self.auto_actions.click_reference(self.get_delete_cred_after_drop_down)
             sleep(2)
 
             self.utils.print_info(f"select delete after time period in :{after_period}")
@@ -93,7 +96,7 @@ class ExpirationSettings(ExpSettingsWebElements):
         - For different combination of config parameters creation refer private_pre-shared_key_config.robot
         - Assumes that user already navigated to User group edit page or called along with user group creation
         - Keyword Usage
-         - ``Config Expiration Settings   &{EXPIRATION_CONFIG}``
+        - ``Config Expiration Settings   &{EXPIRATION_CONFIG}``
 
         :param config: configuration dict
         :return: 1 if successfully configured
@@ -113,7 +116,7 @@ class ExpirationSettings(ExpSettingsWebElements):
                 self.auto_actions.send_keys(self.get_req_auth_after_input_field(), req_auth_after_time)
 
         self.utils.print_info("Click on account expiration drop down")
-        self.auto_actions.click(self.get_account_expiration_drop_down())
+        self.auto_actions.click_reference(self.get_account_expiration_drop_down)
         sleep(2)
 
         self.utils.print_info("select the account expiration option")
@@ -133,10 +136,10 @@ class ExpirationSettings(ExpSettingsWebElements):
 
         if action_at_expiration == "Show Expiration Message":
             self.utils.print_info(f"select Action at Expiration:{action_at_expiration}")
-            self.auto_actions.click(self.get_action_at_exp_show_expi_msg_radio_button())
+            self.auto_actions.click_reference(self.get_action_at_exp_show_expi_msg_radio_button)
 
         if action_at_expiration == "Access Rejected":
             self.utils.print_info(f"select Action at Expiration:{action_at_expiration}")
-            self.auto_actions.click(self.get_action_at_exp_access_rejected_radio_button())
+            self.auto_actions.click_reference(self.get_action_at_exp_access_rejected_radio_button)
 
         return 1

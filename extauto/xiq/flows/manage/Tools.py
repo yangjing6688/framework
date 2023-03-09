@@ -1,13 +1,14 @@
 from time import sleep
+from robot.libraries.BuiltIn import BuiltIn
 
-from extauto.common.CloudDriver import CloudDriver
-from extauto.common.Cli import *
-from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
-from extauto.common.WebElementHandler import *
+from extauto.common.CloudDriver import CloudDriver
+from extauto.common.Cli import Cli
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
+from extauto.common.WebElementHandler import WebElementHandler
 
 from extauto.xiq.elements.ToolsElements import ToolsElements
-from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.elements.DialogWebElements import DialogWebElements
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
 
@@ -36,7 +37,7 @@ class Tools:
         - Keywword requires that the device is already onboarded
         - Used to get neighbor information
         - Keyword Usage:
-            - ``Get Neighbor Info   ${SERIAL}  ${MAC}``
+        - ``Get Neighbor Info   ${SERIAL}  ${MAC}``
 
         :param SERIAL: serial number of device
         :param MAC: mac address of device
@@ -51,7 +52,7 @@ class Tools:
         - Keywword requires that the device is already onboarded
         - Used to get l2 neighbor information
         - Keyword Usage:
-            - ``Get l2 Neighbor Info   ${SERIAL}  ${MAC}``
+        - ``Get l2 Neighbor Info   ${SERIAL}  ${MAC}``
 
         :param SERIAL: serial number of device
         :param MAC: mac address of device
@@ -65,18 +66,20 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.select_ap(ap_serial=serial):
+        if self.devices.select_device(device_serial=serial, skip_navigation=True):
             error = self.dialog_web_elements.get_tooltip_text()
             if error:
                 self.utils.print_info("Error: ", error)
                 if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                         in error:
-                    kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least one unmanaged device."
+                    kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least " \
+                                         "one unmanaged device."
                     self.common_validation.failed(**kwargs)
                     return -1
                 elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
                         in error:
-                    kwargs['fail_msg'] = "The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device."
+                    kwargs['fail_msg'] = "The requested operation cannot be performed because you have selected at " \
+                                         "least one unmanaged/disconnected device."
                     self.common_validation.failed(**kwargs)
                     return -1
 
@@ -104,7 +107,7 @@ class Tools:
                 kwargs['fail_msg'] = "Unable to gather Layer 2 Neighbor Information and unable to close dialog page"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
+            self.auto_actions.click_reference(self.tools_elements.get_neighbor_info_close_button)
             kwargs['fail_msg'] = "Unable to gather Layer 2 Neighbor Information rows"
             self.common_validation.failed(**kwargs)
             return -1
@@ -113,8 +116,8 @@ class Tools:
             if mac in row.text:
                 self.utils.print_info("Found AP MAC in row: ", row.text)
                 self.utils.print_info("Closing the Dialog page")
-                self.auto_actions.click(self.tools_elements.get_neighbor_info_close_button())
-                kwargs['pass_msg'] = "Successful found AP with MAC " +  mac + " in Layer 2 Neighbor Information table"
+                self.auto_actions.click_reference(self.tools_elements.get_neighbor_info_close_button)
+                kwargs['pass_msg'] = f"Successful found AP with MAC {mac} in Layer 2 Neighbor Information table"
                 self.common_validation.passed(**kwargs)
                 return 1
 
@@ -127,7 +130,7 @@ class Tools:
         - Keywword requires that the device is already onboarded
         - Used to get device diagnostics ping
         - Keyword Usage:
-          - ``Device Diagnostics Ping   ${SERIAL}``
+        - ``Device Diagnostics Ping   ${SERIAL}``
 
         :param SERIAL: serial number of device
         :return: 1 if successful else -1
@@ -138,21 +141,23 @@ class Tools:
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.devices.search_ap(ap_serial=serial):
-            if self.devices.select_ap(ap_serial=serial):
+        if self.devices.search_device(device_serial=serial, skip_navigation=True, ignore_failure=True) == 1:
+            if self.devices.select_device(device_serial=serial):
                 error = self.dialog_web_elements.get_tooltip_text()
                 self.utils.print_info("Possible Error : " + error)
                 if error:
                     self.utils.print_info("Error: ", error)
                     if 'The requested operation cannot be performed because you selected at least one unmanaged device.' \
                             in error:
-                        kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at least one unmanaged device."
+                        kwargs['fail_msg'] = "The requested operation cannot be performed because you selected at " \
+                                             "least one unmanaged device."
                         self.common_validation.failed(**kwargs)
                         return -1
                     elif 'The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device.' \
                             in error:
                         kwargs[
-                            'fail_msg'] = "The requested operation cannot be performed because you have selected at least one unmanaged/disconnected device."
+                            'fail_msg'] = "The requested operation cannot be performed because you have selected " \
+                                          "at least one unmanaged/disconnected device."
                         self.common_validation.failed(**kwargs)
                         return -1
 
@@ -162,7 +167,7 @@ class Tools:
             kwargs['fail_msg'] = "Unable to click Utilities Button"
             self.common_validation.failed(**kwargs)
             return -1
-        self.auto_actions.click(self.tools_elements.get_utilities_button())
+        self.auto_actions.click_reference(self.tools_elements.get_utilities_button)
 
         self.utils.print_info("Hovering over Diagnostics button")
         diagnostic_button = self.tools_elements.get_device_diagnostics_menu_item()
@@ -220,15 +225,15 @@ class Tools:
         self.utils.print_info("Clicking on Account icon")
         sleep(5)
 
-        self.auto_actions.click(self.tools_elements.get_account_icon())
+        self.auto_actions.click_reference(self.tools_elements.get_account_icon)
         self.utils.print_info("Click on Global Settings")
         sleep(5)
 
-        self.auto_actions.click(self.tools_elements.get_global_settings())
+        self.auto_actions.click_reference(self.tools_elements.get_global_settings)
         self.utils.print_info("Clicking on SSH availability")
         sleep(2)
 
-        self.auto_actions.click(self.tools_elements.get_ssh_availability())
+        self.auto_actions.click_reference(self.tools_elements.get_ssh_availability)
         self.utils.print_info("Getting SSH Availability status")
         sleep(2)
 
@@ -242,7 +247,7 @@ class Tools:
             self.utils.print_info("SSH enable box is already checked")
         else:
             self.utils.print_info("SSH is not enabled. Enabling...")
-            self.auto_actions.click(self.tools_elements.get_enable_ssh())
+            self.auto_actions.click_reference(self.tools_elements.get_enable_ssh)
 
         self.screen.save_screen_shot()
         return 1
@@ -252,7 +257,7 @@ class Tools:
         """
         - Used to run ssh availability on ap
         - Keyword Usage:
-            - ``Run Ssh Availability On Ap   ${SERIAL}  ${TIME_LIM}``
+        - ``Run Ssh Availability On Ap   ${SERIAL}  ${TIME_LIM}``
 
         :param SERIAL: serial number of device
         :param TIME_LIM: time lim
@@ -283,15 +288,14 @@ class Tools:
         self.auto_actions.click(ssh_avail_button)
         sleep(5)
 
-
-        if self.devices.select_ap(serial_num):
+        if self.devices.select_device(device_serial=serial_num):
             self.utils.print_info("clicking on ssh RUN button")
-            run_button = self.tools_elements.get_run_button()
+            _ = self.tools_elements.get_run_button()
             if not ssh_avail_button:
                 kwargs['fail_msg'] = "Unable to click on ssh availability"
                 self.common_validation.failed(**kwargs)
                 return -1
-            self.auto_actions.click(self.tools_elements.get_run_button())
+            self.auto_actions.click_reference(self.tools_elements.get_run_button)
             sleep(15)
 
             self.utils.print_info("clicking on 5 minutes radio")
@@ -333,7 +337,6 @@ class Tools:
                 self.common_validation.passed(**kwargs)
                 return ip_addr, port_num
             else:
-                self.utils.print_info("AP does not exists in the list")
                 kwargs['fail_msg'] = "AP does not exists in the list"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -342,7 +345,8 @@ class Tools:
         """
         - Used to ui ssh status check
         - Keyword Usage:
-            - ``Ui Ssh Status Check``
+        - ``Ui Ssh Status Check``
+
         :return: status if successful else -1
         """
         self.utils.print_info("SSH status checking in UI")
@@ -371,7 +375,8 @@ class Tools:
         """
         - Used to ui tools ssh status check
         - Keyword Usage:
-          - ``Ui Tools Ssh Status Check``
+        - ``Ui Tools Ssh Status Check``
+
         :return: status if successful else -1
         """
         self.utils.print_info("SSH status checking in UI")
@@ -391,27 +396,30 @@ class Tools:
     def lock_device(self, host, username, passwd, ssid, ssid_passwd="FFLJLSP09865"):
         # https://jira.aerohive.com/browse/APC-36061
         """
-             Lock Device with 10 invalid logins
-            :param host: mac station ip
-            :param username: mac user login
-            :param passwd: mac user password
-            :param ssid:      global ssid in the network policy
-            :param ssid_pass: password of ssid
-            :return: return a hostname of mac station
+        Lock Device with 10 invalid logins
+
+        :param host: mac station ip
+        :param username: mac user login
+        :param passwd: mac user password
+        :param ssid:      global ssid in the network policy
+        :param ssid_pass: password of ssid
+        :return: return a hostname of mac station
 
         Usage:
             ${host}    lock device  ${MAC_STA_IP}  ${MAC_STA_USERID}  ${MAC_STA_PASS}  ${SSID}
         """
         self.utils.print_info("Lock Device")
-        rc = self.cli.mac_wifi_connection(host, username, passwd, ssid, ssid_passwd, mode='fail', ntimes=11)
+        _ = self.cli.mac_wifi_connection(host, username, passwd, ssid, ssid_passwd, mode='fail', ntimes=11)
         return self.cli.get_mac_hostname(host, username, passwd)
 
     def verify_device_lock(self, host):
         # https://jira.aerohive.com/browse/APC-36061
-        """ Prequis: AP should be onboared and mac station is availabe to connect to a WIFI
-             Verification device is locked
-            :param host: mac station ip
-            :return:     return a hostname of mac station
+        """
+        Prequis: AP should be onboared and mac station is availabe to connect to a WIFI
+        Verification device is locked
+
+        :param host: mac station ip
+        :return:     return a hostname of mac station
 
         Usage:
             ${host}    verify_device_lock  host
@@ -429,15 +437,18 @@ class Tools:
         # Unlock a device   feature is broken and not able to move forward
 
     def utility_device_info(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of the visiblity of the devices in the device list section of utilities
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : name of ap
-            :return: None
+        """
+        Prequis: AP should be onboared
+        Verification of the visiblity of the devices in the device list section of utilities
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : name of ap
+        :return: None
+
         Usage:
             util_device_info  online  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
             util_device_info  offline ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}}
@@ -447,13 +458,13 @@ class Tools:
         self.utils.print_info("verify device info utilities")
         self.navigator.navigate_to_tools_page()
         self.navigator.navigate_tool_utility()
-        self.auto_actions.click(self.tools_elements.get_device_list_element_link())
+        self.auto_actions.click_reference(self.tools_elements.get_device_list_element_link)
         # self.wait_til_elements_avail(self.tool_utils.device_diag_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         # Verify the AP info
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
             self.click_til_element_avail(self.tools_elements.get_device_info_btn())
@@ -468,16 +479,18 @@ class Tools:
             self.cli.capwap_ap_on_off(ap_ip, ap_usr, ap_pass, "on")
 
     def utility_device_client_info(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_mac, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of visibility of client information by selecting an AP
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : ap model
-            :param ap_mac   : mac address
-            :return         : None
+        """
+        Prequis: AP should be onboared
+        Verification of visibility of client information by selecting an AP
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : ap model
+        :param ap_mac   : mac address
+        :return         : None
 
         usage:  util_device_client_info  online   ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_MAC}  ${AP1_NAME}
                 util_device_client_info  offline  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_MAC}  ${AP1_NAME}
@@ -491,33 +504,36 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.device_diag_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify the device info
         if mode == "online":
             self.click_til_element_avail(self.tools_elements.get_device_client_info_btn())
             assert ap_name in CloudDriver().cloud_driver.page_source, "Not able to find the ap name"
             assert ap_mac in CloudDriver().cloud_driver.page_source, "Not able to find the ap mac"
-            self.auto_actions.click(self.tools_elements.get_device_client_close_btn())
+            self.auto_actions.click_reference(self.tools_elements.get_device_client_close_btn)
         else:
             btn_status = self.tools_elements.get_device_client_info_btn()
             assert btn_status.is_enabled() != True, 'The Device Client Information button should be disabled'
             self.cli.capwap_ap_on_off(ap_ip, ap_usr, ap_pass, "on")
 
     def make_wifi_connection(self, host, username, passwd, ssid, ssid_passwd):
-        """  Prequis: AP should be onboared and mac station is availabe to connect to a WIFI
-             Make a wifi connection
-            :param host: mac station ip
-            :param username: mac user login
-            :param passwd: mac user password
-            :param ssid:      global ssid a network policy
-            :param ssid_pass: password of ssid
-            :param wifi_port: mac wifi port
-            :param mode: pass : make a succesful wifi connection
-                         fail : make a failed wifi connection
-            :param ntimes     : number of times to authenticate in order to be in locked state
-            :return: return a hostname of mac station
+        """
+        Prequis: AP should be onboared and mac station is availabe to connect to a WIFI
+        Make a wifi connection
+
+        :param host: mac station ip
+        :param username: mac user login
+        :param passwd: mac user password
+        :param ssid:      global ssid a network policy
+        :param ssid_pass: password of ssid
+        :param wifi_port: mac wifi port
+        :param mode: pass : make a succesful wifi connection
+                        fail : make a failed wifi connection
+        :param ntimes     : number of times to authenticate in order to be in locked state
+        :return: return a hostname of mac station
+
         usage:
             make wifi connection  ${MAC_STA_IP}  ${MAC_STA_USERID}  ${MAC_STA_PASS}  ${SSID}  ${SSID_PASSWD}
         """
@@ -526,14 +542,17 @@ class Tools:
         return self.cli.get_mac_hostname(host, username, passwd)
 
     def verify_util_client_cnx(self, ssid, ap_name, client_mac, client_name="default", conn_type="WIRELESS"):
-        """ Prequis: AP should be onboared and mac station for a WIFI
-            Verification of the visibility of client information
-            :param ssid     : ssid from a policy
-            :param ap_name  : ap name
-            :param client_mac  : mac addr of mac station
-            :param client_name : name of mac station
-            :param conn_type   : a conntection type - WIRELESS / WIRED
-            :return: None
+        """
+        Prequis: AP should be onboared and mac station for a WIFI
+        Verification of the visibility of client information
+
+        :param ssid     : ssid from a policy
+        :param ap_name  : ap name
+        :param client_mac  : mac addr of mac station
+        :param client_name : name of mac station
+        :param conn_type   : a conntection type - WIRELESS / WIRED
+        :return: None
+
         usage:
             verify util client cnx    ${SSID}  ${AP1_NAME}  ${MAC_MAC_ADDR}
         """
@@ -554,15 +573,18 @@ class Tools:
                                      "CONNECTED") == 1, "connection type is not matched"
 
     def utility_device_diagnostic(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of the diagnostic functionalities of the device
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : ap name
-            :return: None   :
+        """
+        Prequis: AP should be onboared
+        Verification of the diagnostic functionalities of the device
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : ap name
+        :return: None   :
+
         usage:
             utility device diagnostic  online   ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
             utility device diagnostic  offline  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
@@ -577,8 +599,8 @@ class Tools:
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
         # Verify if AP exists and selected
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         if mode == "online":
             self.click_til_element_avail(self.tools_elements.get_device_diag_btn())
@@ -599,15 +621,18 @@ class Tools:
             self.cli.capwap_ap_on_off(ap_ip, ap_usr, ap_pass, "on")
 
     def utility_vlan_probe(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of visibility of client information by selecting an AP
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : ap name
-            :return: None   :
+        """
+        Prequis: AP should be onboared
+        Verification of visibility of client information by selecting an AP
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : ap name
+        :return: None   :
+
         usage:
              utility_vlan_probe  online   ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
              utility_vlan_probe  offline  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
@@ -621,8 +646,8 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.client_info_list, 60)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a vlan
         if mode == "online":  # device must be onboarded
@@ -639,15 +664,18 @@ class Tools:
             self.cli.capwap_ap_on_off(ap_ip, ap_usr, ap_pass, "on")
 
     def utility_get_tech_data(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
-        """ Prequis: AP should be onboared
-            Verification of the downloading of the tech data of an AP
-            :param mode     : online or offline
-            :param ap_ip    : ap ip
-            :param ap_usr   : ap login
-            :param ap_pass  : ap password
-            :param ap_sn    : ap serial number
-            :param ap_name  : ap name
-            :return: None   :
+        """
+        Prequis: AP should be onboared
+        Verification of the downloading of the tech data of an AP
+
+        :param mode     : online or offline
+        :param ap_ip    : ap ip
+        :param ap_usr   : ap login
+        :param ap_pass  : ap password
+        :param ap_sn    : ap serial number
+        :param ap_name  : ap name
+        :return: None   :
+
         usage:
             utility_get_tech_data  online   ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
             utility_get_tech_data  offline  ${AP1_IP}  ${AP1_USERNAME}  ${AP1_PASSWORD}  ${AP1_SERIAL}  ${AP1_NAME}
@@ -661,8 +689,8 @@ class Tools:
         self.wait_til_elements_avail(self.tools_elements.client_info_list)
         self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-        assert self.devices.search_ap_serial(ap_sn) == True, "Not able to find the ap serial " + ap_sn
-        assert self.devices.select_ap(ap_sn) == 1, "Not able to select an ap " + ap_sn
+        assert self.devices.search_device(device_serial=ap_sn) == True, "Not able to find the ap serial " + ap_sn
+        assert self.devices.select_device(device_serial=ap_sn) == 1, "Not able to select an ap " + ap_sn
 
         # Verify a download
         if mode == "online":  # device must be onboarded
@@ -679,79 +707,102 @@ class Tools:
             assert button_status.is_enabled() != 1, "tech data button should be disabled"
             self.enable_disable_device(mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name)
 
-    def get_value_in_tbl(self, grids, field):
+    def get_value_in_tbl(self, grids, field, **kwargs):
         """
+        Get value from table list
 
-            Get value from table list
-            :param grids    : list of rows in table
-            :param field    : a column / cell
-            :return         : true / false
+        :param grids    : list of rows in table
+        :param field    : a column / cell
+        :return         : true / false
+
         usage:
             get_value_in_tbl(grid1, column)
         """
         rows = self.web.get_elements(grids)
         for row in rows:
             if field == row.text:
+                kwargs['pass_msg'] = f"It's able to find the item in list : {field}"
+                self.common_validation.passed(**kwargs)
                 return 1
-        self.utils.print_info("Not able to find the item in list" + field)
+        kwargs['fail_msg'] = f"Not able to find the item in list : {field}"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_til_elements_avail(self, locator, seconds=60, elements=True):
-        """ wait until elements or element is present. If it is a table, there is a least one row
-            :param locator    : element's locator
-            :param seconds    : number of seconds to wait
-            :param true if element is a grid, false if element is not a grid
-            :return:  true / false
+    def wait_til_elements_avail(self, locator, seconds=60, elements=True, **kwargs):
+        """
+        wait until elements or element is present. If it is a table, there is a least one row
+
+        :param locator    : element's locator
+        :param seconds    : number of seconds to wait
+        :param true if element is a grid, false if element is not a grid
+        :return:  true / false
+
         usage:
             self.wait_til_elements_avail(self.tool_utils.client_info_list, False)
         """
         self.utils.print_info("wait_until_appears")
         while seconds > 0:
-            time.sleep(5)
+            sleep(5)
             if elements:
                 self.utils.print_info("get elements")
                 rows = self.web.get_elements(locator)
                 if len(rows) > 0:
+                    kwargs['pass_msg'] = "element is a grid"
+                    self.common_validation.passed(**kwargs)
                     return 1
             else:
                 self.utils.print_info("get element")
                 element = self.web.get_element(locator)
                 if element.is_enabled() and element.is_displayed():
+                    kwargs['pass_msg'] = "element is displayed or element is enabled"
+                    self.common_validation.passed(**kwargs)
                     return 1
             seconds = seconds - 5
         sleep(5)
+        kwargs['fail_msg'] = "element is not a grid"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_til_ap_change_status(self, ap_sn, ap_name, seconds, exp_status):
-        """ Wait until a device is connected or disconnected
-            :param ap_sn      : ap serial number
-            :param ap_name    : ap name
-            :param seconds    : number of seconds for waiting
-            :param exp_status : expected either connected or disconnected
-            :return:  true / false
+    def wait_til_ap_change_status(self, ap_sn, ap_name, seconds, exp_status, **kwargs):
+        """
+        Wait until a device is connected or disconnected
+
+        :param ap_sn      : ap serial number
+        :param ap_name    : ap name
+        :param seconds    : number of seconds for waiting
+        :param exp_status : expected either connected or disconnected
+        :return:  true / false
+
         usage:
             self.wait_til_ap_change_status(ap_sn, ap_name, 180, "green")
         """
         while seconds > 0:
-            time.sleep(5)
-            cur_ap_status = self.devices.get_ap_status(ap_sn, ap_name)
-            self.utils.print_info("Current Status : " + str(cur_ap_status) + ' and expected staus: ' + str(exp_status))
+            sleep(5)
+            cur_ap_status = self.devices.get_device_status(device_serial=ap_sn, device_name=ap_name)
+            self.utils.print_info("Current Status : " + str(cur_ap_status) + ' and expected status: ' + str(exp_status))
             if cur_ap_status == "green" and exp_status == "green":
-                self.utils.print_info("AP is online")
+                kwargs['pass_msg'] = "AP is online"
+                self.common_validation.passed(**kwargs)
                 return 1
             elif cur_ap_status != "green" and exp_status == "red":
+                kwargs['pass_msg'] = f"Current AP status : {cur_ap_status}"
+                self.common_validation.passed(**kwargs)
                 return 1
             seconds = seconds - 5
+        kwargs['fail_msg'] = "Unsuccessfully change status for AP"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def enable_disable_device(self, mode, ap_ip, ap_usr, ap_pass, ap_sn, ap_name):
         """
-            Enable / disable a capwap device
-            :param ap_sn      : ap serial number
-            :param ap_name    : ap name
-            :param seconds    : number of seconds for waiting
-            :param exp_status : expected status either connected or disconnected
-            :return:  true / false
+        Enable / disable a capwap device
+
+        :param ap_sn      : ap serial number
+        :param ap_name    : ap name
+        :param seconds    : number of seconds for waiting
+        :param exp_status : expected status either connected or disconnected
+        :return:  true / false
+
         usage:
             self.wait_til_ap_change_status(ap_sn, ap_name, 180, "green")
         """
@@ -763,11 +814,15 @@ class Tools:
             self.wait_til_ap_change_status(ap_sn, ap_name, 180, "red")
 
     def click_til_element_avail(self, element, seconds=30):
-        """ Click on a webelement until element is ready
-            Enable an ap device  connected or disconnected
-            :param element      : Web Element
-            :param seconds      : a duration of waited time
-            :return:  None
+        """
+        Click on a webelement until element is ready
+        Enable an ap device  connected or disconnected
+
+        :param element      : Web Element
+        :param seconds      : a duration of waited time
+
+        :return:  None
+
         usage:
             self.click_til_element_avail(self.tool_utils.get_tech_data_btn())
         """
@@ -779,16 +834,17 @@ class Tools:
             seconds = seconds - 3
         self.builtin.fail("Not able to click " + element.text)
 
-    def installer_role_diagnostics_ping(self):
+    def installer_role_diagnostics_ping(self, **kwargs):
         """
         - This keyword is for testing Ping utility from Installer Role
         - Flow: Installer Role -> Select a device ->  Utilities -> Diagnostics -> Ping
-         - Keyword Usage:
-          - 'Installer Role Diagnostics Ping'
+        - Keyword Usage:
+        - 'Installer Role Diagnostics Ping'
+
         :return: 1 if operation is successful
         """
         self.utils.print_info("Clicking Utilities...")
-        self.auto_actions.click(self.tools_elements.get_device_utilities())
+        self.auto_actions.click_reference(self.tools_elements.get_device_utilities)
         sleep(2)
 
         self.utils.print_info("Clicking Diagnostics...")
@@ -796,7 +852,7 @@ class Tools:
         sleep(2)
 
         self.utils.print_info("Clicking Ping...")
-        self.auto_actions.click(self.tools_elements.get_device_ping())
+        self.auto_actions.click_reference(self.tools_elements.get_device_ping)
         sleep(2)
 
         self.utils.print_info("Getting Ping Output...")
@@ -807,11 +863,12 @@ class Tools:
         sleep(2)
 
         self.utils.print_info("Closing the Dialog page")
-        self.auto_actions.click(self.tools_elements.get_device_ping_close())
+        self.auto_actions.click_reference(self.tools_elements.get_device_ping_close)
 
         if 'ping statistics' in output and '5 packets transmitted' in output:
+            kwargs['pass_msg'] = "Operation is successful"
+            self.common_validation.passed(**kwargs)
             return 1
-
+        kwargs['fail_msg'] = "Operation is unsuccessful"
+        self.common_validation.failed(**kwargs)
         return -1
-
-        

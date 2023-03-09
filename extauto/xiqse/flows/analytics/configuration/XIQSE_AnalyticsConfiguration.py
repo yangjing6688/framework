@@ -30,10 +30,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_analytics_click_add_engine_button(self):
         """
-         - This keyword clicks the Add button in the Analytics->Configuration panel.
-         - It is assumed the user is already in the Analytics> Configuration panel.
-         - Keyword Usage
-          - ``XIQSE Analytics Click Add Engine Button``
+        - This keyword clicks the Add button in the Analytics->Configuration panel.
+        - It is assumed the user is already in the Analytics> Configuration panel.
+        - Keyword Usage
+        - ``XIQSE Analytics Click Add Engine Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -51,10 +51,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_analytics_click_delete_engine_button(self):
         """
-         - This keyword clicks the Delete button in the Analytics->Configuration panel.
-         - It is assumed the user is already in the Analytics> Configuration panel.
-         - Keyword Usage
-          - ``XIQSE Analytics Click Delete Engine Button``
+        - This keyword clicks the Delete button in the Analytics->Configuration panel.
+        - It is assumed the user is already in the Analytics> Configuration panel.
+        - Keyword Usage
+        - ``XIQSE Analytics Click Delete Engine Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -72,10 +72,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_analytics_click_enforce_engine_button(self):
         """
-         - This keyword clicks the Enforce button in the Analytics->Configuration panel.
-         - It is assumed the user is already in the Analytics> Configuration panel.
-         - Keyword Usage
-          - ``XIQSE Analytics Click Enforce Engine Button``
+        - This keyword clicks the Enforce button in the Analytics->Configuration panel.
+        - It is assumed the user is already in the Analytics> Configuration panel.
+        - Keyword Usage
+        - ``XIQSE Analytics Click Enforce Engine Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -93,10 +93,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_analytics_click_enforce_all_engine_button(self):
         """
-         - This keyword clicks the Enforce All button in the Analytics->Configuration panel.
-         - It is assumed the user is already in the Analytics> Configuration panel.
-         - Keyword Usage
-          - ``XIQSE Analytics Click Enforce All Engine Button``
+        - This keyword clicks the Enforce All button in the Analytics->Configuration panel.
+        - It is assumed the user is already in the Analytics> Configuration panel.
+        - Keyword Usage
+        - ``XIQSE Analytics Click Enforce All Engine Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -114,10 +114,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_analytics_click_poll_engine_button(self):
         """
-         - This keyword clicks the Poll button in the Analytics->Configuration panel.
-         - It is assumed the user is already in the Analytics> Configuration panel.
-         - Keyword Usage
-          - ``XIQSE Analytics Click Poll Engine Button``
+        - This keyword clicks the Poll button in the Analytics->Configuration panel.
+        - It is assumed the user is already in the Analytics> Configuration panel.
+        - Keyword Usage
+        - ``XIQSE Analytics Click Poll Engine Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -135,10 +135,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_analytics_click_restart_collector_engine_button(self):
         """
-         - This keyword clicks the Restart Collector button in the Analytics->Configuration panel.
-         - It is assumed the user is already in the Analytics> Configuration panel.
-         - Keyword Usage
-          - ``XIQSE Analytics Click Restart Collector Engine Button``
+        - This keyword clicks the Restart Collector button in the Analytics->Configuration panel.
+        - It is assumed the user is already in the Analytics> Configuration panel.
+        - Keyword Usage
+        - ``XIQSE Analytics Click Restart Collector Engine Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -156,10 +156,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_select_engine(self, engine_ip):
         """
-         - This keyword selects the specified engine.
-         - It is assumed the user is already on the Analytics> Configuration tab.
-         - Keyword Usage
-          - ``XIQSE Select Engine    ${NEXTGEN_IP}``
+        - This keyword selects the specified engine.
+        - It is assumed the user is already on the Analytics> Configuration tab.
+        - Keyword Usage
+        - ``XIQSE Select Engine    ${NEXTGEN_IP}``
 
         :param engine_ip: IP address of the engine to select
         :return: 1 if action was successful, else -1
@@ -201,9 +201,9 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_analytics_configuration_refresh_panel(self):
         """
-         - This keyword clicks the refresh icon on the toolbar.
-         - Keyword Usage
-          - ``XIQSE Analytics Configuration Refresh Panel``
+        - This keyword clicks the refresh icon on the toolbar.
+        - Keyword Usage
+        - ``XIQSE Analytics Configuration Refresh Panel``
 
         :return: 1 if action was successful, else -1
         """
@@ -223,10 +223,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_add_analytics_engine(self, engine_ip, engine_name, engine_profile):
         """
-         - This keyword adds an analytics engine to the Analytics Configuration panel.
-         - It is assumed the user is already on the Analytics> Configuration> tab.
-         - Keyword Usage
-          - ``XIQSE Add Analytics Engine    ${NEXTGEN_IP}  ${NEXTGEN_NAME}  ${APPLIANCE_PROFILE}``
+        - This keyword adds an analytics engine to the Analytics Configuration panel.
+        - It is assumed the user is already on the Analytics> Configuration> tab.
+        - Keyword Usage
+        - ``XIQSE Add Analytics Engine    ${NEXTGEN_IP}  ${NEXTGEN_NAME}  ${APPLIANCE_PROFILE}``
 
         :param engine_ip:        IP address of the analytics engine to add
         :param engine_name:      Value to enter into the Name field
@@ -269,11 +269,11 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_delete_selected_engine(self, engine_ip):
         """
-         - This keyword deletes the currently-selected engine.
-         - It is assumed the user is already on the Analytics> Configuration tab and the engine to delete is selected.
-         - Keyword Usage
-           - ``XIQSE Delete Engine    ${NEXTGEN_IP}``
-           - ``XIQSE Delete Engine    ${NEXTGEN_IP}    false``
+        - This keyword deletes the currently-selected engine.
+        - It is assumed the user is already on the Analytics> Configuration tab and the engine to delete is selected.
+        - Keyword Usage
+        - ``XIQSE Delete Engine    ${NEXTGEN_IP}``
+        - ``XIQSE Delete Engine    ${NEXTGEN_IP}    false``
 
         :param engine_ip: IP address of the engine to select
         :return: 1 if action was successful, else -1
@@ -306,10 +306,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_enforce_selected_engine(self, engine_ip):
         """
-         - This keyword enforces the currently-selected engine.
-         - It is assumed the user is already on the Analytics> Configuration tab and the engine to enforce is selected.
-         - Keyword Usage
-           - ``XIQSE Enforce Selected Engine    ${NEXTGEN_IP}``
+        - This keyword enforces the currently-selected engine.
+        - It is assumed the user is already on the Analytics> Configuration tab and the engine to enforce is selected.
+        - Keyword Usage
+        - ``XIQSE Enforce Selected Engine    ${NEXTGEN_IP}``
 
         :param engine_ip: IP address of the engine to select
         :return: 1 if action was successful, else -1
@@ -345,10 +345,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_enforce_all_engines(self):
         """
-         - This keyword enforces all engines.
-         - It is assumed the user is already on the Analytics> Configuration tab
-         - Keyword Usage
-           - ``XIQSE Enforce All Engines``
+        - This keyword enforces all engines.
+        - It is assumed the user is already on the Analytics> Configuration tab
+        - Keyword Usage
+        - ``XIQSE Enforce All Engines``
 
         :return: 1 if action was successful, else -1
         """
@@ -379,10 +379,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_poll_selected_engine(self, engine_ip):
         """
-         - This keyword polls the currently-selected engine.
-         - It is assumed the user is already on the Analytics> Configuration tab and the engine to poll is selected.
-         - Keyword Usage
-           - ``XIQSE Poll Selected Engine    ${NEXTGEN_IP}``
+        - This keyword polls the currently-selected engine.
+        - It is assumed the user is already on the Analytics> Configuration tab and the engine to poll is selected.
+        - Keyword Usage
+        - ``XIQSE Poll Selected Engine    ${NEXTGEN_IP}``
 
         :param engine_ip: IP address of the engine to select
         :return: 1 if action was successful, else -1
@@ -407,10 +407,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_restart_collector_selected_engine(self, engine_ip):
         """
-         - This keyword restarts collector on the currently-selected engine.
-         - It is assumed the user is already on the Analytics> Configuration tab and the engine to restart is selected.
-         - Keyword Usage
-           - ``XIQSE Restart Collector Selected Engine    ${NEXTGEN_IP}``
+        - This keyword restarts collector on the currently-selected engine.
+        - It is assumed the user is already on the Analytics> Configuration tab and the engine to restart is selected.
+        - Keyword Usage
+        - ``XIQSE Restart Collector Selected Engine    ${NEXTGEN_IP}``
 
         :param engine_ip: IP address of the engine to select
         :return: 1 if action was successful, else -1
@@ -449,7 +449,7 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the engine exists.
         - It is assumed the Analytics> Configuration tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Engine Added    ${NEXTGEN_IP}    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Engine Added    ${NEXTGEN_IP}    retry_duration=30    retry_count=12``
 
         :param engine_ip: engine IP to look for
         :param retry_duration: duration between each retry
@@ -475,7 +475,7 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Engine {engine_ip} has been added")
             return 1
 
-        self.utils.print_info(f"Engine does not exist. Please check.")
+        self.utils.print_info("Engine does not exist. Please check.")
         self.screen.save_screen_shot()
         return -1
 
@@ -485,7 +485,7 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the engine exists.
         - It is assumed the Analytics> Configuration tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Engine Deleted    ${NEXTGEN_IP}    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Engine Deleted    ${NEXTGEN_IP}    retry_duration=30    retry_count=12``
         :param engine_ip: engine IP to look for
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -511,7 +511,7 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Engine {engine_ip} has been deleted")
             return 1
 
-        self.utils.print_info(f"Engine was not deleted")
+        self.utils.print_info("Engine was not deleted")
         self.screen.save_screen_shot()
         return -1
 
@@ -562,9 +562,9 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_close_add_application_analytics_engine_dialog(self):
         """
-         - This keyword closes the Add Application Analytics Engine dialog which may appear when first navigating to Analytics -> Configuration panel and no engines exist
-         - Keyword Usage
-          - ``XIQSE Close Add Application Analytics Engine Dialog``
+        - This keyword closes the Add Application Analytics Engine dialog which may appear when first navigating to Analytics -> Configuration panel and no engines exist
+        - Keyword Usage
+        - ``XIQSE Close Add Application Analytics Engine Dialog``
 
         :return: 1 if action successful, else -1
         """
@@ -589,9 +589,9 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_wait_for_enforce_to_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits for the Enforce action to complete.
-         - Keyword Usage
-          - ``XIQSE Wait For Enforce To Complete``
+        - This keyword waits for the Enforce action to complete.
+        - Keyword Usage
+        - ``XIQSE Wait For Enforce To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the enforce action to be complete
         :param retry_count:    number of times to check for the enforce action to be complete
@@ -602,10 +602,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Waiting for Enforce action to complete: loop {count}")
             load_mask = self.get_enforcing_engine_load_mask()
             if load_mask:
-                self.utils.print_info(f"Enforce action still in progress...")
+                self.utils.print_info("Enforce action still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Enforce action has completed")
+                self.utils.print_info("Enforce action has completed")
                 return 1
             count += 1
 
@@ -615,9 +615,9 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_wait_for_enforce_all_to_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits for the Enforce All action to complete.
-         - Keyword Usage
-          - ``XIQSE Wait For Enforce All To Complete``
+        - This keyword waits for the Enforce All action to complete.
+        - Keyword Usage
+        - ``XIQSE Wait For Enforce All To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the enforce all action to be complete
         :param retry_count:    number of times to check for the enforce all action to be complete
@@ -628,10 +628,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Waiting for Enforce All action to complete: loop {count}")
             load_mask = self.get_enforcing_engines_load_mask()
             if load_mask:
-                self.utils.print_info(f"Enforce All action still in progress...")
+                self.utils.print_info("Enforce All action still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Enforce All action has completed")
+                self.utils.print_info("Enforce All action has completed")
                 return 1
             count += 1
 
@@ -641,9 +641,9 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_wait_for_poll_to_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits for the Poll action to complete.
-         - Keyword Usage
-          - ``XIQSE Wait For Poll To Complete``
+        - This keyword waits for the Poll action to complete.
+        - Keyword Usage
+        - ``XIQSE Wait For Poll To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the poll action to be complete
         :param retry_count:    number of times to check for the poll action to be complete
@@ -654,10 +654,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Waiting for Poll action to complete: loop {count}")
             load_mask = self.get_polling_engine_load_mask()
             if load_mask:
-                self.utils.print_info(f"Poll action still in progress...")
+                self.utils.print_info("Poll action still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Poll action has completed")
+                self.utils.print_info("Poll action has completed")
                 return 1
             count += 1
 
@@ -667,9 +667,9 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
 
     def xiqse_wait_for_restart_collector_to_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits for the Restart Collector action to complete.
-         - Keyword Usage
-          - ``XIQSE Wait For Restart Collector To Complete``
+        - This keyword waits for the Restart Collector action to complete.
+        - Keyword Usage
+        - ``XIQSE Wait For Restart Collector To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the restart collector action to be complete
         :param retry_count:    number of times to check for the restart collector action to be complete
@@ -680,10 +680,10 @@ class XIQSE_AnalyticsConfiguration(AnalyticsConfigurationWebElements):
             self.utils.print_info(f"Waiting for Restart Collector action to complete: loop {count}")
             load_mask = self.get_restarting_collector_load_mask()
             if load_mask:
-                self.utils.print_info(f"Restart Collector action still in progress...")
+                self.utils.print_info("Restart Collector action still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Restart Collector action has completed")
+                self.utils.print_info("Restart Collector action has completed")
                 return 1
             count += 1
 

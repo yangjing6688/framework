@@ -1,11 +1,12 @@
 from time import sleep
-from extauto.common.CloudDriver import CloudDriver
+
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestDashboardWebElements import ExtremeGuestDashboardWebElements
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Dashboard(object):
@@ -18,21 +19,25 @@ class Dashboard(object):
         self.auto_actions = AutoActions()
         self.dashboard_web_elem = ExtremeGuestDashboardWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def go_to_extreme_guest_dashboard_page(self):
         """
-        -This keyword Will Navigate to Extreme Guest Dashboard Page
+        - This keyword Will Navigate to Extreme Guest Dashboard Page
         - Flow: Extreme Guest--> More Insights-->Extreme Guest Menu Window-- Monitor--> dashboard
         - Keyword Usage:
             ''Go To Extreme Guest Dashboard Page''
 
         :return: 1 if navigation success
         """
+
         self.ext_guest.go_to_extreme_guest_monitor_dashboard_page()
+
+        return 1
 
     def create_new_extreme_guest_dashboard(self, dashboard_name="automation_db1"):
         """
-        -This keyword Will Create a new dashboard with theme 15 and 9 widgets
+        - This keyword Will Create a new dashboard with theme 15 and 9 widgets
         - Flow: dashboard--> create new
         - Keyword Usage:
             ''create new extreme guest dashboard''
@@ -40,7 +45,7 @@ class Dashboard(object):
         :return: 1 if navigation success
         """
         self.utils.print_info("Clicking the Create New tab ")
-        self.auto_actions.click(self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_tab())
+        self.auto_actions.click_reference(self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_tab)
         sleep(5)
 
         self.utils.print_info("Dragging the Theme15 into the main canvas ")
@@ -50,16 +55,16 @@ class Dashboard(object):
         sleep(2)
 
         self.utils.print_info("Clicking the theme/widget toggle button ")
-        self.auto_actions.click(
-            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_toggle_button())
+        self.auto_actions.click_reference(
+            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_toggle_button)
         sleep(2)
 
         client_panel_expand_status = self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_client_panel().get_attribute(
             'aria-expanded')
         if client_panel_expand_status == "false":
             self.utils.print_info("Clicking the client panel ")
-            self.auto_actions.click(
-                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_client_panel())
+            self.auto_actions.click_reference(
+                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_client_panel)
             sleep(2)
 
         self.utils.print_info("Dragging the widget1 into the canvas1 ")
@@ -82,8 +87,8 @@ class Dashboard(object):
             'aria-expanded')
         if users_panel_expand_status == "false":
             self.utils.print_info("Clicking the users panel ")
-            self.auto_actions.click(
-                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_users_panel())
+            self.auto_actions.click_reference(
+                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_users_panel)
             sleep(2)
 
         self.utils.print_info("Dragging the widget1 into the canvas4 ")
@@ -106,9 +111,13 @@ class Dashboard(object):
             'aria-expanded')
         if usage_panel_expand_status == "false":
             self.utils.print_info("Clicking the usage panel ")
-            self.auto_actions.click(
-                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_usage_panel())
+            self.auto_actions.click_reference(
+                self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_usage_panel)
             sleep(2)
+        self.utils.print_info("Double Clicking the canvas7")
+        self.auto_actions.double_click(
+            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme15_canvas9())
+        sleep(2)
 
         self.utils.print_info("Dragging the widget1 into the canvas7 ")
         self.auto_actions.drag_and_drop_element(
@@ -129,8 +138,8 @@ class Dashboard(object):
         sleep(3)
 
         self.utils.print_info("Clicking the save button ")
-        self.auto_actions.click(
-            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_save_button())
+        self.auto_actions.click_reference(
+            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_save_button)
         sleep(2)
 
         self.utils.print_info("Entering Dashboard name  ", )
@@ -143,15 +152,15 @@ class Dashboard(object):
         sleep(2)
 
         self.utils.print_info("Clicking the save button ")
-        self.auto_actions.click(
-            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_save_dashboard_save_button())
+        self.auto_actions.click_reference(
+            self.dashboard_web_elem.get_extreme_guest_dashboard_create_new_theme_widget_save_dashboard_save_button)
         sleep(2)
 
         return 1
 
-    def check_dashboard_page_widgets(self):
+    def check_dashboard_page_widgets(self, **kwargs):
         """
-        -This keyword Will check if the newly created dashboard is displaying all the widgets
+        - This keyword Will check if the newly created dashboard is displaying all the widgets
         - Flow: dashboard--> automation_db1
         - Keyword Usage:
             ''check dashboard page widgets''
@@ -159,7 +168,7 @@ class Dashboard(object):
         :return: 1 if navigation success
         """
         self.utils.print_info("Clicking the dashboard ")
-        self.auto_actions.click(self.dashboard_web_elem.get_extreme_guest_dashboard_automation_db1_tab())
+        self.auto_actions.click_reference(self.dashboard_web_elem.get_extreme_guest_dashboard_automation_db1_tab)
         sleep(2)
         all_displayed = True
 
@@ -218,6 +227,10 @@ class Dashboard(object):
             all_displayed = False
 
         if all_displayed:
+            kwargs['pass_msg'] = "The newly created dashboard is displaying all the widgets"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = f"{all_displayed}"
+            self.common_validation.failed(**kwargs)
             return 0

@@ -1,7 +1,11 @@
-from extauto.xiq.flows.manage.Client import *
-from extauto.xiq.flows.manage.Devices import *
-from extauto.xiq.flows.common.Navigator import *
-from extauto.xiq.elements.Network360MonitorElements import *
+from time import sleep
+
+from extauto.xiq.flows.common.Navigator import Navigator
+from extauto.xiq.elements.Network360MonitorElements import Network360MonitorElements
+from extauto.common.AutoActions import AutoActions
+from extauto.common.CommonValidation import CommonValidation
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 
 
 class Network360Monitor:
@@ -13,12 +17,13 @@ class Network360Monitor:
         self.navigator = Navigator()
         self.auto_actions = AutoActions()
         self.n360_elements = Network360MonitorElements()
+        self.common_validation = CommonValidation()
 
-    def search_floor_in_network360monitor(self, floor_name='default'):
+    def search_floor_in_network360monitor(self, floor_name='default', **kwargs):
         """
         - This keyword searches for the floor in Network360 Monitor
         - Keyword Usage:
-         - ``${SEARCH_MATCHES}=     Search Floor in Network360Monitor              floor_name=floor_02``
+        - ``${SEARCH_MATCHES}=     Search Floor in Network360Monitor              floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :return: returns list of search matches. -1 if no matches
@@ -39,14 +44,15 @@ class Network360Monitor:
                 search_matches.append(match.text)
             return search_matches
         else:
-            self.utils.print_info("No search matches found: ")
+            kwargs['fail_msg'] = "No search matches found"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def get_devices_from_network360monitor_floor(self, floor_name='default', device_type='default'):
+    def get_devices_from_network360monitor_floor(self, floor_name='default', device_type='default', **kwargs):
         """
         - This keyword gets  devices name from Network360 Monitor page
         - Keyword Usage:
-         - ``${AP_MATCHES}=          Get APs From Network360Monitor Floor           floor_name=floor_02``
+        - ``${AP_MATCHES}=          Get APs From Network360Monitor Floor           floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :param device_type: optional - type of device - AP/switch/router/VGVA/router
@@ -62,14 +68,13 @@ class Network360Monitor:
         matches = self.n360_elements.get_n360_monitor_search_matches()
         if matches:
             for match in matches:
-                search_matches = []
                 self.utils.print_info("Search Results: ", match.text)
                 if floor_name == match.text:
                     self.utils.print_info("Clicking on the match: ", floor_name)
                     self.auto_actions.click(match)
                     sleep(10)
                     self.utils.print_info("Clicking on the MAP tab")
-                    self.auto_actions.click(self.n360_elements.get_n360_monitor_map())
+                    self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_map)
                     sleep(10)
 
                     ap_list = self.n360_elements.get_n360_monitor_aps_on_floor()
@@ -81,7 +86,8 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        self.utils.print_info("No APs found on floor: ", floor_name)
+                        kwargs['fail_msg'] = f"No APs found on floor: {floor_name}"
+                        self.common_validation.failed(**kwargs)
                         return -1
 
                     if ap_count_label:
@@ -100,15 +106,15 @@ class Network360Monitor:
                 else:
                     self.utils.print_info("No search matches found: ")
         else:
-            self.utils.print_info("No search matches found: ")
+            kwargs['fail_msg'] = "No search matches found"
+            self.common_validation.fault(**kwargs)
             return -1
 
-
-    def get_clients_from_network360monitor_floor(self, floor_name='default', device_type='default'):
+    def get_clients_from_network360monitor_floor(self, floor_name='default', device_type='default', **kwargs):
         """
         - This keyword gets clients MACs from Network360 Monitor page in a floor
         - Keyword Usage:
-         - ``${CLIENT_MATCHES}=          Get APs From Network360Monitor Floor           floor_name=floor_02``
+        - ``${CLIENT_MATCHES}=          Get APs From Network360Monitor Floor           floor_name=floor_02``
 
         :param floor_name: floor of the location where devices has been assigned
         :param device_type: optional - type of device - AP/switch/router/VGVA/router
@@ -124,7 +130,6 @@ class Network360Monitor:
         self.utils.print_info("Getting all matching floors")
         matches = self.n360_elements.get_n360_monitor_search_matches()
         if matches:
-            search_matches = []
             for match in matches:
                 self.utils.print_info("Search Results: ", match.text)
                 if floor_name == match.text:
@@ -140,7 +145,9 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        self.utils.print_info("No APs found on floor: ", floor_name)
+                        kwargs['fail_msg'] = "No APs found on floor: " \
+                                             f"{floor_name}"
+                        self.common_validation.failed(**kwargs)
                         return -1
 
                     if ap_count_label:
@@ -156,7 +163,7 @@ class Network360Monitor:
                         self.utils.print_info("Unable to find AP Count")
 
                     self.utils.print_info("Clicking on Connected Clients tab ")
-                    self.auto_actions.click(self.n360_elements.get_n360_monitor_connected_clients_tab())
+                    self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_connected_clients_tab)
                     client_mac_list = self.n360_elements.get_n360_connected_client_macs()
                     if client_mac_list:
                         clients_on_floor = []
@@ -164,17 +171,19 @@ class Network360Monitor:
                             clients_on_floor.append(client_mac.text)
                         self.utils.print_info("Connected Clients on floor: ", clients_on_floor[1:])
                     else:
-                        self.utils.print_info("No APs found on floor: ", floor_name)
+                        kwargs['fail_msg'] = f"No APs found on floor: {floor_name}"
+                        self.common_validation.failed(**kwargs)
                         return -1
 
                     return clients_on_floor[1:]
                 else:
                     self.utils.print_info("No search matches found: ")
         else:
-            self.utils.print_info("No search matches found: ")
+            kwargs['fail_msg'] = "No search matches found"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def _ml_insights_monitor_ap_count_and_ap_name(self, location_floor='default'):
+    def _ml_insights_monitor_ap_count_and_ap_name(self, location_floor='default', **kwargs):
         """
         - This keyword gets AP count and AP name from Network360 Monitor page
         :param location_floor: floor of the location where devices has been assigned
@@ -197,65 +206,70 @@ class Network360Monitor:
             return ap_name, ap_count
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to get AP Count and AP Name")
+            kwargs['fail_msg'] = "Unable to get AP Count and AP Name"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def _goto_ml_insights_monitor(self):
+    def _goto_ml_insights_monitor(self, **kwargs):
         """
         - This keyword navigates to Network360 Monitor page
         :return: returns 1 if successful
         """
         try:
             self.utils.print_info("Clicking on ML Insights button")
-            self.auto_actions.click(self.ml_insights.get_ml_insights_button())
+            self.auto_actions.click_reference(self.ml_insights.get_ml_insights_button)
             sleep(2)
-
             self.utils.print_info("Clicking on ML Insights Monitor button")
-            self.auto_actions.click(self.ml_insights.get_n360_monitor_button())
+            self.auto_actions.click_reference(self.ml_insights.get_n360_monitor_button)
+            kwargs['pass_msg'] = "Successfully clicking on ML Insights Monitor Button"
+            self.common_validation.passed(**kwargs)
             sleep(2)
             return 1
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to Navigate to MLInsights Monitor Page")
+            kwargs['fail_msg'] = "Unable to Navigate to MLInsights Monitor Page"
+            self.common_validation.fault(**kwargs)
             return 0
 
-    def _get_ml_insights_monitor_tracker_details(self):
+    def _get_ml_insights_monitor_tracker_details(self, **kwargs):
         """
         - This keyword gets details of Device, Client, Wifi, Network, Application, Service, Security in N360 Monitor page
         :return: dictionary of N360 Monitor details
         """
         try:
             sleep(5)
-            tracker_dict = dict()
-            tracker_dict["device_num"] = self.ml_insights_monitor.get_n360_monitor_device_number().text
-            tracker_dict["device_status"] = self.ml_insights_monitor.get_n360_monitor_device_status().text
-            tracker_dict["client_num"] = self.ml_insights_monitor.get_n360_monitor_client_number().text
-            tracker_dict["client_status"] = self.ml_insights_monitor.get_n360_monitor_client_status().text
-            tracker_dict["wifi_num"] = self.ml_insights_monitor.get_n360_monitor_wifi_number().text
-            tracker_dict["wifi_status"] = self.ml_insights_monitor.get_n360_monitor_wifi_status().text
-            tracker_dict["network_number"] = self.ml_insights_monitor.get_n360_monitor_network_number().text
-            tracker_dict["network_status"] = self.ml_insights_monitor.get_n360_monitor_network_status().text
-            tracker_dict["service_number"] = self.ml_insights_monitor.get_n360_monitor_service_number().text
-            tracker_dict["service_status"] = self.ml_insights_monitor.get_n360_monitor_service_status().text
-            tracker_dict["application_number"] = self.ml_insights_monitor.get_n360_monitor_app_number().text
-            tracker_dict["application_usage"] = self.ml_insights_monitor.get_n360_monitor_app_usage().text
-            tracker_dict["security_number"] = self.ml_insights_monitor.get_n360_monitor_security_number().text
-            tracker_dict["security_rogues"] = self.ml_insights_monitor.get_n360_monitor_security_total_rogues().text
+            tracker_dict = {
+                "device_num": self.ml_insights_monitor.get_n360_monitor_device_number().text,
+                "device_status": self.ml_insights_monitor.get_n360_monitor_device_status().text,
+                "client_num": self.ml_insights_monitor.get_n360_monitor_client_number().text,
+                "client_status": self.ml_insights_monitor.get_n360_monitor_client_status().text,
+                "wifi_num": self.ml_insights_monitor.get_n360_monitor_wifi_number().text,
+                "wifi_status": self.ml_insights_monitor.get_n360_monitor_wifi_status().text,
+                "network_number": self.ml_insights_monitor.get_n360_monitor_network_number().text,
+                "network_status": self.ml_insights_monitor.get_n360_monitor_network_status().text,
+                "service_number": self.ml_insights_monitor.get_n360_monitor_service_number().text,
+                "service_status": self.ml_insights_monitor.get_n360_monitor_service_status().text,
+                "application_number": self.ml_insights_monitor.get_n360_monitor_application_number().text,
+                "application_status": self.ml_insights_monitor.get_n360_monitor_application_status().text,
+                "security_number": self.ml_insights_monitor.get_n360_monitor_security_number().text,
+                "security_status": self.ml_insights_monitor.get_n360_monitor_security_status().text
+            }
 
             self.utils.print_info("Tracker details dictionary ", tracker_dict)
             return tracker_dict
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to get MLInsights Monitor Tracker Details")
+            kwargs['fail_msg'] = "Unable to get MLInsights Monitor Tracker Details"
+            self.common_validation.fault(**kwargs)
             return -1
 
-    def get_network360monitor_devices_score(self, floor_name='default'):
+    def get_network360monitor_devices_score(self, floor_name='default', **kwargs):
         """
         - This keyword returns the DEVICES card's health score
 
         - Keyword Usage:
-         - ``Get Network360Monitor Devices Score             floor_name=floor_03``
-         - ``Get Network360Monitor Devices Score``
+        - ``Get Network360Monitor Devices Score             floor_name=floor_03``
+        - ``Get Network360Monitor Devices Score``
 
         :param floor_name: floor_name. if no floor_name passed, returns the values for Global View
         :return: returns the devices score Ex: 94/100 EXCELLENT
@@ -266,18 +280,21 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
+                kwargs['fail_msg'] = "Unable to click on floor"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         device_score = self.n360_elements.get_devices_score()
 
         if device_score is None:
-            self.utils.print_info("No Device Score label found")
+            kwargs['fail_msg'] = "No Device Score label found"
+            self.common_validation.failed(**kwargs)
             return -1
         else:
             self.utils.print_info("Device Score: ", device_score.text)
             return device_score.text
 
-    def get_network360monitor_device_health_overall_score(self, floor_name='default'):
+    def get_network360monitor_device_health_overall_score(self, floor_name='default', **kwargs):
         """
         - This keyword returns the DEVICES card -> Overall Score
         - Device Availability Score
@@ -285,8 +302,8 @@ class Network360Monitor:
         - Config & Firmware Score
 
         - Keyword Usage:
-         - ``Get Network360Monitor Device Health Overall Score          floor_name=floor_01``
-         - ``Get Network360Monitor Device Health Overall Score``
+        - ``Get Network360Monitor Device Health Overall Score          floor_name=floor_01``
+        - ``Get Network360Monitor Device Health Overall Score``
 
         :param floor_name: floor_name. if no floor_name passed, returns the values for Global View
         :return: returns availability_score, hw_health, fw_health
@@ -295,10 +312,12 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
+                kwargs['fail_msg'] = "Unable to click on floor"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         self.utils.print_info("Clicking the devices card...")
-        self.auto_actions.click(self.n360_elements.get_n360_monitor_devices_card())
+        self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_devices_card)
         sleep(5)
 
         availability_score = self.n360_elements.get_device_health_overal_score_availability_score()
@@ -329,7 +348,7 @@ class Network360Monitor:
 
         return _availability_score, _hw_health, _fw_health
 
-    def _search_and_click_floor(self, floor_name):
+    def _search_and_click_floor(self, floor_name, **kwargs):
         self.utils.print_info("Entering floor name in search box")
         self.auto_actions.send_keys(self.n360_elements.get_n360_monitor_location_search_box(), floor_name)
         sleep(5)
@@ -345,16 +364,17 @@ class Network360Monitor:
                     sleep(5)
                     return 1
 
-        self.utils.print_info("Unable to find the floor")
+        kwargs['fail_msg'] = "Unable to find the floor"
+        self.common_validation.fault(**kwargs)
         return -1
 
-    def get_network360monitor_clients_health_client_count(self, floor_name='default'):
+    def get_network360monitor_clients_health_client_count(self, floor_name='default', **kwargs):
         """
         - This keyword returns the CLIENTS card -> Client Count
 
         - Keyword Usage:
-         - ``Get Network360Monitor Clients Health Client Count          floor_name=floor_01``
-         - ``Get Network360Monitor Clients Health Client Count``
+        - ``Get Network360Monitor Clients Health Client Count          floor_name=floor_01``
+        - ``Get Network360Monitor Clients Health Client Count``
 
         :param floor_name: floor_name. if no floor_name passed, returns the values for Global View
         :return: returns client_count_2G, client_count_5G, client_count_6G
@@ -363,15 +383,17 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
+                kwargs['fail_msg'] = "Unable to click on floor"
+                self.common_validation.failed(**kwargs)
                 return -1
 
         self.utils.print_info("Clicking the clients card...")
-        self.auto_actions.click(self.n360_elements.get_n360_monitor_clients_card())
+        self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_clients_card)
         sleep(5)
 
         self.screen.save_screen_shot()
         sleep(2)
-        
+
         self.utils.print_info("Checking CLIENT widget...")
         client_count_2G = self.n360_elements.get_client_health_clients_widget_count_2G()
         client_count_5G = self.n360_elements.get_client_health_clients_widget_count_5G()

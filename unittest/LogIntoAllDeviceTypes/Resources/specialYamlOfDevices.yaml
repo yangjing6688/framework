@@ -43,7 +43,7 @@ netelem2:
 wing1:
   name:                     ap7532-861180
   connection_method:        "ssh"
-  cli_type:                 "AH-WING"
+  cli_type:                 "WING-AP"
   model:                    AP7532I
   device_template:          AP7532I-default-template
   serial:                   "14137522203443"

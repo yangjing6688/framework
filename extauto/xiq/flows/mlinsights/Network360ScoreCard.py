@@ -8,6 +8,7 @@ from extauto.xiq.elements.DeviceActions import DeviceActions
 from extauto.xiq.elements.MLInsightsScoreCardWebElements import MLInsightsScoreCardWebElements
 from extauto.xiq.elements.MLInsightsWebElements import MLInsightsWebElements
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Network360ScoreCard:
@@ -22,27 +23,31 @@ class Network360ScoreCard:
         self.ml_insights_sc = MLInsightsScoreCardWebElements()
         self.screen = Screen()
         self.client = Client()
+        self.common_validation = CommonValidation()
 
-    def goto_ml_insights_score_card(self):
+    def goto_ml_insights_score_card(self, **kwargs):
         """
         - This keyword navigates to Network360 Plan page
         :return: returns 1 if successful
         """
         try:
             self.utils.print_info("Clicking on ML Insights button")
-            self.auto_actions.click(self.ml_insights.get_ml_insights_button())
+            self.auto_actions.click_reference(self.ml_insights.get_ml_insights_button)
             sleep(2)
 
             self.utils.print_info("Clicking on ML Insights Score Card button")
-            self.auto_actions.click(self.ml_insights.get_n360_scorecard_button())
+            self.auto_actions.click_reference(self.ml_insights.get_n360_scorecard_button)
             sleep(3)
+            kwargs['pass_msg'] = "Successfully Clicking on ML Insights Score Card button"
+            self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to Navigate to MLInsights Score Card Page")
+            kwargs['fail_msg'] = "Unable to Navigate to MLInsights Score Card Page"
+            self.common_validation.fault(**kwargs)
             return 0
 
-    def score_card_details(self):
+    def score_card_details(self, **kwargs):
         """
         - This keyword gets details of N360 Score Card page
         :return: dictionary of Score Card details
@@ -174,5 +179,6 @@ class Network360ScoreCard:
             return device_health_list, client_health_list, network_health_list, wifi_health_list, service_health_list
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to get MLInsights Score Card Details")
+            kwargs['fail_msg'] = "Unable to get MLInsights Score Card Details"
+            self.common_validation.fault(**kwargs)
             return -1

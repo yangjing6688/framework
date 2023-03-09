@@ -1,10 +1,14 @@
+from time import sleep
+
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
-from extauto.xiq.defs.MuCPWebElemenetsDefinitions import *
-from time import sleep
-from extauto.common.WebElementHandler import *
-from extauto.common.Screen import *
+
+from extauto.xiq.defs.MuCPWebElemenetsDefinitions import MuCPWebElementDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.common.Screen import Screen
+from extauto.common.Utils import Utils
 
 
 class MuCPWebElement(MuCPWebElementDefinitions):
@@ -22,12 +26,12 @@ class MuCPWebElement(MuCPWebElementDefinitions):
                         "CLASS_NAME": By.CLASS_NAME,
                         }
 
-    def open_cp_browser(self, mu_ip, url=None):
+    def open_cp_browser(self, mu_ip, url=None, incognito=False):
         """
         Open captive portal browser on the remote mu
         :param mu_ip: Ip of the remote mu
         :param url: url to open
-        :return:
+        :return: Empty String ("") if error, else page title
         """
         if not url:
             url = 'http://www.cnn.com/'
@@ -36,13 +40,15 @@ class MuCPWebElement(MuCPWebElementDefinitions):
             caps = webdriver.DesiredCapabilities.CHROME.copy()
             ops = Options()
             ops.add_argument('--disable-notifications')
+            if incognito:
+                ops.add_argument('--incognito')
             command_executor = "http://" + mu_ip + ":4444/wd/hub"
             self.utils.print_info(f"Command Executor:{command_executor}")
             self.driver = webdriver.Remote(desired_capabilities=caps, command_executor=command_executor, options=ops)
         except Exception as e:
-            self.utils.print_info(e)
-            self.utils.print_info("Unable to load the URL.. Exiting..")
-            sleep(2)
+            self.utils.print_error(e)
+            self.utils.print_error("Unable to load the URL.. Exiting..")
+            return "" # Error
 
         self.utils.print_info("Loading Page with URL: ", url)
         self.driver.maximize_window()
@@ -52,7 +58,8 @@ class MuCPWebElement(MuCPWebElementDefinitions):
             self.utils.print_info("Refreshing Page URL")
             self.driver.refresh()
         except Exception as e:
-            self.utils.print_info(e)
+            self.utils.print_error(e)
+            return "" # Error
 
         got_title = self.driver.title
         self.utils.print_info("Page Title: ", got_title)
@@ -81,6 +88,13 @@ class MuCPWebElement(MuCPWebElementDefinitions):
         self.utils.print_info("Close Captive Portal Browser")
         sleep(2)
         self.driver.quit()
+
+    def refresh_cp_browser(self):
+        self.utils.print_info("Reload Captive Portal Browser")
+        self.driver.refresh
+        sleep(2)
+        self.get_page_screen_shot()
+        sleep(1)
 
     @property
     def get_page_title(self):
@@ -131,7 +145,7 @@ class MuCPWebElement(MuCPWebElementDefinitions):
 
     def get_ppsk_pascode(self):
         return self.weh.get_element(self.ppsk_passcode, self.driver)
-    
+
     def get_social_login_accept_condition_checkbox(self):
         """
         Get user acceptance checkbox element
@@ -308,4 +322,3 @@ class MuCPWebElement(MuCPWebElementDefinitions):
         Get Social Login terms and condition link page close button
         """
         return self.weh.get_element(self.social_login_terms_and_condition_close_button, self.driver)
-

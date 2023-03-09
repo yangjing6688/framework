@@ -8,7 +8,7 @@ class NetworkPolicyWebElementDefinition:
 
     card_view = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-config-card']",
+            'XPATH': "//span[@data-automation-tag='automation-config-card']",
             'wait_for': 5
         }
 
@@ -352,7 +352,13 @@ class NetworkPolicyWebElementDefinition:
 
     perform_after_select_update_policy_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="upload"]',
+            'XPATH': '//*[@data-automation-tag="automation-config-download-options-update-btn"]',
+            'wait_for': 2
+        }
+
+    yes_after_perform_update_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-notification-yes-btn"]',
             'wait_for': 2
         }
 
@@ -729,6 +735,12 @@ class NetworkPolicyWebElementDefinition:
             
         }
 
+    device_templates_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tab-switch-settings"]',
+            'wait_for': 5
+        }
+
     nw_policy_port_types_view_all_pages = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
@@ -744,4 +756,76 @@ class NetworkPolicyWebElementDefinition:
         {
             'XPATH': '//*[@data-dojo-attach-point="next-item1"]',
             'index': 1
+        }
+
+    switching_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tab-switching"]',
+            'wait_for': 3
+        }
+
+    common_settings_voss = \
+        {
+            'XPATH': '//*[@data-automation-tag="policy-switching-settings-voss"]',
+            'wait_for': 3
+        }
+
+    voss_parameters_text = \
+        {
+            'XPATH': "//div[@class='common-switch-settings']",
+            'wait_for': 3
+        }
+
+    port_types_section = \
+        {
+            'XPATH': '//li[@data-automation-tag="policy-switching-port-types"]',
+            'wait_for': 3
+        }
+
+    port_types_title_page = \
+        {
+            'XPATH': '//div[contains(text(),"Port Types")]',
+            'wait_for': 3
+        }
+
+    add_new_port_type = \
+        {
+            'XPATH': '//button[@data-automation="grid-add-button"]',
+            'wait_for': 3
+        }
+
+    select_platform_voss = \
+        {
+            'XPATH': '//a[@data-automation-tag="switching-port-type-add-voss"]',
+            'wait_for': 3
+        }
+
+    select_platform_exos = \
+        {
+            'XPATH': '//a[@data-automation-tag="switching-port-type-add-exos"]',
+            'wait_for': 3
+        }
+
+    edit_port_type = \
+        {
+            'XPATH': '//div[@data-automation="grid-edit-button"]',
+            'wait_for': 3
+        }
+
+    delete_port_type = \
+        {
+            'XPATH': '//div[@data-automation="grid-delete-button"]',
+            'wait_for': 3
+        }
+
+    port_types_rows = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="hcGrid"]//table[@class="dgrid-row-table"]//tr',
+            'wait_for': 5
+        }
+
+    port_type_row_cells = \
+        {
+            'CSS_SELECTOR': '.dgrid-cell',
+            'wait_for': 3
         }

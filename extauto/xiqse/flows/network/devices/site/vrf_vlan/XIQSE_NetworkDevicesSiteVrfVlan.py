@@ -3,9 +3,6 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from xiqse.elements.network.devices.site.vrf_vlan.NetworkDevicesSiteVrfVlanWebElements import NetworkDevicesSiteVrfVlanWebElements
-from xiqse.flows.network.devices.site.discover.XIQSE_NetworkDevicesSiteDiscover import XIQSE_NetworkDevicesSiteDiscover
-from xiqse.flows.network.devices.site.actions.XIQSE_NetworkDevicesSiteActions import XIQSE_NetworkDevicesSiteActions
-from xiqse.flows.common.XIQSE_CommonOperationsPanel import XIQSE_CommonOperationsPanel
 
 
 class XIQSE_NetworkDevicesSiteVrfVlan(NetworkDevicesSiteVrfVlanWebElements):
@@ -17,12 +14,12 @@ class XIQSE_NetworkDevicesSiteVrfVlan(NetworkDevicesSiteVrfVlanWebElements):
 
     def xiqse_site_create_vlan(self, name, vid="2"):
         """
-         - This keyword creates a new VLAN in XIQ-SE.
-         - Keyword Usage
-          - ``XIQSE Site Create VLAN  test_vlan_1``
-          - ``XIQSE Site Create VLAN  test_vlan_1  2 ``
+        - This keyword creates a new VLAN in XIQ-SE.
+        - Keyword Usage
+        - ``XIQSE Site Create VLAN  test_vlan_1``
+        - ``XIQSE Site Create VLAN  test_vlan_1  2 ``
         :param name: value to enter in the VLAN Name field
-        :param id: value to select for the VLAN VID field 
+        :param id: value to select for the VLAN VID field
         :return: 1 if action was successful, else -1
         """
 
@@ -82,10 +79,10 @@ class XIQSE_NetworkDevicesSiteVrfVlan(NetworkDevicesSiteVrfVlanWebElements):
 
     def xiqse_site_cancel_vlan(self):
         """
-         - This keyword clicks Cancel in the VLAN row editor.
-         - It is assumed the VLAN row editor is open.
-         - Keyword Usage
-          - ``XIQSE Site Cancel VLAN``
+        - This keyword clicks Cancel in the VLAN row editor.
+        - It is assumed the VLAN row editor is open.
+        - Keyword Usage
+        - ``XIQSE Site Cancel VLAN``
         :return: 1 if action was successful, else -1
         """
         ret_val = 1

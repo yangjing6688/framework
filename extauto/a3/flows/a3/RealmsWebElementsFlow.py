@@ -1,10 +1,13 @@
+from time import sleep
 
-from common.AutoActions import *
-from a3.elements.RealmsWebElements import RealmsWebElements
-from a3.elements.GlobalSettingWebElements import *
-from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
 from selenium import webdriver
+
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
+from a3.elements.RealmsWebElements import RealmsWebElements
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
+from xiq.flows.common.DeviceCommon import DeviceCommon
 
 
 class RealmsWebElementsFlow(RealmsWebElements):
@@ -29,7 +32,7 @@ class RealmsWebElementsFlow(RealmsWebElements):
         """
         self.utils.print_info("Selecting Realm from menu...")
 
-        if self.auto_actions.click(self.get_realms_ui()) == 1:
+        if self.auto_actions.click_reference(self.get_realms_ui) == 1:
             sleep(2)
             self.utils.print_info("Clicking New Realm ")
             element = self.weh.get_element(self.realm_button)

@@ -363,25 +363,43 @@ class CommonObjectsWebElementsDefinitions:
     common_object_grid_row_cells = \
         {
             'CSS_SELECTOR': '.dgrid-cell',
+            'wait_for': 10
+        }
+
+    common_object_grid_row_cells_href = \
+        {
+            'TAG_NAME': 'a',
+            'wait_for': 5
+        }
+        
+    common_object_supp_cli_grid_rows = \
+        {
+            'CSS_SELECTOR': '.dojoxGridRow',
+            'wait_for': 2
+        }
+
+    common_object_supp_cli_grid_row_cells = \
+        {
+            'CSS_SELECTOR': '.dojoxGridCell',
             'wait_for': 2
         }
 
     common_object_edit_button = \
         {
             'CSS_SELECTOR': '.table-action-icons.table-edit',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     common_object_delete_button = \
         {
             'CSS_SELECTOR': '.table-action-icons.table-remove',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     common_object_confirm_delete_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     cwp_self_reg_employee_approval_button = \
@@ -398,8 +416,7 @@ class CommonObjectsWebElementsDefinitions:
 
     page_size_element = \
         {
-            'CSS_SELECTOR': '.J-page-size.ui-page-size',
-            'wait_for': 2
+            'CSS_SELECTOR': '.J-page-size.ui-page-size'
         }
 
     next_page_element = \
@@ -433,6 +450,12 @@ class CommonObjectsWebElementsDefinitions:
     common_object_policy_port_types_view_all_pages = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
+            'wait_for': 3
+        }
+
+    common_object_basic_supp_cli_view_all_pages = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="500"]',
             'wait_for': 3
         }
 
@@ -583,9 +606,39 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_wifi0_radio_operating_mode_combox = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dualGHzArea"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_radio_operating_mode_combox_list = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dualGHzArea"]//*[@data-automation-tag="automation-chzn-results-ctn"]/li',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_radio_profile_textbox = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile2g"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 3
+        }
+
     common_object_wifi1_radio_profile_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="radioProfile5g"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi1_radio_profile_textbox = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile5g"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_radio_profile_textbox = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="radioProfile6g"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 3
         }
 
@@ -736,6 +789,30 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_wifi2_sensor = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzSensor"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi0_sensor_UI_disable = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage2GHzSensorLi"][contains(@style, "display: none")]',
+            'wait_for': 3
+        }
+
+    common_object_wifi1_sensor_UI_disable = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage5GHzSensorLi"][contains(@style, "display: none")]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_sensor_UI_disable = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="radioUsage6GHzSensorLi"][contains(@style, "display: none")]',
+            'wait_for': 3
+        }
+
     common_object_wifi1_client_mode = \
         {
             'XPATH': '//input[@data-dojo-attach-point="radioUsage5GHzClientMode"]',
@@ -757,6 +834,18 @@ class CommonObjectsWebElementsDefinitions:
     common_object_wifi1_sensor = \
         {
             'XPATH': '//input[@data-dojo-attach-point="radioUsage5GHzSensor"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_client_access = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage6GHzClientAccess"]',
+            'wait_for': 3
+        }
+
+    common_object_wifi2_mesh_link = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="radioUsage6GHzMeshLink"]',
             'wait_for': 3
         }
 
@@ -876,6 +965,48 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 3
         }
 
+    common_object_ap_template_eth0_port_type = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portTypeDiv"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 0,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth1_port_type = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="portTypeDiv"]//*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 1,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth0_transmission_type = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="transmissionType"]/../*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 0,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth1_transmission_type = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="transmissionType"]/../*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 1,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth0_speed = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="transmissionSpeed"]/../*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 0,
+            'wait_for': 3
+        }
+
+    common_object_ap_template_eth1_speed = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="transmissionSpeed"]/../*[@data-automation-tag="automation-chzn-container-ctn"]',
+            'index': 1,
+            'wait_for': 3
+        }
+
     common_object_wifi2_primary_server_ip = \
         {
             'XPATH': '//input[@data-dojo-attach-point="airDefensePrimaryServerIP"]',
@@ -891,6 +1022,12 @@ class CommonObjectsWebElementsDefinitions:
     common_object_ap_template_save_button = \
         {
             'XPATH': '//*[@data-dojo-attach-point="btnCtn"]//*[@data-dojo-attach-point="saveButton"]',
+            'wait_for': 3
+        }
+
+    common_object_ap_template_cancel_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="btnCtn"]//*[@data-dojo-attach-point="cancelButton"]',
             'wait_for': 3
         }
 
@@ -1149,8 +1286,26 @@ class CommonObjectsWebElementsDefinitions:
             'wait_for': 1
         }
 
+    ui_tipbox_error = \
+        {
+            'XPATH': '//div[contains(@class,"ui-tipbox-error")]/div[@class="ui-tipbox-con"]/h3',
+            'wait_for': 1
+        }
+
     next_page_element_disabled = \
         {
             'CSS_SELECTOR': '.J-page-next.ui-page-item-next.ui-page-item-disable',
+            'index': 0
+        }
+
+    common_object_policy_max_page_number = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="pagesWrap"]//a',
+            'index': 0
+        }
+
+    common_object_policy_go_to_first_page = \
+        {
+            'XPATH': '//li[@data-dojo-attach-point="pagePrev"]//a[@data-dojo-attach-point="prev-item1"]',
             'index': 0
         }

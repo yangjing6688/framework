@@ -1,5 +1,5 @@
 from extauto.xiq.defs.extreme_guest.ExtremeGuestLandingWebElementsDefs import ExtremeGuestLandingWebElementsDefs
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ExtremeGuestLandingWebElements(ExtremeGuestLandingWebElementsDefs):
@@ -12,8 +12,8 @@ class ExtremeGuestLandingWebElements(ExtremeGuestLandingWebElementsDefs):
     def get_extreme_guest_landing_user_walkin_widget(self):
         return self.weh.get_element(self.extreme_guest_landing_user_walkin_widget)
 
-    def get_extreme_guest_landing_user_dwell_time_widget(self):
-        return self.weh.get_element(self.extreme_guest_landing_user_dwell_time_widget)
+    def get_extreme_guest_landing_sessions_dwell_time_widget(self):
+        return self.weh.get_element(self.extreme_guest_landing_sessions_dwell_time_widget)
 
     def get_extreme_guest_landing_visitors_widget(self):
         return self.weh.get_element(self.extreme_guest_landing_visitors_widget)

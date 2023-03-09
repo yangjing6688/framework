@@ -4,8 +4,8 @@
 # form or fashion without the written consent of Extreme Networks Inc.
 # ----------------------------------------------------------------------
 #
-from extauto.common.WebElementHandler import *
-from xiqse.defs.network.common.configure_device.NetworkCommonConfigureDeviceActionsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.network.common.configure_device.NetworkCommonConfigureDeviceActionsWebElementsDefinitions import NetworkCommonConfigureDeviceActionsWebElementsDefinitions
 
 
 class NetworkCommonConfigureDeviceActionsWebElements(NetworkCommonConfigureDeviceActionsWebElementsDefinitions):

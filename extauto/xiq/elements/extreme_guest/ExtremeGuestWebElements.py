@@ -1,5 +1,5 @@
 from extauto.xiq.defs.extreme_guest.ExtremeGuestWebElementsDefs import ExtremeGuestWebElementsDefs
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ExtremeGuestWebElements(ExtremeGuestWebElementsDefs):
@@ -44,6 +44,9 @@ class ExtremeGuestWebElements(ExtremeGuestWebElementsDefs):
 
     def get_extreme_guest_configure_splash_template_tab(self):
         return self.weh.get_element(self.extreme_guest_configure_splash_template_tab)
+
+    def get_extreme_guest_configure_preview_button(self):
+        return self.weh.get_element(self.extreme_guest_configure_preview_button)
 
     def get_extreme_guest_configure_users_tab(self):
         return self.weh.get_element(self.extreme_guest_configure_users_tab)

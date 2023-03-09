@@ -1,4 +1,3 @@
-from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -23,10 +22,10 @@ class XIQSE_ControlPolicyDomainOpen(ControlPolicyDomainOpenWebElements):
 
     def xiqse_control_policy_domain_exists(self, domain_name):
         """
-         - This keyword checks if a domain exists in the Policy Manager database
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse control policy domain exists      <domain_name>
+        - This keyword checks if a domain exists in the Policy Manager database
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse control policy domain exists      <domain_name>
 
         :return: 1 if domain exists, else -1
         """
@@ -50,10 +49,10 @@ class XIQSE_ControlPolicyDomainOpen(ControlPolicyDomainOpenWebElements):
 
     def xiqse_control_policy_open_domain(self, domain_name):
         """
-         - This keyword opens an existing domain, if exists
-         - It is assumed that the current view is Control>Policy.
-         - Keyword Usage
-         -     xiqse control policy open domain      <domain_name>
+        - This keyword opens an existing domain, if exists
+        - It is assumed that the current view is Control>Policy.
+        - Keyword Usage
+        -     xiqse control policy open domain      <domain_name>
 
         :return: 1 if domain is open successfully, else -1
         """

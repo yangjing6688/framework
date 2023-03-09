@@ -3,8 +3,6 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from xiqse.elements.control.access_control.ControlAccessControlTreeWebElements import ControlAccessControlTreeWebElements
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
 
 class XIQSE_AccessControlTree(ControlAccessControlTreeWebElements):
 
@@ -17,9 +15,9 @@ class XIQSE_AccessControlTree(ControlAccessControlTreeWebElements):
 
     def xiqse_control_select_engines_tree_node(self, treenode):
         """
-         - This keyword selects the specified tree node on the Control> Access Control Tab
-         - Keyword Usage
-          - ``XIQSE Control Select Engines Tree Node   ${TREENODE}``
+        - This keyword selects the specified tree node on the Control> Access Control Tab
+        - Keyword Usage
+        - ``XIQSE Control Select Engines Tree Node   ${TREENODE}``
 
         :return: 1 if action was successful, else -1
         """

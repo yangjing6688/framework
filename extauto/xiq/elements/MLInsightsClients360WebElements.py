@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from extauto.xiq.defs.MLInsightsClient360Definitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.MLInsightsClient360Definitions import MLInsightsClient360Definitions
 
 
 class MLInsightsClients360WebElements(MLInsightsClient360Definitions):
@@ -119,3 +119,6 @@ class MLInsightsClients360WebElements(MLInsightsClient360Definitions):
 
     def get_client_360_status_channel(self):
         return self.weh.get_element(self.client_36_status_channel)
+
+    def client_360_close_current_connection_status(self):
+        return self.weh.get_element(self.close_current_connection_status)

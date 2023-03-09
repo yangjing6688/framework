@@ -1,5 +1,5 @@
 from extauto.xiq.defs.extreme_location.ExtremeLocationWebElementsDefs import ExtremeLocationWebElementsDefs
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
@@ -36,6 +36,15 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
     def get_devices_wireless_devices_sites_dropdown_button(self):
         return self.weh.get_element(self.extreme_location_devices_wireless_devices_sites_dropdown)
 
+    def get_bss_device_button(self):
+        return self.weh.get_element(self.bss_device_button)
+    
+    def get_devices_bss_devices_sites_dropdown_button(self):
+        return self.weh.get_element(self.devices_bss_devices_sites_dropdown_button)
+    
+    def get_devices_bss_search_textfield(self):
+        return self.weh.get_element(self.devices_bss_search_textfield)
+    
     def get_devices_wireless_devices_search_textfield(self):
         return self.weh.get_element(self.devices_wireless_devices_search_textfield)
 
@@ -47,7 +56,16 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
 
     def get_devices_wireless_devices_ip_address_textfield(self):
         return self.weh.get_element(self.devices_wireless_devices_ip_address_textfield)
-
+    
+    def get_devices_bss_devices_bss_textfield(self):
+        return self.weh.get_element(self.devices_bss_devices_bss_textfield)
+    
+    def get_devices_bss_devices_ssid_textfield(self):
+        return self.weh.get_element(self.devices_bss_devices_ssid_textfield)
+    
+    def get_devices_bss_devices_floor_name_textfield(self):
+        return self.weh.get_element(self.devices_bss_devices_floor_name_textfield)
+    
     def get_devices_wireless_devices_user_name_textfield(self):
         return self.weh.get_element(self.devices_wireless_devices_user_name_textfield)
 
@@ -78,6 +96,51 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
 
     def get_extreme_location_sites_menu_dropdown_items(self):
         return self.weh.get_elements(self.extreme_location_sites_menu_dropdown_items)
+
+    def get_xloc_search_name_field(self):
+        return self.weh.get_element((self.xloc_search_name_field))
+
+    def get_common_object_grid_rows(self):
+        return self.weh.get_element((self.common_object_grid_rows))
+
+    def get_common_object_grid_ap_status(self):
+        return self.weh.get_element((self.common_object_grid_ap_status))
+
+    def get_view_ibeacon_details_button(self):
+        return self.weh.get_element((self.view_ibeacon_details_button))
+
+    def get_xloc_third_party_beacon_edit_button(self):
+        return self.weh.get_element((self.xloc_third_party_beacon_edit_button))
+
+    def get_xloc_third_party_beacon_settings(self):
+        return self.weh.get_element((self.xloc_third_party_beacon_settings))
+
+    def get_xloc_third_party_beacon_uuid_text(self):
+        return self.weh.get_element((self.xloc_third_party_beacon_uuid_text))
+
+    def get_xloc_third_party_beacon_major_minor_version(self):
+        return self.weh.get_element((self.xloc_third_party_beacon_major_minor_version))
+
+    def get_xloc_third_party_beacon_save_btn(self):
+        return self.weh.get_element((self.xloc_third_party_beacon_save_btn))
+
+    def get_xloc_third_party_success_message(self):
+        return self.weh.get_element((self.xloc_third_party_success_message))
+
+    def get_xloc_third_party_major_minor_error_message(self):
+        return self.weh.get_element((self.xloc_third_party_major_minor_error_message))
+
+    def get_xloc_third_party_beacon_delete_button(self):
+        return self.weh.get_element((self.xloc_third_party_beacon_delete_button))
+
+    def get_xloc_third_party_beacon_confirm_button(self):
+        return self.weh.get_element((self.xloc_third_party_beacon_confirm_button))
+
+    def get_xloc_third_party_beacon_download_button(self):
+        return self.weh.get_element((self.xloc_third_party_beacon_download_button))
+
+    def get_xloc_third_party_beacon_refresh_button(self):
+        return self.weh.get_elements(self.xloc_third_party_beacon_refresh_button)
 
     def get_extreme_location_sites_name_icon(self):
         return self.weh.get_element(self.extreme_location_sites_name_icon)
@@ -215,6 +278,15 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
     def get_xloc_ibeacon_name(self):
         return self.weh.get_element(self.xloc_ibeacon_name)
 
+    def get_xloc_uuid_name(self):
+        return self.weh.get_element(self.xloc_uuid_name)
+
+    def get_xloc_major_version(self):
+        return self.weh.get_element(self.xloc_major_version)
+
+    def get_xloc_minor_version(self):
+        return self.weh.get_element(self.xloc_minor_version)
+
     def get_xloc_ibeacon_site_dropdown(self):
         return self.weh.get_element(self.xloc_ibeacon_site_dropdown)
 
@@ -275,7 +347,7 @@ class ExtremeLocationWebElements(ExtremeLocationWebElementsDefs):
 
     def get_device_classification_edit_disabled_btn(self):
         return self.weh.get_element(self.device_classification_edit_disabled_btn)
-      
+
     def get_xloc_ibeacon_save(self):
         return self.weh.get_element(self.xloc_ibeacon_save)
 

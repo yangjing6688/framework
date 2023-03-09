@@ -1,5 +1,5 @@
-from extauto.xiq.defs.ApplicationsWebElementsDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.ApplicationsWebElementsDefs import ApplicationsWebElementsDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ApplicationsWebElements(ApplicationsWebElementsDefs):
@@ -53,3 +53,9 @@ class ApplicationsWebElements(ApplicationsWebElementsDefs):
 
     def get_manage_add_custom_delete_confirm(self):
         return self.weh.get_element(self.manage_add_custom_delete_confirm)
+
+    def get_application_dialogbox_close_button(self):
+        return self.weh.get_element(self.application_dialogbox_close_button)
+
+    def get_application_dialogbox_close_tab(self):
+        return self.weh.get_element(self.application_dialogbox_close_tab)

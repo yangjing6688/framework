@@ -1,5 +1,3 @@
-import json
-import requests
 from time import sleep
 import common.CloudDriver
 from common.Utils import Utils
@@ -46,7 +44,7 @@ class A3Inventory(A3InventoryWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking on Sign In button")
-        self.auto_actions.click(self.get_a3_login_button())
+        self.auto_actions.click_reference(self.get_a3_login_button)
         sleep(8)
 
         self.screen.save_screen_shot()
@@ -55,4 +53,3 @@ class A3Inventory(A3InventoryWebElements):
         a3_page_title = self.driver.title
         self.utils.print_info("Page Title is : ", a3_page_title)
         return a3_page_title
-

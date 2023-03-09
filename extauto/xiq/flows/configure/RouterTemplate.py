@@ -9,7 +9,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 from extauto.common.CommonValidation import CommonValidation
 
-from extauto.xiq.elements.RouterTemplateWebElements import *
+from extauto.xiq.elements.RouterTemplateWebElements import RouterTemplateWebElements
 
 
 class RouterTemplate(RouterTemplateWebElements):
@@ -22,29 +22,35 @@ class RouterTemplate(RouterTemplateWebElements):
         self.nw_policy = NetworkPolicy()
         self.common_validation = CommonValidation()
 
-    def check_router_template(self, router_template):
+    def check_router_template(self, router_template, **kwargs):
         """
         - Check the router template in Router template Grid
         - Keyword Usage
-         - ``Check router Template  ${ROUTER_TEMPLATE_NAME}``
+        - ``Check router Template  ${ROUTER_TEMPLATE_NAME}``
 
         :param router_template: Router Template Name ie XR200P,XR600P
         :return: True if Router Template Found on Grid else False
         """
         router_template_rows_elements = self.get_router_template_rows()
         if not router_template_rows_elements:
+            kwargs['fail_msg'] = "Router Template not Found"
+            self.common_validation.failed(**kwargs)
             return False
         for el in router_template_rows_elements:
             if router_template.upper() in el.text.upper():
-                self.utils.print_info("Template Already present in the template grid")
+                kwargs['pass_msg'] = "Template Already present in the template grid"
+                self.common_validation.passed(**kwargs)
                 return True
+
+        kwargs['fail_msg'] = "Router Template not Found"
+        self.common_validation.failed(**kwargs)
         return False
 
     def navigate_to_router_settings_tab(self, nw_policy):
         """
         - To Navigate to Existing Network Policy's Router Settings Tab
         - Keyword Usage
-         - ``Navigate To Router Settings Tab  ${NETWORK_POLICY_NAME}``
+        - ``Navigate To Router Settings Tab  ${NETWORK_POLICY_NAME}``
 
         :param  nw_policy: Network Policy Name
         :return: True If Navigation successful else None
@@ -58,16 +64,16 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Router Settings tab button")
-        self.auto_actions.click(self.get_router_settings_tab_button())
+        self.auto_actions.click_reference(self.get_router_settings_tab_button)
         sleep(2)
 
         return True
 
-    def add_router_template(self, nw_policy, **template_config_settings):
+    def add_router_template(self, nw_policy, template_config_settings, **kwargs):
         """
         - Create New Router Template on Network Policy Router Settings If Not exists already
         - Keyword Usage
-         - ``Add Router Template     ${NW_POLICY_NAME}     &{ROUTER_TEMPLATE_CONFIG}``
+        - ``Add Router Template     ${NW_POLICY_NAME}     ${ROUTER_TEMPLATE_CONFIG}``
 
         :param  nw_policy: Network Policy Name
         :param  template_config_settings: (Config Dict) router_model,template_name,interface_name,new_port_type_config,
@@ -87,15 +93,16 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.get_device_template_tab())
+        self.auto_actions.click_reference(self.get_device_template_tab)
         sleep(2)
 
-        if self.check_router_template(router_model):
-            self.utils.print_info("Template Already present in the template grid")
+        if self.check_router_template(router_model, ignore_failure=True):
+            kwargs['pass_msg'] = "Template Already present in the template grid"
+            self.common_validation.passed(**kwargs)
             return 1
 
         self.utils.print_info("Click on Add Router Template button")
-        self.auto_actions.click(self.get_router_template_add_button())
+        self.auto_actions.click_reference(self.get_router_template_add_button)
         sleep(5)
 
         self.utils.print_info("select the Router Platform: ", router_model)
@@ -122,10 +129,10 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Configure New Port Type")
-        self.configure_new_port_type(**port_type_settings)
+        self.configure_new_port_type(port_type_settings)
 
         self.utils.print_info("Click on the save template button")
-        self.auto_actions.click(self.get_router_template_save_button())
+        self.auto_actions.click_reference(self.get_router_template_save_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -134,14 +141,16 @@ class RouterTemplate(RouterTemplateWebElements):
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page ", tool_tip_text)
         if "Router template has been saved successfully." not in tool_tip_text:
+            kwargs['fail_msg'] = "Router template has not been saved successfully."
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Click Network Allocation Tab")
-        self.auto_actions.click(self.get_network_allocation_tab())
+        self.auto_actions.click_reference(self.get_network_allocation_tab)
         sleep(15)
 
         self.utils.print_info("Click Add Network Allocation")
-        self.auto_actions.click(self.get_router_allocation_add_button())
+        self.auto_actions.click_reference(self.get_router_allocation_add_button)
         sleep(5)
 
         self.utils.print_info("Configure Sub Network Section")
@@ -152,13 +161,15 @@ class RouterTemplate(RouterTemplateWebElements):
         self.configure_network_allocation_vlan(**network_vlan_settings)
         sleep(2)
 
+        kwargs['pass_msg'] = "Router template has been saved successfully."
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def select_interface_to_add_new_port_type(self, interface_name):
+    def select_interface_to_add_new_port_type(self, interface_name, **kwargs):
         """
         - Selects the Router Interface To Configure New Port Type.
         - Keyword Usage
-         - ``Select Interface To Add New Port Type     ${INTERFACE_NAME}``
+        - ``Select Interface To Add New Port Type     ${INTERFACE_NAME}``
 
         :param interface_name: Router Interface Name ie ETH0,ETH1,ETH2
         :return: return 1 if Router Interface selected correctly else -1
@@ -171,14 +182,18 @@ class RouterTemplate(RouterTemplateWebElements):
                 self.utils.print_debug("Found Interface Name Row: ", row.text)
                 self.auto_actions.click(self.get_router_template_add_port_type_link_button(row))
                 sleep(2)
+                kwargs['pass_msg'] = "Router Interface selected correctly"
+                self.common_validation.passed(**kwargs)
                 return 1
+        kwargs['fail_msg'] = "Unable to select Router Interface"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def configure_new_port_type(self, **port_type_settings):
+    def configure_new_port_type(self, port_type_settings, **kwargs):
         """
         - Configure New Port type on Router Interface
         - Keyword Usage
-         - ``Configure New Port Type   &{PORT_TYPE_CONFIG}``
+        - ``Configure New Port Type   &{PORT_TYPE_CONFIG}``
 
         :param port_type_settings: (Config Dict) port_type_name,description,port_status,port_usage_config,
                                     traffic_filter_settings
@@ -225,14 +240,18 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click Save port button")
-        self.auto_actions.click(self.get_new_port_save_button())
+        self.auto_actions.click_reference(self.get_new_port_save_button)
         sleep(5)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page ", tool_tip_text)
         if "Port type was saved successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "Port type was saved successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Failed to save port type "
+            self.common_validation.failed(**kwargs)
             return -1
 
     def configure_port_type_config(self, **port_usage_configuration):
@@ -240,14 +259,14 @@ class RouterTemplate(RouterTemplateWebElements):
 
         - This keyword is used to do port type configuration
         - Keyword Usage
-         - ``Configure Port Type Config   &{PORT_USAGE_CONFIG}``
+        - ``Configure Port Type Config   &{PORT_USAGE_CONFIG}``
 
         :param port_usage_configuration: (Configuration Dictionary) Port Usage Configuration ie Access,Trunk,WAN
         :return: return 1 if Configuration successful else -1
         """
         if port_usage_configuration['port_usage_type'].upper() == "ACCESS":
             self.auto_actions.center_element(self.get_router_new_port_type_access_radio_button())
-            self.auto_actions.click(self.get_router_new_port_type_access_radio_button())
+            self.auto_actions.click_reference(self.get_router_new_port_type_access_radio_button)
             sleep(2)
 
             self.screen.save_screen_shot()
@@ -256,7 +275,7 @@ class RouterTemplate(RouterTemplateWebElements):
         if port_usage_configuration['port_usage_type'].upper() == "TRUNK":
             trunk_allowed_vlans = port_usage_configuration['allowed_vlans']
             self.auto_actions.center_element(self.get_router_new_port_type_trunk_radio_button())
-            self.auto_actions.click(self.get_router_new_port_type_trunk_radio_button())
+            self.auto_actions.click_reference(self.get_router_new_port_type_trunk_radio_button)
             sleep(2)
 
             self.utils.print_info("Enter Description For New Port Type Name: ", trunk_allowed_vlans)
@@ -268,7 +287,7 @@ class RouterTemplate(RouterTemplateWebElements):
             sleep(2)
 
         if port_usage_configuration['port_usage_type'].upper() == "WAN":
-            self.auto_actions.click(self.get_router_new_port_type_wan_radio_button())
+            self.auto_actions.click_reference(self.get_router_new_port_type_wan_radio_button)
             sleep(2)
 
             self.screen.save_screen_shot()
@@ -278,7 +297,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Configure New Port Traffic Filter Management ie SSH,Telnet,Ping,SNMP
         - Keyword Usage
-         - ``Configure New Port Traffic Filter Management   &{PORT_TYPE_SETTINGS}``
+        - ``Configure New Port Traffic Filter Management   &{PORT_TYPE_SETTINGS}``
 
         :param port_type_settings: (Configuration Dictionary) To enable/Disable Status of SSH,Telnet,Ping,SNMP
         :return: return True if Configuration successful
@@ -291,34 +310,34 @@ class RouterTemplate(RouterTemplateWebElements):
         self.utils.print_info("Configuring SSH Status Section")
         if ssh_status.upper() == "ENABLE":
             if not self.get_router_new_port_type_enable_ssh_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_ssh_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_ssh_checkbox)
         else:
             if self.get_router_new_port_type_enable_ssh_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_ssh_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_ssh_checkbox)
 
         self.utils.print_info("Configuring Telnet Status Section")
         if telnet_status.upper() == "ENABLE":
             if not self.get_router_new_port_type_enable_telnet_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_telnet_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_telnet_checkbox)
         else:
             if self.get_router_new_port_type_enable_telnet_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_telnet_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_telnet_checkbox)
 
         self.utils.print_info("Configuring Ping Status Section")
         if ping_status.upper() == "ENABLE":
             if not self.get_router_new_port_type_enable_ping_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_ping_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_ping_checkbox)
         else:
             if self.get_router_new_port_type_enable_ping_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_ping_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_ping_checkbox)
 
         self.utils.print_info("Configuring SNMP Status Section")
         if snmp_status.upper() == "ENABLE":
             if not self.get_router_new_port_type_enable_snmp_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_snmp_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_snmp_checkbox)
         else:
             if self.get_router_new_port_type_enable_snmp_checkbox().is_selected():
-                self.auto_actions.click(self.get_router_new_port_type_enable_snmp_checkbox())
+                self.auto_actions.click_reference(self.get_router_new_port_type_enable_snmp_checkbox)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -329,7 +348,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Configure Network Allocation VLAN on Router Template
         - Keyword Usage
-         - ``Configure Network Allocation VLAN   &{VLAN_CONFIG_SETTINGS}``
+        - ``Configure Network Allocation VLAN   &{VLAN_CONFIG_SETTINGS}``
 
         :param network_allocation_vlan_settings: (Config Dictionary) Vlan Name and Vlan ID
         :return: return True if Config Successful
@@ -338,14 +357,14 @@ class RouterTemplate(RouterTemplateWebElements):
         vlan_id_field = network_allocation_vlan_settings['vlan_id']
 
         self.utils.print_info("Click VLAN Object Select button")
-        self.auto_actions.click(self.get_router_allocation_vlan_select_button())
+        self.auto_actions.click_reference(self.get_router_allocation_vlan_select_button)
         sleep(6)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click New VLAN Object button")
-        self.auto_actions.click(self.get_router_allocation_new_vlan_add_button())
+        self.auto_actions.click_reference(self.get_router_allocation_new_vlan_add_button)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -363,11 +382,11 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click Save VLAN button")
-        self.auto_actions.click(self.get_router_allocation_new_vlan_save_button())
+        self.auto_actions.click_reference(self.get_router_allocation_new_vlan_save_button)
         sleep(5)
 
         self.utils.print_info("Saving Network Allocation Configuration")
-        self.auto_actions.click(self.get_save_network_allocation_button())
+        self.auto_actions.click_reference(self.get_save_network_allocation_button)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -378,7 +397,7 @@ class RouterTemplate(RouterTemplateWebElements):
         """
         - Configure network allocation sub network on Router Template
         - Keyword Usage
-         - ``Configure Network Allocation Sub Network   &{SUB_NETWORK_SETTINGS}``
+        - ``Configure Network Allocation Sub Network   &{SUB_NETWORK_SETTINGS}``
 
         :param network_allocation_sub_network_settings: (Config Dictionary) includes Basic and Advanced sub network
                                                          Parameters
@@ -388,14 +407,14 @@ class RouterTemplate(RouterTemplateWebElements):
         advance_config = network_allocation_sub_network_settings['advance_config']
 
         self.utils.print_info("Click Sub Network Select button")
-        self.auto_actions.click(self.get_router_allocation_subnetwork_select_button())
+        self.auto_actions.click_reference(self.get_router_allocation_subnetwork_select_button)
         sleep(10)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click New Sub Network button")
-        self.auto_actions.click(self.get_router_allocation_new_subnetwork_add_button())
+        self.auto_actions.click_reference(self.get_router_allocation_new_subnetwork_add_button)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -417,7 +436,7 @@ class RouterTemplate(RouterTemplateWebElements):
 
         - Configure Basic Subnetwork section on Router Template
         - Keyword Usage
-         - ``Configure Basic Subnetwork Section   &{SUB_NETWORK_BASIC_SETTINGS}``
+        - ``Configure Basic Subnetwork Section   &{SUB_NETWORK_BASIC_SETTINGS}``
 
         :param basic_config: (Config Dictionary) include sub_network_name,sub_network_description,network_type,
                               unique_subnetwork,local_ip_address_space,gateway_options
@@ -431,7 +450,7 @@ class RouterTemplate(RouterTemplateWebElements):
         ip_address_space = basic_config['local_ip_address_space']
         gateway_option = basic_config['gateway_options']
 
-        #self.auto_actions.click(self.get_save_subnetwork_button())
+        #self.auto_actions.click_reference(self.get_save_subnetwork_button)
         #sleep(5)
 
         self.utils.print_info(f"Enter Network Description For Allocation: {network_description}")
@@ -444,7 +463,7 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(3)
 
         self.utils.print_info("Click on Network Usage Type drop down")
-        self.auto_actions.click(self.get_new_subnetwork_network_type_drop_down())
+        self.auto_actions.click_reference(self.get_new_subnetwork_network_type_drop_down)
         sleep(3)
         key_options = self.get_new_subnetwork_network_type_drop_down_options()
         for opt in key_options:
@@ -459,10 +478,10 @@ class RouterTemplate(RouterTemplateWebElements):
         self.utils.print_info("Configuring Create Unique Subnetwork Radio Button Section")
         if create_unique_subnetwork.upper() == "ENABLE":
             if not self.get_create_unique_subnetwork_radio_button().is_selected():
-                self.auto_actions.click(self.get_create_unique_subnetwork_radio_button())
+                self.auto_actions.click_reference(self.get_create_unique_subnetwork_radio_button)
         else:
             if self.get_create_unique_subnetwork_radio_button().is_selected():
-                self.auto_actions.click(self.get_create_unique_subnetwork_radio_button())
+                self.auto_actions.click_reference(self.get_create_unique_subnetwork_radio_button)
 
         self.utils.print_info(f"Enter Local IP Address Space: {ip_address_space}")
         self.auto_actions.send_keys(self.get_local_ip_address_space_textfield(),
@@ -473,54 +492,59 @@ class RouterTemplate(RouterTemplateWebElements):
         if gateway_option.upper() == "FIRSTIP":
             self.utils.print_info("Configuring First IP as Default gateway")
             if not self.get_first_ip_as_gateway_radio_button().is_selected():
-                self.auto_actions.click(self.get_first_ip_as_gateway_radio_button())
+                self.auto_actions.click_reference(self.get_first_ip_as_gateway_radio_button)
         else:
             self.utils.print_info("Configuring Last IP as Default gateway")
-            self.auto_actions.click(self.get_last_ip_as_gateway_radio_button())
+            self.auto_actions.click_reference(self.get_last_ip_as_gateway_radio_button)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Saving Sub Network Configuration")
-        self.auto_actions.click(self.get_save_subnetwork_button())
+        self.auto_actions.click_reference(self.get_save_subnetwork_button)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         return True
 
-    def select_router_template_row(self, template_name):
+    def select_router_template_row(self, template_name, **kwargs):
         """
         - Select Router Template Name Row from Network Policy-->Router settings--> Device Template
         - Keyword Usage
-         - ``Select Router Template Row   ${ROUTER_TEMPLATE_NAME}``
+        - ``Select Router Template Row   ${ROUTER_TEMPLATE_NAME}``
 
         :param template_name: Router Template Name
         :return: return True if Router Template Name found in the Row
         """
         self.utils.print_info("Click on default Router Template select button")
-        self.auto_actions.click(self.get_default_router_template_select_button())
+        self.auto_actions.click_reference(self.get_default_router_template_select_button)
         sleep(2)
 
         rsg_rows = self.get_default_router_template_dialog_rsg_rows()
         if not rsg_rows:
             self.utils.print_info(
                 "default Router Template: {} doesn't exist, Please create default".format(template_name))
-            self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
             sleep(2)
+
+            kwargs['fail_msg'] = "Default Router Template doesn't exist"
+            self.common_validation.failed(**kwargs)
             return False
 
         for row in rsg_rows:
             if template_name.upper() in row.text.upper():
                 self.auto_actions.click(self.get_default_router_template_dialog_rsg_row_checkbox(row))
                 sleep(2)
+                kwargs['pass_msg'] = "Selected Router Template"
+                self.common_validation.passed(**kwargs)
                 return True
 
     def delete_router_template(self, nw_policy, template_name, **kwargs):
         """
         - Delete Router Template Name Row from Network Policy-->Router settings--> Device Template
         - Keyword Usage
-         - ``Delete Router Template  ${NW_POLICY_NAME}  ${ROUTER_TEMPLATE_NAME}``
+        - ``Delete Router Template  ${NW_POLICY_NAME}  ${ROUTER_TEMPLATE_NAME}``
 
         :param nw_policy : Network Policy Name
         :param template_name: Router Template Name
@@ -531,16 +555,16 @@ class RouterTemplate(RouterTemplateWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click(self.get_device_template_tab())
+        self.auto_actions.click_reference(self.get_device_template_tab)
         sleep(2)
 
-        if self.select_router_template_row(template_name):
+        if self.select_router_template_row(template_name, ignore_failure=True):
             self.utils.print_info("Click delete Button to delete Router Template Name")
-            self.auto_actions.click(self.get_router_template_delete_button())
+            self.auto_actions.click_reference(self.get_router_template_delete_button)
             sleep(2)
 
             self.utils.print_info("Click Confirm Delete Button")
-            self.auto_actions.click(self.get_router_template_delete_confirm_button())
+            self.auto_actions.click_reference(self.get_router_template_delete_confirm_button)
             sleep(3)
 
             tool_tp_text = tool_tip.tool_tip_text
@@ -548,35 +572,39 @@ class RouterTemplate(RouterTemplateWebElements):
             sleep(2)
 
             self.utils.print_info("Click Cancel Button")
-            self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
             sleep(2)
             for value in tool_tp_text:
                 if "The item was deleted successfully" in value:
                     kwargs['pass_msg'] = f"Router Template {value} deleted successfully"
-                    self.common_validation.validate(1, 1, **kwargs)
+                    self.common_validation.passed(**kwargs)
                     return True
 
-            if self.select_router_template_row(template_name):
-                kwargs['fail_msg'] = "Unsuccessfully deleted the Router Template!"
-                self.common_validation.validate(-1, 1, **kwargs)
+            if self.select_router_template_row(template_name, ignore_failure=True):
+                kwargs['fail_msg'] = "Unable to delete the Router Template!"
+                self.common_validation.failed(**kwargs)
                 return False
             else:
                 kwargs['pass_msg'] = "Successfully deleted the Router Template!"
-                self.common_validation.validate(1, 1, **kwargs)
+                self.common_validation.passed(**kwargs)
                 return True
         else:
-            self.auto_actions.click(self.get_default_router_template_dialog_cancel_button())
-            kwargs['pass_msg'] = f"default Router Template :{template_name} doesn't exist in the list"
-            self.common_validation.validate(1, 1, **kwargs)
+            self.auto_actions.click_reference(self.get_default_router_template_dialog_cancel_button)
+            kwargs['pass_msg'] = f"Default Router Template: {template_name} doesn't exist in the list"
+            self.common_validation.passed(**kwargs)
             return True
 
     def configure_advanced_subnetwork_section(self, **advance_config):
         """
         - Configure Advanced Subnetwork Section on Router Template
         - Keyword Usage
-         - ``Configure Advanced Subnetwork Section  &{SUB_NETWORK_ADVANCED_SETTINGS}``
+        - ``Configure Advanced Subnetwork Section  &{SUB_NETWORK_ADVANCED_SETTINGS}``
 
         :param advance_config: Config Dictionary Parameters of Subnetwork Advanced settings
         :return: return True if Config Successful
         """
         pass
+
+    def create_routing_network(self, policy, wireless_profile):
+        self.navigate_to_router_settings_tab(policy)
+        self.add_router_template(policy, wireless_profile)

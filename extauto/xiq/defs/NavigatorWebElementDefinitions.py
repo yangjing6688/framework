@@ -11,6 +11,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
+    subtab_head_img_nav = \
+        {
+            'CSS_SELECTOR': '.subTab-head.img-nav',
+            'wait_for': 5
+        }
+
     configure_network_policy_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-policy"]',
@@ -49,7 +55,7 @@ class NavigatorWebElementDefinitions:
 
     manage_device_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     manage_clients_menu_item = \
@@ -60,7 +66,7 @@ class NavigatorWebElementDefinitions:
 
     manage_clients_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     manage_devices_menu_item = \
@@ -71,7 +77,7 @@ class NavigatorWebElementDefinitions:
 
     manage_devices_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     configure_users_nav = \
@@ -165,7 +171,7 @@ class NavigatorWebElementDefinitions:
             'wait_for': 2
         }
 
-    dashboard  = \
+    dashboard = \
         {
             'XPATH': "//*[@data-dojo-attach-point='appLogo']",
             'wait_for': 5
@@ -185,7 +191,7 @@ class NavigatorWebElementDefinitions:
 
     manage_tools_menu_item_href = \
         {
-            'TAG_NAME' : 'a'
+            'TAG_NAME': 'a'
         }
 
     network_policy_additional_settings_tab = \
@@ -256,7 +262,7 @@ class NavigatorWebElementDefinitions:
 
     manage_alarms_nav = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-nav-alarms"]//a',
+            'XPATH': '//div[@data-automation-tag="automation-header-nav-alerts"]//a',
             
         }
 
@@ -286,7 +292,7 @@ class NavigatorWebElementDefinitions:
 
     device_nav = \
         {
-            'XPATH': ' //*[@data-automation-tag="automation-header-nav-devices"]',
+            'XPATH': '//*[@data-automation-tag="automation-header-nav-devices"]',
             
         }
 
@@ -328,7 +334,7 @@ class NavigatorWebElementDefinitions:
 
     common_object_authentication_ad_servers = \
         {
-            'XPATH': '//div//a[@data-automation-tag=automation-sider-list-ADServers]',
+            'XPATH': '//div//a[@data-automation-tag="automation-sider-list-ADServers"]',
             'wait_for': 3
         }
 
@@ -413,6 +419,12 @@ class NavigatorWebElementDefinitions:
     common_object_basic_vlans = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-VLANs"]',
+            'wait_for': 5
+        }
+
+    common_object_basic_supplemental_cli = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-sider-list-supplementalCLIObjects"]',
             'wait_for': 5
         }
 
@@ -948,6 +960,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 3
         }
 
+    subtab_common_object_basic = \
+        {
+            'CSS_SELECTOR': '.subSubTab-option.Basic',
+            'wait_for': 3
+        }
+
     global_settings_audit_logs_slider = \
         {
             'XPATH': '//*[@data-automation-tag="automation-sider-list-auditLogs"]',
@@ -1214,7 +1232,6 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
-
     configure_alert_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-alert"]',
@@ -1281,6 +1298,12 @@ class NavigatorWebElementDefinitions:
             'wait_for': 5
         }
 
+    vpn_services_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-vpnServices"]',
+            'wait_for': 5
+        }
+
     clients_hyperlink = \
         {
             'XPATH': '//*[@data-automation-tag="automation-dashboard-health-cards-client-header-count"]',
@@ -1291,6 +1314,16 @@ class NavigatorWebElementDefinitions:
         {
             'XPATH': '//div[@data-dojo-attach-point="gridBottomLeft"]//a[@data-size="100"]',
             'wait_for': 3
+        }
+
+    table_load_spinner = \
+        {
+            'DESC': 'Manage > Devices "load" mask',
+            # The spinner does not have its own automation-tag and there is more than one "grid-mark" on the
+            # page.  So we'll get the nearest container that has an automation tag then find the element within
+            # that container that has the 'grid-mark' CSS style.
+            'XPATH': '//div[@data-automation-tag="automation-manage-device-list"]//div[@class="grid-mark"]',
+            'wait_for': 5
         }
 
     configure_button_d360 = \
@@ -1306,4 +1339,27 @@ class NavigatorWebElementDefinitions:
     port_rows_d360 = \
         {
             'CSS_SELECTOR': '.port-details-entry'
+        }
+
+    page_size = \
+        {
+            'CSS_SELECTOR': '.J-page-size.ui-page-size',
+            'wait_for': 5
+        }
+        
+    no_100_devices_per_page = \
+        {
+        "XPATH": '//a[@data-size="100"]'
+        }
+
+    grid_loading_wheel = \
+        {
+            'XPATH': '//div[@class="grid-mark"]',
+            'wait_for': 5
+        }
+
+    grid_spinner = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="spinner"]',
+            'wait_for': 5
         }

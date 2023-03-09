@@ -1,6 +1,6 @@
 import time
-from extauto.xiq.defs.DevicesWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DevicesWebElementsDefinitions import DevicesWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DevicesWebElements(DevicesWebElementsDefinitions):
@@ -36,6 +36,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return page_numbers
         else:
             return False
+
+    def get_devices_page_number_one(self):
+        return self.weh.get_elements(self.devices_page_number_one)
 
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
@@ -84,6 +87,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return el.get_attribute("class")
         else:
             return None
+
+    def get_device_config_audit_button(self, row):
+        return self.weh.get_element(self.device_config_audit, row)
 
     def get_device_conn_status_after_ten_min(self, row):
         return self.weh.get_element(self.device_conn_status_after_ten_min, row)
@@ -145,23 +151,17 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         return self.weh.get_element(self.device_action_button)
 
-    def get_os_change_exos(self):
-        """
-        :return: change os button
-        """
-        return self.weh.get_element(self.device_os_change_exos)
-
-    def get_os_change_voss(self):
-        """
-        :return: change os button
-        """
-        return self.weh.get_element(self.device_os_change_voss)
-
     def get_os_change_error_message(self):
         """
         :return error message
         """
         return self.weh.get_element(self.device_os_change_error_message)
+
+    def get_device_update_error_message(self):
+        """
+        :return error message
+        """
+        return self.weh.get_element(self.device_update_error_message)
 
     def get_device_delete_confirm_ok_button(self):
         """
@@ -254,6 +254,19 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_simulated_devices_dropdown(self):
         return self.weh.get_element(self.simulated_device_dropdown)
 
+    def get_simulated_device_dropdown_table(self):
+        return self.weh.get_element(self.simulated_device_dropdown_table)
+
+    def get_simulated_device_dropdown_table_rows(self, table):
+        return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
+
+    def get_simulated_devices_dropdown_items(self):
+        parent = self.get_simulated_devices_dropdown()
+        return self.weh.get_elements(self.simulated_device_dropdown_items, parent)
+
+    def get_simulation_device_count_input_field(self):
+        return self.weh.get_element(self.simulation_device_count_input_field)
+
     def get_add_another_device(self):
         return self.weh.get_element(self.add_another_device)
 
@@ -271,8 +284,29 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_manage_device_actions_button(self):
         return self.weh.get_element(self.manage_device_actions_button)
 
+    def get_manage_device_actions_change_management_status(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status)
+
+    def get_manage_device_actions_change_management_status_manage(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_manage)
+
+    def get_manage_device_actions_change_management_status_unmanage(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_unmanage)
+
+    def get_manage_device_actions_change_management_status_yes_button(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_yes_button)
+
+    def get_manage_device_actions_change_management_status_no_button(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_no_button)
+
+    def get_manage_device_actions_change_management_status_close_dialog(self):
+        return self.weh.get_element(self.manage_device_actions_change_management_status_close_dialog)
+
     def get_manage_device_utilities_button(self):
         return self.weh.get_element(self.manage_device_utilities_button)
+
+    def get_manage_device_utilities_wan_access(self):
+        return self.weh.get_element(self.manage_device_utilities_wan_access())
 
     def get_actions_assign_network_policy_combo(self):
         elements = self.weh.get_elements(self.actions_assign_network_policy)
@@ -280,13 +314,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_action_assign_network_policy_dialog(self):
         return self.weh.get_element(self.action_assign_network_policy_dialog)
-    
+
+    def get_action_assign_network_policy_dialog_cancel_button(self):
+        return self.weh.get_element(self.action_assign_network_policy_dialog_cancel_button)
+
     def get_nw_policy_drop(self):
         return self.weh.get_element(self.nw_policy_drop)
 
     def get_actions_assign_network_policy_drop_down(self):
         dialog = self.get_action_assign_network_policy_dialog()
         return self.weh.get_element(self.actions_assign_network_policy_drop_down, parent=dialog)
+
+    def get_actions_assign_network_policy_drop_down2(self):
+        dialog = self.get_action_assign_network_policy_dialog()
+        return self.weh.get_element(self.actions_assign_network_policy_drop_down2, parent=dialog)
 
     def get_actions_assign_network_policy_drop_down_router(self):
         dialog = self.get_action_assign_network_policy_dialog()
@@ -297,9 +338,24 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_actions_network_policy_assign_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_button)
-    
-    def get_perform_update_tooltip(self):
-        return self.weh.get_element(self.perform_update_tooltip)
+
+    def get_ui_banner_error_message(self):
+        return self.weh.get_element(self.ui_banner_error_message)
+
+    def get_ui_banner_error_close_button(self):
+        return self.weh.get_element(self.ui_banner_error_close_button)
+
+    def get_ui_banner_warning_message(self):
+        return self.weh.get_element(self.ui_banner_warning_message)
+
+    def get_ui_banner_warning_close_button(self):
+        return self.weh.get_element(self.ui_banner_warning_close_button)
+
+    def get_ui_banner_notice_message(self):
+        return self.weh.get_element(self.ui_banner_notice_message)
+
+    def get_ui_banner_notice_close_button(self):
+        return self.weh.get_element(self.ui_banner_notice_close_button)
 
     def get_actions_network_policy_assign_cancel_button(self):
         return self.weh.get_element(self.actions_network_policy_assign_cancel_button)
@@ -519,6 +575,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         :return: advanced add device make drop down to select the make of device (aerohive, voss, etc.)
         """
         return self.weh.get_element(self.devices_advanced_add_device_make_drop_down)
+
+    def get_devices_quick_add_block_show(self):
+        return self.weh.get_element(self.devices_quick_add_block_show)
 
     def get_devices_quick_add_device_make_aerohive_choice(self):
         """
@@ -793,16 +852,13 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_actions_open_site_engine_menu_option(self):
         return self.weh.get_element(self.actions_open_site_engine_menu_option)
 
-    def get_actions_maximum_site_engine_message(self):
-        return self.weh.get_element(self.actions_maximum_site_engine_message)
-
-    def get_actions_maximum_site_engine_message_box(self):
-        return self.weh.get_element(self.actions_maximum_site_engine_message_close_btn)
-
     def get_devices_service_tag_textbox(self):
         return self.weh.get_element(self.device_service_tag_textbox)
 
     def get_devices_quick_add_devices_menu_item(self):
+        return self.weh.get_element(self.devices_quick_add_devices_menu_item)
+
+        # jefjones - removed for now
         menus = self.weh.get_elements(self.devices_add_devices_menu)
         for menu in menus:
             if menu.is_displayed():
@@ -961,8 +1017,8 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         else:
             return None
 
-    def get_device_stack_template_click(self):
-        return self.weh.get_element(self.device_stack_template_click)
+    def get_device_stack_template_click(self,row):
+        return self.weh.get_element(self.device_stack_template_click, row)
 
     def get_create_template_click(self):
         return self.weh.get_element(self.create_template_click)
@@ -1088,7 +1144,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return el
         else:
             return None
- 
+
     def get_sfdc_username(self):
         return self.weh.get_element(self.sfdc_username)
 
@@ -1151,7 +1207,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_sort_time_stamp(self):
         return self.weh.get_element(self.sort_time_stamp)
-      
+
     def get_field_description_more_button(self, row):
         el = self.weh.get_element(self.field_description_more_button, row)
         if el:
@@ -1170,24 +1226,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
     def get_number_of_rows(self):
         return self.weh.get_elements(self.number_of_rows)
 
-    def get_simulated_device_dropdown_table(self):
-        return self.weh.get_element(self.simulated_device_dropdown_table)
-
-    def get_simulated_device_dropdown_table_rows(self, table):
-        return self.weh.get_elements(self.simulated_device_dropdown_table_rows, table)
-
-    def get_manage_devices_table_load_mask(self):
-        return self.weh.get_element(self.manage_devices_table_load_mask)
-
     def get_manage_all_devices_progress_status(self):
         return self.weh.get_elements(self.manage_devices_progress_status)
-    
+
     def get_device_page_size_100(self):
         return self.weh.get_element(self.device_page_size_100)
 
-    def get_simulation_device_count_input_field(self):
-        return self.weh.get_element(self.simulation_device_count_input_field)
-      
     def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
         return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
 
@@ -1275,3 +1319,68 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         parent = self.get_digital_twin_os_version_dropdown()
         return self.weh.get_elements(self.digital_twin_os_version_dropdown_items, parent)
+
+    def get_100_rows_per_page_button(self):
+        """
+        :return: Devices > 100 rows per page button
+        """
+        return self.weh.get_element(self.one_hundred_rows_per_page_button)
+
+    def get_device_model(self, device_row):
+        """
+        :param device_row: the device parent row
+        :return: Devices -> Device Row -> Device's 'Model' column -> Device model element
+        """
+        return self.weh.get_element(self.device_model, parent=device_row)
+
+    def get_device_serial_number(self, row, field='field-serialNumber'):
+        """
+        :param row: the device parent row
+        :param field: serial number field in attribute
+        :return: Devices -> Device Row -> serial # column
+        """
+        cells = self.weh.get_elements(self.devices_page_grid_cells, row)
+        for cell in cells:
+            if field in cell.get_attribute("class"):
+                return cell
+
+    def get_global_settings_management_dialog(self):
+        return self.weh.get_element(self.global_settings_management_dialog)
+
+    def get_global_settings_management_dialog_yes_button(self):
+        return self.weh.get_element(self.global_settings_management_dialog_yes_button)
+
+    def device_actions_change_os_button(self):
+        """
+        :return: change os button
+        """
+        elements = self.weh.get_elements(self.device_actions_change_os)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def utilities_button(self):
+        return self.weh.get_element(self.utilities_path)
+
+    def restart_pse(self):
+        return self.weh.get_element(self.restart_pse_path)
+
+    def pse_yes(self):
+        return self.weh.get_element(self.pse_yes_path)
+
+    def loading_bar(self):
+        elements = self.weh.get_elements(self.loading_bar_path)
+        for el in elements:
+            if el.is_displayed():
+                return el
+
+    def closing_window(self):
+        el = self.weh.get_element(self.closing_window_path)
+        if el.is_displayed():
+            return el
+
+    def get_pse_reset_status(self):
+        el = self.weh.get_element(self.pse_reset_status)
+        if el.is_displayed():
+            return el
+

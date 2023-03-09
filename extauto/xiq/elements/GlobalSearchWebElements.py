@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from extauto.xiq.defs.GlobalSearchWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from extauto.xiq.defs.GlobalSearchWebElementsDefinitions import GlobalSearchWebElementsDefinitions
 
 
 class GlobalSearchWebElements(GlobalSearchWebElementsDefinitions):
@@ -62,3 +62,15 @@ class GlobalSearchWebElements(GlobalSearchWebElementsDefinitions):
 
     def get_view_org_close_button(self):
         return self.weh.get_element(self.view_org_close_button)
+
+    def get_tool_tip_close_button(self):
+        return self.weh.get_element(self.tool_tip_close)
+
+    def get_tool_tip_error_close_button(self):
+        return self.weh.get_element(self.tool_tip_error_close)
+
+    def get_search_clear_icon(self):
+        return self.weh.get_element(self.global_search_clear_icon)
+
+    def get_global_search_client_name(self):
+        return self.weh.get_element(self.global_search_client_name)

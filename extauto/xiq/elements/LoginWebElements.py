@@ -1,5 +1,5 @@
-from extauto.xiq.defs.LoginWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.LoginWebElementsDefinitions import LoginWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 from selenium.common.exceptions import NoSuchElementException
 
 
@@ -33,7 +33,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                     return True
                 else:
                     return False
-        except Exception as e:
+        except Exception:
             return False
 
     def get_dialog_box_close_button(self):
@@ -65,7 +65,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_welcome_page_done_button(self):
@@ -96,20 +96,32 @@ class LoginWebElements(LoginWebElementsDefinitions):
             if el.is_displayed():
                 return el
 
+    def get_switch_connection_host(self):
+        return self.weh.get_element(self.switch_connection_host)
+
     def get_viq_id_field(self):
         return self.weh.get_element(self.viq_id_field)
 
     def get_30_days_trial_txt(self):
         return self.weh.get_element(self.txt_30_days_trial)
 
-    def get_option_30_days_trial(self):
-        return self.weh.get_element(self.option_30_days_trial)
+    ### Commented on 1/18/23 because this is a duplicate of a function below.
+    ### The second function to be declared will be used. Thus, this function was commented
+    #
+    # def get_option_30_days_trial(self):
+    #     return self.weh.get_element(self.option_30_days_trial)
 
     def get_drawer_trigger(self):
         return self.weh.get_element(self.drawer_trigger)
 
     def get_drawer_content(self):
         return self.weh.get_element(self.drawer_content)
+
+    def get_right_arrow(self):
+        return self.weh.get_element(self.right_arrow_displayed)
+
+    def click_right_arrow(self):
+        return self.weh.get_element(self.click_right_arrow_button)
 
     def get_wips_dialog_message(self):
         try:
@@ -120,7 +132,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
                         return error.text
             else:
                 return "No Message"
-        except Exception as e:
+        except Exception:
             return "No Message"
 
     def get_wips_popup_dialog_close_button(self):
@@ -132,9 +144,7 @@ class LoginWebElements(LoginWebElementsDefinitions):
     def get_login_logo(self):
         return self.weh.get_element(self.login_logo)
 
-    def get_30_days_trial_txt(self):
-        return self.weh.get_element(self.txt_30_days_trial)
-
+    # There is a duplicate of this function above that was commented out on 1/18/23
     def get_option_30_days_trial(self):
         return self.weh.get_element(self.trial_30day_login_option)
 
@@ -373,3 +383,39 @@ class LoginWebElements(LoginWebElementsDefinitions):
 
     def get_cancel_button(self):
         return self.weh.get_element(self.cancel_button)
+
+    def get_page_loading(self):
+        return self.weh.get_element(self.page_loading)
+
+    def get_external_admin_account_names(self):
+        return self.weh.get_elements(self.external_admin_account_names)
+
+    def get_admin_portal_page(self):
+        return self.weh.get_element(self.admin_portal_page)
+
+    def get_external_admin_manage_my_network_button(self):
+        return self.weh.get_element(self.external_admin_manage_my_network_button)
+
+    def get_external_admin_account_name_search_field(self):
+        return self.weh.get_element(self.external_admin_account_name_search_field)
+
+    def get_login_sso_page_username_text(self):
+        return self.weh.get_element(self.login_sso_page_username_text)
+
+    def get_login_sso_page_password_text(self):
+        return self.weh.get_element(self.login_sso_page_password_text)
+
+    def get_login_sso_page_login_button(self):
+        return self.weh.get_element(self.login_sso_page_login_button)
+
+    def get_login_sso_page_sign_in_error_message(self):
+        try:
+            errors = self.weh.get_elements(self.login_sso_page_login_error_message)
+            if errors:
+                for error in errors:
+                    if error.is_displayed():
+                        return error.text
+            else:
+                return "No Message"
+        except Exception:
+            return "No Message"

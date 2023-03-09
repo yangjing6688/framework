@@ -3,10 +3,11 @@ from robot.libraries.BuiltIn import BuiltIn
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import ElementClickInterceptedException
-from selenium.common.exceptions import ElementNotVisibleException
-from selenium.common.exceptions import StaleElementReferenceException
-from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import (
+    ElementClickInterceptedException,
+    StaleElementReferenceException,
+    ElementNotInteractableException
+)
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.CloudDriver import CloudDriver
@@ -29,15 +30,15 @@ class AutoActions:
         """
         - This Keyword Uses to Click the Mentioned Web Element
         - If the Element is not visible into view it Scroll element into view and Scroll down into page to click Element
-
         :param element: Web Element to Click on Web Page
         :return: None
         """
 
         if element is None:
             self.screen.save_screen_shot()
-            self.builtin.fail(msg="Unable to Click the Element..No WebElement Handler Present for the Element."
+            self.builtin.fail(msg="Unable to Click the Element. The element is None. No WebElement Handler Present for the Element."
                                   "So Exiting the Testcase")
+            return -1
 
         else:
             self.utils.print_debug("Clicking Element: ", element)
@@ -57,13 +58,21 @@ class AutoActions:
                     # To Overcome the Click Intercepted Exception we need to wait either explicit or implicit wait
                     # due to Xiq Application limitation we need to scroll the el into view, which is not visible on the page
                     # If scroll the el into view is not working will scroll down to the end of the page.
-                    if count < 2:
-                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view")
+                    if count == 0:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView(true)]")
                         CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView(true); ", element)
                         sleep(2)
-                    elif 2 < count < 4:
+                    elif count == 1:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView({block:'nearest'})]")
+                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView({block:'nearest'});", element)
+                        sleep(2)
+                    elif count == 2:
                         self.utils.print_info("'Element Click Intercepted Exception': Scroll down to page")
                         self.scroll_down()
+                        sleep(2)
+                    elif count == 3:
+                        self.utils.print_info("'Element Click Intercepted Exception': Scroll up to page")
+                        self.scroll_up()
                         sleep(2)
                     elif count == 4:
                         self.utils.print_info("'Element Click Intercepted Exception': trying javascript click().")
@@ -89,6 +98,11 @@ class AutoActions:
                     if count == self.retries:
                         self.utils.print_warning("Unable to click the element. Saving Screenshot...")
                         self.screen.save_screen_shot()
+        return -1
+
+    def click_with_js(self, element):
+        CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
+        sleep(2)
 
     def move_to_element(self, element):
         """
@@ -104,19 +118,23 @@ class AutoActions:
         action.perform()
         sleep(2)
 
-    def send_keys(self, element, value):
+    def send_keys(self, element, value, allow_fail=False):
         """
         - This Keyword Uses to Send Clear the Text Area and Input the Mentioned Value on Text Field Web Element.
 
         :param element: Web Element To enter Text Field
         :param value: Element Text Field Value
+        :param allow_fail: default False. True= Instead of force FAIL on error, return -1
         :return: None
         """
         self.utils.print_info("Sending Value to Element: ", value)
         if element is None:
             self.screen.save_screen_shot()
-            self.builtin.fail(msg="Unable to Send value to the Element..No WebElement Handler Present for the Element."
+            if not allow_fail:
+                self.builtin.fail(msg="Unable to Send value to the Element..No WebElement Handler Present for the Element."
                                   "So Exiting the Testcase")
+            else:
+                return -1
         else:
             count = 0
             while count < self.retries:
@@ -210,7 +228,8 @@ class AutoActions:
 
     def select_options(self, element, item, by='value'):
         """
-        Select the available options from drop down
+        - Select the available options from drop down
+
         :param element:
         :param by:
         :param item:
@@ -228,13 +247,14 @@ class AutoActions:
         try:
             select_by[by](item)
             return True
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Selecting item:{} not present in available options".format(item))
             return False
 
     def enable_check_box(self, element):
         """
         - Enable the check box
+
         :param element: check box locator element
         :return:None
         """
@@ -244,6 +264,7 @@ class AutoActions:
     def disable_check_box(self, element):
         """
         - Disable the check box
+
         :param element:  check box locator element
         :return: None
         """
@@ -252,7 +273,8 @@ class AutoActions:
 
     def select_radio_button(self, element):
         """
-        - select the radio button
+        - Select the radio button
+
         :param element: radio button element
         :return:None
         """
@@ -264,6 +286,7 @@ class AutoActions:
         - Select the item from the drop down options
         - loop over the options and compare the text with item to be selected.
         - if item text present in options select that item element
+
         :param options: list of options
         :param item: element to be select based on item string
         :return: True if selected else None
@@ -284,6 +307,7 @@ class AutoActions:
         - one of the options, the first found will be selected.
         - loop over the options and compare the text with item to be selected.
         - if item text present in options select that item element
+
         :param options: list of options
         :param item: element to be select based on item string using partial match
         :return: True if selected else None
@@ -311,7 +335,7 @@ class AutoActions:
             actions.drag_and_drop(source_el, target_el).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("drag and drop failed...")
             return -1
 
@@ -328,7 +352,7 @@ class AutoActions:
             actions.click_and_hold(source_el).move_by_offset(offset_value, 0).release().perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Click and Hold element failed...")
             return -1
 
@@ -345,14 +369,14 @@ class AutoActions:
             actions.click(start_row).key_down(Keys.SHIFT).click(end_row).key_up(Keys.SHIFT).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Select table range failed")
             return -1
 
     def enable_radio_button(self, element):
         """
         - This Keyword Uses to Enable Radio Button.
-        
+
         :param element:  Radio Button locator element
         :return: None
         """
@@ -362,13 +386,13 @@ class AutoActions:
     def disable_radio_button(self, element):
         """
         - This Keyword Uses to Disable Radio Button.
-        
+
         :param element:  Radio Button locator element
         :return: None
         """
         if element.is_selected():
             self.click(element)
-            
+
     def right_click(self, source_el):
         """
         - Right click (context click) the element
@@ -386,7 +410,7 @@ class AutoActions:
                 actions.context_click(source_el).perform()
                 sleep(2)
                 return 1
-            except:
+            except Exception:
                 self.utils.print_info("Right click element failed")
                 return -1
 
@@ -402,7 +426,7 @@ class AutoActions:
             actions.double_click(source_el).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Double click element failed")
             return -1
 
@@ -418,6 +442,15 @@ class AutoActions:
             actions.key_down(Keys.SHIFT).click(source_el).key_up(Keys.SHIFT).perform()
             sleep(2)
             return 1
-        except:
+        except Exception:
             self.utils.print_info("Shift+click element failed")
             return -1
+
+    def scroll_bottom(self):
+
+        """
+        - This Keyword Uses to Scroll to the bottom of a page.
+
+        :return: None
+        """
+        CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.END)

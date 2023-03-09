@@ -14,10 +14,10 @@ class XIQSE_AnalyticsConfigurationRestartCollector(AnalyticsConfigurationRestart
 
     def xiqse_restart_collector_dialog_click_yes(self):
         """
-            - This keyword clicks Yes in the Restart Collector dialog.
-            - It is assumed the dialog is already opened.
-            - Keyword Usage
-             - ``XIQSE Restart Collector Dialog Click Yes``
+        - This keyword clicks Yes in the Restart Collector dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Restart Collector Dialog Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -37,10 +37,10 @@ class XIQSE_AnalyticsConfigurationRestartCollector(AnalyticsConfigurationRestart
 
     def xiqse_restart_collector_dialog_click_no(self):
         """
-            - This keyword clicks No in the Restart Collector dialog.
-            - It is assumed the dialog is already opened.
-            - Keyword Usage
-             - ``XIQSE Restart Collector Dialog Click No``
+        - This keyword clicks No in the Restart Collector dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Restart Collector Dialog Click No``
 
         :return: 1 if action was successful, else -1
         """
@@ -59,9 +59,9 @@ class XIQSE_AnalyticsConfigurationRestartCollector(AnalyticsConfigurationRestart
 
     def xiqse_close_restart_collector_error_dialog(self):
         """
-         - This keyword closes the Restart Collector Error dialog which may appear when an error has occurred while restarting the collector on an engine
-         - Keyword Usage
-          - ``XIQSE Close Restart Collector Error Dialog``
+        - This keyword closes the Restart Collector Error dialog which may appear when an error has occurred while restarting the collector on an engine
+        - Keyword Usage
+        - ``XIQSE Close Restart Collector Error Dialog``
 
         :return: 1 if action successful, else -1
         """

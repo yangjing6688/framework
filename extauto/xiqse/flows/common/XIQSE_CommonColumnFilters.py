@@ -1,4 +1,3 @@
-from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
@@ -16,10 +15,10 @@ class XIQSE_CommonColumnFilters(CommonColumnFiltersWebElements):
 
     def xiqse_column_filters_dialog_add_filter(self, the_value):
         """
-         - This keyword adds the specified filter to the Column Filters dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Column Filters Dialog Add Filter    IP Address``
+        - This keyword adds the specified filter to the Column Filters dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Column Filters Dialog Add Filter    IP Address``
 
         :param the_value:   name of the filter to add
         :return: 1 if action was successful, else -1
@@ -64,11 +63,11 @@ class XIQSE_CommonColumnFilters(CommonColumnFiltersWebElements):
 
     def xiqse_column_filters_dialog_add_text_filter(self, column_name, filter_value):
         """
-         - This keyword adds a text-type filter to the Column Filters dialog.  A "text-type" filter is one which
-         - results in a text box to enter the filter value, as opposed to check buttons or radio buttons.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Column Filters Dialog Add Text Filter    IP Address    1.2.3.4``
+        - This keyword adds a text-type filter to the Column Filters dialog.  A "text-type" filter is one which
+        - results in a text box to enter the filter value, as opposed to check buttons or radio buttons.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Column Filters Dialog Add Text Filter    IP Address    1.2.3.4``
 
         :param column_name:   name of the column to add the filter on
         :param filter_value:  value to enter for the filter field
@@ -95,12 +94,12 @@ class XIQSE_CommonColumnFilters(CommonColumnFiltersWebElements):
 
     def xiqse_column_filters_dialog_add_radio_filter(self, column_name, filter_value):
         """
-         - This keyword adds a radio button type filter to the Column Filters dialog.  A "radio button type" filter
-         - is one which results in radio buttons to select the value, like Yes/No for the Archived column of the
-         - Devices table, as opposed to checkboxes or a text field.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Column Filters Dialog Add Radio Filter    Archived    Yes``
+        - This keyword adds a radio button type filter to the Column Filters dialog.  A "radio button type" filter
+        - is one which results in radio buttons to select the value, like Yes/No for the Archived column of the
+        - Devices table, as opposed to checkboxes or a text field.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Column Filters Dialog Add Radio Filter    Archived    Yes``
 
         :param column_name:   name of the column to add the filter on
         :param filter_value:  value of the radio button to select
@@ -127,12 +126,12 @@ class XIQSE_CommonColumnFilters(CommonColumnFiltersWebElements):
 
     def xiqse_column_filters_dialog_add_checkbox_filter(self, column_name, filter_values):
         """
-         - This keyword adds a checkbox type filter to the Column Filters dialog.  A "checkbox type" filter
-         - is one which results in checkboxes to select the values, like for the Status column of the Devices
-         - table, as opposed to radio buttons or a text field.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Column Filters Dialog Add Checkbox Filter    Status    Critical Alarms,Device Down,Error Alarms``
+        - This keyword adds a checkbox type filter to the Column Filters dialog.  A "checkbox type" filter
+        - is one which results in checkboxes to select the values, like for the Status column of the Devices
+        - table, as opposed to radio buttons or a text field.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Column Filters Dialog Add Checkbox Filter    Status    Critical Alarms,Device Down,Error Alarms``
 
         :param column_name:    name of the column to add the filter on
         :param filter_values:  comma-separated list of values to select
@@ -165,10 +164,10 @@ class XIQSE_CommonColumnFilters(CommonColumnFiltersWebElements):
 
     def xiqse_column_filters_dialog_remove_filter(self, the_value):
         """
-         - This keyword removes the specified filter from the Column Filters dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Column Filters Dialog Remove Filter    IP Address``
+        - This keyword removes the specified filter from the Column Filters dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Column Filters Dialog Remove Filter    IP Address``
 
         :param the_value:   name of the filter to remove
         :return: 1 if action was successful, else -1
@@ -191,10 +190,10 @@ class XIQSE_CommonColumnFilters(CommonColumnFiltersWebElements):
 
     def xiqse_column_filters_dialog_click_close(self):
         """
-         - This keyword clicks Close in the Column Filters dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Column Filters Dialog Click Close``
+        - This keyword clicks Close in the Column Filters dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Column Filters Dialog Click Close``
 
         :return: 1 if action was successful, else -1
         """

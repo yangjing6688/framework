@@ -22,8 +22,8 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
         """
         - Add License String in Add License Dialog on the Administration> Licenses page
         - Keyword Usage:
-            - XIQSE ADMIN LICENSES ADD LEGACY LICENSE  <License String>
-            - XIQSE ADMIN LICENSES ADD LEGACY LICENSE  ${get_license["${nac_license_type}"]}
+        - XIQSE ADMIN LICENSES ADD LEGACY LICENSE  <License String>
+        - XIQSE ADMIN LICENSES ADD LEGACY LICENSE  ${get_license["${nac_license_type}"]}
 
         :return: returns 1 if action is successful, else -1
         """
@@ -70,10 +70,10 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
 
     def xiqse_admin_licenses_wait_for_refresh_to_complete(self, retry_duration=2, retry_count=15):
         """
-         - This keyword waits for the refresh to complete on the Licenses table
-         - Keyword Usage
-          - ``XIQSE Admin Licenses Wait For Refresh To Complete``
-          - ``XIQSE Admin Licenses Wait For Refresh To Complete    retru_duration=5  retry_count=2``
+        - This keyword waits for the refresh to complete on the Licenses table
+        - Keyword Usage
+        - ``XIQSE Admin Licenses Wait For Refresh To Complete``
+        - ``XIQSE Admin Licenses Wait For Refresh To Complete    retru_duration=5  retry_count=2``
 
         :param retry_duration: amount of time to wait in between each check for the refresh to be complete
         :param retry_count:    number of times to check for the search to be complete
@@ -84,10 +84,10 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
             self.utils.print_info(f"Waiting for Licenses table refresh to complete: loop {count}")
             load_mask = self.view_el.get_load_mask()
             if load_mask:
-                self.utils.print_info(f"Refresh of Licenses table still in progress...")
+                self.utils.print_info("Refresh of Licenses table still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Refresh of Licenses table has completed")
+                self.utils.print_info("Refresh of Licenses table has completed")
                 return 1
             count += 1
 
@@ -100,7 +100,7 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
         - This keyword shows the specified list of columns if they are currently hidden.
         - Assumes already navigated to the Administration> Licenses view.
         -  Keyword Usage:
-         - ``XIQSE Admin Licenses Show Columns        Feature  Start Date``
+        - ``XIQSE Admin Licenses Show Columns        Feature  Start Date``
 
         :param columns: list of columns to show
         :return: returns 1 if successful. else -1
@@ -116,7 +116,7 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
             self.screen.save_screen_shot()
 
         self.utils.print_debug("Closing Column Selection Menu")
-        self.auto_actions.click(self.get_licenses_panel_title())
+        self.auto_actions.click_reference(self.get_licenses_panel_title)
 
         return ret_val
 
@@ -125,7 +125,7 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
         - This keyword hides the specified list of columns if they are currently shown.
         - Assumes already navigated to the Administration> Licenses view.
         -  Keyword Usage:
-         - ``XIQSE Admin Licenses Hide Columns        Description  Start Date``
+        - ``XIQSE Admin Licenses Hide Columns        Description  Start Date``
 
         :param columns: list of columns to show
         :return: returns 1 if successful. else -1
@@ -141,7 +141,7 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
             self.screen.save_screen_shot()
 
         self.utils.print_debug("Closing Column Selection Menu")
-        self.auto_actions.click(self.get_licenses_panel_title())
+        self.auto_actions.click_reference(self.get_licenses_panel_title)
 
         return ret_val
 
@@ -149,10 +149,10 @@ class XIQSE_AdminLicenses(AdminLicensesWebElements):
         """
         - Gets the license device count for the specified feature.
         - Keyword Usage:
-         - ``${DEVICE_COUNT}=   Get License Device Count For Feature``
-         - ``${DEVICE_COUNT}=   Get License Device Count For Feature    XIQ-PIL-S-C``
-         - ``${DEVICE_COUNT}=   Get License Device Count For Feature    XIQ-NAV-S-C``
-         - ``${DEVICE_COUNT}=   Get License Device Count For Feature    XIQ-NAC-S``
+        - ``${DEVICE_COUNT}=   Get License Device Count For Feature``
+        - ``${DEVICE_COUNT}=   Get License Device Count For Feature    XIQ-PIL-S-C``
+        - ``${DEVICE_COUNT}=   Get License Device Count For Feature    XIQ-NAV-S-C``
+        - ``${DEVICE_COUNT}=   Get License Device Count For Feature    XIQ-NAC-S``
 
         :param feature: feature to return the device count for;  IQ-PIL-S-C or XIQ-NAV-S-C or XIQ-NAC-S
         :return: total number of devices allotted to the specified feature

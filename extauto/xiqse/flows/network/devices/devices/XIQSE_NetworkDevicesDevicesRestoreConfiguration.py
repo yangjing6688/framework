@@ -61,10 +61,10 @@ class XIQSE_NetworkDevicesDevicesRestoreConfiguration(NetworkDevicesDevicesResto
 
     def xiqse_confirm_restore_dialog_click_start(self):
         """
-         - This keyword clicks Start in the Restore Configuration dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Set Restore Configuration Dialog Click  Yes``
+        - This keyword clicks Start in the Restore Configuration dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Set Restore Configuration Dialog Click  Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -82,10 +82,10 @@ class XIQSE_NetworkDevicesDevicesRestoreConfiguration(NetworkDevicesDevicesResto
 
     def xiqse_confirm_restore_dialog_click_cancel(self):
         """
-         - This keyword clicks Cancel in the Restore Configuration dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Set Restore Configuration Dialog Click Cancel``
+        - This keyword clicks Cancel in the Restore Configuration dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Set Restore Configuration Dialog Click Cancel``
 
         :return: 1 if action was successful, else -1
         """
@@ -103,10 +103,10 @@ class XIQSE_NetworkDevicesDevicesRestoreConfiguration(NetworkDevicesDevicesResto
 
     def xiqse_confirm_restore_dialog_click_yes(self):
         """
-         - This keyword clicks Yes in the Confirm Change dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Set Restore Configuration Dialog Click Yes``
+        - This keyword clicks Yes in the Confirm Change dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Set Restore Configuration Dialog Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -123,10 +123,10 @@ class XIQSE_NetworkDevicesDevicesRestoreConfiguration(NetworkDevicesDevicesResto
 
     def xiqse_confirm_restore_dialog_click_no(self):
         """
-         - This keyword clicks No in the Restore Configuration dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Set Restore Configuration Dialog Click No``
+        - This keyword clicks No in the Restore Configuration dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Set Restore Configuration Dialog Click No``
 
         :return: 1 if action was successful, else -1
         """
@@ -144,10 +144,10 @@ class XIQSE_NetworkDevicesDevicesRestoreConfiguration(NetworkDevicesDevicesResto
 
     def xiqse_confirm_restore_dialog_click_ok(self):
         """
-         - This keyword clicks OK in the Restore Configuration dialog.
-         - It is assumed the dialog is already opened.
-         - Keyword Usage
-          - ``XIQSE Confirm Restore Configuration Click OK``
+        - This keyword clicks OK in the Restore Configuration dialog.
+        - It is assumed the dialog is already opened.
+        - Keyword Usage
+        - ``XIQSE Confirm Restore Configuration Click OK``
 
         :return: 1 if action was successful, else -1
         """

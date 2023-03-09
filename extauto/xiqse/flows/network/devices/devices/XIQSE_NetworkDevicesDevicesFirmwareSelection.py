@@ -52,10 +52,10 @@ class XIQSE_NetworkDevicesDevicesFirmwareSelection(NetworkDevicesDevicesFirmware
             self.utils.print_info(f"Waiting for Image Refresh to complete: loop {count}")
             load_mask = self.view_el.get_refresh_load_mask()
             if load_mask:
-                self.utils.print_info(f"Refresh still in progress")
+                self.utils.print_info("Refresh still in progress")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Refresh has completed")
+                self.utils.print_info("Refresh has completed")
                 return 1
             count +=1
 
@@ -68,10 +68,10 @@ class XIQSE_NetworkDevicesDevicesFirmwareSelection(NetworkDevicesDevicesFirmware
 
     def xiqse_select_firmware_image(self, firmware_image):
         """
-         - This keyword selects the specified firmware for the device upgrade.
-         - It is assumed the user is already on the Firmware Selection dialog.
-         - Keyword Usage
-          - ``XIQSE Select Firmware Image``
+        - This keyword selects the specified firmware for the device upgrade.
+        - It is assumed the user is already on the Firmware Selection dialog.
+        - Keyword Usage
+        - ``XIQSE Select Firmware Image``
 
         :param firmware_image: Firmware Image from the table to select
         :return: 1 if action was successful, else -1
@@ -100,10 +100,10 @@ class XIQSE_NetworkDevicesDevicesFirmwareSelection(NetworkDevicesDevicesFirmware
 
     def xiqse_click_firmware_selection_ok_button(self):
         """
-         - Clicks the OK button on the Firmware Selection Dialog to accept choices
-         - It assumes the Firmware Selection dialog is already open
-         - Keyword Usage
-            - ``XIQSE Click Firmware Selection OK Button``
+        - Clicks the OK button on the Firmware Selection Dialog to accept choices
+        - It assumes the Firmware Selection dialog is already open
+        - Keyword Usage
+        - ``XIQSE Click Firmware Selection OK Button``
 
         :return: 1 if action was successful, else -1
         """
@@ -122,10 +122,10 @@ class XIQSE_NetworkDevicesDevicesFirmwareSelection(NetworkDevicesDevicesFirmware
 
     def xiqse_click_firmware_selection_cancel_button(self):
         """
-         - Clicks the Cancel button on the Firmware Selection Dialog to discard choices
-         - It assumes the Firmware Selection dialog is already open
-         - Keyword Usage
-            - ``XIQSE Click Firmware Selection Cancel Button``
+        - Clicks the Cancel button on the Firmware Selection Dialog to discard choices
+        - It assumes the Firmware Selection dialog is already open
+        - Keyword Usage
+        - ``XIQSE Click Firmware Selection Cancel Button``
 
         :return: 1 if action was successful, else -1
         """

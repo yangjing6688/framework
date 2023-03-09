@@ -1,5 +1,5 @@
-from extauto.xiq.defs.DeviceActionsDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DeviceActionsDefs import DeviceActionsDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DeviceActions(DeviceActionsDefs):
@@ -12,6 +12,30 @@ class DeviceActions(DeviceActionsDefs):
         :return: Device Actions Button
         """
         return self.weh.get_element(self.device_actions_button)
+
+    def get_device_actions_button_disable(self):
+        return self.weh.get_element(self.device_actions_button_disable)
+
+    def get_device_actions_dropdown(self):
+        return self.weh.get_element(self.device_actions_dropdown)
+
+    def get_device_actions_advance(self):
+        return self.weh.get_element(self.device_actions_advance)
+
+    def get_device_actions_advance_cli_access(self):
+        return self.weh.get_element(self.device_actions_advance_cli_access)
+
+    def get_device_actions_cli_windows(self):
+        return self.weh.get_element(self.device_actions_cli_windows)
+
+    def get_device_actions_cli_windows_input(self):
+        return self.weh.get_element(self.device_actions_cli_windows_input)
+
+    def get_device_actions_cli_windows_input_apply(self):
+        return self.weh.get_element(self.device_actions_cli_windows_input_apply)
+
+    def get_device_actions_cli_windows_close(self):
+        return self.weh.get_element(self.device_actions_cli_windows_close)
 
     def get_device_actions_reboot_menu_item(self):
         """
@@ -104,7 +128,7 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_device_utilities(self):
         return self.weh.get_element(self.device_utilities)
-    
+
     def get_device_reset_warning_msg(self):
         return self.weh.get_element(self.device_reset_warning_msg)
 
@@ -155,9 +179,6 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_warning_rvk_xiq_text(self):
         return self.weh.get_element(self.warning_rvk_xiq_text)
-
-    def get_confirm_msg_no(self):
-        return self.weh.get_element(self.confirm_msg_no)
 
     def get_confirm_msg_yes(self):
         return self.weh.get_element(self.confirm_msg_yes)
@@ -227,3 +248,66 @@ class DeviceActions(DeviceActionsDefs):
 
     def get_digital_twin_revert_device_template(self):
         return self.weh.get_element(self.digital_twin_revert_device_template)
+
+    def get_clone_device_btn(self):
+        return self.weh.get_element(self.clone_device_btn)
+
+    def get_replacement_device_dropdown(self):
+        return self.weh.get_element(self.replacement_device_dropdown)
+
+    def get_replacement_device_items(self):
+        return self.weh.get_elements(self.replacement_device_items)
+
+    def get_replacement_serial_number_dropdown(self):
+        return self.weh.get_element(self.replacement_serial_number_dropdown)
+
+    def get_replacement_serial_number_field(self):
+        return self.weh.get_element(self.replacement_serial_number_field)
+
+    def get_replacement_serial_number_items(self):
+        return self.weh.get_elements(self.replacement_serial_number_items)
+
+    def get_clone_button(self):
+        return self.weh.get_element(self.clone_button)
+
+    def get_clone_button_quick_onboard(self):
+        return self.weh.get_element(self.clone_button_quick_onboard)
+
+    def get_clone_inform_window(self):
+        return self.weh.get_element(self.clone_inform_window)
+
+    def get_clone_inform_window_replacement_not_connected(self):
+        return self.weh.get_element(self.clone_inform_window_replacement_not_connected)
+
+    def get_yes_confirmation_button(self):
+        return self.weh.get_element(self.yes_confirmation_button)
+
+    def get_no_confirmation_button(self):
+        return self.weh.get_element(self.no_confirmation_button)
+
+    def get_loading_clone_configuration(self):
+        return self.weh.get_element(self.loading_clone_configuration)
+
+    def get_loading_onboarding_replacement(self):
+        return self.weh.get_element(self.loading_onboarding_replacement)
+
+    def get_onboarding_replacement(self):
+        return self.weh.get_element(self.onboarding_replacement)
+
+    def get_warning_replacement_different_type(self):
+        return self.weh.get_element(self.warning_replacement_different_type)
+
+    def get_warning_replacement_not_connected(self):
+        return self.weh.get_element(self.warning_replacement_not_connected)
+
+    def get_warning_message_disconnected(self):
+        return self.weh.get_element(self.warning_message_disconnected)
+
+    def get_cancel_button(self):
+        return self.weh.get_element(self.cancel_button)
+
+    def get_close_button(self):
+        return self.weh.get_element(self.close_button)
+
+    def get_x_button_clone_window(self):
+        return self.weh.get_element(self.x_button_clone_window)

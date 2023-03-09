@@ -1,5 +1,5 @@
 from time import sleep
-from extauto.common.CloudDriver import CloudDriver
+
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -7,6 +7,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.extreme_guest.ExtremeGuestNotificationWebElements import ExtremeGuestNotificationWebElements
 from selenium.common.exceptions import StaleElementReferenceException
 from extauto.xiq.flows.extreme_guest.ExtremeGuest import ExtremeGuest
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Notification(object):
@@ -19,10 +20,11 @@ class Notification(object):
         self.auto_actions = AutoActions()
         self.notification_web_elem = ExtremeGuestNotificationWebElements()
         self.ext_guest = ExtremeGuest()
+        self.common_validation = CommonValidation()
 
     def go_to_configure_notification_policy_tab(self):
         """
-        -This keyword Will Navigate to Extreme Guest Notification Policy Page
+        - This keyword Will Navigate to Extreme Guest Notification Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Go To Configure Notification Policy Tab''
@@ -31,16 +33,16 @@ class Notification(object):
         """
         self.ext_guest.go_to_configure_page()
         self.utils.print_info("Clicking on Extreme Guest Configure > Notification Policy tab")
-        self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_tab())
+        self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_tab)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         return 1
 
-    def add_notification_policy(self, policy_name, policy_description, policy_type='user', sms='False', sponsor_number='', email='True'):
+    def add_notification_policy(self, policy_name, policy_description, policy_type='user', sms='False', sponsor_number='', email='True', **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Notification Policy Page
+        - This keyword Will Navigate to Extreme Guest Notification Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Add Notification Policy   ${POLICY_NAME0}  ${POLICY_NAME0}     ${POLICY_TYPE0}     ${POLICY_SMS0}  ${POLICY_SPONSOR_NUMBER0}   ${POLICY_EMAIL0}''
@@ -55,7 +57,7 @@ class Notification(object):
         """
         self.go_to_configure_notification_policy_tab()
         self.utils.print_info("Clicking the add policy icon ")
-        self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_policy())
+        self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_policy)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -70,16 +72,16 @@ class Notification(object):
 
         if policy_type == 'user':
             self.utils.print_info("Clicking the Policy type  ", policy_type)
-            self.auto_actions.click(
-                self.notification_web_elem.get_extreme_guest_notification_policy_add_policy_type_user())
+            self.auto_actions.click_reference(
+                self.notification_web_elem.get_extreme_guest_notification_policy_add_policy_type_user)
         else:
             self.utils.print_info("Clicking the Policy type  ", policy_type)
-            self.auto_actions.click(
-                self.notification_web_elem.get_extreme_guest_notification_policy_add_policy_type_sponsor())
+            self.auto_actions.click_reference(
+                self.notification_web_elem.get_extreme_guest_notification_policy_add_policy_type_sponsor)
 
         if sms == 'True':
             self.utils.print_info("Clicking Policy SMS enable:  ", sms)
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_enable())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_enable)
 
         if self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_sponsor_phone_number():
             self.utils.print_info("Entering the Sponsor Phone Number:  ", sponsor_number)
@@ -89,25 +91,27 @@ class Notification(object):
 
         if email == 'True':
             self.utils.print_info("Clicking Policy Email enable  ", email)
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_email_enable())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_email_enable)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Clicking Save button")
-        self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_button())
+        self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_button)
 
         self.utils.print_info("Clicking OK Button")
-        self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button())
+        self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button)
 
         self.screen.save_screen_shot()
         sleep(2)
 
+        kwargs['pass_msg'] = "Succesfully Navigated to Extreme Guest Notification Policy Page"
+        self.common_validation.passed(**kwargs)
         return 1
 
-    def get_notification_policy(self, policy_name):
+    def get_notification_policy(self, policy_name, **kwargs):
         """
-        -This keyword Will Check if the Notification Policy Exists
+        - This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Get Notification Policy   ${POLICY_NAME}''
@@ -140,7 +144,8 @@ class Notification(object):
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        self.utils.print_info("Unable to find Notification Policy row in grid")
+        kwargs['fail_msg'] = "Unable to find Notification Policy row in grid"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def format_notification_policy_row(self, row):
@@ -150,9 +155,9 @@ class Notification(object):
             formatted_row.append(cell_value)
         return formatted_row
 
-    def check_if_notification_policy_exists(self, policy_name):
+    def check_if_notification_policy_exists(self, policy_name, **kwargs):
         """
-        -This keyword Will Check if the Notification Policy Exists
+        - This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Check If Notification Policy Exists   ${POLICY_NAME}''
@@ -160,17 +165,20 @@ class Notification(object):
         :param policy_name:
         :return:
         """
-        
+
         self.go_to_configure_notification_policy_tab()
 
         row = self.get_notification_policy(policy_name)
         if row:
             return 1
+
+        kwargs['fail_msg'] = "Notification Policy doesn not Exists"
+        self.common_validation.failed(**kwargs)
         return -1
 
-    def edit_notification_policy(self, policy_name, policy_description='null', policy_type='null', sms='null', sponsor_number='null', email='null'):
+    def edit_notification_policy(self, policy_name, policy_description='null', policy_type='null', sms='null', sponsor_number='null', email='null', **kwargs):
         """
-        -This keyword Will Navigate to Extreme Guest Notification Policy Page
+        - This keyword Will Navigate to Extreme Guest Notification Policy Page
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Edit Notification Policy   ${POLICY_NAME0}  ${POLICY_NAME0}     ${POLICY_TYPE0}     ${POLICY_SMS0}  ${POLICY_SPONSOR_NUMBER0}   ${POLICY_EMAIL0}''
@@ -183,7 +191,7 @@ class Notification(object):
         :param email: Enable Email for Notification Policy
         :return: 1 if success
         """
-        
+
         self.go_to_configure_notification_policy_tab()
 
         policy = self.get_notification_policy(policy_name)
@@ -200,7 +208,7 @@ class Notification(object):
 
             if not(sms == 'null'):
                 self.utils.print_info("Clicking Policy SMS enable:  ", sms)
-                self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_enable())
+                self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_enable)
 
             if self.notification_web_elem.get_extreme_guest_notification_policy_add_sms_sponsor_phone_number() and not(sponsor_number == 'null'):
                 self.utils.print_info("Entering the Sponsor Phone Number:  ", sponsor_number)
@@ -210,27 +218,29 @@ class Notification(object):
 
             if not(email == 'null'):
                 self.utils.print_info("Clicking Policy Email enable  ", email)
-                self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_email_enable())
+                self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_email_enable)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             self.utils.print_info("Clicking Save button")
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_button())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_button)
 
             self.utils.print_info("Clicking OK Button")
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button)
 
             self.screen.save_screen_shot()
             sleep(2)
 
             return 1
-        self.utils.print_info("Notification Policy Does not exists")
+
+        kwargs['fail_msg'] = "Notification Policy doesn not Exists"
+        self.common_validation.fault(**kwargs)
         return -1
 
     def delete_notification_policy(self, policy_name):
         """
-        -This keyword Will Check if the Notification Policy Exists
+        - This keyword Will Check if the Notification Policy Exists
         - Flow: Extreme Guest--> More Insights--> Extreme Guest Menu Window--> Configure--> Notification > Policy
         - Keyword Usage:
             ''Delete Notification Policy   ${POLICY_NAME}''
@@ -238,7 +248,7 @@ class Notification(object):
         :param policy_name:
         :return:
         """
-        
+
         self.go_to_configure_notification_policy_tab()
 
         policy = self.get_notification_policy(policy_name)
@@ -247,20 +257,20 @@ class Notification(object):
 
             self.screen.save_screen_shot()
             sleep(2)
-            
+
             self.utils.print_info("Clicking Delete button")
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_delete_policy())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_delete_policy)
 
             self.utils.print_info("Clicking OK Button")
-            self.auto_actions.click(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button())
+            self.auto_actions.click_reference(self.notification_web_elem.get_extreme_guest_notification_policy_add_save_ok_button)
 
             return 1
-        self.utils.print_info("Notification Policy Does not exists")
         return -1
 
     def _select_extreme_guest_notification_page_notification_row(self, search_string):
         """
         Select the passed search string object in grid rows
+
         :param search_string:
         :return:
         """

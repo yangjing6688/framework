@@ -1,10 +1,11 @@
+from time import sleep
 
-from common.AutoActions import *
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
 from a3.elements.ActiveDirectoryWebElements import ActiveDirectoryWebElements
-from a3.elements.GlobalSettingWebElements import *
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from xiq.flows.common.DeviceCommon import DeviceCommon
-from common.CloudDriver import *
-from selenium import webdriver
 
 
 class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
@@ -16,7 +17,6 @@ class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.ad_web_elements = ActiveDirectoryWebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
 
     def create_active_directory_domains(self):
@@ -30,7 +30,7 @@ class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
         """
         self.utils.print_info("Selecting Active Directory Domains from menu...")
 
-        if self.auto_actions.click(self.get_ad_domains()) == 1:
+        if self.auto_actions.click_reference(self.get_ad_domains) == 1:
             sleep(2)
             self.utils.print_info("Creating domain ")
             element = self.weh.get_element(self.domain_button)
@@ -79,7 +79,7 @@ class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
         """
         self.utils.print_info("Selecting Active Directory Domains from menu...")
 
-        if self.auto_actions.click(self.get_ad_domains()) == 1:
+        if self.auto_actions.click_reference(self.get_ad_domains) == 1:
             sleep(2)
             self.utils.print_info("Click Join Button ")
             element = self.weh.get_element(self.join_ad)
@@ -106,5 +106,3 @@ class ActiveDirectoryWebElementsFlow(ActiveDirectoryWebElements):
             self.utils.print_info("Unable to Join Domain")
             self.screen.save_screen_shot()
             return -1
-
-

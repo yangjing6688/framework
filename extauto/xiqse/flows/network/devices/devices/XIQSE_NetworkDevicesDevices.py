@@ -42,10 +42,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_select_device(self, device_ip):
         """
-         - This keyword selects the specified device.
-         - It is assumed the user is already on the Network> Devices> Devices tab.
-         - Keyword Usage
-          - ``XIQSE Select Device``
+        - This keyword selects the specified device.
+        - It is assumed the user is already on the Network> Devices> Devices tab.
+        - Keyword Usage
+        - ``XIQSE Select Device``
 
         :param device_ip: IP address of the device tp select
         :return: 1 if action was successful, else -1
@@ -86,17 +86,17 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_add_device(self, ip_addr, profile="public_v1_Profile", nickname="", status_only="False", add_actions="True"):
         """
-         - This keyword adds a device using the Add Device toolbar button on the Network> Devices> Devices tab.
-         - It is assumed the user is already on the Network> Devices> Devices tab.
-         - Keyword Usage
-          - ``XIQSE Add Device  ${IP}  ${PROFILE}  ${NICKNAME}  True``
-          - ``XIQSE Add Device  ${IP}  ${PROFILE}  ${NICKNAME}``
-          - ``XIQSE Add Device  ${IP}  ${PROFILE}``
-          - ``XIQSE Add Device  ${IP}  ${PROFILE}  status_only=True``
-          - ``XIQSE Add Device  ${IP}``
-          - ``XIQSE Add Device  ${IP}  nickname=TestDevice``
-          - ``XIQSE Add Device  ${IP}  status_only=True``
-          - ``XIQSE Add Device  ${IP}  add_actions=False``
+        - This keyword adds a device using the Add Device toolbar button on the Network> Devices> Devices tab.
+        - It is assumed the user is already on the Network> Devices> Devices tab.
+        - Keyword Usage
+        - ``XIQSE Add Device  ${IP}  ${PROFILE}  ${NICKNAME}  True``
+        - ``XIQSE Add Device  ${IP}  ${PROFILE}  ${NICKNAME}``
+        - ``XIQSE Add Device  ${IP}  ${PROFILE}``
+        - ``XIQSE Add Device  ${IP}  ${PROFILE}  status_only=True``
+        - ``XIQSE Add Device  ${IP}``
+        - ``XIQSE Add Device  ${IP}  nickname=TestDevice``
+        - ``XIQSE Add Device  ${IP}  status_only=True``
+        - ``XIQSE Add Device  ${IP}  add_actions=False``
 
         :param ip_addr:     IP address of the device to add - required
         :param profile:     profile to use for the device
@@ -148,9 +148,9 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_close_add_device_dialog(self):
         """
-         - This keyword closes the Add Device dialog if it is open.
-         - Keyword Usage
-          - ``XIQSE Close Add Device Dialog``
+        - This keyword closes the Add Device dialog if it is open.
+        - Keyword Usage
+        - ``XIQSE Close Add Device Dialog``
 
         :return: 1 if action was successful, else -1
         """
@@ -158,11 +158,11 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_delete_device(self, device_ip):
         """
-         - This keyword deletes the specified device.
-         - It is assumed the user is already on the Network> Devices> Devices tab.
-         - Keyword Usage
-          - ``XIQSE Delete Device    ${DEVICE_IP}``
-          - ``XIQSE Delete Device    ${DEVICE_IP}    false``
+        - This keyword deletes the specified device.
+        - It is assumed the user is already on the Network> Devices> Devices tab.
+        - Keyword Usage
+        - ``XIQSE Delete Device    ${DEVICE_IP}``
+        - ``XIQSE Delete Device    ${DEVICE_IP}    false``
 
         :param device_ip: IP address of the device to delete
         :return: 1 if action was successful, else -1
@@ -178,10 +178,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_delete_selected_devices(self):
         """
-         - This keyword deletes the currently-selected devices.
-         - It is assumed the user is already on the Network> Devices> Devices tab and the devices to delete are selected.
-         - Keyword Usage
-          - ``XIQSE Delete Selected Devices``
+        - This keyword deletes the currently-selected devices.
+        - It is assumed the user is already on the Network> Devices> Devices tab and the devices to delete are selected.
+        - Keyword Usage
+        - ``XIQSE Delete Selected Devices``
 
         :return: 1 if action was successful, else -1
         """
@@ -221,10 +221,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_restart_device(self, device_ip):
         """
-         - This keyword restarts the currently-selected device.
-         - It is assumed the user is already on the Network> Devices> Devices tab and the device to register is selected.
-         - Keyword Usage
-          - ``XIQSE Restart Device    ${DEVICE_IP}``
+        - This keyword restarts the currently-selected device.
+        - It is assumed the user is already on the Network> Devices> Devices tab and the device to register is selected.
+        - Keyword Usage
+        - ``XIQSE Restart Device    ${DEVICE_IP}``
 
         :param  device_ip:    IP address of the device to restart
         :return: 1 if action was successful, else -1
@@ -266,10 +266,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_device_set_profile(self, device_ip, profile_name):
         """
-         - This keyword sets the profile for the specified device.
-         - It is assumed the user is already on the Network> Devices> Devices tab.
-         - Keyword Usage
-          - ``XIQSE Device Set Profile  1.2.3.4  new_profile``
+        - This keyword sets the profile for the specified device.
+        - It is assumed the user is already on the Network> Devices> Devices tab.
+        - Keyword Usage
+        - ``XIQSE Device Set Profile  1.2.3.4  new_profile``
 
         :param device_ip:    IP address of the device to set the profile on
         :param profile_name: name of the profile to set on the device
@@ -326,7 +326,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword opens the Upgrade Firmware dialog by selecting "Upgrade Firmware..." from the device context menu.
         - It assumes the Network> Devices> Devices view is loaded.
         - Keyword Usage:
-         - ``XIQSE Open Upgrade Firmware Dialog    ${DEVICE_IP}``
+        - ``XIQSE Open Upgrade Firmware Dialog    ${DEVICE_IP}``
 
         :param device_ip:  IP of the device to open the Configure Device dialog for
         :return: 1 if action is successful, else -1
@@ -360,7 +360,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword opens the Configure Device dialog by selecting "Configure..." from the device context menu.
         - It assumes the Network> Devices> Devices view is loaded.
         - Keyword Usage:
-         - ``XIQSE Open Configure Device Dialog    ${DEVICE_IP}``
+        - ``XIQSE Open Configure Device Dialog    ${DEVICE_IP}``
 
         :param device_ip:  IP of the device to open the Configure Device dialog for
         :return: 1 if action is successful, else -1
@@ -390,13 +390,13 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         return ret_val
 
     def xiqse_configure_device_device_tab(self, device_ip, system_name=None, contact=None, location=None, profile=None,
-                                      serial=None, remove_from_service=None, use_default_url=None,
-                                      webview_url=None, site=None, poll_group=None, poll_type=None,
-                                      timeout=None, retries=None, topo=None, mode=None, interval=None):
+                                          serial=None, remove_from_service=None, use_default_url=None,
+                                          webview_url=None, site=None, poll_group=None, poll_type=None,
+                                          timeout=None, retries=None, topo=None, mode=None, interval=None):
         """
         - This keyword configures the device with the specified Device tab values.  It does not save the changes.
         - Keyword Usage:
-         - ``XIQSE Configure Device Device Tab   1.2.3.4  system_name=MY_SYSTEMNAME  profile=EXTR_v2_Profile  timeout=10``
+        - ``XIQSE Configure Device Device Tab   1.2.3.4  system_name=MY_SYSTEMNAME  profile=EXTR_v2_Profile  timeout=10``
 
         :param device_ip:            IP address of the device to configure
         :param system_name:          Value to enter into the System Name field
@@ -428,10 +428,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
                 # Populate each field which was specified
                 field_result =\
                     self.config_dlg_device.xiqse_configure_device_set_device_tab_values(system_name, contact, location,
-                                                                                 profile, serial, remove_from_service,
-                                                                                 use_default_url, webview_url, site,
-                                                                                 poll_group, poll_type, timeout, retries,
-                                                                                 topo, mode, interval)
+                                                                                        profile, serial, remove_from_service,
+                                                                                        use_default_url, webview_url, site,
+                                                                                        poll_group, poll_type, timeout, retries,
+                                                                                        topo, mode, interval)
                 if field_result == -1:
                     ret_val = -1
             else:
@@ -453,7 +453,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - The Configure Device dialog is opened, the Device tab is selected and populated with the specified
         - values, and the Save button is clicked.
         - Keyword Usage:
-         - ``XIQSE Configure Device Device Tab and Save   1.2.3.4  system_name=MY_SYSTEMNAME  profile=EXTR_v2_Profile  timeout=10``
+        - ``XIQSE Configure Device Device Tab and Save   1.2.3.4  system_name=MY_SYSTEMNAME  profile=EXTR_v2_Profile  timeout=10``
 
         :param device_ip:            IP address of the device to configure
         :param system_name:          Value to enter into the System Name field
@@ -490,7 +490,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         - This keyword configures the device with the specified Device Annotation values.  It does not save the changes.
         - Keyword Usage:
-         - ``XIQSE Configure Device Annotations   1.2.3.4  nickname=MY_NICKNAME  ud2=MY DATA 2  note=MY NOTE\n2nd LINE``
+        - ``XIQSE Configure Device Annotations   1.2.3.4  nickname=MY_NICKNAME  ud2=MY DATA 2  note=MY NOTE\n2nd LINE``
 
         :param device_ip:  IP address of the device to configure
         :param nickname:   Value to enter into the Nickname field
@@ -531,7 +531,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - The Configure Device dialog is opened, the Device Annotation tab is selected and populated with the specified
         - values, and the Save button is clicked.
         - Keyword Usage:
-         - ``XIQSE Configure Device Annotations and Save   1.2.3.4  nickname=MY_NICKNAME  ud2=MY DATA 2  note=MY NOTE\n2nd LINE``
+        - ``XIQSE Configure Device Annotations and Save   1.2.3.4  nickname=MY_NICKNAME  ud2=MY DATA 2  note=MY NOTE\n2nd LINE``
 
         :param device_ip:  IP address of the device to configure
         :param nickname:   Value to enter into the Nickname field
@@ -551,16 +551,20 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_wait_until_device_add_operation_complete(self, retry_duration=30, retry_count=10):
+    def xiqse_wait_until_device_add_operation_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits until the device add operation has completed by checking the Device Added entry in the
-         - Operations panel for progress value of 100%.
-         - It is assumed the view is already navigated to the Site tab.
-         - NOTE: before performing the Device Add operation, the operations panel should be cleared, as the first match
-         - of "Device Added" will be used to check the progress.
-         - Keyword Usage
-          - ``XIQSE Site Wait Until Device Add Operation Complete``
-          - ``XIQSE Site Wait Until Device Add Operation Complete    retry_duration=10  retry_count=60``
+        - This keyword waits until the "Device Added" operation has completed by checking the
+        - "Device Added" entry in the Operations panel for progress value of 100%. This should only be used when
+         . site actions are not required and only device added is needed. Most of XIQSE functions won't work
+        - correctly until the inventory discovery process is complete and the site actions have finished for a new
+        - device which initiates a discovery to identify the device and its  capabilities, then assign a license and
+        - complete the add process by running the site actions.
+        - It is assumed the view is already navigated to the Site tab.
+        - NOTE: before performing the Device Add, the operations panel should be cleared, as the first match
+        - of "Device Add" will be used to check the progress.
+        - Keyword Usage
+        - ``XIQSE Site Wait Until Device Add Operation Complete``
+        - ``XIQSE Site Wait Until Device Add Operation Complete    retry_duration=10  retry_count=60``
 
         :param retry_duration: duration between each retry
         :param retry_count: retry count
@@ -569,13 +573,35 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         return self.operations_panel.xiqse_operations_wait_until_operation_complete("Device Added",
                                                                                     retry_duration, retry_count)
 
+    def xiqse_wait_until_discover_site_actions_operation_complete(self, retry_duration=10, retry_count=30):
+        """
+        - This keyword waits until the "Discover Site Actions" operation has completed by checking the
+        - "Discover Site Actions" entry in the Operations panel for progress value of 100%. Do not return complete
+        - for Device Added operation event as this event is just the first step. Most of XIQSE functions won't work
+        - correctly until the inventory discovery process is complete and the site actions have finished for a new
+        - device which initiates a discovery to identify the device and its  capabilities, then assign a license and
+        - complete the add process by running the site actions.
+        - It is assumed the view is already navigated to the Site tab.
+        - NOTE: before performing the Device Add, the operations panel should be cleared, as the first match
+        - of "Discover Site Actions" will be used to check the progress.
+        - Keyword Usage
+        - ``XIQSE Site Wait Until Device Add Operation Complete``
+        - ``XIQSE Site Wait Until Device Add Operation Complete    retry_duration=10  retry_count=60``
+
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if action was successful, else -1
+        """
+        return self.operations_panel.xiqse_operations_wait_until_operation_complete("Discover Site Actions",
+                                                                                    retry_duration, retry_count)
+
     def xiqse_wait_until_device_added(self, device_ip, retry_duration=10, retry_count=30):
         """
         - This keyword is used to wait for the device to show up in the devices table.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Added    ${DEVICE_IP}    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Device Added    ${DEVICE_IP}    retry_duration=30    retry_count=12``
 
         :param device_ip: device IP to look for
         :param retry_duration: duration between each retry
@@ -609,7 +635,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.xiqse_devices_clear_search()
             return 1
 
-        self.utils.print_info(f"Device does not exist. Please check.")
+        self.utils.print_info("Device does not exist. Please check.")
         self.screen.save_screen_shot()
         self.xiqse_devices_clear_search()
         return -1
@@ -620,7 +646,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device exists.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Removed    ${DEVICE_IP}    retry_duration=30    retry_count=12``
+        - ``XIQSE Wait Until Device Removed    ${DEVICE_IP}    retry_duration=30    retry_count=12``
 
         :param device_ip: device IP to look for
         :param retry_duration: duration between each retry
@@ -650,7 +676,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.xiqse_devices_clear_search()
             return 1
 
-        self.utils.print_info(f"Device is still present. Please check.")
+        self.utils.print_info("Device is still present. Please check.")
         self.screen.save_screen_shot()
         self.xiqse_devices_clear_search()
         return -1
@@ -661,7 +687,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is up.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Status Up    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Status Up    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the status of
         :param retry_duration: duration between each retry
@@ -672,7 +698,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Up Status Check - Loop: ", count)
+            self.utils.print_info(f"Device Up Status Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -703,7 +729,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device status failed to go up. Please check.")
+            self.utils.print_info("Device status failed to go up. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -714,7 +740,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is down.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Status Down    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Status Down    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the status of
         :param retry_duration: duration between each retry
@@ -723,7 +749,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Down Status Check - Loop: ", count)
+            self.utils.print_info(f"Device Down Status Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -753,7 +779,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             # Increment retry counter
             count += 1
 
-        self.utils.print_info(f"Device status failed to go down. Please check.")
+        self.utils.print_info("Device status failed to go down. Please check.")
         self.screen.save_screen_shot()
 
         return -1
@@ -764,7 +790,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is archived.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Archived    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Archived    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the archive status of
         :param retry_duration: duration between each retry
@@ -774,7 +800,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Archived Check - Loop: ", count)
+            self.utils.print_info(f"Device Archived Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -800,7 +826,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not become archived within allocated time. Please check.")
+            self.utils.print_info("Device did not become archived within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -811,7 +837,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is archived or not.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Not Archived    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Not Archived    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the archive status of
         :param retry_duration: duration between each retry
@@ -821,7 +847,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Archived Check - Loop: ", count)
+            self.utils.print_info(f"Device Archived Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -847,7 +873,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device is still archived after allocated time. Please check.")
+            self.utils.print_info("Device is still archived after allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -859,7 +885,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is onboarded to xiq.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Onboarded to XIQ    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Onboarded to XIQ    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the XIQ Onboarded status of
         :param retry_duration: duration between each retry
@@ -869,7 +895,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device XIQ Onboarded Check - Loop: ", count)
+            self.utils.print_info(f"Device XIQ Onboarded Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -895,7 +921,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not onboard to XIQ within allocated time. Please check.")
+            self.utils.print_info("Device did not onboard to XIQ within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -909,8 +935,8 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Devices Present    ${DEVICE_COUNT}    retry_duration=10    retry_count=12``
-         - ``XIQSE Wait Until Devices Present    ${DEVICE_COUNT}    exact=false    retry_duration=20    retry_count=5``
+        - ``XIQSE Wait Until Devices Present    ${DEVICE_COUNT}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Devices Present    ${DEVICE_COUNT}    exact=false    retry_duration=20    retry_count=5``
 
         :param device_count: number of devices which should be present
         :param exact: true (default) or false.
@@ -920,7 +946,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Count Check - Loop: ", count)
+            self.utils.print_info(f"Device Count Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -967,7 +993,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device has a serial number.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Has Serial Number    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Has Serial Number    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the serial number of
         :param retry_duration: duration between each retry
@@ -977,7 +1003,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Serial Number Check - Loop: ", count)
+            self.utils.print_info(f"Device Serial Number Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1003,7 +1029,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not obtain a serial number within allocated time. Please check.")
+            self.utils.print_info("Device did not obtain a serial number within allocated time. Please check.")
 
         return ret_val
 
@@ -1014,7 +1040,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device has a base MAC.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Has Base MAC    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Has Base MAC    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the base MAC of
         :param retry_duration: duration between each retry
@@ -1024,7 +1050,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Base MAC Check - Loop: ", count)
+            self.utils.print_info(f"Device Base MAC Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1050,7 +1076,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not obtain a base MAC within allocated time. Please check.")
+            self.utils.print_info("Device did not obtain a base MAC within allocated time. Please check.")
 
         return ret_val
 
@@ -1060,7 +1086,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is upgraded.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Upgraded    ${DEVICE_IP}    ${UPGRADE_VERSION}     retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Upgraded    ${DEVICE_IP}    ${UPGRADE_VERSION}     retry_duration=10    retry_count=12``
         :param device_ip: device IP to check the archive status of
         :param upgrade_version: expected firmware version value
         :param retry_duration: duration between each retry
@@ -1070,7 +1096,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Upgraded Check - Loop: ", count)
+            self.utils.print_info(f"Device Upgraded Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1097,7 +1123,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not show upgraded version within allocated time. Please check.")
+            self.utils.print_info("Device did not show upgraded version within allocated time. Please check.")
 
         return ret_val
 
@@ -1107,7 +1133,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device profile matches the value.
         - It is assumed the Network> Devices> Devices tab is already selected and the Admin Profile column is displayed.
         - Keyword Usage:
-         - ``XIQSE Confirm Device Profile    ${DEVICE_IP}  ${PROFILE_NAME}  retry_duration=10  retry_count=12``
+        - ``XIQSE Confirm Device Profile    ${DEVICE_IP}  ${PROFILE_NAME}  retry_duration=10  retry_count=12``
 
         :param device_ip: device IP to look for
         :param profile_name: expected value of the profile
@@ -1117,7 +1143,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         """
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Profile Check - Loop: ", count)
+            self.utils.print_info(f"Device Profile Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -1282,7 +1308,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the serial number for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device Serial Number    ${DEVICE_IP}``
+        - ``XIQSE Get Device Serial Number    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the serial number for
         :return: serial number for the specified device;  -1 if serial number cannot be determined
@@ -1317,7 +1343,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the profile for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device Profile    ${DEVICE_IP}``
+        - ``XIQSE Get Device Profile    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the admin profile for
         :return: admin profile for the specified device;  empty string ("") if admin profile cannot be determined
@@ -1352,7 +1378,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the base MAC for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device Base MAC    ${DEVICE_IP}``
+        - ``XIQSE Get Device Base MAC    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the base MAC for
         :return: base MAC for the specified device;  -1 if base MAC cannot be determined
@@ -1386,7 +1412,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the Nickname value for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device Nickname    ${DEVICE_IP}``
+        - ``XIQSE Get Device Nickname    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the value for
         :return: nickname for the specified device;  empty string ("") if value cannot be determined
@@ -1418,7 +1444,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the Asset Tag value for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device Asset Tag    ${DEVICE_IP}``
+        - ``XIQSE Get Device Asset Tag    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the value for
         :return: asset tag for the specified device;  empty string ("") if value cannot be determined
@@ -1450,7 +1476,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the User Data 1 value for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device User Data 1    ${DEVICE_IP}``
+        - ``XIQSE Get Device User Data 1    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the value for
         :return: user data 1 for the specified device;  empty string ("") if value cannot be determined
@@ -1482,7 +1508,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the User Data 2 value for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device User Data 2    ${DEVICE_IP}``
+        - ``XIQSE Get Device User Data 2    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the value for
         :return: user data 2 for the specified device;  empty string ("") if value cannot be determined
@@ -1514,7 +1540,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the User Data 3 value for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device User Data 3    ${DEVICE_IP}``
+        - ``XIQSE Get Device User Data 3    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the value for
         :return: user data 3 for the specified device;  empty string ("") if value cannot be determined
@@ -1546,7 +1572,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the User Data 4 value for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device User Data 4    ${DEVICE_IP}``
+        - ``XIQSE Get Device User Data 4    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the value for
         :return: user data 4 for the specified device;  empty string ("") if value cannot be determined
@@ -1578,7 +1604,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the Notes value for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device Notes    ${DEVICE_IP}``
+        - ``XIQSE Get Device Notes    ${DEVICE_IP}``
 
         :param device_ip: device IP to get the value for
         :return: notes for the specified device;  empty string ("") if value cannot be determined
@@ -1610,8 +1636,8 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the desired column value for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device Column Value    ${DEVICE_IP}    Admin Profile``
-         - ``XIQSE Get Device Column Value    ${DEVICE_IP}    Site``
+        - ``XIQSE Get Device Column Value    ${DEVICE_IP}    Admin Profile``
+        - ``XIQSE Get Device Column Value    ${DEVICE_IP}    Site``
 
         :param device_ip: device IP to get the value for
         :param col_name:  name of the column to get the value of
@@ -1647,7 +1673,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - Gets a dictionary of device row values based on the passed column label list
         - The column list should be a comma-separated list of column headers, like Site,Admin Profile,Family
         - Keyword Usage:
-         - ``@{DEVICE_VALUES}=  XIQSE Get Device Row Values   ${DEVICE_IP}  Site,Admin Profile,Family``
+        - ``@{DEVICE_VALUES}=  XIQSE Get Device Row Values   ${DEVICE_IP}  Site,Admin Profile,Family``
 
         :param device_ip: IP address of the device to obtain the values for
         :param col_list: comma-separated list of column headers to obtain the values of (e.g., Site,Admin Profile,Family)
@@ -1684,7 +1710,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        self.utils.print_info(f"****************** DEVICE ROW VALUES ************************")
+        self.utils.print_info("****************** DEVICE ROW VALUES ************************")
         for key, value in device_detail_dict.items():
             self.utils.print_info(f"{key}:{value}")
 
@@ -1695,7 +1721,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword shows the specified list of columns if they are currently hidden.
         - Assumes already navigated to the Network> Devices> Devices view.
         -  Keyword Usage:
-         - ``XIQSE Devices Show Columns        Admin Profile  Context``
+        - ``XIQSE Devices Show Columns        Admin Profile  Context``
 
         :param columns: list of columns to show
         :return: returns 1 if successful. else -1
@@ -1720,7 +1746,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword hides the specified list of columns if they are currently shown.
         - Assumes already navigated to the Network> Devices> Devices view.
         -  Keyword Usage:
-         - ``XIQSE Devices Hide Columns        Admin Profile  Context``
+        - ``XIQSE Devices Hide Columns        Admin Profile  Context``
 
         :param columns: list of columns to hide
         :return: returns 1 if successful. else -1
@@ -1736,15 +1762,15 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.screen.save_screen_shot()
 
         self.utils.print_info("Closing Column Selection Menu")
-        self.auto_actions.click(self.devices_tab.xiqse_devices_select_devices_tab())
+        self.auto_actions.click_reference(self.devices_tab.xiqse_devices_select_devices_tab)
 
         return ret_val
 
     def xiqse_devices_refresh_table(self):
         """
-         - This keyword clicks the refresh icon under the table.
-         - Keyword Usage
-          - ``XIQSE Devices Refresh Table``
+        - This keyword clicks the refresh icon under the table.
+        - Keyword Usage
+        - ``XIQSE Devices Refresh Table``
 
         :return: 1 if action was successful, else -1
         """
@@ -1752,10 +1778,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_device_select_backup_configuration(self, device_ip):
         """
-         - This keyword selects Backup Configuration for the specified device.
-         - It is assumed the user is already on the Network> Devices> Devices tab.
-         - Keyword Usage
-          - ``XIQSE Device Select Backup Configuration  1.2.3.4``
+        - This keyword selects Backup Configuration for the specified device.
+        - It is assumed the user is already on the Network> Devices> Devices tab.
+        - Keyword Usage
+        - ``XIQSE Device Select Backup Configuration  1.2.3.4``
 
         :param device_ip:    IP address of the device to select backup config on
         :return: 1 if action was successful, else -1
@@ -1804,10 +1830,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_device_select_restore_configuration(self, device_ip):
         """
-         - This keyword selects Restore Configuration for the specified device.
-         - It is assumed the user is already on the Network> Devices> Devices tab.
-         - Keyword Usage
-          - ``XIQSE Device Select Restore Configuration  1.2.3.4``
+        - This keyword selects Restore Configuration for the specified device.
+        - It is assumed the user is already on the Network> Devices> Devices tab.
+        - Keyword Usage
+        - ``XIQSE Device Select Restore Configuration  1.2.3.4``
 
         :param device_ip:    IP address of the device to select restore config on
         :return: 1 if action was successful, else -1
@@ -1849,10 +1875,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_device_restore_configuration(self, device_ip, the_value):
         """
-         - This keyword selects Restore Configuration and the configuration to restore for the specified device.
-         - It is assumed the user is already on the Network> Devices> Devices tab.
-         - Keyword Usage
-          - ``XIQSE Device Select Restore Configuration  1.2.3.4  the_value``
+        - This keyword selects Restore Configuration and the configuration to restore for the specified device.
+        - It is assumed the user is already on the Network> Devices> Devices tab.
+        - Keyword Usage
+        - ``XIQSE Device Select Restore Configuration  1.2.3.4  the_value``
 
         :param device_ip:    IP address of the device to select restore config on
         :param the_value:    Selects the configuration file
@@ -1889,10 +1915,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_register_trap_receiver(self, device_ip):
         """
-         - This keyword registers the trap receiver for the currently-selected device.
-         - It is assumed the user is already on the Network> Devices> Devices tab and the device to register is selected.
-         - Keyword Usage
-          - ``XIQSE Register Trap Receiver    ${DEVICE_IP}``
+        - This keyword registers the trap receiver for the currently-selected device.
+        - It is assumed the user is already on the Network> Devices> Devices tab and the device to register is selected.
+        - Keyword Usage
+        - ``XIQSE Register Trap Receiver    ${DEVICE_IP}``
 
         :param  device_ip:    IP address of the device to select register trap receiver on
         :return: 1 if action was successful, else -1
@@ -1935,10 +1961,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_unregister_trap_receiver(self, device_ip):
         """
-         - This keyword unregisters the trap receiver for the currently-selected device.
-         - It is assumed the user is already on the Network> Devices> Devices tab and the device to unregister is selected.
-         - Keyword Usage
-          - ``XIQSE Unregister Trap Receiver  ${DEVICE_IP}``
+        - This keyword unregisters the trap receiver for the currently-selected device.
+        - It is assumed the user is already on the Network> Devices> Devices tab and the device to unregister is selected.
+        - Keyword Usage
+        - ``XIQSE Unregister Trap Receiver  ${DEVICE_IP}``
 
         :param  device_ip:    IP address of the device to select unregister trap receiver on
         :return: 1 if action was successful, else -1
@@ -1980,10 +2006,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_register_syslog_receiver(self, device_ip):
         """
-         - This keyword registers the syslog receiver for the currently-selected device.
-         - It is assumed the user is already on the Network> Devices> Devices tab and the device to register is selected.
-         - Keyword Usage
-          - ``XIQSE Register Syslog Receiver  ${DEVICE_IP}``
+        - This keyword registers the syslog receiver for the currently-selected device.
+        - It is assumed the user is already on the Network> Devices> Devices tab and the device to register is selected.
+        - Keyword Usage
+        - ``XIQSE Register Syslog Receiver  ${DEVICE_IP}``
 
         :param  device_ip:    IP address of the device to select register syslog receiver on
         :return: 1 if action was successful, else -1
@@ -2026,10 +2052,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_unregister_syslog_receiver(self, device_ip):
         """
-         - This keyword unregisters the syslog receiver for the currently-selected device.
-         - It is assumed the user is already on the Network> Devices> Devices tab and the device to unregister is selected.
-         - Keyword Usage
-          - ``XIQSE Unregister Syslog Receiver  ${DEVICE_IP}``
+        - This keyword unregisters the syslog receiver for the currently-selected device.
+        - It is assumed the user is already on the Network> Devices> Devices tab and the device to unregister is selected.
+        - Keyword Usage
+        - ``XIQSE Unregister Syslog Receiver  ${DEVICE_IP}``
 
         :param  device_ip:    IP address of the device to select unregister syslog receiver on
         :return: 1 if action was successful, else -1
@@ -2072,9 +2098,9 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_devices_open_search(self):
         """
-         - This keyword opens the search box in the Network> Devices view
-         - Keyword Usage
-          - ``XIQSE Devices Open Search``
+        - This keyword opens the search box in the Network> Devices view
+        - Keyword Usage
+        - ``XIQSE Devices Open Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -2084,11 +2110,11 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "true":
-                self.utils.print_info(f"Clicking Search button")
+                self.utils.print_info("Clicking Search button")
                 self.auto_actions.click(search_btn)
                 sleep(2)
             else:
-                self.utils.print_info(f"Search field already open")
+                self.utils.print_info("Search field already open")
             ret_val = 1
         else:
             self.utils.print_info("Unable to find the Search button")
@@ -2098,9 +2124,9 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_devices_enter_search_text(self, value):
         """
-         - This keyword enters text into the search field in the Network> Devices view
-         - Keyword Usage
-          - ``XIQSE Devices Enter Search Text    My Device To Find``
+        - This keyword enters text into the search field in the Network> Devices view
+        - Keyword Usage
+        - ``XIQSE Devices Enter Search Text    My Device To Find``
 
         :param value: string to enter in the search box
         :return: 1 if action was successful, else -1
@@ -2124,9 +2150,9 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_devices_trigger_search(self):
         """
-         - This keyword clicks the search button in the search box in the Network> Devices view to perform the search
-         - Keyword Usage
-          - ``XIQSE Devices Trigger Search``
+        - This keyword clicks the search button in the search box in the Network> Devices view to perform the search
+        - Keyword Usage
+        - ``XIQSE Devices Trigger Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -2136,11 +2162,11 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Search button to perform the search")
+                self.utils.print_info("Clicking Search button to perform the search")
                 self.auto_actions.click(search_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Search button to perform the search")
@@ -2150,9 +2176,9 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_devices_clear_search(self):
         """
-         - This keyword clicks the clear button in the search box in the Network> Devices view
-         - Keyword Usage
-          - ``XIQSE Events Clear Search``
+        - This keyword clicks the clear button in the search box in the Network> Devices view
+        - Keyword Usage
+        - ``XIQSE Events Clear Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -2162,11 +2188,11 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         search_text = self.get_search_text_field()
         if clear_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Clear button")
+                self.utils.print_info("Clicking Clear button")
                 self.auto_actions.click(clear_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Clear button")
@@ -2176,9 +2202,9 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_devices_wait_for_search_to_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits for the search to complete in the Network> Devices view
-         - Keyword Usage
-          - ``XIQSE Devices Wait For Search To Complete``
+        - This keyword waits for the search to complete in the Network> Devices view
+        - Keyword Usage
+        - ``XIQSE Devices Wait For Search To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the search to be complete
         :param retry_count:    number of times to check for the search to be complete
@@ -2189,10 +2215,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.utils.print_info(f"Waiting for search to complete: loop {count}")
             load_mask = self.view_el.get_load_mask()
             if load_mask:
-                self.utils.print_info(f"Search still in progress...")
+                self.utils.print_info("Search still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Search has completed")
+                self.utils.print_info("Search has completed")
                 return 1
             count += 1
 
@@ -2200,10 +2226,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
     def xiqse_devices_perform_search(self, value, retry_duration=10, retry_count=30):
         """
-         - This keyword performs a search in the Network> Devices view
-         - Keyword Usage
-          - ``XIQSE Devices Perform Search   My Search String``
-          - ``XIQSE Devices Perform Search   My Search String  retry_duration=5  retry_count=10``
+        - This keyword performs a search in the Network> Devices view
+        - Keyword Usage
+        - ``XIQSE Devices Perform Search   My Search String``
+        - ``XIQSE Devices Perform Search   My Search String  retry_duration=5  retry_count=10``
 
         :param value:          string to search for
         :param retry_duration: amount of time to wait in between each check for the search to be complete
@@ -2223,12 +2249,59 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_perform_restart_device(self, device_ip):
+    def xiqse_perform_rediscover_device(self, device_ip):
         """
-         - This keyword restarts the specified device.
+         - This keyword rediscovers the specified device.
          - It is assumed the user is already on the Network> Devices> Devices tab
          - Keyword Usage
-          - ``XIQSE Perform Restart Device    ${DEVICE_IP}``
+          - ``XIQSE Perform Rediscover Device    ${DEVICE_IP}``
+
+        :param  device_ip:    IP address of the device to rediscover
+        :return: 1 if action was successful, else -1
+        """
+
+        ret_val = -1
+
+        if self.xiqse_select_device(device_ip) == 1:
+            menu_btn = self.get_device_menu_tb_button()
+            if menu_btn:
+                self.utils.print_info("Clicking Device Menu toolbar button")
+                self.auto_actions.click(menu_btn)
+                sleep(1)
+
+                rediscover_menu_item = self.get_rediscover_device_menu_item()
+                if rediscover_menu_item:
+                    self.utils.print_info("Clicking 'Rediscover' menu")
+                    self.auto_actions.click(rediscover_menu_item)
+                    sleep(1)
+                    # select yes in the confirmation box.
+                    confirm_box = self.get_rediscover_confirm_button_yes_item()
+                    if confirm_box:
+                        self.utils.print_info("Clicking 'Rediscover Device' confirm")
+                        self.auto_actions.click(confirm_box)
+                        sleep(5)
+                        ret_val = 1
+                    else:
+                        self.utils.print_info("Unable to find Rediscover Device Confirm")
+                        self.screen.save_screen_shot()
+                else:
+                    self.utils.print_info("Unable to find Rediscover menu")
+                    self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("Unable to find Device Menu toolbar button")
+                self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("Unable to find select device")
+            self.screen.save_screen_shot()
+
+        return ret_val
+
+    def xiqse_perform_restart_device(self, device_ip):
+        """
+        - This keyword restarts the specified device.
+        - It is assumed the user is already on the Network> Devices> Devices tab
+        - Keyword Usage
+        - ``XIQSE Perform Restart Device    ${DEVICE_IP}``
 
         :param  device_ip:    IP address of the device to restart
         :return: 1 if action was successful, else -1
@@ -2250,11 +2323,10 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
     def xiqse_confirm_table_empty(self):
         """
         - This keyword confirms there are no devices in the Devices table.
-         - Keyword Usage
-          - ``XIQSE Confirm Table Empty``
+        - Keyword Usage
+        - ``XIQSE Confirm Table Empty``
         :return: returns 1 if table is empty, else -1
         """
-        ret_val = 1
 
         rows = self.get_table_rows()
         if rows:
@@ -2264,17 +2336,14 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             self.utils.print_info("Table is empty")
             return 1
 
-        return ret_val
-
     def xiqse_get_trap_status(self, device_ip):
         """
         - This keyword is used to get the trap status for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Trap Status    ${DEVICE_IP}``
+        - ``XIQSE Get Trap Status    ${DEVICE_IP}``
 
         :param device_ip: device IP to look for
-        :param trap_status: expected value of the trap status
         :return: trap status for the specified device;  empty string ("") if trap status cannot be determined
         """
         ret_val = ""
@@ -2307,10 +2376,9 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword is used to get the syslog status for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Syslog Status    ${DEVICE_IP}``
+        - ``XIQSE Get Syslog Status    ${DEVICE_IP}``
 
         :param device_ip: device IP to look for
-        :param syslog_status: expected value of the trap status
         :return: syslog status for the specified device;  empty string ("") if syslog status cannot be determined
         """
         ret_val = ""
@@ -2338,38 +2406,48 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
 
         return ret_val
 
-    def xiqse_get_device_license(self, device_ip):
+    def xiqse_get_device_license(self, device_ip, retry_duration=30, retry_count=10):
         """
         - This keyword is used to get the device license for the specified device in the devices table.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Get Device License    ${DEVICE_IP}``
+        - ``XIQSE Get Device License    ${DEVICE_IP}``
 
         :param device_ip: device IP to look for
         :return: device license for the specified device;  empty string ("") if device license cannot be determined
         """
         ret_val = ""
 
-        device_row = self.xiqse_get_device_row(device_ip)
-        if device_row:
-            the_col = self.get_device_column_by_name("License")
-            col_id = self.view_el.get_column_id(the_col)
-            self.utils.print_debug(f"Column ID: {col_id}")
-            if col_id != -1:
-                col_val = self.get_device_column_value(col_id, device_row)
-                if col_val:
-                    status_value = col_val.text
-                    self.utils.print_info(f"Returning Device License {status_value} for device {device_ip}")
-                    ret_val = status_value
+        count = 1
+        while count <= retry_count:
+            device_row = self.xiqse_get_device_row(device_ip)
+            if device_row:
+                the_col = self.get_device_column_by_name("License")
+                col_id = self.view_el.get_column_id(the_col)
+                self.utils.print_debug(f"Column ID: {col_id}")
+                if col_id != -1:
+                    col_val = self.get_device_column_value(col_id, device_row)
+                    if col_val:
+                        status_value = col_val.text
+                        self.utils.print_info(f"Returning Device License {status_value} for device {device_ip}")
+                        ret_val = status_value
+                    else:
+                        self.utils.print_info(f"Unable to determine device license for device {device_ip}")
                 else:
-                    self.utils.print_info(f"Unable to determine device license for device {device_ip}")
+                    self.utils.print_info("Unable to find column ID for License column")
             else:
-                self.utils.print_info("Unable to find column ID for License column")
-        else:
-            self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
+                self.utils.print_info(f"Unable to find row for device with IP {device_ip}")
 
-        self.utils.print_info(f"Returning device license {ret_val} for device {device_ip}")
-        self.screen.save_screen_shot()
+            # License allocation is still ongoing if in pending
+            if ret_val.lower() != 'pending':
+                self.utils.print_info(f"Returning device license {ret_val} for device {device_ip}")
+                self.screen.save_screen_shot()
+                break;
+
+            self.utils.print_info(f"Device license {ret_val} for device {device_ip} is not determined, attempt {count}")
+            # Increment retry counter
+            count += 1
+            sleep(retry_duration);
 
         return ret_val
 
@@ -2379,7 +2457,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is collecting historical statistics.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Stats Historical    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Stats Historical    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the stats column on
         :param retry_duration: duration between each retry
@@ -2389,7 +2467,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+            self.utils.print_info(f"Device Stats Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -2415,7 +2493,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not update to collecting historical statistics within allocated time. Please check.")
+            self.utils.print_info("Device did not update to collecting historical statistics within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -2426,7 +2504,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is collecting threshold alarms statistics.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Stats Threshold Alarms    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Stats Threshold Alarms    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the stats column on
         :param retry_duration: duration between each retry
@@ -2436,7 +2514,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+            self.utils.print_info(f"Device Stats Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -2462,7 +2540,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not update to collecting threshold alarms statistics within allocated time. Please check.")
+            self.utils.print_info("Device did not update to collecting threshold alarms statistics within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -2473,7 +2551,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         - This keyword by default loops 10 times every 30 seconds to check if the device is not collecting device statistics.
         - It is assumed the Network> Devices> Devices tab is already selected.
         - Keyword Usage:
-         - ``XIQSE Wait Until Device Stats Not Collecting    ${DEVICE_IP}    retry_duration=10    retry_count=12``
+        - ``XIQSE Wait Until Device Stats Not Collecting    ${DEVICE_IP}    retry_duration=10    retry_count=12``
 
         :param device_ip: device IP to check the stats column on
         :param retry_duration: duration between each retry
@@ -2483,7 +2561,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
         ret_val = -1
         count = 1
         while count <= retry_count:
-            self.utils.print_info(f"Device Stats Check - Loop: ", count)
+            self.utils.print_info(f"Device Stats Check - Loop: {count}")
 
             stale_retry = 1
             while stale_retry <= 10:
@@ -2509,7 +2587,7 @@ class XIQSE_NetworkDevicesDevices(NetworkDevicesDevicesWebElements):
             count += 1
 
         if ret_val == -1:
-            self.utils.print_info(f"Device did not update to not collecting device statistics within allocated time. Please check.")
+            self.utils.print_info("Device did not update to not collecting device statistics within allocated time. Please check.")
             self.screen.save_screen_shot()
 
         return ret_val

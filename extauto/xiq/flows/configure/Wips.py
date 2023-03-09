@@ -2,9 +2,10 @@ from time import sleep
 import re
 
 from extauto.common.Screen import Screen
-from extauto.common.CloudDriver import CloudDriver
+# from extauto.common.CloudDriver import CloudDriver
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
+from extauto.common.CommonValidation import CommonValidation
 
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
@@ -32,13 +33,14 @@ class Wips(WipsWebElements):
         self.network_policy = NetworkPolicy()
         self.common_object = CommonObjects()
         self.screen = Screen()
+        self.common_validation = CommonValidation()
 
     def navigate_to_network_policy_edit_tab(self, policy_name):
         """
-         - Navigates to Network Policies List and Edit the Specific Network Policy
-         - Flow  Network policy list-->Select List View-->Select Network Policy ROW--> Edit
-         - Keyword Usage
-          - ``Navigate To Network Policy Edit Tab  ${NETWORK_POLICY_NAME}``
+        - Navigates to Network Policies List and Edit the Specific Network Policy
+        - Flow  Network policy list-->Select List View-->Select Network Policy ROW--> Edit
+        - Keyword Usage
+        - ``Navigate To Network Policy Edit Tab  ${NETWORK_POLICY_NAME}``
 
         :param policy_name: Network Policy Name
         :return:1 if Navigates to Network Policy edit
@@ -46,23 +48,23 @@ class Wips(WipsWebElements):
         self.navigator.navigate_configure_network_policies()
 
         self.utils.print_info("Click on network policy list view button")
-        self.auto_actions.click(self.np_web_elements.get_network_policy_list_view())
+        self.auto_actions.click_reference(self.np_web_elements.get_network_policy_list_view)
         sleep(2)
 
         self.utils.print_info("Select the network policy rows")
         self.network_policy.select_network_policy_row(policy_name)
 
         self.utils.print_info("Click on network policy Edit button")
-        self.auto_actions.click(self.np_web_elements.get_np_edit_button())
+        self.auto_actions.click_reference(self.np_web_elements.get_np_edit_button)
         sleep(2)
         return 1
 
-    def enable_wips_on_network_policy(self, policy_name, wips_name):
+    def enable_wips_on_network_policy(self, policy_name, wips_name, **kwargs):
         """
         - Enable wips on Network Policy
         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS
         - Keyword Usage
-         - ``Enable Wips On Network Policy  ${NETWORK_POLICY_NAME}   ${WIPS_POLICY_NAME}``
+        - ``Enable Wips On Network Policy  ${NETWORK_POLICY_NAME}   ${WIPS_POLICY_NAME}``
 
         :param policy_name: Network Policy Name
         :param wips_name: WIPS Policy Name
@@ -72,21 +74,21 @@ class Wips(WipsWebElements):
         self.navigate_to_network_policy_edit_tab(policy_name)
 
         self.utils.print_info("Click on Additional Settings tab button")
-        self.auto_actions.click(self.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_network_policy_additional_settings_tab)
         sleep(2)
 
         if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
             self.utils.print_info("Click WIPS Menu On Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
         else:
             self.utils.print_info("Click Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_security_option)
             sleep(2)
             self.utils.print_info("Click WIPS Menu")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
 
         self.utils.print_info("Click on Enable WIPS button")
-        self.auto_actions.click(self.get_network_policy_additional_settings_enable_wips_button())
+        self.auto_actions.click_reference(self.get_network_policy_additional_settings_enable_wips_button)
         sleep(2)
 
         self.utils.print_info("Enter WIPS Name")
@@ -94,22 +96,26 @@ class Wips(WipsWebElements):
         sleep(3)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.get_wips_save_button())
+        self.auto_actions.click_reference(self.get_wips_save_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Failed to enable WIPS Policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def configure_wips_options_on_network_policy(self, policy_name, **wips_config_profile):
         """
-         - Creates WIPS Policy On Network Policy based on the arguments from wireless_networks_config.robot
-         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS
-         - Keyword Usage
-          - ``Configure WIPS Options On Network Policy  ${NW_POLICY_NAME}   &{WIPS_CONFIG_SETTINGS}``
+        - Creates WIPS Policy On Network Policy based on the arguments from wireless_networks_config.robot
+        - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS
+        - Keyword Usage
+        - ``Configure WIPS Options On Network Policy  ${NW_POLICY_NAME}   &{WIPS_CONFIG_SETTINGS}``
 
         :param policy_name: Network Policy Name
         :param wips_config_profile: (dict) include status of rougue ap detection, detect rogue ap based on Mac and ssid.
@@ -127,96 +133,96 @@ class Wips(WipsWebElements):
         self.navigate_to_network_policy_edit_tab(policy_name)
 
         self.utils.print_info("Click on Additional Settings tab button")
-        self.auto_actions.click(self.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_network_policy_additional_settings_tab)
         sleep(2)
 
         if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
             self.utils.print_info("Click WIPS Menu On Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
         else:
             self.utils.print_info("Click Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_security_option)
             sleep(2)
             self.utils.print_info("Click WIPS Menu")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
 
         if rougue_ap_detection.upper() == "ENABLE":
             self.utils.print_info("Enable Rogue Access Point Detection")
             if not self.get_wips_rogue_ap_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_rogue_ap_detection_button())
+                self.auto_actions.click_reference(self.get_wips_rogue_ap_detection_button())
                 sleep(5)
         else:
             self.utils.print_info("Disable Rogue Access Point Detection")
             if self.get_wips_rogue_ap_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_rogue_ap_detection_button())
+                self.auto_actions.click_reference(self.get_wips_rogue_ap_detection_button)
                 sleep(5)
 
         if detect_rougue_ap_wired.upper() == "ENABLE":
             self.utils.print_info("Enable Determine if detected rogue APs are connected to your wired network")
             if not self.get_determine_wips_enable_same_network_checkbox().is_selected():
-                self.auto_actions.click(self.get_determine_wips_enable_same_network_checkbox())
+                self.auto_actions.click_reference(self.get_determine_wips_enable_same_network_checkbox)
                 sleep(5)
         else:
             self.utils.print_info("Disable Determine if detected rogue APs are connected to your wired network")
             if self.get_determine_wips_enable_same_network_checkbox().is_selected():
-                self.auto_actions.click(self.get_determine_wips_enable_same_network_checkbox())
+                self.auto_actions.click_reference(self.get_determine_wips_enable_same_network_checkbox)
                 sleep(5)
 
         if detect_ap_mac_oui_basis.upper() == "ENABLE":
             self.utils.print_info("Enable Detect rogue access points based on their MAC OUI")
             if not self.get_wips_rogue_ap_mac_oui_detection_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_rogue_ap_mac_oui_detection_checkbox())
+                self.auto_actions.click_reference(self.get_wips_rogue_ap_mac_oui_detection_checkbox)
                 sleep(5)
         else:
             self.utils.print_info("Disable Detect rogue access points based on their MAC OUI")
             if self.get_wips_rogue_ap_mac_oui_detection_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_rogue_ap_mac_oui_detection_checkbox())
+                self.auto_actions.click_reference(self.get_wips_rogue_ap_mac_oui_detection_checkbox)
                 sleep(5)
 
         if detect_ap_ssid_basis.upper() == "ENABLE":
             self.utils.print_info("Enable Detect rogue access points based on hosted SSIDs and encryption type")
             if not self.get_wips_enable_rogue_ssid_detection_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_enable_rogue_ssid_detection_checkbox())
+                self.auto_actions.click_reference(self.get_wips_enable_rogue_ssid_detection_checkbox)
                 sleep(5)
         else:
             self.utils.print_info("Disable Detect rogue access points based on hosted SSIDs and encryption type")
             if self.get_wips_enable_rogue_ssid_detection_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_enable_rogue_ssid_detection_checkbox())
+                self.auto_actions.click_reference(self.get_wips_enable_rogue_ssid_detection_checkbox)
                 sleep(5)
 
         if detect_client_form_adhoc.upper() == "ENABLE":
             self.utils.print_info("Enable Detect if clients have formed an ad hoc network to identify rogue clients")
             if not self.get_wips_enable_adhoc_network_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_enable_adhoc_network_detection_button())
+                self.auto_actions.click_reference(self.get_wips_enable_adhoc_network_detection_button)
                 sleep(5)
         else:
             self.utils.print_info("Disable Detect if clients have formed an ad hoc network to identify rogue clients")
             if self.get_wips_enable_adhoc_network_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_enable_adhoc_network_detection_button())
+                self.auto_actions.click_reference(self.get_wips_enable_adhoc_network_detection_button)
                 sleep(5)
 
         if rougue_client_reporting.upper() == "ENABLE":
             self.utils.print_info("Enable rogue client reporting Checkbox")
             if not self.get_wips_enable_rogue_client_reporting_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_enable_rogue_client_reporting_checkbox())
+                self.auto_actions.click_reference(self.get_wips_enable_rogue_client_reporting_checkbox)
                 sleep(5)
         else:
             self.utils.print_info("Disable rogue client reporting Checkbox")
             if self.get_wips_enable_rogue_client_reporting_checkbox().is_selected():
-                self.auto_actions.click(self.get_wips_enable_rogue_client_reporting_checkbox())
+                self.auto_actions.click_reference(self.get_wips_enable_rogue_client_reporting_checkbox)
                 sleep(5)
 
         if mitigation_mode.upper() == "MANUAL":
             self.utils.print_info("Enable Mitigation Mode as Manual")
-            self.auto_actions.click(self.get_wips_mitigation_mode_manual_radio_button())
+            self.auto_actions.click_reference(self.get_wips_mitigation_mode_manual_radio_button)
             sleep(5)
         else:
             self.utils.print_info("Enable Mitigation Mode as Automatic")
-            self.auto_actions.click(self.get_wips_mitigation_mode_automatic_radio_button())
+            self.auto_actions.click_reference(self.get_wips_mitigation_mode_automatic_radio_button)
             sleep(5)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.get_wips_save_button())
+        self.auto_actions.click_reference(self.get_wips_save_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -226,13 +232,13 @@ class Wips(WipsWebElements):
         else:
             return -1
 
-    def add_allowed_ssid_on_network_wips_policy(self, policy_name, ssid_name, auth_type):
+    def add_allowed_ssid_on_network_wips_policy(self, policy_name, ssid_name, auth_type, **kwargs):
         """
-         - Configure Allowed SSID and Encryption Type on WIPS Policy
-         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
+        - Configure Allowed SSID and Encryption Type on WIPS Policy
+        - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
                  Enable Detect Rogue Based on SSID and Encryption Type
-         - Keyword Usage
-          - ``Add Allowed SSID On Network WIPS Policy  ${NW_POLICY_NAME}  ${SSID_NAME}  ${AUTH_TYPE}``
+        - Keyword Usage
+        - ``Add Allowed SSID On Network WIPS Policy  ${NW_POLICY_NAME}  ${SSID_NAME}  ${AUTH_TYPE}``
 
         :param policy_name: Network Policy Name
         :param ssid_name: SSID Name to Allow on WIPS Policy Configured
@@ -243,30 +249,30 @@ class Wips(WipsWebElements):
         self.navigate_to_network_policy_edit_tab(policy_name)
 
         self.utils.print_info("Click on Additional Settings tab button")
-        self.auto_actions.click(self.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_network_policy_additional_settings_tab)
         sleep(2)
 
         if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
             self.utils.print_info("Click WIPS Menu On Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
         else:
             self.utils.print_info("Click Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_security_option)
             sleep(2)
             self.utils.print_info("Click WIPS Menu")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
 
         self.utils.print_info("Enable Detect rogue access points based on hosted SSIDs and encryption type")
         if not self.get_wips_enable_rogue_ssid_detection_checkbox().is_selected():
-            self.auto_actions.click(self.get_wips_enable_rogue_ssid_detection_checkbox())
+            self.auto_actions.click_reference(self.get_wips_enable_rogue_ssid_detection_checkbox)
             sleep(5)
 
         self.utils.print_info("Click on SSID add sign button")
-        self.auto_actions.click(self.get_wips_enable_rogue_ssid_detection_add_sign_button())
+        self.auto_actions.click_reference(self.get_wips_enable_rogue_ssid_detection_add_sign_button)
         sleep(2)
 
         self.utils.print_info("Click on Enter SSID Name Radio button")
-        self.auto_actions.click(self.get_wips_enter_ssid_name_radio_button())
+        self.auto_actions.click_reference(self.get_wips_enter_ssid_name_radio_button)
         sleep(2)
 
         self.utils.print_info("Enter SSID Name Allowed in WLAN")
@@ -274,11 +280,11 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Enable Encrption Type selection Checkbox")
-        self.auto_actions.click(self.get_wips_select_ssid_encryption_type_checkbox())
+        self.auto_actions.click_reference(self.get_wips_select_ssid_encryption_type_checkbox)
         sleep(2)
 
         self.utils.print_info("Click Authentication scroll down box")
-        self.auto_actions.click(self.get_wips_select_ssid_encryption_scroll_button())
+        self.auto_actions.click_reference(self.get_wips_select_ssid_encryption_scroll_button)
         sleep(2)
 
         self.utils.print_info("Select Authentication Type")
@@ -291,27 +297,31 @@ class Wips(WipsWebElements):
                 break
 
         self.utils.print_info("Click Add SSID Button")
-        self.auto_actions.click(self.get_wips_select_ssid_encryption_add_button())
+        self.auto_actions.click_reference(self.get_wips_select_ssid_encryption_add_button)
         sleep(2)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.get_wips_save_button())
+        self.auto_actions.click_reference(self.get_wips_save_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def select_allowed_mac_oui_on_network_wips_policy(self, policy_name, mac_oui_name):
+    def select_allowed_mac_oui_on_network_wips_policy(self, policy_name, mac_oui_name, **kwargs):
         """
-         - Select allowed MAC OUI on Network Wips Policy
-         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
+        - Select allowed MAC OUI on Network Wips Policy
+        - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->
                  Enable Detect Rogue Based on MAC OUI
-         - Keyword Usage
-          - ``Select Allowed Mac OUI On Network Wips Policy    ${NW_POLICY_NAME}   ${MAC_OUI}``
+        - Keyword Usage
+        - ``Select Allowed Mac OUI On Network Wips Policy    ${NW_POLICY_NAME}   ${MAC_OUI}``
 
         :param policy_name: Network Policy Name
         :param mac_oui_name: MAC OUI Name to Allow on WIPS Policy
@@ -321,38 +331,38 @@ class Wips(WipsWebElements):
         self.navigate_to_network_policy_edit_tab(policy_name)
 
         self.utils.print_info("Click on Additional Settings tab button")
-        self.auto_actions.click(self.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_network_policy_additional_settings_tab)
         sleep(2)
 
         if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
             self.utils.print_info("Click WIPS Menu On Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
         else:
             self.utils.print_info("Click Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_security_option)
             sleep(2)
             self.utils.print_info("Click WIPS Menu")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
 
         self.utils.print_info("Enable Detect rogue access points based on their MAC OUI")
         if not self.get_wips_rogue_ap_mac_oui_detection_checkbox().is_selected():
-            self.auto_actions.click(self.get_wips_rogue_ap_mac_oui_detection_checkbox())
+            self.auto_actions.click_reference(self.get_wips_rogue_ap_mac_oui_detection_checkbox)
             sleep(5)
 
         self.utils.print_info("Select All checkboxes for MAC OUI")
-        self.auto_actions.click(self.get_wips_mac_oui_select_all_checkbox_list())
+        self.auto_actions.click_reference(self.get_wips_mac_oui_select_all_checkbox_list)
         sleep(2)
 
         self.utils.print_info("Click Delete Button")
-        self.auto_actions.click(self.get_wips_mac_oui_delete_symbol_button())
+        self.auto_actions.click_reference(self.get_wips_mac_oui_delete_symbol_button)
         sleep(2)
 
         self.utils.print_info("Click on Mac OUI add sign button")
-        self.auto_actions.click(self.get_wips_select_mac_ouis_of_wireless_add_sign())
+        self.auto_actions.click_reference(self.get_wips_select_mac_ouis_of_wireless_add_sign)
         sleep(2)
 
         self.utils.print_info("Click Mac OUI scroll down box")
-        self.auto_actions.click(self.get_wips_select_mac_oui_scroll_button())
+        self.auto_actions.click_reference(self.get_wips_select_mac_oui_scroll_button)
         sleep(2)
 
         self.utils.print_info("Selecting Mac OUI from the list")
@@ -365,7 +375,7 @@ class Wips(WipsWebElements):
                 break
         """
         In Case need to select device in the grid
-        
+
         self.utils.print_info("Selecting Device with MAC: ", mac_oui_name)
         rows = self.get_wips_mac_oui_grid_rows()
         for row in rows:
@@ -376,26 +386,30 @@ class Wips(WipsWebElements):
                 break
         """
         self.utils.print_info("Click Add MAC OUI Button")
-        self.auto_actions.click(self.get_wips_add_mac_oui_button())
+        self.auto_actions.click_reference(self.get_wips_add_mac_oui_button)
         sleep(2)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.get_wips_save_button())
+        self.auto_actions.click_reference(self.get_wips_save_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
         if "WIPS was updated successfully." in tool_tip_text:
+            kwargs['pass_msg'] = "WIPS was updated successfully."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
-    def configure_wips_policy_on_common_objects(self, wips_policy_name):
+    def configure_wips_policy_on_common_objects(self, wips_policy_name, **kwargs):
         """
-         - Configure WIPS Policy On Common Objects.
-         - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
-         - Keyword Usage
-          - ``Configure WIPS Policy On Common Objects   {WIPS_POLICY_NAME}``
+        - Configure WIPS Policy On Common Objects.
+        - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
+        - Keyword Usage
+        - ``Configure WIPS Policy On Common Objects   {WIPS_POLICY_NAME}``
 
         :param  wips_policy_name : WIPS Policy Name
         :return: 1 if WIPS POlicy Created on Common Objects else -1
@@ -406,7 +420,7 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Add button")
-        self.auto_actions.click(self.get_wips_common_object_add_button())
+        self.auto_actions.click_reference(self.get_wips_common_object_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -423,33 +437,37 @@ class Wips(WipsWebElements):
 
         self.utils.print_info("Enable Wireless Threat Detection")
         if not self.get_wips_common_object_policy_wireless_threat_detection_button().is_selected():
-            self.auto_actions.click(self.get_wips_common_object_policy_wireless_threat_detection_button())
+            self.auto_actions.click_reference(self.get_wips_common_object_policy_wireless_threat_detection_button)
             sleep(5)
         else:
             self.utils.print_info("Wireless Threat Detection Already Enabled in WIPS Policy by Default")
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.get_wips_common_object_save_button())
+        self.auto_actions.click_reference(self.get_wips_common_object_save_button)
         sleep(2)
 
         self.utils.print_info("Checking the Save profile message...")
         observed_profile_message = self.wips_web_elements.get_wips_profile_save_tool_tip().text
         self.utils.print_info("Observed Message: ", observed_profile_message)
-        
+
         self.screen.save_screen_shot()
         sleep(2)
 
         if "WIPS was updated successfully" in observed_profile_message:
+            kwargs['pass_msg'] = "WIPS was updated successfully"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
+            kwargs['fail_msg'] = "Failed to update wips policy"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def configure_allowed_ssid_on_wips_policy(self, **wips_ssid_config):
         """
-         - Configure Allowed SSID and Encryption Type on WIPS Policy On Common Objects.
-         - Flow  Common Objects-->WIPS--> Click Add Button on Enable Detect Rogue Based on SSID Name and Encryption Type
-         - Keyword Usage
-          - ``Configure Allowed Ssid On Wips Policy   &{WIPS_SSID_CONFIG}``
+        - Configure Allowed SSID and Encryption Type on WIPS Policy On Common Objects.
+        - Flow  Common Objects-->WIPS--> Click Add Button on Enable Detect Rogue Based on SSID Name and Encryption Type
+        - Keyword Usage
+        - ``Configure Allowed Ssid On Wips Policy   &{WIPS_SSID_CONFIG}``
 
         :param  wips_ssid_config : (dict) include allowed_ssid, authentication_type
         :return: 1 if SSID and Encryption type added on WIPS Policy on Common Objects else -1
@@ -458,14 +476,14 @@ class Wips(WipsWebElements):
         auth_type = wips_ssid_config.get('authentication_type')
 
         self.utils.print_info("Click on SSID add sign button")
-        self.auto_actions.click(self.get_wips_common_object_enable_rogue_ssid_detection_add_sign_button())
+        self.auto_actions.click_reference(self.get_wips_common_object_enable_rogue_ssid_detection_add_sign_button)
         sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click on Enter SSID Name Radio button")
-        self.auto_actions.click(self.get_wips_enter_ssid_name_radio_button())
+        self.auto_actions.click_reference(self.get_wips_enter_ssid_name_radio_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -479,11 +497,11 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Enable Encrption Type selection Checkbox")
-        self.auto_actions.click(self.get_wips_select_ssid_encryption_type_checkbox())
+        self.auto_actions.click_reference(self.get_wips_select_ssid_encryption_type_checkbox)
         sleep(2)
 
         self.utils.print_info("Click Authentication scroll down box")
-        self.auto_actions.click(self.get_wips_select_ssid_encryption_scroll_button())
+        self.auto_actions.click_reference(self.get_wips_select_ssid_encryption_scroll_button)
         sleep(2)
 
         self.utils.print_info("Select Authentication Type")
@@ -499,7 +517,7 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Click Add SSID Button")
-        self.auto_actions.click(self.get_wips_common_object_select_ssid_encryption_add_button())
+        self.auto_actions.click_reference(self.get_wips_common_object_select_ssid_encryption_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -509,10 +527,10 @@ class Wips(WipsWebElements):
 
     def navigate_to_network_policy_wips_tab(self, nw_policy):
         """
-         - To Navigate to Existing Network Policy --->Router Settings --> Security--> WIPS
-         - Flow  Configure--> Network policy list--->Select Network Policy Edit---> Router Settings --> Security--> WIPS
-         - Keyword Usage
-          - ``Navigate To Network Policy Wips Tab  ${NW_POLICY_NAME}``
+        - To Navigate to Existing Network Policy --->Router Settings --> Security--> WIPS
+        - Flow  Configure--> Network policy list--->Select Network Policy Edit---> Router Settings --> Security--> WIPS
+        - Keyword Usage
+        - ``Navigate To Network Policy Wips Tab  ${NW_POLICY_NAME}``
 
         :param  nw_policy: Network Policy Name
         :return:1 if Navigated to Existing Network Policy Router Settings WIPS Tab else -1
@@ -526,7 +544,7 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Additional Settings tab button")
-        self.auto_actions.click(self.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_network_policy_additional_settings_tab)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -541,19 +559,19 @@ class Wips(WipsWebElements):
         if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
             self.utils.print_info("Click WIPS Menu On Security Tab")
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
             sleep(2)
         else:
             self.utils.print_info("Click Security Tab")
-            self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_security_option)
             sleep(2)
             self.utils.print_info("Click WIPS Menu")
-            self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
             sleep(2)
 
         if not self.get_enable_wips_button().is_selected():
             self.utils.print_info("Click on Enable WIPS button")
-            self.auto_actions.click(self.get_enable_wips_button())
+            self.auto_actions.click_reference(self.get_enable_wips_button)
             sleep(2)
 
         self.screen.save_screen_shot()
@@ -561,12 +579,12 @@ class Wips(WipsWebElements):
 
         return True
 
-    def configure_reuse_wips_policy_on_network_policy(self, nw_policy, wips_policy_name):
+    def configure_reuse_wips_policy_on_network_policy(self, nw_policy, wips_policy_name, **kwargs):
         """
-         - Select the Configured WIPS Policy on Network Policy
-         - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Reuse WIPS Policy
-         - Keyword Usage
-          - ``Configure Reuse Wips Policy On Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}``
+        - Select the Configured WIPS Policy on Network Policy
+        - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Reuse WIPS Policy
+        - Keyword Usage
+        - ``Configure Reuse Wips Policy On Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}``
 
         :param nw_policy: network policy name
         :param wips_policy_name: wips policy name
@@ -578,7 +596,7 @@ class Wips(WipsWebElements):
         sleep(5)
 
         self.utils.print_info("Click on WIPS Policy Reuse button")
-        self.auto_actions.click(self.get_network_policy_reuse_wips_settings_button())
+        self.auto_actions.click_reference(self.get_network_policy_reuse_wips_settings_button)
         sleep(5)
 
         self.screen.save_screen_shot()
@@ -588,7 +606,7 @@ class Wips(WipsWebElements):
         if not rsg_rows:
             self.utils.print_info(
                 "WIPS Policy: {} does't exist, Please create default".format(wips_policy_name))
-            self.auto_actions.click(self.get_wips_policy_dialog_cancel_button())
+            self.auto_actions.click_reference(self.get_wips_policy_dialog_cancel_button)
             sleep(3)
             return -1
 
@@ -601,11 +619,11 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Select button")
-        self.auto_actions.click(self.get_wips_policy_dialog_select_button())
+        self.auto_actions.click_reference(self.get_wips_policy_dialog_select_button)
         sleep(2)
 
         self.utils.print_info("Click on Save WIPS button")
-        self.auto_actions.click(self.get_wips_common_object_save_button())
+        self.auto_actions.click_reference(self.get_wips_common_object_save_button)
         sleep(2)
 
         self.utils.print_info("Checking the Save profile message...")
@@ -621,10 +639,10 @@ class Wips(WipsWebElements):
 
     def get_rogue_ap_logs_row(self, search_string):
         """
-         - Get the Rogue Aps Logs Row from Manage-->Security
-         - Flow  Manage--> Security---> Rogue AP --> Row String
-         - Keyword Usage
-          - ``Get Rogue AP Logs Row    ${SEARCH_STRING}``
+        - Get the Rogue Aps Logs Row from Manage-->Security
+        - Flow  Manage--> Security---> Rogue AP --> Row String
+        - Keyword Usage
+        - ``Get Rogue AP Logs Row    ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
         :return: row element if row exists else return None
@@ -640,10 +658,10 @@ class Wips(WipsWebElements):
 
     def verify_rogue_ap(self, search_string):
         """
-         - Filter the Rogue AP based on AP Name
-         - Flow  Manage--> Security---> Rogue AP
-         - Keyword Usage
-          - ``Verify Rogue AP   ${SEARCH_STRING}``
+        - Filter the Rogue AP based on AP Name
+        - Flow  Manage--> Security---> Rogue AP
+        - Keyword Usage
+        - ``Verify Rogue AP   ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
         :return: if search string appear Return Rogue AP entry details as dictionary with key and value pair else -1
@@ -653,12 +671,12 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Rogue AP button")
-        self.auto_actions.click(self.get_rogue_ap_button())
+        self.auto_actions.click_reference(self.get_rogue_ap_button)
         sleep(2)
 
         self.utils.print_info("Click Rogue Filter Type Checkbox")
         if not self.get_rogue_checkbox().is_selected():
-            self.auto_actions.click(self.get_rogue_checkbox())
+            self.auto_actions.click_reference(self.get_rogue_checkbox)
             sleep(2)
 
         self.screen.save_screen_shot()
@@ -687,10 +705,10 @@ class Wips(WipsWebElements):
 
     def get_rogue_client_logs_row(self, search_string):
         """
-         - Get the Rogue Clients Logs Row from Manage-->Security
-         - Flow  Manage--> Security---> Rogue clients --> Row String
-         - Keyword Usage
-          - ``Get Rogue Client Logs Row    ${SEARCH_STRING}``
+        - Get the Rogue Clients Logs Row from Manage-->Security
+        - Flow  Manage--> Security---> Rogue clients --> Row String
+        - Keyword Usage
+        - ``Get Rogue Client Logs Row    ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
         :return: row element if row exists else return None
@@ -706,10 +724,10 @@ class Wips(WipsWebElements):
 
     def verify_rogue_client(self, search_string):
         """
-         - Filter the Rogue Client based on Client Name Search String
-         - Flow  Manage--> Security---> Rogue Clients
-         - Keyword Usage
-          - ``Verify Rogue Client   ${SEARCH_STRING}``
+        - Filter the Rogue Client based on Client Name Search String
+        - Flow  Manage--> Security---> Rogue Clients
+        - Keyword Usage
+        - ``Verify Rogue Client   ${SEARCH_STRING}``
 
         :param search_string: it should be anything which is searched on the row cell
         :return: if search string appear Return Rogue client entry details as dictionary with key and value pair else -1
@@ -719,7 +737,7 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Rogue Client button")
-        self.auto_actions.click(self.get_rogue_client_button())
+        self.auto_actions.click_reference(self.get_rogue_client_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -727,7 +745,7 @@ class Wips(WipsWebElements):
 
         self.utils.print_info("Click Rogue Filter Type Checkbox")
         if not self.get_rogue_checkbox().is_selected():
-            self.auto_actions.click(self.get_rogue_checkbox())
+            self.auto_actions.click_reference(self.get_rogue_checkbox)
             sleep(2)
 
         self.screen.save_screen_shot()
@@ -756,10 +774,10 @@ class Wips(WipsWebElements):
 
     def disable_wips_on_network_policy(self, nw_policy):
         """
-         - This Keyword will disable WIPS on Network Policy
-         - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Disable WIPS
-         - Keyword Usage
-          - ``Disable Wips On Network Policy  ${NW_POLICY_NAME}``
+        - This Keyword will disable WIPS on Network Policy
+        - Flow  Configure--> Network policy Name Edit---> Router Settings --> Security--> WIPS--> Disable WIPS
+        - Keyword Usage
+        - ``Disable Wips On Network Policy  ${NW_POLICY_NAME}``
 
         :param nw_policy: network policy name
         :return: return 1 if WIPS disabled successfully on Network Policy else -1
@@ -771,14 +789,14 @@ class Wips(WipsWebElements):
 
         if self.get_enable_wips_button().is_selected():
             self.utils.print_info("Disable WIPS button")
-            self.auto_actions.click(self.get_enable_wips_button())
+            self.auto_actions.click_reference(self.get_enable_wips_button)
             sleep(2)
 
         self.screen.save_screen_shot()
         sleep(2)
 
         self.utils.print_info("Click on Save WIPS button")
-        self.auto_actions.click(self.get_wips_common_object_save_button())
+        self.auto_actions.click_reference(self.get_wips_common_object_save_button)
         sleep(2)
 
         tool_tip_text = tool_tip.tool_tip_text
@@ -790,10 +808,10 @@ class Wips(WipsWebElements):
 
     def create_wips_policy_adess_status_on_common_objects(self, wips_policy_name, status):
         """
-         - Configure WIPS Policy On Common Objects.
-         - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
-         - Keyword Usage
-          - ``Configure WIPS Policy On Common Objects   ${wips_policy_name} Enable/Disable``
+        - Configure WIPS Policy On Common Objects.
+        - Flow  Configure--->Common Objects--->Security-->WIPS Policies--> Add
+        - Keyword Usage
+        - ``Configure WIPS Policy On Common Objects   ${wips_policy_name} Enable/Disable``
 
         :param wips_policy_name: wips policy name
         :return: 1 if WIPS POlicy Created on Common Objects else -1
@@ -812,7 +830,7 @@ class Wips(WipsWebElements):
                 return -1
 
         self.utils.print_info("Click on Add button")
-        self.auto_actions.click(self.get_wips_common_object_add_button())
+        self.auto_actions.click_reference(self.get_wips_common_object_add_button)
         sleep(2)
 
         self.screen.save_screen_shot()
@@ -829,12 +847,12 @@ class Wips(WipsWebElements):
         if status.upper() == "ENABLE":
             self.utils.print_info("Enable Airdefense Essentials")
             if not self.get_wips_common_object_policy_wireless_threat_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_wireless_threat_detection_button())
+                self.auto_actions.click_reference(self.get_wips_common_object_policy_wireless_threat_detection_button)
                 sleep(5)
         elif status.upper() == "DISABLE":
             self.utils.print_info("Disable Airdefense Essentials")
             if self.get_wips_common_object_policy_wireless_threat_detection_button().is_selected():
-                self.auto_actions.click(self.get_wips_common_object_policy_wireless_threat_detection_button())
+                self.auto_actions.click_reference(self.get_wips_common_object_policy_wireless_threat_detection_button)
                 sleep(5)
         else:
             self.utils.print_info("could not change the status of  Airdefense Essentials")
@@ -845,7 +863,7 @@ class Wips(WipsWebElements):
         sleep(2)
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.get_wips_common_object_save_button())
+        self.auto_actions.click_reference(self.get_wips_common_object_save_button)
         sleep(2)
 
         self.utils.print_info("Checking the Save profile message...")
@@ -862,8 +880,9 @@ class Wips(WipsWebElements):
         - Enable/Disable on prem Airdefense Configuration in Wips Of Network Policy
         - Flow  Network policy list--->Select Network Policy Edit---> Additional Settings--->Security-->WIPS-->Airdefense Configuration
         - Keyword Usage
-         - ``Wips onprem adsp serverip configuration on Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  enable  &{ON_PREM_ADSP_SERVER_IP_CONFIG}``
-           ``Wips onprem adsp serverip configuration on Network policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  disable ``
+        - ``Wips onprem adsp serverip configuration on Network Policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  enable  &{ON_PREM_ADSP_SERVER_IP_CONFIG}``
+        - ``Wips onprem adsp serverip configuration on Network policy  ${NW_POLICY_NAME}  ${WIPS_POLICY_NAME}  disable ``
+
         :param NW_POLICY: Network Policy Name
         :param WIPS_POLICY: WIPS Policy Name
         :param status: Enable/ Disable
@@ -880,24 +899,24 @@ class Wips(WipsWebElements):
         self.utils.print_info("Select the Network Policy to enable WIPS")
         self.navigate_to_network_policy_edit_tab(nw_policy)
         self.utils.print_info("Click on Additional Settings tab button")
-        self.auto_actions.click(self.get_network_policy_additional_settings_tab())
+        self.auto_actions.click_reference(self.get_network_policy_additional_settings_tab)
         sleep(5)
 
         if status.upper() == "ENABLE":
             #Commenting the code, as we have wips_policy as parameter for this keyword, we need to select the wips policy and configure adsp onprem server with the help of existing keyword reuse wips policy
             #if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
                 #self.utils.print_info("Click WIPS Menu On Security Tab")
-                #self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+                #self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
             #else:
                 #self.utils.print_info("Click Security Tab")
-                #self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+                #self.auto_actions.click_reference(self.get_network_policy_additional_settings_security_option)
                 #sleep(2)
                 #self.utils.print_info("Click WIPS Menu")
-                #self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+                #self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
             self.configure_reuse_wips_policy_on_network_policy(nw_policy, wips_policy)
             self.utils.print_info("Enable on-prem Airdefense Configuration toggle button")
             if not self.get_wips_enable_OnPrem_Airdefense_button().is_selected():
-                self.auto_actions.click(self.get_wips_enable_OnPrem_Airdefense_button())
+                self.auto_actions.click_reference(self.get_wips_enable_OnPrem_Airdefense_button)
                 self.screen.save_screen_shot()
                 sleep(5)
             self.utils.print_info("Configure Primary server IP")
@@ -919,18 +938,18 @@ class Wips(WipsWebElements):
             #Commenting the code, as we have wips_policy as parameter for this keyword, we need to select the wips policy and configure adsp onprem server with the help of existing keyword reuse wips policy
             #if self.get_network_policy_additional_settings_wips_menu_option().is_displayed():
                 #self.utils.print_info("Click WIPS Menu On Security Tab")
-                #self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+                #self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
             #else:
                 #self.utils.print_info("Click Security Tab")
-                #self.auto_actions.click(self.get_network_policy_additional_settings_security_option())
+                #self.auto_actions.click_reference(self.get_network_policy_additional_settings_security_option)
                 #sleep(2)
             #self.utils.print_info("Click WIPS Menu")
-            #self.auto_actions.click(self.get_network_policy_additional_settings_wips_menu_option())
+            #self.auto_actions.click_reference(self.get_network_policy_additional_settings_wips_menu_option)
             self.configure_reuse_wips_policy_on_network_policy(nw_policy, wips_policy)
             self.utils.print_info("Disable on-prem Airdefense Configuration toggle button")
             sleep(3)
             if self.get_wips_enable_OnPrem_Airdefense_button().is_selected():
-                self.auto_actions.click(self.get_wips_enable_OnPrem_Airdefense_button())
+                self.auto_actions.click_reference(self.get_wips_enable_OnPrem_Airdefense_button)
                 self.screen.save_screen_shot()
                 sleep(2)
         else:
@@ -938,7 +957,7 @@ class Wips(WipsWebElements):
             return -1
 
         self.utils.print_info("Click on Save button")
-        self.auto_actions.click(self.get_wips_save_button())
+        self.auto_actions.click_reference(self.get_wips_save_button)
 
         sleep(2)
         self.utils.print_info("Checking the Save profile message...")

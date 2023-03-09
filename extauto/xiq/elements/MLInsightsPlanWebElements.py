@@ -1,6 +1,5 @@
-from extauto.xiq.defs.MLInsightsPlanDefinitions import *
-from extauto.common.AutoActions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.MLInsightsPlanDefinitions import MLInsightsPlanDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
@@ -172,15 +171,6 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
     def get_n360_plan_ap_count(self):
         return self.weh.get_element(self.n360_plan_ap_count)
 
-    def get_n360_plan_router_count(self):
-        return self.weh.get_element(self.n360_plan_router_count)
-
-    def get_n360_plan_switch_count(self):
-        return self.weh.get_element(self.n360_plan_switch_count)
-
-    def get_n360_plan_vgva_count(self):
-        return self.weh.get_element(self.n360_plan_vgva_count)
-
     def get_n360_plan_device_name(self):
         return self.weh.get_elements(self.n360_plan_device_name)
 
@@ -265,6 +255,9 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
     def get_n360_delete_yes(self):
         return self.weh.get_element(self.n360_delete_yes)
 
+    def get_n360_more_actions(self):
+        return self.weh.get_element(self.n360_more_actions)
+
     def get_n360_country_list_click(self):
         return self.weh.get_element(self.n360_country_list_click)
 
@@ -291,6 +284,9 @@ class MLInsightsPlanWebElements(MLInsightsPlanDefinitions):
 
     def get_n360_save_button_floor(self):
         return self.weh.get_element(self.n360_save_button_floor)
+
+    def get_n360_scale_floor_plan_windows(self):
+        return self.weh.get_element(self.n360_scale_floor_plan_windows)
 
     def get_n360_size_floor_plan(self):
         return self.weh.get_element(self.n360_size_floor_plan)

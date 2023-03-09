@@ -23,12 +23,12 @@ class XIQSE_NetworkCommonConfigureDevice(NetworkCommonConfigureDeviceWebElements
         - This keyword selects the specified tab in the Configure Device dialog.
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Select Tab    Device``
-         - ``XIQSE Configure Device Dialog Select Tab    Device Annotation``
-         - ``XIQSE Configure Device Dialog Select Tab    VLAN Definitions``
-         - ``XIQSE Configure Device Dialog Select Tab    Ports``
-         - ``XIQSE Configure Device Dialog Select Tab    ZTP+ Device Settings``
-         - ``XIQSE Configure Device Dialog Select Tab    Vendor Profile``
+        - ``XIQSE Configure Device Dialog Select Tab    Device``
+        - ``XIQSE Configure Device Dialog Select Tab    Device Annotation``
+        - ``XIQSE Configure Device Dialog Select Tab    VLAN Definitions``
+        - ``XIQSE Configure Device Dialog Select Tab    Ports``
+        - ``XIQSE Configure Device Dialog Select Tab    ZTP+ Device Settings``
+        - ``XIQSE Configure Device Dialog Select Tab    Vendor Profile``
 
         :param tab_name:  Name of the tab to select in the Configure Device dialog
         :return: 1 if action is successful, else -1
@@ -66,7 +66,7 @@ class XIQSE_NetworkCommonConfigureDevice(NetworkCommonConfigureDeviceWebElements
         - This keyword clicks Cancel in the Configure Device dialog.
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Click Cancel``
+        - ``XIQSE Configure Device Dialog Click Cancel``
 
         :return: 1 if action is successful, else -1
         """
@@ -88,7 +88,7 @@ class XIQSE_NetworkCommonConfigureDevice(NetworkCommonConfigureDeviceWebElements
         - This keyword clicks Save in the Configure Device dialog.
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Click Save``
+        - ``XIQSE Configure Device Dialog Click Save``
 
         :return: 1 if action is successful, else -1
         """
@@ -96,7 +96,7 @@ class XIQSE_NetworkCommonConfigureDevice(NetworkCommonConfigureDeviceWebElements
 
         save_check = 1
         while save_check < 10:
-            self.utils.print_debug(f"Save button check - loop save_check")
+            self.utils.print_debug("Save button check - loop save_check")
             save_btn = self.get_save_button()
             if save_btn:
                 if save_btn.is_displayed() and save_btn.is_enabled():

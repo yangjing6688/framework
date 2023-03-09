@@ -71,7 +71,7 @@ class XIQSE_ControlPolicyServiceCreate(ControlPolicyServiceCreateWebElements):
             if self._check_name_in_use_error(service_name) == 1:
                 ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find 'Name' input field in Create Service window")
+            self.utils.print_info("Unable to find 'Name' input field in Create Service window")
             self.screen.save_screen_shot()
         return ret_val
 
@@ -79,11 +79,11 @@ class XIQSE_ControlPolicyServiceCreate(ControlPolicyServiceCreateWebElements):
         ret_val = -1
         ok_bttn = self.get_ok_button()
         if ok_bttn:
-            self.utils.print_info(f"Clicking the 'OK' button in Create Service window")
+            self.utils.print_info("Clicking the 'OK' button in Create Service window")
             self.auto_actions.click(ok_bttn)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to locate the 'OK' button in Create Service window")
+            self.utils.print_info("Unable to locate the 'OK' button in Create Service window")
             self.screen.save_screen_shot()
         return ret_val
 
@@ -99,8 +99,8 @@ class XIQSE_ControlPolicyServiceCreate(ControlPolicyServiceCreateWebElements):
         if err_msg:
             self.utils.print_info(f"A service with name '{service_name}' already exists")
             self.screen.save_screen_shot()
-            self.auto_actions.click(self.get_error_ok_button())
-            self.auto_actions.click(self.get_cancel_button())
+            self.auto_actions.click_reference(self.get_error_ok_button)
+            self.auto_actions.click_reference(self.get_cancel_button)
         else:
             self.utils.print_info(f"A service with name '{service_name}' is not in-use. Continue...")
             ret_val = 1

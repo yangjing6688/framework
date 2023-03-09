@@ -1,9 +1,9 @@
+from time import sleep
+
 from extauto.common.Utils import Utils
-from extauto.common.Cli import *
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from xiqse.flows.common.XIQSE_CommonTable import XIQSE_CommonTable
-from time import sleep
 from xiqse.elements.network.devices.devices.NetworkDevicesDevicesRestartDeviceWebElements import NetworkDevicesDevicesRestartDeviceWebElements
 
 
@@ -73,7 +73,7 @@ class XIQSE_NetworkDevicesDevicesRestartDevice(NetworkDevicesDevicesRestartDevic
 
         self.utils.print_info("wait_until_appears")
         while seconds > 0:
-            time.sleep(5)
+            sleep(5)
             self.utils.print_info("get element")
             element = self.get_restart_operation_complete()
             if element:

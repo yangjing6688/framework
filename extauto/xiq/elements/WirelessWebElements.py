@@ -1,10 +1,13 @@
-from extauto.xiq.defs.WirelessNetworksDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.WirelessNetworksDefinitions import WirelessNetworksDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class WirelessWebElements(WirelessNetworksDefinitions):
     def __init__(self):
         self.weh = WebElementHandler()
+
+    def get_wireless_nw_tab_page(self):
+        return self.weh.get_element(self.wireless_nw_tab_page)
 
     def get_wireless_networks_tab(self):
         """

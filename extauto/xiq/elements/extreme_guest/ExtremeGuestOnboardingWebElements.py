@@ -1,5 +1,5 @@
 from extauto.xiq.defs.extreme_guest.ExtremeGuestOnboardingWebElementsDefs import ExtremeGuestOnboardingWebElementsDefs
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class ExtremeGuestOnboardingWebElements(ExtremeGuestOnboardingWebElementsDefs):
@@ -24,20 +24,32 @@ class ExtremeGuestOnboardingWebElements(ExtremeGuestOnboardingWebElementsDefs):
     def get_extreme_guest_onboarding_policy_add_condition_dropdown(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_condition_dropdown)
 
+    def get_extreme_guest_onboarding_policy_add_condition_dropdown_existing(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_add_condition_dropdown_existing)
+
     def get_extreme_guest_onboarding_policy_add_condition_dropdown_items(self):
         return self.weh.get_elements(self.extreme_guest_onboarding_policy_add_condition_dropdown_items)
 
     def get_extreme_guest_onboarding_policy_add_condition_dropdown_value(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_condition_dropdown_value)
-
+    
+    def get_extreme_guest_onboarding_policy_add_condition_dropdown_value_Device_count(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_add_condition_dropdown_value_Device_count)
+    
     def get_extreme_guest_onboarding_policy_add_action_dropdown(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_action_dropdown)
+
+    def get_extreme_guest_onboarding_policy_add_action_dropdown_existing(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_add_action_dropdown_existing)
 
     def get_extreme_guest_onboarding_policy_add_action_dropdown_items(self):
         return self.weh.get_elements(self.extreme_guest_onboarding_policy_add_action_dropdown_items)
 
     def get_extreme_guest_onboarding_policy_add_group_select_dropdown(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_group_select_dropdown)
+
+    def get_extreme_guest_onboarding_policy_add_group_select_dropdown_existing(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_add_group_select_dropdown_existing)
 
     def get_extreme_guest_onboarding_policy_add_group_select_dropdown_items(self):
         return self.weh.get_elements(self.extreme_guest_onboarding_policy_add_group_select_dropdown_items)
@@ -63,11 +75,20 @@ class ExtremeGuestOnboardingWebElements(ExtremeGuestOnboardingWebElementsDefs):
     def get_extreme_guest_onboarding_policy_add_save_ok_button(self):
         return self.weh.get_element(self.extreme_guest_onboarding_policy_add_save_ok_button)
 
+    def get_extreme_guest_onboarding_policy_add_get_close_button(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_policy_close_button)
+
     def get_extreme_guest_onboarding_rule_tab(self):
         return self.weh.get_element(self.extreme_guest_onboarding_rule_tab)
 
     def get_extreme_guest_onboarding_rule_add_rule(self):
         return self.weh.get_element(self.extreme_guest_onboarding_rule_add_rule)
+
+    def get_extreme_guest_onboarding_rule_name_add_rule_existing(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_rule_name_add_rule_existing)
+
+    def get_extreme_guest_onboarding_rule_add_rule_existing(self):
+        return self.weh.get_element(self.extreme_guest_onboarding_rule_name_add_rule)
 
     def get_extreme_guest_onboarding_rule_add_name(self):
         return self.weh.get_element(self.extreme_guest_onboarding_rule_add_name)

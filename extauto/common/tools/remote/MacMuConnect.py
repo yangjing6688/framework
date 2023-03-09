@@ -31,6 +31,7 @@ class MacMuConnect(object):
         retry_count = int(retry_count)
         while retry_count < 10:
             # Wi-Fi Connect command
+            sleep(2)
             cmd2 = f"networksetup -setairportnetwork {self.wifi_port}  {ssid}  {password}"
             print(f"Connection command:{cmd2}")
             con_out = self._execute_commands(cmd2)
@@ -86,10 +87,10 @@ class MacMuConnect(object):
         - Get the Wi-Fi Interface name
         :return:
         """
-        cmd = f"networksetup -listallhardwareports | grep -i -A 2 Wi-Fi"
+        cmd = "networksetup -listallhardwareports | grep -i -A 2 Wi-Fi"
         out = self._execute_commands(cmd)
         print(f"Wi-Fi Port:{out}")
-        if re.search(f'en0', str(out)):
+        if re.search('en0', str(out)):
             return 'en0'
         else:
             return "en1"
@@ -253,6 +254,68 @@ class MacMuConnect(object):
                 return -1
             print(line)
         return -1
+
+    def check_internet_connectivity(self):
+        """
+        - Check MU machine Internet connectivity with curl and Firefox detect portal
+        - Keyword Usage:
+        - ``MU1.Check Internet Connectivity``
+
+        :return: 1 if Internet is available, else -1
+        """
+        cmd = 'curl http://detectportal.firefox.com/success.txt'
+        curl_out = self._execute_commands(cmd)
+        if (len(curl_out) == 1) and re.fullmatch('success', curl_out[0]):
+            return 1
+        else:
+            return -1
+
+    def ping_check(self, destination):
+        """
+        - Ping the destination address
+        - Keyword Usage:
+         - ``Ping Check   ${DESTINATION}``
+         - ``Ping Check  www.google.com``
+
+        :param destination: destination address ex www.google.com
+        :return: 1 if ping success else -1
+        """
+        cmd = 'ping ' + str(destination) + ' -c 3'
+        retry = 0
+        while retry < 3:
+            ping_out = self._execute_commands(cmd)
+            for line in ping_out:
+                print(line)
+                if "Packets: Sent = 3, Received = 3, Lost = 0 (0% loss)" in line:
+                    return 1
+            retry += 1
+        return -1
+
+    def ping_check_in_background(self, destination='www.google.com', count='4'):
+        """
+        - Ping the destination address
+        - Keyword Usage:
+         - ``Ping Check in Background   ${DESTINATION}    50``
+         - ``Ping Check in Background   www.google.com    5``
+
+        :param destination: destination address ex www.google.com
+        :param count: no of pings
+        :return: 1 if ping success else -1
+        """
+        cmd = 'ping ' + str(destination) + ' -c ' + str(count)
+        subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
+
+    def kill_native_captive(self):
+        """
+        :send killall 'Captive Network Assistant'
+        """
+        cmd1 = "killall -HUP mDNSResponder"
+        cmd2 = "killall 'Captive Network Assistant'"
+        out1 = self._execute_commands(cmd1)
+        out2 = self._execute_commands(cmd2)
+        sleep(2)
+        out2 = self._execute_commands(cmd2)
+        print(f"{out1}\n{out2}")
 
     @staticmethod
     def _execute_commands(cmd):

@@ -1,5 +1,5 @@
-from extauto.common.WebElementHandler import *
-from xiqse.defs.admin.options.AdminOptionsWebElementsDefinitions import *
+from extauto.common.WebElementHandler import WebElementHandler
+from xiqse.defs.admin.options.AdminOptionsWebElementsDefinitions import AdminOptionsWebElementsDefinitions
 
 
 class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
@@ -59,6 +59,30 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
         :return: XIQ-SE Serial Number label on the Administration> Options page for the XIQ Connection option
         """
         return self.weh.get_element(self.xiqse_serial_number_label)
+
+    def get_alarm_event_option(self):
+        """
+        :return: Alarm/Event Logs and Tables option in the tree on the Administration> Options page
+        """
+        return self.weh.get_element(self.alarm_event_option)
+
+    def get_alarm_event_search_scope_client_checkbox(self):
+        """
+        :return: Event Search Scope Client checkbox on the Administration> Options page
+        """
+        return self.weh.get_element(self.event_search_scope_client_checkbox)
+
+    def get_alarm_event_search_scope_event_checkbox(self):
+        """
+        :return: Event Search Scope Event checkbox on the Administration> Options page
+        """
+        return self.weh.get_element(self.event_search_scope_event_checkbox)
+
+    def get_alarm_event_search_scope_source_host_name_checkbox(self):
+        """
+        :return: Event Search Scope Source Host Name checkbox on the Administration> Options page
+        """
+        return self.weh.get_element(self.event_search_scope_source_host_name_checkbox)
 
     def get_web_server_option(self):
         """
@@ -144,3 +168,26 @@ class AdminOptionsWebElements(AdminOptionsWebElementsDefinitions):
         """
         return self.weh.get_element(self.status_polling_group_2_interval_value)
 
+    def get_syslog_option(self):
+        """
+        :return: Syslog option in the tree on the Administration> Options page
+        """
+        return self.weh.get_element(self.syslog_option)
+
+    def get_syslog_delay_engine_start_value(self):
+        """
+        :return: Syslog Delay Engine Start element in Admin-Options-Syslog
+        """
+        return self.weh.get_element(self.syslog_delay_engine_start_value)
+
+    def get_trap_option(self):
+        """
+        :return: Trap option in the tree on the Administration> Options page
+        """
+        return self.weh.get_element(self.trap_option)
+
+    def get_trap_delay_engine_start_value(self):
+        """
+        :return: Trap Delay Engine Start element in Admin-Options-Syslog
+        """
+        return self.weh.get_element(self.trap_delay_engine_start_value)

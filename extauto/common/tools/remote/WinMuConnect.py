@@ -17,8 +17,8 @@ def _update_wlan_profile(profile, ssid=None, key=None):
     ssid_config_index = -1
     msm_index = -1
 
-    file = "C:\\extauto\\common\\tools\\remote\\wlanprofiles\\" + profile
-    file_org = "C:\\extauto\\common\\tools\\remote\\wlanprofiles\\ORG_" + profile
+    file = "C:\\extreme_automation_framework\\extauto\\common\\tools\\remote\\wlanprofiles\\" + profile
+    file_org = "C:\\extreme_automation_framework\\extauto\\common\\tools\\remote\\wlanprofiles\\ORG_" + profile
     tree = ET.parse(file_org)
     root = tree.getroot()
 
@@ -74,7 +74,7 @@ class WinMuConnect(object):
             if "Connection request was completed successfully." in out:
                 # Loop over 20 seconds to check the network connection status
                 connect_count = 0
-                while connect_count < 10:
+                while connect_count < 19:
                     print("Check wi-fi connection")
                     cmd = 'netsh interface show interface  | findstr Wi-Fi'
                     cmd_out = self._execute_commands(cmd)
@@ -82,8 +82,8 @@ class WinMuConnect(object):
                     if "Connected" in "".join(cmd_out):
                         return 1
                     else:
-                        sleep(2)
-                        connect_count += 2
+                        sleep(3)
+                        connect_count += 3
                 # if WiFi network is not connected disconnect and retry to connect
                 self.disconnect_wifi()
                 sleep(2)
@@ -255,7 +255,7 @@ class WinMuConnect(object):
         :param profile_xml: Name of the profile xml file to add
         :return:
         """
-        cmd = 'netsh wlan add profile filename="C:\\extauto\\common\\tools\\remote\\wlanprofiles\\' + profile_xml + '" interface=Wi-Fi'
+        cmd = 'netsh wlan add profile filename="C:\\extreme_automation_framework\\extauto\\common\\tools\\remote\\wlanprofiles\\' + profile_xml + '" interface=Wi-Fi'
         cmd_out = self._execute_commands(cmd)
         print("============= Add wlan Profile =============")
         print("".join(cmd_out))
@@ -374,6 +374,21 @@ class WinMuConnect(object):
             print(line)
         return -1
 
+    def check_internet_connectivity(self):
+        """
+        - Check MU machine Internet connectivity with curl and Firefox detect portal
+        - Keyword Usage:
+        - ``MU1.Check Internet Connectivity``
+
+        :return: 1 if Internet is available, else -1
+        """
+        cmd = 'curl http://detectportal.firefox.com/success.txt'
+        curl_out = self._execute_commands(cmd)
+        if (len(curl_out) == 1) and re.fullmatch('success', curl_out[0]):
+            return 1
+        else:
+            return -1
+
     def ping_check(self, destination):
         """
         - Ping the destination address
@@ -395,7 +410,7 @@ class WinMuConnect(object):
             retry += 1
         return -1
 
-    def ping_check_in_background(self, destination, count):
+    def ping_check_in_background(self, destination='www.google.com', count='4'):
         """
         - Ping the destination address
         - Keyword Usage:
@@ -407,7 +422,7 @@ class WinMuConnect(object):
         :return: 1 if ping success else -1
         """
         cmd = 'ping ' + str(destination) + ' -n ' + str(count)
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
+        subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, start_new_session=False)
 
     @staticmethod
     def _execute_commands(cmd):

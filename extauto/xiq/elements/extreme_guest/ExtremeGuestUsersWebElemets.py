@@ -1,5 +1,5 @@
 from extauto.xiq.defs.extreme_guest.ExtremeGuestUsersWebElementsDefs import ExtremeGuestUsersWebElementsDefs
-from extauto.common.WebElementHandler import *
+from extauto.common.WebElementHandler import WebElementHandler
 from extauto.common.Utils import Utils
 
 
@@ -65,6 +65,12 @@ class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
     def get_extreme_guest_users_grid_rows(self):
         return self.weh.get_elements(self.extreme_guest_users_grid_rows)
 
+    def get_extreme_facebook_guest_users(self):
+        return self.weh.get_element(self.extreme_facebook_guest_users).text
+
+    def get_extreme_linkedin_guest_users(self):
+        return self.weh.get_element(self.extreme_linkedin_guest_users).text
+
     def get_extreme_guest_users_grid_row_cells(self, search_string):
         cells = self.weh.get_elements(self.extreme_guest_users_grid_row_cells)
         for cell in cells:
@@ -74,11 +80,17 @@ class ExtremeGuestUsersWebElements(ExtremeGuestUsersWebElementsDefs):
     def get_extreme_guest_users_grid_row_cells_user_name_list(self):
         return self.weh.get_elements(self.extreme_guest_users_grid_row_cells_user_name_list)
 
+    def get_extreme_guest_users_select_button(self):
+        return self.weh.get_element(self.extreme_guest_users_select_button)
+
     def get_extreme_guest_users_delete_button(self):
         return self.weh.get_element(self.extreme_guest_users_delete_button)
 
     def get_extreme_guest_users_delete_ok_button(self):
         return self.weh.get_element(self.extreme_guest_users_delete_ok_button)
+
+    def get_extreme_guest_users_delete_ok_button_duplicate(self):
+        return self.weh.get_element(self.extreme_guest_users_delete_ok_button_duplicate)
 
     def get_extreme_guest_users_delete_status_ok_button(self):
         return self.weh.get_element(self.extreme_guest_users_delete_status_ok_button)

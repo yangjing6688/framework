@@ -1,6 +1,6 @@
 from extauto.common.Utils import Utils
-from extauto.xiq.flows.manage.Location import *
 from extauto.xiq.flows.manage.Device360 import Device360
+from extauto.common.CommonValidation import CommonValidation
 from extauto.common.Cli import Cli
 
 class WiredLib():
@@ -9,6 +9,7 @@ class WiredLib():
         self.utils = Utils()
         self.cli = Cli()
         self.device360 = Device360()
+        self.common_validation = CommonValidation()
 
     def configure_port_duplex_cli(self, range_ports_start, range_ports_end, sw_spawn, operate,speed=100):
         '''
@@ -38,7 +39,7 @@ class WiredLib():
             self.cli.send(sw_spawn, "configure ports {} auto on".format(cnt))
         return 1
 
-    def check_transmission_mode_exos(self, range_ports_start, range_ports_end, sw_spawn, state):
+    def check_transmission_mode_exos(self, range_ports_start, range_ports_end, sw_spawn, state, **kwargs):
         '''
         :param range_ports_start: First port of range
         :param range_ports_end: End port of range
@@ -69,6 +70,8 @@ class WiredLib():
                 if self.device360.compare_transmission_mode(cnt_str, state,"N/A") == 1:
                     pass
                 else:
+                    kwargs['fail_msg'] = "The status of transmission in XIQ and CLI are different"
+                    self.common_validation.failed(**kwargs)
                     return -1
             elif operate_duplex_cfg_str == 'AUTO' and not operate_duplex_actual_str.replace(" ", "") == '':
                 self.utils.print_info(
@@ -77,15 +80,19 @@ class WiredLib():
                 if self.device360.compare_transmission_mode(cnt_str, state, operate_duplex_actual_str) == 1:
                     pass
                 else:
+                    kwargs['fail_msg'] = "The status of transmission in XIQ and CLI are different"
+                    self.common_validation.failed(**kwargs)
                     return -1
             else:
                 if self.device360.compare_transmission_mode(cnt_str, state, operate_duplex_cfg_str) == 1:
                     pass
                 else:
+                    kwargs['fail_msg'] = "The status of transmission in XIQ and CLI are different"
+                    self.common_validation.failed(**kwargs)
                     return -1
         return 1
 
-    def check_vlan_cli(self, vlan, device_make, sw_spawn):
+    def check_vlan_cli(self, vlan, device_make, sw_spawn, **kwargs):
         """
 
         :param vlan:
@@ -98,20 +105,25 @@ class WiredLib():
             vlan_list = self.utils.get_regexp_matches(result, "\\w+\\s+(\\d+)\\s+", 1)
             self.utils.print_info("",vlan_list)
             if vlan in vlan_list:
-                self.utils.print_info("Vlan {} found in CLI".format(vlan))
+                kwargs['pass_msg'] = "Vlan found in CLI"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info("Vlan {} not found in CLI".format(vlan))
+                kwargs['fail_msg'] = f"Vlan {vlan} not found in CLI"
+                self.common_validation.failed(**kwargs)
                 return -1
         elif device_make.lower() == "voss":
             result = self.cli.send(sw_spawn, "show vlan name")
             vlan_list = self.utils.get_regexp_matches(result, "(\\d+)\\s+\\d+\\s+[\\w\\-]+", 1)
             if vlan in vlan_list:
-                self.utils.print_info("Vlan {} found in CLI".format(vlan))
+                kwargs['pass_msg'] = f"Vlan {vlan} found in CLI"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info("Vlan {} not found in CLI".format(vlan))
+                kwargs['fail_msg'] = f"Vlan {vlan} not found in CLI"
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("No device make found")
+            kwargs['fail_msg'] = "No device make found"
+            self.common_validation.fault(**kwargs)
             return -1

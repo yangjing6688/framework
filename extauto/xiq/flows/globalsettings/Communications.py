@@ -1,4 +1,3 @@
-import re
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
@@ -8,6 +7,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.elements.CommunicationsWebElements import CommunicationsWebElements
 from extauto.common.CloudDriver import CloudDriver
+from extauto.common.CommonValidation import CommonValidation
 
 
 class Communications(CommunicationsWebElements):
@@ -20,13 +20,14 @@ class Communications(CommunicationsWebElements):
         self.screen = Screen()
         self.navigate = Navigator()
         self.builtin = BuiltIn()
+        self.common_validation = CommonValidation()
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
-    def validate_communications_page(self):
+    def validate_communications_page(self, **kwargs):
         """
         - This Keyword Navigate to communications menu in Global settings page
         - Keyword Usage
-          - ``Validate Communications Page``
+        - ``Validate Communications Page``
 
         :return: 1 if Validation is Successful to Communications Page
         """
@@ -47,27 +48,30 @@ class Communications(CommunicationsWebElements):
 
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to get Communications page header. Please check")
+            kwargs['fail_msg'] = "Unable to get Communications page header. Please check"
+            self.common_validation.fault(**kwargs)
             return -1
 
         if "ExtremeCloud IQ" or "NOTIFICATIONS" in comm_txt:
-            self.utils.print_info("Communications page found.")
+            kwargs['pass_msg'] = "Communications page found."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Communications page is not displaying. Please check")
+            kwargs['fail_msg'] = "Communications page is not displaying. Please check"
+            self.common_validation.failed(**kwargs)
             return -2
 
-    def validate_notifications_page(self):
+    def validate_notifications_page(self, **kwargs):
         """
         - This Keyword Navigate to notifications page from communications page
         - Keyword Usage
-          - ``Navigate To Notifications Page``
+        - ``Navigate To Notifications Page``
 
         :return: 1 if Navigation is Successful to notification page
         """
 
         self.utils.print_info("Selecting notifications menu on communications page..")
-        self.auto_actions.click(self.get_notifications_nav())
+        self.auto_actions.click_reference(self.get_notifications_nav)
         sleep(5)
 
         try:
@@ -82,25 +86,29 @@ class Communications(CommunicationsWebElements):
 
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to get Communications page header. Please check")
+            kwargs['fail_msg'] = "Unable to get Communications page header. Please check"
+            self.common_validation.fault(**kwargs)
             return -1
 
         if "NOTIFICATION" in notification_txt:
-            self.utils.print_info("Communications page found.")
+            kwargs['pass_msg'] = "Communications page found."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Notification page is not displaying. Please check Communications pages.")
+            kwargs['fail_msg'] = "Notification page is not displaying. Please check Communications pages."
+            self.common_validation.failed(**kwargs)
             return -2
 
-    def validate_preview_page(self):
+    def validate_preview_page(self, **kwargs):
         """
         - This Keyword Navigate to preview page in communications
         - Keyword Usage
-          - ``Navigate To preview Page``
+        - ``Navigate To preview Page``
+
         :return: 1 if Navigation Successful to Preview Page
         """
         self.utils.print_info("Selecting preview menu on Communications page...")
-        self.auto_actions.click(self.get_preview_nav())
+        self.auto_actions.click_reference(self.get_preview_nav)
         sleep(5)
 
         try:
@@ -114,27 +122,30 @@ class Communications(CommunicationsWebElements):
             sleep(2)
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to get Communications page header. Please check")
+            kwargs['fail_msg'] = "Unable to get Communications page header. Please check"
+            self.common_validation.fault(**kwargs)
             return -1
 
         if "PREVIEW" in preview_txt:
-            self.utils.print_info("Communications pages found.")
+            kwargs['pass_msg'] = "Communications page found."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Preview page is not displaying. Please check Communications pages.")
+            kwargs['fail_msg'] = "Notification page is not displaying. Please check Communications pages."
+            self.common_validation.failed(**kwargs)
             return -2
 
-    def validate_new_in_extremecloud_page(self):
+    def validate_new_in_extremecloud_page(self, **kwargs):
         """
         - This Keyword Navigate to New in ExtremeCLoud IQ
         - Keyword Usage
-          - ``Navigate To New In Extremecloud Page``
+        - ``Navigate To New In Extremecloud Page``
 
         :return: 1 if Navigation Successful to New in XIQ
         """
 
         self.utils.print_info("Selecting new in Extremecloud menu on Communications page..")
-        self.auto_actions.click(self.get_new_updates_nav())
+        self.auto_actions.click_reference(self.get_new_updates_nav)
         sleep(5)
 
         try:
@@ -148,13 +159,15 @@ class Communications(CommunicationsWebElements):
             sleep(2)
         except Exception as e:
             self.utils.print_info(e)
-            self.utils.print_info("Unable to get Communications page header. Please check")
+            kwargs['fail_msg'] = "Unable to get Communications page header. Please check"
+            self.common_validation.fault(**kwargs)
             return -1
 
         if "New In ExtremeCloud IQ" in new_comm_txt:
-            self.utils.print_info("Communications pages found.")
+            kwargs['pass_msg'] = "Communications page found."
+            self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("New in XIQ page is not displaying. Please check Communications pages.")
+            kwargs['fail_msg'] = "New in XIQ page is not displaying. Please check Communications pages.."
+            self.common_validation.failed(**kwargs)
             return -2
-

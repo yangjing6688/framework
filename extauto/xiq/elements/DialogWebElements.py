@@ -1,5 +1,5 @@
-from extauto.xiq.defs.DialogWebElementsDefinitions import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.DialogWebElementsDefinitions import DialogWebElementsDefinitions
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class DialogWebElements(DialogWebElementsDefinitions):
@@ -25,6 +25,9 @@ class DialogWebElements(DialogWebElementsDefinitions):
             if element.is_displayed():
                 return element.text
 
+    def get_confirm_message_dialog_box(self):
+        return self.weh.get_element(self.confirm_message_dialog_box)
+
     def get_confirm_yes_button(self):
         elements = self.weh.get_elements(self.confirm_yes_button)
         if elements:
@@ -47,4 +50,4 @@ class DialogWebElements(DialogWebElementsDefinitions):
                 return element
 
     def get_confirm_yes_button_reboot(self):
-         return self.weh.get_elements(self.confirm_yes_button_reboot)
+        return self.weh.get_elements(self.confirm_yes_button_reboot)

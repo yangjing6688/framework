@@ -1,7 +1,7 @@
 name: CI Workflow
 on:
   pull_request:
-    branches: [main]
+    branches: [main, RELEASE-**]
 
 jobs:
   framework_sanity:
@@ -31,7 +31,7 @@ jobs:
         # CreateJob body template
         job_template='{
                 "jsonString":{
-                    "description": "CI Verification Run",
+                    "description": "  [Username]: CI_Service [JobType]: private  [Group]: CICD [Harness]:  [RDC]: None",
                     "priority": 3,
                     "version": 1,
                     "rerun": 0,
@@ -113,4 +113,39 @@ jobs:
       if: ${{ always() }}
       id: set-output
       run: |
-        echo "::set-output name=status::${{ job.status }}"
+        echo "status=${{ job.status }}" >> $GITHUB_OUTPUT
+
+  code_checks:
+    name: Run code quality tools
+    # runs-on: ubuntu-latest
+    runs-on: Ubuntu-20.04
+    outputs:
+      status: ${{ steps.set-output.outputs.status }}
+    env:
+      EXTAUTO_DIR: ./extauto
+      SETUP_CFG: ./setup.cfg
+
+    steps:
+    - name: Setup environment
+      run: |
+        pip3 install flake8
+
+    - name: Checkout local repo
+      uses: actions/checkout@v3
+
+    - name: Python syntax checking
+      run: |
+        printf '\n%s\n\n' "======== Running flake8 in /extauto ========"
+        python3 -m flake8 --config=${SETUP_CFG} $EXTAUTO_DIR
+
+        printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Imports ========"
+        python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Imports
+
+        printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Keywords ========"
+        python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Keywords
+
+    - name: Set job status output
+      if: ${{ always() }}
+      id: set-output
+      run: |
+        echo "status=${{ job.status }}" >> $GITHUB_OUTPUT

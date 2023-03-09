@@ -1,15 +1,11 @@
 import threading
 from time import sleep
 from robot.libraries.BuiltIn import BuiltIn
-
 from extauto.common.CloudDriver import CloudDriver
-
 from common.Screen import Screen
 from common.Utils import Utils
 from common.AutoActions import AutoActions
-
 import xiq.flows.common.ToolTipCapture
-
 from a3.elements.LoginWebElements import LoginWebElements
 from xiq.elements.PasswordResetWebElements import PasswordResetWebElements
 
@@ -24,7 +20,6 @@ class Login:
         self.pw_web_elements = PasswordResetWebElements()
         self.auto_actions = AutoActions()
         self.screen = Screen()
-        pass
 
     def _init(self, url="default", incognito_mode="False"):
         """
@@ -40,7 +35,7 @@ class Login:
             self.window_index = 0
         else:
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
-            self.window_index = CloudDriver().open_window(url)
+            self.window_index = CloudDriver().open_window(url, "a3")
         self.driver = CloudDriver().cloud_driver
 
     def get_page_title(self):
@@ -80,11 +75,25 @@ class Login:
 
         self.utils.print_info("Browser: ", browser)
 
+
+        #connection no private
         try:
-         self.utils.print_info("Version: ", self.driver.capabilities['version'])
+            hide_advanced_button = self.login_web_elements.get_hide_advanced_button()
+            if hide_advanced_button:
+                self.auto_actions.click(hide_advanced_button)
+                sleep(5)
+                proceed_to_link = self.login_web_elements.get_proceed_to_link()
+                if proceed_to_link:
+                    self.auto_actions.click(proceed_to_link)
+                    sleep(5)
+        except Exception:
+            pass
+
+        try:
+            self.utils.print_info("Version: ", self.driver.capabilities['version'])
         except Exception as e:
-         self.utils.print_debug(e)
-         self.utils.print_info("Version: ", self.driver.capabilities['browserVersion'])
+            self.utils.print_debug(e)
+            self.utils.print_info("Version: ", self.driver.capabilities['browserVersion'])
 
         self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
 
@@ -96,7 +105,7 @@ class Login:
 
         self.utils.print_info("Clicking on Sign In button")
 
-        self.auto_actions.click(self.login_web_elements.get_login_page_login_button())
+        self.auto_actions.click_reference(self.login_web_elements.get_login_page_login_button)
         sleep(10)
 
         return 1
@@ -142,7 +151,7 @@ class Login:
 
             self.driver.quit()
             self.utils.print_info("Resetting cloud driver to -1")
-            common.CloudDriver.cloud_driver = -1
+            CloudDriver().cloud_driver = -1
             return 1
         except Exception as e:
             self.utils.print_debug("Error: ", e)

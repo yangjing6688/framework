@@ -1,5 +1,4 @@
 # ------------------   From Wireless  ----------------------
-#Pillow==7.0.0
 Flask==1.1.1
 image==1.5.28
 netmiko==3.0.0
@@ -9,25 +8,23 @@ robotframework==4.1.1
 robotframework-pabot==2.1.0
 sauceclient==1.0.0
 selenium==3.141.0
-sauceclient==1.0.0
 typing-extensions==4.1.1
 # ----------------- From Wireless End ---------------------
 urllib3==1.23
-#selenium==3.14.0
-#netmiko==2.3.0
 pyvmomi==6.7.1
-#flask==1.0.2
 flask-cors==3.0.7
 pycryptodome==3.10.1
-pyyaml==3.13
+pyyaml==6.0
 mock==2.0.0
 requests==2.19.1
 pysnmp==4.4.6
 pyserial==3.4
 xmlrunner==1.7.7
-oyaml==0.7
-textfsm==0.4.1
 PyMySQL==1.0.2
 wheel==0.36.2
-PyAutoGUI==0.9.42; platform_system == "Windows"
-https://github.com/jacexh/pyautoit/archive/master.zip; platform_system == "Windows"
+ansi2html==1.8.0
+extremecloudiq-api==23.1.0.40
+docstring-parser==0.15
+opencv-python
+beautifulsoup4
+

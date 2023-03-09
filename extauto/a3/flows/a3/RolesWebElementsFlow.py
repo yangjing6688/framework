@@ -1,21 +1,21 @@
+from time import sleep
 
-from common.AutoActions import *
+from common.AutoActions import AutoActions
+from common.Screen import Screen
+from common.Utils import Utils
 from a3.elements.RolesWebElements import RolesWebElements
-from a3.elements.GlobalSettingWebElements import *
+from a3.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from xiq.flows.common.DeviceCommon import DeviceCommon
-#from common.CloudDriver import *
 
 
 class RolesWebElementsFlow(RolesWebElements):
     def __init__(self):
         super().__init__()
-        #self.driver1 = None
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.device_common = DeviceCommon()
         self.roles_web_elements = RolesWebElements()
-        #self.driver = common.CloudDriver.cloud_driver
         self.setting = GlobalSettingWebElements()
 
     def create_roles(self):
@@ -27,7 +27,7 @@ class RolesWebElementsFlow(RolesWebElements):
         """
         self.utils.print_info("Selecting Roles from menu...")
 
-        if self.auto_actions.click(self.get_roles()) == 1:
+        if self.auto_actions.click_reference(self.get_roles) == 1:
             sleep(2)
             self.utils.print_info("Click New Role ")
             element = self.weh.get_element(self.role_button)
@@ -61,5 +61,3 @@ class RolesWebElementsFlow(RolesWebElements):
             self.utils.print_info("Unable to navigate to Roles")
             self.screen.save_screen_shot()
             return -1
-
-

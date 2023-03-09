@@ -18,10 +18,10 @@ class XIQSE_Backup(AdminBackupRestoreWebElements):
 
     def xiqse_backup_database_set_name(self, the_value):
         """
-         - This keyword sets the Backup File Name value in the File Name text field.
-         - It is assumed the Backup/Restore tab is already opened.
-         - Keyword Usage
-          - ``XIQSE Backup Database Set Name  ${BACKUP_NAME}``
+        - This keyword sets the Backup File Name value in the File Name text field.
+        - It is assumed the Backup/Restore tab is already opened.
+        - Keyword Usage
+        - ``XIQSE Backup Database Set Name  ${BACKUP_NAME}``
 
         :param the_value:  Value entered into backup file name dialog
         :return: 1 if action was successful, else -1
@@ -80,10 +80,10 @@ class XIQSE_Backup(AdminBackupRestoreWebElements):
             self.utils.print_info(f"Waiting for Backup to complete: loop {count}")
             load_mask = self.view_el.get_working_backup_load_mask()
             if load_mask:
-                self.utils.print_info(f"Backup still in progress")
+                self.utils.print_info("Backup still in progress")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Backup has completed")
+                self.utils.print_info("Backup has completed")
                 return 1
             count += 1
 
@@ -149,10 +149,10 @@ class XIQSE_Backup(AdminBackupRestoreWebElements):
 
     def xiqse_perform_backup(self, name):
         """
-         - This keyword initiates the backup with the specified name and waits for the action to complete.
-         - It is assumed the Backup/Restore tab is already opened.
-         - Keyword Usage
-          - ``XIQSE Perform Backup ${BACKUP_NAME}``
+        - This keyword initiates the backup with the specified name and waits for the action to complete.
+        - It is assumed the Backup/Restore tab is already opened.
+        - Keyword Usage
+        - ``XIQSE Perform Backup ${BACKUP_NAME}``
 
         :param name:  Value to use for the backup file name
         :return: 1 if action was successful, else -1
@@ -167,4 +167,3 @@ class XIQSE_Backup(AdminBackupRestoreWebElements):
             self.screen.save_screen_shot()
 
         return ret_val
-

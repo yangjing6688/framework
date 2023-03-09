@@ -1,5 +1,5 @@
-from extauto.xiq.defs.APPElementDefs import *
-from extauto.common.WebElementHandler import *
+from extauto.xiq.defs.APPElementDefs import APPElementDefs
+from extauto.common.WebElementHandler import WebElementHandler
 
 
 class AutoprovisionWebElements(APPElementDefs):
@@ -68,6 +68,9 @@ class AutoprovisionWebElements(APPElementDefs):
 
     def get_auto_provisioning_device_model_dropdown_list(self):
         return self.weh.get_elements(self.auto_provisioning_device_model_dropdown_list)
+
+    def get_auto_provisioning_device_model_dropdown_list_SR22_23(self):
+        return self.weh.get_elements(self.auto_provisioning_device_model_dropdown_list_SR22_23)
 
     def get_auto_provisioning_device_model_dropdown_switch_SR22_23(self):
         return self.weh.get_element(self.auto_provisioning_device_model_dropdown_switch_SR22_23)

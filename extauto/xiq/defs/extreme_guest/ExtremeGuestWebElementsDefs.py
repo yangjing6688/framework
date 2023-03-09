@@ -71,6 +71,13 @@ class ExtremeGuestWebElementsDefs:
             'wait_for': 5
         }
 
+
+    extreme_guest_configure_preview_button = \
+        {
+            'XPATH': '(//div[contains(@class, "eguest-preview-button")])[1]',
+            'wait_for': 5
+        }
+
     extreme_guest_configure_users_tab = \
         {
             'XPATH': '//span[text()="Users" and contains(@class, "x-tree-node-text ")]',

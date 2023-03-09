@@ -27,11 +27,12 @@ class Internal_api:
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         self.utils.print_info("Base URL: ", base_url)
 
-        data_raw = '{"username": "' + username + '" , "password": "' +  password  \
-                   + '" , "grant_type": "' + "password"  \
-                   + '" , "client_id": "' + "browser"  \
-                   + '" , "client_secret": "' + "secret"   \
-                   + '"}'
+        # Commented on 1/18/23 because it is unused
+        # data_raw = '{"username": "' + username + '" , "password": "' +  password  \
+        #            + '" , "grant_type": "' + "password"  \
+        #            + '" , "client_id": "' + "browser"  \
+        #            + '" , "client_secret": "' + "secret"   \
+        #            + '"}'
 
         data_urlencode_raw = "--data-urlencode 'client_id=browser' \
 --data-urlencode 'client_secret=secret' \

@@ -3,7 +3,8 @@ from extauto.common.Utils import Utils
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.MLInsightsWebElements import MLInsightsWebElements
-from extauto.xiq.elements.DialogWebElements import *
+from extauto.xiq.elements.DialogWebElements import DialogWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class MLInsights:
@@ -14,6 +15,7 @@ class MLInsights:
         self.navigator = Navigator()
         self.mlinsights_web_elements = MLInsightsWebElements()
         self.dialogue_web_elements = DialogWebElements()
+        self.common_validation = CommonValidation()
 
     def create_location_in_ml_insights(self, **kwargs):
         """
@@ -25,6 +27,8 @@ class MLInsights:
 
         self.utils.print_info("Navigating to Network 360 plan..")
         if self.navigator.navigate_to_network360plan() == -2:
+            kwargs['fail_msg'] = "Unsuccessfully navigating to Network 360 plan"
+            self.common_validation.failed(**kwargs)
             return -2
         sleep(5)
 
@@ -34,17 +38,19 @@ class MLInsights:
         self.utils.print_info("tooltip_text: ", tooltip_text)
         if tooltip_text:
             if "Your account does not have permission to perform that action" in tooltip_text:
-                self.auto_actions.click(self.mlinsights_web_elements.get_map_close_btn())
+                self.auto_actions.click_reference(self.mlinsights_web_elements.get_map_close_btn)
                 sleep(10)
+                kwargs['fail_msg'] = "Your account does not have permission to perform that action"
+                self.common_validation.failed(**kwargs)
                 return -2
 
         self.utils.print_info("Create a new map...")
-        self.auto_actions.click(self.mlinsights_web_elements.get_create_new_map_btn())
+        self.auto_actions.click_reference(self.mlinsights_web_elements.get_create_new_map_btn)
 
         organization = kwargs.get('organization')
         street_addr = kwargs.get('street_addr')
         city = kwargs.get('city')
-        country = kwargs.get('country')
+        # country = kwargs.get('country')
 
         # import sys, pdb
         # pdb.Pdb(stdout=sys.__stdout__).set_trace()
@@ -62,6 +68,6 @@ class MLInsights:
         sleep(2)
 
         self.utils.print_info("Saving the configuration")
-        self.auto_actions.click(self.mlinsights_web_elements.get_map_save_btn())
+        self.auto_actions.click_reference(self.mlinsights_web_elements.get_map_save_btn)
         sleep(2)
         return 1

@@ -17,9 +17,9 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_open_operations_panel(self):
         """
-         - This keyword opens the Operations panel, if it is closed
-         - Keyword Usage
-          - ``XIQSE Open Operations Panel``
+        - This keyword opens the Operations panel, if it is closed
+        - Keyword Usage
+        - ``XIQSE Open Operations Panel``
 
         :return: 1 if action successful, else -1
         """
@@ -47,9 +47,9 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_close_operations_panel(self):
         """
-         - This keyword closes the Operations panel, if it is open
-         - Keyword Usage
-          - ``XIQSE Close Operations Panel``
+        - This keyword closes the Operations panel, if it is open
+        - Keyword Usage
+        - ``XIQSE Close Operations Panel``
 
         :return: 1 if action successful, else -1
         """
@@ -73,9 +73,9 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_clear_operations_panel(self):
         """
-         - This keyword clears the contents of the Operations panel
-         - Keyword Usage
-          - ``XIQSE Clear Operations Panel``
+        - This keyword clears the contents of the Operations panel
+        - Keyword Usage
+        - ``XIQSE Clear Operations Panel``
 
         :return: 1 if action successful, else -1
         """
@@ -120,10 +120,10 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_operations_expand_group(self, value):
         """
-         - This keyword expands the specified group in the Operations panel, if it is not yet expanded.
-         - If there is more than one matching entry in the panel, this will expand the first matching entry.
-         - Keyword Usage
-          - ``XIQSE Operations Expand Group  Discover Site``
+        - This keyword expands the specified group in the Operations panel, if it is not yet expanded.
+        - If there is more than one matching entry in the panel, this will expand the first matching entry.
+        - Keyword Usage
+        - ``XIQSE Operations Expand Group  Discover Site``
 
         :param value:  name of the group to expand
         :return: 1 if action successful, else -1
@@ -162,9 +162,9 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_operations_get_operation_complete(self, value):
         """
-         - This keyword checks the progress of the specified operation in the Operations panel.
-         - Keyword Usage
-          - ``XIQSE Operations Get Operation Complete  Discover Site``
+        - This keyword checks the progress of the specified operation in the Operations panel.
+        - Keyword Usage
+        - ``XIQSE Operations Get Operation Complete  Discover Site``
 
         :param value:  name of the operation to get the progress of
         :return: 1 if operation progress is at 100%, else -1
@@ -206,9 +206,9 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_operations_get_discovered_device_count(self):
         """
-         - This keyword obtains the discovered device count from the last Site Discover operations panel entry.
-         - Keyword Usage
-          - ``XIQSE Operations Get Discovered Device Count``
+        - This keyword obtains the discovered device count from the last Site Discover operations panel entry.
+        - Keyword Usage
+        - ``XIQSE Operations Get Discovered Device Count``
 
         :return: returns the number of discovered devices as reported in the message for the Discover Site entry
         """
@@ -251,7 +251,7 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
                                 self.utils.print_info("Could not get data for cell")
                                 self.screen.save_screen_shot()
                         else:
-                            self.utils.print_info(f"Unable to determine progress for operation Discover Site")
+                            self.utils.print_info("Unable to determine progress for operation Discover Site")
                             self.screen.save_screen_shot()
                     else:
                         self.utils.print_info("Unable to obtain cells for row")
@@ -260,7 +260,7 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
                     # Exit the StaleElementReferenceException handler loop
                     break
                 else:
-                    self.utils.print_info(f"Could not find data row for operation Discover Site")
+                    self.utils.print_info("Could not find data row for operation Discover Site")
                     self.screen.save_screen_shot()
 
                     # Exit the StaleElementReferenceException handler loop
@@ -273,12 +273,12 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_operations_wait_until_operation_complete(self, op_type, retry_duration=30, retry_count=10):
         """
-         - This keyword waits until the specified operation type has completed by checking for a progress value of 100%.
-         - It is assumed the operations panel has been cleared prior to performing the operation in question, as the
-         - first-found entry will be used for the progress check.
-         - Keyword Usage
-          - ``XIQSE Operations Wait Until Operation Complete    Inventory Audit``
-          - ``XIQSE Operations Wait Until Operation Complete    Discover Site    retry_duration=10    retry_count=60``
+        - This keyword waits until the specified operation type has completed by checking for a progress value of 100%.
+        - It is assumed the operations panel has been cleared prior to performing the operation in question, as the
+        - first-found entry will be used for the progress check.
+        - Keyword Usage
+        - ``XIQSE Operations Wait Until Operation Complete    Inventory Audit``
+        - ``XIQSE Operations Wait Until Operation Complete    Discover Site    retry_duration=10    retry_count=60``
 
         :param op_type: type of operation to check the progress of
         :param retry_duration: duration between each retry
@@ -302,10 +302,10 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_confirm_operations_panel_message_for_type(self, op_type, the_message):
         """
-         - This keyword confirms the message from the 'Operations' panel type entry contains the expected text.
-         - This will ignore the case sensitivity of the message being searched for
-         - Keyword Usage
-          - ``XIQSE Confirm Operations Panel Message For Type    ${OP_TYPE}    ${THE_MESSAGE}``
+        - This keyword confirms the message from the 'Operations' panel type entry contains the expected text.
+        - This will ignore the case sensitivity of the message being searched for
+        - Keyword Usage
+        - ``XIQSE Confirm Operations Panel Message For Type    ${OP_TYPE}    ${THE_MESSAGE}``
 
         :param op_type:       type of operation to check for the message
         :param the_message:   message to verify is present
@@ -347,9 +347,9 @@ class XIQSE_CommonOperationsPanel(CommonOperationsPanelWebElements):
 
     def xiqse_confirm_operations_panel_is_empty(self):
         """
-         - This keyword confirms the Operations panel is empty
-         - Keyword Usage
-          - ``XIQSE Confirm Operations Panel Is Empty``
+        - This keyword confirms the Operations panel is empty
+        - Keyword Usage
+        - ``XIQSE Confirm Operations Panel Is Empty``
 
         :return: 1 if operations panel is empty, else -1
         """

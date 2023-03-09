@@ -1,7 +1,7 @@
 import sauceclient
 from datetime import datetime
 from selenium import webdriver
-from selenium.common.exceptions import *
+from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
@@ -26,7 +26,8 @@ class CloudDriver():
         self.__initialized = True
 
     def close_browser(self):
-        self.cloud_driver.quit()
+        if self.cloud_driver:
+            self.cloud_driver.quit()
         self.__initialized = False
 
     def start_browser(self, url="default", program="default", incognito_mode="False"):
@@ -56,8 +57,9 @@ class CloudDriver():
         element_identify_value_id = "password"
         element_identify_value_css = ".eguest-username"
         element_identify_value_xpath = "//*[@class='success_text']"
-        element_value = ".btn"
-        element_locator = "name"
+        # Commented on 1/18/23 because they are unused
+        # element_value = ".btn"
+        # element_locator = "name"
         element_identify = "name"
         element_identify_value_name = "username"
 
@@ -66,8 +68,12 @@ class CloudDriver():
             element_identify = "xpath"
             utils.print_info("Approval")
         elif program == 'a3':
-            element_identify = "id"
-            element_identify_value_id = "username"
+            if "admin" in url and "login" in url:
+                element_identify = "class-name"
+                element_identify_value_css = ".secondary-button"
+            else:
+                element_identify = "id"
+                element_identify_value_id = "username"
         elif program == 'adsp':
             element_identify_value_name = "j_username"
             element_identify = "name"
@@ -110,6 +116,10 @@ class CloudDriver():
         if "resetverify" in url:
             element_identify = "class-name"
             element_identify_value_css = ".btn"
+
+        if "sso" in url:
+            element_identify_value_name = "UserName"
+            element_identify = "name"
 
         mode = BuiltIn().get_variable_value("${WEB_DRIVER_LOC}")
         os_platform = BuiltIn().get_variable_value("${OS_PLATFORM}")
@@ -235,7 +245,7 @@ class CloudDriver():
 
                 if mode == "remote":
                     try:
-                        utils.print_info(f"Redirecting to Remote WebDriver at http://", str(webdriver_ip), ":",
+                        utils.print_info(f"Redirecting to Remote WebDriver at http://{str(webdriver_ip)}:",
                                          str(webdriver_port), "/wd/hub")
                         host_url = "http://" + str(webdriver_ip) + ":" + str(webdriver_port) + "/wd/hub"
                         cloud_driver = webdriver.Remote(host_url, webdriver.DesiredCapabilities.CHROME)
@@ -400,8 +410,9 @@ class CloudDriver():
         element_identify_value_name = "username"
         element_identify_value_id = "password"
         element_identify_value_css = ".eguest-username"
-        element_value = ".btn"
-        element_locator = "name"
+        # Commented on 1/18/23 because they are unused
+        # element_value = ".btn"
+        # element_locator = "name"
         element_identify = "name"
         element_identify_value_name = "username"
         element_identify_value_xpath = "//app-auth-failure"
@@ -436,6 +447,14 @@ class CloudDriver():
         if "resetverify" in url:
             element_identify = "class-name"
             element_identify_value_css = ".btn"
+
+        if program == 'a3':
+            element_identify = "id"
+            element_identify_value_id = "username"
+
+        if "admin" in url and "login" in url:
+            element_identify = "class-name"
+            element_identify_value_css = ".secondary-button"
 
         utils.print_info("Opening New Window")
         self.cloud_driver.execute_script("window.open();")
@@ -483,6 +502,7 @@ class CloudDriver():
         :return:None
         """
         utils = Utils()
+        win_index=int(win_index)
         window_handles = self.cloud_driver.window_handles
         win_count = len(window_handles)
         utils.print_debug(f"Window Handle Count: {win_count}")
@@ -503,6 +523,7 @@ class CloudDriver():
         :return:None
         """
         utils = Utils()
+        win_index=int(win_index)
         window_handles = self.cloud_driver.window_handles
         win_count = len(window_handles)
         utils.print_debug(f"Window Handle Count: {win_count}")
@@ -546,5 +567,5 @@ class CloudDriver():
 
     def refresh_page(self):
         utils = Utils()
-        utils.print_info(f"Refreshing page")
+        utils.print_info("Refreshing page")
         self.cloud_driver.refresh()

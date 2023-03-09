@@ -13,10 +13,10 @@ class XIQSE_NetworkCommonConfigureDeviceImportSiteConfig(NetworkCommonConfigureD
 
     def xiqse_answer_import_site_configuration_question(self, the_answer="No"):
         """
-         - This keyword clicks Yes or No in the Import Site Configuration dialog, which is seen when changing the
-         - Default Site field on the Device tab of the Configure Device dialog.
-         - Keyword Usage
-          - ``XIQSE Answer Import Site Configuration Question``
+        - This keyword clicks Yes or No in the Import Site Configuration dialog, which is seen when changing the
+        - Default Site field on the Device tab of the Configure Device dialog.
+        - Keyword Usage
+        - ``XIQSE Answer Import Site Configuration Question``
 
         :param the_answer:  Specifies how to answer the question in the dialog - Yes or No
         :return: 1 if action was successful, 2 if dialog was not displayed, else -1
@@ -40,13 +40,13 @@ class XIQSE_NetworkCommonConfigureDeviceImportSiteConfig(NetworkCommonConfigureD
 
     def xiqse_import_site_configuration_dialog_click_yes(self):
         """
-         - This keyword clicks 'Yes' in the Import Site Configuration dialog, which is seen when changing the
-         - Default Site field on the Device tab of the Configure Device dialog.
+        - This keyword clicks 'Yes' in the Import Site Configuration dialog, which is seen when changing the
+        - Default Site field on the Device tab of the Configure Device dialog.
          -
-         - It is assumed the Import Site Configuration question dialog is already open.
+        - It is assumed the Import Site Configuration question dialog is already open.
          -
-         - Keyword Usage
-          - ``XIQSE Import Site Configuration Dialog Click Yes``
+        - Keyword Usage
+        - ``XIQSE Import Site Configuration Dialog Click Yes``
 
         :return: 1 if action was successful, else -1
         """
@@ -65,13 +65,13 @@ class XIQSE_NetworkCommonConfigureDeviceImportSiteConfig(NetworkCommonConfigureD
 
     def xiqse_import_site_configuration_dialog_click_no(self):
         """
-         - This keyword clicks 'No' in the Import Site Configuration dialog, which is seen when changing the
-         - Default Site field on the Device tab of the Configure Device dialog.
+        - This keyword clicks 'No' in the Import Site Configuration dialog, which is seen when changing the
+        - Default Site field on the Device tab of the Configure Device dialog.
          -
-         - It is assumed the Import Site Configuration question dialog is already open.
+        - It is assumed the Import Site Configuration question dialog is already open.
          -
-         - Keyword Usage
-          - ``XIQSE Import Site Configuration Dialog Click No``
+        - Keyword Usage
+        - ``XIQSE Import Site Configuration Dialog Click No``
 
         :return: 1 if action was successful, else -1
         """

@@ -1,7 +1,7 @@
 class DeviceConfigDefs:
     interface_settings_tab = \
         {
-            'XPATH': '//li[@data-automation-tag="automation-sider-list-interfaceSettings"]//a',
+            'XPATH': '//*[@data-dojo-attach-point="interfaceSettingsTab"]',
             'wait_for': 5
         }
 
@@ -171,9 +171,21 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    device_360_page = \
+        {
+            'CSS_SELECTOR': '.device-entity.modal-360',
+            'wait_for': 5
+        }
+
     device_configuration_tab = \
         {
             'XPATH': '//li[@data-dojo-attach-point="deviceConfigurationTab"]',
+            'wait_for': 5
+        }
+
+    device_configuration_node = \
+        {
+            'CSS_SELECTOR': '.device-config-node',
             'wait_for': 5
         }
 
@@ -198,7 +210,7 @@ class DeviceConfigDefs:
 
     wireless_interface_wifi0_channel_options = \
         {
-            'XPATH': '//ul[@class="chzn-results qa-chzn-results-channel2ghz,channel5dualghz"]//li',
+            'XPATH':  '//*[@data-automation-tag="automation-interface-settings-wifi0-channel-chzn-results-ctn"]//li',
             'wait_for': 5
         }
 
@@ -210,7 +222,13 @@ class DeviceConfigDefs:
 
     wireless_interface_wifi1_channel_options = \
         {
-            'XPATH': '//ul[@class="chzn-results qa-chzn-results-channel5ghz"]//li',
+            'XPATH': '//*[@data-automation-tag="automation-interface-settings-wifi1-channel-chzn-results-ctn"]//li',
+            'wait_for': 5
+        }
+
+    wireless_interface_wifi2_channel_options = \
+        {
+            'XPATH': '//div[@class="grid_10 column"]//*[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-results-ctn"]//li',
             'wait_for': 5
         }
 
@@ -447,7 +465,7 @@ class DeviceConfigDefs:
 
     device_edit_button = \
         {
-            'CSS_SELECTOR': '.table-action-icons.table-edit',
+            'XPATH': '//span[@data-automation-tag="automation-device-list-bulkEdit-btn"]',
             'wait_for': 5
         }
 
@@ -740,7 +758,7 @@ class DeviceConfigDefs:
 
     wireless_wifi2_channel_list = \
         {
-            'XPATH': '//li[@data-automation-tag="interface-settings-wifi1-radio-profile-chzn-option-',
+            'XPATH': '//li[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-option-',
             'wait_for': 5
         }
 
@@ -931,6 +949,12 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    wireless_wifi0_default_radio_operating_mode_drop_down = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-interface-settings-operating-mode-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
     wireless_wifi0_default_radio_profile_drop_down = \
         {
             'XPATH': '//div[@data-dojo-attach-point="radioProfileChange24"]',
@@ -973,12 +997,24 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
+    wireless_wifi0_radio_usage_sensor_checkbox = \
+        {
+            'XPATH': '//input[@data-automation-tag="interface-settings-wifi0-radio-usage-sensor"]',
+            'wait_for': 5
+        }
+
+    wireless_wifi1_radio_usage_sensor_checkbox = \
+        {
+            'XPATH': '//input[@data-automation-tag="interface-settings-wifi1-radio-usage-sensor"]',
+            'wait_for': 5
+        }
+
     wireless_wifi2_radio_usage_sensor_checkbox = \
         {
             'XPATH': '//input[@data-automation-tag="interface-settings-wifi2-radio-usage-sensor"]',
             'wait_for': 5
         }
-    
+
     wireless_wifi2_channel_dropdown = \
         {
             'XPATH': '//div[@class="grid_10 column"]/div[@data-automation-tag="automation-interface-settings-wifi1-radio-profile-chzn-container-ctn"]/a/span',
@@ -1344,6 +1380,30 @@ class DeviceConfigDefs:
             'wait_for': 10
         }
 
+    devices_device_config_device_function_set_ap = \
+        {
+            'XPATH': '//a[@href="javascript:void(0)"] //span[contains(text(),"AP")]',
+            'wait_for': 5
+        }
+
+    devices_device_config_device_function_set_router = \
+        {
+            'XPATH': '//a[@href="javascript:void(0)"] //span[contains(text(), "ApAsRouter")]',
+            'wait_for': 5
+        }
+
+    devices_device_config_device_function = \
+        {
+            'CSS_SELECTOR': '.chzn-results.qa-chzn-results-devicefunction .active-result',
+            'wait_for': 5
+        }
+
+    devices_device_config_page_save_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-deviceconfiguration-save-btn"]',
+            'wait_for': 5
+        }
+
     config_audit_content = \
         {
             'XPATH': "//div[@data-dojo-attach-point='auditCtn']"
@@ -1352,4 +1412,59 @@ class DeviceConfigDefs:
     config_audit_delta_view_button_yellow = \
         {
             'CSS_SELECTOR': '.ui-icon-sprite-mismatch'
+        }
+
+    stack_edit_template_drop_down = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="stackTemplateArea"]//div['
+                     '@data-automation-tag="automation-chzn-container-ctn"]/a',
+            'wait_for': 5
+        }
+
+    device_edit_template_drop_down_options_stack = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-chzn-drop-ctn"]//ul[contains(@class, "chzn-results '
+                     'qa-chzn-results-stacktemplatelist")]//li',
+        }
+
+    devices_config_wired_eth0 = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enabled"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    devices_config_wired_eth1 = \
+        {
+            'XPATH': '//input[@data-dojo-attach-point="enabled"]',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    devices_config_wired_eth0_lldp = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="lldpRec"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    devices_config_wired_eth1_lldp = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="lldpRec"]',
+            'index': 1,
+            'wait_for': 5
+        }
+
+    devices_config_wired_eth0_cdp = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="cdpReceive"]',
+            'index': 0,
+            'wait_for': 5
+        }
+
+    devices_config_wired_eth1_cdp = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="cdpReceive"]',
+            'index': 1,
+            'wait_for': 5
         }

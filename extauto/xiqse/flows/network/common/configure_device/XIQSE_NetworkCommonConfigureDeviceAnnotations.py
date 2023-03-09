@@ -27,7 +27,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
         - This keyword sets the Nickname field in the Configure Device dialog (Device Annotation tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Nickname  NICKNAME``
+        - ``XIQSE Configure Device Dialog Set Nickname  NICKNAME``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -40,7 +40,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Nickname field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Nickname field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -50,7 +50,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
         - This keyword sets the Asset Tag field in the Configure Device dialog (Device Annotation tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Asset Tag  ASSET_TAG``
+        - ``XIQSE Configure Device Dialog Set Asset Tag  ASSET_TAG``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -63,7 +63,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Asset Tag field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Asset Tag field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -73,7 +73,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
         - This keyword sets the User Data 1 field in the Configure Device dialog (Device Annotation tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set User Data 1  USER_DATA``
+        - ``XIQSE Configure Device Dialog Set User Data 1  USER_DATA``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -86,7 +86,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the User Data 1 field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the User Data 1 field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -96,7 +96,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
         - This keyword sets the User Data 2 field in the Configure Device dialog (Device Annotation tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set User Data 2  USER_DATA``
+        - ``XIQSE Configure Device Dialog Set User Data 2  USER_DATA``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -109,7 +109,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the User Data 2 field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the User Data 2 field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -119,7 +119,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
         - This keyword sets the User Data 3 field in the Configure Device dialog (Device Annotation tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set User Data 3  USER_DATA``
+        - ``XIQSE Configure Device Dialog Set User Data 3  USER_DATA``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -132,7 +132,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the User Data 3 field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the User Data 3 field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -142,7 +142,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
         - This keyword sets the User Data 4 field in the Configure Device dialog (Device Annotation tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set User Data 4  USER_DATA``
+        - ``XIQSE Configure Device Dialog Set User Data 4  USER_DATA``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -155,7 +155,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the User Data 4 field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the User Data 4 field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -165,7 +165,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
         - This keyword sets the Note field in the Configure Device dialog (Device Annotation tab).
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Dialog Set Note  NOTE``
+        - ``XIQSE Configure Device Dialog Set Note  NOTE``
 
         :param the_value: Value to enter into the field
         :return: 1 if action is successful, else -1
@@ -178,7 +178,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
             self.auto_actions.send_keys(the_field, the_value)
             ret_val = 1
         else:
-            self.utils.print_info(f"Unable to find the Note field in the Configure Device dialog")
+            self.utils.print_info("Unable to find the Note field in the Configure Device dialog")
             self.screen.save_screen_shot()
 
         return ret_val
@@ -189,7 +189,7 @@ class XIQSE_NetworkCommonConfigureDeviceAnnotations(NetworkCommonConfigureDevice
         - This keyword sets the fields on the Device Annotation tab in the Configure Device dialog.
         - It assumes the dialog is already open.
         - Keyword Usage:
-         - ``XIQSE Configure Device Set Annotation Tab Values    nickname=MY_NICKNAME  note=MY NOTE``
+        - ``XIQSE Configure Device Set Annotation Tab Values    nickname=MY_NICKNAME  note=MY NOTE``
 
         :param nickname:   Value to enter into the Nickname field
         :param asset_tag:  Value to enter into the Asset Tag field

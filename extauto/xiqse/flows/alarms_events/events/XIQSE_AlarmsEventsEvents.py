@@ -19,22 +19,22 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
 
     def xiqse_events_select_time_range(self, value):
         """
-         - This keyword selects the time range on the Alarms & Events> Events Tab
-         - Keyword Usage
-          - ``XIQSE Events Select Time Range    Custom``
-          - ``XIQSE Events Select Time Range    All``
-          - ``XIQSE Events Select Time Range    Today``
-          - ``XIQSE Events Select Time Range    Yesterday``
-          - ``XIQSE Events Select Time Range    Last 30 Minutes``
-          - ``XIQSE Events Select Time Range    Last Hour``
-          - ``XIQSE Events Select Time Range    Last 2 Hours``
-          - ``XIQSE Events Select Time Range    Last 6 Hours``
-          - ``XIQSE Events Select Time Range    Last 12 Hours``
-          - ``XIQSE Events Select Time Range    Last 24 Hours``
-          - ``XIQSE Events Select Time Range    Last 3 Days``
-          - ``XIQSE Events Select Time Range    Last Week``
-          - ``XIQSE Events Select Time Range    Last 2 Weeks``
-          - ``XIQSE Events Select Time Range    Last 4 Weeks``
+        - This keyword selects the time range on the Alarms & Events> Events Tab
+        - Keyword Usage
+        - ``XIQSE Events Select Time Range    Custom``
+        - ``XIQSE Events Select Time Range    All``
+        - ``XIQSE Events Select Time Range    Today``
+        - ``XIQSE Events Select Time Range    Yesterday``
+        - ``XIQSE Events Select Time Range    Last 30 Minutes``
+        - ``XIQSE Events Select Time Range    Last Hour``
+        - ``XIQSE Events Select Time Range    Last 2 Hours``
+        - ``XIQSE Events Select Time Range    Last 6 Hours``
+        - ``XIQSE Events Select Time Range    Last 12 Hours``
+        - ``XIQSE Events Select Time Range    Last 24 Hours``
+        - ``XIQSE Events Select Time Range    Last 3 Days``
+        - ``XIQSE Events Select Time Range    Last Week``
+        - ``XIQSE Events Select Time Range    Last 2 Weeks``
+        - ``XIQSE Events Select Time Range    Last 4 Weeks``
 
         :param value: item to select in the time range dropdown
         :return: 1 if action was successful, else -1
@@ -75,13 +75,13 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
 
     def xiqse_events_select_type(self, values):
         """
-         - This keyword selects the specified types on the Alarms & Events> Events Tab.
-         - NOTE: to clear existing selections, first select "All"; otherwise, each call to this method will
-         -       select the additional values in addition to the current selections.
-         - Keyword Usage
-          - ``XIQSE Events Select Type    All``
-          - ``XIQSE Events Select Type    Console,Console View,Inventory``
-          - ``XIQSE Events Select Type    Admin``
+        - This keyword selects the specified types on the Alarms & Events> Events Tab.
+        - NOTE: to clear existing selections, first select "All"; otherwise, each call to this method will
+        -       select the additional values in addition to the current selections.
+        - Keyword Usage
+        - ``XIQSE Events Select Type    All``
+        - ``XIQSE Events Select Type    Console,Console View,Inventory``
+        - ``XIQSE Events Select Type    Admin``
 
         :param values: comma-separated list of items to select in the Type dropdown
         :return: 1 if action was successful, else -1
@@ -109,7 +109,7 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
                     else:
                         self.utils.print_info(f"Did not find {value} in the Type dropdown")
                     sleep(2)
-                self.utils.print_info(f"Closing 'Type' dropdown")
+                self.utils.print_info("Closing 'Type' dropdown")
                 self.auto_actions.click(the_field)
             else:
                 self.utils.print_info("Unable to get the Type dropdown items")
@@ -125,9 +125,9 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
 
     def xiqse_events_open_search(self):
         """
-         - This keyword opens the search box on the Alarms & Events> Events Tab
-         - Keyword Usage
-          - ``XIQSE Events Open Search``
+        - This keyword opens the search box on the Alarms & Events> Events Tab
+        - Keyword Usage
+        - ``XIQSE Events Open Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -137,11 +137,11 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "true":
-                self.utils.print_info(f"Clicking Search button")
+                self.utils.print_info("Clicking Search button")
                 self.auto_actions.click(search_btn)
                 sleep(2)
             else:
-                self.utils.print_info(f"Search field already open")
+                self.utils.print_info("Search field already open")
             ret_val = 1
         else:
             self.utils.print_info("Unable to find the Search button")
@@ -151,9 +151,9 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
 
     def xiqse_events_enter_search_text(self, value):
         """
-         - This keyword enters text into the search field on the Alarms & Events> Events Tab
-         - Keyword Usage
-          - ``XIQSE Events Enter Search Text    My Event To Find``
+        - This keyword enters text into the search field on the Alarms & Events> Events Tab
+        - Keyword Usage
+        - ``XIQSE Events Enter Search Text    My Event To Find``
 
         :param value: string to enter in the search box
         :return: 1 if action was successful, else -1
@@ -177,9 +177,9 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
 
     def xiqse_events_trigger_search(self):
         """
-         - This keyword clicks the search button in the search box on the Alarms & Events> Events Tab to perform the search
-         - Keyword Usage
-          - ``XIQSE Events Trigger Search``
+        - This keyword clicks the search button in the search box on the Alarms & Events> Events Tab to perform the search
+        - Keyword Usage
+        - ``XIQSE Events Trigger Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -189,11 +189,11 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
         search_text = self.get_search_text_field()
         if search_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Search button to perform the search")
+                self.utils.print_info("Clicking Search button to perform the search")
                 self.auto_actions.click(search_btn)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Search button to perform the search")
@@ -203,9 +203,9 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
 
     def xiqse_events_clear_search(self):
         """
-         - This keyword clicks the clear button in the search box on the Alarms & Events> Events Tab to perform the search
-         - Keyword Usage
-          - ``XIQSE Events Clear Search``
+        - This keyword clicks the clear button in the search box on the Alarms & Events> Events Tab to perform the search
+        - Keyword Usage
+        - ``XIQSE Events Clear Search``
 
         :return: 1 if action was successful, else -1
         """
@@ -215,12 +215,12 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
         search_text = self.get_search_text_field()
         if clear_btn:
             if search_text and search_text.get_attribute("aria-hidden") == "false":
-                self.utils.print_info(f"Clicking Clear button")
+                self.utils.print_info("Clicking Clear button")
                 self.auto_actions.click(clear_btn)
                 sleep(3)
                 ret_val = 1
             else:
-                self.utils.print_info(f"Search field not open")
+                self.utils.print_info("Search field not open")
                 self.screen.save_screen_shot()
         else:
             self.utils.print_info("Unable to find the Clear button")
@@ -230,9 +230,9 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
 
     def xiqse_events_wait_for_search_to_complete(self, retry_duration=10, retry_count=30):
         """
-         - This keyword waits for the search to complete on the Alarms & Events> Events Tab
-         - Keyword Usage
-          - ``XIQSE Events Wait For Search To Complete``
+        - This keyword waits for the search to complete on the Alarms & Events> Events Tab
+        - Keyword Usage
+        - ``XIQSE Events Wait For Search To Complete``
 
         :param retry_duration: amount of time to wait in between each check for the search to be complete
         :param retry_count:    number of times to check for the search to be complete
@@ -243,10 +243,10 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
             self.utils.print_info(f"Waiting for search to complete: loop {count}")
             load_mask = self.view_el.get_load_mask()
             if load_mask:
-                self.utils.print_info(f"Search still in progress...")
+                self.utils.print_info("Search still in progress...")
                 sleep(retry_duration)
             else:
-                self.utils.print_info(f"Search has completed")
+                self.utils.print_info("Search has completed")
                 return 1
             count += 1
 
@@ -256,10 +256,10 @@ class XIQSE_AlarmsEventsEvents(AlarmsEventsEventsWebElements):
 
     def xiqse_events_perform_search(self, value, retry_duration=10, retry_count=30):
         """
-         - This keyword performs a search on the Alarms & Events> Events Tab
-         - Keyword Usage
-          - ``XIQSE Events Perform Search   My Search String``
-          - ``XIQSE Events Perform Search   My Search String  retry_duration=5  retry_count=10``
+        - This keyword performs a search on the Alarms & Events> Events Tab
+        - Keyword Usage
+        - ``XIQSE Events Perform Search   My Search String``
+        - ``XIQSE Events Perform Search   My Search String  retry_duration=5  retry_count=10``
 
         :param value:          string to search for
         :param retry_duration: amount of time to wait in between each check for the search to be complete

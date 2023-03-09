@@ -1,7 +1,4 @@
-import json
-import requests
 from time import sleep
-import common.CloudDriver
 from common.Utils import Utils
 from common.Screen import Screen
 from xiq.flows.common.Navigator import Navigator
@@ -12,10 +9,8 @@ class A3Inventory(A3InventoryWebElements):
     def __init__(self):
         super().__init__()
         self.utils = Utils()
-        #self.driver = common.CloudDriver.cloud_driver
         self.navigator = Navigator()
         self.screen = Screen()
-
 
     def verify_a3_server_login_on_xiq(self, a3_host_name, a3_login_username, a3_login_password):
         """
@@ -52,7 +47,7 @@ class A3Inventory(A3InventoryWebElements):
         sleep(2)
 
         self.utils.print_info("Clicking on Sign In button")
-        self.auto_actions.click(self.get_a3_login_button())
+        self.auto_actions.click_reference(self.get_a3_login_button)
         sleep(8)
 
         self.screen.save_screen_shot()

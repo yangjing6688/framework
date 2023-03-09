@@ -4,7 +4,6 @@ import random
 
 
 from extauto.common.Utils import Utils
-from extauto.common.Cli import Cli
 
 from robot.libraries.BuiltIn import BuiltIn
 
@@ -118,7 +117,7 @@ class Xapi:
             elif isinstance(json_data, list):
                 self.utils.print_info("JSON DATA is list. Returning Value: ", json_data[int(json_key)])
                 return json_data[int(json_key)]
-        except Exception as e:
+        except Exception:
             self.utils.print_info("Error in interpreting JSON data")
             return -1
 
@@ -218,6 +217,18 @@ class Xapi:
         self.utils.print_info("stdout: ", stdout)
         self.utils.print_info("stderr: ", stderr)
 
+        if result_code == 'response_map':
+            httpCode = 200
+            if 'HTTP/2 200' in str(stderr):
+                httpCode = 200
+            elif 'HTTP/2 400' in str(stderr):
+                httpCode = 400
+            elif 'HTTP/2 500' in str(stderr):
+                httpCode = 500
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            return httpCode, stdout
+
         if result_code:
             if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
                 return 1
@@ -226,7 +237,11 @@ class Xapi:
         return stdout
 
     def rest_api_post_with_file(self, path, file_path, access_token="default", return_output="default",
-                                result_code="default", role="default"):
+                                result_code="default", role="default", http_ver="1.1"):
+        # Modify by Kun Li kuli@extremenetworks.com 1/10/2023
+        # Add a new parameter http_ver to fix the issue EXA-185
+        # Param http_ver: the http version in curl cmds, default is "1.1", available is "0.9"/1.0"/"1.1"/"2"/"3"
+
         self.utils.print_info("Return Output :", return_output)
         self.utils.print_info("Role : ", role)
 
@@ -239,7 +254,20 @@ class Xapi:
         base_url = BuiltIn().get_variable_value("${BASE_URL}")
         url = base_url + path
 
-        curl_cmd = f"curl --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
+        # Add by Kun Li kuli@extremenetworks.com
+        http_ver_curl_param = ""
+        if http_ver in ["1.1", 1.1]:
+            http_ver_curl_param = "--http1.1"
+        elif http_ver in ["1.0", 1.0, "1", 1]:
+            http_ver_curl_param = "--http1.0"
+        elif http_ver in ["0.9", 0.9]:
+            http_ver_curl_param = "--http0.9"
+        elif http_ver in ["2.0", 2.0, "2", 2]:
+            http_ver_curl_param = "--http2"
+        elif http_ver in ["3.0", 3.0, "3", 3]:
+            http_ver_curl_param = "--http3"
+
+        curl_cmd = f"curl {http_ver_curl_param} --location --request POST '{url}' -H 'Content-Type: multipart/form-data' -H 'Authorization: Bearer {access_token}' --form 'file=@{file_path}' "
 
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd.encode())
@@ -295,6 +323,8 @@ class Xapi:
         self.utils.print_info("URL Path : ", path)
         self.utils.print_info("PUT Data: ", put_data)
 
+        self.utils.print_info("result_code: ", result_code)
+
         if access_token == "default":
             access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
 
@@ -304,7 +334,7 @@ class Xapi:
         if put_data == "default":
             curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
         else:
-            curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + put_data
+            curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}'  -d '" + put_data + "'"
 
         # curl_cmd = f"curl -v --location --request PUT '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d "  + put_data
 
@@ -321,16 +351,18 @@ class Xapi:
 
         if result_code == 'response_map':
             httpCode = 200
-            if 'HTTP/1.1 200' in str(stderr):
+            if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
-            elif 'HTTP/1.1 400' in str(stderr):
+            elif 'HTTP/2 400' in str(stderr):
                 httpCode = 400
-            elif 'HTTP/1.1 500' in str(stderr):
+            elif 'HTTP/2 500' in str(stderr):
                 httpCode = 500
-            return {'httpCode': httpCode, 'response': stdout}
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            return httpCode, stdout
 
         if result_code:
-            if 'HTTP/1.1 200' in str(stderr):
+            if 'HTTP/2 200' in str(stderr):
                 return 1
         return stdout
 
@@ -401,13 +433,15 @@ class Xapi:
 
         if result_code == 'response_map':
             httpCode = 200
-            if 'HTTP/1.1 200' in str(stderr):
+            if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
-            elif 'HTTP/1.1 400' in str(stderr):
+            elif 'HTTP/2 400' in str(stderr):
                 httpCode = 400
-            elif 'HTTP/1.1 500' in str(stderr):
+            elif 'HTTP/2 500' in str(stderr):
                 httpCode = 500
-            return {'httpCode': httpCode, 'response': stdout}
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            return httpCode, stdout
 
         if result_code:
             if 'HTTP/1.1 200' in str(stderr):
@@ -448,11 +482,13 @@ class Xapi:
             httpCode = 200
             if 'HTTP/2 200' in str(stderr):
                 httpCode = 200
-            elif 'HTTP/1.1 400' in str(stderr):
+            elif 'HTTP/2 400' in str(stderr):
                 httpCode = 400
-            elif 'HTTP/1.1 500' in str(stderr):
+            elif 'HTTP/2 500' in str(stderr):
                 httpCode = 500
-            return {'httpCode': httpCode, 'response': stdout}
+            self.utils.print_info("httpcode value: ", httpCode)
+            self.utils.print_info("response value: ", stdout)
+            return httpCode, stdout
 
         if result_code:
             if 'HTTP/2 200' in str(stderr):
@@ -701,6 +737,7 @@ class Xapi:
     def get_index_id_from_list_json(self, json_data, index):
         """
          - This Keyword is used to get the specific id for the specified index of list json
+
          :param json_data:  the list of json data
          :param index: the index of list
          :return: returns id
@@ -792,9 +829,55 @@ class Xapi:
         return stdout
 
 
+    def rest_api_v3(self, path, operation="POST", data="default", access_token="default", return_output="default",
+                        result_code="default", role="default"):
+        """
+        - This Keyword is used to perform a rest-api operation and return the output or -1 based on 'result_code'
+
+        :param path: API Endpoint path
+        :param operation: API Operation(GET/POST/DELETE/PUT/PATCH)
+        :return: returns output or -1
+        """
+
+        self.utils.print_info("Return Output :", return_output)
+        self.utils.print_info("Role : ", role)
+
+        self.utils.print_info("URL Path : ", path)
+        self.utils.print_info("Data: ", data)
+
+        if access_token == "default":
+            access_token = BuiltIn().get_variable_value("${ACCESS_TOKEN}")
+
+        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        url = base_url + path
+
+        if data == "default":
+            curl_cmd = f"curl -v --location --request {operation} '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' "
+        else:
+            curl_cmd = f"curl -v --location --request {operation} '{url}' -H 'Content-Type: application/json' -H 'Authorization: Bearer {access_token}' -d " + data
+
+        self.utils.print_info("*****************************")
+        self.utils.print_info("Curl Command: ", curl_cmd.encode())
+
+        process = subprocess.Popen(curl_cmd, shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+
+        self.utils.print_info("stdout: ", stdout)
+        self.utils.print_info("stderr: ", stderr)
+
+        if result_code:
+            if 'HTTP/1.1 202' or 'HTTP/2 200' or 'HTTP/2 201' in str(stderr):
+                return stdout
+            else:
+                return -1
+
+
     def get_index_nw_policy_name_from_list_json(self, json_data, index):
         """
          - This Keyword is used to get the specific network policy name for the specified index of list json
+
          :param json_data:  the list of json data
          :param index: the index of list
          :return: returns id
@@ -805,6 +888,7 @@ class Xapi:
     def get_index_device_admin_state_from_list_json(self, json_data, index):
         """
         - This Keyword is used to get the specific device admin state for the specified index of list json
+
         :param json_data:  the list of json data
         :param index: the index of list
         :return: returns id
@@ -814,8 +898,20 @@ class Xapi:
     def get_index_connected_status_from_list_json(self, json_data, index):
         """
         - This Keyword is used to get the specific connected status of the device for the specified index of list json
+
         :param json_data:  the list of json data
         :param index: the index of list
         :return: returns id
         """
         return list(map(extract_connected_status_from_json, json_data))[int(index)] if len(json_data) > 0 else 0
+
+    def get_json_value_from_list(self, json_list, key, list_index=0):
+        """
+        - This Keyword is used to get the value from JSON list for the specific key.
+
+        :param json_list: JSON List
+        :param key: Key name
+        :param list_index: List Index
+        :return: JSON Value from list
+        """
+        return json_list[list_index][key]
