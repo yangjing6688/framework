@@ -52,9 +52,6 @@ class Device360WebElements(Device360WebElementDefs):
     def get_system_info_button(self):
         return self.weh.get_element(self.system_info_button)
 
-    def get_system_info_device_host_name(self):
-        return self.weh.get_element(self.system_info_device_host_name)
-
     def get_system_info_network_policy(self):
         return self.weh.get_element(self.system_info_network_policy)
 
