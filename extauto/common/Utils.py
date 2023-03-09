@@ -3,11 +3,15 @@ import os
 import random
 import string
 from datetime import datetime, timedelta
-from ExtremeAutomation.Library.Logger.RobotLogger import Logging
 from robot.libraries.BuiltIn import BuiltIn
 from selenium.common.exceptions import NoSuchElementException
 from extauto.common.ConfigFileHelper import ConfigFileHelper
 import time
+try:
+    getattr(BuiltIn, "should_not_be_true")
+    from ExtremeAutomation.Library.Logger.RobotLogger import Logging
+except AttributeError:
+    from extauto.common.Logging import Logging
 
 
 class Utils:
