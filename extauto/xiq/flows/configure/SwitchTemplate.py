@@ -2605,13 +2605,17 @@ class SwitchTemplate(object):
 
         latest_image_version = specific_firmware_items[-1].text
 
+        image_versions = []
         pattern = re.compile(img_pattern)
+        for version in specific_firmware_items:
+            if pattern.match(version.text) is not None:
+                image_versions.append(version.text)
         if pattern.match(latest_image_version) is None:
             kwargs[
                 'fail_msg'] = f"'get_latest_firmware_version()' failed. Image {latest_image_version} doesn't correspond with current template"
             self.common_validation.fault(**kwargs)
 
-        return latest_image_version
+        return latest_image_version.strip(), image_versions
 
     def select_specific_firmware_version(self, sw_model, current_image_version=None, select_current=False, **kwargs):
         """
