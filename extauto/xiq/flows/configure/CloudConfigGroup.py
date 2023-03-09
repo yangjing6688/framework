@@ -439,7 +439,7 @@ class CloudConfigGroup(object):
         - Keyword Usage
         - ``Edit Cloud Config Group      ${CCG_NAME}        ${Option}        ${AP_SERIAL}``
 
-        :param update_method:
+        :param update_method: Perform Complete update or delta update
         :param policy: Name of the CCG Group
         :param option: Whether to add new APs or remove AP from the CCG Group.
         :param ap_serials:[List] Single or multiple APs who are members of the Group
