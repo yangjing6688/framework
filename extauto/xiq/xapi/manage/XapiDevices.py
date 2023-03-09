@@ -118,7 +118,7 @@ class XapiDevices(XapiHelper):
             xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(dell=dell_payload)
         elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
             self.utils.print_info("Detected Wing, creating payload")
-            dell_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqWingDevices(sn_to_st={device_serial : device_mac})
+            wing_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqWingDevices(sn_to_mac={device_serial : device_mac})
             xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(wing=wing_payload)
 
         # Get the configuration from the Global varibles
