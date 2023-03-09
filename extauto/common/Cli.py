@@ -2847,6 +2847,7 @@ class Cli(object):
                 self.commonValidation.failed(**kwargs)
                 return -1
 
+
     def show_maclocking_on_the_ports_in_cli(self, dut, **kwargs):
         """
          - This keyword will return a list of pairs(port number and mac locking state for each port) for EXOS devices.
