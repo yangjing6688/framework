@@ -89,13 +89,11 @@ class Client:
             sleep(5)
             client_status = self.client_web_elements.get_connection_status(client_row)
             if "CONNECTED" in client_status:
-                self.utils.print_info("Client Status: Connected")
                 kwargs['pass_msg'] = "Client Status: Connected"
                 self.commonValidation.passed(**kwargs)
                 return 1
         else:
-            self.utils.print_info("Client is not present in the historical grid")
-            kwargs['fail_msg'] = "get_client_status() -> Client is not present in the historical grid"
+            kwargs['fail_msg'] = "Client is not present in the historical grid"
             self.commonValidation.failed(**kwargs)
             return -1
 
@@ -173,8 +171,7 @@ class Client:
                         self.utils.print_info(f"{key}:{value}")
 
                     return client_details
-        self.utils.print_info("Client is not present in the client grid")
-        kwargs['fail_msg'] = "get_real_time_client_details() -> Client is not present in the historical grid"
+        kwargs['fail_msg'] = "Client is not present in the historical grid"
         self.commonValidation.failed(**kwargs)
         return -1
 
@@ -241,7 +238,7 @@ class Client:
         if not client_row:
             self.utils.print_info("client:{} deleted".format(client_mac))
             return 1
-        kwargs['fail_msg'] = "delete_client_historical() -> Client is not present in the historical grid"
+        kwargs['fail_msg'] = "Client is not present in the historical grid"
         self.commonValidation.failed(**kwargs)
         return -1
 
@@ -308,7 +305,7 @@ class Client:
         if not client_row:
             self.utils.print_info("client:{} deleted".format(client_mac))
             return 1
-        kwargs['fail_msg'] = "delete_client_realtime() -> Could Not Clear the client from GDC"
+        kwargs['fail_msg'] = "Could Not Clear the client from GDC"
         self.commonValidation.failed(**kwargs)
         return -1
 
@@ -382,8 +379,7 @@ class Client:
             client360_details = self._get_client360_details()
             return client360_details
         else:
-            self.utils.print_info(f"Client360 Information For:{client_mac} is not Found")
-            kwargs['fail_msg'] = f"delete_client_realtime() -> Client360 Information For:{client_mac} is not Found"
+            kwargs['fail_msg'] = f"Client360 Information For:{client_mac} is not Found"
             self.commonValidation.failed(**kwargs)
             return -1
 
