@@ -71,8 +71,7 @@ class Applications(object):
             self.commonValidation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to add custom application")
-            kwargs['fail_msg'] = "add_custom_applications() -> Unable to add custom application"
+            kwargs['fail_msg'] = "Unable to add custom application"
             self.commonValidation.failed(**kwargs)
             return -1
 
@@ -129,8 +128,7 @@ class Applications(object):
             self.commonValidation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to edit custom application")
-            kwargs['fail_msg'] = "edit_custom_applications() -> Unable to edit custom application"
+            kwargs['fail_msg'] = "Unable to edit custom application"
             self.commonValidation.failed(**kwargs)
             return -1
 
@@ -180,7 +178,6 @@ class Applications(object):
             self.commonValidation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Unable to delete custom application")
-            kwargs['fail_msg'] = "delete_custom_applications() -> Unable to delete custom application"
+            kwargs['fail_msg'] = "Unable to delete custom application"
             self.commonValidation.failed(**kwargs)
             return -1

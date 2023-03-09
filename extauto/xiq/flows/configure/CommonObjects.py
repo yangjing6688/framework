@@ -171,8 +171,7 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                kwargs['fail_msg'] = "delete_ssid() failed. " \
-                                     f"Cannot be deleted because this item is still used by another item {value}"
+                kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
                 self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
@@ -181,7 +180,7 @@ class CommonObjects(object):
                 return 1
 
         if self._search_common_object(ssid_name):
-            kwargs['fail_msg'] = "delete_ssid() failed. Unsuccessfully deleted the SSID!"
+            kwargs['fail_msg'] = "Unable to delete the SSID!"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -246,8 +245,7 @@ class CommonObjects(object):
         self.utils.print_info(f"Tooltip text list:{tool_tp_text}")
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item " in value:
-                kwargs['fail_msg'] = "delete_ssids() failed. " \
-                                     f"Cannot be deleted because this item is still used by another item {value}"
+                kwargs['fail_msg'] = f"Cannot be deleted because this item is still used by another item {value}"
                 self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted SSID successfully" in value:
@@ -257,7 +255,7 @@ class CommonObjects(object):
 
         for ssid in ssids:
             if self._search_common_object(ssid):
-                kwargs['fail_msg'] = "delete_ssids() failed. Unsuccessfully deleted SSIDs"
+                kwargs['fail_msg'] = "Unable to delete SSIDs"
                 self.common_validation.failed(**kwargs)
                 return -1
         kwargs['pass_msg'] = "Successfully deleted SSIDs"
@@ -313,8 +311,7 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
         for value in tool_tp_text:
             if "cannot be removed because it is used by another object" in value:
-                kwargs['fail_msg'] = "delete_captive_web_portal() failed. " \
-                                     "Cannot be removed because it is used by another object"
+                kwargs['fail_msg'] = "Cannot be removed because it is used by another object"
                 self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted captive web portal successfully" in value:
@@ -322,7 +319,7 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "delete_captive_web_portal() failed. Failed to delete captive web portal from the grid"
+        kwargs['fail_msg'] = "Failed to delete captive web portal from the grid"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -360,8 +357,7 @@ class CommonObjects(object):
         self.utils.print_info(tool_tp_text)
         for value in tool_tp_text:
             if "cannot be removed because it is used by another object" in value:
-                kwargs['fail_msg'] = "delete_captive_web_portals() failed. " \
-                                     "Cannot be removed because it is used by another object"
+                kwargs['fail_msg'] = "Cannot be removed because it is used by another object"
                 self.common_validation.fault(**kwargs)
                 return -1
             elif "Deleted captive web portal successfully" in value:
@@ -369,7 +365,7 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "delete_captive_web_portals() failed. Failed to delete captive web portals from the grid"
+        kwargs['fail_msg'] = "Failed to delete captive web portals from the grid"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -427,8 +423,7 @@ class CommonObjects(object):
         for value in tool_tp_text[::-1]:
             if "The External RADIUS Server cannot be removed because it is used by another object" in value:
                 self.utils.print_info(value)
-                kwargs['fail_msg'] = "delete_external_radius_server() failed. " \
-                                     "The External RADIUS Server cannot be removed because it is used by another object"
+                kwargs['fail_msg'] = "The External RADIUS Server cannot be removed because it is used by another object"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -458,7 +453,7 @@ class CommonObjects(object):
             self.utils.print_info("Delete Radius Server Group")
             self.radius_server.delete_radius_server_group(radius_group_name)
         except Exception as e:
-            kwargs['fail_msg'] = f"delete_radius_group() failed. Actual error is :- {e}"
+            kwargs['fail_msg'] = f"Actual error is :- {e}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -489,8 +484,7 @@ class CommonObjects(object):
 
         for value in tool_tp_text[::-1]:
             if "The IP Object/Hostname cannot be removed because it is used by another object" in value:
-                kwargs['fail_msg'] = "delete_ip_object_hostname() failed. " \
-                                     "The IP Object/Hostname cannot be removed because it is used by another object"
+                kwargs['fail_msg'] = "The IP Object/Hostname cannot be removed because it is used by another object"
                 self.common_validation.fault(**kwargs)
                 return -1
             elif "IP object or host name was deleted successfully" in value:
@@ -498,8 +492,7 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "delete_ip_object_hostname() failed." \
-                             "Failed to delete the ip object or hostname from Basic-->IP Objects/ Hostname"
+        kwargs['fail_msg'] = "Failed to delete the ip object or hostname from Basic-->IP Objects/ Hostname"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -645,8 +638,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "edit_captive_web_portal_social_login_configuration() failed." \
-                                 "Failed to save captive web portal."
+            kwargs['fail_msg'] = "Failed to save captive web portal."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -681,7 +673,7 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "delete_aaa_server_profile() failed. Failed to delete AAA server profile."
+        kwargs['fail_msg'] = "Failed to delete AAA server profile."
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -715,7 +707,7 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "delete_ad_server() failed. Failed to delete AD server."
+        kwargs['fail_msg'] = "Failed to delete AD server."
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -760,7 +752,7 @@ class CommonObjects(object):
                             self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows, delay=3)
                             current_page += 1
                         else:
-                            kwargs['fail_msg'] = "delete_port_type_profile() failed. Did not find next page button!"
+                            kwargs['fail_msg'] = "Did not find next page button!"
                             self.common_validation.fault(**kwargs)
                             return -1
                     else:
@@ -813,7 +805,7 @@ class CommonObjects(object):
                 return 1
 
         if self._search_common_object(sub_network_name):
-            kwargs['fail_msg'] = "delete_sub_network_profile() failed. Unsuccessfully deleted the SUB NETWORK SPACE!"
+            kwargs['fail_msg'] = "Unable to delete the SUB NETWORK SPACE!"
             self.common_validation.failed(**kwargs)
             return -1
         else:
@@ -853,7 +845,7 @@ class CommonObjects(object):
                 return 1
 
         if self._search_common_object(vlan_name):
-            kwargs['fail_msg'] = "delete_vlan_profile() failed. Unsuccessfully deleted the Vlan object"
+            kwargs['fail_msg'] = "Unable to delete the Vlan object"
             self.common_validation.failed(**kwargs)
             return -1
         else:
@@ -889,7 +881,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "delete_all_vlan_profiles() failed. Unable to gather VLANs"
+            kwargs['fail_msg'] = "Unable to gather VLANs"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -944,8 +936,7 @@ class CommonObjects(object):
 
         for value in tool_tp_text:
             if "cannot be deleted because this item is still used by another item" in value:
-                kwargs['fail_msg'] = "delete_wips_policy_profile() failed. " \
-                                     "Cannot be deleted because this item is still used by another item"
+                kwargs['fail_msg'] = "Cannot be deleted because this item is still used by another item"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -991,12 +982,11 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
-            kwargs['fail_msg'] = "delete_ap_template_profile() failed. " \
-                                 "The Device Template cannot be removed because it is used by another object"
+            kwargs['fail_msg'] = "The Device Template cannot be removed because it is used by another object"
             self.common_validation.fault(**kwargs)
             return -1
 
-        kwargs['fail_msg'] = "delete_ap_template_profile() failed. Failed to delete ap template profile."
+        kwargs['fail_msg'] = "Failed to delete ap template profile."
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -1110,7 +1100,7 @@ class CommonObjects(object):
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
-                        kwargs['fail_msg'] = "delete_switch_template() failed. Did not find row's check box!"
+                        kwargs['fail_msg'] = "Did not find row's check box!"
                         self.common_validation.fault(**kwargs)
                         return -1
 
@@ -1123,7 +1113,7 @@ class CommonObjects(object):
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        kwargs['fail_msg'] = "delete_switch_template() failed. Didn't find the delete button!"
+                        kwargs['fail_msg'] = "Didn't find the delete button!"
                         self.common_validation.fault(**kwargs)
                         return -1
 
@@ -1139,8 +1129,7 @@ class CommonObjects(object):
                             self.auto_actions.click(next_page_button)
                             current_page += 1
                         else:
-                            kwargs['fail_msg'] = "delete_switch_template() failed." \
-                                                 "Did not manage to find the next page button"
+                            kwargs['fail_msg'] = "Did not manage to find the next page button"
                             self.common_validation.fault(**kwargs)
                             return -1
                     else:
@@ -1192,7 +1181,7 @@ class CommonObjects(object):
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
-                        kwargs['fail_msg'] = "delete_supplemental_cli_profile() failed. Did not find row's check box!"
+                        kwargs['fail_msg'] = "Did not find row's check box!"
                         self.common_validation.fault(**kwargs)
                         return -1
 
@@ -1215,7 +1204,7 @@ class CommonObjects(object):
                         self.common_validation.passed(**kwargs)
                         return 1
                     else:
-                        kwargs['fail_msg'] = "delete_supplemental_cli_profile() failed. Didn't find the delete button!"
+                        kwargs['fail_msg'] = "Didn't find the delete button!"
                         self.common_validation.fault(**kwargs)
                         return -1
 
@@ -1231,12 +1220,11 @@ class CommonObjects(object):
                             self.auto_actions.click(next_page_button)
                             current_page += 1
                         else:
-                            kwargs['fail_msg'] = "delete_supplemental_cli_profile() failed." \
-                                                 "Did not manage to find the next page button"
+                            kwargs['fail_msg'] = "Did not manage to find the next page button"
                             self.common_validation.fault(**kwargs)
                             return -1
                     else:
-                        kwargs['fail_msg'] = "delete_supplemental_cli_profile() failed. Did not find next page button!"
+                        kwargs['fail_msg'] = "Did not find next page button!"
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
@@ -1359,7 +1347,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "create_open_ssid_in_common_objects() failed. SSID Name is not created"
+            kwargs['fail_msg'] = "SSID Name is not created"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1379,8 +1367,7 @@ class CommonObjects(object):
         sleep(5)
 
         if not self._search_common_object(ssid_name):
-            kwargs['fail_msg'] = "clone_open_ssid_in_common_objects() failed. " \
-                                 f"SSID Name {ssid_name} doesn't exist in the list to clone"
+            kwargs['fail_msg'] = f"SSID Name {ssid_name} doesn't exist in the list to clone"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -1411,7 +1398,7 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "clone_open_ssid_in_common_objects() failed. Failed to clone Open SSID"
+        kwargs['fail_msg'] = "Failed to clone Open SSID"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -1485,11 +1472,11 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             elif "Radio profile cannot be saved" in value:
-                kwargs['fail_msg'] = "create_radio_profile() failed. Radio profile cannot be saved"
+                kwargs['fail_msg'] = "Radio profile cannot be saved"
                 self.common_validation.fault(**kwargs)
                 return -1
 
-        kwargs['fail_msg'] = "create_radio_profile() failed. Failed to create radio profile"
+        kwargs['fail_msg'] = "Failed to create radio profile"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -1576,7 +1563,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "add_ap_template_from_common_object() failed. Failed to add AP template"
+            kwargs['fail_msg'] = "Failed to add AP template"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1637,7 +1624,7 @@ class CommonObjects(object):
             return wifi_interface_config
 
         except Exception as e:
-            kwargs['fail_msg'] = f"get_ap_template_wifi() failed. Actual error is :- {e}"
+            kwargs['fail_msg'] = f"Actual error is :- {e}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -1701,7 +1688,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "set_ap_template_wifi() failed. Failed to set AP template"
+            kwargs['fail_msg'] = "Failed to set AP template"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1771,7 +1758,7 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_enable_sdr())
 
         except Exception as e:
-            kwargs['fail_msg'] = f"_set_ap_template_wifi0() failed. Actual error is :- {e}"
+            kwargs['fail_msg'] = f"Actual error is :- {e}"
             self.common_validation.fault(**kwargs)
             return -1
         return 1
@@ -1833,7 +1820,7 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor())
 
         except Exception as e:
-            kwargs['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
+            kwargs['fail_msg'] = f"Actual error is :- {e}"
             self.common_validation.fault(**kwargs)
             return -1
         return 1
@@ -1884,7 +1871,7 @@ class CommonObjects(object):
                         self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor())
 
         except Exception as e:
-            kwargs['fail_msg'] = f"_set_ap_template_wifi1() failed. Actual error is :- {e}"
+            kwargs['fail_msg'] = f"Actual error is :- {e}"
             self.common_validation.fault(**kwargs)
             return -1
         return 1
@@ -2549,7 +2536,7 @@ class CommonObjects(object):
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_ap_template_cdp_eth1())
         except Exception as e:
             self.utils.print_info("Requested ethernet does not exist for this model of AP")
-            kwargs['fail_msg'] = f"_config_ap_template_wired() failed. Actual error is :- {e}"
+            kwargs['fail_msg'] = f"Actual error is :- {e}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2583,8 +2570,7 @@ class CommonObjects(object):
             return 1
 
         else:
-            kwargs['fail_msg'] = "check_ap_template_in_common_object() failed. " \
-                                 f"AP Template {ap_template_name} not found in the CommonObject"
+            kwargs['fail_msg'] = f"AP Template {ap_template_name} not found in the CommonObject"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2637,12 +2623,11 @@ class CommonObjects(object):
             return 1
 
         elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
-            kwargs['fail_msg'] = "delete_ap_templates() failed. " \
-                                 "The Device Template cannot be removed because it is used by another object"
+            kwargs['fail_msg'] = "The Device Template cannot be removed because it is used by another object"
             self.common_validation.fault(**kwargs)
             return -1
 
-        kwargs['fail_msg'] = "delete_ap_templates() failed. Failed to delete AP templates"
+        kwargs['fail_msg'] = "Failed to delete AP templates"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -2688,7 +2673,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "delete_all_ap_templates() failed. Failed to delete all ap templates"
+            kwargs['fail_msg'] = "Failed to delete all ap templates"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2724,7 +2709,7 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             except Exception:
-                kwargs['fail_msg'] = "delete_all_client_mode_profiles() failed. Unable to delete Client Mode Profiles"
+                kwargs['fail_msg'] = "Unable to delete Client Mode Profiles"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -2849,12 +2834,11 @@ class CommonObjects(object):
                     self.common_validation.passed(**kwargs)
                     return 1
 
-            kwargs['fail_msg'] = "add_imago_tag_profile() failed. " \
-                                 f"Did not find Imago Tag Profile {profile_name} Configured"
+            kwargs['fail_msg'] = f"Did not find Imago Tag Profile {profile_name} Configured"
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['fail_msg'] = "add_imago_tag_profile() failed. Did not find any Imago Tag Profile Rows"
+            kwargs['fail_msg'] = "Did not find any Imago Tag Profile Rows"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2885,7 +2869,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "delete_imago_tag_profile() failed. Unable to Delete Image Tag Policy"
+            kwargs['fail_msg'] = "Unable to Delete Image Tag Policy"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -2928,7 +2912,7 @@ class CommonObjects(object):
                     self.screen.save_screen_shot()
                     sleep(2)
         else:
-            kwargs['fail_msg'] = "edit_imago_tag_profile() failed. Imago Tag Profile Rows Not Found on Grid"
+            kwargs['fail_msg'] = "Imago Tag Profile Rows Not Found on Grid"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2982,7 +2966,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "edit_imago_tag_profile() failed. Unable to Edit Image Tag Policy successfully"
+            kwargs['fail_msg'] = "Unable to Edit Image Tag Policy successfully"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3073,8 +3057,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "create_ip_firewall_policy_for_applications() failed. " \
-                                 "Unable Create IP firewall policy with Application"
+            kwargs['fail_msg'] = "Unable Create IP firewall policy with Application"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3122,8 +3105,7 @@ class CommonObjects(object):
         if not fw_policy_rows:
             self.auto_actions.click(self.cobj_web_elements.get_firewall_policy_select_dialog_cancel_button())
             sleep(2)
-            kwargs['fail_msg'] = "select_ip_firewall_policy_for_new_user_profile() failed." \
-                                 f"Firewall Policy: {firewall_policy_name} doesn't exist"
+            kwargs['fail_msg'] = f"Firewall Policy: {firewall_policy_name} doesn't exist"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3152,8 +3134,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "select_ip_firewall_policy_for_new_user_profile() failed. " \
-                                 "Unable to select IP firewall policy Under New User Profile"
+            kwargs['fail_msg'] = "Unable to select IP firewall policy Under New User Profile"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3184,7 +3165,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "delete_management_options() failed. Unable to Delete Management options"
+            kwargs['fail_msg'] = "Unable to Delete Management options"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3218,8 +3199,7 @@ class CommonObjects(object):
                     if enable_legacy_http_redirect_checkbox:
                         self.auto_actions.click(enable_legacy_http_redirect_checkbox)
                     else:
-                        kwargs['fail_msg'] = "add_network_management_options() failed. " \
-                                             "Unable to enable legacy http redirect"
+                        kwargs['fail_msg'] = "Unable to enable legacy http redirect"
                         self.common_validation.fault(**kwargs)
                         return -1
                 self.utils.print_info("Saving configuration")
@@ -3230,17 +3210,15 @@ class CommonObjects(object):
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    kwargs['fail_msg'] = "add_network_management_options() failed. Unable to save configuration"
+                    kwargs['fail_msg'] = "Unable to save configuration"
                     self.common_validation.fault(**kwargs)
                     return -1
             else:
-                kwargs['fail_msg'] = "add_network_management_options() failed. " \
-                                     "Unable to set  Name field for new Add Management Options Entry"
+                kwargs['fail_msg'] = "Unable to set Name field for new Add Management Options Entry"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "add_network_management_options() failed. " \
-                                 "Unable to click on the Add Management Options Button"
+            kwargs['fail_msg'] = "Unable to click on the Add Management Options Button"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3285,29 +3263,28 @@ class CommonObjects(object):
                                 self.common_validation.passed(**kwargs)
                                 return 1
                             else:
-                                kwargs['fail_msg'] = "delete_user_profile() failed." \
-                                                     "Unable to click yes on the confirm delete popup"
+                                kwargs['fail_msg'] = "Unable to click yes on the confirm delete popup"
                                 self.common_validation.fault(**kwargs)
                                 return -1
                         else:
-                            kwargs['fail_msg'] = "delete_user_profile() failed. Unable to click the delete button"
+                            kwargs['fail_msg'] = "Unable to click the delete button"
                             self.common_validation.fault(**kwargs)
                             return -1
                     else:
-                        kwargs['fail_msg'] = "delete_user_profile() failed. Unable to select the row"
+                        kwargs['fail_msg'] = "Unable to select the row"
                         self.common_validation.fault(**kwargs)
                         return -1
 
             if not profile_was_located:
-                kwargs['fail_msg'] = f"delete_user_profile() failed. Profile {profile} was NOT found"
+                kwargs['fail_msg'] = f"Profile {profile} was NOT found"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "delete_user_profile() failed. Unable to gather user profiles"
+            kwargs['fail_msg'] = "Unable to gather user profiles"
             self.common_validation.fault(**kwargs)
             return -1
 
-        kwargs['fail_msg'] = "delete_user_profile() failed. Failed to delete user profile"
+        kwargs['fail_msg'] = "Failed to delete user profile"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -3369,8 +3346,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "delete_ip_firewall_policy() failed. " \
-                                 f"Unable to Delete IP Firewall Policy {ip_firewall_policy_name}"
+            kwargs['fail_msg'] = f"Unable to Delete IP Firewall Policy {ip_firewall_policy_name}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3453,12 +3429,11 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_or_hostname() failed." \
-                                     "Failed to add IP Object with IP or Host Name"
+                kwargs['fail_msg'] = "Failed to add IP Object with IP or Host Name"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_or_hostname() failed. Add button didn't found"
+            kwargs['fail_msg'] = "Add button didn't found"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3524,12 +3499,11 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_network() failed." \
-                                     "Failed to add IP Object with IP Network"
+                kwargs['fail_msg'] = "Failed to add IP Object with IP Network"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_network() failed. Add button didn't found"
+            kwargs['fail_msg'] = "Add button didn't found"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3583,7 +3557,7 @@ class CommonObjects(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "add_ip_object_hostname_with_ip_range() failed. Add button didn't found"
+            kwargs['fail_msg'] = "Add button didn't found"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -3836,8 +3810,7 @@ class CommonObjects(object):
                 self.utils.print_info(f"Click LINK button {row_loop_num + 1} times ...")
                 self.auto_actions.click(self.cobj_web_elements.get_ip_object_hostname_classification_rule_page_link_button())
                 if row_loop_num > max_cls_rules:
-                    kwargs['fail_msg'] = "_ip_object_hostname_add_objects_sub_select_cls_rule() failed." \
-                                         "There is no any more classified rule can be selected"
+                    kwargs['fail_msg'] = "There is no any more classified rule can be selected"
                     self.common_validation.fault(**kwargs)
                     return -1
             return 1
@@ -3916,12 +3889,11 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "ip_object_hostname_delete_object_profile() failed." \
-                                     "Select NO button to cancel the deleting operation"
+                kwargs['fail_msg'] = "Select NO button to cancel the deleting operation"
                 self.common_validation.fault(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = "ip_object_hostname_delete_object_profile() failed. There is no IP object profile finding"
+            kwargs['fail_msg'] = "There is no IP object profile finding"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -3963,7 +3935,7 @@ class CommonObjects(object):
                 self.common_validation.passed(**kwargs)
                 return 1
         else:
-            kwargs['fail_msg'] = "ip_object_hostname_update_object_profile() failed. Didn't find IP Object"
+            kwargs['fail_msg'] = "Didn't find IP Object"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -4005,8 +3977,7 @@ class CommonObjects(object):
             self.utils.print_info(f"The items list of object profile: {object_items_list}")
             return object_items_list
         else:
-            kwargs['fail_msg'] = "ip_object_hostname_list_all_objects_in_profile() failed." \
-                                 f"The IP Object profile {ip_object_profile_name} is NOT found, can NOT list the items"
+            kwargs['fail_msg'] = f"The IP Object profile {ip_object_profile_name} is NOT found, can NOT list the items"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -4082,7 +4053,7 @@ class CommonObjects(object):
                                 found_template = True
                                 break
                             else:
-                                kwargs['fail_msg'] = "delete_switch_templates() failed. Didn't find the delete button!"
+                                kwargs['fail_msg'] = "Didn't find the delete button!"
                                 self.common_validation.fault(**kwargs)
                                 return -1
                         else:
@@ -4093,8 +4064,7 @@ class CommonObjects(object):
                     self.utils.print_info('len', len(page_number), cnt_page )
                     if len(page_number) == cnt_page:
                         self.utils.print_info(f"Last page is {cnt_page}")
-                        kwargs['fail_msg'] = "delete_switch_templates() failed." \
-                                             f"Template Name: {template_name} is not present on all pages."
+                        kwargs['fail_msg'] = f"Template Name: {template_name} is not present on all pages."
                         self.common_validation.failed(**kwargs)
                         return -1
                     self.utils.print_info(f"Template Name: {template_name} is not present on page: ")
@@ -4103,7 +4073,7 @@ class CommonObjects(object):
                         self.utils.print_info("Select next page")
                         self.auto_actions.click(next_button)
                     else:
-                        kwargs['fail_msg'] = "delete_switch_templates() failed. Next button not found "
+                        kwargs['fail_msg'] = "Next button not found "
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
@@ -4161,7 +4131,7 @@ class CommonObjects(object):
                                 self.utils.wait_till(self.cobj_web_elements.get_common_object_grid_rows, delay=3)
                                 current_page += 1
                             else:
-                                kwargs['fail_msg'] = "delete_port_type_profiles() failed. Did not find next page button!"
+                                kwargs['fail_msg'] = "Did not find next page button!"
                                 self.common_validation.fault(**kwargs)
                                 return -1
                         else:

@@ -124,7 +124,7 @@ class MuCaptivePortal(MuCPWebElement):
             self.utils.print_info(f"User PPSK Passcode for PPSK Network:{passcode_el.text} ")
             return passcode_el.text
 
-        kwargs['fail_msg'] = "'get_ppsk_passcode_user_registration()' -> Could not get PPSK Passcode for PPSK Network"
+        kwargs['fail_msg'] = "Could not get PPSK Passcode for PPSK Network"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -172,7 +172,7 @@ class MuCaptivePortal(MuCPWebElement):
         if "CNN International - Breaking News, US News, World News and Video" in page_title:
             return 1
         else:
-            kwargs['fail_msg'] = "'check_successful_page_title()' -> 'CNN International - Breaking News, US News," \
+            kwargs['fail_msg'] = "'CNN International - Breaking News, US News," \
                                  f" World News and Video' not in - {page_title}"
             self.common_validation.failed(**kwargs)
             return -1
@@ -230,7 +230,7 @@ class MuCaptivePortal(MuCPWebElement):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_facebook()' -> 'Network Access Portal' not in - {page_title}"
+            kwargs['fail_msg'] = f"'Network Access Portal' not in - {page_title}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -295,7 +295,7 @@ class MuCaptivePortal(MuCPWebElement):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_google_account()' -> 'Login Successful' and 'connected to the network' not in - {msg}"
+            kwargs['fail_msg'] = f"'Login Successful' and 'connected to the network' not in - {msg}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -340,7 +340,7 @@ class MuCaptivePortal(MuCPWebElement):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'validate_cwp_social_login_with_linkedin_account()' -> 'Network Access Portal' not in - {page_title}"
+            kwargs['fail_msg'] = f"'Network Access Portal' not in - {page_title}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -392,12 +392,12 @@ class MuCaptivePortal(MuCPWebElement):
             reply_msg_text = self.get_user_registration_reply_msg().text
             if "The user name you filled exceeds required length" in reply_msg_text:
                 self.utils.print_info(f'{reply_msg_text}')
-                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> 'We are unable to' appears in - {reply_msg_text}"
+                kwargs['fail_msg'] = f"'We are unable to' appears in - {reply_msg_text}"
                 self.common_validation.fault(**kwargs)
                 return -1, reply_msg_text
             if "We are unable to" in reply_msg_text:
                 self.utils.print_info(f'{reply_msg_text}')
-                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> 'We are unable to' appears in - {reply_msg_text}"
+                kwargs['fail_msg'] = f"'We are unable to' appears in - {reply_msg_text}"
                 self.common_validation.fault(**kwargs)
                 return -1, reply_msg_text
 
@@ -405,7 +405,7 @@ class MuCaptivePortal(MuCPWebElement):
         for el in field_err_els:
             if el.is_displayed():
                 self.utils.print_info(el.text)
-                kwargs['fail_msg'] = f"'guest_user_self_registration()' -> {el.text}"
+                kwargs['fail_msg'] = f"{el.text}"
                 self.common_validation.failed(**kwargs)
                 return -1, el.text
 
@@ -494,8 +494,7 @@ class MuCaptivePortal(MuCPWebElement):
             msg = self.get_pin_text_area().text
             self.utils.print_info(msg)
         if "PIN is not valid. Please request a new one" in msg:
-            kwargs['fail_msg'] = "'enter_cloud_pin()' -> 'PIN is not valid. Please request a new one'" \
-                                 f" is in message: {msg}"
+            kwargs['fail_msg'] = f"'PIN is not valid. Please request a new one' is in message: {msg}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -554,7 +553,6 @@ class MuCaptivePortal(MuCPWebElement):
                 self.common_validation.passed(**kwargs)
                 return 1
         else:
-            kwargs['fail_msg'] = "'check_cwp_social_login_term_and_condition_page_text()' -> Could not get the " \
-                                 "term and condition page text"
+            kwargs['fail_msg'] = "Could not get the term and condition page text"
             self.common_validation.failed(**kwargs)
             return -1

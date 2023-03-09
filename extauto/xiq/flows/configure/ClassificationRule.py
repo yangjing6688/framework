@@ -62,7 +62,7 @@ class ClassificationRule(object):
         if self.auto_actions.select_drop_down_options(classification_rule_option, "Cloud Config Group"):
             self.utils.print_info("Selected CCG Classification Rule")
         else:
-            kwargs['fail_msg'] = "add_classification_rule_with_ccg() failed. Not able to Select CCG Classification Rule"
+            kwargs['fail_msg'] = "Not able to Select CCG Classification Rule"
             self.common_validation.fault(**kwargs)
             return -1
         if match_type_flag.upper() == "YES":
@@ -78,8 +78,7 @@ class ClassificationRule(object):
         if self.auto_actions.select_drop_down_options(match_type_options, match_type):
             self.utils.print_info(f"Selected CCG Match Type {match_type}")
         else:
-            kwargs['fail_msg'] = "add_classification_rule_with_ccg() failed. " \
-                                 f"Not able to Select CCG Match Type {match_type}"
+            kwargs['fail_msg'] = f"Not able to Select CCG Match Type {match_type}"
             self.common_validation.fault(**kwargs)
             return -1
         self.utils.print_info(f"Selecting CCG policy :{ccg_policy}")
@@ -93,7 +92,7 @@ class ClassificationRule(object):
         if self.auto_actions.select_drop_down_options(ccg_policy_items, ccg_policy):
             self.utils.print_info(f"Selected CCG policy from drop down:{ccg_policy}")
         else:
-            kwargs['fail_msg'] = "add_classification_rule_with_ccg() failed. CCG policy is not present in drop down"
+            kwargs['fail_msg'] = "CCG policy is not present in drop down"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -115,7 +114,7 @@ class ClassificationRule(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "add_classification_rule_with_ccg() failed. Classification Rule not saved"
+        kwargs['fail_msg'] = "Classification Rule not saved"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -155,16 +154,14 @@ class ClassificationRule(object):
         if self.auto_actions.select_drop_down_options(classification_rule_option, "Device Location"):
             self.utils.print_info("Selected Device Location Classification Rule")
         else:
-            kwargs['fail_msg'] = "add_classification_rule_with_location() failed. " \
-                                   "Not able to Select Device Location Classification Rule"
+            kwargs['fail_msg'] = "Not able to Select Device Location Classification Rule"
             self.common_validation.fault(**kwargs)
             return -1
 
         if self._assign_locations_to_classification_rule(location):
             self.utils.print_info("Location got assigned to Classification Rule")
         else:
-            kwargs['fail_msg'] = "add_classification_rule_with_location() failed." \
-                                   "Location assignment to Classification Rule is not proper"
+            kwargs['fail_msg'] = "Location assignment to Classification Rule is not proper"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -181,7 +178,7 @@ class ClassificationRule(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "add_classification_rule_with_location() failed. Classification Rule not saved"
+        kwargs['fail_msg'] = "Classification Rule not saved"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -225,16 +222,14 @@ class ClassificationRule(object):
             if self.auto_actions.select_drop_down_options(classification_rule_option, "IP Address"):
                 self.utils.print_info("Selected IP Address Classification Rule")
             else:
-                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
-                                             "Not able to Select Device Location Classification Rule"
+                kwargs['fail_msg'] = "Not able to Select Device Location Classification Rule"
                 self.common_validation.fault(**kwargs)
                 return -1
 
             if self._assign_ip_address_to_classification_rule(**ip_object_rule):
                 self.utils.print_info("IP Address got assigned to Classification Rule")
             else:
-                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
-                                             "IP Address assignment to Classification Rule is not proper"
+                kwargs['fail_msg'] = "IP Address assignment to Classification Rule is not proper"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -245,16 +240,14 @@ class ClassificationRule(object):
             if self.auto_actions.select_drop_down_options(classification_rule_option, "IP Subnet"):
                 self.utils.print_info("Selected IP Subnet Classification Rule")
             else:
-                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
-                                             "Not able to Select Device Location Classification Rule"
+                kwargs['fail_msg'] = "Not able to Select Device Location Classification Rule"
                 self.common_validation.fault(**kwargs)
                 return -1
 
             if self._assign_ip_subnet_to_classification_rule(**ip_object_rule):
                 self.utils.print_info("IP Subnet got assigned to Classification Rule")
             else:
-                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
-                                             "IP Subnet assignment to Classification Rule is not proper"
+                kwargs['fail_msg'] = "IP Subnet assignment to Classification Rule is not proper"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -265,16 +258,14 @@ class ClassificationRule(object):
             if self.auto_actions.select_drop_down_options(classification_rule_option, "IP Range"):
                 self.utils.print_info("Selected IP Range Classification Rule")
             else:
-                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
-                                             "Not able to Select IP Range Classification Rule"
+                kwargs['fail_msg'] = "Not able to Select IP Range Classification Rule"
                 self.common_validation.fault(**kwargs)
                 return -1
 
             if self._assign_ip_range_to_classification_rule(**ip_object_rule):
                 self.utils.print_info("IP Range got assigned to Classification Rule")
             else:
-                kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. " \
-                                             "IP Range assignment to Classification Rule is not proper"
+                kwargs['fail_msg'] = "IP Range assignment to Classification Rule is not proper"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -292,7 +283,7 @@ class ClassificationRule(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "add_classification_rule_with_ip() failed. Classification Rule not saved"
+        kwargs['fail_msg'] = "Classification Rule not saved"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -339,7 +330,7 @@ class ClassificationRule(object):
             self.common_validation.passed(**kwargs)
             return 1
 
-        kwargs['fail_msg'] = "delete_classification_rules() failed. Failed to delete classification rules "
+        kwargs['fail_msg'] = "Failed to delete classification rules "
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -392,8 +383,7 @@ class ClassificationRule(object):
                         self.common_validation.passed(**kwargs)
                         return 1
 
-                kwargs['fail_msg'] = "delete_single_classification_rule() failed. " \
-                                     "Failed to delete single classification rule"
+                kwargs['fail_msg'] = "Failed to delete single classification rule"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -417,8 +407,7 @@ class ClassificationRule(object):
         self.utils.print_info("Click on country node open icon")
         country_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(country_nodes, country_node):
-            kwargs['fail_msg'] = "_assign_locations_to_classification_rule() failed." \
-                                          f"Country node {country_node} is not present..."
+            kwargs['fail_msg'] = f"Country node {country_node} is not present..."
             self.common_validation.fault(**kwargs)
             return False
         sleep(1)
@@ -426,8 +415,7 @@ class ClassificationRule(object):
         self.utils.print_info("Click on location node open icon")
         loc_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(loc_nodes, loc_node):
-            kwargs['fail_msg'] = "_assign_locations_to_classification_rule() failed." \
-                                          f"Location node {loc_node} not present"
+            kwargs['fail_msg'] = f"Location node {loc_node} not present"
             self.common_validation.fault(**kwargs)
             return False
         sleep(1)
@@ -435,8 +423,7 @@ class ClassificationRule(object):
         self.utils.print_info("Click on building node open icon")
         build_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._open_location_tree_nodes(build_nodes, building_node):
-            kwargs['fail_msg'] = "_assign_locations_to_classification_rule() failed." \
-                                          f"Building node {building_node} not present"
+            kwargs['fail_msg'] = f"Building node {building_node} not present"
             self.common_validation.fault(**kwargs)
             return False
         sleep(1)
@@ -444,8 +431,7 @@ class ClassificationRule(object):
         self.utils.print_info("Select the floor to assign device")
         floor_nodes = self.classification_rule_web_elements.get_node_location()
         if not self._assign_floor_to_rule(floor_nodes, floor_node):
-            kwargs['fail_msg'] = "_assign_locations_to_classification_rule() failed." \
-                                          f"Floor node {floor_node} not present"
+            kwargs['fail_msg'] = f"Floor node {floor_node} not present"
             self.common_validation.fault(**kwargs)
             return False
         sleep(1)
@@ -628,16 +614,14 @@ class ClassificationRule(object):
         if self.network.select_network_policy_in_card_view(policy_name):
             if not self._select_classification_rule_for_ssid(ssid_name, classification_rule):
                 sleep(2)
-                kwargs['fail_msg'] = "add_classification_rule_to_ssid() failed. " \
-                                     f"Not able to add classification rule from {ssid_name}"
+                kwargs['fail_msg'] = f"Not able to add classification rule from {ssid_name}"
                 self.common_validation.fault(**kwargs)
                 return -1
         sleep(2)
 
         if not self._verify_classification_rule_for_ssid(ssid_name, classification_rule):
             sleep(2)
-            kwargs['fail_msg'] = "add_classification_rule_to_ssid() failed. " \
-                                 f"Not able to find classification rule attached to {ssid_name}"
+            kwargs['fail_msg'] = f"Not able to find classification rule attached to {ssid_name}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -666,8 +650,7 @@ class ClassificationRule(object):
             sleep(2)
             if not self._verify_classification_rule_for_ssid(ssid_name, classification_rule):
                 sleep(2)
-                kwargs['fail_msg'] = "check_classification_rule_to_ssid() failed. " \
-                                     f"Not able to find classification rule attached to {ssid_name}"
+                kwargs['fail_msg'] = f"Not able to find classification rule attached to {ssid_name}"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -695,16 +678,14 @@ class ClassificationRule(object):
         if self.network.select_network_policy_in_card_view(policy_name):
             if not self._delete_classification_rule_from_ssid(ssid_name, classification_rule):
                 sleep(2)
-                kwargs['fail_msg'] = "remove_classification_rule_from_ssid() failed. " \
-                                     f"Not able to remove classification rule from {ssid_name}"
+                kwargs['fail_msg'] = f"Not able to remove classification rule from {ssid_name}"
                 self.common_validation.fault(**kwargs)
                 return -1
         sleep(2)
 
         if self._verify_classification_rule_for_ssid(ssid_name, classification_rule):
             sleep(2)
-            kwargs['fail_msg'] = "remove_classification_rule_from_ssid() failed. " \
-                                 f"Not able to find classification rule attached to {ssid_name}"
+            kwargs['fail_msg'] = f"Not able to find classification rule attached to {ssid_name}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -752,7 +733,6 @@ class ClassificationRule(object):
                 self.auto_actions.click_reference(self.classification_rule_web_elements.get_next_button)
                 return 1
         return False
-
 
     def _verify_classification_rule_for_ssid(self, ssid, classification_rule):
         """
@@ -828,7 +808,7 @@ class ClassificationRule(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "search_classification_rule() failed. Classification rule NOT found"
+        kwargs['fail_msg'] = "Classification rule NOT found"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -879,7 +859,7 @@ class ClassificationRule(object):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "select_classification_rule() failed. Failed to select classification rule"
+        kwargs['fail_msg'] = "Failed to select classification rule"
         self.common_validation.failed(**kwargs)
         return -1
 
