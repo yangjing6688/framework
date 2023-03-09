@@ -2748,6 +2748,104 @@ class Cli(object):
         self.commonValidation.passed(**kwargs)
         return 1
 
+    def get_switch_connected_ports(self, dut, **kwargs):
+        """ Method that returns a list of all connected ports on a device.
+        Args:
+            dut (dict): the dut, e.g. dut1, node_1
+        Returns:
+            connected_ports: a list of all connected ports on device if the function call has succeeded else -1
+        """
+        if dut.cli_type.lower() == "voss":
+            self.utils.print_info("Checking for connected ports on voss switch...")
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbor', max_wait=10, interval=2)
+            lldp_neighbor_summary_output = output[0].cmd_obj.return_text
+            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=Port: )\d+/\d+)', 1)
+
+        elif dut.cli_type.lower() == "exos" and dut.platform.lower() == 'stack':
+            self.utils.print_info("Checking for connected ports on exos stack...")
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
+            lldp_neighbor_summary_output = output[0].cmd_obj.return_text
+            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output,'((?<=LLDP Port )\d+:\d+)', 1)
+
+        elif dut.cli_type.lower() == "exos":
+            self.utils.print_info("Checking for connected ports on exos switch...")
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
+            lldp_neighbor_summary_output = output[0].cmd_obj.return_text
+            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=LLDP Port )\d+)', 1)
+
+        if not connected_ports:
+            kwargs['fail_msg'] = f"There are no ports with connected status on this {dut.cli_type} {dut.platform}"
+            self.commonValidation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = f"Found ports with connected status: {connected_ports}"
+            self.commonValidation.passed(**kwargs)
+            return connected_ports
+
+    def get_switch_disconnected_ports(self, dut, connected_ports, **kwargs):
+        """ Method that returns a list of all disconnected ports on a device.
+        Args:
+            dut (dict): the dut, e.g. dut1, node_1
+            connected_ports: list of connected ports detected on dut
+        Returns:
+            disconnected_ports: a list of all disconnected ports on device if the function call has succeeded else -1
+        """
+        if dut.cli_type == "voss":
+            system_type_regex = "(\\d+/\\d+)\\s+\\w+"
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=30, interval=10)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=30, interval=10)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan')[0].cmd_obj._return_text
+            disconnected_ports = self.utils.get_regexp_matches(output, system_type_regex, 1)
+            for connected in connected_ports:
+                disconnected_ports.remove(connected)
+
+        if dut.cli_type == "exos":
+            system_type_regex = "(\\d+)\\s+\\w+"
+            if dut.platform == 'Stack':
+                system_type_regex = "(\\d+:\\d+)"
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan')[0].cmd_obj._return_text
+            disconnected_ports = self.utils.get_regexp_matches(output, system_type_regex, 1)
+            for connected in connected_ports:
+                if connected in disconnected_ports:
+                    disconnected_ports.remove(connected)
+
+        if disconnected_ports:
+            kwargs['pass_msg'] = f"Found ports with disconnected status: {disconnected_ports}"
+            self.commonValidation.passed(**kwargs)
+            return disconnected_ports
+        else:
+            kwargs['fail_msg'] = f"Found no ports with disconnected status: {disconnected_ports}"
+            self.commonValidation.failed(**kwargs)
+            return disconnected_ports
+
+    def expected_commands_in_cli_history(self, expected_commands, dut, dut_time=None, **kwargs):
+        """ Method that checks if expected commands are found in CLI history.
+        Assumption for VOSS is "clear logging" command was issued on CLI before using this method
+        For EXOS, currently there is no equivalent for the clear logging command from VOSS,
+        so we need to filter based on current time on device.
+        Args:
+            dut (dict): the dut, e.g. dut1, node_1
+        Returns:
+           1 if the function call has succeeded else -1
+        """
+
+        if dut.cli_type.lower() == 'voss':
+            cli_dut = self.networkElementCliSend.send_commands(dut.name, "show logging file detail | include SSH:127.0.0.1")
+            output_CLI = self.get_cli_commands(info=cli_dut, cli_type=dut.cli_type)
+        elif dut.cli_type.lower() == 'exos':
+            cli_dut = self.networkElementCliSend.send_commands(dut.name, f"show cli journal | begin {dut_time} ")
+            output_CLI = self.get_cli_commands(info=cli_dut, cli_type=dut.cli_type)
+
+        for i, command in enumerate(expected_commands):
+            if command in output_CLI:
+                if i == len(expected_commands)-1:
+                    kwargs['pass_msg'] = f"Found all expected commands in CLI: {expected_commands}"
+                    self.commonValidation.passed(**kwargs)
+                    return 1
+            else:
+                kwargs['fail_msg'] = f"Command {command} not found"
+                self.commonValidation.failed(**kwargs)
+                return -1
 
 if __name__ == '__main__':
     from pytest_testconfig import config
