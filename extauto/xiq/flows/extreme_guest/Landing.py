@@ -77,7 +77,7 @@ class Landing(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'check_all_landing_page_widgets()' -> {all_displayed}"
+            kwargs['fail_msg'] = f"{all_displayed}"
             self.common_validation.failed(**kwargs)
             return 0
 
@@ -104,6 +104,6 @@ class Landing(object):
             self.common_validation.passed(**kwargs)
             return 1
 
-        kwargs['fail_msg'] = "'check_map_location_widget()' -> Widget is not displayed"
+        kwargs['fail_msg'] = "Widget is not displayed"
         self.common_validation.failed(**kwargs)
         return -1

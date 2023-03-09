@@ -101,7 +101,7 @@ class UserProfile(UserProfileWebElements, CommonObjectsWebElements):
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['fail_msg'] = "add_classification_rule_to_user_profile() failed. Unable to gather user profiles."
+            kwargs['fail_msg'] = "Unable to gather user profiles."
             self.common_validation.failed(**kwargs)
             return -1
 

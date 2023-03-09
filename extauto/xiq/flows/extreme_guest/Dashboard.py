@@ -231,6 +231,6 @@ class Dashboard(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'check_dashboard_page_widgets()' -> {all_displayed}"
+            kwargs['fail_msg'] = f"{all_displayed}"
             self.common_validation.failed(**kwargs)
             return 0

@@ -52,7 +52,7 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
             sleep(2)
             self.auto_actions.click_reference(self.get_cred_distr_grps_row_delete_confirm_yes_button)
             sleep(2)
-            kwargs['pass_msg'] = "'delete_cred_distr_group()' -> Successfully delete cred distr group"
+            kwargs['pass_msg'] = "Successfully delete cred distr group"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -134,13 +134,13 @@ class CredDistrGrup(CredDistrGrupWebElemnts):
         self.utils.print_info(tool_tip_text)
         for text in tool_tip_text:
             if "Configure at least one guest management user" in text:
-                kwargs['fail_msg'] = f"'create_cred_distribution_group()' -> {text}"
+                kwargs['fail_msg'] = f"{text}"
                 self.common_validation.failed(**kwargs)
                 return -1
             if "The Employee Group was saved successfully" in text:
-                kwargs['pass_msg'] = f"'create_cred_distribution_group()' -> {text}"
+                kwargs['pass_msg'] = f"{text}"
                 self.common_validation.passed(**kwargs)
                 return 1
-        kwargs['pass_msg'] = "'create_cred_distribution_group()' -> Successfully create  credential distribution Groups"
+        kwargs['pass_msg'] = "Successfully create  credential distribution Groups"
         self.common_validation.passed(**kwargs)
         return 1

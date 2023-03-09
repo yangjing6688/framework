@@ -44,7 +44,7 @@ class Network360Monitor:
                 search_matches.append(match.text)
             return search_matches
         else:
-            kwargs['fail_msg'] = "'search_floor_in_network360monitor()' -> No search matches found"
+            kwargs['fail_msg'] = "No search matches found"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -86,8 +86,7 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        kwargs['fail_msg'] = "'get_devices_from_network360monitor_floor()' -> No APs found on floor: " \
-                                             f"{floor_name}"
+                        kwargs['fail_msg'] = f"No APs found on floor: {floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
 
@@ -107,10 +106,9 @@ class Network360Monitor:
                 else:
                     self.utils.print_info("No search matches found: ")
         else:
-            kwargs['fail_msg'] = "'get_devices_from_network360monitor_floor()' -> No search matches found"
+            kwargs['fail_msg'] = "No search matches found"
             self.common_validation.fault(**kwargs)
             return -1
-
 
     def get_clients_from_network360monitor_floor(self, floor_name='default', device_type='default', **kwargs):
         """
@@ -147,7 +145,7 @@ class Network360Monitor:
                             aps_on_floor.append(ap.text)
                         self.utils.print_info("APs on floor: ", aps_on_floor)
                     else:
-                        kwargs['fail_msg'] = "'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
+                        kwargs['fail_msg'] = "No APs found on floor: " \
                                              f"{floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
@@ -173,8 +171,7 @@ class Network360Monitor:
                             clients_on_floor.append(client_mac.text)
                         self.utils.print_info("Connected Clients on floor: ", clients_on_floor[1:])
                     else:
-                        kwargs['fail_msg'] = "'get_clients_from_network360monitor_floor()' -> No APs found on floor: " \
-                                             f"{floor_name}"
+                        kwargs['fail_msg'] = f"No APs found on floor: {floor_name}"
                         self.common_validation.failed(**kwargs)
                         return -1
 
@@ -182,7 +179,7 @@ class Network360Monitor:
                 else:
                     self.utils.print_info("No search matches found: ")
         else:
-            kwargs['fail_msg'] = "'get_clients_from_network360monitor_floor()' -> No search matches found"
+            kwargs['fail_msg'] = "No search matches found"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -209,7 +206,7 @@ class Network360Monitor:
             return ap_name, ap_count
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'_ml_insights_monitor_ap_count_and_ap_name()' -> Unable to get AP Count and AP Name"
+            kwargs['fail_msg'] = "Unable to get AP Count and AP Name"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -224,14 +221,13 @@ class Network360Monitor:
             sleep(2)
             self.utils.print_info("Clicking on ML Insights Monitor button")
             self.auto_actions.click_reference(self.ml_insights.get_n360_monitor_button)
-            kwargs['pass_msg'] = "'_goto_ml_insights_monitor()' -> Successfully clicking on ML Insights Monitor Button"
+            kwargs['pass_msg'] = "Successfully clicking on ML Insights Monitor Button"
             self.common_validation.passed(**kwargs)
             sleep(2)
             return 1
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'_ml_insights_monitor_ap_count_and_ap_name()' -> Unable to Navigate to MLInsights " \
-                                 "Monitor Page"
+            kwargs['fail_msg'] = "Unable to Navigate to MLInsights Monitor Page"
             self.common_validation.fault(**kwargs)
             return 0
 
@@ -242,28 +238,28 @@ class Network360Monitor:
         """
         try:
             sleep(5)
-            tracker_dict = dict()
-            tracker_dict["device_num"] = self.ml_insights_monitor.get_n360_monitor_device_number().text
-            tracker_dict["device_status"] = self.ml_insights_monitor.get_n360_monitor_device_status().text
-            tracker_dict["client_num"] = self.ml_insights_monitor.get_n360_monitor_client_number().text
-            tracker_dict["client_status"] = self.ml_insights_monitor.get_n360_monitor_client_status().text
-            tracker_dict["wifi_num"] = self.ml_insights_monitor.get_n360_monitor_wifi_number().text
-            tracker_dict["wifi_status"] = self.ml_insights_monitor.get_n360_monitor_wifi_status().text
-            tracker_dict["network_number"] = self.ml_insights_monitor.get_n360_monitor_network_number().text
-            tracker_dict["network_status"] = self.ml_insights_monitor.get_n360_monitor_network_status().text
-            tracker_dict["service_number"] = self.ml_insights_monitor.get_n360_monitor_service_number().text
-            tracker_dict["service_status"] = self.ml_insights_monitor.get_n360_monitor_service_status().text
-            tracker_dict["application_number"] = self.ml_insights_monitor.get_n360_monitor_app_number().text
-            tracker_dict["application_usage"] = self.ml_insights_monitor.get_n360_monitor_app_usage().text
-            tracker_dict["security_number"] = self.ml_insights_monitor.get_n360_monitor_security_number().text
-            tracker_dict["security_rogues"] = self.ml_insights_monitor.get_n360_monitor_security_total_rogues().text
+            tracker_dict = {
+                "device_num": self.ml_insights_monitor.get_n360_monitor_device_number().text,
+                "device_status": self.ml_insights_monitor.get_n360_monitor_device_status().text,
+                "client_num": self.ml_insights_monitor.get_n360_monitor_client_number().text,
+                "client_status": self.ml_insights_monitor.get_n360_monitor_client_status().text,
+                "wifi_num": self.ml_insights_monitor.get_n360_monitor_wifi_number().text,
+                "wifi_status": self.ml_insights_monitor.get_n360_monitor_wifi_status().text,
+                "network_number": self.ml_insights_monitor.get_n360_monitor_network_number().text,
+                "network_status": self.ml_insights_monitor.get_n360_monitor_network_status().text,
+                "service_number": self.ml_insights_monitor.get_n360_monitor_service_number().text,
+                "service_status": self.ml_insights_monitor.get_n360_monitor_service_status().text,
+                "application_number": self.ml_insights_monitor.get_n360_monitor_application_number().text,
+                "application_status": self.ml_insights_monitor.get_n360_monitor_application_status().text,
+                "security_number": self.ml_insights_monitor.get_n360_monitor_security_number().text,
+                "security_status": self.ml_insights_monitor.get_n360_monitor_security_status().text
+            }
 
             self.utils.print_info("Tracker details dictionary ", tracker_dict)
             return tracker_dict
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'_get_ml_insights_monitor_tracker_details()' -> Unable to get MLInsights Monitor " \
-                                 "Tracker Details"
+            kwargs['fail_msg'] = "Unable to get MLInsights Monitor Tracker Details"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -284,14 +280,14 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
-                kwargs['fail_msg'] = "'get_network360monitor_devices_score()' -> Unsuccessfully clicked on floor"
+                kwargs['fail_msg'] = "Unable to click on floor"
                 self.common_validation.failed(**kwargs)
                 return -1
 
         device_score = self.n360_elements.get_devices_score()
 
         if device_score is None:
-            kwargs['fail_msg'] = "'get_network360monitor_devices_score()' -> No Device Score label found"
+            kwargs['fail_msg'] = "No Device Score label found"
             self.common_validation.failed(**kwargs)
             return -1
         else:
@@ -316,8 +312,7 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
-                kwargs['fail_msg'] = "'get_network360monitor_device_health_overall_score()' -> Unsuccessfully " \
-                                     "clicked on floor"
+                kwargs['fail_msg'] = "Unable to click on floor"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -369,7 +364,7 @@ class Network360Monitor:
                     sleep(5)
                     return 1
 
-        kwargs['fail_msg'] = "'_search_and_click_floor()' -> Unable to find the floor"
+        kwargs['fail_msg'] = "Unable to find the floor"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -388,8 +383,7 @@ class Network360Monitor:
 
         if floor_name != 'default':
             if self._search_and_click_floor(floor_name) == -1:
-                kwargs['fail_msg'] = "'get_network360monitor_clients_health_client_count()' -> Unsuccessfully clicked " \
-                                     "on floor"
+                kwargs['fail_msg'] = "Unable to click on floor"
                 self.common_validation.failed(**kwargs)
                 return -1
 
