@@ -36,7 +36,6 @@ class parseXAPI:
     def process_info(self, functionNode, xapi_class_name):
         """
             Process the AST function and gather the data to write the framework functions
-
         :param functionNode: the function ast object
         :param xapi_class_name: the class name
         :return: File contents for the new function
@@ -111,7 +110,7 @@ class parseXAPI:
                         os.remove(new_class_file)
                     class_file = open(new_class_file, "a")
                     class_file.write(self.base_common_file_generation)
-                    class_file.write('\nfrom tools.xapi.XapiBase import XapiBase\n\n\nclass XapiBase' + class_.name +'(XapiBase):\n\n'+ self.tab + 'def __init__(self):\n' + self.tab + self.tab + 'super().__init__()\n\n')
+                    class_file.write('\nfrom tools.xapi.XapiHelper import XapiHelper\n\n\nclass XapiBase' + class_.name +'(XapiHelper):\n\n'+ self.tab + 'def __init__(self):\n' + self.tab + self.tab + 'super().__init__()\n\n')
                     methods = [n for n in class_.body if isinstance(n, ast.FunctionDef)]
                     for method in methods:
                         function_contents = self.process_info(method, class_.name)

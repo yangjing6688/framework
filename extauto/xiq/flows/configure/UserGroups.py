@@ -746,7 +746,7 @@ class UserGroups(UserGroupsWebElements):
                 kwargs['pass_msg'] = f"Printing all the tool tip messages:- {text}"
                 self.common_validation.passed(**kwargs)
                 return 1
-        kwargs['fail_msg'] = "create_add_user_to_user_group() failed. Tool Tip not showing proper message"
+        kwargs['fail_msg'] = "Tool Tip not showing proper message"
         self.common_validation.failed(**kwargs)
         return -2
 
@@ -788,7 +788,7 @@ class UserGroups(UserGroupsWebElements):
                 break
 
         if flag == 0:
-            kwargs['fail_msg'] = f"delete_single_user() failed. User with name {user} not found"
+            kwargs['fail_msg'] = f"User with name {user} not found"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -802,7 +802,7 @@ class UserGroups(UserGroupsWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "delete_single_user() failed. Tool Tip not showing proper message"
+        kwargs['fail_msg'] = "Tool Tip not showing proper message"
         self.common_validation.failed(**kwargs)
         return -2
 
@@ -841,7 +841,7 @@ class UserGroups(UserGroupsWebElements):
                 break
 
         if flag == 0:
-            kwargs['fail_msg'] = f"edit_single_user_password() failed. User with name {user} not found"
+            kwargs['fail_msg'] = f"User with name {user} not found"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -865,7 +865,7 @@ class UserGroups(UserGroupsWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "edit_single_user_password() failed. Tool Tip not showing proper message"
+        kwargs['fail_msg'] = "Tool Tip not showing proper message"
         self.common_validation.failed(**kwargs)
         return -2
 
@@ -892,7 +892,7 @@ class UserGroups(UserGroupsWebElements):
                 return True
 
         self.auto_actions.click_reference(self.get_wireless_usr_profile_select_wind_cancel_button)
-        kwargs['fail_msg'] = f"select_wireless_user_profile() failed. User Profile:{profile_name} not present"
+        kwargs['fail_msg'] = f"User Profile:{profile_name} not present"
         self.common_validation.failed(**kwargs)
         return False
 
@@ -910,7 +910,7 @@ class UserGroups(UserGroupsWebElements):
 
         self.utils.print_info("Navigating to the configure users")
         if not self.navigator.navigate_to_configure_user_groups():
-            kwargs['fail_msg'] = "delete_all_user_groups() failed. Unable to navigate to the user group page"
+            kwargs['fail_msg'] = "Unable to navigate to the user group page"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -926,7 +926,7 @@ class UserGroups(UserGroupsWebElements):
                 self.utils.print_info("There are no custom user groups to delete")
                 return 1
         else:
-            kwargs['fail_msg'] = "delete_all_user_groups() failed. Could not get an user group list"
+            kwargs['fail_msg'] = "Could not get an user group list"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -940,12 +940,12 @@ class UserGroups(UserGroupsWebElements):
                 else:
                     self._select_user_group_row(exclusive_group)
         except Exception:
-            kwargs['fail_msg'] = "delete_all_user_groups() failed. Not able to select the exclusive user group "
+            kwargs['fail_msg'] = "Not able to select the exclusive user group "
             self.common_validation.failed(**kwargs)
             return -1
 
         if self._perform_user_group_delete() == -1:
-            kwargs['fail_msg'] = "delete_all_user_groups() failed. Unable to delete all custom users "
+            kwargs['fail_msg'] = "Unable to delete all custom users "
             self.common_validation.failed(**kwargs)
             return -1
 

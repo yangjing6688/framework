@@ -84,8 +84,8 @@ class A3ToXiq:
         if check_version_value:
             if xiq_version != check_version_value:
                 kwargs[
-                    'fail_msg'] = "configure_a3_to_xiq_instance() failed." \
-                                  "XIQ Version is " + xiq_version + " does not equal expected version " + check_version_value
+                    'fail_msg'] = "XIQ Version is " + xiq_version + " does not equal expected version " \
+                                  + check_version_value
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -93,8 +93,7 @@ class A3ToXiq:
 
         link_portal_button = self.licenseManagement.lic_mgt_web_elements.get_link_to_extr_portal_btn()
         if not link_portal_button:
-            kwargs['fail_msg'] = "configure_a3_to_xiq_instance() failed. " \
-                                 "Unable to locate Link My Extreme Portal Account button"
+            kwargs['fail_msg'] = "Unable to locate Link My Extreme Portal Account button"
             self.common_validation.fault(**kwargs)
             return -1
         self.auto_actions.click(link_portal_button)
@@ -117,8 +116,7 @@ class A3ToXiq:
         unlink_extreme_portal_btn = self.licenseManagement.get_unlink_xiq_from_extr_portal_btn()
         link_message = self.licenseManagement.get_account_successfully_linked()
         if not unlink_extreme_portal_btn or not link_message:
-            kwargs['fail_msg'] = "configure_a3_to_xiq_instance() failed. " \
-                                 "Unable to verify that web page show linked to Extreme Portal"
+            kwargs['fail_msg'] = "Unable to verify that web page show linked to Extreme Portal"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -127,8 +125,7 @@ class A3ToXiq:
         if 'hidden' not in status_unlink_extreme_portal_btn and 'hidden' not in status_link_message:
             self.utils.print_info("Successfully linked to customer account")
         else:
-            kwargs['fail_msg'] = "configure_a3_to_xiq_instance() failed. " \
-                                 "Status does NOT show successfully linked to customer account"
+            kwargs['fail_msg'] = "Status does NOT show successfully linked to customer account"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -139,14 +136,14 @@ class A3ToXiq:
             # log into a3
             a3_login_success = self.a3login.login_a3_user(a3_username, a3_password, url=a3website)
             if a3_login_success == -1:
-                kwargs['fail_msg'] = "configure_a3_to_xiq_instance() failed. Unable to log into A3 Server"
+                kwargs['fail_msg'] = "Unable to log into A3 Server"
                 self.common_validation.fault(**kwargs)
                 return -1
             if confirm_cluster_id:
                 self.a3_navigator.navigate_to_license_management_page()
                 cluster_id = self.a3_license_management.get_a3_cluster_id()
                 if cluster_id == -1:
-                    kwargs['fail_msg'] = "configure_a3_to_xiq_instance() failed. Invalid value for Cluster Id"
+                    kwargs['fail_msg'] = "Invalid value for Cluster Id"
                     self.common_validation.fault(**kwargs)
                     return -1
             else:
