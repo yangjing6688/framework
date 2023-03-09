@@ -7,8 +7,6 @@ class Device360WebElements(Device360WebElementDefs):
     def __init__(self):
         self.weh = WebElementHandler()
 
-# Wifi6E client - Pranav
-
     def get_device360_wireless_interface_tab(self):
         return self.weh.get_element(self.device360_wireless_interface_tab)
 
@@ -41,8 +39,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_leftpane_unique_clients(self):
         return self.weh.get_element(self.device360_leftpane_unique_clients)
-
-######################################
 
     def get_ports_from_device360_up_lldp_neighbour(self):
         return self.weh.get_element(self.ports_from_device360_up_lldp_neighbour)
