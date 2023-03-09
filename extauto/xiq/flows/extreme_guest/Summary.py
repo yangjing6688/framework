@@ -77,7 +77,7 @@ class Summary(object):
         if all_displayed:
             return 1
         else:
-            kwargs['fail_msg'] = "'check_all_summary_page_widgets()' -> Not all widgets are displayed"
+            kwargs['fail_msg'] = "Not all widgets are displayed"
             self.common_validation.failed(**kwargs)
             return 0
 
@@ -94,8 +94,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_visitors_widget().is_displayed():
             self.utils.print_info("visitors_widget is displayed")
         else:
-            self.utils.print_info("visitors_widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_visitor_widget_data()' -> visitors_widget is not displayed"
+            kwargs['fail_msg'] = "visitors_widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -123,8 +122,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_new_user_widget().is_displayed():
             self.utils.print_info("new_user_widget is displayed")
         else:
-            self.utils.print_info("new_user_widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_new_user_widget_data()' -> new_user_widget is not displayed"
+            kwargs['fail_msg'] = "new_user_widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -152,8 +150,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_conversion_widget().is_displayed():
             self.utils.print_info("conversion_widget is displayed")
         else:
-            self.utils.print_info("conversion_widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_conversion_widget_data()' -> conversion_widget is not displayed"
+            kwargs['fail_msg'] = "conversion_widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -181,8 +178,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_gender_widget().is_displayed():
             self.utils.print_info("gender_widget is displayed")
         else:
-            self.utils.print_info("gender_widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_gender_widget_data()' -> gender_widget is not displayed"
+            kwargs['fail_msg'] = "gender_widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -207,8 +203,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_facebook_widget().is_displayed():
             self.utils.print_info("Facebook widget is displayed")
         else:
-            self.utils.print_info("Facebook widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_facebook_widget_data()' -> Facebook widget is not displayed"
+            kwargs['fail_msg'] = "Facebook widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -233,8 +228,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_google_widget().is_displayed():
             self.utils.print_info("Google widget is displayed")
         else:
-            self.utils.print_info("Google widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_google_widget_data()' -> Google widget is not displayed"
+            kwargs['fail_msg'] = "Google widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -259,8 +253,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_linkedin_widget().is_displayed():
             self.utils.print_info("linkedin widget is displayed")
         else:
-            self.utils.print_info("linkedin widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_linkedin_widget_data()' -> linkedin widget is not displayed"
+            kwargs['fail_msg'] = "linkedin widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -285,8 +278,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_total_users_widget().is_displayed():
             self.utils.print_info("total_users widget is displayed")
         else:
-            self.utils.print_info("total_users widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_total_users_widget_data()' -> total_users widget is not displayed"
+            kwargs['fail_msg'] = "total_users widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -311,8 +303,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_online_users_widget().is_displayed():
             self.utils.print_info("online_users widget is displayed")
         else:
-            self.utils.print_info("online_users widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_online_users_widget_data()' -> online_users widget is not displayed"
+            kwargs['fail_msg'] = "online_users widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -337,8 +328,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_total_clients_widget().is_displayed():
             self.utils.print_info("total_clients widget is displayed")
         else:
-            self.utils.print_info("total_clients widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_total_clients_widget_data()' -> total_clients widget is not displayed"
+            kwargs['fail_msg'] = "total_clients widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -363,8 +353,7 @@ class Summary(object):
         if self.summary_web_elem.get_extreme_guest_summary_online_clients_widget().is_displayed():
             self.utils.print_info("online_clients widget is displayed")
         else:
-            self.utils.print_info("online_clients widget is not displayed")
-            kwargs['fail_msg'] = "'check_summary_page_online_clients_widget_data()' -> online_clients widget is not displayed"
+            kwargs['fail_msg'] = "online_clients widget is not displayed"
             self.common_validation.failed(**kwargs)
             return -1
 

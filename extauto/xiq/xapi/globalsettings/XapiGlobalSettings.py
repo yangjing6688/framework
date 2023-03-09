@@ -1,7 +1,7 @@
-from tools.xapi.XapiBase import XapiBase
 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
+from tools.xapi.XapiHelper import XapiHelper
 
-class XapiGlobalSettings(XapiBase):
+class XapiGlobalSettings(XapiHelper):
 
     def __init__(self):
         super().__init__()
@@ -16,7 +16,7 @@ class XapiGlobalSettings(XapiBase):
         """
 
         # Get the configuration from the Global varibles
-        configuration = self.xapiHelper.get_xapi_configuration()
+        configuration = self.get_xapi_configuration()
 
         api_response = None
         # Check that the access_token is in

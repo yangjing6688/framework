@@ -552,6 +552,21 @@ class PytestConfigHelper():
                 if xiqvar not in config.keys():
                     config[xiqvar] = ''
 
+    @staticmethod
+    def create_ports_list(port_dict):
+        """
+        Returns a list of numeric ports from the yaml file.
+        :param port_dict:
+        :return:
+        """
+        ports = []
+        for port_key in port_dict.keys():
+            port = port_dict[port_key]
+            if port and 'ifname' in port:
+                if port['ifname'] is not None:
+                    ports.append(port['ifname'])
+        return ports
+
 def merge_map2(original, to_add, roboIze=True):
     """ Merges a new map of configuration recursively with an older one """
     p1 = r'^\$\{'
