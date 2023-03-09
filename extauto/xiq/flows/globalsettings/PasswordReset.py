@@ -73,10 +73,10 @@ class PasswordReset:
         for value in tool_tp_text:
             if "already exists. Please try again using a different email address" in value:
                 self.utils.print_info(value)
-                kwargs['fail_msg'] = "'add_account()' -> Failed to  add(create) account"
+                kwargs['fail_msg'] = "Failed to  add(create) account"
                 self.common_validation.failed(**kwargs)
                 return -1
-        kwargs['pass_msg'] = "'add_account()' -> Successfully added(created) account"
+        kwargs['pass_msg'] = "Successfully added(created) account"
         self.common_validation.passed(**kwargs)
         return 1
 

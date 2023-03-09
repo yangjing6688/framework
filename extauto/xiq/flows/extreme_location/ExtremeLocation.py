@@ -397,8 +397,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("Edited/Assigned Location is successfully seen in XLOC AP page")
             return 1
         else:
-            kwargs['fail_msg'] = "'check_location_assigned_to_ap_in_xloc()' -> Edited/Assigned Location cannot be seen" \
-                                 " in XLOC AP page"
+            kwargs['fail_msg'] = "Edited/Assigned Location cannot be seen in XLOC AP page"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -520,7 +519,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     self.utils.print_info(f"Did not find client mac. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
                 count += 1
-                
+
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -550,7 +549,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info(f"{key}:{value}")
 
         return wireless_device_info
-    
+
     def _get_bss_details(self):
         """
         - This keyword gets Client Information from Extreme Location Devices Page
@@ -567,7 +566,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         for key, value in bss_device_info.items():
             self.utils.print_info(f"{key}:{value}")
         return bss_device_info
-    
+
     def validate_client_entry_in_extreme_location_sites_page(self, site_name=None, floor_name=None, client_mac=None, retry_duration=30, retry_count=5, **kwargs):
         """
         - validate_client_entry_in_extreme_location_sites_page
@@ -670,8 +669,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                 sleep(retry_duration)
             count += 1
 
-        kwargs['fail_msg'] = "'validate_client_entry_in_extreme_location_sites_page()' -> Client mac failed to display" \
-                             " on floor. Please check."
+        kwargs['fail_msg'] = "Client mac failed to display on floor. Please check."
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -767,7 +765,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("No Authentication Error Seen")
 
         if type(obj_type) == list:
-            kwargs['fail_msg'] = "'go_to_extreme_location_xloc_application()' -> Authentication Error Seen"
+            kwargs['fail_msg'] = "Authentication Error Seen"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -1122,7 +1120,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.utils.print_info("Checking Asset Name Entry Row in Grid")
         row = self.get_grid_row_assets()
         if not row:
-            kwargs['fail_msg'] = f"'delete_asset_in_xloc()' -> Assets For:{asset_name} is not Found in the Assets Grid"
+            kwargs['fail_msg'] = f"Assets For:{asset_name} is not Found in the Assets Grid"
             self.common_validation.failed(**kwargs)
             return -1
         if row:
@@ -1152,7 +1150,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
         self.utils.print_info("Checking Asset Name Entry Row in Grid")
         row = self.get_grid_row_assets()
         if not row:
-            kwargs['fail_msg'] = f"'edit_wifi_asset_in_xloc()' -> Assets For:{asset_name} is not Found in the" \
+            kwargs['fail_msg'] = f"Assets For:{asset_name} is not Found in the" \
                                  " Assets Grid"
             self.common_validation.failed(**kwargs)
             return -1
@@ -1356,7 +1354,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             if self.get_xloc_third_party_major_minor_error_message().is_displayed():
                 self.screen.save_screen_shot()
                 self.utils.print_info("configuration not saved sucessfully")
-                kwargs['fail_msg'] = "'create_xloc_third_party_ibeacon()' -> configuration not saved sucessfully"
+                kwargs['fail_msg'] = "configuration not saved sucessfully"
                 self.common_validation.fault(**kwargs)
                 return -1
         except Exception:
@@ -1364,8 +1362,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.screen.save_screen_shot()
 
         if self._search_common_object(ibeacon_mac_address):
-            self.screen.save_screen_shot()
-            self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} created")
             kwargs['pass_msg'] = f"third party ibeacon {ibeacon_mac_address} created"
             self.common_validation.passed(**kwargs)
             return 1
@@ -1432,10 +1428,9 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("configuration sucessfully saved")
             return 1
         else:
-            kwargs['fail_msg'] = "'edit_Ibeacon_in_XLOC()' -> configuration not saved sucessfully"
+            kwargs['fail_msg'] = "configuration not saved sucessfully"
             self.common_validation.failed(**kwargs)
             return -1
-
 
     def delete_ibeacon_in_xloc(self, ibeacon_mac_address, **kwargs):
 
@@ -1464,9 +1459,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info(f"third party ibeacon {ibeacon_mac_address} is avaliable")
 
         else:
-            self.utils.print_info("third party ibeacon is not avaliable")
-            kwargs['fail_msg'] = f"'edit_Ibeacon_in_XLOC()' -> third party ibeacon {ibeacon_mac_address}" \
-                                 " is avaliable"
+            kwargs['fail_msg'] = f"third party ibeacon {ibeacon_mac_address} is avaliable"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1483,13 +1476,10 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
         try:
             if self._search_common_object(ibeacon_mac_address):
-                kwargs['fail_msg'] = f"'edit_Ibeacon_in_XLOC()' -> third party ibeacon {ibeacon_mac_address}" \
-                                     " is avaliable"
+                kwargs['fail_msg'] = f"third party ibeacon {ibeacon_mac_address} is avaliable"
                 self.common_validation.fault(**kwargs)
                 return -1
         except Exception:
-            self.utils.print_info("third party ibeacon is not avaliable")
-            self.screen.save_screen_shot()
             kwargs['pass_msg'] = "third party ibeacon is not avaliable"
             self.common_validation.passed(**kwargs)
             return 1
@@ -1519,8 +1509,6 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     get_status_value = get_status_value.text
                     self.utils.print_info("",get_status_value)
                     if get_status_value == "Online":
-                        self.screen.save_screen_shot()
-                        self.utils.print_info("Ibeacon in Online State")
                         kwargs['pass_msg'] = "Ibeacon in Online State"
                         self.common_validation.passed(**kwargs)
                         return 1
@@ -1626,14 +1614,12 @@ class ExtremeLocation(ExtremeLocationWebElements):
         rows = self.get_xloc_device_classification_rows()
         for row in rows:
             if user_type and expected_duration in row.text:
-                self.utils.print_info(f'Device Classification Rule Created successfully with {user_type} '
-                                      f'with Duration {expected_duration}')
-                kwargs['pass_msg'] = f"Device Classification Rule Created successfully with {user_type} with Duration {expected_duration}"
+                kwargs['pass_msg'] = f"Device Classification Rule Created successfully with {user_type} " \
+                                     f"with Duration {expected_duration}"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "'create_time_based_device_classification_rule()' -> Device Classification Rule" \
-                                     " Not Created successfully"
+                kwargs['fail_msg'] = "Device Classification Rule Not Created successfully"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -1664,7 +1650,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
                     if re.search(r'x-item-disabled', edit_rule_rows[idx].get_attribute("class")):
                         self.utils.print_info("Edit option is disabled for rule : ", rule_type)
-                        kwargs['fail_msg'] = "'update_ssid_in_device_rule()' -> Edit option is disabled for" \
+                        kwargs['fail_msg'] = "Edit option is disabled for" \
                                              f" rule: {rule_type}"
                         self.common_validation.failed(**kwargs)
                         return -2
@@ -1709,8 +1695,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     self.screen.save_screen_shot()
                     sleep(5)
                     return 1
-        self.utils.print_info("Device classification rules not found")
-        kwargs['fail_msg'] = "'update_ssid_in_device_rule()' -> Device classification rules not found"
+        kwargs['fail_msg'] = "Device classification rules not found"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -1742,7 +1727,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
 
                     if re.search(r'x-item-disabled', edit_rule_rows[idx].get_attribute("class")):
                         self.utils.print_info("Edit option is disabled for rule : ", rule_type)
-                        kwargs['fail_msg'] = "'update_visitor_duration_for_device_rule()' -> Edit option is disabled" \
+                        kwargs['fail_msg'] = "Edit option is disabled" \
                                              f" for rule: {rule_type}"
                         self.common_validation.fault(**kwargs)
                         return -1
@@ -1765,8 +1750,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
                     self.screen.save_screen_shot()
                     sleep(2)
                     return 1
-        self.utils.print_info("Device classification rules not found")
-        kwargs['fail_msg'] = "'update_visitor_duration_for_device_rule()' -> Device classification rules not found"
+        kwargs['fail_msg'] = "Device classification rules not found"
         self.common_validation.fault(**kwargs)
         return -1
 
@@ -1914,7 +1898,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             self.utils.print_info("Closing Test Connection Status Window")
             self.auto_actions.click_reference(self.get_click_xloc_test_connection_close_btn)
             sleep(2)
-            kwargs['fail_msg'] = "'check_xloc_test_connection_button()' -> Test Connection was Failed"
+            kwargs['fail_msg'] = "Test Connection was Failed"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1941,8 +1925,7 @@ class ExtremeLocation(ExtremeLocationWebElements):
             sleep(2)
             return 1
         else:
-            kwargs['fail_msg'] = "'check_subscription_of_extreme_location_page()' -> Check for Auth Error or User" \
-                                 " Already Subscribed to Extreme Location"
+            kwargs['fail_msg'] = "Check for Auth Error or User Already Subscribed to Extreme Location"
             self.common_validation.failed(**kwargs)
             return -1
 

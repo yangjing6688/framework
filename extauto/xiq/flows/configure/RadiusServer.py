@@ -185,7 +185,7 @@ class RadiusServer(RSWebElements):
             kwargs['pass_msg'] = "External RADIUS server group created"
             self.common_validation.passed(**kwargs)
             return 1
-        kwargs['fail_msg'] = "config_external_radius_server() failed. Failed to create external RADIUS server group"
+        kwargs['fail_msg'] = "Failed to create external RADIUS server group"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -277,7 +277,7 @@ class RadiusServer(RSWebElements):
                     self.common_validation.passed(**kwargs)
                     return True
 
-            kwargs['fail_msg'] = "delete_radius_server_group() failed. Failed to delete radius server group"
+            kwargs['fail_msg'] = "Failed to delete radius server group"
             self.common_validation.failed(**kwargs)
             return False
         else:
@@ -355,8 +355,7 @@ class RadiusServer(RSWebElements):
             kwargs['pass_msg'] = "External RADIUS server group created"
             self.common_validation.passed(**kwargs)
             return 1
-        kwargs['fail_msg'] = "config_extreme_networks_radius_server() failed. " \
-                             "Failed to create external RADIUS server group"
+        kwargs['fail_msg'] = "Failed to create external RADIUS server group"
         self.common_validation.failed(**kwargs)
         return -1
 
