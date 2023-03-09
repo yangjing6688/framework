@@ -399,9 +399,9 @@ class UserGroups(UserGroupsWebElements):
         """
 
         if self.xapiUserGroups.is_xapi_enabled():
-            return = self.xapiUserGroups.xapi_create_user_group(group_name=group_name,
-                                                                 user_group_profile=user_group_profile,
-                                                                 **kwargs)
+            return self.xapiUserGroups.xapi_create_user_group(group_name=group_name,
+                                                                user_group_profile=user_group_profile,
+                                                                **kwargs)
 
         self.utils.print_info("Navigating to the configure users")
         self.navigator.navigate_to_configure_user_groups()

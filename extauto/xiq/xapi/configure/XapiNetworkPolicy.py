@@ -98,33 +98,35 @@ class XapiNetworkPolicy(XapiHelper):
         :param kwargs:
         :return: 1 if the the network ssids were deleted or if there is nothing to delete. Will return -1 if there was a failure
         """
+        pass # Need XAPI SSID support to complete the code below
 
-        length_ssid = len(ssids)
-        if length_ssid == 0:
-            self.utils.print_warning('No SSIDs were passed into this function to delete')
-            kwargs['pass_msg'] = f'Deleted the ssid -> {ssids}'
-            self.common_validation.passed(**kwargs)
-            return 1
-        else:
-            successfuly_deleted = True
-            for look_for_ssid_name in ssids:
-                ssid_list = self.xapiBaseConfigurationPolicyApi.xapi_base_list_ssids()
-                for ssid in ssid_list.data:
-                    if ssid.name == look_for_ssid_name:
-                        # Delete the ssid (not implemented yet)
-                        # repsonse = self.xapiBaseNetworkPolicyApi.xapi_base_delete_ssids_from_network_policy(id=policy.id,
-                        #                                                                                     request_body=[
-                        #                                                                                         ssid.id])
-                        if repsonse == -1:
-                            successfuly_deleted = False
-                            self.utils.print_error(f'Failed to delete the SSID {ssid.name}')
-                        break
-
-            if successfuly_deleted:
-                kwargs['pass_msg'] = f'Deleted the SSID -> {ssids}'
-                self.common_validation.passed(**kwargs)
-                return 1
-            else:
-                kwargs['fail_msg'] = f'Failed to deleted the ssid -> {ssids}'
-                self.common_validation.failed(**kwargs)
-                return -1
+        # length_ssid = len(ssids)
+        # if length_ssid == 0:
+        #     self.utils.print_warning('No SSIDs were passed into this function to delete')
+        #     kwargs['pass_msg'] = f'Deleted the ssid -> {ssids}'
+        #     self.common_validation.passed(**kwargs)
+        #     return 1
+        # else:
+        #     successfuly_deleted = True
+        #     for look_for_ssid_name in ssids:
+        #         ssid_list = self.xapiBaseConfigurationPolicyApi.xapi_base_list_ssids()
+        #         for ssid in ssid_list.data:
+        #             if ssid.name == look_for_ssid_name:
+        #
+        #                 Delete the ssid (not implemented yet)
+        #                 repsonse = self.xapiBaseNetworkPolicyApi.xapi_base_delete_ssids_from_network_policy(id=policy.id,
+        #                                                                                                     request_body=[
+        #                                                                                                         ssid.id])
+        #                 if repsonse == -1:
+        #                     successfuly_deleted = False
+        #                     self.utils.print_error(f'Failed to delete the SSID {ssid.name}')
+        #                 break
+        #
+        #     if successfuly_deleted:
+        #         kwargs['pass_msg'] = f'Deleted the SSID -> {ssids}'
+        #         self.common_validation.passed(**kwargs)
+        #         return 1
+        #     else:
+        #         kwargs['fail_msg'] = f'Failed to deleted the ssid -> {ssids}'
+        #         self.common_validation.failed(**kwargs)
+        #         return -1

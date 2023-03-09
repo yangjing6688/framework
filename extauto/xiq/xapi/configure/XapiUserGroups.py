@@ -132,7 +132,7 @@ class XapiUserGroups(XapiHelper):
                                     password_settings=password_settings,
                                     expiration_settings=expiration_settings,
                                     delivery_settings=delivery_settings,
-                                    user_count=0,
+                                    user_count=client_num,
                                     ssids=default_ssid,
                                     local_vars_configuration=None)
 
@@ -159,6 +159,8 @@ class XapiUserGroups(XapiHelper):
                                   "email_password_delivery": "",
                                   "sms_password_delivery": ""
                                 }
+            print(base_user_template)
+            print(users_config)
 
         except Exception as e:
             kwargs['fail_msg'] = f'Failed to create the user group -> {group_name} -> {e}'
@@ -184,7 +186,7 @@ class XapiUserGroups(XapiHelper):
                         kwargs['fail_msg'] = f'Failed to delete the user group {user_group_name}'
                         self.common_validation.failed(**kwargs)
                         return -1
-            kwargs['pass_msg'] = f'Deleted the network policy -> {policies}'
+            kwargs['pass_msg'] = f'Deleted the user group -> {user_group_name}'
             self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
