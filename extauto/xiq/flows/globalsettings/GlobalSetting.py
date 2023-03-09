@@ -256,7 +256,7 @@ class GlobalSetting(GlobalSettingWebElements):
 
         self.utils.print_info("Click Add button")
         self.auto_actions.click_reference(self.get_global_settings_account_organizations_save_button)
-        kwargs['pass_msg'] = "'create_organization()' -> Successfully created organization"
+        kwargs['pass_msg'] = "Successfully created organization"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -330,17 +330,15 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("Tooltip Text After enabling HIQ:", tool_tp_text)
 
             if "The process has been started. You will be logged out momentarily." in tool_tp_text:
-                kwargs['pass_msg'] = "'enable_account_hiq()' -> Automatic Logout Happening on Account " \
-                                     "after enabling HIQ"
+                kwargs['pass_msg'] = "Automatic Logout Happening on Account after enabling HIQ"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "'enable_account_hiq()' -> Automatic Logout Not Happening on Account " \
-                                     "after enabling HIQ"
+                kwargs['fail_msg'] = "Automatic Logout Not Happening on Account after enabling HIQ"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['pass_msg'] = "'enable_account_hiq()' -> HIQ Feature Already Enabled in the Account"
+            kwargs['pass_msg'] = "HIQ Feature Already Enabled in the Account"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -433,12 +431,12 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("Saving the changes...")
             self.auto_actions.click_reference(self.get_device_management_settings_save_button)
             sleep(5)
-            kwargs['pass_msg'] = "'change_device_password()' -> XIQ Account Password Changed Successfully"
+            kwargs['pass_msg'] = "XIQ Account Password Changed Successfully"
             self.common_validation.passed(**kwargs)
             return 1
         except Exception as e:
             self.utils.print_info(e)
-            kwargs['fail_msg'] = "'change_device_password()' -> unsuccessfully Changed XIQ Account Language  "
+            kwargs['fail_msg'] = "unsuccessfully Changed XIQ Account Language  "
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -465,7 +463,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Click on the apply button")
         self.auto_actions.click_reference(self.get_account_language_apply_button)
         sleep(10)
-        kwargs['pass_msg'] = "'change_xiq_account_language()' -> XIQ Account Language Changed Successfully"
+        kwargs['pass_msg'] = "XIQ Account Language Changed Successfully"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -493,7 +491,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Click the apply button")
         self.auto_actions.click_reference(self.get_account_time_zone_apply_button)
         sleep(10)
-        kwargs['pass_msg'] = "'change_xiq_account_time_zone()' -> XIQ Account Time Zone Changed Successfully"
+        kwargs['pass_msg'] = "XIQ Account Time Zone Changed Successfully"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -521,7 +519,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("SSH Availability Button already enabled...")
             sleep(2)
             self.screen.save_screen_shot()
-        kwargs['pass_msg'] = "'enable_ssh_availability()' -> Successfully enabling ssh"
+        kwargs['pass_msg'] = "Successfully enabling ssh"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -549,7 +547,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("SSH Availability Button already disabled...")
             sleep(2)
             self.screen.save_screen_shot()
-        kwargs['pass_msg'] = "'disable_ssh_availability()' -> Successfully disabling ssh"
+        kwargs['pass_msg'] = "Successfully disabling ssh"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -747,11 +745,11 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("******************Audit log details************************")
             for key, value in audit_logs_dict.items():
                 self.utils.print_info(f"{key}:{value}")
-            kwargs['pass_msg'] = "'get_audit_logs_details()' -> Successfully search string found in logs"
+            kwargs['pass_msg'] = "Successfully search string found in logs"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "'get_audit_logs_details()' -> Audit logs not Found for given search strings"
+            kwargs['fail_msg'] = "Audit logs not Found for given search strings"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -844,7 +842,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.utils.print_info("Click on the apply button")
         self.auto_actions.click_reference(self.get_industry_apply_button)
         sleep(10)
-        kwargs['pass_msg'] = "'set_vertical()' -> Successfully Resetting VIQ data"
+        kwargs['pass_msg'] = "Successfully Resetting VIQ data"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -900,11 +898,11 @@ class GlobalSetting(GlobalSettingWebElements):
         export_viq_status_fail = self.get_export_status_textfield_fail().text
 
         if "Succeeded" in export_viq_status_success:
-            kwargs['pass_msg'] = f"'export_viq()' -> VIQ Export Is : {export_viq_status_success}"
+            kwargs['pass_msg'] = f"VIQ Export Is : {export_viq_status_success}"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"'export_viq()' -> VIQ Export Is : {export_viq_status_fail}"
+            kwargs['fail_msg'] = f"VIQ Export Is : {export_viq_status_fail}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -944,7 +942,7 @@ class GlobalSetting(GlobalSettingWebElements):
                 self.auto_actions.click_reference(self.get_opt_out_copilot_beta_status)
                 sleep(1)
                 self.screen.save_screen_shot()
-        kwargs['pass_msg'] = "'set_opt_out_copilot_beta()' -> Successfully setting opt_out of Copilot BETA"
+        kwargs['pass_msg'] = "Successfully setting opt_out of Copilot BETA"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -1000,10 +998,10 @@ class GlobalSetting(GlobalSettingWebElements):
                 self.auto_actions.click_reference(self.get_supplemental_cli_option_status)
                 sleep(1)
         else:
-            kwargs['fail_msg'] = "'get_supplemental_cli_option()' -> Failed setting option Supplemental_cli"
+            kwargs['fail_msg'] = "Failed setting option Supplemental_cli"
             self.common_validation.failed(**kwargs)
             return -1
-        kwargs['pass_msg'] = "'get_supplemental_cli_option()' -> Successfully setting option Supplemental_cli"
+        kwargs['pass_msg'] = "Successfully setting option Supplemental_cli"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -1044,8 +1042,7 @@ class GlobalSetting(GlobalSettingWebElements):
         else:
             self.utils.print_info("Device is not EXOS")
             pass
-        kwargs['pass_msg'] = "'change_exos_device_management_settings()' -> Successfully device management " \
-                             "settings for EXOS switches"
+        kwargs['pass_msg'] = "Successfully device management settings for EXOS switches"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -1064,7 +1061,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("User button was found ")
             self.auto_actions.move_to_element(user_button)
         else:
-            kwargs['fail_msg'] = "'check_audit_log()' -> User button was not found"
+            kwargs['fail_msg'] = "User button was not found"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1073,7 +1070,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("global_settings was found ")
             self.auto_actions.click(global_settings)
         else:
-            kwargs['fail_msg'] = "'check_audit_log()' -> global_setting was not found"
+            kwargs['fail_msg'] = "global_setting was not found"
             self.common_validation.failed(**kwargs)
             return -1
         sleep(5)
@@ -1082,7 +1079,7 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("audit_button was found ")
             self.auto_actions.click(audit_button)
         else:
-            kwargs['fail_msg'] = "'check_audit_log()' -> audit_button was not found"
+            kwargs['fail_msg'] = "audit_button was not found"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1098,7 +1095,7 @@ class GlobalSetting(GlobalSettingWebElements):
                 else:
                     pass
         else:
-            kwargs['fail_msg'] = "'check_audit_log()' -> Failed extracting number of rows"
+            kwargs['fail_msg'] = "Failed extracting number of rows"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1157,10 +1154,10 @@ class GlobalSetting(GlobalSettingWebElements):
                                                 self.auto_actions.click(close_more)
                                                 self.screen.save_screen_shot()
                                             else:
-                                                kwargs['fail_msg'] = "'check_audit_log()' -> Failed clicking on close"
+                                                kwargs['fail_msg'] = "Failed clicking on close"
                                                 self.common_validation.failed(**kwargs)
                                                 return -1
-                                        kwargs['pass_msg'] = "'check_audit_log()' -> Successfully  clicking on  close button"
+                                        kwargs['pass_msg'] = "Successfully  clicking on  close button"
                                         self.common_validation.passed(**kwargs)
                                         return 1
                                     else:
@@ -1176,34 +1173,34 @@ class GlobalSetting(GlobalSettingWebElements):
                                         self.auto_actions.click(close_more)
                                         self.screen.save_screen_shot()
                                     else:
-                                        kwargs['fail_msg'] = "'check_audit_log()' -> Failed clicking on close button"
+                                        kwargs['fail_msg'] = "Failed clicking on close button"
                                         self.common_validation.failed(**kwargs)
                                         return -1
                         else:
                             field_description = self.devices_web_elements.get_field_description(el)
                             if field_description:
                                 if description in field_description.text:
-                                    kwargs['pass_msg'] = "'check_audit_log()' -> Log was found in audit log"
+                                    kwargs['pass_msg'] = "Log was found in audit log"
                                     self.common_validation.passed(**kwargs)
                                     return 1
                                 else:
                                     pass
                             else:
-                                kwargs['fail_msg'] = "'check_audit_log()' -> Field Description not found"
+                                kwargs['fail_msg'] = "Field Description not found"
                                 self.common_validation.failed(**kwargs)
                                 return -1
                     else:
                         pass
                 else:
-                    kwargs['fail_msg'] = "'check_audit_log()' -> time_stamp was not found"
+                    kwargs['fail_msg'] = "time_stamp was not found"
                     self.common_validation.failed(**kwargs)
                     return -1
                 cnt = cnt + 1
         else:
-            kwargs['fail_msg'] = "'check_audit_log()' -> Failed determinate audit row"
+            kwargs['fail_msg'] = "Failed determinate audit row"
             self.common_validation.failed(**kwargs)
             return -1
-        kwargs['fail_msg'] = "'check_audit_log()' -> The log was not found . return -1"
+        kwargs['fail_msg'] = "The log was not found . return -1"
         self.common_validation.failed(**kwargs)
         return -1
 

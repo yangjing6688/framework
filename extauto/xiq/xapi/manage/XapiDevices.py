@@ -118,7 +118,7 @@ class XapiDevices(XapiHelper):
             xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(dell=dell_payload)
         elif 'CONTROLLERS' in device_make.upper() or 'XCC' in device_make.upper():
             self.utils.print_info("Detected Wing, creating payload")
-            dell_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqWingDevices(sn_to_st={device_serial : device_mac})
+            wing_payload = self.xapiBaseDeviceApi.extremecloudiq.XiqWingDevices(sn_to_mac={device_serial : device_mac})
             xiq_onboard_device_request = self.xapiBaseDeviceApi.extremecloudiq.XiqOnboardDeviceRequest(wing=wing_payload)
 
         # Get the configuration from the Global varibles
@@ -223,7 +223,6 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return -1
 
-        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['connected'], _preload_content=False)
         while retry_value < retry_count:
             # get Device information
             api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['connected'], _preload_content=False)
@@ -264,10 +263,9 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return -1
 
-        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
         while retry_value < retry_count:
             # get Device information
-            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['connected'], _preload_content=False)
             self.valid_http_response(api_response)
             data = json.loads(api_response.data)
             if data.get('connected', False):
@@ -304,10 +302,9 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return -1
 
-        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
         while retry_value < retry_count:
             # get Device information
-            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['device_admin_state'], _preload_content=False)
             self.valid_http_response(api_response)
             data = json.loads(api_response.data)
             device_admin_state = data.get('device_admin_state', '')
@@ -499,7 +496,7 @@ class XapiDevices(XapiHelper):
 
         while retry_value < retry_count:
             # get Device information
-            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['device_admin_state'], _preload_content=False)
             self.valid_http_response(api_response)
             data = json.loads(api_response.data)
             device_admin_state = data.get('device_admin_state', '')
