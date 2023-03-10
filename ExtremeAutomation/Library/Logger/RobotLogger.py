@@ -14,7 +14,7 @@ colors_mapping = {
 }
 
 
-class Logging(logging.Logger, metaclass=Singleton):
+class RobotLogger(logging.Logger, metaclass=Singleton):
     def __init__(self):
         super().__init__(__name__)
         self.logging = logging
