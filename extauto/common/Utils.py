@@ -11,12 +11,12 @@ try:
     getattr(BuiltIn, "should_not_be_true")
     from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 except AttributeError:
-    from extauto.common.Logging import Logging
+    from ExtremeAutomation.Library.Logger.PytestLogger import PytestLogger as Logging
 
 
 class Utils:
     def __init__(self):
-        self.logger = Logging().get_logger()
+        self.logger = Logging()
         self.cfgHelp = ConfigFileHelper()
         self.cfgHelp.checkConfigRefresh()
 

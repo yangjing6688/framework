@@ -45,9 +45,6 @@ class RobotLogger(logging.Logger, metaclass=Singleton):
 
         return wrapped_func
 
-    def get_logger(self):
-        return self.logging
-
     @logger_not_initialised
     def configure_filter(self):
         self.logging.root.addFilter(FormatAndColorizeAndDispatchToRobot())
