@@ -9,7 +9,7 @@ from extauto.common.ConfigFileHelper import ConfigFileHelper
 import time
 try:
     getattr(BuiltIn, "should_not_be_true")
-    from ExtremeAutomation.Library.Logger.RobotLogger import Logging
+    from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 except AttributeError:
     from extauto.common.Logging import Logging
 

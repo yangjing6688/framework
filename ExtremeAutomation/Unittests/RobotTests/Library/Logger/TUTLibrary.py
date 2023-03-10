@@ -1,4 +1,4 @@
-from ExtremeAutomation.Library.Logger.RobotLogger import Logging
+from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 
 
 class TUTLibrary:
