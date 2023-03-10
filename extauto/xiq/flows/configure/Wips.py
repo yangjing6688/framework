@@ -106,7 +106,7 @@ class Wips(WipsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "enable_wips_on_network_policy() failed. Failed to enable WIPS Policy"
+            kwargs['fail_msg'] = "Failed to enable WIPS Policy"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -311,7 +311,7 @@ class Wips(WipsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "add_allowed_ssid_on_network_wips_policy() failed. Failed to update wips policy"
+            kwargs['fail_msg'] = "Failed to update wips policy"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -400,7 +400,7 @@ class Wips(WipsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "select_allowed_mac_oui_on_network_wips_policy() failed. Failed to update wips policy"
+            kwargs['fail_msg'] = "Failed to update wips policy"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -458,7 +458,7 @@ class Wips(WipsWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "configure_wips_policy_on_common_objects() failed. Failed to update wips policy"
+            kwargs['fail_msg'] = "Failed to update wips policy"
             self.common_validation.failed(**kwargs)
             return -1
 
