@@ -52,7 +52,7 @@ class Webhook(WebhookWebElements):
             self.screen.save_screen_shot()
             return self.find_url_in_webhook_grid(webhook2)
         else:
-            kwargs['fail_msg'] = "'edit_webhook()' -> Unsuccessufuly edit webhook"
+            kwargs['fail_msg'] = "Unable to edit webhook"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -96,10 +96,10 @@ class Webhook(WebhookWebElements):
             if cells[1].text == webhook.url:
                 self.utils.print_info("Searching webhook url(success):"+webhook.url)
                 self.auto_actions.click(cells[1])
-                kwargs['pass_msg'] = "'find_url_in_webhook_grid()' -> Successfully searching webhook url"
+                kwargs['pass_msg'] = "Successfully searching webhook url"
                 self.common_validation.passed(**kwargs)
                 return 1
-        kwargs['fail_msg'] = f"'find_url_in_webhook_grid()' -> Unsuccessfully searching webhook url: {webhook.url}"
+        kwargs['fail_msg'] = f"Unable to find webhook url: {webhook.url}"
         #self.common_validation.fault(**kwargs)
         return -1
 
@@ -119,14 +119,14 @@ class Webhook(WebhookWebElements):
             self.auto_actions.click_reference(self.get_confirm_yes_btn)
             sleep(2)
             if self.find_url_in_webhook_grid(webhook) == -1:
-                kwargs['pass_msg'] = f"'delete_webhook()' -> Successfully delete webhook url: {webhook.url}"
+                kwargs['pass_msg'] = f"Successfully delete webhook url: {webhook.url}"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = f"'delete_webhook()' -> Unsuccessfully delete webhook url: {webhook.url}"
+                kwargs['fail_msg'] = f"Unable to delete webhook url: {webhook.url}"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            kwargs['fail_msg'] = f"'delete_webhook()' -> Failed to delete webhook url: {webhook.url}"
+            kwargs['fail_msg'] = f"Failed to delete webhook url: {webhook.url}"
             self.common_validation.fault(**kwargs)
             return -1

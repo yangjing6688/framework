@@ -513,3 +513,21 @@ class TrafficGenerationUdks():
             port_a, **kwargs)
         self.trafficTransmitKeywords.start_transmit_on_port_and_wait(
             port_b, **kwargs)
+
+    def send_source_macs_on_port_from_traffic_generator(self, mac_add_list, tgen_port):
+        """
+         - This keyword will send a list of source macs on port from traffic generator
+        :param tgen_port: A dictionary with this format {"tgen_name": tgenName, "ifname": tgenPort}. You can create one
+                          from the yaml file of the device by using this function:
+                          - config_helper.createTgenPort(config_helper.tgen1_name, config_helper.tgen_dut1_port_a.ifname)
+        :param mac_add_list: mac_add_list = ['00:00:00:00:00:01', '00:00:00:00:00:02', "..."]
+                """
+
+        packet_a = 'packetA'
+        for i in range(0, len(mac_add_list)):
+            self.Create_Ethernet2_Packet(packet_a, smac=mac_add_list[i])
+            self.send_stream_with_incrementing_smac(tgen_port, packet_a, stream_number=1, count=1,
+                                                    rate=100, unit='pps', sa_count=1,  max_wait=120)
+
+
+

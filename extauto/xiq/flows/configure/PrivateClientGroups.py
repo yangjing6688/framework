@@ -42,8 +42,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
         element = self.get_private_client_grp_default_network_policy()
         if element.text not in policy:
-            kwargs['fail_msg'] = "set_custom_network_policy() failed." \
-                                 f"Not able to select '{policy}' from drop down"
+            kwargs['fail_msg'] = f"Not able to select '{policy}' from drop down"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -76,17 +75,17 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
             self.auto_actions.click_reference(self.get_private_client_grp_enable_ap_based_on_off_button)
 
         elif not status:
-            kwargs['fail_msg'] = "enable_disable_ap_based_group() failed. Button does not exist"
+            kwargs['fail_msg'] = "Button does not exist"
             self.common_validation.fault(**kwargs)
             return -1
 
         if self.get_based_grp_enabled_status('ap') == 'OFF' and mode.lower() in ['enable']:
-            kwargs['fail_msg'] = "enable_disable_ap_based_group() failed. Fail to enable the ap-based group"
+            kwargs['fail_msg'] = "Fail to enable the ap-based group"
             self.common_validation.failed(**kwargs)
             return -1
 
         elif self.get_based_grp_enabled_status('ap') == 'ON' and mode.lower() in ['disable']:
-            kwargs['fail_msg'] = "enable_disable_ap_based_group() failed. Fail to disable the ap-based group"
+            kwargs['fail_msg'] = "Fail to disable the ap-based group"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -120,17 +119,17 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
             self.auto_actions.click_reference(self.get_private_client_grp_enable_key_based_on_off_button)
 
         elif not status:
-            kwargs['fail_msg'] = "enable_disable_key_based_group() failed. Button does not exist"
+            kwargs['fail_msg'] = "Button does not exist"
             self.common_validation.fault(**kwargs)
             return -1
 
         if self.get_based_grp_enabled_status('key') == 'OFF' and mode.lower() in ['enable']:
-            kwargs['fail_msg'] = "enable_disable_key_based_group() failed. Fail to enable the key-based group"
+            kwargs['fail_msg'] = "Fail to enable the key-based group"
             self.common_validation.failed(**kwargs)
             return -1
 
         elif self.get_based_grp_enabled_status('key') == 'ON' and mode.lower() in ['disable']:
-            kwargs['fail_msg'] = "enable_disable_key_based_group() failed. Fail to disable the key-based group"
+            kwargs['fail_msg'] = "Fail to disable the key-based group"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -206,7 +205,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
         sleep(5)
         if self.get_private_ap_based_room_table_cells() is not None:
-            kwargs['fail_msg'] = "delete_all_rooms_ap_based_group() failed. Rooms are not empty"
+            kwargs['fail_msg'] = "Rooms are not empty"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -246,8 +245,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
 
         sleep(5)
         if self.get_private_key_based_all_cells() is not None:
-            kwargs['fail_msg'] = "delete_all_user_keys_based_group() failed. " \
-                                 "Fail to delete all users and table is not empty"
+            kwargs['fail_msg'] = "Fail to delete all users and table is not empty"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -273,13 +271,13 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         cells = self.get_private_ap_based_room_table_cells()
 
         if cells is None:
-            kwargs['fail_msg'] = "delete_specific_room_ap_based_group() failed. Room table is empty"
+            kwargs['fail_msg'] = "Room table is empty"
             self.common_validation.fault(**kwargs)
             return -1
 
         row = self.search_in_table(len(header), cells, room)
         if not row:
-            kwargs['fail_msg'] = f"delete_specific_room_ap_based_group() failed. Not able to find a room in table {room}"
+            kwargs['fail_msg'] = f"Not able to find a room in table {room}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -303,8 +301,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         if cells is not None:
             row = self.search_in_table(len(header), cells, room)
             if row:
-                kwargs['fail_msg'] = "delete_specific_room_ap_based_group() failed. " \
-                                     f"Not able to delete the room in table {room}"
+                kwargs['fail_msg'] = f"Not able to delete the room in table {room}"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -331,13 +328,13 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         self.utils.print_info("header")
 
         if cells is None:
-            kwargs['fail_msg'] = "delete_specific_user_key_based_group() failed. User table is empty"
+            kwargs['fail_msg'] = "User table is empty"
             self.common_validation.fault(**kwargs)
             return -1
 
         row = self.search_in_table(len(header), cells, user)
         if not row:
-            kwargs['fail_msg'] = f"delete_specific_user_key_based_group() failed. Not able to find user in table {user}"
+            kwargs['fail_msg'] = f"Not able to find user in table {user}"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -361,7 +358,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         if cells is not None:
             row = self.search_in_table(len(header), cells, user)
             if row:
-                kwargs['fail_msg'] = f"delete_specific_user_key_based_group() failed. Not able to delete user {user}"
+                kwargs['fail_msg'] = f"Not able to delete user {user}"
                 self.common_validation.failed(**kwargs)
                 return -1
 
@@ -393,8 +390,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
             actual_list = len(self.get_private_ap_based_room_user_assigned_drop_down())
 
             if position > actual_list - 1:
-                kwargs['fail_msg'] = "add_room_ap_based_group() failed. " \
-                                     f"Position must be in range 0 to {str(actual_list - 1)}"
+                kwargs['fail_msg'] = f"Position must be in range 0 to {str(actual_list - 1)}"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -425,8 +421,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         row = self.search_in_table(len(header), cells, room)
 
         if not row:
-            kwargs['fail_msg'] = "add_room_ap_based_group() failed. " \
-                                 f"Room does not exist after adding {room}"
+            kwargs['fail_msg'] = f"Room does not exist after adding {room}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -452,7 +447,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
             user_select = self.get_private_user_select_dropdown()
 
             if user_select is None:
-                kwargs['fail_msg'] = "add_user_key_based_group() failed. There is no more users to allocated"
+                kwargs['fail_msg'] = "There is no more users to allocated"
                 self.common_validation.fault(**kwargs)
                 return -1
 
@@ -471,7 +466,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         row = self.search_in_table(len(header), cells, user)
 
         if not row:
-            kwargs['fail_msg'] = f"add_user_key_based_group() failed. User does not exist after adding {user}"
+            kwargs['fail_msg'] = f"User does not exist after adding {user}"
             self.common_validation.failed(**kwargs)
             return -1
 

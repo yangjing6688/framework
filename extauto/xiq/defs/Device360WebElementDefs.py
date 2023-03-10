@@ -2262,9 +2262,15 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    defacutelrdp = \
+    select_element_port_type_tab_maclocking = \
         {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-name"]',
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-mac-locking"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_elrp = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-elrp"]',
             'wait_for': 5
         }
 
@@ -2277,7 +2283,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_description = \
         {
-            'XPATH': '//textarea[@data-automation-tag="port-type-editor-description"]',
+            'XPATH': '//input[@data-automation-tag="port-type-editor-description"]',
             'wait_for': 5
         }
 
@@ -3202,7 +3208,7 @@ class Device360WebElementDefs:
 
     d360_configure_port_mac_locking_tab_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="ahTabContainer"]//a[contains(text(), "MAC Locking")]',
+            'XPATH': '//div[@data-automation-tag="automation-port-config-mac-locking"]',
             'wait_for': 5
         }
 
@@ -4039,6 +4045,54 @@ class Device360WebElementDefs:
     device360_diagnostics_select_all_button = \
         {
             "XPATH": '(//div[@class="device-diagnostics"]//button[@data-dojo-attach-point="selectAllButton"])[$index]',
+            'wait_for': 5
+        }
+
+    d360_port_status_overview = \
+        {
+            'CSS_SELECTOR': '.field-status',
+            'wait_for': 5
+        }
+
+    d360_mac_locking_overview = \
+        {
+            'CSS_SELECTOR': '.field-macLock',
+            'wait_for': 5
+        }
+
+    d360_port_config_option_tab = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-config-${option}"]',
+            'wait_for': 5
+        }
+
+    mac_locking_exceed_limit_error = \
+        {
+            'CSS_SELECTOR': '.form-error.form-error-msg',
+            'wait_for': 5
+        }
+
+    d360_mac_locking_disable_port = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-disable-port"]',
+            'wait_for': 5
+        }
+
+    d360_mac_locking_link_down_action = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//div[@data-automation-tag="automation-port-maclock-link-down-action-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    wait_for_port_config_to_load = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="spinner"]',
+            'wait_for': 5
+        }
+
+    d360_mac_locking_remove_mac_toggle = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-remove-aged-macs"]',
             'wait_for': 5
         }
 

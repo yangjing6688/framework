@@ -144,8 +144,7 @@ class Notification(object):
                 self.utils.print_info(f"Handling StaleElementReferenceException - loop {stale_retry}")
                 stale_retry = stale_retry + 1
 
-        self.utils.print_info("Unable to find Notification Policy row in grid")
-        kwargs['fail_msg'] = "'get_notification_policy()' -> Unable to find Notification Policy row in grid"
+        kwargs['fail_msg'] = "Unable to find Notification Policy row in grid"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -173,7 +172,7 @@ class Notification(object):
         if row:
             return 1
 
-        kwargs['fail_msg'] = "'check_if_notification_policy_exists()' -> Notification Policy doesn not Exists"
+        kwargs['fail_msg'] = "Notification Policy doesn not Exists"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -235,8 +234,7 @@ class Notification(object):
 
             return 1
 
-        self.utils.print_info("Notification Policy Does not exists")
-        kwargs['fail_msg'] = "'edit_notification_policy()' -> Notification Policy doesn not Exists"
+        kwargs['fail_msg'] = "Notification Policy doesn not Exists"
         self.common_validation.fault(**kwargs)
         return -1
 
