@@ -490,7 +490,16 @@ class TrafficGenerationUdks():
     def Transmit_Traffic_Bidirectionally(
         self, port_a, port_b, tx_packet_name_a,tx_packet_name_b, rx_packet_name_a,
         rx_packet_name_b,tx_count=100, tx_rate=100, **kwargs):
-
+        """
+         - This keyword will send packages bidirectionally on port from traffic generator
+        :param port_a, port_b:  A dictionary with this format {"tgen_name": tgenName, "ifname": tgenPort}. You can create one
+                          from the yaml file of the device by using this function:
+                          - config_helper.createTgenPort(config_helper.tgen1_name, config_helper.tgen_dut1_port_a.ifname)
+        :param tx_packet_name_a, tx_packet_name_b: 'packetA', 'packetB'
+        :param rx_packet_name_a, rx_packet_name_b: 'packetB', 'packetA'
+        :param tx_count, tx_rate:  default values: 100, 100
+        :return This keyword doesn't return a specific value
+                """
         self.Configure_Packet_on_Port_Single_Burst(
             port_a, tx_packet_name_a, count=tx_count,rate=tx_rate, **kwargs)
         self.Configure_Packet_on_Port_Single_Burst(

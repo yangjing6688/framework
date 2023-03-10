@@ -1832,6 +1832,12 @@ class Device360WebElements(Device360WebElementDefs):
     ### The second function to be declared will be used. Thus, this function was commented
     ### Uncommented on 2/27/23 because this function contains table scroll and no header
     def get_device360_port_table_rows(self):
+        """
+         - This keyword will scroll the D360 table and get a list of D360 table webElements matching each particular row.
+         The list will not contain the table header.
+        :param: -
+        :return list of D360 rows
+        """
         scroll_element = self.get_device360_ports_table_scroll()
         if scroll_element:
             from extauto.common.AutoActions import AutoActions
