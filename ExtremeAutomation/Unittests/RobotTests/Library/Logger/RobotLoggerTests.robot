@@ -27,87 +27,17 @@ ${TUT_OUTPUT_LEVEL_DEFAULT_DIR}     ${TUT_OUTPUT_DIR}/level_default
 Run and check console at trace level
     ${logging_level}                Set Variable    TRACE
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_TRACE_DIR}
-    ${expected_stdout_line_count}   Set Variable    ${16}
-    ${expected_stderr_line_count}   Set Variable    ${3}
-
-    Create Directory    ${output_dir}
-    ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
-
-    @{stdout_lines} =   Split String     ${result.stdout}   \n
-    @{stderr_lines} =   Split String     ${result.stderr}   \n
-
-    ${stdout_line_count} =  Get Line Count  ${result.stdout}
-    Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
-
-    ${stderr_line_count} =  Get Line Count  ${result.stderr}
-    Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
-
-    ${step_line} =      Get From List   ${stdout_lines}     3
-    ${cli_line} =       Get From List   ${stdout_lines}     4
-    ${trace_line} =     Get From List   ${stdout_lines}     5
-    ${debug_line} =     Get From List   ${stdout_lines}     6
-    ${info_line} =      Get From List   ${stdout_lines}     7
-
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${critical_line} =      Get From List   ${stderr_lines}     1
-    ${error_line} =         Get From List   ${stderr_lines}     2
-
-#   Assert stdout lines
-
-    ${level_name} =         Set Variable    step
-    ${code_line_number} =   Set Variable    9
-    ${regex} =              Set Variable    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${step_line}    ${regex}
-
-    ${level_name} =         Set Variable    cli
-    ${code_line_number} =   Set Variable    12
-    ${regex} =              Set Variable    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${cli_line}     ${regex}
-
-    ${level_name} =         Set Variable    trace
-    ${code_line_number} =   Set Variable    15
-    ${regex} =              Set Variable    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${trace_line}   ${regex}
-
-    ${level_name} =         Set Variable    debug
-    ${code_line_number} =   Set Variable    18
-    ${regex} =              Set Variable    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${debug_line}   ${regex}
-
-    ${level_name} =         Set Variable    info
-    ${code_line_number} =   Set Variable    21
-    ${regex} =              Set Variable    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${info_line}    ${regex}
-
-#   Assert stderr lines
-
-    ${level_name} =         Set Variable        warning
-    ${code_line_number} =   Set Variable        24
-    ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${warning_line}     ${regex}
-
-    ${level_name} =         Set Variable        critical
-    ${code_line_number} =   Set Variable        27
-    ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${critical_line}    ${regex}
-
-    ${level_name} =         Set Variable        error
-    ${code_line_number} =   Set Variable        30
-    ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${error_line}       ${regex}
-
-
-Run and check console at debug level
-    ${logging_level}                Set Variable    DEBUG
-    ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEBUG_DIR}
     ${expected_stdout_line_count}   Set Variable    ${13}
-    ${expected_stderr_line_count}   Set Variable    ${3}
+    ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
     ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
 
     @{stdout_lines} =   Split String     ${result.stdout}   \n
     @{stderr_lines} =   Split String     ${result.stderr}   \n
+
+    Log List    ${stdout_lines}
+    Log List    ${stderr_lines}
 
     ${stdout_line_count} =  Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
@@ -119,8 +49,7 @@ Run and check console at debug level
     ${info_line} =      Get From List   ${stdout_lines}     4
 
     ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${critical_line} =      Get From List   ${stderr_lines}     1
-    ${error_line} =         Get From List   ${stderr_lines}     2
+    ${error_line} =         Get From List   ${stderr_lines}     1
 
 #   Assert stdout lines
 
@@ -141,10 +70,57 @@ Run and check console at debug level
     ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
     Should Match Regexp     ${warning_line}     ${regex}
 
-    ${level_name} =         Set Variable        critical
-    ${code_line_number} =   Set Variable        27
+    ${level_name} =         Set Variable        error
+    ${code_line_number} =   Set Variable        30
     ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${critical_line}    ${regex}
+    Should Match Regexp     ${error_line}       ${regex}
+
+
+Run and check console at debug level
+    ${logging_level}                Set Variable    DEBUG
+    ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEBUG_DIR}
+    ${expected_stdout_line_count}   Set Variable    ${13}
+    ${expected_stderr_line_count}   Set Variable    ${2}
+
+    Create Directory    ${output_dir}
+    ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
+
+    @{stdout_lines} =   Split String     ${result.stdout}   \n
+    @{stderr_lines} =   Split String     ${result.stderr}   \n
+
+    Log List    ${stdout_lines}
+    Log List    ${stderr_lines}
+
+    ${stdout_line_count} =  Get Line Count  ${result.stdout}
+    Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
+
+    ${stderr_line_count} =  Get Line Count  ${result.stderr}
+    Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
+
+    ${debug_line} =     Get From List   ${stdout_lines}     3
+    ${info_line} =      Get From List   ${stdout_lines}     4
+
+    ${warning_line} =       Get From List   ${stderr_lines}     0
+    ${error_line} =         Get From List   ${stderr_lines}     1
+
+#   Assert stdout lines
+
+    ${level_name} =         Set Variable    debug
+    ${code_line_number} =   Set Variable    18
+    ${regex} =              Set Variable    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
+    Should Match Regexp     ${debug_line}   ${regex}
+
+    ${level_name} =         Set Variable    info
+    ${code_line_number} =   Set Variable    21
+    ${regex} =              Set Variable    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
+    Should Match Regexp     ${info_line}    ${regex}
+
+#   Assert stderr lines
+
+    ${level_name} =         Set Variable        warning
+    ${code_line_number} =   Set Variable        24
+    ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
+    Should Match Regexp     ${warning_line}     ${regex}
 
     ${level_name} =         Set Variable        error
     ${code_line_number} =   Set Variable        30
@@ -156,13 +132,16 @@ Run and check console at info level
     ${logging_level}                Set Variable    INFO
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_INFO_DIR}
     ${expected_stdout_line_count}   Set Variable    ${12}
-    ${expected_stderr_line_count}   Set Variable    ${3}
+    ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
     ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
 
     @{stdout_lines} =   Split String     ${result.stdout}   \n
     @{stderr_lines} =   Split String     ${result.stderr}   \n
+
+    Log List    ${stdout_lines}
+    Log List    ${stderr_lines}
 
     ${stdout_line_count} =  Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
@@ -173,8 +152,7 @@ Run and check console at info level
     ${info_line} =      Get From List   ${stdout_lines}     3
 
     ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${critical_line} =      Get From List   ${stderr_lines}     1
-    ${error_line} =         Get From List   ${stderr_lines}     2
+    ${error_line} =         Get From List   ${stderr_lines}     1
 
 #   Assert stdout lines
 
@@ -189,11 +167,6 @@ Run and check console at info level
     ${code_line_number} =   Set Variable        24
     ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
     Should Match Regexp     ${warning_line}     ${regex}
-
-    ${level_name} =         Set Variable        critical
-    ${code_line_number} =   Set Variable        27
-    ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${critical_line}    ${regex}
 
     ${level_name} =         Set Variable        error
     ${code_line_number} =   Set Variable        30
@@ -202,15 +175,19 @@ Run and check console at info level
 
 
 Run and check console at default level
-    ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEFAULT_DIR}
+    ${logging_level}                Set Variable    INFO
+    ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_INFO_DIR}
     ${expected_stdout_line_count}   Set Variable    ${12}
-    ${expected_stderr_line_count}   Set Variable    ${3}
+    ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
-    ${result} =     Run Process     robot   ${TUT}  cwd=${output_dir}
+    ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
 
     @{stdout_lines} =   Split String     ${result.stdout}   \n
     @{stderr_lines} =   Split String     ${result.stderr}   \n
+
+    Log List    ${stdout_lines}
+    Log List    ${stderr_lines}
 
     ${stdout_line_count} =  Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
@@ -221,8 +198,7 @@ Run and check console at default level
     ${info_line} =      Get From List   ${stdout_lines}     3
 
     ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${critical_line} =      Get From List   ${stderr_lines}     1
-    ${error_line} =         Get From List   ${stderr_lines}     2
+    ${error_line} =         Get From List   ${stderr_lines}     1
 
 #   Assert stdout lines
 
@@ -237,11 +213,6 @@ Run and check console at default level
     ${code_line_number} =   Set Variable        24
     ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
     Should Match Regexp     ${warning_line}     ${regex}
-
-    ${level_name} =         Set Variable        critical
-    ${code_line_number} =   Set Variable        27
-    ${regex} =              Set Variable        \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${level_name.upper()}] \\[TUTLibrary] \\[print_${level_name}:${code_line_number}] \\[Print all levels] message-level-${level_name}
-    Should Match Regexp     ${critical_line}    ${regex}
 
     ${level_name} =         Set Variable        error
     ${code_line_number} =   Set Variable        30

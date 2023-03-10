@@ -1,45 +1,16 @@
 import logging
 from ansi2html.style import SCHEME as ANSI2HTML_COLOR_SCHEME
-from functools import partial, partialmethod
-from robot.api import logger as robot_logger
 from robot.libraries.BuiltIn import BuiltIn
 from extauto.common.ConfigFileHelper import ConfigFileHelper
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 LOG_FORMAT = '[%(asctime)s] [%(levelname)s] [%(module)s] [%(funcName)s:%(lineno)s] [%(test_name)s] %(message)s'
 
-new_log_levels = {
-    "STEP":
-        {
-            "log_level_value": 5,
-            "log_color": ANSI2HTML_COLOR_SCHEME.get("ansi2html")[6]
-        },
-    "CLI":
-        {
-            "log_level_value": 6,
-            "log_color": ANSI2HTML_COLOR_SCHEME.get("ansi2html")[4]
-        },
-    "TRACE":
-        {
-            "log_level_value": 7,
-            "log_color": ANSI2HTML_COLOR_SCHEME.get("ansi2html")[2]
-        }
-}
-
 colors_mapping = {
     logging.INFO: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[5],
     logging.DEBUG: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[2],
     logging.WARNING: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[3],
-    logging.CRITICAL: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[1],
     logging.ERROR: ANSI2HTML_COLOR_SCHEME.get("ansi2html")[1]
-}
-
-method_mapping = {
-    logging.INFO: robot_logger.info,
-    logging.DEBUG: robot_logger.debug,
-    logging.WARNING: robot_logger.warn,
-    logging.CRITICAL: robot_logger.error,
-    logging.ERROR: robot_logger.error,
 }
 
 
@@ -74,21 +45,6 @@ class Logging(logging.Logger, metaclass=Singleton):
 
         return wrapped_func
 
-    @logger_not_initialised
-    def configure_new_logging_levels(self):
-        for level_name, log_info in new_log_levels.items():
-            setattr(self.logging, level_name, log_info["log_level_value"])
-            self.logging.addLevelName(getattr(self.logging, level_name), level_name)
-            setattr(self.logging.Logger, level_name.lower(),
-                    partialmethod(self.logging.Logger.log, getattr(self.logging, level_name)))
-            setattr(self.logging, level_name.lower(), partial(self.logging.log, getattr(self.logging, level_name)))
-            colors_mapping[getattr(self.logging, level_name)] = log_info["log_color"]
-        method_mapping.update({
-            logging.STEP: robot_logger.trace,
-            logging.CLI: robot_logger.trace,
-            logging.TRACE: robot_logger.trace
-        })
-
     def get_logger(self):
         return self.logging
 
@@ -103,8 +59,6 @@ class Logging(logging.Logger, metaclass=Singleton):
 
     @logger_not_initialised
     def init_logger(self):
-        self.configure_new_logging_levels()
-
         self.old_record_factory = self.logging.getLogRecordFactory()
         self.logging.setLogRecordFactory(self.new_record_factory)
 
@@ -146,11 +100,12 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
         self.Dispatch()[level_number](message)
 
     def log_to_console(self, message):
-        robot_logger.console(message)
+        BuiltIn().log_to_console(message)
 
     class Dispatch(object):
         def __getitem__(self, level_number):
             def with_html(message):
-                method_mapping.get(level_number)(message, html=True)
+                canonical = logging.getLevelName(level_number)
+                robot = "WARN" if canonical == "WARNING" else canonical
+                BuiltIn().log(message, robot, True)
             return with_html
-
