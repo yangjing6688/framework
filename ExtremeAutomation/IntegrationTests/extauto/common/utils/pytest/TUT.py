@@ -7,13 +7,18 @@ _path = '/automation/framework/extreme_automation_framework/ExtremeAutomation/In
 @pytest.fixture(scope="module", autouse=True)
 def my_fixture():
     if __file__ == _path:
-        raise RuntimeError("File must be copy over")
+        raise RuntimeError("File must be copied over")
 
 def test_python_builtin_import():
     module = sys.modules.get("robot.libraries.BuiltIn")
     with pytest.raises(AttributeError):
         getattr(module.BuiltIn, "should_not_be_true")
     getattr(module.BuiltIn, "isRunningPytest")
+
+
+def test_print_debug():
+    utils = Utils()
+    utils.print_debug("message_print_debug")
 
 
 def test_print_info():

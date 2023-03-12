@@ -3,13 +3,7 @@ from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 
 class TUTLibrary:
     def __init__(self):
-        self.logger = Logging().get_logger()
-
-    def print_step(self, message):
-        self.logger.step(message)
-
-    def print_cli(self, message):
-        self.logger.cli(message)
+        self.logger = Logging()
 
     def print_trace(self, message):
         self.logger.trace(message)
@@ -22,9 +16,6 @@ class TUTLibrary:
 
     def print_warning(self, message):
         self.logger.warning(message)
-
-    def print_critical(self, message):
-        self.logger.critical(message)
 
     def print_error(self, message):
         self.logger.error(message)
