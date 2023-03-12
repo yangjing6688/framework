@@ -2,7 +2,7 @@ from inspect import currentframe
 
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from ExtremeAutomation.Library.Logger.RobotLogger import Logging
+from extauto.common.Logging import Logging
 
 
 class FailureException(AssertionError):

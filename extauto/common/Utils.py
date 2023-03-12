@@ -31,7 +31,7 @@ class Utils:
         """
 
         toast = BuiltIn().get_variable_value("${" + conf_str + "}")
-        self.print_log("Toast Message For ", conf_str, " : ", toast)
+        self.print_debug("Toast Message For ", conf_str, " : ", toast)
         return toast
 
     def get_random_string(self, length="default"):
@@ -141,22 +141,6 @@ class Utils:
         else:
             return 1
 
-    def print_log(self, *words):
-        """
-        - prints the given list of words in to console and robot framework log.html file
-        - Note this is not a keyword to use inside the robot framework script. only used in libs
-        """
-
-        line = ""
-        for word in words:
-            line += str(word)
-
-        if "DEBUG" in line:
-            BuiltIn().log_to_console(line)
-
-        if "INFO" in line:
-            BuiltIn().log_to_console(line)
-
     def print_error(self, *words):
         """
         - prints the given list of words in to console and robot framework log.html file
@@ -164,12 +148,14 @@ class Utils:
         """
 
         line = ""
+
         for word in words:
-            line += str(word)
+            try:
+                line += str(word)
+            except TypeError:
+                pass
 
         self.logger.error(line)
-        test_name = BuiltIn().get_variable_value("${TEST_NAME}")
-        BuiltIn().log_to_console("\n" + test_name + ": " + line)
 
     def print_warning(self, *words):
         """
@@ -187,12 +173,6 @@ class Utils:
 
         self.logger.warning(line)
 
-        try:
-            test_name = BuiltIn().get_variable_value("${TEST_NAME}")
-            BuiltIn().log_to_console("\n" + test_name + ": " + line)
-        except TypeError:
-            pass
-
     def print_info(self, *words):
         """
         - prints the given list of words in to console and robot framework log.html file
@@ -200,15 +180,14 @@ class Utils:
         """
 
         line = ""
+
         for word in words:
-            line += str(word)
+            try:
+                line += str(word)
+            except TypeError:
+                pass
 
         self.logger.info(line)
-        test_name = BuiltIn().get_variable_value("${TEST_NAME}")
-        if test_name:
-            BuiltIn().log_to_console("\n" + test_name + ": " + line)
-        else:
-            BuiltIn().log_to_console("\n" + ": " + line)
 
     def print_debug(self, *words):
         """
@@ -217,10 +196,14 @@ class Utils:
         """
 
         line = ""
+
         for word in words:
-            line += str(word)
-        if "DEBUG" in BuiltIn().get_variable_value("${LOG_LEVEL}"):
-            BuiltIn().log_to_console(line)
+            try:
+                line += str(word)
+            except TypeError:
+                pass
+
+        self.logger.debug(line)
 
     def get_utc_time_difference(self, t1, t2):
         """
