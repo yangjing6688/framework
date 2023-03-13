@@ -5606,6 +5606,45 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
+    def get_device_management_ip_address(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+        """
+        - Get Management IP Assigned to the AP
+        - Keyword Usage:
+        - ``Get Device Management IP Address   device_serial=${DEVICE_SERIAL}``
+        - ``Get Device Management IP Address   device_name=${DEVICE_NAME}``
+        - ``Get Device Management IP Address   device_mac=${DEVICE_MAC}``
+
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+            
+        :param device_serial: Serial number of Device Ex:11301810220048
+        :param device_name: Device name Ex: AP1130
+        :param device_mac: Device mac Ex: F09CE9F89600
+        :return: Device Management IP Address
+        """
+
+
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_get_device_management_ip_address(device_serial=device_serial, device_mac=device_mac, **kwargs)
+
+        self.navigator.navigate_to_manage_tab()
+        sleep(5)
+        self.refresh_devices_page()
+
+        search_string = [value for value in [device_serial, device_mac, device_name] if value][0]
+        management_ip = self.get_device_details(search_string, 'MGT IP ADDRESS')
+        if management_ip:
+            kwargs['pass_msg'] = f"MGMT IP ADDRESS is {management_ip} using {search_string}"
+            self.common_validation.passed(**kwargs)
+            return management_ip
+        else:
+            kwargs['fail_msg'] = f"Did not get MGMT IP ADDRESS using {search_string}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    @deprecated("Please use get_device_management_ip_address(...)")
+    # This was put into depreacted mode on March 9th 2023
     def get_ap_management_ip_address(self, ap_serial=None, ap_name=None, ap_mac=None):
         """
         - Get Management IP Assigned to the AP
@@ -12549,19 +12588,6 @@ class Devices:
         :param dut: DUT Device
         :return: 1 if the PSE reset have been completed else -1
         """
-
-    def get_device_latest_version(self, dut, **kwargs):
-        """
-        - This method is used to get the device latest version
-        - dut - dut from .yaml testbed file (ex: ap1, netelem1}
-        - Keyword Usage:
-        - ``Get Device Latest Version   ${device1}``
-
-        :return: returned_version of the device
-        """
-        latest_version = -1
-        device_selected = False
-
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
@@ -12611,6 +12637,22 @@ class Devices:
             kwargs['fail_msg'] = f"The function was not designed for {dut.cli_type} OS System"
             self.common_validation.fault(**kwargs)
             return -1
+
+    def get_device_latest_version(self, dut, **kwargs):
+        """
+        - This method is used to get the device latest version
+        - dut - dut from .yaml testbed file (ex: ap1, netelem1}
+        - Keyword Usage:
+        - ``Get Device Latest Version   ${device1}``
+
+        :return: returned_version of the device
+        """
+        latest_version = -1
+        device_selected = False
+
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+        self.refresh_devices_page()
 
         if self.select_device(device_mac=dut.mac):
             device_selected = True
