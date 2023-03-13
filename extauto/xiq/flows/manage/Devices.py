@@ -10220,7 +10220,7 @@ class Devices:
             # 2) The update was attempted but failed
             # 3) The update was completed
             if update_status == '' :
-                kwargs['pass_msg'] = "Device is not in the process of updating thus it considered updated"
+                kwargs['pass_msg'] = "Device is not in the process of updating thus it is considered updated"
                 self.common_validation.passed(**kwargs)
                 complete = True
                 break
