@@ -10201,19 +10201,18 @@ class Devices:
         n_time = 0
         update_status = -1
         date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
-        failed_messages = ['Device Update Failed']
 
         while n_time <= int(wait_time_in_min * 4):
             n_time = n_time + 1
             if device_serial:
                 update_status = self.get_device_details(device_serial, 'UPDATED')
-                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_serial: " + str(device_serial))
+                self.utils.print_info("Updated status is: '" + str(update_status) + "' for the device_serial: " + str(device_serial))
             elif device_mac:
                 update_status = self.get_device_details(device_mac, 'UPDATED')
-                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_mac: " + str(device_mac))
+                self.utils.print_info("Updated status is: '" + str(update_status) + "' for the device_mac: " + str(device_mac))
             elif device_name:
                 update_status = self.get_device_details(device_name, 'UPDATED')
-                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_name: " + str(device_name))
+                self.utils.print_info("Updated status is: '" + str(update_status) + "' for the device_name: " + str(device_name))
 
             # There are multiple conditions were a device can be decalared that the update has completed
             # 1) There is no update to do
