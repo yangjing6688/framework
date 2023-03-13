@@ -2,7 +2,12 @@ from inspect import currentframe
 
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.common.Logging import Logging
+from robot.libraries.BuiltIn import BuiltIn
+try:
+    getattr(BuiltIn, "should_not_be_true")
+    from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
+except AttributeError:
+    from ExtremeAutomation.Library.Logger.PytestLogger import PytestLogger as Logging
 
 
 class FailureException(AssertionError):
@@ -12,7 +17,7 @@ class FailureException(AssertionError):
 class CommonValidation():
 
     def __init__(self):
-        self.logger = Logging().get_logger()
+        self.logger = Logging()
         self.utils = Utils()
         self.screen = Screen()
 
