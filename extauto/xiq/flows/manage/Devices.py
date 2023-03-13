@@ -10181,11 +10181,11 @@ class Devices:
 
     def wait_until_device_update_done(self, device_serial=None, device_mac=None, device_name=None, wait_time_in_min=15, **kwargs):
         """
-        - This keyword checks if the expected device is done with updating
+        - This keyword checks if the expected device is done with updating - even if the update failed
         - Keyword Usage:
-        - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
-        - ``wait_until_device_update_done   device_mac=${AP_MAC}``
-        - ``wait_until_device_update_done   device_name=${AP_NAME}``
+        - ``wait_until_device_update_done   device_serial=${DEVICE_SERIAL}``
+        - ``wait_until_device_update_done   device_mac=${DEVICE_MAC}``
+        - ``wait_until_device_update_done   device_name=${DEVICE_NAME}``
 
         :param device_serial: serial number of the device. Example: "01301511060005"
         :param device_mac: mac of the device. Example: 885BDD4BE380
@@ -10201,6 +10201,7 @@ class Devices:
         n_time = 0
         update_status = -1
         date_regex = r"(\d{4})-((0[1-9])|(1[0-2]))-(0[1-9]|[12][0-9]|3[01]) ([0-2]*[0-9]\:[0-6][0-9]\:[0-6][0-9])"
+        failed_messages = ['Device Update Failed']
 
         while n_time <= int(wait_time_in_min * 4):
             n_time = n_time + 1
@@ -10214,17 +10215,26 @@ class Devices:
                 update_status = self.get_device_details(device_name, 'UPDATED')
                 self.utils.print_info("Updated status is: " + str(update_status) + " for the device_name: " + str(device_name))
 
-            if (update_status == '') or (re.match(date_regex, update_status)):
-                kwargs['pass_msg'] = "Device has finished updating "
+            # There are multiple conditions were a device can be decalared that the update has completed
+            # 1) There is no update to do
+            # 2) The update was attempted but failed
+            # 3) The update was completed
+            if update_status == '' :
+                kwargs['pass_msg'] = "Device is not in the process of updating thus it considered updated"
                 self.common_validation.passed(**kwargs)
                 complete = True
                 break
-            # add by @kunli.
-            # If 'device update failed', the update was done, don't need check update status until timeout.
-            elif "Device Update Failed" in str(update_status):
-                kwargs['fail_msg'] = "Device Update Failed "
-                self.common_validation.failed(**kwargs)
-                return -1
+            # If there are other 'Faild' conditions please add them here
+            elif update_status == 'Device Update Failed.':
+                kwargs['pass_msg'] = "Device has finished updating but with a failed condition"
+                self.common_validation.passed(**kwargs)
+                complete = True
+                break
+            elif (re.match(date_regex, update_status)):
+                kwargs['pass_msg'] = "Device has finished updating"
+                self.common_validation.passed(**kwargs)
+                complete = True
+                break
 
             sleep(15)
 
