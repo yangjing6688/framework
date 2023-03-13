@@ -15655,8 +15655,6 @@ class Device360(Device360WebElements):
         :return: total number of clients displayed in the wireless Device360 view
         """
         ret_val = ""
-        #self.utils.print_info("Navigate to Mange-->Devices")
-        #self.navigator.navigate_to_device360_with_client(device_serial)
         self.utils.print_info("Getting Device360 Total Wireless Count")
         sleep(5)
         total_count = self.dev360.get_device360_wireless_wifi2widgetclient()
@@ -15676,8 +15674,6 @@ class Device360(Device360WebElements):
         :return: Unique number of clients displayed in the leftpane
         """
         ret_val = ""
-        #self.utils.print_info("Navigate to Mange-->Devices")
-        #self.navigator.navigate_to_device360_with_client(device_serial)
 
         self.utils.print_info("Getting Device360 unique client Count")
         sleep(5)
@@ -15707,7 +15703,7 @@ class Device360(Device360WebElements):
         self.utils.print_info("Getting Device360 Total clients Count in clients page")
         sleep(5)
         total_count = self.dev360.get_device360_total_clients_clientspage()
-#        total_count = self.dev360.get_device360_total_wireless_clients()
+
         if total_count:
             ret_val = total_count.text
         else:
