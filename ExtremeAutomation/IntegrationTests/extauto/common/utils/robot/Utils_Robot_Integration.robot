@@ -14,7 +14,6 @@ ${TUT_OUTPUT_DIR}                   ${EXECDIR}/tut_output
 ${TUT_CASE_ROBOT_BUILTIN}           Robot Builtin Import
 ${TUT_CASE_PRINT_ALL}               Print all levels
 
-${trace_level_name}         trace
 ${debug_level_name}         debug
 ${info_level_name}          info
 ${warning_level_name}       warning

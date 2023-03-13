@@ -8,7 +8,6 @@ Documentation       Test Utils integration with pytest
 ...                 Limitations:
 ...                 1. --log-level seems to not have any effect, hence:
 ...                 - print_debug is not tested
-...                 - Log levels other than INFO are not tested
 
 Library    Process
 Library    OperatingSystem
