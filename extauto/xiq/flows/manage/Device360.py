@@ -9208,12 +9208,12 @@ class Device360(Device360WebElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-        self.utils.print_info("Searching for the 'Bounce Port' button...")
+        self.utils.print_info(f"Searching for the 'Bounce Port' button for port {port}...")
         bounce_port_button = self.get_device360_overview_port_info_bounce_port()
         if bounce_port_button:
-            self.utils.print_info("Found 'Bounce Port' button. Clicking...")
+            self.utils.print_info(f"Found 'Bounce Port' button for port {port}. Clicking...")
             self.auto_actions.click(bounce_port_button)
-            self.utils.print_info("'Bounce Port' clicked!")
+            self.utils.print_info(f"'Bounce Port' clicked! for port {port}")
 
             def _check_successful_message():
                 self.utils.print_info("Captured tool tip: ", tool_tip.tool_tip_text)
@@ -9239,19 +9239,19 @@ class Device360(Device360WebElements):
                             self.common_validation.failed(**kwargs)
                             return -1
 
-                        self.utils.print_info("Searching for the 'Bounce Port' button...")
+                        self.utils.print_info(f"Searching for the 'Bounce Port' button for port {port} ...")
                         bounce_port_button = self.get_device360_overview_port_info_bounce_port()
                         if bounce_port_button:
-                            self.utils.print_info("Found 'Bounce Port' button. Clicking...")
+                            self.utils.print_info(f"Found 'Bounce Port' button for port {port}. Clicking...")
                             self.auto_actions.click(bounce_port_button)
-                            self.utils.print_info("'Bounce Port' clicked!")
+                            self.utils.print_info(f"'Bounce Port'{port} clicked!")
                         return False
                 self.utils.print_info("Did not find Bounce port successful message yet. Retrying...")
                 return False
             message = self.utils.wait_till(_check_successful_message, timeout=300, delay=15, silent_failure=True,
                                            msg="Looking for Bounce Port successful message...")
             if message[0]:
-                kwargs['pass_msg'] = "'Bounce Port' clicked! Successful message found!"
+                kwargs['pass_msg'] = f"'Bounce Port {port}' clicked! Successful message found!"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
@@ -9290,9 +9290,9 @@ class Device360(Device360WebElements):
         self.utils.print_info("Searching for the 'Bounce PoE' button...")
         bounce_poe_button = self.get_device360_overview_port_info_bounce_poe()
         if bounce_poe_button:
-            self.utils.print_info("Found 'Bounce PoE' button. Clicking...")
+            self.utils.print_info(f"Found 'Bounce PoE' button for port {port}. Clicking...")
             self.auto_actions.click(bounce_poe_button)
-            self.utils.print_info("'Bounce PoE' clicked!")
+            self.utils.print_info(f"'Bounce PoE' clicked! for port {port}")
 
             def _check_successful_message():
                 self.utils.print_info("Tool tip captured: ", tool_tip.tool_tip_text)
@@ -9317,23 +9317,23 @@ class Device360(Device360WebElements):
                             self.common_validation.failed(**kwargs)
                             return -1
 
-                        self.utils.print_info("Searching for the 'Bounce PoE' button...")
+                        self.utils.print_info(f"Searching for the 'Bounce PoE' button for port {port}...")
                         bounce_poe_button = self.get_device360_overview_port_info_bounce_poe()
                         if bounce_poe_button:
-                            self.utils.print_info("Found 'Bounce PoE' button. Clicking...")
+                            self.utils.print_info(f"Found 'Bounce PoE' button for port {port}. Clicking...")
                             self.auto_actions.click(bounce_poe_button)
-                            self.utils.print_info("'Bounce PoE' clicked!")
+                            self.utils.print_info(f"'Bounce PoE' clicked! for port {port}")
                 self.utils.print_info("Did not find Bounce PoE successful message yet. Retrying...")
                 print(tool_tip.tool_tip_text)
                 return False
             message = self.utils.wait_till(_check_successful_message, timeout=300, delay=15, silent_failure=True,
                                            msg="Looking for Bounce PoE successful message...")
             if message[0]:
-                kwargs['pass_msg'] = "'Bounce PoE' clicked! Successful message found!"
+                kwargs['pass_msg'] = f"'Bounce PoE' clicked  for port {port} ! Successful message found!"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                kwargs['fail_msg'] = "'Bounce PoE' successful message not found!\nGot this " \
+                kwargs['fail_msg'] = f"'Bounce PoE' successful message not found for port {port} !\nGot this " \
                                      f"instead: {tool_tip.tool_tip_text} "
                 self.common_validation.failed(**kwargs)
                 return -1
