@@ -3133,6 +3133,66 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_connected_clients_count = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="connectedTotal"]',
+            'wait_for': 5
+        }
+
+    device360_leftpane_unique_clients = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientsNum"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_interface_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-wireless-interfaces"]',
+            'wait_for': 15
+        }
+
+    device360_total_wireless_clients = \
+        {
+            'XPATH': '//*[@data-automation-tag="wirelessinterfaces-total-client-count-ctn"]//div[@data-dojo-attach-point="totalClientCount"]',
+            'wait_for': 15
+        }
+
+    device360_total_clients_clientspage = \
+        {
+            'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi6gscore = \
+        {
+            'XPATH': '//div[@class="health-column"]//span[@data-dojo-attach-point="overallScoreValue"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_combinedscore = \
+        {
+            'XPATH': '//div[@class="health-column"]//span[@data-dojo-attach-point="overallScoreValue"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi2widgetclient = \
+        {
+            'XPATH': '//*[@class="wireless-data-value"]//*[@data-dojo-attach-point="clients_3"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_combinedscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-4"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi6gscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-3"]',
+            'wait_for': 15
+        }
+
     cancel_button_port_type = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
@@ -4105,4 +4165,3 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.lag-view .grid-mark',
             'wait_for': 5
         }
-

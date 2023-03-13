@@ -7,6 +7,39 @@ class Device360WebElements(Device360WebElementDefs):
     def __init__(self):
         self.weh = WebElementHandler()
 
+    def get_device360_wireless_interface_tab(self):
+        return self.weh.get_element(self.device360_wireless_interface_tab)
+
+    def get_device360_total_wireless_clients(self):
+        return self.weh.get_element(self.device360_total_wireless_clients)
+
+    def get_device360_total_clients_clientspage(self):
+        return self.weh.get_element(self.device360_total_clients_clientspage)
+
+    def get_device360_wireless_combinedscore(self):
+        return self.weh.get_element(self.device360_wireless_combinedscore)
+
+    def get_device360_wireless_combinedscoretab(self):
+        return self.weh.get_element(self.device360_wireless_combinedscoretab)
+
+    def get_device360_wireless_wifi6gscoretab(self):
+        return self.weh.get_element(self.device360_wireless_wifi6gscoretab)
+
+    def get_device360_wireless_wifi6gscore(self):
+        return self.weh.get_element(self.device360_wireless_wifi6gscore)
+
+    def get_device360_wireless_wifi2widgetclient(self):
+        return self.weh.get_element(self.device360_wireless_wifi2widgetclient)
+
+    def get_system_info_device_host_name(self):
+        return self.weh.get_element(self.system_info_device_host_name)
+
+    def get_connected_clients_count(self):
+        return self.weh.get_element(self.device360_connected_clients_count)
+
+    def get_leftpane_unique_clients(self):
+        return self.weh.get_element(self.device360_leftpane_unique_clients)
+
     def get_ports_from_device360_up_lldp_neighbour(self):
         return self.weh.get_element(self.ports_from_device360_up_lldp_neighbour)
 
@@ -18,9 +51,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_system_info_button(self):
         return self.weh.get_element(self.system_info_button)
-
-    def get_system_info_device_host_name(self):
-        return self.weh.get_element(self.system_info_device_host_name)
 
     def get_system_info_network_policy(self):
         return self.weh.get_element(self.system_info_network_policy)

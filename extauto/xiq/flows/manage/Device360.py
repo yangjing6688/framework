@@ -181,6 +181,7 @@ class Device360(Device360WebElements):
 
         table = self.dev360.get_device_active_clients_grid()
         rows = self.dev360.get_device_active_clients_grid_rows(table)
+        self.utils.print_info("Getting the total number of rows: ", len(rows))
         self.screen.save_screen_shot()
         for row in rows:
             self.utils.print_info("Getting the clients rows: ", row.text)
@@ -8030,7 +8031,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = "Power details not found"
             self.common_validation.failed(**kwargs)
             return -1
-
+            
         kwargs['pass_msg'] = "Got Power Supply Details in Device 360 from thunderbolt icon"
         self.common_validation.passed(**kwargs)
         return rez
@@ -15540,3 +15541,170 @@ class Device360(Device360WebElements):
         kwargs['pass_msg'] = "Successfully set up parameters for MAC locking in D360."
         self.common_validation.passed(**kwargs)
         return 1
+
+    def navigate_wireless_interface(self):
+        """
+        - This keyword used to navigate to the wireless interface page in device360 page
+        - Keyword Usage
+         - ``Navigate Wireless Interface``
+
+        """
+        self.utils.print_info("Clicking on Wireless Interface")
+        self.auto_actions.click(self.dev360.get_device360_wireless_interface_tab())
+        return 1
+
+    def navigateto_device360_withmac(self,device_mac=""):
+        """
+        - This keyword used to navigate to the wireless interface page in device360 page
+        - Keyword Usage
+         - ``Navigate To Device360 With MAC     ${DEVICE_MAC}``
+
+        """
+        self.utils.print_info("Navigate to device 360")
+        self.navigator.navigate_to_device360_page_with_mac(device_mac)
+        return 1
+
+
+    def device360_get_total_wireless_clients(self):
+        """
+        - This keyword gets the total clients from wireless page in the Device360 view.
+        - It is assumed that the Device360 window is open and on the Overview tab.
+        - Keyword Usage
+         - ``Device360 Get Total Wireless Clients``
+        :return: total number of clients displayed in the wireless Device360 view
+        """
+        ret_val = ""
+
+        self.utils.print_info("Getting Device360 Total Wireless Count")
+        sleep(5)
+        total_count = self.dev360.get_device360_total_wireless_clients()
+        sleep(5)
+        if total_count:
+            ret_val = total_count.text
+        else:
+            self.utils.print_info("Unable to get the total clients count")
+
+        return ret_val
+
+    def device360_get_wireless_combinedscore(self):
+        """
+        - This keyword gets the total clients from wireless page in the Device360 view.
+        - It is assumed that the Device360 window is open and on the Overview tab.
+        - Keyword Usage
+         - ``Device360 Get Wireless CombinedScore``
+        :return: total number of clients displayed in the wireless Device360 view
+        """
+        ret_val = ""
+
+        self.utils.print_info("Getting Device360 wireless combined score")
+        self.auto_actions.click(self.get_device360_wireless_combinedscoretab())
+        sleep(5)
+        total_score = self.dev360.get_device360_wireless_combinedscore()
+        sleep(5)
+        if total_score:
+            ret_val = total_score.text
+        else:
+            self.utils.print_info("Unable to get the wireless combined score")
+
+        return ret_val
+
+    def device360_get_wireless_wifi6gscore(self):
+        """
+        - This keyword gets the total clients from wireless page in the Device360 view.
+        - It is assumed that the Device360 window is open and on the Overview tab.
+        - Keyword Usage
+         - ``Device360 Get Wireless Wifi6GScore``
+        :return: total number of clients displayed in the wireless Device360 view
+        """
+        ret_val = ""
+        self.utils.print_info("Getting Device360 wifi 6G score ")
+        self.auto_actions.click(self.get_device360_wireless_wifi6gscoretab())
+        sleep(5)
+        total_score = self.dev360.get_device360_wireless_wifi6gscore()
+        sleep(5)
+        if total_score:
+            ret_val = total_score.text
+        else:
+            self.utils.print_info("Unable to get the wifi 6G score")
+        return ret_val
+
+    def device360_get_wireless_wifi2widget_client(self):
+        """
+        - This keyword gets the total clients from wireless page in the Device360 view.
+        - It is assumed that the Device360 window is open and on the Overview tab.
+        - Keyword Usage
+         - ``Device360 Get Wireless Wifi2Widget Client``
+        :return: total number of clients displayed in the wireless Device360 view
+        """
+        ret_val = ""
+        self.utils.print_info("Getting Device360 Total Wireless Count")
+        sleep(5)
+        total_count = self.dev360.get_device360_wireless_wifi2widgetclient()
+        sleep(5)
+        if total_count:
+            ret_val = total_count.text
+        else:
+            self.utils.print_info("Unable to get the widget data")
+        return ret_val
+
+    def device360_get_sidebar_uniqueclient_count(self):
+        """
+        - This keyword gets the unique client side bar in the Device360 view.
+        - It is assumed that the Device360 window is open
+        - Keyword Usage
+         - ``Device360 Get Sidebar UniqueClient Count``
+        :return: Unique number of clients displayed in the leftpane
+        """
+        ret_val = ""
+
+        self.utils.print_info("Getting Device360 unique client Count")
+        sleep(5)
+        total_count = self.dev360.get_leftpane_unique_clients()
+        sleep(5)
+        if total_count:
+            ret_val = total_count.text
+        else:
+            self.utils.print_info("Unable to get the widget data")
+
+        return ret_val
+
+
+    def device360_get_total_clients_clientspage(self, device_serial=""):
+        """
+        - This keyword gets the total clients from clients page in the Device360 view.
+        - It is assumed that the Device360 window is open.
+        - Keyword Usage
+         - ``Device360 Get Total Clients ClientsPage   ${DEVICE_SERIAL} ``
+        :return: total number of clients displayed in the clients Device360 view
+        """
+        ret_val = ""
+
+        self.utils.print_info("Navigate to Mange-->Devices")
+        self.navigator.navigate_to_device360_with_client(device_serial)
+        sleep(5)
+        self.utils.print_info("Getting Device360 Total clients Count in clients page")
+        sleep(5)
+        total_count = self.dev360.get_device360_total_clients_clientspage()
+
+        if total_count:
+            ret_val = total_count.text
+        else:
+            self.utils.print_info("Unable to get the total clients count")
+
+        return ret_val
+
+    def device360_get_connected_clients_count(self):
+        """
+        - This keyword obtains the count of connected clients from Device360 view.
+        - Keyword Usage
+         - ``Device360 Get Connected clients count``
+        :return: value of the device title in the Device360 view
+        """
+        ret_clientcount = ""
+        clients_count= self.dev360.get_connected_clients_count()
+        if clients_count:
+            self.utils.print_info("Connected clients count ")
+            ret_clientcount = clients_count.text
+        else:
+            self.utils.print_info("Unable to find the clients count")
+        return ret_clientcount
