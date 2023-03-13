@@ -10223,7 +10223,7 @@ class Devices:
                 self.common_validation.passed(**kwargs)
                 complete = True
                 break
-            # If there are other 'Faild' conditions please add them here
+            # If there are other 'Failed' conditions please add them here
             elif update_status == 'Device Update Failed.':
                 kwargs['pass_msg'] = "Device has finished updating but with a failed condition"
                 self.common_validation.passed(**kwargs)
