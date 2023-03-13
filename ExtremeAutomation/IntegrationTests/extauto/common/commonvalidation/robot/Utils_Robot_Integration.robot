@@ -17,10 +17,10 @@ ${TUT_CASE_TEST_VALIDATE_MESSAGES}      Test Validate Messages
 ${info_level_name}          info
 ${error_level_name}         error
 
-${expected_validate_line_call_1} =       42
-${expected_validate_line_call_2} =       104
-${expected_validate_line_call_3} =       105
-${expected_validate_line_call_4} =       106
+${expected_validate_line_call_1} =       41
+${expected_validate_line_call_2} =       103
+${expected_validate_line_call_3} =       104
+${expected_validate_line_call_4} =       105
 
 ${expected_line_1_message} =    Internal Result Verification \\[IRV\\] is: Enabled
 ${expected_line_2_message} =    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
