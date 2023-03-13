@@ -5605,7 +5605,7 @@ class Devices:
         kwargs['fail_msg'] = f"{col} column for device {device_serial} still does not contain data. Please check."
         self.common_validation.failed(**kwargs)
         return -1
-    
+
     def get_device_management_ip_address(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - Get Management IP Assigned to the AP
@@ -5614,6 +5614,10 @@ class Devices:
         - ``Get Device Management IP Address   device_name=${DEVICE_NAME}``
         - ``Get Device Management IP Address   device_mac=${DEVICE_MAC}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+            
         :param device_serial: Serial number of Device Ex:11301810220048
         :param device_name: Device name Ex: AP1130
         :param device_mac: Device mac Ex: F09CE9F89600
@@ -5640,6 +5644,7 @@ class Devices:
             return -1
 
     @deprecated("Please use get_device_management_ip_address(...)")
+    # This was put into depreacted mode on March 9th 2023
     def get_ap_management_ip_address(self, ap_serial=None, ap_name=None, ap_mac=None):
         """
         - Get Management IP Assigned to the AP
