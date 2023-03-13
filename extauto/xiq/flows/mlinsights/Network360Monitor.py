@@ -476,7 +476,7 @@ class Network360Monitor:
         """
 
         n360_table_rows = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
-        print(f"Table rows are:{n360_table_rows}")
+        self.utils.print_info(f"Table rows are:{n360_table_rows}")
         assert n360_table_rows, "Did not find the rows of the ports table"
         n360_table_rows[0].location_once_scrolled_into_view
         return [
@@ -484,102 +484,7 @@ class Network360Monitor:
             any(field in row.text for field in ["HOST NAME", "MAC ADDRESS"])
         ]
 
-    def n360_monitor_device_health_table_hostname_and_macaddress_cli_check(self, dut, **kwargs):
-        """
-        - This keyword verifies that Hostnames and Mac Addresses present in
-        the Device Health table, are hyperlinks
-        Assumes that already navigated to ML Insights -> Network 360 Monitor ->  Device Health option selected
-        :return: returns 1 if successful
-        """
-        try:
-            output = []
-            header_row = self.n360_elements.get_n360_device_health_column_header()
-
-            ths = self.n360_elements.weh.get_elements(
-                self.n360_elements.n360_monitor_device_health_th_columns,
-                parent=header_row)
-            n360_table_rows = self.n360_monitor_device_health_table_rows()
-            index = 1
-            for row in n360_table_rows:
-                tds = self.n360_elements.weh.get_elements(
-                self.n360_elements.n360_monitor_port_connection_speed_table_td_gridcell,
-                            parent=row)
-                ok1 = 0
-                ok2 = 0
-                for td in tds:
-                    if td.text.strip() == dut.hostname:
-                        ok1 = 1
-                        self.utils.print_info(f"The HOSTNAME is {td.text.strip()} for row {index}")
-                    elif td.text.strip() == dut.mac:
-                        ok2 = 1
-                        self.utils.print_info(f"The MAC ADDRESS is {td.text.strip()} for row {index}")
-
-                index = index + 1
-                self.utils.print_info("index is: ", index)
-
-                if index <= 1:
-                    if ok1 == 0 or ok2 == 0:
-                        return -1
-
-                ok1 = 0
-                ok2 = 0
-
-        except Exception as exc:
-            self.utils.print_info(exc)
-            kwargs["fail_msg"] = f"n360_monitor_device_health_table_hostname_and_macaddress_cli_check failed with following exception: {exc}"
-            self.common_validation.failed(**kwargs)
-
-    def n360_monitor_device_health_table_hostname_and_macaddress_cli_check_2_node(self, dut1, dut2, **kwargs):
-        """
-        - This keyword verifies that Hostnames and Mac Addresses present in
-        the Device Health table, are hyperlinks
-        Assumes that already navigated to ML Insights -> Network 360 Monitor ->  Device Health option selected
-        :return: returns 1 if successful
-        """
-        try:
-            output = []
-            header_row = Network360MonitorElements().get_n360_device_health_column_header()
-
-            ths = self.n360_elements.weh.get_elements(
-                self.n360_elements.n360_monitor_device_health_th_columns,
-                parent=header_row)
-            n360_table_rows = self.n360_monitor_device_health_table_rows()
-
-            index = 1
-            output = []
-            for row in n360_table_rows:
-                tds = self.n360_elements.weh.get_elements(
-                self.n360_elements.n360_monitor_port_connection_speed_table_td_gridcell,
-                            parent=row)
-                ok1 = 0
-                ok2 = 0
-                for td in tds:
-                    if td.text.strip() == dut1.hostname or td.text.strip() == dut2.hostname:
-                        ok1 = 1
-                        print(f"The HOSTNAME is {td.text.strip()} for row {index}")
-                        output.append(td.text.strip())
-                    elif td.text.strip() == dut1.mac or td.text.strip() == dut2.mac:
-                        ok2 = 1
-                        print(f"The MAC ADDRESS is {td.text.strip()} for row {index}")
-                        output.append(td.text.strip())
-
-                index = index + 1
-                print("index is: ", index)
-
-                if index <= 2:
-                    if ok1 == 0 or ok2 == 0:
-                        return -1
-
-                ok1 = 0
-                ok2 = 0
-
-        except Exception as exc:
-            print(exc)
-            kwargs["fail_msg"] = f"n360_monitor_device_health_table_hostname_and_macaddress_cli_check failed with following exception: {exc}"
-            self.common_validation.failed(**kwargs)
-        return output
-
-    def ml_insights_monitor_navigate_to_options_drop_down(self, option="All Devices", **kwargs):
+    def ml_insights_monitor_navigate_to_options_drop_down(self, option="All Devices", floor="floor_04", **kwargs):
         """
         - This keyword navigates to one of the options available from the dropdown
         Assumes that already navigated to ML Insights -> Network 360 Monitor
@@ -587,34 +492,25 @@ class Network360Monitor:
         :return: returns 1 if Navigation successful
         """
 
-        self.navigator = Navigator()
-        self.navigator.navigate_to_network360monitor()
-        try:
-            ok = 1
-            if self.auto_actions.click(
-                    self.mlinsights_monitor360_web_elements.get_n360_monitor_port_connection_speed_container_down_arrow()) != 1:
-                ok = 0
-            else:
-                self.utils.print_info("Click on dropdown arrow")
-            if ok != 1:
-                kwargs["pass_msg"] = f"Unable to click on down arrow"
-                self.common_validation.failed(**kwargs)
-            ok = 1
-            if self.auto_actions.click(
-                    self.mlinsights_monitor360_web_elements.get_n360_monitor_drop_down_options(option)) != 1:
-                ok = 0
-            else:
-                self.utils.print_info("Click on an option")
-            if ok != 1:
-                kwargs["fault_msg"] = f"Unable to click on an option:"
-                self.common_validation.failed(**kwargs)
-
-        except Exception as exc:
-            self.utils.print_info(exc)
-            kwargs["fail_msg"] = f"ml_insights_monitor_navigate_to_options_drop_down failed with following exception: {exc}"
+        self.utils.print_info("Go to ML Insights->Network 360 Monitor")
+        if self.navigator.navigate_to_network360monitor() != 1:
+            kwargs["fail_msg"] = "Fail to navigate to N360 Monitor"
             self.common_validation.failed(**kwargs)
+        self.utils.print_info("Search and select floor.")
+        if self._search_and_click_floor(floor) != 1:
+            kwargs['fail_msg'] = "Unsuccessfully clicked on floor"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.utils.print_info("Click on dropdown arrow")
+        self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_port_connection_speed_container_down_arrow)
+        self.utils.print_info(f"Selecting option {option} from the dropdown.")
+        if self.auto_actions.click_reference(lambda: self.n360_elements.get_n360_monitor_drop_down_options(option)) != 1:
+            kwargs["fail_msg"] = f"Failed to click on option {option} from the dropdown."
+            self.common_validation.failed(**kwargs)
+        kwargs["pass_msg"] = f"Successfully selected {option} from the dropdown."
+        self.common_validation.passed(**kwargs)
 
-    def n360_device_health_sorting_table(self, dut1, dut2):
+    def n360_device_health_sorting_table(self, **kwargs):
         """
         - This keyword verifies if the device health table is sorted
         the table, are hyperlinks
@@ -622,97 +518,72 @@ class Network360Monitor:
         :return: returns 1 if successful
         """
 
-        try:
-            header_row = Network360MonitorElements().get_n360_device_health_column_header()
+        self.utils.print_info("Getting the initial table elements.")
+        table_elem = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
+        table_dict_initial = {}
+        for i in range(len(table_elem)):
+            table_dict_initial[i] = table_elem[i].text
+        if all(table_dict_initial[i].split()[0] <= table_dict_initial[i+1].split()[0] for i in range(len(table_dict_initial)-1)):
+            self.utils.print_info("Initial table is sort in Ascending way.")
+            sorting = "asc"
+        else:
+            self.utils.print_info("Initial table is sort in Descending way.")
+            sorting = "desc"
 
-            ths = self.n360_elements.weh.get_elements(
-                self.n360_elements.n360_monitor_device_health_th_columns,
-                parent=header_row)
-            n360_table_rows = self.n360_monitor_device_health_table_rows()
+        self.utils.print_info("Trying to sort by 'HOSTNAME'.")
+        header_hostname = self.n360_elements.get_n360_device_health_column_header_hostname
+        self.utils.print_info('Clicking on hostname.')
+        if sorting == "asc":
+            self.auto_actions.click_reference(header_hostname)
+            self.auto_actions.click_reference(header_hostname)
+        elif sorting == "desc":
+            self.auto_actions.click_reference(header_hostname)
+        self.utils.print_info("Getting the table elements after sorting by HOSTNAME.")
+        table_elem = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
+        table_dict_after_sort = {}
+        for i in range(len(table_elem)):
+            table_dict_after_sort[i] = table_elem[i].text
+        self.utils.print_info("Comparing the Hostnames to check if the sorting has been done")
+        if all(table_dict_after_sort[i].split()[0] >= table_dict_after_sort[i+1].split()[0] for i in range(len(table_dict_after_sort)-1)) and sorting == "asc":
+            self.utils.print_info("Sorting is done correctly by Hostname values. Initial was ascending now is descending.")
+        elif all(table_dict_after_sort[i].split()[0] <= table_dict_after_sort[i+1].split()[0] for i in range(len(table_dict_after_sort)-1)) and sorting == "desc":
+            self.utils.print_info("Sorting is done correctly by Hostname values. Initial was descending now is ascending.")
+        else:
+            kwargs["fail_msg"] = "Table was not sorted after clicking on Hostname"
+            self.common_validation.failed(**kwargs)
+            return -1
 
-            index = 1
-            present_hostnames = []
-            present_mac_addresses = []
-            sorted_hostnames = []
-            sorted_mac_addresses = []
-            for row in n360_table_rows:
-                tds = self.n360_elements.weh.get_elements(
-                self.n360_elements.n360_monitor_port_connection_speed_table_td_gridcell,
-                            parent=row)
+        self.utils.print_info("Getting the initial table elements before sorting by MAC Address.")
+        table_elem = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
+        table_dict_initial = {}
+        for i in range(len(table_elem)):
+            table_dict_initial[i] = table_elem[i].text
+        if all(table_dict_initial[i].split()[1] <= table_dict_initial[i+1].split()[1] for i in range(len(table_dict_initial)-1)):
+            self.utils.print_info("Initial table is sort in Ascending way.")
+            sorting = "asc"
+        else:
+            self.utils.print_info("Initial table is sort in Descending way.")
+            sorting = "desc"
 
-                for td in tds:
-                    if td.text.strip() == dut1.hostname or td.text.strip() == dut2.hostname:
-                        self.utils.print_info(f"The HOSTNAME is {td.text.strip()} for row {index}")
-                        present_hostnames.append(td.text.strip())
-                    elif td.text.strip() == dut1.mac or td.text.strip() == dut2.mac:
-                        self.utils.print_info(f"The MAC ADDRESS is {td.text.strip()} for row {index}")
-                        present_mac_addresses.append(td.text.strip())
-                index  = index + 1
-            self.utils.print_info(f"Present hostnames:{present_hostnames}, present macs: {present_mac_addresses} ")
-            sleep(5)
-            if len(present_hostnames) > 1:
-                header_hostname = Network360MonitorElements().get_n360_device_health_column_header_hostname()
-                self.utils.print_info('Clicking on hostname.')
-                AutoActions().click(header_hostname)
-                n360_table_rows_sorted = self.n360_monitor_device_health_table_rows()
-                index = 1
-                for rows in n360_table_rows_sorted:
-                    tds = self.n360_elements.weh.get_elements(
-                        self.n360_elements.n360_monitor_port_connection_speed_table_td_gridcell,
-                        parent=rows)
-
-                    for td in tds:
-                        if td.text.strip() == dut1.hostname or td.text.strip() == dut2.hostname:
-                            self.utils.print_info(f"The Sorted HOSTNAME by HOSTNAME is {td.text.strip()} for row {index}")
-                            sorted_hostnames.append(td.text.strip())
-                        elif td.text.strip() == dut1.mac or td.text.strip() == dut2.mac:
-                            self.utils.print_info(f"The Sorted MAC ADDRESS by HOSTNAME is {td.text.strip()} for row {index}")
-                            sorted_mac_addresses.append(td.text.strip())
-                    index = index + 1
-
-                sorted1 = 0
-                if sorted_hostnames[0] < sorted_hostnames[1]:
-                    self.utils.print_info(
-                        "The table is sorted according to Hostname column, in alphanumerical order.")
-                    sorted1 = 1
-
-                self.utils.print_info("Verify if the Mac Address column can be sorted in reversed alphanumerical order..")
-
-                index = 1
-                sorted_hostnames_by_mac = []
-                sorted_mac_addresses_by_mac = []
-                sleep(5)
-                header_mac = Network360MonitorElements().get_n360_device_health_column_header_mac()
-                self.utils.print_info('Clicking on MAC ADDRESS.')
-                AutoActions().click(header_mac)
-                n360_table_rows_sorted = self.n360_monitor_device_health_table_rows()
-
-                for rows in n360_table_rows_sorted:
-                    tds = self.n360_elements.weh.get_elements(
-                        self.n360_elements.n360_monitor_port_connection_speed_table_td_gridcell,
-                        parent=rows)
-
-                    for td in tds:
-                        if td.text.strip() == dut1.hostname or td.text.strip() == dut2.hostname:
-                            self.utils.print_info(f"The Sorted HOSTNAME by MAC is {td.text.strip()} for row {index}")
-                            sorted_hostnames_by_mac.append(td.text.strip())
-                        elif td.text.strip() == dut1.mac or td.text.strip() == dut2.mac:
-                            self.utils.print_info(f"The Sorted MAC ADDRESS BY MAC is {td.text.strip()} for row {index}")
-                            sorted_mac_addresses_by_mac.append(td.text.strip())
-                    index = index + 1
-
-                sorted2 = 0
-                if sorted_mac_addresses_by_mac[0] < sorted_mac_addresses_by_mac[1]:
-                        self.utils.print_info(
-                            "The table is sorted according to MAC ADDRESSES column, in alphanumerical order.")
-                        sorted2 = 1
-
-            else:
-                self.utils.print_info("There is only one hostname in the table.")
-
-            if sorted1 == 1 and sorted2 == 1:
-                return 1
-
-        except Exception as exc:
-            self.utils.print_info(exc)
+        self.utils.print_info("Trying to sort by 'MAC Address'.")
+        header_mac = self.n360_elements.get_n360_device_health_column_header_mac
+        self.utils.print_info('Clicking on "MAC ADDRESS".')
+        if sorting == "asc":
+            self.auto_actions.click_reference(header_mac)
+            self.auto_actions.click_reference(header_mac)
+        elif sorting == "desc":
+            self.auto_actions.click_reference(header_mac)
+        self.utils.print_info("Getting the table elements after sorting by MAC ADDRESS.")
+        table_elem = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
+        table_dict_after_sort = {}
+        for i in range(len(table_elem)):
+            table_dict_after_sort[i] = table_elem[i].text
+        self.utils.print_info("Comparing the MAC ADDRESS to check if the sorting has been done")
+        if all(table_dict_after_sort[i].split()[1] >= table_dict_after_sort[i+1].split()[1] for i in range(len(table_dict_after_sort)-1)) and sorting == "asc":
+            self.utils.print_info("Sorting is done correctly by MAC ADDRESS values.Initial was ascending now is descending.")
+        elif all(table_dict_after_sort[i].split()[1] <= table_dict_after_sort[i+1].split()[1] for i in range(len(table_dict_after_sort)-1)) and sorting == "desc":
+            self.utils.print_info("Sorting is done correctly by MAC ADDRESS values.Initial was descending now is ascending.")
+        else:
+            kwargs["fail_msg"] = "Table was not sorted after clicking on MAC ADDRESS"
+            self.common_validation.failed(**kwargs)
             return -1

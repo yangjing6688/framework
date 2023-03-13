@@ -213,7 +213,7 @@ class Network360MonitorDefinitions:
 
     n360_device_health_download_button = \
         {
-            'XPATH': '//*[@data-tip="Download"]',
+            'CSS_SELECTOR': 'div[id^="ah"] .timeline-ctn-360 .table-action-icons.table-download',
             'wait_for': 5
         }
 
@@ -251,5 +251,34 @@ class Network360MonitorDefinitions:
             # 'wait_for': 5
         }
 
+    n360_monitor_drop_down_options = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tracker-os-filter-chzn-drop-ctn"]//li[contains(text(),"${option}")]',
+            'wait_for': 5
+        }
+
+    n360_monitor_health_selector_drop_down_arrow = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tracker-os-filter-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    n360_monitor_health_selector_drop_down_options = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-360-selector-chzn-drop-ctn"]//li[contains(text(),"${option}")]',
+            'wait_for': 5
+        }
+
+    n360_monitor_port_connection_speed_container_down_arrow = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tracker-os-filter-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    close_n360_dialog_box = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="closeDialog"]',
+            'wait_for': 5
+        }
 
 
