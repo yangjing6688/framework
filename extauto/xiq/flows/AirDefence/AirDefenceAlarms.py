@@ -114,8 +114,7 @@ class AirDefenceAlarms(AdspWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "check_location_assigned_to_ap_in_adess() failed." \
-                                 "Edited/Assigned Location cannot be seen in ADSP Sensor page"
+            kwargs['fail_msg'] = "Edited/Assigned Location cannot be seen in ADSP Sensor page"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -163,8 +162,7 @@ class AirDefenceAlarms(AdspWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "check_error_msg_when_adess_not_enabled() failed." \
-                                 "Not Able to See Appropriate Auth Error or Auth Error is not seen"
+            kwargs['fail_msg'] = "Not Able to See Appropriate Auth Error or Auth Error is not seen"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -210,7 +208,7 @@ class AirDefenceAlarms(AdspWebElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "check_ap_in_adess_device_view_page() failed. AP cannot be seen in ADSP Sensor page"
+            kwargs['fail_msg'] = "AP cannot be seen in ADSP Sensor page"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -318,8 +316,7 @@ class AirDefenceAlarms(AdspWebElements):
             return 1
         else:
             CloudDriver().cloud_driver.switch_to.window(CloudDriver().cloud_driver.window_handles[0])
-            kwargs['fail_msg'] = "clear_all_adsp_alarms() failed. " \
-                                 "ADSP alarms rows not present in the grid. Switched to new ADSP tab"
+            kwargs['fail_msg'] = "ADSP alarms rows not present in the grid. Switched to new ADSP tab"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -479,7 +476,7 @@ class AirDefenceAlarms(AdspWebElements):
                 self.common_validation.passed(**kwargs)
                 return 1
 
-        kwargs['fail_msg'] = "change_wireless_thread_detection_status() failed. Failed to change status for Wips Policy"
+        kwargs['fail_msg'] = "Failed to change status for Wips Policy"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -513,8 +510,7 @@ class AirDefenceAlarms(AdspWebElements):
                         else:
                             self.screen.save_screen_shot()
                             sleep(2)
-                            kwargs['fail_msg'] = "rbac_user_wips_profile_click_status() failed." \
-                                                 f"Click Button is Enabled for the wips policy {row.text}"
+                            kwargs['fail_msg'] = f"Click Button is Enabled for the wips policy {row.text}"
                             self.common_validation.failed(**kwargs)
                             return -1
 
