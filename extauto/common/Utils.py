@@ -7,11 +7,11 @@ from robot.libraries.BuiltIn import BuiltIn
 from selenium.common.exceptions import NoSuchElementException
 from extauto.common.ConfigFileHelper import ConfigFileHelper
 import time
-try:
-    getattr(BuiltIn, "should_not_be_true")
-    from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
-except AttributeError:
+from ExtremeAutomation.Imports.CommonObjectUtils import CommonObjectUtils
+if CommonObjectUtils().executionModePytest():
     from ExtremeAutomation.Library.Logger.PytestLogger import PytestLogger as Logging
+else:
+    from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 
 
 class Utils:
