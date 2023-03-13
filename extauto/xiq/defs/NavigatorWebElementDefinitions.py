@@ -332,7 +332,7 @@ class NavigatorWebElementDefinitions:
 
     common_object_authentication_ad_servers = \
         {
-            'XPATH': '//div//a[@data-automation-tag=automation-sider-list-ADServers]',
+            'XPATH': '//div//a[@data-automation-tag="automation-sider-list-ADServers"]',
             'wait_for': 3
         }
 
@@ -1313,6 +1313,16 @@ class NavigatorWebElementDefinitions:
             'wait_for': 3
         }
 
+    table_load_spinner = \
+        {
+            'DESC': 'Manage > Devices "load" mask',
+            # The spinner does not have its own automation-tag and there is more than one "grid-mark" on the
+            # page.  So we'll get the nearest container that has an automation tag then find the element within
+            # that container that has the 'grid-mark' CSS style.
+            'XPATH': '//div[@data-automation-tag="automation-manage-device-list"]//div[@class="grid-mark"]',
+            'wait_for': 5
+        }
+
     configure_button_d360 = \
         {
             'XPATH': '//li[@data-automation-tag="device-entity-configure"]'
@@ -1337,4 +1347,16 @@ class NavigatorWebElementDefinitions:
     no_100_devices_per_page = \
         {
         "XPATH": '//a[@data-size="100"]'
+        }
+
+    grid_loading_wheel = \
+        {
+            'XPATH': '//div[@class="grid-mark"]',
+            'wait_for': 5
+        }
+
+    grid_spinner = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="spinner"]',
+            'wait_for': 5
         }

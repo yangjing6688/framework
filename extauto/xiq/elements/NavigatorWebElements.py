@@ -696,6 +696,10 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_port_rows_d360(self):
         return self.weh.get_elements(self.port_rows_d360)
 
+    def get_table_load_spinner(self):
+        return self.weh.get_element(self.table_load_spinner)
+
+
     def get_page_size(self, page_size='100'):
         try:
             if els := self.weh.get_elements(self.page_size):
@@ -710,3 +714,9 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_100_devices_per_page(self):
         return self.weh.get_element(self.no_100_devices_per_page)
+
+    def get_grid_loading_wheel(self):
+        return self.weh.get_elements(self.grid_loading_wheel)
+
+    def get_grid_spinner(self):
+        return self.weh.get_elements(self.grid_spinner)

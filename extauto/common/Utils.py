@@ -105,9 +105,9 @@ class Utils:
         :return: returns none
         """
 
-        print ("*HTML* " \
-              "<a href=" + first + "> <img src=" + first + " width=\"500px\"></a> " \
-                "<a href=" + second + "> <img src=" + second + " width=\"500px\"></a> " \
+        print ("*HTML* "
+              "<a href=" + first + "> <img src=" + first + " width=\"500px\"></a> "
+                "<a href=" + second + "> <img src=" + second + " width=\"500px\"></a> "
                 "<a href=" + third + "> <img src=" + third + " width=\"500px\"></a>")
 
     def decode_to_ascii(self, _str):

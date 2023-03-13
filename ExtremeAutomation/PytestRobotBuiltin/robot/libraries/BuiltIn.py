@@ -31,15 +31,12 @@ class BuiltIn(object):
 
     @staticmethod
     def get_variable_value(varname, default=None):
-        value = ''
+        value = default
         try:
             # Try pytest
             value = config[varname]
         except Exception as e:
-            if default:
-                value = default
-            else:
-                raise e
+            print(f"get_variable_value couldn't find variable {varname}, returning the default {default}")
         return value
 
     @staticmethod

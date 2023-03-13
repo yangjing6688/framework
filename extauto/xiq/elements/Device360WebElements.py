@@ -7,6 +7,39 @@ class Device360WebElements(Device360WebElementDefs):
     def __init__(self):
         self.weh = WebElementHandler()
 
+    def get_device360_wireless_interface_tab(self):
+        return self.weh.get_element(self.device360_wireless_interface_tab)
+
+    def get_device360_total_wireless_clients(self):
+        return self.weh.get_element(self.device360_total_wireless_clients)
+
+    def get_device360_total_clients_clientspage(self):
+        return self.weh.get_element(self.device360_total_clients_clientspage)
+
+    def get_device360_wireless_combinedscore(self):
+        return self.weh.get_element(self.device360_wireless_combinedscore)
+
+    def get_device360_wireless_combinedscoretab(self):
+        return self.weh.get_element(self.device360_wireless_combinedscoretab)
+
+    def get_device360_wireless_wifi6gscoretab(self):
+        return self.weh.get_element(self.device360_wireless_wifi6gscoretab)
+
+    def get_device360_wireless_wifi6gscore(self):
+        return self.weh.get_element(self.device360_wireless_wifi6gscore)
+
+    def get_device360_wireless_wifi2widgetclient(self):
+        return self.weh.get_element(self.device360_wireless_wifi2widgetclient)
+
+    def get_system_info_device_host_name(self):
+        return self.weh.get_element(self.system_info_device_host_name)
+
+    def get_connected_clients_count(self):
+        return self.weh.get_element(self.device360_connected_clients_count)
+
+    def get_leftpane_unique_clients(self):
+        return self.weh.get_element(self.device360_leftpane_unique_clients)
+
     def get_ports_from_device360_up_lldp_neighbour(self):
         return self.weh.get_element(self.ports_from_device360_up_lldp_neighbour)
 
@@ -18,9 +51,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_system_info_button(self):
         return self.weh.get_element(self.system_info_button)
-
-    def get_system_info_device_host_name(self):
-        return self.weh.get_element(self.system_info_device_host_name)
 
     def get_system_info_network_policy(self):
         return self.weh.get_element(self.system_info_network_policy)
@@ -1400,10 +1430,10 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_element_port_type_tab_pse_settings)
         elif element == "summaryPage":
             return self.weh.get_element(self.select_element_port_type_tab_summary)
-        elif element == "elrdp":
-            return self.weh.get_element(self.select_element_port_type_name)
+        elif element == "ELRPSettingsPage":
+            return self.weh.get_element(self.select_element_port_type_tab_elrp)
         elif element == "MACLOCKINGSettingsPage":
-            return self.weh.get_element(self.select_element_port_type_maclocking)
+            return self.weh.get_element(self.select_element_port_type_tab_maclocking)
         #page Port Name
         elif element == "name":
             return self.weh.get_element(self.select_element_port_type_name)
@@ -1651,7 +1681,7 @@ class Device360WebElements(Device360WebElementDefs):
             return self.weh.get_element(self.select_mac_locking_link_down_action_clear_summary)
         elif element == "link down retain":
             return self.weh.get_element(self.select_mac_locking_link_down_action_retain_summary)
-        elif element == "remove aged MACs":
+        elif element == "remove aged macs":
             return self.weh.get_element(self.select_mac_locking_remove_aged_macs_summary)
         elif element == "port_type_voice_lldp_advertisment_summary":
             return self.weh.get_element(self.select_element_port_type_voice_lldp_advertisment_summary)
@@ -1830,27 +1860,39 @@ class Device360WebElements(Device360WebElementDefs):
 
     ### Commented on 1/18/23 because this is a duplicate of a function below.
     ### The second function to be declared will be used. Thus, this function was commented
-    #
-    # def get_device360_port_table_rows(self):
-    #     scroll_element = self.get_device360_ports_table_scroll()
-    #     if scroll_element:
-    #         from extauto.common.AutoActions import AutoActions
-    #         auto_actions = AutoActions()
-    #         auto_actions.click(scroll_element)
-    #         for _ in range(10):
-    #             auto_actions.scroll_down()
-    #     return self.get_d360_switch_ports_table_grid_rows()
+    ### Uncommented on 2/27/23 because this function contains table scroll and no header
+    def get_device360_port_table_rows(self):
+        """
+         - This keyword will scroll the D360 table and get a list of D360 table webElements matching each particular row.
+         The list will not contain the table header.
+        :param: -
+        :return list of D360 rows
+        """
+        scroll_element = self.get_device360_ports_table_scroll()
+        if scroll_element:
+            from extauto.common.AutoActions import AutoActions
+            auto_actions = AutoActions()
+            auto_actions.click(scroll_element)
+            for _ in range(10):
+                auto_actions.scroll_down()
+        table_rows = self.get_d360_switch_ports_table_grid_rows()
+        assert table_rows, "Did not find the rows of the ports table"
+        table_rows[0].location_once_scrolled_into_view
+        return [
+            row for row in table_rows if not
+            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
+        ]
 
     def get_device360_ports_table_pagination_sizes(self):
         return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
 
     ### Commented on 1/18/23 because this is a duplicate of a function below.
     ### The second function to be declared will be used. Thus, this function was commented
-    #
+
     # def get_device360_ports_table(self):
     #     header_row = self.get_device360_ports_description_table_row()
     #     ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
-
+    #
     #     table_rows = self.get_device360_port_table_rows()[1:]
     #     results = []
     #     for row in table_rows:
@@ -1919,10 +1961,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_overview_port_info_bounce_poe(self):
         return self.weh.get_element(self.device360_overview_port_info_bounce_poe)
-
-    # There is a duplicate of this function above that was commented out on 1/18/23
-    def get_device360_port_table_rows(self):
-        return self.weh.get_elements(self.device360_ports_table_rows)
 
     def get_device360_port_table_rows_no_scroll(self):
         return self.weh.get_elements(self.device360_ports_table_rows)
@@ -2257,6 +2295,20 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_stack_slot_sfp_ports(self):
         return self.weh.get_elements(self.device360_stack_slot_sfp_ports)
 
+    def get_d360_port_status_overview(self, row):
+        return self.weh.get_element(self.d360_port_status_overview, row)
+
+    def get_d360_mac_locking_overview(self, row):
+        return self.weh.get_element(self.d360_mac_locking_overview, row)
+
+    def get_d360_port_config_option_tab(self, option):
+        return self.weh.get_template_element(self.d360_port_config_option_tab, option=option)
+
+    def get_mac_locking_exceed_limit_error(self):
+        return self.weh.get_element(self.mac_locking_exceed_limit_error)
+
+    def get_d360_mac_locking_disable_port(self, port_number):
+        return self.weh.get_template_element(self.d360_mac_locking_disable_port, port_number=port_number)
     def get_device360_port_details_button(self):
         return self.weh.get_element(self.device360_port_details_button)
 
@@ -2320,104 +2372,115 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_diagnostics_wireframe_ports(self):
         """
-		:return: Switch frame ports under Diagnostics  in the device360 view
-		"""
+        :return: Switch frame ports under Diagnostics  in the device360 view
+        """
         return self.weh.get_element(self.device360_diagnostics_wireframe_ports)
 
     def get_device360_diagnostics_bounce_port_message(self):
         """
-		:return: Success message after bouncing ports
-		"""
+        :return: Success message after bouncing ports
+        """
         return self.weh.get_element(self.device360_diagnostics_bounce_port_message)
 
     def get_device360_diagnostics_ah_icon(self, index):
         """
-		:return: Monitor -> Diagnostics wireframe port icon
-		"""
+        :return: Monitor -> Diagnostics wireframe port icon
+        """
         return self.weh.get_template_element(self.device360_diagnostics_ah_icons, index=index)
 
     def get_device360_diagnostics_wireframe_port(self, index):
         """
-		:return: Monitor -> Diagnostics wireframe port object
-		"""
+        :return: Monitor -> Diagnostics wireframe port object
+        """
         return self.weh.get_template_element(self.device360_diagnostics_wireframe_port, index=index)
 
     def get_device360_diagnostics_port_table_select_checkbox(self, index):
         """
-		:return: Monitor -> Diagnostics Port Details table  checkbox for port object
-		"""
+        :return: Monitor -> Diagnostics Port Details table  checkbox for port object
+        """
         return self.weh.get_template_element(self.device360_diagnostics_port_table_select_checkbox, index=index)
 
     def get_device360_diagnostics_current_unit(self):
         """
-		:return: Monitor -> Diagnostics unit selector for stack
-		"""
+        :return: Monitor -> Diagnostics unit selector for stack
+        """
         return self.weh.get_element(self.device360_diagnostics_current_unit)
 
     def get_device360_diagnostics_dropdown_unit(self, index):
         """
-		:return: Monitor -> Diagnostics dropdown for stack units
-		"""
+        :return: Monitor -> Diagnostics dropdown for stack units
+        """
         return self.weh.get_template_element(self.device360_diagnostics_dropdown_unit, index=index)
 
     def get_device360_diagnostics_error_message(self):
         """
-		:return: Monitor -> Diagnostics dropdown for stack units
-		"""
+        :return: Monitor -> Diagnostics dropdown for stack units
+        """
         return self.weh.get_element(self.device360_diagnostics_error_message)
 
     def get_device360_diagnostics_actions_clear_mac_locking(self):
         """
-		:return: Monitor -> Diagnostics -> Port Details -> Actions -> Clear Mac Locking
-		"""
+        :return: Monitor -> Diagnostics -> Port Details -> Actions -> Clear Mac Locking
+        """
         return self.weh.get_element(self.device360_diagnostics_actions_clear_mac_locking)
 
     def get_device360_diagnostics_port_details_port_status(self, index):
         """
-		:return: Monitor -> Diagnostics -> Port Details -> Port Status column
-		"""
+        :return: Monitor -> Diagnostics -> Port Details -> Port Status column
+        """
         return self.weh.get_template_element(self.device360_diagnostics_port_details_port_status, index=index)
 
     def get_device360_diagnostics_port_details_refresh_button(self):
         """
-		:return: Monitor -> Diagnostics -> Refresh button
-		"""
+        :return: Monitor -> Diagnostics -> Refresh button
+        """
         return self.weh.get_element(self.device360_diagnostics_port_details_refresh_button)
 
     def get_device360_diagnostics_actions_enable_port_button(self):
         """
-		:return: Monitor -> Diagnostics ->Port Details -> Actions - Enable Port
-		"""
+        :return: Monitor -> Diagnostics ->Port Details -> Actions - Enable Port
+        """
         return self.weh.get_element(self.device360_diagnostics_actions_enable_port_button)
 
     def get_device360_diagnostics_bounce_port_error_message(self):
         """
-		:return: Monitor -> Diagnostics ->Port Details -> Actions - Error message for action on Disconnected port
-		"""
+        :return: Monitor -> Diagnostics ->Port Details -> Actions - Error message for action on Disconnected port
+        """
         return self.weh.get_element(self.device360_diagnostics_bounce_port_error_message)
 
     def get_device360_diagnostics_port_details_port_name(self, index):
         """
-		:return: Monitor -> Diagnostics -> Port Details -> Port Status column
-		"""
+        :return: Monitor -> Diagnostics -> Port Details -> Port Status column
+        """
         return self.weh.get_template_element(self.device360_diagnostics_port_details_port_name, index=index)
 
     def get_device360_diagnostics_deselect_all_button(self, index):
         """
-		:return: Monitor -> Diagnostics -> Deselect all button
-		"""
+        :return: Monitor -> Diagnostics -> Deselect all button
+        """
         return self.weh.get_template_element(self.device360_diagnostics_deselect_all_button, index=index)
 
     def get_device360_diagnostics_select_all_button(self, index):
         """
-    	:return: Monitor -> Diagnostics -> Deselect all button
-    	"""
+        :return: Monitor -> Diagnostics -> Deselect all button
+        """
         return self.weh.get_template_element(self.device360_diagnostics_select_all_button, index=index)
 
     def get_device360_diagnostics_port_details_actions_button_disabled(self):
         """
-    	:return: Monitor -> Diagnostics -> Deselect all button
-    	"""
+        :return: Monitor -> Diagnostics -> Deselect all button
+        """
         return self.weh.get_element(self.device360_diagnostics_port_details_actions_button_disabled)
     def get_configuration_events_button(self):
         return self.weh.get_element(self.configuration_events_button)
+
+    def get_d360_mac_locking_link_down_action(self, port_number):
+        return self.weh.get_template_element(self.d360_mac_locking_link_down_action, port_number=port_number)
+
+    def get_wait_for_port_config_to_load(self):
+        return self.weh.get_element(self.wait_for_port_config_to_load)
+
+    def get_d360_mac_locking_remove_mac_toggle(self, port_number):
+        return self.weh.get_template_element(self.d360_mac_locking_remove_mac_toggle, port_number=port_number)
+    def get_device360_lag_popup_spinner(self):
+        return self.weh.get_element(self.device360_lag_popup_spinner)

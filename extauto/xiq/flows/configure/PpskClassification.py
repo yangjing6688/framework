@@ -43,7 +43,7 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(network_list, network_name):
             self.utils.print_info("Selected network: %s from dropdown" % network_name)
         else:
-            kwargs['fail_msg'] = " add_ppsk_classification_rule_to_user() failed. Network not present in the dropdown"
+            kwargs['fail_msg'] = "Network not present in the dropdown"
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
@@ -60,7 +60,7 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(ppsk_users, user_name):
             self.utils.print_info("Selected user: %s from dropdown" % user_name)
         else:
-            kwargs['fail_msg'] = " add_ppsk_classification_rule_to_user() failed. User not present in the dropdown"
+            kwargs['fail_msg'] = "User not present in the dropdown"
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
@@ -88,8 +88,7 @@ class PpskClassification(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "add_ppsk_classification_rule_to_user() failed. " \
-                                 "PPSK ClassificationRule not added correctly"
+            kwargs['fail_msg'] = "PPSK ClassificationRule not added correctly"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -118,7 +117,7 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(network_list, network_name):
             self.utils.print_info("Selected network: %s from dropdown" % network_name)
         else:
-            kwargs['fail_msg'] = "edit_ppsk_classification_rule_to_user() failed. Network not present in the dropdown"
+            kwargs['fail_msg'] = "Network not present in the dropdown"
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
@@ -150,8 +149,7 @@ class PpskClassification(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "edit_ppsk_classification_rule_to_user() failed. " \
-                                 "PPSK ClassificationRule not edited correctly"
+            kwargs['fail_msg'] = "PPSK ClassificationRule not edited correctly"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -178,8 +176,7 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(network_list, network_name):
             self.utils.print_info("Selected network: %s from dropdown" % network_name)
         else:
-            kwargs['fail_msg'] = "verify_ppsk_classification_rule_to_user() failed. " \
-                                 "Network not present in the dropdown"
+            kwargs['fail_msg'] = "Network not present in the dropdown"
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
@@ -195,15 +192,12 @@ class PpskClassification(object):
                                           % (classification_rule, user_name))
                     return 1
                 else:
-                    self.utils.print_info(
-                        "PPSK Classification rule %s not attached to user: %s" % (classification_rule, user_name))
-                    kwargs['fail_msg'] = "verify_ppsk_classification_rule_to_user() failed. " \
-                                         f"PPSK Classification rule {classification_rule} not attached to user: {user_name}"
+                    kwargs['fail_msg'] = f"PPSK Classification rule {classification_rule} not attached to " \
+                                         f"user: {user_name}"
                     self.common_validation.fault(**kwargs)
                     return -1
 
-        kwargs['fail_msg'] = "verify_ppsk_classification_rule_to_user() failed. " \
-                             f"user: {user_name} not found in PPSK Classification Rule Table"
+        kwargs['fail_msg'] = f"user: {user_name} not found in PPSK Classification Rule Table"
         self.common_validation.failed(**kwargs)
         return -1
 
@@ -230,8 +224,7 @@ class PpskClassification(object):
         if self.auto_actions.select_drop_down_options(network_list, network_name):
             self.utils.print_info("Selected network: %s from dropdown" % network_name)
         else:
-            kwargs['fail_msg'] = "delete_all_ppsk_classification_rule_user() failed. " \
-                                 "Network not present in the dropdown"
+            kwargs['fail_msg'] = "Network not present in the dropdown"
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)

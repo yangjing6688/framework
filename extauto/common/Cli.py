@@ -583,7 +583,7 @@ class Cli(object):
             output = self.send(spawn, f'show interface {device_interface} | in "IP addr"')
             try:
                 self.utils.print_info(f"AP {device_interface} IPv4 info: ", output)
-                ipv4_addr = re.search("((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
+                ipv4_addr = re.search(r"((?:[0-9]{1,3}\.){3}[0-9]{1,3})", output).group(1)
                 self.utils.print_info(f"{device_interface} IPv4 address is: {ipv4_addr}")
                 return ipv4_addr
             except Exception as e:
@@ -1152,8 +1152,8 @@ class Cli(object):
                     self.utils.print_info(f"Downgrading iqagent {current_version} to base version {base_version}")
                     url_image = f'http://engartifacts1.extremenetworks.com:8081/artifactory/xos-iqagent-local-release/xmods/{base_version}/{exos_device_type}-iqagent-{base_version}.xmod'
                     self.utils.print_info(f"Sending URL: {url_image}")
-                    self.send(connection, f'download url {url_image}{vrString}', \
-                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)', \
+                    self.send(connection, f'download url {url_image}{vrString}',
+                              confirmation_phrases='Do you want to install image after downloading? (y - yes, n - no, <cr> - cancel)',
                               confirmation_args='yes')
 
                     # Wait for the output to return downgraded version to a max of 60 seconds
@@ -2279,7 +2279,7 @@ class Cli(object):
         if dut.cli_type.upper() == "EXOS":
             result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
             output = result[0].cmd_obj.return_text
-            pattern = f'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
+            pattern = rf'(\w+)(\s+)(\d+)(\s+)({dut.ip})(\s+)(\/.*)(\s+)(\w+)(\s+/)(.*)(VR-\w+)'
             match = re.search(pattern, output)
 
             if match:
@@ -2747,6 +2747,27 @@ class Cli(object):
         kwargs["pass_msg"] = "Successfully found all the ports on the device"
         self.commonValidation.passed(**kwargs)
         return 1
+
+    def show_maclocking_on_the_ports_in_cli(self, dut, **kwargs):
+        """
+         - This keyword will return a list of pairs(port number and mac locking state for each port) for EXOS devices.
+        :param: dut: device to be tested
+        :return: a list of pairs(port number and mac locking state for each port)
+        :return: -1 if error
+        """
+        if dut.cli_type.upper() != "EXOS":
+            kwargs["fail_msg"] = "Wrong cli_type"
+            self.commonValidation.fault(**kwargs)
+        self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                            max_wait=10, interval=2)
+        output = self.networkElementCliSend.send_cmd(dut.name, 'show mac-locking',
+                                                     max_wait=10, interval=2)
+        p = re.compile(r'(^\d+)\s+(ena|dis)', re.M)
+        match_port_mac_locking_state = re.findall(p, output[0].return_text)
+        self.utils.print_info(f"{match_port_mac_locking_state}")
+        kwargs["pass_msg"] = "Collected CLI MAC info."
+        self.commonValidation.passed(**kwargs)
+        return match_port_mac_locking_state
 
 
 if __name__ == '__main__':
