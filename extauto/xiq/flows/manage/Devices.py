@@ -12252,7 +12252,7 @@ class Devices:
 
     def confirm_not_enough_copilot_licenses_message_displayed(self, **kwargs):
         """
-        - This keyword confirms if the "Not enough CoPilot licenses" banner message is displayed or not
+        - This keyword confirms if the "CoPilot licenses" warning banner message is displayed or not
         - Keyword Usage
         - ``Confirm Not Enough CoPilot Licenses Message Displayed``
 
@@ -12261,14 +12261,20 @@ class Devices:
 
         if self.devices_web_elements.get_ui_banner_warning_message():
             tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
-            if "Not enough CoPilot licenses" in tool_tp_text_warning.text:
-                self.utils.print_info(tool_tp_text_warning.text)
+            message = tool_tp_text_warning.text
+            if "add CoPilot licenses" in message:
                 self.screen.save_screen_shot()
-                kwargs['pass_msg'] = "Not enough CoPilot licenses"
+                kwargs['pass_msg'] = f" Banner message: {message}"
                 self.common_validation.passed(**kwargs)
                 return True
+            else:
+                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = f"Banner message: {message}"
+                self.common_validation.failed(**kwargs)
+                return False
+
         else:
-            kwargs['fail_msg'] = "Not enough CoPilot licenses warning message not displayed"
+            kwargs['fail_msg'] = "CoPilot License warning message banner not displayed"
             self.common_validation.failed(**kwargs)
             return False
 
