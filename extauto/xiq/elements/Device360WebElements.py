@@ -1860,27 +1860,39 @@ class Device360WebElements(Device360WebElementDefs):
 
     ### Commented on 1/18/23 because this is a duplicate of a function below.
     ### The second function to be declared will be used. Thus, this function was commented
-    #
-    # def get_device360_port_table_rows(self):
-    #     scroll_element = self.get_device360_ports_table_scroll()
-    #     if scroll_element:
-    #         from extauto.common.AutoActions import AutoActions
-    #         auto_actions = AutoActions()
-    #         auto_actions.click(scroll_element)
-    #         for _ in range(10):
-    #             auto_actions.scroll_down()
-    #     return self.get_d360_switch_ports_table_grid_rows()
+    ### Uncommented on 2/27/23 because this function contains table scroll and no header
+    def get_device360_port_table_rows(self):
+        """
+         - This keyword will scroll the D360 table and get a list of D360 table webElements matching each particular row.
+         The list will not contain the table header.
+        :param: -
+        :return list of D360 rows
+        """
+        scroll_element = self.get_device360_ports_table_scroll()
+        if scroll_element:
+            from extauto.common.AutoActions import AutoActions
+            auto_actions = AutoActions()
+            auto_actions.click(scroll_element)
+            for _ in range(10):
+                auto_actions.scroll_down()
+        table_rows = self.get_d360_switch_ports_table_grid_rows()
+        assert table_rows, "Did not find the rows of the ports table"
+        table_rows[0].location_once_scrolled_into_view
+        return [
+            row for row in table_rows if not
+            any(field in row.text for field in ["PORT NAME", "LLDP NEIGHBOR", "PORT STATUS"])
+        ]
 
     def get_device360_ports_table_pagination_sizes(self):
         return self.weh.get_elements(self.device360_ports_table_pagination_sizes)
 
     ### Commented on 1/18/23 because this is a duplicate of a function below.
     ### The second function to be declared will be used. Thus, this function was commented
-    #
+
     # def get_device360_ports_table(self):
     #     header_row = self.get_device360_ports_description_table_row()
     #     ths = self.weh.get_elements(self.device360_ports_table_th_columns, parent=header_row)
-
+    #
     #     table_rows = self.get_device360_port_table_rows()[1:]
     #     results = []
     #     for row in table_rows:
@@ -1949,10 +1961,6 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_overview_port_info_bounce_poe(self):
         return self.weh.get_element(self.device360_overview_port_info_bounce_poe)
-
-    # There is a duplicate of this function above that was commented out on 1/18/23
-    def get_device360_port_table_rows(self):
-        return self.weh.get_elements(self.device360_ports_table_rows)
 
     def get_device360_port_table_rows_no_scroll(self):
         return self.weh.get_elements(self.device360_ports_table_rows)
