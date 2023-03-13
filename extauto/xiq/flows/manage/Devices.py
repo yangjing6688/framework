@@ -2434,7 +2434,7 @@ class Devices:
         :return: 1 if device finished update, else -1
         """
         update_status = ['Querying', 'IQ Engine Firmware Updating', 'User Configuration Updating', 'Rebooting',
-                         'Certification Updating']
+                         'Certification Updating', 'Firmware Updating']
         device_update_status = ""
         for delay in range(retry_count):
             self.utils.print_info(f"Device Update Status Check - Loop: {delay+1}")
