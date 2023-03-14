@@ -423,44 +423,6 @@ class Network360Monitor:
 
         return _client_count_2G, _client_count_5G, _client_count_6G
 
-    def svg_chart_element_hover(self, index, graph_type, elem1, elem2, x_position, y_position):
-        """
-        This function is used to select different portions from SVG charts like lines or half pie charts colors.
-        :param index: SVG graphs have each color assigned an integer from 0..max number of colors available.
-        :param graph_type: Type of graph: line or chart.
-        :param elem1: graph type element reference to search for.
-        :param elem2: graph type element after hover is done.
-        :param x_position: integer
-        :param y_position: integer
-        :return:
-        """
-        sleep(2)
-        el = elem1(index)
-        self.utils.print_info(f"Moving cursor to element {el}")
-        self.auto_actions.move_to_element(el)
-        x = 0
-        while x < 50:
-            try:
-                el_hover = elem2(index)
-                if el_hover:
-                    self.utils.print_info(f'Mouse is hovering on element {el_hover}')
-                    if graph_type == 'line':
-                        self.utils.print_info(f"Moving cursor to element {el_hover}")
-                        self.auto_actions.move_to_element(el_hover)
-                    break
-                else:
-                    self.utils.print_info(f'Moving cursor with {x_position}, {y_position} offset.')
-                    self.auto_actions.move_mouse_with_offset(x_position, y_position)
-                    sleep(2)
-                    x += 1
-                    self.utils.print_info(f'Retry {x}')
-            except (Exception,):
-                self.utils.print_info(f'Moving cursor with {x_position}, {y_position} offset.')
-                self.auto_actions.move_mouse_with_offset(x_position, y_position)
-                sleep(2)
-                x += 1
-                self.utils.print_info(f'Retry {x}')
-
     def ml_insights_monitor_navigate_to_options_drop_down(self, option="All Devices", floor="floor_04", **kwargs):
         """
         - This keyword navigates to one of the options available from the dropdown
@@ -564,6 +526,6 @@ class Network360Monitor:
             kwargs["fail_msg"] = "Table was not sorted after clicking on MAC ADDRESS"
             self.common_validation.failed(**kwargs)
             return -1
-        kwargs["pass_msg"] = f"Successfully sort by HOSTNAME and MAC ADDRESS"
+        kwargs["pass_msg"] = "Successfully sort by HOSTNAME and MAC ADDRESS"
         self.common_validation.passed(**kwargs)
         return 1
