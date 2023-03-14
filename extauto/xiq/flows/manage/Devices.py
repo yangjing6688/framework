@@ -12707,13 +12707,13 @@ class Devices:
 
     def delete_simulated_device(self, device_model, **kwargs):
         """
-        - Deletes Simulated AP from the device grid based on device model
+        - Deletes Simulated Device from the device grid based on device model
         - Keyword Usage:
-         - ``Delete Simulated Ap    ${DEVICE_MODEL}``
-        :param device_model: model of the Device
-        :return: 1 if deleted successfully else -1
+         - ``Delete Simulated device   ${DEVICE_MODEL}``
+        :param device_model: Model of the Device Example: AP410C, AP460C
+        :return: 1 if simulated device deleted successfully else -1
         """
-        self.utils.print_info("Deleting Simulated Device with Model: ", device_model)
+        self.utils.print_info("Searching Simulated Device with Model: ", device_model)
         search_result = self._search_simulated_devices(device_model)
 
         if search_result:
@@ -12729,3 +12729,40 @@ class Devices:
                     kwargs['pass_msg'] = f"Deleted Simulated Device with Model {device_model} Successfully"
                     self.common_validation.passed(**kwargs)
                     return 1
+        else:
+            kwargs['fail_msg'] = f"Unable to find the Simulated Device with Model{device_model} in Devices Grid"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def delete_simulated_devices(self, device_model, **kwargs):
+        """
+        - Delete all Simulated devices from the device grid based on device model
+        - Keyword Usage:
+         - ``Delete Simulated devices    ${DEVICE_MODEL}``
+        :param device_model: model of the Device Example: AP410C, AP460C
+        :return: 1 if simulated devices deleted  successfully else -1
+        """
+        self.utils.print_info("Searching Simulated Device with Model: ", device_model)
+        search_result = self._search_simulated_devices(device_model)
+
+        self.utils.print_info("Getting Simulated Devices Row with Model: ", device_model)
+        rows = self.devices_web_elements.get_simulated_devices_grid_rows()
+        if search_result and rows:
+            for row in rows:
+                self.utils.print_info("Selecting Simulated Device Row ", self.format_row(row.text))
+                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                self.screen.save_screen_shot()
+            self.utils.print_info("Clicking Delete Button")
+            self.auto_actions.click(self.devices_web_elements.get_delete_button())
+            self.utils.print_info("Clicking Delete Confirmation Button")
+            self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+
+        self.refresh_devices_page()
+        if self._search_simulated_devices(device_model) == 1:
+            kwargs['fail_msg'] = f"Simulated Device with Model {device_model} still exists in Devices Page"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = f"Deleted Simulated Device with Model {device_model} Successfully"
+            self.common_validation.passed(**kwargs)
+            return 1
