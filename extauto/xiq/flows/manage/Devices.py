@@ -12707,7 +12707,7 @@ class Devices:
 
     def delete_simulated_device(self, device_model, **kwargs):
         """
-        - Deletes Simulated AP from the device grid based on ap model
+        - Deletes Simulated AP from the device grid based on device model
         - Keyword Usage:
          - ``Delete Simulated Ap    ${DEVICE_MODEL}``
         :param device_model: model of the Device
