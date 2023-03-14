@@ -26,12 +26,14 @@ ${error_code_line_number}        158
 
 ${expected_debug_start_code} =            32
 ${expected_info_start_code} =             35
+${expected_warning_start_code} =          33
+${expected_error_start_code} =            31
 ${expected_reset_code} =                  39
 
 ${debug_regex}      \\\x1b\\[${expected_debug_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${debug_level_name.upper()}] \\[Utils] \\[print_${debug_level_name}:${debug_code_line_number}] \\[Print all levels] message-level-${debug_level_name}\\\x1b\\[${expected_reset_code}m
 ${info_regex}       \\\x1b\\[${expected_info_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${info_level_name.upper()}] \\[Utils] \\[print_${info_level_name}:${info_code_line_number}] \\[Print all levels] message-level-${info_level_name}\\\x1b\\[${expected_reset_code}m
-${warning_regex}    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${warning_level_name.upper()}] \\[Utils] \\[print_${warning_level_name}:${warning_code_line_number}] \\[Print all levels] message-level-${warning_level_name}
-${error_regex}      \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${error_level_name.upper()}] \\[Utils] \\[print_${error_level_name}:${error_code_line_number}] \\[Print all levels] message-level-${error_level_name}
+${warning_regex}    \\\x1b\\[${expected_warning_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${warning_level_name.upper()}] \\[Utils] \\[print_${warning_level_name}:${warning_code_line_number}] \\[Print all levels] message-level-${warning_level_name}\\\x1b\\[${expected_reset_code}m
+${error_regex}      \\\x1b\\[${expected_error_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${error_level_name.upper()}] \\[Utils] \\[print_${error_level_name}:${error_code_line_number}] \\[Print all levels] message-level-${error_level_name}\\\x1b\\[${expected_reset_code}m
 
 *** Test Cases ***
 Check correct BuiltIn imported
@@ -56,8 +58,8 @@ Check console at trace level
     ${logging_level}                Set Variable    TRACE
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_DIR}
 
-    ${expected_stdout_line_count}   Set Variable    ${13}
-    ${expected_stderr_line_count}   Set Variable    ${2}
+    ${expected_stdout_line_count}   Set Variable    ${15}
+    ${expected_stderr_line_count}   Set Variable    ${0}
 
     Create Directory    ${output_dir}
 
@@ -77,9 +79,8 @@ Check console at trace level
 
     ${debug_line} =     Get From List   ${stdout_lines}     3
     ${info_line} =      Get From List   ${stdout_lines}     4
-
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${warning_line} =   Get From List   ${stdout_lines}     5
+    ${error_line} =     Get From List   ${stdout_lines}     6
 
     Should Match Regexp     ${debug_line}       ${debug_regex}
     Should Match Regexp     ${info_line}        ${info_regex}
