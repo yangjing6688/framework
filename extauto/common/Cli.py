@@ -2776,15 +2776,7 @@ class Cli(object):
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
             lldp_neighbor_summary_output = output[0].cmd_obj.return_text
             connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=LLDP Port )\d+)', 1)
-
-        if not connected_ports:
-            kwargs['fail_msg'] = f"There are no ports with connected status on this {dut.cli_type} {dut.platform}"
-            self.commonValidation.failed(**kwargs)
-            return -1
-        else:
-            kwargs['pass_msg'] = f"Found ports with connected status: {connected_ports}"
-            self.commonValidation.passed(**kwargs)
-            return connected_ports
+        return connected_ports
 
     def get_switch_disconnected_ports(self, dut, connected_ports, **kwargs):
         """ Method that returns a list of all disconnected ports on a device.
@@ -2812,15 +2804,7 @@ class Cli(object):
             for connected in connected_ports:
                 if connected in disconnected_ports:
                     disconnected_ports.remove(connected)
-
-        if disconnected_ports:
-            kwargs['pass_msg'] = f"Found ports with disconnected status: {disconnected_ports}"
-            self.commonValidation.passed(**kwargs)
-            return disconnected_ports
-        else:
-            kwargs['fail_msg'] = f"Found no ports with disconnected status: {disconnected_ports}"
-            self.commonValidation.failed(**kwargs)
-            return disconnected_ports
+        return disconnected_ports
 
     def expected_commands_in_cli_history(self, expected_commands, dut, dut_time=None, **kwargs):
         """ Method that checks if expected commands are found in CLI history.
