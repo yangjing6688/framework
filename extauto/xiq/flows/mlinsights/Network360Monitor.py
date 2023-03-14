@@ -461,23 +461,6 @@ class Network360Monitor:
                 x += 1
                 self.utils.print_info(f'Retry {x}')
 
-    def n360_monitor_device_health_table_rows(self):
-        """
-        - This keyword gets the rows from Device Health table
-        Assumes that already navigated to ML Insights -> Network 360 Monitor -> Device Health
-        and the table for Usage, Client, Health
-        :return: returns table rows
-        """
-
-        n360_table_rows = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
-        self.utils.print_info(f"Table rows are:{n360_table_rows}")
-        assert n360_table_rows, "Did not find the rows of the ports table"
-        n360_table_rows[0].location_once_scrolled_into_view
-        return [
-            row for row in n360_table_rows if not
-            any(field in row.text for field in ["HOST NAME", "MAC ADDRESS"])
-        ]
-
     def ml_insights_monitor_navigate_to_options_drop_down(self, option="All Devices", floor="floor_04", **kwargs):
         """
         - This keyword navigates to one of the options available from the dropdown
@@ -581,3 +564,6 @@ class Network360Monitor:
             kwargs["fail_msg"] = "Table was not sorted after clicking on MAC ADDRESS"
             self.common_validation.failed(**kwargs)
             return -1
+        kwargs["pass_msg"] = f"Successfully sort by HOSTNAME and MAC ADDRESS"
+        self.common_validation.passed(**kwargs)
+        return 1
