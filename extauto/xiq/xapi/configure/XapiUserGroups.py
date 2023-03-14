@@ -1,7 +1,10 @@
 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
 from tools.xapi.XapiHelper import XapiHelper
 from extremecloudiq.models.xiq_user_group import XiqUserGroup
+from extremecloudiq.models.xiq_end_user import XiqEndUser
+from ExtremeAutomation.Library.Utils.DotDict import DotDict
 import time
+import random
 
 class XapiUserGroups(XapiHelper):
 
@@ -25,6 +28,12 @@ class XapiUserGroups(XapiHelper):
             kwargs['fail_msg'] = 'You must provide the user_group_profile argument to this keyword'
             self.common_validation.fault(**kwargs)
             return -1
+
+        # Let's see if the group is already created
+        find_response = self.xapi_find_user_group(group_name, ignore_failure=True)
+        if find_response != -1:
+            # We found the user group, let's try and delete it
+            self.xapi_delete_user_group(group_name)
 
         default_password_settings = {
                                         "enable_letters": True,
@@ -145,7 +154,6 @@ class XapiUserGroups(XapiHelper):
             user_group_data =  self.convertPreloadContentDataToObject(response.data)
             # Get the user group ID
             user_group_id = user_group_data.id
-            # Next add all of the users to the group
             base_user_template = {
                                   "user_group_id": user_group_id,
                                   "name": "",
@@ -159,13 +167,91 @@ class XapiUserGroups(XapiHelper):
                                   "email_password_delivery": "",
                                   "sms_password_delivery": ""
                                 }
-            print(base_user_template)
-            print(users_config)
+
+            # add user to user Group
+            if users_config != 'None':
+                # Add in full user details
+                if users_config.get('user-type', '') == 'single':
+                    new_user = DotDict(base_user_template)
+                    if password_db_loc.upper() == 'LOCAL':
+                        new_user.email_address = user_info['email_address']
+                    else:
+                        new_user.name = users_config.get('name', 'default_name')
+                        new_user.user_name = users_config.get('name', 'default_name')
+                        new_user.organization = users_config.get('organization', '')
+                        new_user.visit_purpose = users_config.get('purpose_of_visit', '')
+                        new_user.email_address = users_config.get('email_address', '')
+                        new_user.phone_number = phone_number = users_config.get('phone_number', '')
+                        new_user.description = users_config.get('description', 'Created with the Automation Framework')
+
+                        if not user_info.get('pass-generate','') == 'Enable':
+                            new_user.password = users_config.get('password', '')
+
+                        if user_info.get('deliver_pass', None):
+                            new_user.email_password_delivery = users_config.get('deliver_pass', '')
+
+                        response = self.xapiBaseConfigurationUserManagementApi.xapi_base_create_end_user(xiq_create_end_user_request=new_user, _preload_content=False)
+                        # Validate the reponse
+                        self.valid_http_response(response)
+
+                # Mostly blank users, but username is added
+                elif users_config.get('user-type', '') == 'bulk':
+                    number_of_accounts = int(users_config.get('no_of_accounts', '0'))
+                    for account_number in range(0, number_of_accounts):
+                        # 'email_user_account_to' Is this a new feature?
+                        username_prefix = users_config.get('username_prefix', "user_")
+                        new_user = DotDict(base_user_template)
+                        new_user_random_string = ''.join(random.choices(string.ascii_lowercase, k=5))
+                        new_user.name = f'{username_prefix}{new_user_random_string}_{account_number+1}'
+                        new_user.user_name = f'{username_prefix}{new_user_random_string}_{account_number+1}'
+                        response = self.xapiBaseConfigurationUserManagementApi.xapi_base_create_end_user(xiq_create_end_user_request=new_user, _preload_content=False)
+                        # Validate the reponse
+                        self.valid_http_response(response)
+
+                # Same user details, but username / password are different
+                elif users_config.get('user-type', '') == 'multiple':
+                    names = users_config.get('name', "").split()
+                    passwords = users_config.get('password', "").split()
+                    if isinstaceof(names, array) and \
+                        isinstaceof(passwords, array) and \
+                        len(names) == len(passwords):
+
+                        for name, password in zip(names, passwords):
+                            new_user = DotDict(base_user_template)
+                            if password_db_loc.upper() == 'LOCAL':
+                                new_user.email_address = user_info['email_address']
+                            else:
+                                new_user.name = name
+                                new_user.user_name = name
+                                new_user.organization = users_config.get('organization', '')
+                                new_user.visit_purpose = users_config.get('purpose_of_visit', '')
+                                new_user.email_address = users_config.get('email_address', '')
+                                new_user.phone_number = phone_number = users_config.get('phone_number', '')
+                                # new_user.user_name = users_config.get('user_name_type', '')
+                                new_user.description = users_config.get('description',
+                                                                        'Created with the Automation Framework')
+                                new_user.password = password
+                                if user_info.get('deliver_pass', None):
+                                    new_user.email_password_delivery = users_config.get('deliver_pass', '')
+
+                                response = self.xapiBaseConfigurationUserManagementApi.xapi_base_create_end_user(
+                                    xiq_create_end_user_request=new_user, _preload_content=False)
+                                # Validate the reponse
+                                self.valid_http_response(response)
+                else:
+                    kwargs['fail_msg'] = f'Failed the users_config {users_config} missing the user-type'
+                    self.common_validation.fault(**kwargs)
+                    return -1
 
         except Exception as e:
             kwargs['fail_msg'] = f'Failed to create the user group -> {group_name} -> {e}'
             self.common_validation.fault(**kwargs)
             return -1
+
+        # If we got here without any errors, we should be good
+        kwargs['pass_msg'] = f'Added users and group {group_name}'
+        self.common_validation.passed(**kwargs)
+        return 1
 
 
 
@@ -191,6 +277,31 @@ class XapiUserGroups(XapiHelper):
             return 1
         except Exception as e:
             kwargs['fail_msg'] = f'Failed to delete the user group {user_group_name} Exception: {e}'
+            self.common_validation.fault(**kwargs)
+            return -1
+
+    def xapi_find_user_group(self, user_group_name, **kwargs):
+        """
+            Will search for the user group and if found it will return it
+
+        :param user_group_name: The user group name (string)
+        :return: user group information when the user group was found, otherwise -1 on error or not found
+        """
+        try:
+            user_group_list_preload = self.xapiBaseConfigurationUserManagementApi.xapi_base_list_user_groups(
+                limit=100, _preload_content=False)
+            user_group_list = self.convertPreloadContentDataToObject(user_group_list_preload.data)
+            for user_group in user_group_list.data:
+                if user_group_name == user_group.name:
+                    kwargs['pass_msg'] = f'Found the user group -> {user_group_name}'
+                    self.common_validation.passed(**kwargs)
+                    return user_group
+
+            kwargs['fail_msg'] = f'Failed to find the user group {user_group_name}'
+            self.common_validation.failed(**kwargs)
+            return -1
+        except Exception as e:
+            kwargs['fail_msg'] = f'Failed to find the user group {user_group_name} Exception: {e}'
             self.common_validation.fault(**kwargs)
             return -1
 
