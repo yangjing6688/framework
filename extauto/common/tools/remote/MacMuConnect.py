@@ -255,7 +255,7 @@ class MacMuConnect(object):
             print(line)
         return -1
 
-    def check_internet_connectivity(self):
+    def verify_internet_connectivity(self):
         """
         - Check MU machine Internet connectivity with curl and Firefox detect portal
         - Keyword Usage:

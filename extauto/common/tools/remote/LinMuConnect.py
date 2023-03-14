@@ -105,7 +105,7 @@ class LinMuConnect:
         print(";".join(cmds))
         self.execute_commands(";".join(cmds))
 
-    def check_internet_connectivity(self):
+    def verify_internet_connectivity(self):
         """
         - Check MU machine Internet connectivity with curl and Firefox detect portal
         - Keyword Usage:
