@@ -11159,14 +11159,6 @@ class Devices:
         self.screen.save_screen_shot()
         return [available, activated]
 
-    def delete_all_aps(self):
-        """
-        This function is deprecated. This Keyword will Delete All the Devices in the Manage--> Devices Grid
-
-        :return: 1 if Devices Deleted Successfully else -1
-        """
-        return self.delete_all_devices()
-
     def update_device_policy_config_simple(self, device_serial):
         self.utils.print_info("Select Device row")
         self.select_device(device_serial)
