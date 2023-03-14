@@ -784,7 +784,7 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
-    def _search_simulated_devices(self, ap_serial):
+    def _search_simulated_devices(self, device_model):
         """
         Searches for AP matching AP's Serial Number
 
@@ -797,7 +797,7 @@ class Devices:
         if rows:
             for row in rows:
                 self.utils.print_info("row data: ", self.format_row(row.text))
-                if ap_serial in row.text:
+                if device_model in row.text:
                     return 1
         else:
             return False
@@ -12704,3 +12704,28 @@ class Devices:
                              f"or serial number: {dut.serial} was not found thus failed to get it"
         self.common_validation.failed(**kwargs)
         return latest_version
+
+    def delete_simulated_device(self, device_model, **kwargs):
+        """
+        - Deletes Simulated AP from the device grid based on ap model
+        - Keyword Usage:
+         - ``Delete Simulated Ap    ${DEVICE_MODEL}``
+        :param device_model: model of the Device
+        :return: 1 if deleted successfully else -1
+        """
+        self.utils.print_info("Deleting Simulated Device with Model: ", device_model)
+        search_result = self._search_simulated_devices(device_model)
+
+        if search_result:
+            if self.select_device(device_model):
+                self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+
+                if self._search_simulated_devices(device_model) != 1:
+                    kwargs['fail_msg'] = f"Unable to find the Simulated Device with Model{device_model}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                else:
+                    kwargs['pass_msg'] = f"Deleted Simulated Device with Model {device_model} Successfully"
+                    self.common_validation.passed(**kwargs)
+                    return 1
