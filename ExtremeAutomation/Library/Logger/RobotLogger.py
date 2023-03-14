@@ -149,7 +149,7 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
         terminal_colorized = _apply_terminal_coloring(formatted_message, terminal_colors_mapping.get(level_number))
 
         self.log_to_file(level_number, html_colorized)
-        self.log_to_console(terminal_colorized)
+        self.log_to_console(level_number, terminal_colorized)
         return False
 
     def format(self, record):
@@ -163,8 +163,8 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
     def log_to_file(self, level_number, message):
         self.Dispatch()[level_number](message)
 
-    def log_to_console(self, message):
-        BuiltIn().log_to_console(message)
+    def log_to_console(self, level_number, message):
+        BuiltIn().log_to_console(message, "STDOUT" if level_number < logging.WARNING else "STDERR")
 
     class Dispatch(object):
         def __getitem__(self, level_number):
