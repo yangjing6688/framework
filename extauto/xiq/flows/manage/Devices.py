@@ -2958,11 +2958,11 @@ class Devices:
         :return: returns the row object or -1 if unable to find row
         """
         device_keys = {}
-        if device_mac:
+        if device_mac not in [None, "default"]:
             device_keys['device_mac'] = device_mac
-        if device_serial:
+        if device_serial not in [None, "default"]:
             device_keys['device_serial'] = device_serial
-        if device_name:
+        if device_name not in [None, "default"]:
             device_keys['device_name'] = device_name
         if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, " \
@@ -5606,6 +5606,45 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
+    def get_device_management_ip_address(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+        """
+        - Get Management IP Assigned to the AP
+        - Keyword Usage:
+        - ``Get Device Management IP Address   device_serial=${DEVICE_SERIAL}``
+        - ``Get Device Management IP Address   device_name=${DEVICE_NAME}``
+        - ``Get Device Management IP Address   device_mac=${DEVICE_MAC}``
+
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+            
+        :param device_serial: Serial number of Device Ex:11301810220048
+        :param device_name: Device name Ex: AP1130
+        :param device_mac: Device mac Ex: F09CE9F89600
+        :return: Device Management IP Address
+        """
+
+
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_get_device_management_ip_address(device_serial=device_serial, device_mac=device_mac, **kwargs)
+
+        self.navigator.navigate_to_manage_tab()
+        sleep(5)
+        self.refresh_devices_page()
+
+        search_string = [value for value in [device_serial, device_mac, device_name] if value][0]
+        management_ip = self.get_device_details(search_string, 'MGT IP ADDRESS')
+        if management_ip:
+            kwargs['pass_msg'] = f"MGMT IP ADDRESS is {management_ip} using {search_string}"
+            self.common_validation.passed(**kwargs)
+            return management_ip
+        else:
+            kwargs['fail_msg'] = f"Did not get MGMT IP ADDRESS using {search_string}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    @deprecated("Please use get_device_management_ip_address(...)")
+    # This was put into depreacted mode on March 9th 2023
     def get_ap_management_ip_address(self, ap_serial=None, ap_name=None, ap_mac=None):
         """
         - Get Management IP Assigned to the AP
@@ -6342,7 +6381,9 @@ class Devices:
                 self.utils.print_info("Check if stack toggle icon is present")
                 stack_toggle = self.devices_web_elements.get_device_stack_toggle(device_row)
                 if stack_toggle:
-                    device_row = self.get_device_row(device_serial, ignore_failure=True)
+                    device_row = -1
+                    if device_serial != "default":
+                        device_row = self.get_device_row(device_serial, ignore_failure=True)
                     if device_row == -1:
                         if "ui-icon-stack" in stack_toggle.split(" "):
                             self.utils.print_info("The stack toogle icon is blue. Now check the connection status   ")
@@ -10142,11 +10183,11 @@ class Devices:
 
     def wait_until_device_update_done(self, device_serial=None, device_mac=None, device_name=None, wait_time_in_min=15, **kwargs):
         """
-        - This keyword checks if the expected device is done with updating
+        - This keyword checks if the expected device is done with updating - even if the update failed
         - Keyword Usage:
-        - ``wait_until_device_update_done   device_serial=${AP_SERIAL}``
-        - ``wait_until_device_update_done   device_mac=${AP_MAC}``
-        - ``wait_until_device_update_done   device_name=${AP_NAME}``
+        - ``wait_until_device_update_done   device_serial=${DEVICE_SERIAL}``
+        - ``wait_until_device_update_done   device_mac=${DEVICE_MAC}``
+        - ``wait_until_device_update_done   device_name=${DEVICE_NAME}``
 
         :param device_serial: serial number of the device. Example: "01301511060005"
         :param device_mac: mac of the device. Example: 885BDD4BE380
@@ -10167,25 +10208,34 @@ class Devices:
             n_time = n_time + 1
             if device_serial:
                 update_status = self.get_device_details(device_serial, 'UPDATED')
-                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_serial: " + str(device_serial))
+                self.utils.print_info("Updated status is: '" + str(update_status) + "' for the device_serial: " + str(device_serial))
             elif device_mac:
                 update_status = self.get_device_details(device_mac, 'UPDATED')
-                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_mac: " + str(device_mac))
+                self.utils.print_info("Updated status is: '" + str(update_status) + "' for the device_mac: " + str(device_mac))
             elif device_name:
                 update_status = self.get_device_details(device_name, 'UPDATED')
-                self.utils.print_info("Updated status is: " + str(update_status) + " for the device_name: " + str(device_name))
+                self.utils.print_info("Updated status is: '" + str(update_status) + "' for the device_name: " + str(device_name))
 
-            if (update_status == '') or (re.match(date_regex, update_status)):
-                kwargs['pass_msg'] = "Device has finished updating "
+            # There are multiple conditions were a device can be decalared that the update has completed
+            # 1) There is no update to do
+            # 2) The update was attempted but failed
+            # 3) The update was completed
+            if update_status == '' :
+                kwargs['pass_msg'] = "Device is not in the process of updating thus it is considered updated"
                 self.common_validation.passed(**kwargs)
                 complete = True
                 break
-            # add by @kunli.
-            # If 'device update failed', the update was done, don't need check update status until timeout.
-            elif "Device Update Failed" in str(update_status):
-                kwargs['fail_msg'] = "Device Update Failed "
-                self.common_validation.failed(**kwargs)
-                return -1
+            # If there are other 'Failed' conditions please add them here
+            elif update_status == 'Device Update Failed.':
+                kwargs['pass_msg'] = "Device has finished updating but with a failed condition"
+                self.common_validation.passed(**kwargs)
+                complete = True
+                break
+            elif (re.match(date_regex, update_status)):
+                kwargs['pass_msg'] = "Device has finished updating"
+                self.common_validation.passed(**kwargs)
+                complete = True
+                break
 
             sleep(15)
 
@@ -12252,7 +12302,7 @@ class Devices:
 
     def confirm_not_enough_copilot_licenses_message_displayed(self, **kwargs):
         """
-        - This keyword confirms if the "Not enough CoPilot licenses" banner message is displayed or not
+        - This keyword confirms if the "CoPilot licenses" warning banner message is displayed or not
         - Keyword Usage
         - ``Confirm Not Enough CoPilot Licenses Message Displayed``
 
@@ -12261,14 +12311,20 @@ class Devices:
 
         if self.devices_web_elements.get_ui_banner_warning_message():
             tool_tp_text_warning = self.devices_web_elements.get_ui_banner_warning_message()
-            if "Not enough CoPilot licenses" in tool_tp_text_warning.text:
-                self.utils.print_info(tool_tp_text_warning.text)
+            message = tool_tp_text_warning.text
+            if "add CoPilot licenses" in message:
                 self.screen.save_screen_shot()
-                kwargs['pass_msg'] = "Not enough CoPilot licenses"
+                kwargs['pass_msg'] = f" Banner message: {message}"
                 self.common_validation.passed(**kwargs)
                 return True
+            else:
+                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = f"Banner message: {message}"
+                self.common_validation.failed(**kwargs)
+                return False
+
         else:
-            kwargs['fail_msg'] = "Not enough CoPilot licenses warning message not displayed"
+            kwargs['fail_msg'] = "CoPilot License warning message banner not displayed"
             self.common_validation.failed(**kwargs)
             return False
 
@@ -12543,19 +12599,6 @@ class Devices:
         :param dut: DUT Device
         :return: 1 if the PSE reset have been completed else -1
         """
-
-    def get_device_latest_version(self, dut, **kwargs):
-        """
-        - This method is used to get the device latest version
-        - dut - dut from .yaml testbed file (ex: ap1, netelem1}
-        - Keyword Usage:
-        - ``Get Device Latest Version   ${device1}``
-
-        :return: returned_version of the device
-        """
-        latest_version = -1
-        device_selected = False
-
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         self.refresh_devices_page()
@@ -12605,6 +12648,22 @@ class Devices:
             kwargs['fail_msg'] = f"The function was not designed for {dut.cli_type} OS System"
             self.common_validation.fault(**kwargs)
             return -1
+
+    def get_device_latest_version(self, dut, **kwargs):
+        """
+        - This method is used to get the device latest version
+        - dut - dut from .yaml testbed file (ex: ap1, netelem1}
+        - Keyword Usage:
+        - ``Get Device Latest Version   ${device1}``
+
+        :return: returned_version of the device
+        """
+        latest_version = -1
+        device_selected = False
+
+        self.utils.print_info("Navigate to Manage-->Devices")
+        self.navigator.navigate_to_devices()
+        self.refresh_devices_page()
 
         if self.select_device(device_mac=dut.mac):
             device_selected = True

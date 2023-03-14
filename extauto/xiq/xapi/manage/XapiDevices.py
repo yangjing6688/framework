@@ -421,6 +421,7 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return -1
 
+
     def xapi_list_devices(self, **kwargs):
         """
            This function will get all of the devices
@@ -454,12 +455,12 @@ class XapiDevices(XapiHelper):
         :return: Device admin state: MANAGE, UNMANAGE, NEW, STAGE...
         """
 
-        valid_admin_state = ['NEW', 'UNMANAGED', 'MANAGED', 'STAGED']
+        valid_admin_state = ['NEW', 'UNMANAGED', 'MANAGED', 'STAGED', 'BOOTSTRAP']
 
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
@@ -468,11 +469,39 @@ class XapiDevices(XapiHelper):
         device_admin_state = data.get('device_admin_state', '')
         if device_admin_state in valid_admin_state:
             kwargs['pass_msg'] = f"Device admin state Value is: {device_admin_state}"
-            self.xapiHelper.common_validation.passed(**kwargs)
+            self.common_validation.passed(**kwargs)
             return device_admin_state
         else:
             kwargs['fail_msg'] = f"Device admin state value is not in predefined list: {valid_admin_state}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
+            return -1
+
+    def xapi_get_device_management_ip_address(self, device_serial=None, device_mac=None, **kwargs):
+        """
+        This function is for get device device management IP address
+        :param device_serial: The device serial number
+        :param device_mac: The device MAC address
+        :return: Device the management ip address ...
+        """
+
+
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['ip_address'], _preload_content=False)
+        self.valid_http_response(api_response)
+        data = json.loads(api_response.data)
+        device_mgmt_ip_address = data.get('ip_address', '')
+        if device_mgmt_ip_address:
+            kwargs['pass_msg'] = f"Device management ip address is: {device_mgmt_ip_address}"
+            self.common_validation.passed(**kwargs)
+            return device_mgmt_ip_address
+        else:
+            kwargs['fail_msg'] = f"Failed to get management ip address for serial:{device_serial} or mac:{device_mac}"
+            self.common_validation.fault(**kwargs)
             return -1
 
     def xapi_wait_until_device_unmanaged(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
@@ -491,7 +520,7 @@ class XapiDevices(XapiHelper):
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.xapiHelper.common_validation.fault(**kwargs)
+            self.common_validation.fault(**kwargs)
             return -1
 
         while retry_value < retry_count:
@@ -502,7 +531,7 @@ class XapiDevices(XapiHelper):
             device_admin_state = data.get('device_admin_state', '')
             if device_admin_state == 'UNMANAGED':
                 kwargs['pass_msg'] = f"Device admin state Value is: {device_admin_state}"
-                self.xapiHelper.common_validation.passed(**kwargs)
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(
@@ -512,7 +541,7 @@ class XapiDevices(XapiHelper):
 
         # In the case that nothing is found
         kwargs['fail_msg'] = 'Device did not get to unmanaged state'
-        self.xapiHelper.common_validation.failed(**kwargs)
+        self.common_validation.failed(**kwargs)
         return -1
 
     def xapi_manage_device(self, device_serial=None, device_mac=None, **kwargs):
