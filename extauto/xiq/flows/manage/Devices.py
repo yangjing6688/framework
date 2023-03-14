@@ -2958,11 +2958,11 @@ class Devices:
         :return: returns the row object or -1 if unable to find row
         """
         device_keys = {}
-        if device_mac:
+        if device_mac not in [None, "default"]:
             device_keys['device_mac'] = device_mac
-        if device_serial:
+        if device_serial not in [None, "default"]:
             device_keys['device_serial'] = device_serial
-        if device_name:
+        if device_name not in [None, "default"]:
             device_keys['device_name'] = device_name
         if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, " \
@@ -6381,7 +6381,9 @@ class Devices:
                 self.utils.print_info("Check if stack toggle icon is present")
                 stack_toggle = self.devices_web_elements.get_device_stack_toggle(device_row)
                 if stack_toggle:
-                    device_row = self.get_device_row(device_serial, ignore_failure=True)
+                    device_row = -1
+                    if device_serial != "default":
+                        device_row = self.get_device_row(device_serial, ignore_failure=True)
                     if device_row == -1:
                         if "ui-icon-stack" in stack_toggle.split(" "):
                             self.utils.print_info("The stack toogle icon is blue. Now check the connection status   ")
