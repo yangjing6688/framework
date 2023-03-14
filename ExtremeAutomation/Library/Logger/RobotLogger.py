@@ -1,10 +1,14 @@
 import logging
 from functools import partial, partialmethod
+
+import robot.output.listeners
 from ansi2html.style import SCHEME as ANSI2HTML_COLOR_SCHEME
 from robot.libraries.BuiltIn import BuiltIn
+from robot.output.logger import LOGGER as InternalRobotLogger
 from extauto.common.ConfigFileHelper import ConfigFileHelper
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
 from ExtremeAutomation.Library.Logger.Colors import Colors
+from types import MethodType
 
 
 LOG_FORMAT = '[%(asctime)s] [%(levelname)s] [%(module)s] [%(funcName)s:%(lineno)s] [%(test_name)s] %(message)s'
@@ -77,6 +81,26 @@ class RobotLogger(logging.Logger, metaclass=Singleton):
             html_colors_mapping[getattr(self.logging, level_name)] = log_info["html_log_color"]
 
     @logger_not_initialised
+    def configure_internal_robot_logger(self):
+        def patch_message(_self, msg):
+            """Messages about what the framework is doing, warnings, errors, ..."""
+            if not _self._cache_only:
+                for logger in _self:
+                    test = logger
+                    if hasattr(msg.message, "skipConsoleAutoPrint") and hasattr(logger, "logger") and isinstance(logger.logger, robot.output.console.verbose.VerboseOutput):
+                        pass
+                    else:
+                        logger.message(msg)
+            if _self._message_cache is not None:
+                _self._message_cache.append(msg)
+            if msg.level == 'ERROR':
+                _self._error_occurred = True
+                if _self._error_listener:
+                    _self._error_listener()
+
+        InternalRobotLogger.message = MethodType(patch_message, InternalRobotLogger)
+
+    @logger_not_initialised
     def configure_filter(self):
         test = self.level
         self.addFilter(FormatAndColorizeAndDispatchToRobot(self.level))
@@ -98,11 +122,14 @@ class RobotLogger(logging.Logger, metaclass=Singleton):
         self.setLevel(self.logger_level)
         self.configure_filter()
 
+        self.configure_internal_robot_logger()
+
         self._logger_initialised = True
 
 
 def _apply_html_coloring(message, color):
     return f"<div style='color: {color}'>{message}</div>"
+
 
 def _apply_terminal_coloring(message, color):
     return f"{color}{message}{terminal_colors_mapping['reset']}"
@@ -121,11 +148,8 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
         html_colorized = _apply_html_coloring(formatted_message, html_colors_mapping.get(level_number))
         terminal_colorized = _apply_terminal_coloring(formatted_message, terminal_colors_mapping.get(level_number))
 
-        if level_number < logging.WARNING:  # WARN and ERROR already logged via log_to_file by Robot
-            self.log_to_file(level_number, html_colorized)
-            self.log_to_console(terminal_colorized)
-        else:
-            self.log_to_file(level_number, formatted_message)  # Prevent html data to be printed to console
+        self.log_to_file(level_number, html_colorized)
+        self.log_to_console(terminal_colorized)
         return False
 
     def format(self, record):
@@ -146,6 +170,14 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
         def __getitem__(self, level_number):
             def with_html(message):
                 canonical = logging.getLevelName(level_number)
-                robot = "WARN" if canonical == "WARNING" else canonical  # Robot usage is --loglevel WARN
-                BuiltIn().log(message, robot, True)
+                robot_level = "WARN" if canonical == "WARNING" else canonical  # Robot usage is --loglevel WARN
+                flagged_message = FlaggedMessage(message)
+                BuiltIn().log(flagged_message, robot_level, True)
             return with_html
+
+
+class FlaggedMessage(str):
+    def __new__(cls, content):
+        cls.skipConsoleAutoPrint = True
+        return str.__new__(cls, content)
+

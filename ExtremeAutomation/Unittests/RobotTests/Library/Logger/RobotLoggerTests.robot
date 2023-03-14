@@ -4,7 +4,6 @@ Documentation     Test RobotLogger
 ...               Limitations:
 ...               1. The framework lacks browser based testing for unittests, therefore HTML output
 ...               must be manually verified
-...               2. Warning and error terminal colors are not present in output, therefore are not tested
 
 Library    Process
 Library    OperatingSystem
@@ -37,22 +36,22 @@ ${error_code_line_number}        21
 ${expected_trace_start_code} =            32
 ${expected_debug_start_code} =            32
 ${expected_info_start_code} =             35
-#${expected_warning_start_code} =          33
-#${expected_error_start_code} =            31
+${expected_warning_start_code} =          33
+${expected_error_start_code} =            31
 ${expected_reset_code} =                  39
 
 ${trace_regex}      \\\x1b\\[${expected_trace_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${trace_level_name.upper()}] \\[TUTLibrary] \\[print_${trace_level_name}:${trace_code_line_number}] \\[Print all levels] message-level-${trace_level_name}\\\x1b\\[${expected_reset_code}m
 ${debug_regex}      \\\x1b\\[${expected_debug_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${debug_level_name.upper()}] \\[TUTLibrary] \\[print_${debug_level_name}:${debug_code_line_number}] \\[Print all levels] message-level-${debug_level_name}\\\x1b\\[${expected_reset_code}m
 ${info_regex}       \\\x1b\\[${expected_info_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${info_level_name.upper()}] \\[TUTLibrary] \\[print_${info_level_name}:${info_code_line_number}] \\[Print all levels] message-level-${info_level_name}\\\x1b\\[${expected_reset_code}m
-${warning_regex}    \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${warning_level_name.upper()}] \\[TUTLibrary] \\[print_${warning_level_name}:${warning_code_line_number}] \\[Print all levels] message-level-${warning_level_name}
-${error_regex}      \\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${error_level_name.upper()}] \\[TUTLibrary] \\[print_${error_level_name}:${error_code_line_number}] \\[Print all levels] message-level-${error_level_name}
+${warning_regex}    \\\x1b\\[${expected_warning_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${warning_level_name.upper()}] \\[TUTLibrary] \\[print_${warning_level_name}:${warning_code_line_number}] \\[Print all levels] message-level-${warning_level_name}\\\x1b\\[${expected_reset_code}m
+${error_regex}      \\\x1b\\[${expected_error_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${error_level_name.upper()}] \\[TUTLibrary] \\[print_${error_level_name}:${error_code_line_number}] \\[Print all levels] message-level-${error_level_name}\\\x1b\\[${expected_reset_code}m
 
 *** Test Cases ***
 Run and check console at trace level
     ${logging_level}                Set Variable    TRACE
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_TRACE_DIR}
-    ${expected_stdout_line_count}   Set Variable    ${14}
-    ${expected_stderr_line_count}   Set Variable    ${2}
+    ${expected_stdout_line_count}   Set Variable    ${16}
+    ${expected_stderr_line_count}   Set Variable    ${0}
 
     Create Directory    ${output_dir}
     ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
@@ -72,9 +71,8 @@ Run and check console at trace level
     ${trace_line} =     Get From List   ${stdout_lines}     3
     ${debug_line} =     Get From List   ${stdout_lines}     4
     ${info_line} =      Get From List   ${stdout_lines}     5
-
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${warning_line} =   Get From List   ${stdout_lines}     6
+    ${error_line} =     Get From List   ${stdout_lines}     7
 
     #   Assert stdout lines
 
@@ -88,8 +86,8 @@ Run and check console at trace level
 Run and check console at debug level
     ${logging_level}                Set Variable    DEBUG
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEBUG_DIR}
-    ${expected_stdout_line_count}   Set Variable    ${13}
-    ${expected_stderr_line_count}   Set Variable    ${2}
+    ${expected_stdout_line_count}   Set Variable    ${15}
+    ${expected_stderr_line_count}   Set Variable    ${0}
 
     Create Directory    ${output_dir}
     ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
@@ -108,9 +106,8 @@ Run and check console at debug level
 
     ${debug_line} =     Get From List   ${stdout_lines}     3
     ${info_line} =      Get From List   ${stdout_lines}     4
-
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${warning_line} =   Get From List   ${stdout_lines}     5
+    ${error_line} =     Get From List   ${stdout_lines}     6
 
     #   Assert stdout lines
 
@@ -123,8 +120,8 @@ Run and check console at debug level
 Run and check console at info level
     ${logging_level}                Set Variable    INFO
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_INFO_DIR}
-    ${expected_stdout_line_count}   Set Variable    ${12}
-    ${expected_stderr_line_count}   Set Variable    ${2}
+    ${expected_stdout_line_count}   Set Variable    ${14}
+    ${expected_stderr_line_count}   Set Variable    ${0}
 
     Create Directory    ${output_dir}
     ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
@@ -141,10 +138,9 @@ Run and check console at info level
     ${stderr_line_count} =  Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${info_line} =      Get From List   ${stdout_lines}     3
-
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${info_line} =          Get From List   ${stdout_lines}     3
+    ${warning_line} =       Get From List   ${stdout_lines}     4
+    ${error_line} =         Get From List   ${stdout_lines}     5
 
     #   Assert stdout lines
 
@@ -156,8 +152,8 @@ Run and check console at info level
 Run and check console at warning level
     ${logging_level}                Set Variable    WARN
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_WARNING_DIR}
-    ${expected_stdout_line_count}   Set Variable    ${11}
-    ${expected_stderr_line_count}   Set Variable    ${2}
+    ${expected_stdout_line_count}   Set Variable    ${13}
+    ${expected_stderr_line_count}   Set Variable    ${0}
 
     Create Directory    ${output_dir}
     ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
@@ -174,8 +170,8 @@ Run and check console at warning level
     ${stderr_line_count} =  Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${warning_line} =       Get From List   ${stdout_lines}     3
+    ${error_line} =         Get From List   ${stdout_lines}     4
 
     #   Assert stdout lines
 
@@ -186,8 +182,8 @@ Run and check console at warning level
 Run and check console at error level
     ${logging_level}                Set Variable    ERROR
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_ERROR_DIR}
-    ${expected_stdout_line_count}   Set Variable    ${11}
-    ${expected_stderr_line_count}   Set Variable    ${1}
+    ${expected_stdout_line_count}   Set Variable    ${12}
+    ${expected_stderr_line_count}   Set Variable    ${0}
 
     Create Directory    ${output_dir}
     ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
@@ -204,7 +200,7 @@ Run and check console at error level
     ${stderr_line_count} =  Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${error_line} =         Get From List   ${stderr_lines}     0
+    ${error_line} =         Get From List   ${stdout_lines}     3
 
     #   Assert stdout lines
 
@@ -213,8 +209,8 @@ Run and check console at error level
 
 Run and check console at default level
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEFAULT_DIR}
-    ${expected_stdout_line_count}   Set Variable    ${12}
-    ${expected_stderr_line_count}   Set Variable    ${2}
+    ${expected_stdout_line_count}   Set Variable    ${14}
+    ${expected_stderr_line_count}   Set Variable    ${0}
 
     Create Directory    ${output_dir}
     ${result} =     Run Process     robot   ${TUT}  cwd=${output_dir}
@@ -231,10 +227,9 @@ Run and check console at default level
     ${stderr_line_count} =  Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${info_line} =      Get From List   ${stdout_lines}     3
-
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${info_line} =          Get From List   ${stdout_lines}     3
+    ${warning_line} =       Get From List   ${stdout_lines}     4
+    ${error_line} =         Get From List   ${stdout_lines}     5
 
     #   Assert stdout lines
 
