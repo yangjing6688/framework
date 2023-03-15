@@ -107,6 +107,8 @@ class DefaultTests():
     # Helper methods
     
     def helper_login(self, ip, port, username, password, cli_type, **kwargs):
+        '''[Documentation] Log in to the device to retrieve the version'''
+
 
         start_time = int(time.time())
         spawn = self.cli.open_spawn(ip,
@@ -122,6 +124,7 @@ class DefaultTests():
         return spawn
     
     def helper_send_command(self, spawn, cmd, **kwargs):
+        '''[Documentation]  Send a command, based on cli_type, to the device'''
 
         start_time = int(time.time())
         cmd_ret = self.cli.send(spawn, cmd, **kwargs)
