@@ -11,7 +11,8 @@ from ExtremeAutomation.Library.Logger.Colors import Colors
 from types import MethodType
 
 
-LOG_FORMAT = '[%(asctime)s] [%(levelname)s] [%(module)s] [%(funcName)s:%(lineno)s] [%(test_name)s] %(message)s'
+CONSOLE_LOG_FORMAT = '[%(asctime)s] [%(levelname)s] [%(module)s] [%(funcName)s:%(lineno)s] [%(test_name)s] %(message)s'
+HTML_LOG_FORMAT = '[%(levelname)s] [%(module)s] [%(funcName)s:%(lineno)s] [%(test_name)s] %(message)s'
 
 new_log_levels = {
     "TRACE":
@@ -144,18 +145,27 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
         level_number = record.levelno
         if level_number < self.level:
             return False
-        formatted_message = self.format(record)
-        html_colorized = _apply_html_coloring(formatted_message, html_colors_mapping.get(level_number))
-        terminal_colorized = _apply_terminal_coloring(formatted_message, terminal_colors_mapping.get(level_number))
+        console_formatted_message = self.console_format(record)
+        html_formatted_message = self.html_format(record)
+        html_colorized = _apply_html_coloring(html_formatted_message, html_colors_mapping.get(level_number))
+        terminal_colorized = _apply_terminal_coloring(console_formatted_message, terminal_colors_mapping.get(level_number))
 
         self.log_to_file(level_number, html_colorized)
         self.log_to_console(level_number, terminal_colorized)
         return False
 
-    def format(self, record):
+    def console_format(self, record):
         class Formatter(logging.Formatter):
             def format(cls, record):
-                cls._style._fmt = f"{LOG_FORMAT}"
+                cls._style._fmt = f"{CONSOLE_LOG_FORMAT}"
+                return super().format(record)
+
+        return Formatter().format(record)
+
+    def html_format(self, record):
+        class Formatter(logging.Formatter):
+            def format(cls, record):
+                cls._style._fmt = f"{HTML_LOG_FORMAT}"
                 return super().format(record)
 
         return Formatter().format(record)

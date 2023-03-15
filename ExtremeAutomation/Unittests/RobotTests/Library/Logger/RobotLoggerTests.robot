@@ -3,7 +3,7 @@ Documentation     Test RobotLogger
 ...
 ...               Limitations:
 ...               1. The framework lacks browser based testing for unittests, therefore HTML output
-...               must be manually verified
+...               must be manually verified. Pro tem assert output.xml.
 
 Library    Process
 Library    OperatingSystem
@@ -21,6 +21,9 @@ ${TUT_OUTPUT_LEVEL_WARNING_DIR}     ${TUT_OUTPUT_DIR}/level_warning
 ${TUT_OUTPUT_LEVEL_ERROR_DIR}       ${TUT_OUTPUT_DIR}/level_error
 ${TUT_OUTPUT_LEVEL_DEFAULT_DIR}     ${TUT_OUTPUT_DIR}/level_default
 
+${src_module}           TUTLibrary
+${src_test_name}        Print all levels
+
 ${trace_level_name}         trace
 ${debug_level_name}         debug
 ${info_level_name}          info
@@ -33,49 +36,67 @@ ${info_code_line_number}         15
 ${warning_code_line_number}      18
 ${error_code_line_number}        21
 
-${expected_trace_start_code} =            32
-${expected_debug_start_code} =            32
-${expected_info_start_code} =             35
-${expected_warning_start_code} =          33
-${expected_error_start_code} =            31
-${expected_reset_code} =                  39
+${expected_trace_start_code}              32
+${expected_debug_start_code}              32
+${expected_info_start_code}               35
+${expected_warning_start_code}            33
+${expected_error_start_code}              31
+${expected_reset_code}                    39
 
-${trace_regex}      \\\x1b\\[${expected_trace_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${trace_level_name.upper()}] \\[TUTLibrary] \\[print_${trace_level_name}:${trace_code_line_number}] \\[Print all levels] message-level-${trace_level_name}\\\x1b\\[${expected_reset_code}m
-${debug_regex}      \\\x1b\\[${expected_debug_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${debug_level_name.upper()}] \\[TUTLibrary] \\[print_${debug_level_name}:${debug_code_line_number}] \\[Print all levels] message-level-${debug_level_name}\\\x1b\\[${expected_reset_code}m
-${info_regex}       \\\x1b\\[${expected_info_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${info_level_name.upper()}] \\[TUTLibrary] \\[print_${info_level_name}:${info_code_line_number}] \\[Print all levels] message-level-${info_level_name}\\\x1b\\[${expected_reset_code}m
-${warning_regex}    \\\x1b\\[${expected_warning_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${warning_level_name.upper()}] \\[TUTLibrary] \\[print_${warning_level_name}:${warning_code_line_number}] \\[Print all levels] message-level-${warning_level_name}\\\x1b\\[${expected_reset_code}m
-${error_regex}      \\\x1b\\[${expected_error_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${error_level_name.upper()}] \\[TUTLibrary] \\[print_${error_level_name}:${error_code_line_number}] \\[Print all levels] message-level-${error_level_name}\\\x1b\\[${expected_reset_code}m
+${expected_trace_color}              \#aa5500
+${expected_debug_color}              \#00aa00
+${expected_info_color}               \#E850A8
+${expected_warning_color}            \#aa5500
+${expected_error_color}              \#aa0000
+
+${regex_body_trace}         message-level-${trace_level_name}
+${regex_body_debug}         message-level-${debug_level_name}
+${regex_body_info}          message-level-${info_level_name}
+${regex_body_warning}       message-level-${warning_level_name}
+${regex_body_error}         message-level-${error_level_name}
+
+${trace_regex}      \\\x1b\\[${expected_trace_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${trace_level_name.upper()}] \\[${src_module}] \\[print_${trace_level_name}:${trace_code_line_number}] \\[${src_test_name}] ${regex_body_trace}\\\x1b\\[${expected_reset_code}m
+${debug_regex}      \\\x1b\\[${expected_debug_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${debug_level_name.upper()}] \\[${src_module}] \\[print_${debug_level_name}:${debug_code_line_number}] \\[${src_test_name}] ${regex_body_debug}\\\x1b\\[${expected_reset_code}m
+${info_regex}       \\\x1b\\[${expected_info_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${info_level_name.upper()}] \\[${src_module}] \\[print_${info_level_name}:${info_code_line_number}] \\[${src_test_name}] ${regex_body_info}\\\x1b\\[${expected_reset_code}m
+${warning_regex}    \\\x1b\\[${expected_warning_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${warning_level_name.upper()}] \\[${src_module}] \\[print_${warning_level_name}:${warning_code_line_number}] \\[${src_test_name}] ${regex_body_warning}\\\x1b\\[${expected_reset_code}m
+${error_regex}      \\\x1b\\[${expected_error_start_code}m\\[(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2}),(\\d{3})] \\[${error_level_name.upper()}] \\[${src_module}] \\[print_${error_level_name}:${error_code_line_number}] \\[${src_test_name}] ${regex_body_error}\\\x1b\\[${expected_reset_code}m
+
+${regex_header_msg}     <msg timestamp="[\\d]{{8}} [\\d]{{2}}:[\\d]{{2}}:[\\d]{{2}}.[\\d]{{3}}" level="{}" html="true">&lt;div style='color: {}'&gt;
+${regex_header_log}     \\[{}] \\[{}] \\[{}:{}] \\[{}]
+${regex_trailer}        &lt;\\/div&gt;<\\/msg>
 
 *** Test Cases ***
-Run and check console at trace level
+Check console and output at trace level
     ${logging_level}                Set Variable    TRACE
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_TRACE_DIR}
+    ${output_file}                  Set Variable    ${output_dir}/output.xml
+
     ${expected_stdout_line_count}   Set Variable    ${14}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
-    ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
+    ${result}       Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
 
-    @{stdout_lines} =   Split String     ${result.stdout}   \n
-    @{stderr_lines} =   Split String     ${result.stderr}   \n
+    @{stdout_lines}     Split String     ${result.stdout}   \n
+    @{stderr_lines}     Split String     ${result.stderr}   \n
 
     Log List    ${stdout_lines}
     Log List    ${stderr_lines}
 
-    ${stdout_line_count} =  Get Line Count  ${result.stdout}
+    ${stdout_line_count}    Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
 
-    ${stderr_line_count} =  Get Line Count  ${result.stderr}
+    ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${trace_line} =     Get From List   ${stdout_lines}     3
-    ${debug_line} =     Get From List   ${stdout_lines}     4
-    ${info_line} =      Get From List   ${stdout_lines}     5
+    ${trace_line}       Get From List   ${stdout_lines}     3
+    ${debug_line}       Get From List   ${stdout_lines}     4
+    ${info_line}        Get From List   ${stdout_lines}     5
 
-    ${warning_line} =   Get From List   ${stderr_lines}     0
-    ${error_line} =     Get From List   ${stderr_lines}     1
+    ${warning_line}     Get From List   ${stderr_lines}     0
+    ${error_line}       Get From List   ${stderr_lines}     1
 
-    #   Assert stdout lines
+    # Assert stdout lines
 
     Should Match Regexp     ${trace_line}       ${trace_regex}
     Should Match Regexp     ${debug_line}       ${debug_regex}
@@ -83,157 +104,302 @@ Run and check console at trace level
     Should Match Regexp     ${warning_line}     ${warning_regex}
     Should Match Regexp     ${error_line}       ${error_regex}
 
+    # Assert output lines
 
-Run and check console at debug level
+    ${log_file}             Get File            ${output_file}
+    @{log_file_lines}       Split to lines      ${log_file}
+
+    Log List    ${log_file_lines}
+
+    ${trace_line}       Get From List   ${log_file_lines}     7
+    ${debug_line}       Get From List   ${log_file_lines}     14
+    ${info_line}        Get From List   ${log_file_lines}     21
+    ${warning_line}     Get From List   ${log_file_lines}     28
+    ${error_line}       Get From List   ${log_file_lines}     35
+
+    ${regex_header_msg_trace}           Format String   ${regex_header_msg}     TRACE   ${expected_trace_color}
+    ${regex_header_log_trace}           Format String   ${regex_header_log}     ${trace_level_name.upper()}     ${src_module}    print_${trace_level_name}  ${trace_code_line_number}   ${src_test_name}
+    ${regex_trace_line}                 Set Variable    ${regex_header_msg_trace}${regex_header_log_trace}
+
+    ${regex_header_msg_debug}           Format String   ${regex_header_msg}     DEBUG   ${expected_debug_color}
+    ${regex_header_log_debug}           Format String   ${regex_header_log}     ${debug_level_name.upper()}     ${src_module}    print_${debug_level_name}  ${debug_code_line_number}   ${src_test_name}
+    ${regex_debug_line}                 Set Variable    ${regex_header_msg_debug}${regex_header_log_debug}
+
+    ${regex_header_msg_info}            Format String   ${regex_header_msg}     INFO   ${expected_info_color}
+    ${regex_header_log_info}            Format String   ${regex_header_log}     ${info_level_name.upper()}     ${src_module}    print_${info_level_name}  ${info_code_line_number}   ${src_test_name}
+    ${regex_info_line}                  Set Variable    ${regex_header_msg_info}${regex_header_log_info}
+
+    ${regex_header_msg_warning}         Format String   ${regex_header_msg}     WARN   ${expected_warning_color}
+    ${regex_header_log_warning}         Format String   ${regex_header_log}     ${warning_level_name.upper()}     ${src_module}    print_${warning_level_name}  ${warning_code_line_number}   ${src_test_name}
+    ${regex_warning_line}               Set Variable    ${regex_header_msg_warning}${regex_header_log_warning}
+
+    ${regex_header_msg_error}           Format String   ${regex_header_msg}     ERROR   ${expected_error_color}
+    ${regex_header_log_error}           Format String   ${regex_header_log}     ${error_level_name.upper()}     ${src_module}    print_${error_level_name}  ${error_code_line_number}   ${src_test_name}
+    ${regex_error_line}                 Set Variable    ${regex_header_msg_error}${regex_header_log_error}
+
+    Should Match Regexp     ${trace_line}       ${regex_trace_line}
+    Should Match Regexp     ${debug_line}       ${regex_debug_line}
+    Should Match Regexp     ${info_line}        ${regex_info_line}
+    Should Match Regexp     ${warning_line}     ${regex_warning_line}
+    Should Match Regexp     ${error_line}       ${regex_error_line}
+
+
+Check console and output at debug level
     ${logging_level}                Set Variable    DEBUG
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEBUG_DIR}
+    ${output_file}                  Set Variable    ${output_dir}/output.xml
+
     ${expected_stdout_line_count}   Set Variable    ${13}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
-    ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
+    ${result}       Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
 
-    @{stdout_lines} =   Split String     ${result.stdout}   \n
-    @{stderr_lines} =   Split String     ${result.stderr}   \n
+    @{stdout_lines}     Split String     ${result.stdout}   \n
+    @{stderr_lines}     Split String     ${result.stderr}   \n
 
     Log List    ${stdout_lines}
     Log List    ${stderr_lines}
 
-    ${stdout_line_count} =  Get Line Count  ${result.stdout}
+    ${stdout_line_count}    Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
 
-    ${stderr_line_count} =  Get Line Count  ${result.stderr}
+    ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${debug_line} =     Get From List   ${stdout_lines}     3
-    ${info_line} =      Get From List   ${stdout_lines}     4
+    ${debug_line}       Get From List   ${stdout_lines}     3
+    ${info_line}        Get From List   ${stdout_lines}     4
 
-    ${warning_line} =   Get From List   ${stderr_lines}     0
-    ${error_line} =     Get From List   ${stderr_lines}     1
+    ${warning_line}     Get From List   ${stderr_lines}     0
+    ${error_line}       Get From List   ${stderr_lines}     1
 
-    #   Assert stdout lines
+    # Assert stdout lines
 
     Should Match Regexp     ${debug_line}       ${debug_regex}
     Should Match Regexp     ${info_line}        ${info_regex}
     Should Match Regexp     ${warning_line}     ${warning_regex}
     Should Match Regexp     ${error_line}       ${error_regex}
 
+    # Assert output lines
 
-Run and check console at info level
+    ${log_file}             Get File            ${output_file}
+    @{log_file_lines}       Split to lines      ${log_file}
+
+    Log List    ${log_file_lines}
+
+    ${debug_line}       Get From List   ${log_file_lines}     10
+    ${info_line}        Get From List   ${log_file_lines}     15
+    ${warning_line}     Get From List   ${log_file_lines}     20
+    ${error_line}       Get From List   ${log_file_lines}     25
+
+    ${regex_header_msg_debug}           Format String   ${regex_header_msg}     DEBUG   ${expected_debug_color}
+    ${regex_header_log_debug}           Format String   ${regex_header_log}     ${debug_level_name.upper()}     ${src_module}    print_${debug_level_name}  ${debug_code_line_number}   ${src_test_name}
+    ${regex_debug_line}                 Set Variable    ${regex_header_msg_debug}${regex_header_log_debug}
+
+    ${regex_header_msg_info}            Format String   ${regex_header_msg}     INFO   ${expected_info_color}
+    ${regex_header_log_info}            Format String   ${regex_header_log}     ${info_level_name.upper()}     ${src_module}    print_${info_level_name}  ${info_code_line_number}   ${src_test_name}
+    ${regex_info_line}                  Set Variable    ${regex_header_msg_info}${regex_header_log_info}
+
+    ${regex_header_msg_warning}         Format String   ${regex_header_msg}     WARN   ${expected_warning_color}
+    ${regex_header_log_warning}         Format String   ${regex_header_log}     ${warning_level_name.upper()}     ${src_module}    print_${warning_level_name}  ${warning_code_line_number}   ${src_test_name}
+    ${regex_warning_line}               Set Variable    ${regex_header_msg_warning}${regex_header_log_warning}
+
+    ${regex_header_msg_error}           Format String   ${regex_header_msg}     ERROR   ${expected_error_color}
+    ${regex_header_log_error}           Format String   ${regex_header_log}     ${error_level_name.upper()}     ${src_module}    print_${error_level_name}  ${error_code_line_number}   ${src_test_name}
+    ${regex_error_line}                 Set Variable    ${regex_header_msg_error}${regex_header_log_error}
+
+    Should Match Regexp     ${debug_line}       ${regex_debug_line}
+    Should Match Regexp     ${info_line}        ${regex_info_line}
+    Should Match Regexp     ${warning_line}     ${regex_warning_line}
+    Should Match Regexp     ${error_line}       ${regex_error_line}
+
+
+Check console and output at info level
     ${logging_level}                Set Variable    INFO
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_INFO_DIR}
+    ${output_file}                  Set Variable    ${output_dir}/output.xml
+
     ${expected_stdout_line_count}   Set Variable    ${12}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
-    ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
+    ${result}       Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
 
-    @{stdout_lines} =   Split String     ${result.stdout}   \n
-    @{stderr_lines} =   Split String     ${result.stderr}   \n
+    @{stdout_lines}     Split String     ${result.stdout}   \n
+    @{stderr_lines}     Split String     ${result.stderr}   \n
 
     Log List    ${stdout_lines}
     Log List    ${stderr_lines}
 
-    ${stdout_line_count} =  Get Line Count  ${result.stdout}
+    ${stdout_line_count}    Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
 
-    ${stderr_line_count} =  Get Line Count  ${result.stderr}
+    ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${info_line} =          Get From List   ${stdout_lines}     3
+    ${info_line}            Get From List   ${stdout_lines}     3
 
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${warning_line}         Get From List   ${stderr_lines}     0
+    ${error_line}           Get From List   ${stderr_lines}     1
 
-    #   Assert stdout lines
+    # Assert stdout lines
 
     Should Match Regexp     ${info_line}        ${info_regex}
     Should Match Regexp     ${warning_line}     ${warning_regex}
     Should Match Regexp     ${error_line}       ${error_regex}
 
+    # Assert output lines
 
-Run and check console at warning level
+    ${log_file}             Get File            ${output_file}
+    @{log_file_lines}       Split to lines      ${log_file}
+
+    Log List    ${log_file_lines}
+
+    ${info_line}        Get From List   ${log_file_lines}     14
+    ${warning_line}     Get From List   ${log_file_lines}     19
+    ${error_line}       Get From List   ${log_file_lines}     24
+
+    ${regex_header_msg_info}            Format String   ${regex_header_msg}     INFO   ${expected_info_color}
+    ${regex_header_log_info}            Format String   ${regex_header_log}     ${info_level_name.upper()}     ${src_module}    print_${info_level_name}  ${info_code_line_number}   ${src_test_name}
+    ${regex_info_line}                  Set Variable    ${regex_header_msg_info}${regex_header_log_info}
+
+    ${regex_header_msg_warning}         Format String   ${regex_header_msg}     WARN   ${expected_warning_color}
+    ${regex_header_log_warning}         Format String   ${regex_header_log}     ${warning_level_name.upper()}     ${src_module}    print_${warning_level_name}  ${warning_code_line_number}   ${src_test_name}
+    ${regex_warning_line}               Set Variable    ${regex_header_msg_warning}${regex_header_log_warning}
+
+    ${regex_header_msg_error}           Format String   ${regex_header_msg}     ERROR   ${expected_error_color}
+    ${regex_header_log_error}           Format String   ${regex_header_log}     ${error_level_name.upper()}     ${src_module}    print_${error_level_name}  ${error_code_line_number}   ${src_test_name}
+    ${regex_error_line}                 Set Variable    ${regex_header_msg_error}${regex_header_log_error}
+
+    Should Match Regexp     ${info_line}        ${regex_info_line}
+    Should Match Regexp     ${warning_line}     ${regex_warning_line}
+    Should Match Regexp     ${error_line}       ${regex_error_line}
+
+
+Check console and output at warning level
     ${logging_level}                Set Variable    WARN
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_WARNING_DIR}
+    ${output_file}                  Set Variable    ${output_dir}/output.xml
+
     ${expected_stdout_line_count}   Set Variable    ${11}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
-    ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
+    ${result}       Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
 
-    @{stdout_lines} =   Split String     ${result.stdout}   \n
-    @{stderr_lines} =   Split String     ${result.stderr}   \n
+    @{stdout_lines}     Split String     ${result.stdout}   \n
+    @{stderr_lines}     Split String     ${result.stderr}   \n
 
     Log List    ${stdout_lines}
     Log List    ${stderr_lines}
 
-    ${stdout_line_count} =  Get Line Count  ${result.stdout}
+    ${stdout_line_count}    Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
 
-    ${stderr_line_count} =  Get Line Count  ${result.stderr}
+    ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${warning_line}         Get From List   ${stderr_lines}     0
+    ${error_line}           Get From List   ${stderr_lines}     1
 
-    #   Assert stdout lines
+    # Assert stdout lines
 
     Should Match Regexp     ${warning_line}     ${warning_regex}
     Should Match Regexp     ${error_line}       ${error_regex}
 
+    # Assert output lines
 
-Run and check console at error level
+    ${log_file}             Get File            ${output_file}
+    @{log_file_lines}       Split to lines      ${log_file}
+
+    Log List    ${log_file_lines}
+
+    ${warning_line}     Get From List   ${log_file_lines}     18
+    ${error_line}       Get From List   ${log_file_lines}     23
+
+    ${regex_header_msg_warning}         Format String   ${regex_header_msg}     WARN   ${expected_warning_color}
+    ${regex_header_log_warning}         Format String   ${regex_header_log}     ${warning_level_name.upper()}     ${src_module}    print_${warning_level_name}  ${warning_code_line_number}   ${src_test_name}
+    ${regex_warning_line}               Set Variable    ${regex_header_msg_warning}${regex_header_log_warning}
+
+    ${regex_header_msg_error}           Format String   ${regex_header_msg}     ERROR   ${expected_error_color}
+    ${regex_header_log_error}           Format String   ${regex_header_log}     ${error_level_name.upper()}     ${src_module}    print_${error_level_name}  ${error_code_line_number}   ${src_test_name}
+    ${regex_error_line}                 Set Variable    ${regex_header_msg_error}${regex_header_log_error}
+
+    Should Match Regexp     ${warning_line}     ${regex_warning_line}
+    Should Match Regexp     ${error_line}       ${regex_error_line}
+
+
+Check console and output at error level
     ${logging_level}                Set Variable    ERROR
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_ERROR_DIR}
+    ${output_file}                  Set Variable    ${output_dir}/output.xml
+
     ${expected_stdout_line_count}   Set Variable    ${11}
     ${expected_stderr_line_count}   Set Variable    ${1}
 
     Create Directory    ${output_dir}
-    ${result} =     Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
+    ${result}       Run Process     robot   --loglevel  ${logging_level}   ${TUT}  cwd=${output_dir}
 
-    @{stdout_lines} =   Split String     ${result.stdout}   \n
-    @{stderr_lines} =   Split String     ${result.stderr}   \n
+    @{stdout_lines}     Split String     ${result.stdout}   \n
+    @{stderr_lines}     Split String     ${result.stderr}   \n
 
     Log List    ${stdout_lines}
     Log List    ${stderr_lines}
 
-    ${stdout_line_count} =  Get Line Count  ${result.stdout}
+    ${stdout_line_count}    Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
 
-    ${stderr_line_count} =  Get Line Count  ${result.stderr}
+    ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${error_line} =         Get From List   ${stderr_lines}     0
+    ${error_line}           Get From List   ${stderr_lines}     0
 
-    #   Assert stdout lines
+    # Assert stdout lines
 
     Should Match Regexp     ${error_line}       ${error_regex}
 
+    # Assert output lines
 
-Run and check console at default level
+    ${log_file}             Get File            ${output_file}
+    @{log_file_lines}       Split to lines      ${log_file}
+
+    Log List    ${log_file_lines}
+
+    ${error_line}       Get From List   ${log_file_lines}     22
+
+    ${regex_header_msg_error}           Format String   ${regex_header_msg}     ERROR   ${expected_error_color}
+    ${regex_header_log_error}           Format String   ${regex_header_log}     ${error_level_name.upper()}     ${src_module}    print_${error_level_name}  ${error_code_line_number}   ${src_test_name}
+    ${regex_error_line}                 Set Variable    ${regex_header_msg_error}${regex_header_log_error}
+
+    Should Match Regexp     ${error_line}       ${regex_error_line}
+
+
+Check console and output at default level
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEFAULT_DIR}
+    ${output_file}                  Set Variable    ${output_dir}/output.xml
+
     ${expected_stdout_line_count}   Set Variable    ${12}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
-    ${result} =     Run Process     robot   ${TUT}  cwd=${output_dir}
+    ${result}       Run Process     robot   ${TUT}  cwd=${output_dir}
 
-    @{stdout_lines} =   Split String     ${result.stdout}   \n
-    @{stderr_lines} =   Split String     ${result.stderr}   \n
+    @{stdout_lines}     Split String     ${result.stdout}   \n
+    @{stderr_lines}     Split String     ${result.stderr}   \n
 
     Log List    ${stdout_lines}
     Log List    ${stderr_lines}
 
-    ${stdout_line_count} =  Get Line Count  ${result.stdout}
+    ${stdout_line_count}    Get Line Count  ${result.stdout}
     Should Be Equal         ${expected_stdout_line_count}   ${stdout_line_count}
 
-    ${stderr_line_count} =  Get Line Count  ${result.stderr}
+    ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${info_line} =          Get From List   ${stdout_lines}     3
+    ${info_line}            Get From List   ${stdout_lines}     3
 
-    ${warning_line} =       Get From List   ${stderr_lines}     0
-    ${error_line} =         Get From List   ${stderr_lines}     1
+    ${warning_line}         Get From List   ${stderr_lines}     0
+    ${error_line}           Get From List   ${stderr_lines}     1
 
     #   Assert stdout lines
 
