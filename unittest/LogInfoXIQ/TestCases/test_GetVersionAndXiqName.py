@@ -144,7 +144,7 @@ class DefaultTests():
             self.cli.post_data['dut_version'] = 'N/A'
         finally:
             self.cli.post_data['dut_name'] = self.tb.config.netelem1.name
-
+            self.cli.post_data['cli_type'] = cli_type.lower()
 
         # Here we need to call a keyword to update the database with
         # the information above:

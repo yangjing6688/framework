@@ -39,6 +39,7 @@ class JobsSuitesVersions():
             "resource_version": kwargs.get('resource_version'),
             "dut_version": kwargs.get('dut_version'),
             "dut_name": kwargs.get('dut_name'),
+            "cli_type": kwargs.get('cli_type'),
             "type": kwargs.get('type'),
             "jobsSuites_uuid": kwargs.get('jobsSuites_uuid')
         }
