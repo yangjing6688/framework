@@ -27,7 +27,7 @@ class MLInsights:
 
         self.utils.print_info("Navigating to Network 360 plan..")
         if self.navigator.navigate_to_network360plan() == -2:
-            kwargs['fail_msg'] = "'create_location_in_ml_insights()' -> Unsuccessfully navigating to Network 360 plan"
+            kwargs['fail_msg'] = "Unsuccessfully navigating to Network 360 plan"
             self.common_validation.failed(**kwargs)
             return -2
         sleep(5)
@@ -40,8 +40,7 @@ class MLInsights:
             if "Your account does not have permission to perform that action" in tooltip_text:
                 self.auto_actions.click_reference(self.mlinsights_web_elements.get_map_close_btn)
                 sleep(10)
-                kwargs['fail_msg'] = "'create_location_in_ml_insights()' -> Your account does not have permission to " \
-                                     "perform that action"
+                kwargs['fail_msg'] = "Your account does not have permission to perform that action"
                 self.common_validation.failed(**kwargs)
                 return -2
 
