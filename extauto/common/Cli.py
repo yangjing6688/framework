@@ -2788,7 +2788,7 @@ class Cli(object):
         Returns:
             disconnected_ports: a list of all disconnected ports on device if the function call has succeeded else -1
         """
-        if dut.cli_type == "voss":
+        if dut.cli_type.lower() == "voss":
             system_type_regex = "(\\d+/\\d+)\\s+\\w+"
             self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=30, interval=10)
             self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=30, interval=10)
@@ -2797,7 +2797,7 @@ class Cli(object):
             for connected in connected_ports:
                 disconnected_ports.remove(connected)
 
-        if dut.cli_type == "exos":
+        if dut.cli_type.lower() == "exos":
             system_type_regex = "(\\d+)\\s+\\w+"
             if dut.platform == 'Stack':
                 system_type_regex = "(\\d+:\\d+)"
