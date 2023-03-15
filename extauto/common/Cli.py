@@ -51,7 +51,6 @@ class Cli(object):
         self.commonValidation = CommonValidation()
         self.net_element_types = ['VOSS', 'EXOS', 'WING-AP', 'AH-FASTPATH', 'AH-AP', 'AH-XR']
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
-        self.common_validation = CommonValidation()
         self.networkElementMltGenKeywords = NetworkElementMltGenKeywords()
         self.networkElementLacpGenKeywords = NetworkElementLacpGenKeywords()
 
@@ -1378,7 +1377,7 @@ class Cli(object):
             kwargs["fail_msg"] = "Failed to Open The Spawn to Device.So Exiting the Testcase"
             self.commonValidation.fault(**kwargs)
             return -1
-
+        
         if 'EXOS' in cli_type.upper():
             self.send_pxssh(spawn, 'disable cli paging')
             self.send_pxssh(spawn, 'debug iqagent show log hive-agent tail')
@@ -2749,6 +2748,27 @@ class Cli(object):
         self.commonValidation.passed(**kwargs)
         return 1
 
+    def show_maclocking_on_the_ports_in_cli(self, dut, **kwargs):
+        """
+         - This keyword will return a list of pairs(port number and mac locking state for each port) for EXOS devices.
+        :param: dut: device to be tested
+        :return: a list of pairs(port number and mac locking state for each port)
+        :return: -1 if error
+        """
+        if dut.cli_type.upper() != "EXOS":
+            kwargs["fail_msg"] = "Wrong cli_type"
+            self.commonValidation.fault(**kwargs)
+        self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                            max_wait=10, interval=2)
+        output = self.networkElementCliSend.send_cmd(dut.name, 'show mac-locking',
+                                                     max_wait=10, interval=2)
+        p = re.compile(r'(^\d+)\s+(ena|dis)', re.M)
+        match_port_mac_locking_state = re.findall(p, output[0].return_text)
+        self.utils.print_info(f"{match_port_mac_locking_state}")
+        kwargs["pass_msg"] = "Collected CLI MAC info."
+        self.commonValidation.passed(**kwargs)
+        return match_port_mac_locking_state
+
     def get_nw_templ_device_config_forward_delay(self, dut, **kwargs):
         '''
         - Get the forward delay for a device
@@ -2780,7 +2800,7 @@ class Cli(object):
                 print(f"forward delay is {match_text[0][1]} seconds")
 
                 kwargs['pass_msg'] = f"Forw delay for device is: {match_text[0][1]}"
-                self.common_validation.passed(**kwargs)
+                self.commonValidation.passed(**kwargs)
 
                 return match_text[0][1]
 
@@ -2818,7 +2838,7 @@ class Cli(object):
                 sw_model.append(match_text[0][1])
 
                 kwargs['pass_msg'] = f"Forw delay for device is: {match_text[0][1]}"
-                self.common_validation.passed(**kwargs)
+                self.commonValidation.passed(**kwargs)
 
                 return match_text[0][1]
 

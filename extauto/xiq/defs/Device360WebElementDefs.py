@@ -2262,9 +2262,15 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    defacutelrdp = \
+    select_element_port_type_tab_maclocking = \
         {
-            'XPATH': '//input[@data-automation-tag="port-type-editor-name"]',
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-mac-locking"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_tab_elrp = \
+        {
+            'XPATH': '//div[@data-automation-tag="port-type-editor-step-elrp"]',
             'wait_for': 5
         }
 
@@ -3127,6 +3133,66 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_connected_clients_count = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="connectedTotal"]',
+            'wait_for': 5
+        }
+
+    device360_leftpane_unique_clients = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientsNum"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_interface_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-wireless-interfaces"]',
+            'wait_for': 15
+        }
+
+    device360_total_wireless_clients = \
+        {
+            'XPATH': '//*[@data-automation-tag="wirelessinterfaces-total-client-count-ctn"]//div[@data-dojo-attach-point="totalClientCount"]',
+            'wait_for': 15
+        }
+
+    device360_total_clients_clientspage = \
+        {
+            'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi6gscore = \
+        {
+            'XPATH': '//div[@class="health-column"]//span[@data-dojo-attach-point="overallScoreValue"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_combinedscore = \
+        {
+            'XPATH': '//div[@class="health-column"]//span[@data-dojo-attach-point="overallScoreValue"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi2widgetclient = \
+        {
+            'XPATH': '//*[@class="wireless-data-value"]//*[@data-dojo-attach-point="clients_3"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_combinedscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-4"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi6gscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-3"]',
+            'wait_for': 15
+        }
+
     cancel_button_port_type = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
@@ -3202,7 +3268,7 @@ class Device360WebElementDefs:
 
     d360_configure_port_mac_locking_tab_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="ahTabContainer"]//a[contains(text(), "MAC Locking")]',
+            'XPATH': '//div[@data-automation-tag="automation-port-config-mac-locking"]',
             'wait_for': 5
         }
 
@@ -4042,6 +4108,54 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    d360_port_status_overview = \
+        {
+            'CSS_SELECTOR': '.field-status',
+            'wait_for': 5
+        }
+
+    d360_mac_locking_overview = \
+        {
+            'CSS_SELECTOR': '.field-macLock',
+            'wait_for': 5
+        }
+
+    d360_port_config_option_tab = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-port-config-${option}"]',
+            'wait_for': 5
+        }
+
+    mac_locking_exceed_limit_error = \
+        {
+            'CSS_SELECTOR': '.form-error.form-error-msg',
+            'wait_for': 5
+        }
+
+    d360_mac_locking_disable_port = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-disable-port"]',
+            'wait_for': 5
+        }
+
+    d360_mac_locking_link_down_action = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//div[@data-automation-tag="automation-port-maclock-link-down-action-chzn-container-ctn"]',
+            'wait_for': 5
+        }
+
+    wait_for_port_config_to_load = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="spinner"]',
+            'wait_for': 5
+        }
+
+    d360_mac_locking_remove_mac_toggle = \
+        {
+            'XPATH': '//div[@data-entry-index="${port_number}"]//input[@data-automation-tag="port-maclock-remove-aged-macs"]',
+            'wait_for': 5
+        }
+
     configuration_events_button = \
     {
         "XPATH": "//li[@data-automation-tag='automation-pills-configuration']"
@@ -4051,4 +4165,3 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.lag-view .grid-mark',
             'wait_for': 5
         }
-

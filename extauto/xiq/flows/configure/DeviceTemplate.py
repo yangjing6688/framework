@@ -55,7 +55,7 @@ class DeviceTemplate(object):
                 self.common_validation.passed(**kwargs)
                 return True
 
-        kwargs['fail_msg'] = "check_ap_template() failed. AP Template NOT Found "
+        kwargs['fail_msg'] = "AP Template NOT Found "
         self.common_validation.failed(**kwargs)
         return False
 
@@ -138,7 +138,7 @@ class DeviceTemplate(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "add_ap_template() failed. Failed to add AP template"
+            kwargs['fail_msg'] = "Failed to add AP template"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -187,7 +187,7 @@ class DeviceTemplate(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "edit_ap_net_policy_template_wifi2() failed. Failed to edit AP network policy"
+            kwargs['fail_msg'] = "Failed to edit AP network policy"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -516,7 +516,7 @@ class DeviceTemplate(object):
         self.navigator.navigate_to_network_policies_card_view_page()
 
         if self.network_policy.select_network_policy_in_card_view(policy_name) != 1:
-            kwargs['fail_msg'] = f"add_ap_template_to_network_policy() failed. Network Policy {policy_name} doesn't exist"
+            kwargs['fail_msg'] = f"Network Policy {policy_name} doesn't exist"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -567,14 +567,12 @@ class DeviceTemplate(object):
         """
 
         if not self.check_ap_template(ap_template_name):
-            kwargs['fail_msg'] = "add_classification_rule_to_ap_template() failed. " \
-                                 "Template does not exist in the template grid"
+            kwargs['fail_msg'] = "Template does not exist in the template grid"
             self.common_validation.failed(**kwargs)
             return -1
 
         if not self._click_select_rule_button_to_ap_template(ap_template_name):
-            kwargs['fail_msg'] = "add_classification_rule_to_ap_template() failed. " \
-                                 "This AP Template is the First Template for this AP Model. Create one more"
+            kwargs['fail_msg'] = "This AP Template is the First Template for this AP Model. Create one more"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -583,8 +581,7 @@ class DeviceTemplate(object):
             self.auto_actions.click_reference(self.device_template_web_elements.get_select_rule_in_templates_view_all_pages)
 
         if not self._select_rule_to_ap_template(classification_rule):
-            kwargs['fail_msg'] = "add_classification_rule_to_ap_template() failed. " \
-                                 f"Rule {classification_rule} is not available in the list"
+            kwargs['fail_msg'] = f"Rule {classification_rule} is not available in the list"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -610,14 +607,12 @@ class DeviceTemplate(object):
         self.navigator.navigate_to_network_policies_card_view_page()
 
         if self.network_policy.select_network_policy_in_card_view(policy_name) != 1:
-            kwargs['fail_msg'] = "remove_ap_template_from_network_policy() failed. " \
-                                 f"Network Policy {policy_name} does not exist"
+            kwargs['fail_msg'] = f"Network Policy {policy_name} does not exist"
             self.common_validation.failed(**kwargs)
             return -1
 
         if not self.check_ap_template(ap_template_name):
-            kwargs['fail_msg'] = "remove_ap_template_from_network_policy() failed. " \
-                                 "Template does not exist in the template grid"
+            kwargs['fail_msg'] = "Template does not exist in the template grid"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -642,8 +637,7 @@ class DeviceTemplate(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "remove_ap_template_from_network_policy() failed. " \
-                                 "Template was not deleted successfully."
+            kwargs['fail_msg'] = "Template was not deleted successfully."
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -749,7 +743,7 @@ class DeviceTemplate(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "enable_supplemental_cli_in_ap_templates() failed. Unable to save the template"
+            kwargs['fail_msg'] = "Unable to save the template"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -860,7 +854,7 @@ class DeviceTemplate(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "enable_supplemental_cli_in_switch_template() failed. Unable to save the template"
+            kwargs['fail_msg'] = "Unable to save the template"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -953,6 +947,6 @@ class DeviceTemplate(object):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "add_ap_template_with_country_code() failed. Unable to save the template"
+            kwargs['fail_msg'] = "Unable to save the template"
             self.common_validation.failed(**kwargs)
             return -1

@@ -1,8 +1,7 @@
 class NavigatorWebElementDefinitions:
     configure_nav = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-configure"]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="automation-header-configure"]'
         }
 
     configure_nav_img = \
@@ -20,7 +19,6 @@ class NavigatorWebElementDefinitions:
     configure_network_policy_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-policy"]',
-            'wait_for': 2
         }
 
     manage_nav = \
@@ -485,8 +483,7 @@ class NavigatorWebElementDefinitions:
 
     card_view = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-config-card']",
-            
+            'XPATH': "//*[@data-automation-tag='automation-config-card']"
         }
 
     network_policy_page_size = \
@@ -1350,4 +1347,16 @@ class NavigatorWebElementDefinitions:
     no_100_devices_per_page = \
         {
         "XPATH": '//a[@data-size="100"]'
+        }
+
+    grid_loading_wheel = \
+        {
+            'XPATH': '//div[@class="grid-mark"]',
+            'wait_for': 5
+        }
+
+    grid_spinner = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="spinner"]',
+            'wait_for': 5
         }
