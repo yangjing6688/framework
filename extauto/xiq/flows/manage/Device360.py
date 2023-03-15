@@ -6379,7 +6379,6 @@ class Device360(Device360WebElements):
         if verify_summary:
             return self.port_type_verify_summary(template_values)
         else:
-
             def _check_that_port_type_is_closed():
                 if not self.get_close_port_type_box():
                     self.utils.print_info("Port type profile dialog has been closed")
@@ -6402,7 +6401,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info(" The button close_port_type_box from policy was not found")
             return 1
 
-    def edit_port_type(self, template_values, port, verify_summary=True, **kwargs):
+    def edit_port_type(self, template_values, port, verify_summary=True, close_page=True, **kwargs):
         """
         This Keyword edit a port type and verify the summary page .
 
@@ -6568,17 +6567,19 @@ class Device360(Device360WebElements):
                 else:
                     self.utils.print_info("Port type profile dialog box hasn't closed yet... Retrying...")
                     return False
-
-            close_port_type_box = self.get_close_port_type_box()
-            if close_port_type_box:
-                self.utils.print_info(" The button close_port_type_box from policy  was found")
-                self.auto_actions.click(close_port_type_box)
-                self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
-                                     silent_failure=True, msg="Checking that create new port type profile has been"
-                                                              "dialog box has been closed...")
-            else:
-                self.utils.print_info(" The button close_port_type_box from policy was not found")
-                return -1
+            if close_page:
+                close_port_type_box = self.get_close_port_type_box()
+                if close_port_type_box:
+                    self.utils.print_info(" The button close_port_type_box from policy  was found")
+                    self.auto_actions.click(close_port_type_box)
+                    self.utils.wait_till(_check_that_port_type_is_closed, is_logging_enabled=True, timeout=120, delay=5,
+                                         silent_failure=True, msg="EDIT - Checking that create new port type profile has been"
+                                                                  "dialog box has been closed...")
+                else:
+                    self.utils.print_info(" The button close_port_type_box from policy was not found")
+                    return -1
+            kwargs['pass_msg'] = "edit_port_type() -> All elements were configured"
+            self.common_validation.passed(**kwargs)
             return 1
 
     def port_type_verify_summary(self, template_values, **kwargs):
@@ -7335,6 +7336,7 @@ class Device360(Device360WebElements):
 
             get_pse_profile = self.get_select_element_port_type(element)
             if get_pse_profile:
+                self.utils.print_info("Click - > Open dropbox")
                 self.auto_actions.click(get_pse_profile)
                 more_button_times_found = 0
                 while self.get_select_element_port_type('pse_more_button'):
@@ -7345,16 +7347,19 @@ class Device360(Device360WebElements):
                         def _check_stale_element_exception_more_button():
                             try:
                                 self.auto_actions.move_to_element(self.get_select_element_port_type('pse_more_button'))
+                                self.utils.print_info("move to element ",more_button_times_found)
+                                self.screen.save_screen_shot()
                                 return True
                             except StaleElementReferenceException as e:
                                 self.utils.print_info("Scrolling to 'More' button failed. Stale element exception "
                                                       f"error detected {e} ; Retrying...")
                                 return False
 
-                        self.utils.wait_till(_check_stale_element_exception_more_button,
+                        self.utils.wait_till(_check_stale_element_exception_more_button, is_logging_enabled=True,
                                              msg="Waiting for StaleElementException to dissapear...")
                         self.utils.print_info("Clicking 'More' button...")
                         self.auto_actions.click(self.get_select_element_port_type('pse_more_button'))
+                        self.screen.save_screen_shot()
                     except ElementNotInteractableException as e:
                         self.utils.print_info(f"Element not interactable error: {e} ; Element is inactive! "
                                               "Breaking loop. \n\nNOTE: If 'More' button is visible and active, but "
@@ -11054,6 +11059,7 @@ class Device360(Device360WebElements):
         get_pse_profile_name = self.get_select_element_port_type("pse_profile_name")
         if get_pse_profile_name:
             self.auto_actions.send_keys(get_pse_profile_name, value['pse_profile_name'])
+            self.auto_actions.click(get_pse_profile_name)
         else:
             self.utils.print_info("get_pse_profile_name not found ")
             kwargs['fail_msg'] = "get_pse_profile_name not found"
@@ -11063,9 +11069,12 @@ class Device360(Device360WebElements):
         get_pse_profile_power_mode_dropdown = self.get_select_element_port_type(
             'pse_profile_power_mode_dropdown')
         if get_pse_profile_power_mode_dropdown:
+            self.screen.save_screen_shot()
             self.auto_actions.click(get_pse_profile_power_mode_dropdown)
+            self.screen.save_screen_shot()
             get_pse_profile_power_mode_items = self.get_select_element_port_type(
                 "pse_profile_power_mode_items")
+            self.screen.save_screen_shot()
             if self.auto_actions.select_drop_down_options(get_pse_profile_power_mode_items,
                                                           value['pse_profile_power_mode']):
                 self.utils.print_info(" Selected into dropdown value : ",
@@ -11092,13 +11101,19 @@ class Device360(Device360WebElements):
             self.auto_actions.click(get_pse_profile_priority_dropdown)
             get_pse_profile_priority_items = self.get_select_element_port_type(
                 "pse_profile_priority_items")
-            if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
-                                                          value['pse_profile_priority']):
-                self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+            if get_pse_profile_priority_items:
+                if self.auto_actions.select_drop_down_options(get_pse_profile_priority_items,
+                                                              value['pse_profile_priority']):
+                    self.utils.print_info(" Selected into dropdown value : ", value['pse_profile_priority'])
+                else:
+                    kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> Cannot select into dropdown"
+                    self.common_validation.fault(**kwargs)
+                    return -1
             else:
                 kwargs['fail_msg'] = "Cannot select into dropdown"
                 self.common_validation.fault(**kwargs)
                 return -1
+
         else:
             kwargs['fail_msg'] = "Cannot select element port type"
             self.common_validation.fault(**kwargs)
@@ -11117,16 +11132,29 @@ class Device360(Device360WebElements):
                 self.utils.print_info("PSE profile save button not present anymore.")
                 return True
             else:
-                self.utils.print_info("PSE profile save button is still present. Retrying...")
+                self.utils.print_info("PSE profile save button is still present. Retrying to save...")
+                get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
+                if get_pse_profile_save:
+                    self.auto_actions.click(get_pse_profile_save)
+                else:
+                    self.utils.print_info("get_pse_profile_save not found")
                 return False
 
         get_pse_profile_save = self.get_select_element_port_type("pse_profile_save")
         if get_pse_profile_save:
             self.auto_actions.click(get_pse_profile_save)
-            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
-                                 delay=5, silent_failure=True, msg="Waiting for port type profile to "
-                                                                   "save...")
+            # Check if error is displayed after save
+            get_pse_profile_save_error = self.get_select_element_port_type("pse_profile_save_error")
+            if get_pse_profile_save_error:
 
+                self.utils.print_info("Below error is displayed after save profile:" , get_pse_profile_save_error)
+                kwargs['fail_msg'] = "fill_in_pse_profile_fields() -> get_pse_profile_save not found"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.utils.wait_till(_check_save_pse_profile_closure, is_logging_enabled=True, timeout=60,
+                                 delay=5, silent_failure=False, msg="Waiting for port type profile to "
+                                                                   "save...")
+            self.screen.save_screen_shot()
             kwargs['pass_msg'] = "Profile saved"
             self.common_validation.passed(**kwargs)
             return 1
@@ -11156,6 +11184,7 @@ class Device360(Device360WebElements):
                             select_button = self.get_device360_port_configuration_pse_profile_select_button(port_row)
                             if select_button:
                                 self.auto_actions.click(select_button)
+                                self.screen.save_screen_shot()
                             else:
                                 self.utils.print_info("select_button not found")
                                 kwargs['fail_msg'] = "select_button " \
@@ -11163,9 +11192,15 @@ class Device360(Device360WebElements):
                                 self.common_validation.fault(**kwargs)
                                 return -1
                             self.utils.print_info(f"Selecting POE Profile Option : {poe_profile}")
+                            items = self.get_device360_port_configuration_pse_profile_select_options()
+                            if items:
+                                self.auto_actions.move_to_element(items[-1])
+                                self.screen.save_screen_shot()
+
                             if self.auto_actions.select_drop_down_options(
-                                    self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
+                                    items, poe_profile):
                                 self.utils.print_info("Pse profile has been selected")
+                                self.screen.save_screen_shot()
                                 kwargs['pass_msg'] = "Pse profile has been selected"
                                 self.common_validation.passed(**kwargs)
                                 return 1
@@ -11187,6 +11222,7 @@ class Device360(Device360WebElements):
                             select_button = self.get_device360_port_configuration_pse_profile_select_button(port_row)
                             if select_button:
                                 self.auto_actions.click(select_button)
+                                self.screen.save_screen_shot()
                             else:
                                 kwargs['fail_msg'] = "select_button not found"
                                 self.common_validation.fault(**kwargs)
@@ -11194,6 +11230,7 @@ class Device360(Device360WebElements):
                             self.utils.print_info(f"Selecting POE Profile Option : {poe_profile}")
                             if self.auto_actions.select_drop_down_options(self.get_device360_port_configuration_pse_profile_select_options(), poe_profile):
                                 self.utils.print_info("Pse profile has been selected")
+                                self.screen.save_screen_shot()
                         sleep(5)
                         self.utils.print_info("clicking POE Profile EDIT Button")
                         edit_button = self.get_device360_port_configuration_pse_profile_edit_button(port_row)
@@ -11228,15 +11265,24 @@ class Device360(Device360WebElements):
         summary_tab = self.get_select_element_port_type("summaryPage")
         if summary_tab:
             self.auto_actions.click(summary_tab)
-            close_port_type_box = self.get_common_save_button()
-            if close_port_type_box:
-                self.utils.print_info(" The button close_port_type_box from policy  was found")
-                self.auto_actions.click(close_port_type_box)
+            save_port_type_box = self.get_common_save_button()
+            if save_port_type_box:
+                self.utils.print_info(" The button close_port_type_box from policy was found")
+                self.auto_actions.click(save_port_type_box)
+                kwargs['pass_msg'] = "Port type was saved"
+                self.common_validation.passed(**kwargs)
+                return True
+            else:
+                self.utils.print_info("save button not found")
+                kwargs['fail_msg'] = "port_type_nav_to_summary_page_and_save() -> save button not found"
+                self.common_validation.failed(**kwargs)
+                return False
+
         else:
             self.utils.print_info("Summary tab not found")
             kwargs['fail_msg'] = "Summary tab not found"
             self.common_validation.failed(**kwargs)
-            return -1
+            return False
 
     def banner_message_after_save_config(self):
         '''
@@ -11249,6 +11295,7 @@ class Device360(Device360WebElements):
         if message:
             return message
         else:
+            self.screen.save_screen_shot()
             return None
 
     def device360_navigate_to_pse_tab(self, **kwargs):
