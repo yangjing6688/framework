@@ -13229,7 +13229,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Successfully got the select_button element")
 
-        if self.auto_actions.click(get_select_button) != 1:
+        if self.auto_actions.click_reference(lambda: get_select_button) != 1:
             kwargs["fail_msg"] = "Failed to click the select_button element"
             self.common_validation.fault(**kwargs)
 
@@ -13258,7 +13258,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Successfully got the add_vlan element")
 
-        if self.auto_actions.click(get_add_vlan) != 1:
+        if self.auto_actions.click_reference(lambda: get_add_vlan) != 1:
             kwargs["fail_msg"] = "Failed to click the get_add_vlan element"
             self.common_validation.fault(**kwargs)
 
@@ -13303,7 +13303,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Successfully got the save_vlan element")
 
-        if self.auto_actions.click(get_save_vlan) != 1:
+        if self.auto_actions.click_reference(lambda: get_save_vlan) != 1:
             kwargs["fail_msg"] = "Failed to click the save_vlan element"
             self.common_validation.failed(**kwargs)
             return -1
@@ -13332,7 +13332,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Successfully got the select_button element")
 
-        if self.auto_actions.click(get_select_button) != 1:
+        if self.auto_actions.click_reference(lambda: get_select_button) != 1:
             kwargs["fail_msg"] = "Failed to click the select_button element"
             self.common_validation.fault(**kwargs)
 
@@ -13362,7 +13362,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Successfully got the native_vlan_add_vlan element")
 
-        if self.auto_actions.click(get_add_vlan) != 1:
+        if self.auto_actions.click_reference(lambda: get_add_vlan) != 1:
             kwargs["fail_msg"] = "Failed to click the native_vlan_add_vlan element"
             self.common_validation.fault(**kwargs)
 
@@ -13406,7 +13406,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Successfully got the save_vlan element")
 
-        if self.auto_actions.click(get_save_vlan) != 1:
+        if self.auto_actions.click_reference(lambda: get_save_vlan) != 1:
             kwargs["fail_msg"] = "Failed to click the save_vlan element"
             self.common_validation.failed(**kwargs)
             return -1
@@ -13417,9 +13417,8 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def create_port_type_with_custom_vlan_values(
-        self, port, port_type_name, port_type="access", vlan_id=None, native_vlan_id=None, allowed_vlans=None,
-        device_360=False, **kwargs):
+    def create_port_type_with_custom_vlan_values(self, port, port_type_name, port_type="access", vlan_id=None,
+                                                 native_vlan_id=None, allowed_vlans=None, device_360=False, **kwargs):
         """Method that creates a new port type with custom values for the vlan tab of the port type editor.
         All the other fields remain with the default values.
 
@@ -13528,7 +13527,7 @@ class Device360(Device360WebElements):
 
         if not config_button.is_selected():
 
-            if self.auto_actions.click(config_button) != 1:
+            if self.auto_actions.click_reference(lambda: config_button) != 1:
                 kwargs["fail_msg"] = "Failed to click the config_button element"
                 self.common_validation.fault(**kwargs)
 
@@ -13543,14 +13542,14 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Successfully got the port_config_button element")
 
-        if self.auto_actions.click(port_config_button) != 1:
+        if self.auto_actions.click_reference(lambda: port_config_button) != 1:
             kwargs["fail_msg"] = "Failed to click the port_config_button element"
             self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Successfully clicked the port_config_button element")
 
-        if slot is not None:
+        if slot:
             self.select_stack_unit(slot)
 
         kwargs["pass_msg"] = "Successfully went to the port configuration tab of the device 360 window"
@@ -13577,9 +13576,12 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_mac(dut.mac)
             self.utils.wait_till(timeout=8)
 
-            self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_reference(self.get_d360_switch_port_view_all_pages_button)
             self.utils.wait_till(timeout=4)
 
+            # before extracting the ports from tabular view, perform a scroll down to load all elements,
+            # otherwise only the first 26 elements are loaded
+            self.auto_actions.scroll_down_table(self.d360_switch_ports_table_last_row_of_table)
             rows = self.get_d360_switch_ports_table_grid_rows()[1:]
 
             if not rows:
@@ -13589,7 +13591,7 @@ class Device360(Device360WebElements):
 
             [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
 
-            if not re.search(rf"{port}.*None", port_row.text):
+            if not any([port in port_row.text, 'None' in port_row.text]):
                 kwargs["fail_msg"] = "Failed to find 'None' set as" \
                                      f" access vlan to the given port '{port}'"
                 self.common_validation.failed(**kwargs)
@@ -13617,7 +13619,7 @@ class Device360(Device360WebElements):
 
         self.utils.print_info("Successfully got the save button")
 
-        if self.auto_actions.click(save_btn) != 1:
+        if self.auto_actions.click_reference(self.get_device360_configure_port_save_button) != 1:
             kwargs["fail_msg"] = "Failed to click the save button"
             self.common_validation.failed(**kwargs)
             return -1
@@ -13647,15 +13649,19 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_mac(dut.mac)
             self.utils.wait_till(timeout=8)
 
-            self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_reference(self.get_d360_switch_port_view_all_pages_button)
             self.utils.wait_till(timeout=4)
+
+            # before extracting the ports from tabular view, perform a scroll down to load all elements,
+            # otherwise only the first 26 elements are loaded
+            self.auto_actions.scroll_down_table(self.d360_switch_ports_table_last_row_of_table)
 
             rows = self.get_d360_switch_ports_table_grid_rows()[1:]
             assert rows, "Failed to get the port rows from device 360"
 
             [port_row] = [r for r in rows if re.search(rf"^{port}\s+", r.text) and 'Stacking' not in r.text]
 
-            data =  {
+            data = {
                 "port_mode": self.get_device360_switch_port_table_port_mode(port_row).text,
                 "port_access_vlan": self.get_device360_switch_port_table_access_vlan(port_row).text,
                 "port_tagged_vlan": self.get_device360_switch_port_table_tagged_vlans(port_row).text
@@ -13665,9 +13671,10 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
             return data
 
-        except Exception:
+        except Exception as e:
+
             kwargs["fail_msg"] = "Failed to get the port info from " \
-                                 "the device 360"
+                                 f"the device 360 \n Exception found: {repr(e)}"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -13691,7 +13698,7 @@ class Device360(Device360WebElements):
             self.navigator.navigate_to_device360_page_with_mac(dut.mac)
             self.utils.wait_till(timeout=8)
 
-            self.auto_actions.click(self.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_reference(self.get_d360_switch_port_view_all_pages_button)
             self.utils.wait_till(timeout=4)
 
             rows = self.get_d360_switch_ports_table_grid_rows()[1:]
@@ -13724,9 +13731,8 @@ class Device360(Device360WebElements):
         finally:
             self.exit_d360_Page()
 
-    def enter_port_type_and_vlan_id(
-        self, port, port_type=None, access_vlan_id=None, native_vlan=None,
-        allowed_vlans=None, device_os="EXOS", **kwargs):
+    def enter_port_type_and_vlan_id(self, port, port_type=None, access_vlan_id=None, native_vlan=None,
+                                    allowed_vlans=None, device_os="EXOS", **kwargs):
         """Method that configures the vlan and port type in the device 360 port configuration window.
 
         Args:
@@ -13759,7 +13765,7 @@ class Device360(Device360WebElements):
 
             self.utils.print_info("Successfully got the drop_down button")
 
-            if self.auto_actions.click(drop_down) != 1:
+            if self.auto_actions.click_reference(lambda: drop_down) != 1:
                 kwargs["fail_msg"] = "Failed to click the drop_down button"
                 self.common_validation.fault(**kwargs)
 

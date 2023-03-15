@@ -1583,6 +1583,13 @@ class Device360WebElementDefs:
             'XPATH': '//*[@data-dojo-attach-point="portGridNode"]//*[@class="dgrid-row-table"]',
         }
 
+    d360_switch_ports_table_last_row_of_table = \
+        {
+            'CSS_SELECTOR': '[data-dojo-attach-point="portGridNode"] '
+                            '[class="dgrid-content ui-widget-content"]>:last-child',
+            'wait_for': 5
+        }
+
     device360_switch_port_table_port_name = \
         {
             'CSS_SELECTOR': '.field-ifName',
