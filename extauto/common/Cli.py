@@ -2817,19 +2817,19 @@ class Cli(object):
         """
         if dut.cli_type.lower() == "voss":
             self.utils.print_info("Checking for POE ports on voss switch...")
-            output = self.networkElementCliSend.send_cmd(dut.name, 'sho poe-port-status', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show poe-port-status | include Searching', max_wait=10, interval=2)
             poe_port_capability_output = output[0].cmd_obj.return_text
             poe_ports = self.utils.get_regexp_matches(poe_port_capability_output, '\n(\d+\/\d+)', 1)
 
         elif dut.cli_type.lower() == "exos" and dut.platform.lower() == 'stack':
             self.utils.print_info("Checking for POE ports on exos stack...")
-            output = self.networkElementCliSend.send_cmd(dut.name, 'sho inline-power info ports', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power info ports', max_wait=10, interval=2)
             poe_port_capability_output = output[0].cmd_obj.return_text
             poe_ports = self.utils.get_regexp_matches(poe_port_capability_output, '\n(\d+:\d+)', 1)
 
         elif dut.cli_type.lower() == "exos":
             self.utils.print_info("Checking for POE ports on exos switch...")
-            output = self.networkElementCliSend.send_cmd(dut.name, 'sho inline-power info ports', max_wait=10, interval=2)
+            output = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power info ports', max_wait=10, interval=2)
             poe_port_capability_output = output[0].cmd_obj.return_text
             poe_ports = self.utils.get_regexp_matches(poe_port_capability_output, '\n(\d+)', 1)
         return poe_ports
