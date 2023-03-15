@@ -598,7 +598,7 @@ class Device360WebElementDefs:
     device360_configure_port_save_button = \
         {
             # 'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
-            'XPATH': '//button[@data-automation-tag="automation-port-config-save"] | //button[@data-automation-tag="automation-port-configuration-save-button" | //button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"] | //button[@data-automation-tag="automation-port-configuration-save-button"',
             'wait_for': 5
         }
 
@@ -2546,7 +2546,6 @@ class Device360WebElementDefs:
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
         {
-            # 'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
             'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[@class="line clearfix"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'index': 0
         }
