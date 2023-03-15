@@ -2678,9 +2678,10 @@ class Cli(object):
             n = 100
             last_100_commands_table = list(list(islice(reversed(table_repl), 0, n)))
             last_100_commands_table.reverse()
+            output = [el.strip() for el in last_100_commands_table]
             kwargs['pass_msg'] = "get_cli_commands() passed."
             self.commonValidation.passed(**kwargs)
-            return last_100_commands_table
+            return output
         elif cli_type.lower() == 'voss':
             for element_table in table:
                 table_repl.append(element_table.replace('\r', ' '))
@@ -2689,9 +2690,10 @@ class Cli(object):
                     table_repl.remove('end ')
                 if 'logout ' in table_repl:
                     table_repl.remove('logout ')
+            output = [el.strip() for el in table_repl]
             kwargs['pass_msg'] = "get_cli_commands() passed."
             self.commonValidation.passed(**kwargs)
-            return table_repl
+            return output
         else:
             kwargs['fail_msg'] = "get_cli_commands() failed. No type OS found "
             self.commonValidation.failed(**kwargs)
@@ -2752,7 +2754,7 @@ class Cli(object):
         self.commonValidation.passed(**kwargs)
         return 1
 
-    def get_switch_connected_ports(self, dut, **kwargs):
+    def get_switch_connected_ports(self, dut):
         """ Method that returns a list of all connected ports on a device.
         Args:
             dut (dict): the dut, e.g. dut1, node_1
@@ -2778,7 +2780,7 @@ class Cli(object):
             connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=LLDP Port )\d+)', 1)
         return connected_ports
 
-    def get_switch_disconnected_ports(self, dut, connected_ports, **kwargs):
+    def get_switch_disconnected_ports(self, dut, connected_ports):
         """ Method that returns a list of all disconnected ports on a device.
         Args:
             dut (dict): the dut, e.g. dut1, node_1
@@ -2806,6 +2808,32 @@ class Cli(object):
                     disconnected_ports.remove(connected)
         return disconnected_ports
 
+    def get_switch_poe_ports(self, dut):
+        """ Method that returns a list of all ports that support POE on a device.
+        Args:
+            dut (dict): the dut, e.g. dut1, node_1
+        Returns:
+            poe_ports: a list of all poe ports on device if the function call has succeeded else -1
+        """
+        if dut.cli_type.lower() == "voss":
+            self.utils.print_info("Checking for POE ports on voss switch...")
+            output = self.networkElementCliSend.send_cmd(dut.name, 'sho poe-port-status', max_wait=10, interval=2)
+            poe_port_capability_output = output[0].cmd_obj.return_text
+            poe_ports = self.utils.get_regexp_matches(poe_port_capability_output, '\n(\d+\/\d+)', 1)
+
+        elif dut.cli_type.lower() == "exos" and dut.platform.lower() == 'stack':
+            self.utils.print_info("Checking for POE ports on exos stack...")
+            output = self.networkElementCliSend.send_cmd(dut.name, 'sho inline-power info ports', max_wait=10, interval=2)
+            poe_port_capability_output = output[0].cmd_obj.return_text
+            poe_ports = self.utils.get_regexp_matches(poe_port_capability_output, '\n(\d+:\d+)', 1)
+
+        elif dut.cli_type.lower() == "exos":
+            self.utils.print_info("Checking for POE ports on exos switch...")
+            output = self.networkElementCliSend.send_cmd(dut.name, 'sho inline-power info ports', max_wait=10, interval=2)
+            poe_port_capability_output = output[0].cmd_obj.return_text
+            poe_ports = self.utils.get_regexp_matches(poe_port_capability_output, '\n(\d+)', 1)
+        return poe_ports
+
     def expected_commands_in_cli_history(self, expected_commands, dut, dut_time=None, **kwargs):
         """ Method that checks if expected commands are found in CLI history.
         Assumption for VOSS is "clear logging" command was issued on CLI before using this method
@@ -2819,14 +2847,12 @@ class Cli(object):
 
         if dut.cli_type.lower() == 'voss':
             cli_dut = self.networkElementCliSend.send_cmd(dut.name, "show logging file detail | include SSH:127.0.0.1")
-            # cli_dut = cli_dut[0].cmd_obj.return_text
         elif dut.cli_type.lower() == 'exos':
             cli_dut = self.networkElementCliSend.send_cmd(dut.name, f"show cli journal | begin {dut_time} ")
-        #cli_dut = cli_dut[0].cmd_obj.return_text
         output_CLI = self.get_cli_commands(info=cli_dut[0].cmd_obj.return_text, cli_type=dut.cli_type)
-
+        output = [el.strip() for el in output_CLI]
         for i, command in enumerate(expected_commands):
-            if command in output_CLI:
+            if command in output:
                 if i == len(expected_commands)-1:
                     kwargs['pass_msg'] = f"Found all expected commands in CLI: {expected_commands}"
                     self.commonValidation.passed(**kwargs)
