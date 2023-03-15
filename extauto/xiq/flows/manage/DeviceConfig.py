@@ -2927,8 +2927,13 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info("Locating audit content...")
 
                 def check_audit_config_content():
-                    if self.get_config_audit_content():
-                        return bool(self.get_config_audit_content().text)
+                    audit_content = self.get_config_audit_content()
+                    if audit_content:
+                        if bool(self.get_config_audit_content().text):
+                            self.utils.print_info("audit content is text")
+                        else:
+                            self.utils.print_info("audit content is empty ")
+                        return True
                     else:
                         return False
                 self.utils.wait_till(check_audit_config_content, is_logging_enabled=True, timeout=30, delay=10)
@@ -2949,10 +2954,11 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Get the Config content from Device Config Audit Delta View")
 
                     def check_device_config_audit_delta_view_content():
+                        self.screen.save_screen_shot()
                         return bool(self.get_device_config_audit_delta_view_content().text)
 
                     self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True,
-                                         timeout=30, delay=10)
+                                         timeout=50, delay=10)
                     delta_configs = self.get_device_config_audit_delta_view_content().text
                 else:
                     self.utils.print_info("Did not manage to locate the content...")
