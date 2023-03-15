@@ -597,8 +597,8 @@ class Device360WebElementDefs:
 
     device360_configure_port_save_button = \
         {
-            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
-            #'XPATH': '//button[@data-automation-tag="automation-port-config-save"] | //button[@data-automation-tag="automation-port-configuration-save-button" | //button[@data-dojo-attach-point="saveButton"]',
+            # 'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-automation-tag="automation-port-config-save"] | //button[@data-automation-tag="automation-port-configuration-save-button" | //button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -1304,7 +1304,7 @@ class Device360WebElementDefs:
 
     device360_device_configuration_save_button = \
         {
-            'XPATH': '//div[@class="btn-area"]//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -2560,6 +2560,12 @@ class Device360WebElementDefs:
     select_element_port_type_pse_profile_save = \
         {
             'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_close = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="cancelBtn"]',
             'wait_for': 5
         }
 
@@ -4058,4 +4064,6 @@ class Device360WebElementDefs:
             'CSS_SELECTOR': '.lag-view .grid-mark',
             'wait_for': 5
         }
+
+
 

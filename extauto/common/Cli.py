@@ -1104,7 +1104,6 @@ class Cli(object):
                 #   Slot-1 iqagent          0.5.42.1    0    Ready        Tue Sep 20 13:02:14 2022  Vital
                 #   * Slot-1 Stack.12 #
                 base_version = base_version.replace("Slot-1 iqagent",'').split()[0]
-                base_version = base_version.replace("Slot-2", '').split()[0]
             else:
                 base_version = self.send(connection, 'show process iqagent  | include iqagent')
                 # Output:

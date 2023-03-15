@@ -7420,7 +7420,7 @@ class Device360(Device360WebElements):
 
             get_pse_profile = self.get_select_element_port_type(element)
             if get_pse_profile:
-                print("Click - > Open dropbox")
+                self.utils.print_info("Click - > Open dropbox")
                 self.auto_actions.click(get_pse_profile)
                 more_button_times_found = 0
                 while self.get_select_element_port_type('pse_more_button'):
@@ -7431,7 +7431,7 @@ class Device360(Device360WebElements):
                         def _check_stale_element_exception_more_button():
                             try:
                                 self.auto_actions.move_to_element(self.get_select_element_port_type('pse_more_button'))
-                                print("move to element ",more_button_times_found)
+                                self.utils.print_info("move to element ",more_button_times_found)
                                 self.screen.save_screen_shot()
                                 return True
                             except StaleElementReferenceException as e:
