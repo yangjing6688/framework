@@ -1304,7 +1304,7 @@ class Device360WebElementDefs:
 
     device360_device_configuration_save_button = \
         {
-            'XPATH': '//div[@class="btn-area"]//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//button[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -1581,6 +1581,13 @@ class Device360WebElementDefs:
     d360_switch_ports_table_grid_rows = \
         {
             'XPATH': '//*[@data-dojo-attach-point="portGridNode"]//*[@class="dgrid-row-table"]',
+        }
+
+    d360_switch_ports_table_last_row_of_table = \
+        {
+            'CSS_SELECTOR': '[data-dojo-attach-point="portGridNode"] '
+                            '[class="dgrid-content ui-widget-content"]>:last-child',
+            'wait_for': 5
         }
 
     device360_switch_port_table_port_name = \
@@ -1951,7 +1958,7 @@ class Device360WebElementDefs:
 
     device360_port_configuration_pse_profile_drop_down_options = \
         {
-            'CSS_SELECTOR': '.item-area li',
+            'XPATH': '//ul[@class="item-area"]/li[@class="J-ip-item"]',
             'wait_for': 5
         }
 
@@ -2552,7 +2559,7 @@ class Device360WebElementDefs:
 
     select_element_port_type_pse_profile_power_mode_dropdown = \
         {
-            'XPATH': '//div[@class="column last"]//a[@class="chzn-single"]',
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//div[@class="line clearfix"]//div[@data-automation-tag="automation-chzn-arrow-down"]',
             'index': 0
         }
 
@@ -2565,6 +2572,18 @@ class Device360WebElementDefs:
     select_element_port_type_pse_profile_save = \
         {
             'XPATH': '//button[@data-dojo-attach-point="saveBtn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_close = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="cancelBtn"]',
+            'wait_for': 5
+        }
+
+    select_element_port_type_pse_profile_save_error = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="vlanObjForm"]//*[@data-dojo-attach-point="textEl"]',
             'wait_for': 5
         }
 
@@ -3133,6 +3152,66 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_connected_clients_count = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="connectedTotal"]',
+            'wait_for': 5
+        }
+
+    device360_leftpane_unique_clients = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="clientsNum"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_interface_tab = \
+        {
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-wireless-interfaces"]',
+            'wait_for': 15
+        }
+
+    device360_total_wireless_clients = \
+        {
+            'XPATH': '//*[@data-automation-tag="wirelessinterfaces-total-client-count-ctn"]//div[@data-dojo-attach-point="totalClientCount"]',
+            'wait_for': 15
+        }
+
+    device360_total_clients_clientspage = \
+        {
+            'XPATH': '//*[@data-automation-tag="connectedclients-client-counts"]//div[@data-dojo-attach-point="totalClientCount"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi6gscore = \
+        {
+            'XPATH': '//div[@class="health-column"]//span[@data-dojo-attach-point="overallScoreValue"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_combinedscore = \
+        {
+            'XPATH': '//div[@class="health-column"]//span[@data-dojo-attach-point="overallScoreValue"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi2widgetclient = \
+        {
+            'XPATH': '//*[@class="wireless-data-value"]//*[@data-dojo-attach-point="clients_3"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_combinedscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-4"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi6gscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-3"]',
+            'wait_for': 15
+        }
+
     cancel_button_port_type = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
@@ -3333,7 +3412,7 @@ class Device360WebElementDefs:
 
     select_more_button_pse_profile = \
         {
-            'CSS_SELECTOR': '.J-ip-more'
+            'XPATH': '//div[@class="J-ip-more"]'
         }
 
     device360_configure_port_access_vlan_textfield_VOSS = \
@@ -4097,12 +4176,12 @@ class Device360WebElementDefs:
         }
 
     configuration_events_button = \
-    {
-        "XPATH": "//li[@data-automation-tag='automation-pills-configuration']"
-    }
+        {
+            "XPATH": "//li[@data-automation-tag='automation-pills-configuration']"
+        }
+
     device360_lag_popup_spinner = \
         {
             'CSS_SELECTOR': '.lag-view .grid-mark',
             'wait_for': 5
         }
-
