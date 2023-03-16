@@ -181,7 +181,6 @@ class Network360MonitorDefinitions:
             'wait_for': 5
         }
 
-
     n360_device_health_search_box = \
         {
             'CSS_SELECTOR': '.search-filter[data-dojo-attach-point="inputSearch"]',
@@ -281,4 +280,8 @@ class Network360MonitorDefinitions:
             'wait_for': 5
         }
 
-
+    n360_show_all_btn = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="showAllBtn"]',
+            'wait_for': 5
+        }

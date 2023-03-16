@@ -136,3 +136,6 @@ class Network360MonitorElements(Network360MonitorDefinitions):
     def get_close_n360_dialog_box(self):
         return self.weh.get_element(self.close_n360_dialog_box)
 
+    def get_n360_show_all_btn(self):
+        return self.weh.get_element(self.n360_show_all_btn)
+
