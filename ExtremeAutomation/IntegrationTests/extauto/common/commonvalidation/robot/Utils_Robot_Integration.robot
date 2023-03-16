@@ -59,7 +59,7 @@ Check console at trace level
     ${logging_level}                Set Variable    TRACE
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_DIR}
 
-    ${expected_stdout_line_count}   Set Variable    ${13}
+    ${expected_stdout_line_count}   Set Variable    ${14}
     ${expected_stderr_line_count}   Set Variable    ${3}
 
     Create Directory    ${output_dir}
@@ -78,7 +78,7 @@ Check console at trace level
     ${stderr_line_count} =  Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${line_1} =         Get From List   ${stdout_lines}     3
+    ${line_1} =         Get From List   ${stdout_lines}     4
 
     ${line_2} =         Get From List   ${stderr_lines}     0
     ${line_3} =         Get From List   ${stderr_lines}     1

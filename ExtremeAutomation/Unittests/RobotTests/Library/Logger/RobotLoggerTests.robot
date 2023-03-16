@@ -13,6 +13,7 @@ Library    Collections
 *** Variables ***
 ${TUT}                      ${CURDIR}/TUT.robot
 ${TUT_SETUP_TEARDOWN}       ${CURDIR}/TUTSetupTeardown.robot
+${TUT_NEW_LINE}             ${CURDIR}/TUTNewLine.robot
 ${TUT_OUTPUT_DIR}           ${EXECDIR}/tut_output
 
 ${TUT_OUTPUT_LEVEL_TRACE_DIR}       ${TUT_OUTPUT_DIR}/level_trace
@@ -22,6 +23,7 @@ ${TUT_OUTPUT_LEVEL_WARNING_DIR}     ${TUT_OUTPUT_DIR}/level_warning
 ${TUT_OUTPUT_LEVEL_ERROR_DIR}       ${TUT_OUTPUT_DIR}/level_error
 ${TUT_OUTPUT_LEVEL_DEFAULT_DIR}     ${TUT_OUTPUT_DIR}/level_default
 ${TUT_OUTPUT_SETUP_TEARDOWN_DIR}    ${TUT_OUTPUT_DIR}/setup_teardown
+${TUT_OUTPUT_NEW_LINE_DIR}          ${TUT_OUTPUT_DIR}/new_line
 
 ${src_module}           TUTLibrary
 ${src_test_name}        Print all levels
@@ -84,7 +86,7 @@ Check console and output at trace level
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_TRACE_DIR}
     ${output_file}                  Set Variable    ${output_dir}/output.xml
 
-    ${expected_stdout_line_count}   Set Variable    ${14}
+    ${expected_stdout_line_count}   Set Variable    ${15}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
@@ -102,9 +104,9 @@ Check console and output at trace level
     ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${trace_line}       Get From List   ${stdout_lines}     3
-    ${debug_line}       Get From List   ${stdout_lines}     4
-    ${info_line}        Get From List   ${stdout_lines}     5
+    ${trace_line}       Get From List   ${stdout_lines}     4
+    ${debug_line}       Get From List   ${stdout_lines}     5
+    ${info_line}        Get From List   ${stdout_lines}     6
 
     ${warning_line}     Get From List   ${stderr_lines}     0
     ${error_line}       Get From List   ${stderr_lines}     1
@@ -162,7 +164,7 @@ Check console and output at debug level
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEBUG_DIR}
     ${output_file}                  Set Variable    ${output_dir}/output.xml
 
-    ${expected_stdout_line_count}   Set Variable    ${13}
+    ${expected_stdout_line_count}   Set Variable    ${14}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
@@ -180,8 +182,8 @@ Check console and output at debug level
     ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${debug_line}       Get From List   ${stdout_lines}     3
-    ${info_line}        Get From List   ${stdout_lines}     4
+    ${debug_line}       Get From List   ${stdout_lines}     4
+    ${info_line}        Get From List   ${stdout_lines}     5
 
     ${warning_line}     Get From List   ${stderr_lines}     0
     ${error_line}       Get From List   ${stderr_lines}     1
@@ -232,7 +234,7 @@ Check console and output at info level
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_INFO_DIR}
     ${output_file}                  Set Variable    ${output_dir}/output.xml
 
-    ${expected_stdout_line_count}   Set Variable    ${12}
+    ${expected_stdout_line_count}   Set Variable    ${13}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
@@ -250,7 +252,7 @@ Check console and output at info level
     ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${info_line}            Get From List   ${stdout_lines}     3
+    ${info_line}            Get From List   ${stdout_lines}     4
 
     ${warning_line}         Get From List   ${stderr_lines}     0
     ${error_line}           Get From List   ${stderr_lines}     1
@@ -391,7 +393,7 @@ Check console and output at default level
     ${output_dir}                   Set Variable    ${TUT_OUTPUT_LEVEL_DEFAULT_DIR}
     ${output_file}                  Set Variable    ${output_dir}/output.xml
 
-    ${expected_stdout_line_count}   Set Variable    ${12}
+    ${expected_stdout_line_count}   Set Variable    ${13}
     ${expected_stderr_line_count}   Set Variable    ${2}
 
     Create Directory    ${output_dir}
@@ -409,7 +411,7 @@ Check console and output at default level
     ${stderr_line_count}    Get Line Count  ${result.stderr}
     Should Be Equal         ${expected_stderr_line_count}   ${stderr_line_count}
 
-    ${info_line}            Get From List   ${stdout_lines}     3
+    ${info_line}            Get From List   ${stdout_lines}     4
 
     ${warning_line}         Get From List   ${stderr_lines}     0
     ${error_line}           Get From List   ${stderr_lines}     1
