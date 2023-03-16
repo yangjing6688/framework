@@ -333,7 +333,7 @@ class DeviceTemplateWebElementDefinitions:
     click_selected_ap_template = \
         {
             'CSS_SELECTOR': '.dojoxGridCell ',
-            
+
         }
 
     ap_template_dialog_select_button = \
@@ -487,7 +487,7 @@ class DeviceTemplateWebElementDefinitions:
 
     device_switch_template_menue_filter = \
         {
-            'XPATH': "//*[@automation-tag='automation-switch-device-templates-menu-filter']"
+            'XPATH': "//*[@class='ui-menu-filter']"
         }
 
     switch_template_device_configuration_igmp_settings = \
