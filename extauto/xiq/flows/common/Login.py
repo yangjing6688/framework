@@ -402,12 +402,13 @@ class Login:
             return 1
 
         device_page_found = self.nav_web_elements.get_devices_page()
-        if device_page_found:
+        tools_page_found = self.nav_web_elements.get_tools_page()
+        if device_page_found or tools_page_found:
             return 1
         else:
-            self.utils.print_info("Current page is not the Manage Devices Page...login process not completed")
+            self.utils.print_info("Current page is not the Manage Devices or tools Page...login process not completed")
             if not recover_login:
-                kwargs['fail_msg'] = "Current page is not the Manage Devices Page...login process" \
+                kwargs['fail_msg'] = "Current page is not the Manage Devices or tools Page...login process" \
                                      " not completed"
                 self.common_validation.fault(**kwargs)
                 return -1

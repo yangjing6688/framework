@@ -87,7 +87,7 @@ class AccountManagement(AccntMgmtWebElements):
         timeout = accnt_config.get('timeout')
         role = accnt_config.get('role')
         # Commented on 1/18/23 because it is unused
-        # location = accnt_config.get('location')
+        location = accnt_config.get('location')
         organization = accnt_config.get('organization')
 
         self.utils.print_info("Navigating to the account Management page..")
@@ -137,8 +137,9 @@ class AccountManagement(AccntMgmtWebElements):
             self.utils.print_info(f'Cannot select location for :{role} role')
         if role != "GuestManagement" and role != "Administrator":
             self.utils.print_info('selecting the location check box')
-            self.auto_actions.click_reference(self.get_Rbac_Assign_Location_checkbox)
-
+            location_checkbox = self.get_Rbac_Assign_Location_checkbox()
+            if location_checkbox.is_selected():
+                self.auto_actions.click_reference(self.get_Rbac_Assign_Location_checkbox)
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -152,7 +153,7 @@ class AccountManagement(AccntMgmtWebElements):
                 kwargs['fail_msg'] = f"{text}"
                 self.common_validation.failed(**kwargs)
                 return -1
-        kwargs['pass_msg'] = "Successfully create role based account"
+        kwargs['pass_msg'] = "Successfully created role based account"
         self.common_validation.passed(**kwargs)
         return 1
 
