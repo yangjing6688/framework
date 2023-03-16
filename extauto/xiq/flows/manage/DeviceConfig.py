@@ -17,6 +17,7 @@ from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.xiq.flows.manage.Tools import Tools
 from extauto.xiq.flows.manage.Devices import Devices
 
+
 class DeviceConfig(DeviceConfigElements):
     def __init__(self):
         super().__init__()
@@ -2926,8 +2927,13 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info("Locating audit content...")
 
                 def check_audit_config_content():
-                    if self.get_config_audit_content():
-                        return bool(self.get_config_audit_content().text)
+                    audit_content = self.get_config_audit_content()
+                    if audit_content:
+                        if bool(self.get_config_audit_content().text):
+                            self.utils.print_info("audit content is text")
+                        else:
+                            self.utils.print_info("audit content is empty ")
+                        return True
                     else:
                         return False
                 self.utils.wait_till(check_audit_config_content, is_logging_enabled=True, timeout=30, delay=10)
@@ -2948,10 +2954,11 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Get the Config content from Device Config Audit Delta View")
 
                     def check_device_config_audit_delta_view_content():
+                        self.screen.save_screen_shot()
                         return bool(self.get_device_config_audit_delta_view_content().text)
 
                     self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True,
-                                         timeout=30, delay=10)
+                                         timeout=50, delay=10)
                     delta_configs = self.get_device_config_audit_delta_view_content().text
                 else:
                     self.utils.print_info("Did not manage to locate the content...")
@@ -3237,6 +3244,8 @@ class DeviceConfig(DeviceConfigElements):
 
         for _ in range(retries):
             try:
+                self.devices.refresh_devices_page()
+                self.utils.wait_till(timeout=5)
                 self.devices.select_device(device_mac=dut.mac)
 
                 btn, _ = self.utils.wait_till(
@@ -3250,7 +3259,7 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info("Successfully got the device_config_audit_view button")
 
                 res, _ = self.utils.wait_till(
-                    func=lambda: self.auto_actions.click(btn),
+                    func=lambda: self.auto_actions.click_reference(self.get_device_config_audit_view),
                     delay=4,
                     exp_func_resp=True,
                     silent_failure=True
@@ -3270,7 +3279,7 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info("Successfully got the delta_view button")
 
                 res, _ = self.utils.wait_till(
-                    func=lambda: self.auto_actions.click(delta_view),
+                    func=lambda: self.auto_actions.click_reference(self.get_device_config_audit_delta_view),
                     timeout=60,
                     delay=20,
                     exp_func_resp=True,
@@ -3297,7 +3306,8 @@ class DeviceConfig(DeviceConfigElements):
 
                 for command in commands:
 
-                    assert re.search(command, delta_configs), f"Did not find this command in delta CLI: {command}"
+                    assert re.search(command, delta_configs), f"Did not find this command in delta CLI: {command}, " \
+                                                              f"found {delta_configs} instead"
                     self.utils.print_info(f"Successfully found this command in delta CLI: {command}")
 
             except Exception as exc:
@@ -3320,13 +3330,14 @@ class DeviceConfig(DeviceConfigElements):
                     )
 
                     self.utils.wait_till(
-                        func=lambda: self.auto_actions.click(close_btn) == 1,
+                        func=lambda:
+                        self.auto_actions.click_reference(self.get_device_config_audit_view_close_button) == 1,
                         exp_func_resp=True,
                         delay=4,
                         silent_failure=True
                     )
-                except Exception:
-                    pass
+                except Exception as e:
+                    self.utils.print_info(repr(e))
 
                 self.devices.select_device(device_mac=dut.mac)
         else:

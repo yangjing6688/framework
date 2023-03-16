@@ -487,6 +487,42 @@ class TrafficGenerationUdks():
         else:
             print("You must define the packets to use this keyword")
 
+    def Transmit_Traffic_Bidirectionally(
+        self, port_a, port_b, tx_packet_name_a,tx_packet_name_b, rx_packet_name_a,
+        rx_packet_name_b,tx_count=100, tx_rate=100, **kwargs):
+        """
+         - This keyword will send packages bidirectionally on port from traffic generator
+        :param port_a, port_b:  A dictionary with this format {"tgen_name": tgenName, "ifname": tgenPort}. You can create one
+                          from the yaml file of the device by using this function:
+                          - config_helper.createTgenPort(config_helper.tgen1_name, config_helper.tgen_dut1_port_a.ifname)
+        :param tx_packet_name_a, tx_packet_name_b: 'packetA', 'packetB'
+        :param rx_packet_name_a, rx_packet_name_b: 'packetB', 'packetA'
+        :param tx_count, tx_rate:  default values: 100, 100
+        :return This keyword doesn't return a specific value
+                """
+        self.Configure_Packet_on_Port_Single_Burst(
+            port_a, tx_packet_name_a, count=tx_count,rate=tx_rate, **kwargs)
+        self.Configure_Packet_on_Port_Single_Burst(
+            port_b, tx_packet_name_b, count=tx_count,rate=tx_rate, **kwargs)
+        rx_packet_a = self.trafficPacketCreationKeywords.get_packet(
+            rx_packet_name_a)
+        rx_packet_b = self.trafficPacketCreationKeywords.get_packet(
+            rx_packet_name_b)
+
+        assert rx_packet_a and rx_packet_b, "You must define the packets to use this keyword"
+
+        self.Start_Capture_with_DMAC_and_SMAC_Filter(
+            port_a, rx_packet_a.get_destination_mac(), rx_packet_a.get_source_mac(),
+            rx_packet_a.get_destination_mac_mask(), rx_packet_a.get_source_mac_mask())
+        self.Start_Capture_with_DMAC_and_SMAC_Filter(
+            port_b, rx_packet_b.get_destination_mac(), rx_packet_b.get_source_mac(),
+            rx_packet_b.get_destination_mac_mask(), rx_packet_b.get_source_mac_mask())
+
+        self.trafficTransmitKeywords.start_transmit_on_port(
+            port_a, **kwargs)
+        self.trafficTransmitKeywords.start_transmit_on_port_and_wait(
+            port_b, **kwargs)
+
     def send_source_macs_on_port_from_traffic_generator(self, mac_add_list, tgen_port):
         """
          - This keyword will send a list of source macs on port from traffic generator
@@ -501,5 +537,6 @@ class TrafficGenerationUdks():
             self.Create_Ethernet2_Packet(packet_a, smac=mac_add_list[i])
             self.send_stream_with_incrementing_smac(tgen_port, packet_a, stream_number=1, count=1,
                                                     rate=100, unit='pps', sa_count=1,  max_wait=120)
+
 
 
