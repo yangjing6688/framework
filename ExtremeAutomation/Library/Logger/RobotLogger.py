@@ -143,6 +143,7 @@ def _apply_terminal_coloring(message, color):
 class FormatAndColorizeAndDispatchToRobot(logging.Filter):
     def __init__(self, level):
         self.level = level
+        self.currentTest = None
         super().__init__()
 
     def filter(self, record):
@@ -178,7 +179,19 @@ class FormatAndColorizeAndDispatchToRobot(logging.Filter):
         self.Dispatch()[level_number](message)
 
     def log_to_console(self, level_number, message):
-        BuiltIn().log_to_console(message, "STDOUT" if level_number < logging.WARNING else "STDERR")
+        stream = "STDOUT" if level_number < logging.WARNING else "STDERR"
+
+        if stream == "STDOUT" and self.is_first_message():
+            BuiltIn().log_to_console("")
+
+        BuiltIn().log_to_console(message, stream)
+
+    def is_first_message(self):
+        test_name = BuiltIn().get_variable_value("${TEST NAME}")
+        if self.currentTest != test_name:
+            self.currentTest = test_name
+            return True
+        return False
 
     class Dispatch(object):
         def __getitem__(self, level_number):
