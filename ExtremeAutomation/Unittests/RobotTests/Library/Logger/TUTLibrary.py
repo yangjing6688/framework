@@ -19,3 +19,10 @@ class TUTLibrary:
 
     def print_error(self, message):
         self.logger.error(message)
+
+    def print_suite_setup(self, message):
+        self.logger.info(message)
+
+    def print_suite_teardown(self, message):
+        self.logger.info(message)
+

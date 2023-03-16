@@ -57,7 +57,11 @@ class RobotLogger(logging.Logger, metaclass=Singleton):
         if not self._new_record_factory:
             def record_factory(*args, **kwargs):
                 record = self.old_record_factory(*args, **kwargs)
-                record.test_name = BuiltIn().get_variable_value("${TEST NAME}")
+                test_name = BuiltIn().get_variable_value("${TEST NAME}")
+                if not test_name:
+                    status = BuiltIn().get_variable_value("${SUITE STATUS}")
+                    test_name = "TEARDOWN" if status else "SETUP"
+                record.test_name = test_name
                 return record
 
             self._new_record_factory = record_factory
