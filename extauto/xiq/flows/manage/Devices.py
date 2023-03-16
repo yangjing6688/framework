@@ -1732,29 +1732,6 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
 
-        # Code taken from the ap_onboard code.
-        # This code was need because it took a longer to onboard an AP on an AIO
-        # Updated logic to use a whil loop with a timer so that if the process nerver finishes we will abort and throw an error
-        check_process_count = 90
-        retry_duration = 2
-        count = 1
-        while check_process_count > 0:
-            # If the quick add block is present, this inidcates the process is not done, then sleep a second and try again
-            self.utils.print_info(f"Checking to see if adding device process has completeed: loop {count}")
-            if self.devices_web_elements.get_devices_quick_add_block_show():
-                self.utils.print_info(f"Still in adding device process, Waiting for {retry_duration} seconds...")
-                sleep(retry_duration)
-            else:
-                kwargs['pass_msg'] = "Finish device adding process ..."
-                self.common_validation.passed(**kwargs)
-                break
-            check_process_count = check_process_count - 1
-            count = count + 1
-        if check_process_count == 0:
-            kwargs['fail_msg'] = "Adding device process never completed"
-            self.common_validation.fault(**kwargs)
-            return -1
-
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
 
@@ -1763,9 +1740,6 @@ class Devices:
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-
                 kwargs['fail_msg'] = "Fail Onboarded - Device already onboarded"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -1773,18 +1747,12 @@ class Devices:
             elif "License limit exceeded for managed device" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-
                 kwargs['fail_msg'] = "Fail Onboarded - License limit exceeded for managed device"
                 self.common_validation.failed(**kwargs)
                 return -1
 
             elif "A stake record of the device was found in the redirector." in dialog_message:
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ",BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-
                 kwargs['fail_msg'] = "Fail Onboarded - A stake record of the device was found in the redirector."
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -1794,7 +1762,29 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("No Dialog box")
+
+            # Code taken from the ap_onboard code.
+            # This code was need because it took a longer to onboard an AP on an AIO
+            # Updated logic to use a whil loop with a timer so that if the process nerver finishes we will abort and throw an error
+            check_process_count = 90
+            retry_duration = 2
+            count = 1
+            while check_process_count > 0:
+                # If the quick add block is present, this inidcates the process is not done, then sleep a second and try again
+                self.utils.print_info(f"Checking to see if adding device process has completeed: loop {count}")
+                if self.devices_web_elements.get_devices_quick_add_block_show():
+                    self.utils.print_info(f"Still in adding device process, Waiting for {retry_duration} seconds...")
+                    sleep(retry_duration)
+                else:
+                    kwargs['pass_msg'] = "Finish device adding process ..."
+                    self.common_validation.passed(**kwargs)
+                    break
+                check_process_count = check_process_count - 1
+                count = count + 1
+            if check_process_count == 0:
+                kwargs['fail_msg'] = "Adding device process never completed"
+                self.common_validation.fault(**kwargs)
+                return -1
 
         if "real" in device_type.lower():
             '''
