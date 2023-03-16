@@ -29,6 +29,7 @@ from extauto.common.WebElementHandler import WebElementHandler
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from extauto.xiq.xapi.manage.XapiDevices import XapiDevices
 from ExtremeAutomation.Utilities.deprecated import unsupported
+from extauto.xiq.elements.ClientWebElements import ClientWebElements
 
 
 
@@ -1288,7 +1289,7 @@ class Devices:
             kwargs['fail_msg'] = "You must pass the serial number!"
             self.common_validation.fault(**kwargs)
             return -1
-        
+
         self.refresh_devices_page()
         row = self._find_device_row(device_keys)
         if row:
@@ -2438,7 +2439,7 @@ class Devices:
         :return: 1 if device finished update, else -1
         """
         update_status = ['Querying', 'IQ Engine Firmware Updating', 'User Configuration Updating', 'Rebooting',
-                         'Certification Updating']
+                         'Certification Updating', 'Firmware Updating']
         device_update_status = ""
         for delay in range(retry_count):
             self.utils.print_info(f"Device Update Status Check - Loop: {delay+1}")
@@ -3214,9 +3215,17 @@ class Devices:
                 self.utils.print_info("Device Updating Status: IQ Engine Firmware Updating")
                 return 'IQ Engine Firmware Updating'
 
+            if "Firmware Updating" in device_updated_status:
+                self.utils.print_info("Device Updating Status: IQ Engine Firmware Updating")
+                return 'Firmware Updating'
+
             if "User Configuration Updating" in device_updated_status:
                 self.utils.print_info("Device Updating Status: User Configuration Updating")
                 return 'User Configuration Updating'
+
+            if "Configuration Updating" in device_updated_status:
+                self.utils.print_info("Device Updating Status: User Configuration Updating")
+                return 'Configuration Updating'
 
             if "Rebooting" in device_updated_status:
                 self.utils.print_info("Device Updating Status: Rebooting")
@@ -5607,7 +5616,7 @@ class Devices:
         Supported Modes:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
-            
+
         :param device_serial: Serial number of Device Ex:11301810220048
         :param device_name: Device name Ex: AP1130
         :param device_mac: Device mac Ex: F09CE9F89600
@@ -12470,6 +12479,57 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
+    def get_latest_version_from_device_update(self, dut, **kwargs):
+        """
+        - This method returns the latest os version from device update
+
+        :param device_serial: dut object
+        :return: latest version
+        """
+
+        device_serial = dut.serial
+        latest_version = -1
+        sleep(5)
+
+        if self.select_device(device_serial):
+            def _click_update_devices_button():
+                return self.auto_actions.click(DeviceUpdate().get_update_devices_button())
+
+            self.utils.wait_till(_click_update_devices_button, timeout=30, delay=20,
+                                 msg="Selecting Update Devices button")
+
+            checkbox_status = DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
+
+            if checkbox_status == "true":
+                self.utils.print_info("Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
+            else:
+                def _click_upgrade_iq_engine_button():
+                    return self.auto_actions.click(DeviceUpdate().get_upgrade_iq_engine_checkbox())
+
+                self.utils.wait_till(_click_upgrade_iq_engine_button, timeout=30, delay=20,
+                                     msg="Selecting upgrade IQ Engine checkbox")
+
+            self.utils.print_info("Selecting upgrade to latest version checkbox")
+            self.auto_actions.click(DeviceUpdate().get_upgrade_to_latest_version_radio())
+            sleep(2)
+
+            latest_version = DeviceUpdate().get_latest_version()
+            sleep(3)
+
+            self.utils.print_info("Selecting Close button...")
+            self.auto_actions.click_reference(ClientWebElements().get_client_dialog_window_close_button)
+            sleep(3)
+
+            kwargs["pass_msg"] = f"Successfully found the latest version: {latest_version}"
+            self.common_validation.passed(**kwargs)
+
+            return latest_version
+
+        kwargs["fail_msg"] = f"Couldn't select device with serial: {dut.serial}"
+        self.common_validation.failed(**kwargs)
+
+        return None
+
     def check_update_column_by_failure_message(self, device_serial, failure_message, **kwargs):
         """
         This function is used to check the UPDATED column from device grid from a device with device_serial given as
@@ -12513,6 +12573,24 @@ class Devices:
         kwargs["pass_msg"] = f"Successfully found the expected failure message: {failure_message}"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def wait_for_update_column_status_change(self, device_serial):
+        """
+        - This method waits for the device update column to cahnge status and keeps track of how much time it took
+
+        :param device_serial: serial number of the device
+        :param status_before: the status before the update began
+        """
+        # Foremerly check_update_column_2
+        count = 0
+        max_wait = 300
+        status = self.get_device_updated_status(device_serial=device_serial)
+        while not status and count < max_wait:
+            sleep(10)
+            count += 10
+            status = self.get_device_updated_status(device_serial=device_serial)
+            print(
+                f"\nINFO \t Time elapsed in the update column to reflect the firmware updating is '{count} seconds'\n")
 
     def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
         """Method that updates the switch and then wait for the update to finish.
@@ -12558,6 +12636,39 @@ class Devices:
         kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def check_update_column_change(self, device_serial, status_before, **kwargs):
+        '''
+        - Check to see that the update column changes status
+
+        :param device_serial: the dut serial
+        :param status_before: the dut status before change
+        '''
+
+        print(f"Status before: {status_before}")
+        status_after = self.get_device_updated_status(device_serial=device_serial)
+        count = 0
+        max_wait = 900
+        current_date = datetime.now()
+        update_text = str(current_date).split()[0]
+
+        while update_text not in status_after:
+            sleep(10)
+            count += 10
+            status_after = self.get_device_updated_status(device_serial=device_serial)
+            print(
+                f"\nINFO \t Time elapsed in the update column to reflect the firmware updating is '{count} seconds'\n")
+            if ("Failed" in status_after) or ("failed" in status_after) or (count > max_wait):
+                kwargs["fail_msg"] = "Device update failed"
+                self.common_validation.fault(**kwargs)
+
+        print(f"Status after: {status_after}")
+        if status_before != status_after:
+            kwargs["pass_msg"] = "Successfully changed the UPDATED status"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs["fail_msg"] = f"Failed to change the status from {status_before}"
+            self.common_validation.failed(**kwargs)
 
     def deploy_switch_network_policy_with_complete_update(self, device_serial, policy_name):
         """
