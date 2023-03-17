@@ -88,8 +88,6 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         if np_empty_page is not None and np_empty_page.is_displayed():
             self.auto_actions.click(new_express_btn)
         else:
-            new_express_policy_btn = self.get_add_new_express_policy_setup_button()
-            self.auto_actions.click(new_express_policy_btn)
             if self.get_network_policy_list_from_card_view():
                 if self._search_network_policy_in_card_view(policy_name):
                     kwargs['pass_msg'] = f"Network policy:{policy_name} already exists in the network polices list"
