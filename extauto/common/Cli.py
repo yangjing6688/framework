@@ -2848,6 +2848,9 @@ class Cli(object):
         if dut.cli_type.lower() == 'voss':
             cli_dut = self.networkElementCliSend.send_cmd(dut.name, "show logging file detail | include SSH:127.0.0.1")
         elif dut.cli_type.lower() == 'exos':
+            if dut.platform.lower() == 'stack':
+                self.utils.wait_till(timeout=90, delay=30, silent_failure=True, msg="Waiting for commands to "
+                                                               "be sent to the stack...")
             cli_dut = self.networkElementCliSend.send_cmd(dut.name, f"show cli journal | begin {dut_time} ")
         output_CLI = self.get_cli_commands(info=cli_dut[0].cmd_obj.return_text, cli_type=dut.cli_type)
         output = [el.strip() for el in output_CLI]
