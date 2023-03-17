@@ -3193,6 +3193,18 @@ class Device360WebElementDefs:
             'wait_for': 15
         }
 
+    device360_wireless_wifi5gscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-2"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi2gscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-1"]',
+            'wait_for': 15
+        }
+
     cancel_button_port_type = \
         {
             'XPATH': '//button[@data-automation-tag="port-type-editor-cancel"]',
