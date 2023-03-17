@@ -85,7 +85,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         new_express_btn = self.get_new_account_express_policy_setup_button()
         np_empty_page = self.get_np_page_without_policy()
         if np_empty_page is not None:
-           self.utils.print_info("No Network Policy Found in NP Page1")
+           self.utils.print_info("No Network Policy Found in NP Page")
            self.auto_actions.click(new_express_btn)
         else:
             new_express_policy_btn = self.get_add_new_express_policy_setup_button()
