@@ -485,7 +485,6 @@ class NavigatorWebElementDefinitions:
         {
             'XPATH': "//*[@data-automation-tag='automation-config-card']",
             'wait_for': 30
-
         }
 
     network_policy_page_size = \

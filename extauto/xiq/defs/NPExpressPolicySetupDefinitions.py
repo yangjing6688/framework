@@ -10,7 +10,6 @@ class NPExpressPolicySetupDefinitions:
         {
             'XPATH': '//button[@data-dojo-attach-point="noPolicyAddPackage"]',
             'wait_for': 30
-
          }
 
     add_new_express_policy_setup_button = \
