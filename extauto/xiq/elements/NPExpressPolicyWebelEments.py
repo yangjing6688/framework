@@ -15,6 +15,9 @@ class NPExpressPolicyWebElements(NPExpressPolicySetupDefinitions):
     def get_new_account_express_policy_setup_button(self):
         return self.weh.get_element(self.new_account_express_policy_setup_button)
 
+    def get_add_new_express_policy_setup_button(self):
+        return self.weh.get_element(self.add_new_express_policy_setup_button)
+
     def get_express_policy_setup_button(self):
         return self.weh.get_element(self.express_policy_setup_button)
 

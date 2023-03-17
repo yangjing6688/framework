@@ -78,8 +78,12 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         self.navigator.navigate_to_network_policies_card_view_page()
 
         new_express_btn = self.get_new_account_express_policy_setup_button()
+        new_express_policy_btn = self.get_add_new_express_policy_setup_button()
+
         if new_express_btn and new_express_btn.is_displayed():
             self.auto_actions.click(new_express_btn)
+        elif new_express_policy_btn and new_express_policy_btn.is_displayed():
+            self.auto_actions.click(new_express_policy_btn)
         else:
             sleep(1)
             if self._search_network_policy_in_card_view(policy_name):
