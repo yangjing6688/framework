@@ -11,6 +11,11 @@ class NPExpressPolicySetupDefinitions:
          'wait_for': 5
          }
 
+    add_new_express_policy_setup_button = \
+        {'XPATH': '//button[@data-dojo-attach-point="listAddPackage"]',
+         'wait_for': 5
+         }
+
     network_policy_list = {'CSS_SELECTOR': '.card-item-title', 'wait_for': 5}
 
     network_policy_card_item = {'CSS_SELECTOR': '.card-item-static', 'wait_for': 5}

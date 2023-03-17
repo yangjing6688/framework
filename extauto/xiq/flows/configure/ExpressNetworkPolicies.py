@@ -78,24 +78,29 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         self.navigator.navigate_to_network_policies_card_view_page()
 
         new_express_btn = self.get_new_account_express_policy_setup_button()
-        if new_express_btn and new_express_btn.is_displayed():
-            self.auto_actions.click(new_express_btn)
-        else:
-            sleep(1)
-            if self._search_network_policy_in_card_view(policy_name):
-                kwargs['pass_msg'] = f"Network policy:{policy_name} already exists in the network polices list"
-                self.common_validation.passed(**kwargs)
-                return 1
+        new_express_policy_btn = self.get_add_new_express_policy_setup_button()
 
-            self.utils.print_info("Click on Express policy setup button")
-            express_btn = self.get_express_policy_setup_button()
-            if express_btn:
-                self.auto_actions.click(express_btn)
-                sleep(2)
-            else:
-                kwargs['fail_msg'] = "Unable to find button to create express policy"
-                self.common_validation.fault(**kwargs)
-                return -1
+        if new_express_btn and new_express_btn is not None:
+            if new_express_btn.is_displayed():
+                self.auto_actions.click(new_express_btn)
+        else:
+            self.auto_actions.click(new_express_policy_btn)
+
+        sleep(1)
+        if self._search_network_policy_in_card_view(policy_name):
+            kwargs['pass_msg'] = f"Network policy:{policy_name} already exists in the network polices list"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        self.utils.print_info("Click on Express policy setup button")
+        express_btn = self.get_express_policy_setup_button()
+        if express_btn:
+            self.auto_actions.click(express_btn)
+            sleep(2)
+        else:
+            kwargs['fail_msg'] = "Unable to find button to create express policy"
+            self.common_validation.fault(**kwargs)
+            return -1
 
         cancel_button = self.get_network_policy_cancel_button()
 
