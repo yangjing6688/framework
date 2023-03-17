@@ -53,3 +53,6 @@ class NPExpressPolicyWebElements(NPExpressPolicySetupDefinitions):
 
     def get_network_policy_cancel_button(self):
         return self.weh.get_element(self.express_policy_cancel_button)
+
+    def get_np_page_without_policy(self):
+        return self.weh.get_element(self.np_page_without_policy)

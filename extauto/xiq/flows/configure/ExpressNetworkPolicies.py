@@ -24,10 +24,15 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         :param policy_name: name of the policy to search
         :return: 1 if exists else None
         """
-        for el in self.get_network_policy_list_from_card_view():
-            if policy_name.upper() in el.text.upper():
-                self.utils.print_info(el.text)
-                return 1
+        if self.get_network_policy_list_from_card_view():
+            for el in self.get_network_policy_list_from_card_view():
+                if policy_name.upper() in el.text.upper():
+                    self.utils.print_info(el.text)
+                    return 1
+        else:
+            self.utils.print_info("Unable to Network Policy List in Card View")
+            self.screen.save_screen_shot()
+            return -1
 
     def _select_wireless_auth_type(self, auth_type):
         """
@@ -78,32 +83,30 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         self.navigator.navigate_to_network_policies_card_view_page()
 
         new_express_btn = self.get_new_account_express_policy_setup_button()
-        new_express_policy_btn = self.get_add_new_express_policy_setup_button()
-
-        if new_express_btn and new_express_btn is not None:
-            if new_express_btn.is_displayed():
-                self.auto_actions.click(new_express_btn)
+        np_empty_page = self.get_np_page_without_policy()
+        if np_empty_page is not None:
+           self.utils.print_info("No Network Policy Found in NP Page1")
+           self.auto_actions.click(new_express_btn)
         else:
+            new_express_policy_btn = self.get_add_new_express_policy_setup_button()
             self.auto_actions.click(new_express_policy_btn)
+            if self.get_network_policy_list_from_card_view():
+                if self._search_network_policy_in_card_view(policy_name):
+                    kwargs['pass_msg'] = f"Network policy:{policy_name} already exists in the network polices list"
+                    self.common_validation.passed(**kwargs)
+                    return 1
 
-        sleep(1)
-        if self._search_network_policy_in_card_view(policy_name):
-            kwargs['pass_msg'] = f"Network policy:{policy_name} already exists in the network polices list"
-            self.common_validation.passed(**kwargs)
-            return 1
-
-        self.utils.print_info("Click on Express policy setup button")
-        express_btn = self.get_express_policy_setup_button()
-        if express_btn:
-            self.auto_actions.click(express_btn)
-            sleep(2)
-        else:
-            kwargs['fail_msg'] = "Unable to find button to create express policy"
-            self.common_validation.fault(**kwargs)
-            return -1
+            self.utils.print_info("Click on Express policy setup button")
+            express_btn = self.get_express_policy_setup_button()
+            if express_btn:
+                self.auto_actions.click(express_btn)
+                sleep(2)
+            else:
+                kwargs['fail_msg'] = "Unable to find button to create express policy"
+                self.common_validation.fault(**kwargs)
+                return -1
 
         cancel_button = self.get_network_policy_cancel_button()
-
         self.utils.print_info("Enter the Network policy name")
         name_field = self.get_policy_name_text()
         if name_field:
