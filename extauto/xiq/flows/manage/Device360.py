@@ -16114,7 +16114,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click(self.get_device360_wireless_combinedscoretab())
 
             if overall_score != 'None':
-                self.utils.wait_till(self.dev360.get_device360_wireless_combinedscore, timeout=15, delay=6, is_logging_enabled=True)
+                self.utils.wait_till(self.dev360.get_device360_wireless_combinedscore, timeout=15, delay=5, is_logging_enabled=True)
                 get_wifi_health['overall_score'] = self.dev360.get_device360_wireless_combinedscore().text
                 self.utils.print_info("Overall Score Value: ", get_wifi_health['overall_score'])
 
