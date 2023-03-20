@@ -12,7 +12,6 @@ jobs:
   update_ref_lists:
     name: Update List of Branches/Tags
     runs-on: ubuntu-latest
-    # runs-on: Ubuntu-20.04
     # Limit to one of these jobs at a time
     concurrency: s3_sync_ref_lists
     if: ${{ github.event_name == 'create' || github.event_name == 'delete' }}
@@ -50,7 +49,6 @@ jobs:
   update_docs:
     name: Update Keyword Documentation
     runs-on: ubuntu-latest
-    # runs-on: Ubuntu-20.04
     # Limit to one of these jobs at a time
     concurrency: s3_sync_docs
     # Job is run on every merge to main

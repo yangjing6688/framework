@@ -25,7 +25,6 @@ jobs:
   code_checks:
     name: Run code quality tools
     runs-on: ubuntu-latest
-    # runs-on: Ubuntu-20.04
     outputs:
       status: ${{ steps.set-output.outputs.status }}
     env:
