@@ -200,11 +200,19 @@ class SwitchTemplate(object):
         :return: Switch Template Cell present on row
         """
         self.utils.print_info("Getting the switch template rows.")
-        rows = self.sw_template_web_elements.get_sw_template_rows()
+
+        rows, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_rows,
+            exp_func_resp=True,
+            silent_failure=True, 
+            delay=5
+        )
+        
         if not rows:
             kwargs['fail_msg'] = "There are no device templates defined in switch template page"
             self.common_validation.failed(**kwargs)
             return False
+   
         for row in rows:
             cells = self.sw_template_web_elements.get_sw_template_row_cell(row, 'dgrid-row')
             for cell in cells:

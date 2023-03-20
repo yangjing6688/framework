@@ -148,6 +148,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_utilities_status_wifi_summary_station_content(self):
         return self.weh.get_element(self.utilities_status_wifi_summary_station_content)
 
+    def get_device360_unlock_port_config_button(self):
+        return self.weh.get_element(self.device360_unlock_port_config_button)
+
+    def get_device360_unlock_port_config_confirmation_button(self):
+        return self.weh.get_element(self.device360_unlock_port_config_confirmation_button)
+    
     def get_device360_configure_button(self):
         return self.weh.get_element(self.device360_configure_button)
 

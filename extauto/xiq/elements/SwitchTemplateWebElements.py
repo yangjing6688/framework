@@ -14,11 +14,11 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.device_template_switch_template_tab)
 
     def get_sw_template_rows(self):
-        """
-
-        :return:
-        """
-        return self.weh.get_elements(self.sw_device_template_grid_rows)
+        rows = []
+        for el in self.weh.get_elements(self.sw_device_template_grid_rows):  
+            if el.is_displayed():          
+                rows.append(el)   
+        return rows
 
     def get_sw_template_platform_from_drop_down(self):
         """
