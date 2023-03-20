@@ -1,3 +1,6 @@
+"""
+    This Robot test library is used by CommonValidation_Robot_Integration.robot's TUT.robot
+"""
 from extauto.common.CommonValidation import CommonValidation
 import sys
 

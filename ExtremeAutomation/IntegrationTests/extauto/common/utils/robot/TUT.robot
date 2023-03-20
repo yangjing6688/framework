@@ -1,4 +1,6 @@
 *** Settings ***
+Documentation       This Robot test is used by Utils_Robot_Integration.robot
+
 Library    TUTLibrary.py
 
 *** Variables ***

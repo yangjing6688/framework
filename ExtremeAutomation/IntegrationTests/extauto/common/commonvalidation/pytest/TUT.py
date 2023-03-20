@@ -1,3 +1,6 @@
+"""
+    This test module is used by CommonValidation_Python_Integration.robot
+"""
 from extauto.common.CommonValidation import CommonValidation
 import sys
 import pytest

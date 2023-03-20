@@ -1,3 +1,6 @@
+"""
+    This Robot test library is used by Utils_Robot_Integration.robot's TUT.robot
+"""
 from extauto.common.Utils import Utils
 import sys
 

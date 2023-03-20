@@ -8,6 +8,8 @@ Documentation       Test Utils integration with pytest
 ...                 Limitations:
 ...                 1. --log-level seems to not have any effect, hence:
 ...                 - print_debug is not tested
+...                 Usage:
+...                 --loglevel TRACE Utils_Python_Integration.robot
 
 Library    Process
 Library    OperatingSystem

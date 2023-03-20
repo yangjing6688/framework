@@ -1,4 +1,6 @@
 *** Settings ***
+Documentation       This Robot test is used by RobotLoggerTests.robot
+
 Library    TUTLibrary.py
 
 *** Variables ***

@@ -1,3 +1,25 @@
+"""
+Enhance and fix logging issues for Robot tests.
+Most of the functionality is ported from PytestLogger.
+
+Features:
+1. Prepend console logging with:
+- [Logged time] [Logged Message Level] [Source Module] [Source File:Source Line] [Test Name|SETUP|TEARDOWN].
+
+2. Prepend HTML logging differently since the logged time is written by Robot:
+- [Logged Message Level] [Source Module] [Source File:Source Line] [Test Name|SETUP|TEARDOWN].
+
+3. Sets logging level is set to the configured run option.
+
+4. Add the Robot's native TRACE level logging accessible via logging.trace()
+
+5. Color HTML and console messages.
+
+6. Fix missing new line when Robot prints start of test.
+
+7. Prepend SETUP or TEARDOWN instead of test name according to test phase.
+"""
+
 import logging
 from functools import partial, partialmethod
 

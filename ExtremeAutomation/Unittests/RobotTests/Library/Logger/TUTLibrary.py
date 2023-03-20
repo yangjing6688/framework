@@ -1,3 +1,8 @@
+"""
+    This Robot test library is used by:
+    - TUT.robot in RobotLoggerTests.robot
+    - TUTSetupTeardown.robot in RobotLoggerTests.robot
+"""
 from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 
 

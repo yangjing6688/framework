@@ -5,6 +5,8 @@ Documentation       Test CommonValidation integration with pytest
 ...                 /automation/tests/extreme_automation_tests/Tests/Pytest
 ...                 and
 ...                 /automation/tests/extreme_automation_tests/Tests
+...                 Usage:
+...                 --loglevel TRACE CommonValidation_Python_Integration.robot
 
 Library    Process
 Library    OperatingSystem

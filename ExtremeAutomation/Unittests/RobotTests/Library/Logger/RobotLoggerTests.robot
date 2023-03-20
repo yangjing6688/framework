@@ -1,9 +1,15 @@
 *** Settings ***
 Documentation     Test RobotLogger
+...               1. For each of robot level TRACE, DEBUG, INFO, WARN, ERROR, DEFAULT:
+...               - Verify console logging
+...               - Verify output.xml logging
+...               2. Verify console and output.xml logging for setup and teardown phases, at DEFAULT level
 ...
 ...               Limitations:
 ...               1. The framework lacks browser based testing for unittests, therefore HTML output
 ...               must be manually verified. Pro tem assert output.xml.
+...               Usage:
+...               --loglevel TRACE RobotLoggerTests.robot
 
 Library    Process
 Library    OperatingSystem

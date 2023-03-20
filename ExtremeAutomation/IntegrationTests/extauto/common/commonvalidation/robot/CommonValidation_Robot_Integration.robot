@@ -1,5 +1,7 @@
 *** Settings ***
 Documentation       Test CommonValidation integration with robot
+...                 Usage:
+...                 --loglevel TRACE CommonValidation_Robot_Integration.robot
 
 Library    Process
 Library    OperatingSystem

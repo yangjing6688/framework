@@ -1,4 +1,6 @@
 *** Settings ***
+Documentation       This Robot test is used by CommonValidation_Robot_Integration.robot
+
 Library    TUTLibrary.py
 
 *** Variables ***

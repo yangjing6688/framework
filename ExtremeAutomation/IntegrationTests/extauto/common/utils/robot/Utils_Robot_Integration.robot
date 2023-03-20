@@ -1,5 +1,7 @@
 *** Settings ***
 Documentation       Test Utils integration with robot
+...                 Usage:
+...                 --loglevel TRACE Utils_Robot_Integration.robot
 
 Library    Process
 Library    OperatingSystem
