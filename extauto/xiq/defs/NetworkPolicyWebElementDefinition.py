@@ -758,7 +758,7 @@ class NetworkPolicyWebElementDefinition:
 
     switching_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-tab-switching"]',
+            'XPATH': '//*[@data-automation-tag="automation-tab-switch-settings"]',
             'wait_for': 3
         }
 
