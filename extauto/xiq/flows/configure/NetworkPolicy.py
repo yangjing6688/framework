@@ -461,7 +461,6 @@ class NetworkPolicy(object):
             if self._select_ssid(ssid_name):
                 self.utils.print_info("Sending New SSID: ", new_ssid_name)
                 self.auto_actions.send_keys(self.np_web_elements.get_network_policy_wireless_ssid_name_textfield(), new_ssid_name)
-                sleep(5)
 
         self.utils.print_info("Clicking on Network Save button..")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
@@ -477,9 +476,9 @@ class NetworkPolicy(object):
         """
 
         self.utils.print_info("Selecting Network Policy: ", policy_name)
-
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
+        sleep(2)
 
         policy_cards = self.np_web_elements.get_network_policy_card_items()
         if policy_cards is None:
