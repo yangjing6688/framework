@@ -66,7 +66,7 @@ toc_file = "source/index.rst"
 for keyword_directory in os.listdir(base_directory):
     if not keyword_directory.startswith("__") and \
        not keyword_directory.endswith("__"):
-        print(f'Creating documenation for: {keyword_directory}')
+        print(f'Creating documentation for: {keyword_directory}')
         entire_directory = os.path.join(base_directory, keyword_directory)
         # Add the directory to the TOC
         final_toc = toc_base +  keyword_directory
@@ -76,12 +76,12 @@ for keyword_directory in os.listdir(base_directory):
         os.system("sphinx-apidoc -o " + docs_rst_files_directory + " " + base_directory)
 
         # Replace the name for the TOC
-        toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
-        keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+        #toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
+        #keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
 
         # Adjust the name of the base files
-        replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
-        replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
+        #replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
+        #replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
 
         # This may be needed in the future when we have multiple directory levels
         # adjust the name for the sub directory files
