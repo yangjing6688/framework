@@ -80,7 +80,7 @@ for keyword_directory in os.listdir(base_directory):
             replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
 
         # Generate the doc files
-        os.system("sphinx-apidoc -d 1 -e -M --tocfile " + keyword_directory + " -o " + docs_rst_files_directory + " " + os.path.join(base_directory, keyword_directory))
+        os.system("export SPHINX_APIDOC_OPTIONS=members,undoc-members && sphinx-apidoc -d 1 -M --tocfile " + keyword_directory + " -o " + docs_rst_files_directory + " " + os.path.join(base_directory, keyword_directory))
 
         # Replace the name for the TOC
         toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'

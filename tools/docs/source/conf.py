@@ -23,6 +23,9 @@ extensions = ['sphinx.ext.viewcode',
               'sphinx.ext.autodoc',
               'sphinx.ext.napoleon']
 
+autodoc_default_flags = ['members','undoc-members']
+toc_object_entries_show_parents = 'none'
+
 templates_path = ['_templates']
 exclude_patterns = []
 source_suffix = ['.rst', '.md']
@@ -31,4 +34,3 @@ source_suffix = ['.rst', '.md']
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 html_theme = 'bizstyle'
-html_static_path = ['_static']
