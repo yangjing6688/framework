@@ -478,7 +478,7 @@ class NetworkPolicy(object):
         self.utils.print_info("Selecting Network Policy: ", policy_name)
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
-        sleep(2)
+        self.utils.wait_till(self.np_web_elements.get_network_policy_card_item,timeout=6, delay=2)
 
         policy_cards = self.np_web_elements.get_network_policy_card_items()
         if policy_cards is None:
