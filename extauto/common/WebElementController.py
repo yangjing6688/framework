@@ -52,7 +52,7 @@ class WebElementController:
                     action_method(web_element)
                     return 1
                 else:
-                    method_name = get_web_element_method.__name___
+                    method_name = get_web_element_method.__name__
                     self.utils.print_info(f"web_element returned from: {method_name} is not present")
             except Exception as e:
                 self.utils.print_info(f"Exception on action for an element {e}")
