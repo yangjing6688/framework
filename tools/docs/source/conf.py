@@ -11,6 +11,8 @@ base_framework_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'
 # Add new Paths here for new docs
 sys.path.insert(0, os.path.join(base_framework_path, 'keywords'))
 sys.path.insert(0, os.path.join(base_framework_path, 'keywords', 'xapi_base' ))
+sys.path.insert(0, os.path.join(base_framework_path))
+
 
 project = 'AutoIQ Keywords'
 copyright = '2023, AutoIQ Group'
