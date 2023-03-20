@@ -17,47 +17,50 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wired_connectivity_experience(self, **kwargs):
 
         """
-        get_wired_connectivity_experience  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wired_connectivity_experience(view_type, start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wired connectivity experience    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wired_connectivity_experience(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqWiredViewType view_type: The type of View (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int page: Page number, min = 1
-        :param int limit: Page Size, min = 1, max = 100
-        :param XiqSortField sort_field: sort by name or quality index
-        :param XiqSortOrder sort_order: The sorting order
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: PagedXiqConnectivityExperienceData
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wired_connectivity_experience  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wired_connectivity_experience(view_type, start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wired connectivity experience    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wired_connectivity_experience(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqWiredViewType view_type: The type of View (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int page: Page number, min = 1
+			:param int limit: Page Size, min = 1, max = 100
+			:param XiqSortField sort_field: sort by name or quality index
+			:param XiqSortOrder sort_order: The sorting order
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: PagedXiqConnectivityExperienceData
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -90,7 +93,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -106,54 +109,57 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wired_events(self, **kwargs):
 
         """
-        get_wired_events  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wired_events(view_type, start_time, end_time, forensic_bucket, score_type, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wired events    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wired_events(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqWiredViewType view_type: The type of View (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param XiqForensicBucket forensic_bucket: The selected time bucket (required)
-        :param XiqCopilotWiredEventsScoreType score_type: The selected score type (required)
-        :param int page: Page number, min = 1
-        :param int limit: Page Size, min = 1, max = 100
-        :param XiqCopilotEventsWiredSortField sort_by: The sort field
-        :param XiqSortOrder sort_order: The sorting order
-        :param str view_id: The view id based on view type
-        :param str search_key: The selected search key
-        :param str location_type: The selected location type
-        :param str location_id: The selected location id
-        :param int timestamp: The timestamp to query, epoch time in milliseconds since 1/1/1970
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: PagedXiqWiredEventEntity
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wired_events  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wired_events(view_type, start_time, end_time, forensic_bucket, score_type, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wired events    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wired_events(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqWiredViewType view_type: The type of View (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param XiqForensicBucket forensic_bucket: The selected time bucket (required)
+			:param XiqCopilotWiredEventsScoreType score_type: The selected score type (required)
+			:param int page: Page number, min = 1
+			:param int limit: Page Size, min = 1, max = 100
+			:param XiqCopilotEventsWiredSortField sort_by: The sort field
+			:param XiqSortOrder sort_order: The sorting order
+			:param str view_id: The view id based on view type
+			:param str search_key: The selected search key
+			:param str location_type: The selected location type
+			:param str location_id: The selected location id
+			:param int timestamp: The timestamp to query, epoch time in milliseconds since 1/1/1970
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: PagedXiqWiredEventEntity
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -186,7 +192,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -202,45 +208,48 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wired_hardware(self, **kwargs):
 
         """
-        get_wired_hardware  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wired_hardware(view_type, start_time, end_time, forensic_bucket, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wired hardware    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wired_hardware(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqWiredViewType view_type: The type of View (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param XiqForensicBucket forensic_bucket: The selected time bucket (required)
-        :param str view_id: The view id based on view type
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqWiredHardwareResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wired_hardware  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wired_hardware(view_type, start_time, end_time, forensic_bucket, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wired hardware    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wired_hardware(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqWiredViewType view_type: The type of View (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param XiqForensicBucket forensic_bucket: The selected time bucket (required)
+			:param str view_id: The view id based on view type
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqWiredHardwareResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -273,7 +282,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -289,45 +298,48 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wired_quality_index(self, **kwargs):
 
         """
-        get_wired_quality_index  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wired_quality_index(start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wired quality index    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wired_quality_index(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param XiqWiredViewType view_type: The type of View
-        :param str view_id: The view id based on view type
-        :param XiqForensicBucket forensic_bucket: The selected time bucket
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqWiredQualityIndexResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wired_quality_index  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wired_quality_index(start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wired quality index    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wired_quality_index(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param XiqWiredViewType view_type: The type of View
+			:param str view_id: The view id based on view type
+			:param XiqForensicBucket forensic_bucket: The selected time bucket
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqWiredQualityIndexResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -360,7 +372,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -376,47 +388,50 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wireless_apps(self, **kwargs):
 
         """
-        get_wireless_apps  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wireless_apps(view_type, start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wireless apps    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wireless_apps(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqConnectivityExperienceViewType view_type: The type of View (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param str view_id: The view type identifier
-        :param XiqForensicBucket forensic_bucket: The time period bucket detected
-        :param str location_id: The location identifier
-        :param str location_type: The location type
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqWirelessAppsResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wireless_apps  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wireless_apps(view_type, start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wireless apps    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wireless_apps(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqConnectivityExperienceViewType view_type: The type of View (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param str view_id: The view type identifier
+			:param XiqForensicBucket forensic_bucket: The time period bucket detected
+			:param str location_id: The location identifier
+			:param str location_type: The location type
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqWirelessAppsResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -449,7 +464,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -465,47 +480,50 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wireless_connectivity_experience(self, **kwargs):
 
         """
-        get_wireless_connectivity_experience  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wireless_connectivity_experience(view_type, start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wireless connectivity experience    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wireless_connectivity_experience(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqConnectivityExperienceViewType view_type: View by location, ssid or osTypes (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int page: Page number, min = 1
-        :param int limit: Number of Records, min = 1, max = 100
-        :param XiqSortField sort_field: sort by name or quality index
-        :param XiqSortOrder sort_order: The sorting order
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: PagedXiqConnectivityExperienceData
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wireless_connectivity_experience  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wireless_connectivity_experience(view_type, start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wireless connectivity experience    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wireless_connectivity_experience(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqConnectivityExperienceViewType view_type: View by location, ssid or osTypes (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int page: Page number, min = 1
+			:param int limit: Number of Records, min = 1, max = 100
+			:param XiqSortField sort_field: sort by name or quality index
+			:param XiqSortOrder sort_order: The sorting order
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: PagedXiqConnectivityExperienceData
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -538,7 +556,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -554,54 +572,57 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wireless_events(self, **kwargs):
 
         """
-        get_wireless_events  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wireless_events(view_type, start_time, end_time, score_type, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wireless events    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wireless_events(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqConnectivityExperienceViewType view_type: View by location, ssid or osTypes (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param XiqCopilotWirelessEventsScoreType score_type: The wireless score type (required)
-        :param int page: Page number, min = 1
-        :param int limit: Number of Records, min = 1, max = 100
-        :param XiqCopilotEventsWirelessSortField sort_field: the sort field
-        :param XiqSortOrder sort_order: The sorting order
-        :param str view_id: The view type identifier
-        :param XiqForensicBucket forensic_bucket: The time period bucket detected
-        :param str search_key: The search key
-        :param str location_id: The location identifier
-        :param str location_type: The location type
-        :param int timestamp: The timestamp to query, epoch time in milliseconds since 1/1/1970
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: PagedXiqCopilotWirelessEvent
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wireless_events  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wireless_events(view_type, start_time, end_time, score_type, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wireless events    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wireless_events(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqConnectivityExperienceViewType view_type: View by location, ssid or osTypes (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param XiqCopilotWirelessEventsScoreType score_type: The wireless score type (required)
+			:param int page: Page number, min = 1
+			:param int limit: Number of Records, min = 1, max = 100
+			:param XiqCopilotEventsWirelessSortField sort_field: the sort field
+			:param XiqSortOrder sort_order: The sorting order
+			:param str view_id: The view type identifier
+			:param XiqForensicBucket forensic_bucket: The time period bucket detected
+			:param str search_key: The search key
+			:param str location_id: The location identifier
+			:param str location_type: The location type
+			:param int timestamp: The timestamp to query, epoch time in milliseconds since 1/1/1970
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: PagedXiqCopilotWirelessEvent
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -634,7 +655,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -650,47 +671,50 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wireless_performance(self, **kwargs):
 
         """
-        get_wireless_performance  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wireless_performance(view_type, start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wireless performance    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wireless_performance(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqConnectivityExperienceViewType view_type: The type of View (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param str view_id: The view type identifier
-        :param XiqForensicBucket forensic_bucket: The time period bucket detected
-        :param str location_id: The location identifier
-        :param str location_type: The location type
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqWirelessConnectivityPerformanceResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wireless_performance  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wireless_performance(view_type, start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wireless performance    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wireless_performance(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqConnectivityExperienceViewType view_type: The type of View (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param str view_id: The view type identifier
+			:param XiqForensicBucket forensic_bucket: The time period bucket detected
+			:param str location_id: The location identifier
+			:param str location_type: The location type
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqWirelessConnectivityPerformanceResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -723,7 +747,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -739,47 +763,50 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wireless_quality_index(self, **kwargs):
 
         """
-        get_wireless_quality_index  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wireless_quality_index(view_type, start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wireless quality index    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wireless_quality_index(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqConnectivityExperienceViewType view_type: The type of View (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param str view_id: The view type identifier
-        :param XiqForensicBucket forensic_bucket: The time period bucket detected
-        :param str location_id: The location identifier
-        :param str location_type: The location type
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqWirelessQualityIndexResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wireless_quality_index  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wireless_quality_index(view_type, start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wireless quality index    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wireless_quality_index(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqConnectivityExperienceViewType view_type: The type of View (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param str view_id: The view type identifier
+			:param XiqForensicBucket forensic_bucket: The time period bucket detected
+			:param str location_id: The location identifier
+			:param str location_type: The location type
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqWirelessQualityIndexResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -812,7 +839,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -828,47 +855,50 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wireless_time_to_connect(self, **kwargs):
 
         """
-        get_wireless_time_to_connect  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wireless_time_to_connect(view_type, start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wireless time to connect    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wireless_time_to_connect(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqConnectivityExperienceViewType view_type: The type of View (required)
-        :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
-        :param str view_id: The view type identifier
-        :param XiqForensicBucket forensic_bucket: The time period bucket detected
-        :param str location_id: The location identifier
-        :param str location_type: The location type
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqWirelessTimeToConnectResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wireless_time_to_connect  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wireless_time_to_connect(view_type, start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wireless time to connect    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wireless_time_to_connect(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqConnectivityExperienceViewType view_type: The type of View (required)
+			:param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+			:param str view_id: The view type identifier
+			:param XiqForensicBucket forensic_bucket: The time period bucket detected
+			:param str location_id: The location identifier
+			:param str location_type: The location type
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqWirelessTimeToConnectResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -901,7 +931,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -917,41 +947,44 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
     def xapi_base_get_wireless_views(self, **kwargs):
 
         """
-        get_wireless_views  # noqa: E501
-        
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_wireless_views(view_type, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
-        
-                get wireless views    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
-        
-                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
-                xapiBaseCopilotConnectivityExperienceApi.get_wireless_views(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqWirelessViewsListType view_type: The type of View (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqWirelessViewsTypeResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			get_wireless_views  # noqa: E501
+			
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_wireless_views(view_type, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
+			
+			    get wireless views    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
+			
+			    xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+			    xapiBaseCopilotConnectivityExperienceApi.get_wireless_views(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqWirelessViewsListType view_type: The type of View (required)
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqWirelessViewsTypeResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -984,7 +1017,7 @@ class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return

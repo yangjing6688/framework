@@ -17,42 +17,45 @@ class XapiBaseOperationApi(XapiHelper):
     def xapi_base_cancel_operation(self, **kwargs):
 
         """
-        Cancel Long-Running Operation (LRO)  # noqa: E501
-        
-        When the cancelable is true in operation metadata the clients are allowed to send a cancel request to ask the backend to cancel the operation. The server makes its best effort to cancel the operation, but success is not guaranteed.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.cancel_operation(operation_id, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseOperationApi.py
-        
-                cancel operation    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
-        
-                xapiBaseOperationApi = XapiBaseOperationApi()
-                xapiBaseOperationApi.cancel_operation(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param str operation_id: The operation ID (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Cancel Long-Running Operation (LRO)  # noqa: E501
+			
+			When the cancelable is true in operation metadata the clients are allowed to send a cancel request to ask the backend to cancel the operation. The server makes its best effort to cancel the operation, but success is not guaranteed.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.cancel_operation(operation_id, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseOperationApi.py
+			
+			    cancel operation    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
+			
+			    xapiBaseOperationApi = XapiBaseOperationApi()
+			    xapiBaseOperationApi.cancel_operation(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param str operation_id: The operation ID (required)
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: None
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -85,7 +88,7 @@ class XapiBaseOperationApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -101,42 +104,45 @@ class XapiBaseOperationApi(XapiHelper):
     def xapi_base_delete_operation(self, **kwargs):
 
         """
-        Delete Long-Running Operation (LRO)  # noqa: E501
-        
-        The Long-Running Operation (LRO) can be deleted when the operation is done or in PENDING status.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_operation(operation_id, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseOperationApi.py
-        
-                delete operation    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
-        
-                xapiBaseOperationApi = XapiBaseOperationApi()
-                xapiBaseOperationApi.delete_operation(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param str operation_id: The operation ID (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Delete Long-Running Operation (LRO)  # noqa: E501
+			
+			The Long-Running Operation (LRO) can be deleted when the operation is done or in PENDING status.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.delete_operation(operation_id, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseOperationApi.py
+			
+			    delete operation    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
+			
+			    xapiBaseOperationApi = XapiBaseOperationApi()
+			    xapiBaseOperationApi.delete_operation(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param str operation_id: The operation ID (required)
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: None
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -169,7 +175,7 @@ class XapiBaseOperationApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -185,42 +191,45 @@ class XapiBaseOperationApi(XapiHelper):
     def xapi_base_get_operation(self, **kwargs):
 
         """
-        Get Long-Running Operation (LRO) status and result  # noqa: E501
-        
-        Get the Long-Running Operation (LRO) status and result. The response will include either result or error if the operation is done.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_operation(operation_id, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseOperationApi.py
-        
-                get operation    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
-        
-                xapiBaseOperationApi = XapiBaseOperationApi()
-                xapiBaseOperationApi.get_operation(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param str operation_id: The operation ID (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqOperationObject
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Get Long-Running Operation (LRO) status and result  # noqa: E501
+			
+			Get the Long-Running Operation (LRO) status and result. The response will include either result or error if the operation is done.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_operation(operation_id, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseOperationApi.py
+			
+			    get operation    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseOperationApi import XapiBaseOperationApi
+			
+			    xapiBaseOperationApi = XapiBaseOperationApi()
+			    xapiBaseOperationApi.get_operation(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param str operation_id: The operation ID (required)
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqOperationObject
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -253,7 +262,7 @@ class XapiBaseOperationApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return

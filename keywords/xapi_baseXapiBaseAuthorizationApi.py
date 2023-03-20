@@ -17,42 +17,45 @@ class XapiBaseAuthorizationApi(XapiHelper):
     def xapi_base_check_permissions(self, **kwargs):
 
         """
-        Check permissions  # noqa: E501
-        
-        Get required permissions for given HTTP request.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.check_permissions(xiq_check_permission_request, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
-        
-                check permissions    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
-        
-                xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
-                xapiBaseAuthorizationApi.check_permissions(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqCheckPermissionRequest xiq_check_permission_request: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqCheckPermissionResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Check permissions  # noqa: E501
+			
+			Get required permissions for given HTTP request.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.check_permissions(xiq_check_permission_request, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
+			
+			    check permissions    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
+			
+			    xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
+			    xapiBaseAuthorizationApi.check_permissions(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqCheckPermissionRequest xiq_check_permission_request: (required)
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqCheckPermissionResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -85,7 +88,7 @@ class XapiBaseAuthorizationApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -101,42 +104,45 @@ class XapiBaseAuthorizationApi(XapiHelper):
     def xapi_base_generate_api_token(self, **kwargs):
 
         """
-        Generate new API token  # noqa: E501
-        
-        Generate a new API token with given permissions and expiration time.  The available permission list can be found via 'GET /auth/permissions' endpoint.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.generate_api_token(xiq_generate_api_token_request, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
-        
-                generate api token    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
-        
-                xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
-                xapiBaseAuthorizationApi.generate_api_token(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqGenerateApiTokenRequest xiq_generate_api_token_request: Generate API token request body (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqGenerateApiTokenResponse
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Generate new API token  # noqa: E501
+			
+			Generate a new API token with given permissions and expiration time.  The available permission list can be found via 'GET /auth/permissions' endpoint.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.generate_api_token(xiq_generate_api_token_request, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
+			
+			    generate api token    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
+			
+			    xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
+			    xapiBaseAuthorizationApi.generate_api_token(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqGenerateApiTokenRequest xiq_generate_api_token_request: Generate API token request body (required)
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqGenerateApiTokenResponse
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -169,7 +175,7 @@ class XapiBaseAuthorizationApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -185,41 +191,44 @@ class XapiBaseAuthorizationApi(XapiHelper):
     def xapi_base_get_current_api_token_info(self, **kwargs):
 
         """
-        Get current API token details  # noqa: E501
-        
-        Introspect current API token and get detail information.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.get_current_api_token_info(async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
-        
-                get current api token info    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
-        
-                xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
-                xapiBaseAuthorizationApi.get_current_api_token_info(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: XiqApiTokenInfo
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Get current API token details  # noqa: E501
+			
+			Introspect current API token and get detail information.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.get_current_api_token_info(async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
+			
+			    get current api token info    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
+			
+			    xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
+			    xapiBaseAuthorizationApi.get_current_api_token_info(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: XiqApiTokenInfo
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -252,7 +261,7 @@ class XapiBaseAuthorizationApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -268,41 +277,44 @@ class XapiBaseAuthorizationApi(XapiHelper):
     def xapi_base_list_permissions(self, **kwargs):
 
         """
-        Get permissions for current login user  # noqa: E501
-        
-        Get permissions for current login user, which are allowed for generating new API tokens.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_permissions(async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
-        
-                list permissions    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
-        
-                xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
-                xapiBaseAuthorizationApi.list_permissions(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: str
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Get permissions for current login user  # noqa: E501
+			
+			Get permissions for current login user, which are allowed for generating new API tokens.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.list_permissions(async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
+			
+			    list permissions    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
+			
+			    xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
+			    xapiBaseAuthorizationApi.list_permissions(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: str
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -335,7 +347,7 @@ class XapiBaseAuthorizationApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -351,42 +363,45 @@ class XapiBaseAuthorizationApi(XapiHelper):
     def xapi_base_validate_api_token(self, **kwargs):
 
         """
-        Validate API token  # noqa: E501
-        
-        Validate JWT format API token  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.validate_api_token(body, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
-        
-                validate api token    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
-        
-                xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
-                xapiBaseAuthorizationApi.validate_api_token(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param str body: (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Validate API token  # noqa: E501
+			
+			Validate JWT format API token  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.validate_api_token(body, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseAuthorizationApi.py
+			
+			    validate api token    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
+			
+			    xapiBaseAuthorizationApi = XapiBaseAuthorizationApi()
+			    xapiBaseAuthorizationApi.validate_api_token(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param str body: (required)
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: None
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -419,7 +434,7 @@ class XapiBaseAuthorizationApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return

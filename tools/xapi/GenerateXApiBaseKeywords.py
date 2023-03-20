@@ -46,14 +46,14 @@ class parseXAPI:
 
             # Add in the Robot / Pytest Examples
             self.doc_base_generated_directory = self.base_generated_directory.replace(os.getcwd(), '')[1:]
-            general_comment = "**Note: The kwargs options are explained in the :param section below.\n" \
+            general_comment = "**Note - The kwargs options are explained in the :param section below.\n" \
                               "These can be placed in the kwargs dict as key / values pairs or \n" \
                               "passed into the function as key / value pairs as separate arguments.\n\n"
-            robot_import = f'{self.tab}{self.tab}Library    ' + self.doc_base_generated_directory + f'/XapiBase{xapi_class_name}.py\n\n'
-            robot_example = f'{self.tab}Robot:\n{robot_import}{self.tab}{self.tab}{functionNode.name.replace("_"," ")}{self.tab}**kwargs\n'
-            pytest_import = f'{self.tab}{self.tab}from ' + self.doc_base_generated_directory.replace('/',".") + f'.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}\n\n'
-            pytest_class = f'{self.tab}{self.tab}xapiBase{xapi_class_name} = XapiBase{xapi_class_name}()\n'
-            pytest_example = f'\n{self.tab}Pytest:\n{pytest_import}{pytest_class}{self.tab}{self.tab}xapiBase{xapi_class_name}.{functionNode.name}(**kwargs)\n\n'
+            robot_import = f'{self.tab}Library    ' + self.doc_base_generated_directory + f'/XapiBase{xapi_class_name}.py\n\n'
+            robot_example = f'Robot ->\n\n{robot_import}{self.tab}{functionNode.name.replace("_"," ")}{self.tab}**kwargs\n'
+            pytest_import = f'{self.tab}from ' + self.doc_base_generated_directory.replace('/',".") + f'.XapiBase{xapi_class_name} import XapiBase{xapi_class_name}\n\n'
+            pytest_class = f'{self.tab}xapiBase{xapi_class_name} = XapiBase{xapi_class_name}()\n'
+            pytest_example = f'\nPytest ->\n\n{pytest_import}{pytest_class}{self.tab}xapiBase{xapi_class_name}.{functionNode.name}(**kwargs)\n\n'
 
             # Add the examples before the 1st :param or :return
             param_search = doc_string.index(':param')
@@ -66,7 +66,11 @@ class parseXAPI:
                 else:
                     doc_string = doc_string + general_comment + robot_example + pytest_example
 
-            doc_string = '"""\n' + self.tab + self.tab + doc_string.replace('\n', '\n' + self.tab + self.tab) + '\n\t\t\t\t-1 if there is a error (fault)\n'+ self.tab + self.tab + '"""\n'
+            doc_string_lines = doc_string.splitlines()
+            doc_string_new = ''
+            for line in doc_string_lines:
+                doc_string_new = doc_string_new + "\t\t\t" + line + '\n'
+            doc_string = '"""\n' + doc_string_new + '\n\t\t\t\t\t -1 if there is a error (fault)\n'+ self.tab + self.tab + '"""\n'
 
             # Read in the function definition template
             file_name = os.path.join(os.getcwd(), 'tools', 'xapi', 'base_generated_function_template.txt')

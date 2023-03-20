@@ -24,23 +24,24 @@ def fileContainsPattern(file_path, pattern):
 
 def replaceFileContents(file_path, pattern, subst, must_contain=None):
     #Create temp file
-    fh, abs_path = mkstemp()
-    with fdopen(fh,'w') as new_file:
-        with open(file_path) as old_file:
-            for line in old_file:
-                if must_contain:
-                    if must_contain in line:
-                        new_file.write(line.replace(pattern, subst))
+    if os.path.exists(file_path):
+        fh, abs_path = mkstemp()
+        with fdopen(fh,'w') as new_file:
+            with open(file_path) as old_file:
+                for line in old_file:
+                    if must_contain:
+                        if must_contain in line:
+                            new_file.write(line.replace(pattern, subst))
+                        else:
+                            new_file.write(line)
                     else:
-                        new_file.write(line)
-                else:
-                    new_file.write(line.replace(pattern, subst))
-    #Copy the file permissions from the old file to the new file
-    copymode(file_path, abs_path)
-    #Remove original file
-    remove(file_path)
-    #Move new file
-    move(abs_path, file_path)
+                        new_file.write(line.replace(pattern, subst))
+        #Copy the file permissions from the old file to the new file
+        copymode(file_path, abs_path)
+        #Remove original file
+        remove(file_path)
+        #Move new file
+        move(abs_path, file_path)
 
 new = 2 # open in a new tab, if possible
 
@@ -69,39 +70,42 @@ toc_file = os.path.join(source_file_path, 'source','index.rst')
 # Create and modify the RST files
 for keyword_directory in os.listdir(base_directory):
     if not keyword_directory.startswith("__") and \
-       not keyword_directory.endswith("__"):
+    not keyword_directory.endswith("__"):
         print(f'Creating documentation for: {keyword_directory}')
         entire_directory = os.path.join(base_directory, keyword_directory)
+
         # Add the directory to the TOC
         final_toc = toc_base +  keyword_directory
         if not fileContainsPattern(toc_file, final_toc):
             print(f'Adding {final_toc} to TOC')
             replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
-        return_value = os.system("sphinx-apidoc -o " + docs_rst_files_directory + " " + base_directory)
-        print(return_value)
+
+        # Generate the doc files
+        # 
+        return_value = os.system("sphinx-apidoc -f -T -o " + docs_rst_files_directory + " " + base_directory)
 
         # Replace the name for the TOC
-        # toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
-        # keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+        toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
+        keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory.replace('.py', '') + '.rst')
 
         # # Adjust the name of the base files
-        # replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
-        # replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
+        replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
+        replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
 
-        # # This may be needed in the future when we have multiple directory levels
-        # # adjust the name for the sub directory files
-        # keyword_file_base = keyword_file.replace('.rst', '')
-        # for root, dirs, files in os.walk(entire_directory):
-        #     for dir in dirs:
-        #         if '__' not in dir:
-        #             file_name = keyword_file_base + '.' + dir + '.rst'
-        #             toc_dir_replace_string = keyword_file_base + '.' + dir + ' package'
-        #             if os.path.isfile(file_name):
-        #                 replaceFileContents(file_name,'keywords.' + keyword_directory + '.' + dir + '.', '', must_contain=' module')
-        #                 replaceFileContents(file_name, ' module', '')
-        #                 replaceFileContents(file_name, 'Submodules', '')
-        #                 replaceFileContents(file_name, 'Module contents', '')
-        #                 replaceFileContents(file_name, toc_dir_replace_string, dir)
+        # This may be needed in the future when we have multiple directory levels
+        # adjust the name for the sub directory files
+        keyword_file_base = keyword_file.replace('.rst', '')
+        for root, dirs, files in os.walk(entire_directory):
+            for dir in dirs:
+                if '__' not in dir:
+                    file_name = keyword_file_base + '.' + dir + '.rst'
+                    toc_dir_replace_string = keyword_file_base + '.' + dir + ' package'
+                    if os.path.isfile(file_name):
+                        replaceFileContents(file_name,'keywords.' + keyword_directory + '.' + dir + '.', '', must_contain=' module')
+                        replaceFileContents(file_name, ' module', '')
+                        replaceFileContents(file_name, 'Submodules', '')
+                        replaceFileContents(file_name, 'Module contents', '')
+                        replaceFileContents(file_name, toc_dir_replace_string, dir)
 
 
 

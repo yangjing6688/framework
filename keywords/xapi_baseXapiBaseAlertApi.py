@@ -17,44 +17,47 @@ class XapiBaseAlertApi(XapiHelper):
     def xapi_base_count_alerts_by_group(self, **kwargs):
 
         """
-        Count the alerts by different grouping  # noqa: E501
-        
-        Count the number of alerts and events based on Severity, Category, and Alert Type.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.count_alerts_by_group(group, start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseAlertApi.py
-        
-                count alerts by group    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseAlertApi import XapiBaseAlertApi
-        
-                xapiBaseAlertApi = XapiBaseAlertApi()
-                xapiBaseAlertApi.count_alerts_by_group(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqAlertGroupQuery group: The group to count from (required)
-        :param int start_time: The start time for counting the alerts (required)
-        :param int end_time: The end time for counting the alerts (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: dict(str, int)
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			Count the alerts by different grouping  # noqa: E501
+			
+			Count the number of alerts and events based on Severity, Category, and Alert Type.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.count_alerts_by_group(group, start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseAlertApi.py
+			
+			    count alerts by group    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseAlertApi import XapiBaseAlertApi
+			
+			    xapiBaseAlertApi = XapiBaseAlertApi()
+			    xapiBaseAlertApi.count_alerts_by_group(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param XiqAlertGroupQuery group: The group to count from (required)
+			:param int start_time: The start time for counting the alerts (required)
+			:param int end_time: The end time for counting the alerts (required)
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: dict(str, int)
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -87,7 +90,7 @@ class XapiBaseAlertApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -103,49 +106,52 @@ class XapiBaseAlertApi(XapiHelper):
     def xapi_base_list_alerts(self, **kwargs):
 
         """
-        List the alerts  # noqa: E501
-        
-        List a page of alerts by filter.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_alerts(start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseAlertApi.py
-        
-                list alerts    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseAlertApi import XapiBaseAlertApi
-        
-                xapiBaseAlertApi = XapiBaseAlertApi()
-                xapiBaseAlertApi.list_alerts(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param int start_time: The start time for querying alerts in milliseconds (required)
-        :param int end_time: The end time for querying alerts in milliseconds (required)
-        :param int page: Page number, min = 1
-        :param int limit: Page Size, min = 1, max = 100
-        :param XiqAlertSeverity severity: The alert severity to filter
-        :param XiqAlertCategory category: The alert category to filter
-        :param str alert_type: The alert type to filter
-        :param str keyword: The keyword to filter, such as device SN or MAC address
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: PagedXiqAlert
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			List the alerts  # noqa: E501
+			
+			List a page of alerts by filter.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.list_alerts(start_time, end_time, async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseAlertApi.py
+			
+			    list alerts    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseAlertApi import XapiBaseAlertApi
+			
+			    xapiBaseAlertApi = XapiBaseAlertApi()
+			    xapiBaseAlertApi.list_alerts(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param int start_time: The start time for querying alerts in milliseconds (required)
+			:param int end_time: The end time for querying alerts in milliseconds (required)
+			:param int page: Page number, min = 1
+			:param int limit: Page Size, min = 1, max = 100
+			:param XiqAlertSeverity severity: The alert severity to filter
+			:param XiqAlertCategory category: The alert category to filter
+			:param str alert_type: The alert type to filter
+			:param str keyword: The keyword to filter, such as device SN or MAC address
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: PagedXiqAlert
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -178,7 +184,7 @@ class XapiBaseAlertApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return

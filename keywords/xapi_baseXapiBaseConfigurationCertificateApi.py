@@ -17,44 +17,47 @@ class XapiBaseConfigurationCertificateApi(XapiHelper):
     def xapi_base_list_certificates(self, **kwargs):
 
         """
-        List certificates  # noqa: E501
-        
-        List a page of certificates.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.list_certificates(async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as separate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseConfigurationCertificateApi.py
-        
-                list certificates    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseConfigurationCertificateApi import XapiBaseConfigurationCertificateApi
-        
-                xapiBaseConfigurationCertificateApi = XapiBaseConfigurationCertificateApi()
-                xapiBaseConfigurationCertificateApi.list_certificates(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param int page: Page number, min = 1
-        :param int limit: Page Size, min = 1, max = 100
-        :param XiqCertificateType cert_type: The certificate type
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: PagedXiqCertificate
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+			List certificates  # noqa: E501
+			
+			List a page of certificates.  # noqa: E501
+			This method makes a synchronous HTTP request by default. To make an
+			asynchronous HTTP request, please pass async_req=True
+			>>> thread = api.list_certificates(async_req=True)
+			>>> result = thread.get()
+			
+			**Note - The kwargs options are explained in the :param section below.
+			These can be placed in the kwargs dict as key / values pairs or 
+			passed into the function as key / value pairs as separate arguments.
+			
+			Robot ->
+			
+			    Library    keywords/xapi_base/XapiBaseConfigurationCertificateApi.py
+			
+			    list certificates    **kwargs
+			
+			Pytest ->
+			
+			    from keywords.xapi_base.XapiBaseConfigurationCertificateApi import XapiBaseConfigurationCertificateApi
+			
+			    xapiBaseConfigurationCertificateApi = XapiBaseConfigurationCertificateApi()
+			    xapiBaseConfigurationCertificateApi.list_certificates(**kwargs)
+			
+			:param async_req bool: execute request asynchronously
+			:param int page: Page number, min = 1
+			:param int limit: Page Size, min = 1, max = 100
+			:param XiqCertificateType cert_type: The certificate type
+			:param _preload_content: if False, the urllib3.HTTPResponse object will
+			                         be returned without reading/decoding response
+			                         data. Default is True.
+			:param _request_timeout: timeout setting for this request. If one
+			                         number provided, it will be total request
+			                         timeout. It can also be a pair (tuple) of
+			                         (connection, read) timeouts.
+			:return: PagedXiqCertificate
+			         If the method is called asynchronously,
+			         returns the request thread.
+
+					 -1 if there is a error (fault)
         """
 
 
@@ -87,7 +90,7 @@ class XapiBaseConfigurationCertificateApi(XapiHelper):
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
