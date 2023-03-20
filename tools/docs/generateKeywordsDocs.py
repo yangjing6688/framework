@@ -42,6 +42,32 @@ def replaceFileContents(file_path, pattern, subst, must_contain=None):
         #Move new file
         move(abs_path, file_path)
 
+
+def create_rst_for_directory(base_directory, docs_rst_files_directory):
+    # Create and modify the RST files
+    for keyword_directory in os.listdir(base_directory):
+        entire_directory = os.path.join(base_directory, keyword_directory)
+        if os.path.isdir(entire_directory) and \
+        not keyword_directory.startswith("__") and \
+        not keyword_directory.endswith("__"):
+            print(f'Creating documentation for: {entire_directory}')
+
+            # Add the directory to the TOC
+            final_toc = "docs/" + keyword_directory
+            if not fileContainsPattern(toc_file, final_toc):
+                print(f'Adding {final_toc} to TOC')
+                replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
+
+            # Generate the doc files
+            os.system("export SPHINX_APIDOC_OPTIONS=members,undoc-members && sphinx-apidoc -d 1 -M --tocfile " + keyword_directory + " -o " + docs_rst_files_directory + " " + os.path.join(base_directory, keyword_directory))
+
+            # Replace the name for the TOC
+            toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
+            keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+
+            # Check this directory for other directories
+            create_rst_for_directory(entire_directory, docs_rst_files_directory)
+
 # Remove all of the old files
 docs_rst_files_directory = os.path.join(source_file_path, 'source','docs')
 if not os.path.exists(docs_rst_files_directory):
@@ -64,26 +90,7 @@ toc_base = 'docs/keywords.'
 base_directory = os.path.join(source_file_path,'..','..','keywords')
 toc_file = os.path.join(source_file_path, 'source','index.rst')
 
-# Create and modify the RST files
-for keyword_directory in os.listdir(base_directory):
-    entire_directory = os.path.join(base_directory, keyword_directory)
-    if os.path.isdir(entire_directory) and \
-       not keyword_directory.startswith("__") and \
-       not keyword_directory.endswith("__"):
-        print(f'Creating documentation for: {entire_directory}')
-
-        # Add the directory to the TOC
-        final_toc = "docs/" + keyword_directory
-        if not fileContainsPattern(toc_file, final_toc):
-            print(f'Adding {final_toc} to TOC')
-            replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
-
-        # Generate the doc files
-        os.system("export SPHINX_APIDOC_OPTIONS=members,undoc-members && sphinx-apidoc -d 1 -M --tocfile " + keyword_directory + " -o " + docs_rst_files_directory + " " + os.path.join(base_directory, keyword_directory))
-
-        # Replace the name for the TOC
-        toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
-        keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+create_rst_for_directory(base_directory, docs_rst_files_directory)
 
 
 # Generate the html
