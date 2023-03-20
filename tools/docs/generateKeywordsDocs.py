@@ -1,6 +1,6 @@
 # This file will generate the Keyword API documentation
 import os
-import webbrowser
+# import webbrowser
 from tempfile import mkstemp
 from shutil import move, copymode, rmtree
 from os import fdopen, remove
@@ -112,5 +112,5 @@ os.system("make html")
 print('Completed')
 
 # Debugging the page
-url = f"file:{source_file_path}/build/index.html"
-webbrowser.open(url,new=new)
+# url = f"file:{source_file_path}/build/index.html"
+# webbrowser.open(url,new=new)
