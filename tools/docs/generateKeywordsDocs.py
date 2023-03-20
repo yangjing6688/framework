@@ -81,27 +81,27 @@ for keyword_directory in os.listdir(base_directory):
         print(return_value)
 
         # Replace the name for the TOC
-        toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
-        keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+        # toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
+        # keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
 
-        # Adjust the name of the base files
-        replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
-        replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
+        # # Adjust the name of the base files
+        # replaceFileContents(keyword_file, toc_replace_string, toc_title.get(keyword_directory,''))
+        # replaceFileContents(keyword_file, keyword_contents.get(keyword_directory,''), '')
 
-        # This may be needed in the future when we have multiple directory levels
-        # adjust the name for the sub directory files
-        keyword_file_base = keyword_file.replace('.rst', '')
-        for root, dirs, files in os.walk(entire_directory):
-            for dir in dirs:
-                if '__' not in dir:
-                    file_name = keyword_file_base + '.' + dir + '.rst'
-                    toc_dir_replace_string = keyword_file_base + '.' + dir + ' package'
-                    if os.path.isfile(file_name):
-                        replaceFileContents(file_name,'keywords.' + keyword_directory + '.' + dir + '.', '', must_contain=' module')
-                        replaceFileContents(file_name, ' module', '')
-                        replaceFileContents(file_name, 'Submodules', '')
-                        replaceFileContents(file_name, 'Module contents', '')
-                        replaceFileContents(file_name, toc_dir_replace_string, dir)
+        # # This may be needed in the future when we have multiple directory levels
+        # # adjust the name for the sub directory files
+        # keyword_file_base = keyword_file.replace('.rst', '')
+        # for root, dirs, files in os.walk(entire_directory):
+        #     for dir in dirs:
+        #         if '__' not in dir:
+        #             file_name = keyword_file_base + '.' + dir + '.rst'
+        #             toc_dir_replace_string = keyword_file_base + '.' + dir + ' package'
+        #             if os.path.isfile(file_name):
+        #                 replaceFileContents(file_name,'keywords.' + keyword_directory + '.' + dir + '.', '', must_contain=' module')
+        #                 replaceFileContents(file_name, ' module', '')
+        #                 replaceFileContents(file_name, 'Submodules', '')
+        #                 replaceFileContents(file_name, 'Module contents', '')
+        #                 replaceFileContents(file_name, toc_dir_replace_string, dir)
 
 
 

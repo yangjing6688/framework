@@ -25,6 +25,28 @@ into the keyword.
    :name: mastertoc
    :caption: Table of Contents:
 
+   docs/keywords.xapi_baseXapiBaseOperationApi.py
+   docs/keywords.xapi_baseXapiBaseAuthorizationApi.py
+   docs/keywords.xapi_baseXapiBaseNotificationApi.py
+   docs/keywords.xapi_baseXapiBaseAccountApi.py
+   docs/keywords.xapi_baseXapiBaseApplicationApi.py
+   docs/keywords.xapi_baseXapiBaseConfigurationBasicApi.py
+   docs/keywords.xapi_baseXapiBaseUserApi.py
+   docs/keywords.xapi_baseXapiBaseCopilotConnectivityExperienceApi.py
+   docs/keywords.xapi_baseXapiBaseAuthenticationApi.py
+   docs/keywords.xapi_baseXapiBaseConfigurationUserManagementApi.py
+   docs/keywords.xapi_baseXapiBaseConfigurationPolicyApi.py
+   docs/keywords.xapi_baseXapiBaseConfigurationCertificateApi.py
+   docs/keywords.xapi_baseXapiBaseConfigurationDeploymentApi.py
+   docs/keywords.xapi_baseXapiBaseCopilotAnomaliesApi.py
+   docs/keywords.xapi_baseXapiBaseClientApi.py
+   docs/keywords.xapi_baseXapiBaseLocationApi.py
+   docs/keywords.xapi_baseXapiBaseDeviceApi.py
+   docs/keywords.xapi_baseXapiBaseHIQApi.py
+   docs/keywords.xapi_baseXapiBaseNetworkPolicyApi.py
+   docs/keywords.xapi_baseXapiBaseAlertApi.py
+   docs/keywords.xapi_baseXapiBaseConfigurationAuthenticationApi.py
+   docs/keywords.xapi_baseXapiBaseLogApi.py
    docs/keywords.xapi_base
 
 Indices and tables
