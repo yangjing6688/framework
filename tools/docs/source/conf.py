@@ -7,11 +7,10 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 import os
 import sys
-import sphinx_rtd_theme
-# sys.path.insert(0, os.path.abspath(os.path.join('..')))
-# sys.path.insert(0, os.path.abspath(os.path.join('..', 'keywords')))
-sys.path.insert(0, os.path.abspath("../.."))
-
+base_framework_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),'..','..','..')
+# Add new Paths here for new docs
+sys.path.insert(0, os.path.join(base_framework_path, 'keywords'))
+sys.path.insert(0, os.path.join(base_framework_path, 'keywords', 'xapi_base' ))
 
 project = 'AutoIQ Keywords'
 copyright = '2023, AutoIQ Group'
@@ -20,14 +19,9 @@ release = '5.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-extensions = ["sphinx.ext.todo",
-              "sphinx.ext.viewcode",
+extensions = ['sphinx.ext.viewcode',
               'sphinx.ext.autodoc',
-              'sphinx.ext.napoleon',
-              'sphinx.ext.autosectionlabel',
-              'sphinx.ext.autosummary',
-              'sphinx.ext.inheritance_diagram',
-               'm2r2']
+              'sphinx.ext.napoleon']
 
 templates_path = ['_templates']
 exclude_patterns = []
@@ -36,5 +30,5 @@ source_suffix = ['.rst', '.md']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-html_theme = 'bizstyle' #'sphinx_rtd_theme' 'bizstyle'
-# html_static_path = ['_static']
+html_theme = 'bizstyle'
+html_static_path = ['_static']

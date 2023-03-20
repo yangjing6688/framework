@@ -111,7 +111,7 @@ class parseXAPI:
                 classes = [n for n in node.body if isinstance(n, ast.ClassDef)]
                 for class_ in classes:
                     print("Class name:", class_.name)
-                    new_class_file = self.base_generated_directory + "XapiBase" + class_.name + ".py"
+                    new_class_file = self.base_generated_directory + "/XapiBase" + class_.name + ".py"
                     if os.path.exists(new_class_file):
                         os.remove(new_class_file)
                     class_file = open(new_class_file, "a")
