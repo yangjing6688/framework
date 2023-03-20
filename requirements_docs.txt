@@ -34,7 +34,7 @@ urllib3==1.23
 pyvmomi==6.7.1
 flask-cors==3.0.7
 pycryptodome==3.10.1
-pyyaml==3.13
+pyyaml
 mock==2.0.0
 requests
 pysnmp==4.4.6
@@ -43,6 +43,5 @@ xmlrunner==1.7.7
 oyaml==0.7
 textfsm==0.4.1
 PyMySQL==1.0.2
-wheel==0.36.2
 extremecloudiq-api==22.6.4.1
 pytest-vscodedebug==0.1.0
