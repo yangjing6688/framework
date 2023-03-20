@@ -2769,12 +2769,18 @@ class Cli(object):
 
         elif dut.cli_type.lower() == "exos" and dut.platform.lower() == 'stack':
             self.utils.print_info("Checking for connected ports on exos stack...")
+            clear_lldp_table = self.networkElementCliSend.send_cmd(dut.name, 'clear lldp neighbors all', max_wait=10, interval=2)
+            self.utils.wait_till(timeout=90, delay=30, silent_failure=True, msg="Waiting for lldp table to "
+                                                                                "be repopulated on switch")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
             lldp_neighbor_summary_output = output[0].cmd_obj.return_text
             connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output,'((?<=LLDP Port )\d+:\d+)', 1)
 
         elif dut.cli_type.lower() == "exos":
             self.utils.print_info("Checking for connected ports on exos switch...")
+            clear_lldp_table = self.networkElementCliSend.send_cmd(dut.name, 'clear lldp neighbors all', max_wait=10, interval=2)
+            self.utils.wait_till(timeout=90, delay=30, silent_failure=True, msg="Waiting for lldp table to "
+                                                                                "be repopulated on stack")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
             lldp_neighbor_summary_output = output[0].cmd_obj.return_text
             connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=LLDP Port )\d+)', 1)
@@ -2849,7 +2855,7 @@ class Cli(object):
             cli_dut = self.networkElementCliSend.send_cmd(dut.name, "show logging file detail | include SSH:127.0.0.1")
         elif dut.cli_type.lower() == 'exos':
             if dut.platform.lower() == 'stack':
-                self.utils.wait_till(timeout=90, delay=30, silent_failure=True, msg="Waiting for commands to "
+                self.utils.wait_till(timeout=120, delay=60, silent_failure=True, msg="Waiting for commands to "
                                                                "be sent to the stack...")
             cli_dut = self.networkElementCliSend.send_cmd(dut.name, f"show cli journal | begin {dut_time} ")
         output_CLI = self.get_cli_commands(info=cli_dut[0].cmd_obj.return_text, cli_type=dut.cli_type)
