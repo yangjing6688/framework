@@ -8,8 +8,10 @@
 import os
 import sys
 import sphinx_rtd_theme
-sys.path.insert(0, os.path.abspath(os.path.join('..')))
-sys.path.insert(0, os.path.abspath(os.path.join('..', 'keywords')))
+# sys.path.insert(0, os.path.abspath(os.path.join('..')))
+# sys.path.insert(0, os.path.abspath(os.path.join('..', 'keywords')))
+sys.path.insert(0, os.path.abspath("../.."))
+
 
 project = 'AutoIQ Keywords'
 copyright = '2023, AutoIQ Group'
@@ -34,5 +36,5 @@ source_suffix = ['.rst', '.md']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'sphinx_rtd_theme' #'sphinx_rtd_theme' 'bizstyle'
 html_static_path = ['_static']
