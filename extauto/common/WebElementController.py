@@ -60,7 +60,7 @@ class WebElementController:
             self.utils.print_info(f"Retry the action on element {web_element} for {retry_count} times")
             sleep(5)
 
-        action_method_name = action_method.__name___
+        action_method_name = action_method.__name__
         kwargs['fail_msg'] = f"FAIL - Unable to complete the action {action_method_name}"
         self.common_validation.fault(**kwargs)
         return -1
