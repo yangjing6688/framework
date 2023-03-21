@@ -220,8 +220,7 @@ class Logger(object, metaclass=Singleton):
                      self.CLI_SEND,
                      self.CLI_READ]:
             self.__update_handlers(level)
-            print(self.format_message(msg))
-            # self.logger.log(level, self.format_message(msg))
+            self.logger.log(level, self.format_message(msg))
         else:
             raise ValueError("Unknown log type.")
 
