@@ -4,23 +4,32 @@ on:
     branches: [main, RELEASE-**]
 
 jobs:
-  # Leaving this in place for future sanity testing.
-  # We will use the executeJobFromName endpoint to run a saved sanity test job.
-  #
-  # framework_sanity:
-  #   name: Validate Framework Functionality
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     status: ${{ steps.set-output.outputs.status }}
 
-  #   steps:
+  framework_sanity:
+    name: Validate Framework Functionality
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ steps.set-output.outputs.status }}
+
+    steps:
+    - name: Run sanity test
+      run: |
+        curl -X 'POST' \
+          'https://autoiq.extremenetworks.com/tbedmgr/jobmgr/saved_job/executeSavedJobFromName' \
+          -H 'accept: application/json' \
+          -H 'Content-Type: application/json' \
+          -d '{
+                "savedJobName": "pytest_framework_sanity",
+                "testRepoBranch": "main",
+                "frameworkRepoBranch": "${{ github.ref_name }}"
+              }'
 
 
-    # - name: Set job status output
-    #   if: ${{ always() }}
-    #   id: set-output
-    #   run: |
-    #     echo "status=${{ job.status }}" >> $GITHUB_OUTPUT
+    - name: Set job status output
+      if: ${{ always() }}
+      id: set-output
+      run: |
+        echo "status=${{ job.status }}" >> $GITHUB_OUTPUT
 
   code_checks:
     name: Run code quality tools
@@ -49,6 +58,9 @@ jobs:
 
         printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Keywords ========"
         python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Keywords
+
+        printf '\n%s\n\n' "======== Running flake8 in /keywords ========"
+        python3 -m flake8 --config=${SETUP_CFG} ./keywords
 
     - name: Set job status output
       if: ${{ always() }}
