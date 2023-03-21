@@ -16111,7 +16111,7 @@ class Device360(Device360WebElements):
                 self.auto_actions.click_reference(self.get_device360_wireless_wifi6gscoretab())
             elif band == 'combined':
                 self.utils.print_info("Click on combined tab")
-                self.auto_actions.click(self.get_device360_wireless_combinedscoretab())
+                self.auto_actions.click_reference(self.get_device360_wireless_combinedscoretab())
 
             if overall_score != 'None':
                 self.utils.wait_till(self.dev360.get_device360_wireless_combinedscore, timeout=15, delay=5, is_logging_enabled=True)
