@@ -8,6 +8,7 @@ jobs:
   framework_sanity:
     name: Validate Framework Functionality
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     outputs:
       status: ${{ steps.set-output.outputs.status }}
 
@@ -16,7 +17,10 @@ jobs:
       shell: python
       run: |
         from sys import exit
+        from time import sleep
         import requests
+
+        jobmgr_base_url = "https://autoiq.extremenetworks.com/tbedmgr/jobmgr"
 
         headers = {
           "accept": "application/json",
@@ -29,7 +33,7 @@ jobs:
           "frameworkRepoBranch": "${{ github.head_ref }}"
         }
 
-        response = requests.post(url="https://autoiq.extremenetworks.com/tbedmgr/jobmgr/saved_job/executeSavedJobFromName", headers=headers, json=payload)
+        response = requests.post(url=f"{jobmgr_base_url}/saved_job/executeSavedJobFromName", headers=headers, json=payload)
 
         if response.status_code != requests.codes.created:
           print(f"Error: got a bad response code <{reponse.status_code}>. Response text: {response.texts}")
@@ -41,7 +45,36 @@ jobs:
           print(f"Error: Unable to find Job Id in response. {response.text}")
           exit(1)
 
-        print(f"Job UUID: {job_uuid}")
+        print(f"Job Created! UUID: {job_uuid}. Waiting for job to complete...")
+        sleep(60) # Wait for job to start
+
+        sleep_interval = 20 # seconds
+        for i in range(60): # Wait for 20 minutes
+          response = requests.get(url=f"{jobmgr_base_url}/jobs/{job_uuid}", headers=headers)
+          if response.status_code != requests.codes.ok:
+            print(f"Error: got a bad response code <{reponse.status_code}>. Response text: {response.texts}")
+            response.raise_for_status()
+
+          try:
+            job_status = response.json()["result"][0]["status"]
+            job_status_message = response.json()["result"][0]["statusMessage"]
+          except:
+            print(f"Error: Unable to find Job Status in response. {response.text}")
+            exit(1)
+
+          print(f"::group::Job Status#{i}")
+          print(response.json())
+          print("::endgroup::")
+
+          if job_status == "complete":
+            print(f"Job Completed Successfully!")
+            exit(0)
+          elif job_status in ["queued", "running", "validating", "processing"]:
+            print(f"Job Not Finished. Waiting for job to complete...")
+          else:
+            print(f"Job Completed Unsuccessfully! Status: {job_status}. Status Message: {job_status_message}")
+
+          sleep(sleep_interval)
 
 
     - name: Set job status output
