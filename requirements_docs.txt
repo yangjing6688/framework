@@ -1,7 +1,47 @@
 # ------------------   Docs  ----------------------
 Sphinx==6.1.3
 sphinx-adc-theme==0.1.7
-sphinx-rtd-theme
+sphinx-rtd-theme==1.2.0
+sphinxcontrib-apidoc==0.3.0
 m2r2
 
 
+Flask==1.1.1
+image==1.5.28
+netmiko==3.0.0
+paramiko==2.9.2
+pexpect==4.8.0
+robotframework==4.1.1
+robotframework-debuglibrary==2.2.2
+robotframework-pabot==2.1.0
+sauceclient==1.0.0
+selenium==3.141.0
+sauceclient==1.0.0
+opencv-python==4.5.5.64
+bs4==0.0.1
+typing-extensions==4.1.1
+# ----------------- From Wireless End ---------------------
+pytest==6.2.2
+pytest-html==3.1.1
+pytest-testconfig==0.2.0
+pytest-yaml==1.2.1
+pytest-sugar==0.9.4
+pytest-xdist==2.2.1
+pytest-helpers-namespace
+pytest-ordering==0.6
+allure-pytest==2.8.36
+urllib3==1.23
+pyvmomi==6.7.1
+flask-cors==3.0.7
+pycryptodome==3.10.1
+pyyaml
+mock==2.0.0
+requests
+pysnmp==4.4.6
+pyserial==3.4
+xmlrunner==1.7.7
+oyaml==0.7
+textfsm==0.4.1
+PyMySQL==1.0.2
+extremecloudiq-api==22.6.4.1
+pytest-vscodedebug==0.1.0
