@@ -116,10 +116,9 @@ class GmailHandler:
         Get the raw emails from latest 5 emails based on the subj
         :param email_item_list: List of the emails
         :param subj: subject line of the email
-        :return: an array of emails
+        :return:
         """
         email_count = 0
-        array_of_emails = []
         for mail in email_item_list[::-1]:
             result, email_data = self.mail.uid('fetch', mail, '(RFC822)')
             raw_email = email_data[0][1].decode("utf-8")
