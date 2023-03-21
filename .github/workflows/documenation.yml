@@ -18,7 +18,6 @@ jobs:
           python generateKeywordsDocs.py
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
-        # && github.ref == 'refs/heads/main'
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main'}}
         with:
           publish_branch: gh-pages
