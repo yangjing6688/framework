@@ -13,6 +13,14 @@ keyword_contents = dict(xapi_base='keywords.xapi\_base.')
 
 
 def fileContainsPattern(file_path, pattern):
+    """
+        This will check for the pattern in the file
+
+        :param file_path -  The file path
+        :param  pattern - The string pattern to look for
+
+        :return True if the pattern was found and False if is wasn't found
+    """
     with open(file_path, 'r') as file:
         # read all content of a file
         content = file.read()
@@ -22,6 +30,17 @@ def fileContainsPattern(file_path, pattern):
     return False
 
 def replaceFileContents(file_path, pattern, subst, must_contain=None):
+    """
+        This will replace the pattern with the subst string passed in if found
+
+        :param file_path -  The file path
+        :param pattern - The string pattern to look for
+        :param subst - The substitute string 
+        :param must_contain - If this is not none, the line must contain this string in order for the replacement to take place
+
+        :return  - None
+
+    """
     #Create temp file
     if os.path.exists(file_path):
         fh, abs_path = mkstemp()
@@ -44,6 +63,14 @@ def replaceFileContents(file_path, pattern, subst, must_contain=None):
 
 
 def create_rst_for_directory(base_directory, docs_rst_files_directory):
+    """
+        This will create the rst sphinx files for the directory that was passed in and save them in the docs_rst_files_directory.
+
+        :param base_directory - The directory to generate the rst files from
+        :param docs_rst_files_directory - The directory to save the generated rst file to
+
+        :return: None
+    """
     # Create and modify the RST files
     for keyword_directory in os.listdir(base_directory):
         entire_directory = os.path.join(base_directory, keyword_directory)
