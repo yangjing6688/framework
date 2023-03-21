@@ -15831,6 +15831,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"Unable to get D360 Monitor: {e}"
             self.common_validation.failed(**kwargs)
             return -1
+
     def _get_d360_monitor_overview(self, get_overview, **kwargs):
         """
         - This keyword obtains Overview page.
@@ -15855,6 +15856,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"Unable to get D360 Monitor Overview: {e}"
             self.common_validation.failed(**kwargs)
             return -1
+
     def _get_d360_monitor_system_information(self, get_system_info, **kwargs):
         """
         - This keyword obtains System Information page.
@@ -15974,6 +15976,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"Unable to get D360 Monitor System Information: {e}"
             self.common_validation.failed(**kwargs)
             return -1
+
     def _get_d360_monitor_wireless_interfaces(self, get_wireless_interfaces, **kwargs):
         """
         - This keyword obtains Wireless Interfaces page.
@@ -16021,6 +16024,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"Unable to get D360 Monitor Wireless Interfaces: {e}"
             self.common_validation.failed(**kwargs)
             return -1
+
     def _get_d360_monitor_clients(self, get_clients, **kwargs):
         """
         - This keyword obtains Clients page.
@@ -16064,6 +16068,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"Unable to get D360 Monitor Clients: {e}"
             self.common_validation.failed(**kwargs)
             return -1
+
     def _get_get_d360_monitor_wireless_interfaces_wifix(self, wifix, get_wifix, **kwargs):
         """
         - This keyword obtains WIFIx frame.
@@ -16089,6 +16094,7 @@ class Device360(Device360WebElements):
             kwargs['fail_msg'] = f"Unable to get D360 Monitor Interface WIFIx: {wifix} : {e}"
             self.common_validation.failed(**kwargs)
             return -1
+
     def _get_d360_monitor_wireless_interfaces_wifi_health(self, band, get_wifi_health, **kwargs):
         """
         - This keyword obtains WIFI HEALTH frame.
