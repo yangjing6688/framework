@@ -15,7 +15,7 @@ jobs:
     - name: Run sanity test
       shell: python
       run: |
-        print(${{ github}})
+        print("${{ github.ref }}, ${{ github.ref_name }}, ${{ github.ref_type }}"")
         from sys import exit
         import requests
 
