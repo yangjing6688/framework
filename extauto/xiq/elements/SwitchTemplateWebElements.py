@@ -15,7 +15,7 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_rows(self):
         rows = []
-        for el in self.weh.get_elements(self.sw_device_template_grid_rows):  
+        for el in self.weh.get_elements(self.sw_device_template_grid_rows) or []:  
             if el.is_displayed():          
                 rows.append(el)   
         return rows
