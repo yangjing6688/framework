@@ -17,6 +17,7 @@ jobs:
         curl -X 'POST' \
           'https://autoiq.extremenetworks.com/tbedmgr/jobmgr/saved_job/executeSavedJobFromName' \
           -H 'accept: application/json' \
+          -H 'authorization: PAT ${{ secrets.AUTOIQ_PAT }}' \
           -H 'Content-Type: application/json' \
           -d '{
                 "savedJobName": "pytest_framework_sanity",
