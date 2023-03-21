@@ -19,44 +19,6 @@ class GmailHandler:
         self.utils = Utils()
         self.builtin = BuiltIn()
 
-    def _get_data_from_html(self, html_email):
-        """
-            Will attempt to parse the HTML email and return the username / pass key
-        :param html: The HTML String
-        :return: the user and pass key
-        """
-        # Format the email string to somthing that can be parsed
-        html_email = html_email.replace('3D', '')  # Remove the 3D
-        html_email = html_email.replace('\r', '')  # Remove the carriage return
-        html_email = html_email.replace('\n', '')  # Remove the line feed
-        html_email = html_email.replace('  ', '')  # Remove the double space
-        html_email = html_email.replace('p=ass', 'pass')  # Remove the password formatting (found in p=ass ID)
-        html_email = html_email.replace('=pass', 'pass')  # Remove the password formatting (found in =pass ID)
-        # Parse the HTML
-        soup = BeautifulSoup(html_email, 'html.parser')
-        username = ''
-        access_key = ''
-        expired = ''
-        password_tag = soup.find(id="pass")
-        if password_tag:
-            access_key = password_tag.text
-        username_tag = soup.find(id="name")
-        if username_tag:
-            username = username_tag.text
-        expired_tag = soup.find(id="expires")
-        if expired_tag:
-            expired = expired_tag.text
-
-        return_map = {}
-        return_map[username] = {
-            'Access Key': access_key,
-            'Expires': expired
-        }
-
-        return return_map
-
-
-
     def _get_data_from_csv(self, filename, key='User Name'):
         """
         Get the bulk user credentials stored in csv file
@@ -463,7 +425,8 @@ class GmailHandler:
                 if cred_file != None:
                     credentials = self._get_data_from_csv(cred_file)
                 else:
-                    credentials = self._get_data_from_html(_html)
+                    # Fail this test because the file was not found
+                    self.builtin.fail(f'Failed to read in the attactment file from the email!\nEmail: {_html}\nCredentials file: {cred_file}')
                 self.utils.print_info(credentials)
                 return credentials
             except Exception as e:
