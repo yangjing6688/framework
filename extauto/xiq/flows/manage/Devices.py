@@ -6064,49 +6064,15 @@ class Devices:
 
         return device_updated_status
 
-    def get_stack_status(self, device_mac='default'):
+
+    def get_stack_status(self, device_mac=None, **kwargs):
         """
-        - This keyword returns the Stack status
-        - Keyword Usage:
-        - ``Get Stack Status   device_mac=${DEVICE_MAC}``
-
-       :param device_mac: device MAC address
-
-       :return:
-       - 'enabled' if stack is connected and enabled properly else 'disabled'
-
-       """
-        device_row = -1
-        self.refresh_devices_page()
-
-        self.utils.print_info('Getting Stack Status ')
-
-        if device_mac != 'default':
-            self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac=device_mac)
-
-        if device_row:
-            sleep(5)
-            stack_status = self.devices_web_elements.get_stack_status_cell(device_row)
-            self.screen.save_screen_shot()
-            sleep(2)
-
-            if stack_status:
-                if "ui-icon-stack" in stack_status:
-                    return "enabled"
-                else:
-                    return "disabled"
-            else:
-                self.utils.print_info("Could not get Stack status")
-
-    def get_exos_stack_status(self, device_mac='default', **kwargs):
-        """
-        - This keyword returns the EXOS Stack icon status is blue or red
+        - This keyword returns the Stack icon status is blue or red
         - 'blue' means all the stack members are in managed state
         - 'red' means one or more slot is not in managed state
         - '-1' means the device is not a stack device
         - Keyword Usage:
-        - ``Get Exos Stack Status   device_mac=${DEVICE_MAC}``
+        - ``Get Stack Status   device_mac=${DEVICE_MAC}``
 
        :param device_mac: device MAC address
 
@@ -6120,7 +6086,7 @@ class Devices:
 
         self.utils.print_info('Getting Stack Status ')
 
-        if device_mac != 'default':
+        if device_mac:
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac=device_mac)
 
