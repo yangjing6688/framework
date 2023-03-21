@@ -13555,7 +13555,7 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def go_to_device_360_port_config(self, dut, slot=None, **kwargs):
+    def go_to_device_360_port_config(self, dut, slot=None, unlock_button_flag=True, **kwargs):
         """Method that goes to the port configuration tab of the device 360 window.
 
         Args:
@@ -13612,35 +13612,36 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         self.utils.wait_till(timeout=20)
         
-        unlock_button, _ = self.utils.wait_till(
-            func=self.get_device360_unlock_port_config_button,
-            exp_func_resp=True,
-            silent_failure=True, 
-            delay=3
-        )
-        
-        if unlock_button:
-            if self.auto_actions.click_reference(lambda: unlock_button) != 1:
-                kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_button element"
-                self.common_validation.failed(**kwargs)
-                return -1
-            
-            confirmation_button, _ = self.utils.wait_till(
-                func=self.get_device360_unlock_port_config_confirmation_button,
+        if unlock_button_flag:
+            unlock_button, _ = self.utils.wait_till(
+                func=self.get_device360_unlock_port_config_button,
                 exp_func_resp=True,
                 silent_failure=True, 
                 delay=3
             )
-        
-            if not confirmation_button:
-                kwargs["fail_msg"] = "Failed to get the device360_unlock_port_config_confirmation_button element"
-                self.common_validation.failed(**kwargs)
-                return -1
+            
+            if unlock_button and unlock_button.is_displayed():
+                if self.auto_actions.click_reference(lambda: unlock_button) != 1:
+                    kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_button element"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                
+                confirmation_button, _ = self.utils.wait_till(
+                    func=self.get_device360_unlock_port_config_confirmation_button,
+                    exp_func_resp=True,
+                    silent_failure=True, 
+                    delay=3
+                )
+            
+                if not confirmation_button:
+                    kwargs["fail_msg"] = "Failed to get the device360_unlock_port_config_confirmation_button element"
+                    self.common_validation.failed(**kwargs)
+                    return -1
 
-            if self.auto_actions.click_reference(lambda: confirmation_button) != 1:
-                kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_confirmation_button element"
-                self.common_validation.failed(**kwargs)
-                return -1
+                if self.auto_actions.click_reference(lambda: confirmation_button) != 1:
+                    kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_confirmation_button element"
+                    self.common_validation.failed(**kwargs)
+                    return -1
             
         return 1
 
