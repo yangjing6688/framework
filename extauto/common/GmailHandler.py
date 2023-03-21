@@ -110,7 +110,6 @@ class GmailHandler:
         inbox_mail_items = dta[0].split()
         return inbox_mail_items
 
-
     def _get_raw_email(self, email_item_list, subj=None):
         """
         Get the raw emails from latest 5 emails based on the subj
