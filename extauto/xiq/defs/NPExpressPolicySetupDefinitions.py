@@ -7,8 +7,15 @@ class NPExpressPolicySetupDefinitions:
     list_view = {'CSS_SELECTOR': '.card-icons-list', 'wait_for': 5}
 
     new_account_express_policy_setup_button = \
-        {'XPATH': '//button[@data-dojo-attach-point="noPolicyAddPackage"]',
-         'wait_for': 5
+        {
+            'XPATH': '//button[@data-dojo-attach-point="noPolicyAddPackage"]',
+            'wait_for': 30
+         }
+
+    add_new_express_policy_setup_button = \
+        {
+            'XPATH': '//button[@data-dojo-attach-point="listAddPackage"]',
+            'wait_for': 20
          }
 
     network_policy_list = {'CSS_SELECTOR': '.card-item-title', 'wait_for': 5}
@@ -77,3 +84,5 @@ class NPExpressPolicySetupDefinitions:
             'XPATH': '//button[@data-dojo-attach-point="closeDialog"]',
             'wait_for': 2
         }
+
+    np_page_without_policy = {'CSS_SELECTOR': '.noPolicyTitle', 'wait_for': 5}
