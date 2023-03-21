@@ -9,20 +9,19 @@
 from tools.xapi.XapiHelper import XapiHelper
 
 
-class XapiBaseLocationApi(XapiHelper):
+class XapiBaseCopilotConnectivityExperienceApi(XapiHelper):
 
     def __init__(self):
         super().__init__()
 
-    def xapi_base_create_building(self, **kwargs):
+    def xapi_base_get_wired_connectivity_experience(self, **kwargs):
 
         """
-            Create building  # noqa: E501
+            get_wired_connectivity_experience  # noqa: E501
             
-            Create a new building under the parent location.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.create_building(xiq_create_building_request, async_req=True)
+            >>> thread = api.get_wired_connectivity_experience(view_type, start_time, end_time, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -31,19 +30,25 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                create building    **kwargs
+                get wired connectivity experience    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.create_building(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wired_connectivity_experience(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param XiqCreateBuildingRequest xiq_create_building_request: Create building request body (required)
+            :param XiqWiredViewType view_type: The type of View (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int page: Page number, min = 1
+            :param int limit: Page Size, min = 1, max = 100
+            :param XiqSortField sort_field: sort by name or quality index
+            :param XiqSortOrder sort_order: The sorting order
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -51,7 +56,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: XiqBuilding
+            :return: PagedXiqConnectivityExperienceData
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -70,9 +75,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.create_building(**kwargs)
+                api_response = api_instance.get_wired_connectivity_experience(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -101,15 +106,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_create_floor(self, **kwargs):
+    def xapi_base_get_wired_events(self, **kwargs):
 
         """
-            Create floor  # noqa: E501
+            get_wired_events  # noqa: E501
             
-            Create a new floor under the parent building.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.create_floor(xiq_create_floor_request, async_req=True)
+            >>> thread = api.get_wired_events(view_type, start_time, end_time, forensic_bucket, score_type, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -118,19 +122,32 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                create floor    **kwargs
+                get wired events    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.create_floor(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wired_events(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param XiqCreateFloorRequest xiq_create_floor_request: Create floor request body (required)
+            :param XiqWiredViewType view_type: The type of View (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param XiqForensicBucket forensic_bucket: The selected time bucket (required)
+            :param XiqCopilotWiredEventsScoreType score_type: The selected score type (required)
+            :param int page: Page number, min = 1
+            :param int limit: Page Size, min = 1, max = 100
+            :param XiqCopilotEventsWiredSortField sort_by: The sort field
+            :param XiqSortOrder sort_order: The sorting order
+            :param str view_id: The view id based on view type
+            :param str search_key: The selected search key
+            :param str location_type: The selected location type
+            :param str location_id: The selected location id
+            :param int timestamp: The timestamp to query, epoch time in milliseconds since 1/1/1970
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -138,7 +155,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: XiqFloor
+            :return: PagedXiqWiredEventEntity
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -157,9 +174,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.create_floor(**kwargs)
+                api_response = api_instance.get_wired_events(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -188,15 +205,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_create_location(self, **kwargs):
+    def xapi_base_get_wired_hardware(self, **kwargs):
 
         """
-            Create location  # noqa: E501
+            get_wired_hardware  # noqa: E501
             
-            Create a new location under the parent location.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.create_location(xiq_create_location_request, async_req=True)
+            >>> thread = api.get_wired_hardware(view_type, start_time, end_time, forensic_bucket, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -205,19 +221,23 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                create location    **kwargs
+                get wired hardware    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.create_location(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wired_hardware(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param XiqCreateLocationRequest xiq_create_location_request: Create location request body (required)
+            :param XiqWiredViewType view_type: The type of View (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param XiqForensicBucket forensic_bucket: The selected time bucket (required)
+            :param str view_id: The view id based on view type
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -225,7 +245,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: XiqLocation
+            :return: XiqWiredHardwareResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -244,9 +264,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.create_location(**kwargs)
+                api_response = api_instance.get_wired_hardware(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -275,15 +295,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_delete_building(self, **kwargs):
+    def xapi_base_get_wired_quality_index(self, **kwargs):
 
         """
-            Delete building by ID  # noqa: E501
+            get_wired_quality_index  # noqa: E501
             
-            Delete the building for the specified ID.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.delete_building(id, async_req=True)
+            >>> thread = api.get_wired_quality_index(start_time, end_time, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -292,20 +311,23 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                delete building    **kwargs
+                get wired quality index    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.delete_building(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wired_quality_index(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param int id: The building ID (required)
-            :param bool force_delete: Force deletion of this building and its descendants recursively
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param XiqWiredViewType view_type: The type of View
+            :param str view_id: The view id based on view type
+            :param XiqForensicBucket forensic_bucket: The selected time bucket
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -313,7 +335,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: None
+            :return: XiqWiredQualityIndexResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -332,9 +354,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.delete_building(**kwargs)
+                api_response = api_instance.get_wired_quality_index(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -363,15 +385,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_delete_floor(self, **kwargs):
+    def xapi_base_get_wireless_apps(self, **kwargs):
 
         """
-            Delete floor by ID  # noqa: E501
+            get_wireless_apps  # noqa: E501
             
-            Delete the floor for the specified ID.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.delete_floor(id, async_req=True)
+            >>> thread = api.get_wireless_apps(view_type, start_time, end_time, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -380,19 +401,25 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                delete floor    **kwargs
+                get wireless apps    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.delete_floor(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wireless_apps(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param int id: The floor ID (required)
+            :param XiqConnectivityExperienceViewType view_type: The type of View (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param str view_id: The view type identifier
+            :param XiqForensicBucket forensic_bucket: The time period bucket detected
+            :param str location_id: The location identifier
+            :param str location_type: The location type
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -400,7 +427,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: None
+            :return: XiqWirelessAppsResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -419,9 +446,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.delete_floor(**kwargs)
+                api_response = api_instance.get_wireless_apps(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -450,15 +477,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_delete_location(self, **kwargs):
+    def xapi_base_get_wireless_connectivity_experience(self, **kwargs):
 
         """
-            Delete location by ID  # noqa: E501
+            get_wireless_connectivity_experience  # noqa: E501
             
-            Delete the location for the specified ID.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.delete_location(id, async_req=True)
+            >>> thread = api.get_wireless_connectivity_experience(view_type, start_time, end_time, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -467,20 +493,25 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                delete location    **kwargs
+                get wireless connectivity experience    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.delete_location(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wireless_connectivity_experience(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param int id: The location ID (required)
-            :param bool force_delete: Force deletion of this location and its descendants recursively
+            :param XiqConnectivityExperienceViewType view_type: View by location, ssid or osTypes (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int page: Page number, min = 1
+            :param int limit: Number of Records, min = 1, max = 100
+            :param XiqSortField sort_field: sort by name or quality index
+            :param XiqSortOrder sort_order: The sorting order
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -488,7 +519,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: str
+            :return: PagedXiqConnectivityExperienceData
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -507,9 +538,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.delete_location(**kwargs)
+                api_response = api_instance.get_wireless_connectivity_experience(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -538,15 +569,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_get_location_tree(self, **kwargs):
+    def xapi_base_get_wireless_events(self, **kwargs):
 
         """
-            Get location tree  # noqa: E501
+            get_wireless_events  # noqa: E501
             
-            Get location hierarchical tree.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.get_location_tree(async_req=True)
+            >>> thread = api.get_wireless_events(view_type, start_time, end_time, score_type, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -555,20 +585,32 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                get location tree    **kwargs
+                get wireless events    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.get_location_tree(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wireless_events(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param int parent_id: The parent location ID, return root locations if parent is null
-            :param bool expand_children: Whether to return the child locations recursively, default is true. Set it to false to improve performance when there are a lot of child locations.
+            :param XiqConnectivityExperienceViewType view_type: View by location, ssid or osTypes (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param XiqCopilotWirelessEventsScoreType score_type: The wireless score type (required)
+            :param int page: Page number, min = 1
+            :param int limit: Number of Records, min = 1, max = 100
+            :param XiqCopilotEventsWirelessSortField sort_field: the sort field
+            :param XiqSortOrder sort_order: The sorting order
+            :param str view_id: The view type identifier
+            :param XiqForensicBucket forensic_bucket: The time period bucket detected
+            :param str search_key: The search key
+            :param str location_id: The location identifier
+            :param str location_type: The location type
+            :param int timestamp: The timestamp to query, epoch time in milliseconds since 1/1/1970
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -576,7 +618,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: list[XiqLocation]
+            :return: PagedXiqCopilotWirelessEvent
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -595,9 +637,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.get_location_tree(**kwargs)
+                api_response = api_instance.get_wireless_events(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -626,15 +668,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_initialize_location(self, **kwargs):
+    def xapi_base_get_wireless_performance(self, **kwargs):
 
         """
-            Initialize organization location  # noqa: E501
+            get_wireless_performance  # noqa: E501
             
-            Initialize the organization location hierarchy tree.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.initialize_location(xiq_initialize_location_request, async_req=True)
+            >>> thread = api.get_wireless_performance(view_type, start_time, end_time, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -643,19 +684,25 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                initialize location    **kwargs
+                get wireless performance    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.initialize_location(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wireless_performance(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param XiqInitializeLocationRequest xiq_initialize_location_request: Initialize organization location request body (required)
+            :param XiqConnectivityExperienceViewType view_type: The type of View (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param str view_id: The view type identifier
+            :param XiqForensicBucket forensic_bucket: The time period bucket detected
+            :param str location_id: The location identifier
+            :param str location_type: The location type
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -663,7 +710,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: XiqLocation
+            :return: XiqWirelessConnectivityPerformanceResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -682,9 +729,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.initialize_location(**kwargs)
+                api_response = api_instance.get_wireless_performance(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -713,15 +760,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_update_building(self, **kwargs):
+    def xapi_base_get_wireless_quality_index(self, **kwargs):
 
         """
-            Update building  # noqa: E501
+            get_wireless_quality_index  # noqa: E501
             
-            Update the building information with the building ID.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.update_building(id, xiq_update_building_request, async_req=True)
+            >>> thread = api.get_wireless_quality_index(view_type, start_time, end_time, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -730,20 +776,25 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                update building    **kwargs
+                get wireless quality index    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.update_building(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wireless_quality_index(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param int id: The building ID (required)
-            :param XiqUpdateBuildingRequest xiq_update_building_request: Update building request body (required)
+            :param XiqConnectivityExperienceViewType view_type: The type of View (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param str view_id: The view type identifier
+            :param XiqForensicBucket forensic_bucket: The time period bucket detected
+            :param str location_id: The location identifier
+            :param str location_type: The location type
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -751,7 +802,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: XiqBuilding
+            :return: XiqWirelessQualityIndexResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -770,9 +821,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.update_building(**kwargs)
+                api_response = api_instance.get_wireless_quality_index(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -801,15 +852,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_update_floor(self, **kwargs):
+    def xapi_base_get_wireless_time_to_connect(self, **kwargs):
 
         """
-            Update floor  # noqa: E501
+            get_wireless_time_to_connect  # noqa: E501
             
-            Update floor information with the floor ID.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.update_floor(id, xiq_update_floor_request, async_req=True)
+            >>> thread = api.get_wireless_time_to_connect(view_type, start_time, end_time, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -818,20 +868,25 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                update floor    **kwargs
+                get wireless time to connect    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.update_floor(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wireless_time_to_connect(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param int id: The floor ID. (required)
-            :param XiqUpdateFloorRequest xiq_update_floor_request: Update floor request body (required)
+            :param XiqConnectivityExperienceViewType view_type: The type of View (required)
+            :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970 (required)
+            :param str view_id: The view type identifier
+            :param XiqForensicBucket forensic_bucket: The time period bucket detected
+            :param str location_id: The location identifier
+            :param str location_type: The location type
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -839,7 +894,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: XiqFloor
+            :return: XiqWirelessTimeToConnectResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -858,9 +913,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.update_floor(**kwargs)
+                api_response = api_instance.get_wireless_time_to_connect(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -889,15 +944,14 @@ class XapiBaseLocationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_update_location(self, **kwargs):
+    def xapi_base_get_wireless_views(self, **kwargs):
 
         """
-            Update location  # noqa: E501
+            get_wireless_views  # noqa: E501
             
-            Update the location information with the specified location ID.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.update_location(id, xiq_update_location_request, async_req=True)
+            >>> thread = api.get_wireless_views(view_type, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -906,20 +960,19 @@ class XapiBaseLocationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotConnectivityExperienceApi.py
             
-                update location    **kwargs
+                get wireless views    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
+                from keywords.xapi_base.XapiBaseCopilotConnectivityExperienceApi import XapiBaseCopilotConnectivityExperienceApi
             
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.update_location(**kwargs)
+                xapiBaseCopilotConnectivityExperienceApi = XapiBaseCopilotConnectivityExperienceApi()
+                xapiBaseCopilotConnectivityExperienceApi.get_wireless_views(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param int id: The location ID (required)
-            :param XiqUpdateLocationRequest xiq_update_location_request: Update location request body (required)
+            :param XiqWirelessViewsListType view_type: The type of View (required)
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -927,7 +980,7 @@ class XapiBaseLocationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: XiqLocation
+            :return: XiqWirelessViewsTypeResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -946,96 +999,9 @@ class XapiBaseLocationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotConnectivityExperienceApi(api_client)
             try:
-                api_response = api_instance.update_location(**kwargs)
-                # If the _async is True, we will use the Long Running Operation methods
-                if kwargs.get('_async', False):
-                    # Get the ID
-                    operation_id = self.getLongRunningOperationId(api_response)
-                    # Query the ID until completed
-                    returnValue = self.getAsyncLongRunningOperation(operation_id)
-                    if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
-                        self.common_validation.passed(**kwargs)
-                        return returnValue
-                    else:
-                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.common_validation.fault(**kwargs)
-                        return -1
-                else:
-                    # Make sure this is not a async call because the thread will be returned and the
-                    # api_response is not None
-                    if not kwargs.get('async_req', False) and api_response:
-                        # Non async call, check the http return
-                        self.valid_http_response(api_response)
-                    self.common_validation.passed(**kwargs)
-                    return api_response
-
-            except self.ApiException as e:
-                kwargs['fail_msg'] = f"ApiException : {e}"
-                self.common_validation.fault(**kwargs)
-                return -1
-
-    def xapi_base_upload_floorplan(self, **kwargs):
-
-        """
-            Upload floorplan  # noqa: E501
-            
-            Upload the floorplan map for the VIQ.  # noqa: E501
-            This method makes a synchronous HTTP request by default. To make an
-            asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.upload_floorplan(file, async_req=True)
-            >>> result = thread.get()
-            
-            **Note - The kwargs options are explained in the :param section below.
-            These can be placed in the kwargs dict as key / values pairs or 
-            passed into the function as key / value pairs as separate arguments.
-            
-            Robot ->
-            
-                Library    keywords/xapi_base/XapiBaseLocationApi.py
-            
-                upload floorplan    **kwargs
-            
-            Pytest ->
-            
-                from keywords.xapi_base.XapiBaseLocationApi import XapiBaseLocationApi
-            
-                xapiBaseLocationApi = XapiBaseLocationApi()
-                xapiBaseLocationApi.upload_floorplan(**kwargs)
-            
-            :param async_req bool: execute request asynchronously
-            :param file file: The floorplan image file to upload.   For better performance, Extreme Networks recommends that the image file (.png .jpeg) be less than 500 KB. (required)
-            :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                     be returned without reading/decoding response
-                                     data. Default is True.
-            :param _request_timeout: timeout setting for this request. If one
-                                     number provided, it will be total request
-                                     timeout. It can also be a pair (tuple) of
-                                     (connection, read) timeouts.
-            :return: None
-                     If the method is called asynchronously,
-                     returns the request thread.
-
-                    -1 if there is a error (fault)
-        """
-
-
-        # Get the configuration from the Global variables
-        configuration = self.get_xapi_configuration()
-        api_response = None
-
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.LocationApi(api_client)
-            try:
-                api_response = api_instance.upload_floorplan(**kwargs)
+                api_response = api_instance.get_wireless_views(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID

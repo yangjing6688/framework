@@ -1,8 +1,8 @@
     def {FUNCTION_NAME}(self, **kwargs):
 
-        {COMMMENT_HEADER}
+        {COMMENT_HEADER}
 
-        # Get the configuration from the Global varibles
+        # Get the configuration from the Global variables
         configuration = self.get_xapi_configuration()
         api_response = None
 

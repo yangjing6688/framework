@@ -9,20 +9,19 @@
 from tools.xapi.XapiHelper import XapiHelper
 
 
-class XapiBaseNotificationApi(XapiHelper):
+class XapiBaseCopilotAnomaliesApi(XapiHelper):
 
     def __init__(self):
         super().__init__()
 
-    def xapi_base_create_subscriptions(self, **kwargs):
+    def xapi_base_get_devices_by_location(self, **kwargs):
 
         """
-            Create webhook subscriptions  # noqa: E501
+            get_devices_by_location  # noqa: E501
             
-            Create multiple webhook subscriptions.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.create_subscriptions(xiq_create_webhook_subscription_request, async_req=True)
+            >>> thread = api.get_devices_by_location(async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -31,19 +30,20 @@ class XapiBaseNotificationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseNotificationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotAnomaliesApi.py
             
-                create subscriptions    **kwargs
+                get devices by location    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseNotificationApi import XapiBaseNotificationApi
+                from keywords.xapi_base.XapiBaseCopilotAnomaliesApi import XapiBaseCopilotAnomaliesApi
             
-                xapiBaseNotificationApi = XapiBaseNotificationApi()
-                xapiBaseNotificationApi.create_subscriptions(**kwargs)
+                xapiBaseCopilotAnomaliesApi = XapiBaseCopilotAnomaliesApi()
+                xapiBaseCopilotAnomaliesApi.get_devices_by_location(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param list[XiqCreateWebhookSubscriptionRequest] xiq_create_webhook_subscription_request: The payload of create multiple webhook subscriptions (required)
+            :param XiqAnomalyType anomaly_type: Anomaly type
+            :param int location_id: The location id
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -51,7 +51,7 @@ class XapiBaseNotificationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: None
+            :return: XiqAnomalyDevicesByLocationResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -70,9 +70,9 @@ class XapiBaseNotificationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.NotificationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotAnomaliesApi(api_client)
             try:
-                api_response = api_instance.create_subscriptions(**kwargs)
+                api_response = api_instance.get_devices_by_location(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -101,15 +101,14 @@ class XapiBaseNotificationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_delete_subscription(self, **kwargs):
+    def xapi_base_get_poe_flapping_stats(self, **kwargs):
 
         """
-            Delete webhook subscription  # noqa: E501
+            get_poe_flapping_stats  # noqa: E501
             
-            Delete an exist webhook subscription.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.delete_subscription(id, async_req=True)
+            >>> thread = api.get_poe_flapping_stats(anomaly_id, async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -118,19 +117,20 @@ class XapiBaseNotificationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseNotificationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotAnomaliesApi.py
             
-                delete subscription    **kwargs
+                get poe flapping stats    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseNotificationApi import XapiBaseNotificationApi
+                from keywords.xapi_base.XapiBaseCopilotAnomaliesApi import XapiBaseCopilotAnomaliesApi
             
-                xapiBaseNotificationApi = XapiBaseNotificationApi()
-                xapiBaseNotificationApi.delete_subscription(**kwargs)
+                xapiBaseCopilotAnomaliesApi = XapiBaseCopilotAnomaliesApi()
+                xapiBaseCopilotAnomaliesApi.get_poe_flapping_stats(**kwargs)
             
             :param async_req bool: execute request asynchronously
-            :param int id: The webhook subscription ID (required)
+            :param str anomaly_id: The anomaly id (required)
+            :param int location_id: The location id
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -138,7 +138,7 @@ class XapiBaseNotificationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: None
+            :return: XiqPoeFlappingStatsResponse
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -157,9 +157,9 @@ class XapiBaseNotificationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.NotificationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotAnomaliesApi(api_client)
             try:
-                api_response = api_instance.delete_subscription(**kwargs)
+                api_response = api_instance.get_poe_flapping_stats(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
@@ -188,15 +188,14 @@ class XapiBaseNotificationApi(XapiHelper):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-    def xapi_base_list(self, **kwargs):
+    def xapi_base_list_anomaly_locations(self, **kwargs):
 
         """
-            List webhook subscriptions  # noqa: E501
+            list_anomaly_locations  # noqa: E501
             
-            List all webhook subscriptions.  # noqa: E501
             This method makes a synchronous HTTP request by default. To make an
             asynchronous HTTP request, please pass async_req=True
-            >>> thread = api.list(async_req=True)
+            >>> thread = api.list_anomaly_locations(async_req=True)
             >>> result = thread.get()
             
             **Note - The kwargs options are explained in the :param section below.
@@ -205,18 +204,24 @@ class XapiBaseNotificationApi(XapiHelper):
             
             Robot ->
             
-                Library    keywords/xapi_base/XapiBaseNotificationApi.py
+                Library    keywords/xapi_base/XapiBaseCopilotAnomaliesApi.py
             
-                list    **kwargs
+                list anomaly locations    **kwargs
             
             Pytest ->
             
-                from keywords.xapi_base.XapiBaseNotificationApi import XapiBaseNotificationApi
+                from keywords.xapi_base.XapiBaseCopilotAnomaliesApi import XapiBaseCopilotAnomaliesApi
             
-                xapiBaseNotificationApi = XapiBaseNotificationApi()
-                xapiBaseNotificationApi.list(**kwargs)
+                xapiBaseCopilotAnomaliesApi = XapiBaseCopilotAnomaliesApi()
+                xapiBaseCopilotAnomaliesApi.list_anomaly_locations(**kwargs)
             
             :param async_req bool: execute request asynchronously
+            :param XiqAnomalyType anomaly_type: Anomaly type
+            :param int page: Page number, min = 1
+            :param int limit: Number of Records, min = 1, max = 100
+            :param XiqAnomalySortField sort_field: sort by field
+            :param XiqSortOrder sort_order: The sorting order
+            :param bool exclude_muted: exclude muted
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -224,7 +229,7 @@ class XapiBaseNotificationApi(XapiHelper):
                                      number provided, it will be total request
                                      timeout. It can also be a pair (tuple) of
                                      (connection, read) timeouts.
-            :return: list[XiqWebhookSubscription]
+            :return: XiqCopilotPagedXiqAnomalyLocationEntity
                      If the method is called asynchronously,
                      returns the request thread.
 
@@ -243,9 +248,9 @@ class XapiBaseNotificationApi(XapiHelper):
         # Enter a context with an instance of the API client
         with self.extremecloudiq.ApiClient(configuration) as api_client:
             # Create an instance of the API class
-            api_instance = self.extremecloudiq.NotificationApi(api_client)
+            api_instance = self.extremecloudiq.CopilotAnomaliesApi(api_client)
             try:
-                api_response = api_instance.list(**kwargs)
+                api_response = api_instance.list_anomaly_locations(**kwargs)
                 # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
