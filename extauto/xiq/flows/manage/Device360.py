@@ -15991,7 +15991,7 @@ class Device360(Device360WebElements):
 
         try:
             self.utils.print_info("Clicking on Wireless Interface")
-            self.auto_actions.click(self.dev360.get_device360_wireless_interface_tab())
+            self.auto_actions.click_reference(self.dev360.get_device360_wireless_interface_tab())
 
             if total_clients != 'None':
                 self.utils.wait_till(self.dev360.get_device360_total_wireless_clients, timeout=12, delay=3, is_logging_enabled=True)
@@ -16102,13 +16102,13 @@ class Device360(Device360WebElements):
         try:
             if   band == '2ghz':
                 self.utils.print_info("Click on 2.4 GHz tab")
-                self.auto_actions.click(self.get_device360_wireless_wifi2gscoretab())
+                self.auto_actions.click_reference(self.get_device360_wireless_wifi2gscoretab())
             elif band == '5ghz':
                 self.utils.print_info("Click on 5 GHz tab")
-                self.auto_actions.click(self.get_device360_wireless_wifi5gscoretab())
+                self.auto_actions.click_reference(self.get_device360_wireless_wifi5gscoretab())
             elif band == '6ghz':
                 self.utils.print_info("Click on 6 GHz tab")
-                self.auto_actions.click(self.get_device360_wireless_wifi6gscoretab())
+                self.auto_actions.click_reference(self.get_device360_wireless_wifi6gscoretab())
             elif band == 'combined':
                 self.utils.print_info("Click on combined tab")
                 self.auto_actions.click(self.get_device360_wireless_combinedscoretab())
