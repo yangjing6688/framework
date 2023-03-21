@@ -15,7 +15,6 @@ jobs:
     - name: Run sanity test
       shell: python
       run: |
-        print("${{ github.ref }}, ${{ github.ref_name }}, ${{ github.ref_type }}, ${{ github.head_ref }}, ${{ github.base_ref }}, ${{ github.event_name }}, ${{ github.event.pull_request.head.ref }}, ${{ github.event.pull_request.base.ref }}")
         from sys import exit
         import requests
 
@@ -27,20 +26,20 @@ jobs:
         payload = {
           "savedJobName": "pytest_framework_sanity",
           "testRepoBranch": "main",
-          "frameworkRepoBranch": "${{ github.ref_name }}"
+          "frameworkRepoBranch": "${{ github.head_ref }}"
         }
 
-        # response = requests.post(url="https://autoiq.extremenetworks.com/tbedmgr/jobmgr/saved_job/executeSavedJobFromName", headers=headers, json=payload)
+        response = requests.post(url="https://autoiq.extremenetworks.com/tbedmgr/jobmgr/saved_job/executeSavedJobFromName", headers=headers, json=payload)
 
-        # if response.status_code != requests.codes.created:
-        #   print(f"Error: got a bad response code <{reponse.status_code}>. Response text: {response.texts}")
-        #   response.raise_for_status()
+        if response.status_code != requests.codes.created:
+          print(f"Error: got a bad response code <{reponse.status_code}>. Response text: {response.texts}")
+          response.raise_for_status()
 
-        # try:
-        #   job_uuid = response.json()["result"][0]["job_uuid"]
-        # except:
-        #   print(f"Error: Unable to find Job Id in response. {response.text}")
-        #   exit(1)
+        try:
+          job_uuid = response.json()["result"][0]["job_uuid"]
+        except:
+          print(f"Error: Unable to find Job Id in response. {response.text}")
+          exit(1)
 
         print(f"Job UUID: {job_uuid}")
 
