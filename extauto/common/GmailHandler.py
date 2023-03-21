@@ -5,6 +5,7 @@ import imaplib
 import email
 import re
 import os
+import time
 from robot.libraries.BuiltIn import BuiltIn
 
 
@@ -17,6 +18,44 @@ class GmailHandler:
         self.save_dir = os.path.dirname(__file__) + '/tools/credentials/'
         self.utils = Utils()
         self.builtin = BuiltIn()
+
+    def _get_data_from_html(self, html_email):
+        """
+            Will attempt to parse the HTML email and return the username / pass key
+        :param html: The HTML String
+        :return: the user and pass key
+        """
+        # Format the email string to somthing that can be parsed
+        html_email = html_email.replace('3D', '')  # Remove the 3D
+        html_email = html_email.replace('\r', '')  # Remove the carriage return
+        html_email = html_email.replace('\n', '')  # Remove the line feed
+        html_email = html_email.replace('  ', '')  # Remove the double space
+        html_email = html_email.replace('p=ass', 'pass')  # Remove the password formatting (found in p=ass ID)
+        html_email = html_email.replace('=pass', 'pass')  # Remove the password formatting (found in =pass ID)
+        # Parse the HTML
+        soup = BeautifulSoup(html_email, 'html.parser')
+        username = ''
+        access_key = ''
+        expired = ''
+        password_tag = soup.find(id="pass")
+        if password_tag:
+            access_key = password_tag.text
+        username_tag = soup.find(id="name")
+        if username_tag:
+            username = username_tag.text
+        expired_tag = soup.find(id="expires")
+        if expired_tag:
+            expired = expired_tag.text
+
+        return_map = {}
+        return_map[username] = {
+            'Access Key': access_key,
+            'Expires': expired
+        }
+
+        return return_map
+
+
 
     def _get_data_from_csv(self, filename, key='User Name'):
         """
@@ -109,14 +148,16 @@ class GmailHandler:
         inbox_mail_items = dta[0].split()
         return inbox_mail_items
 
+
     def _get_raw_email(self, email_item_list, subj=None):
         """
         Get the raw emails from latest 5 emails based on the subj
         :param email_item_list: List of the emails
         :param subj: subject line of the email
-        :return:
+        :return: an array of emails
         """
         email_count = 0
+        array_of_emails = []
         for mail in email_item_list[::-1]:
             result, email_data = self.mail.uid('fetch', mail, '(RFC822)')
             raw_email = email_data[0][1].decode("utf-8")
@@ -138,29 +179,47 @@ class GmailHandler:
             if email_count == 1:
                 break
 
-    def _get_raw_email_from_folder(self, mail_id, password, subj):
+
+    def _get_raw_email_from_folder(self, mail_id, password, subj, mail_trash):
         """
         - This method will check the emails with subject line in inbox folder and spam folder
         - If email exists return the raw email else return -1
 
-        :param mail_id:
-        :param password:
-        :param subj:
-        :return:
+        :param mail_id: The mail id
+        :param password: The mail password
+        :param subj:  The mail subject to look for
+        :param mail_trash: trash the mail if mail trash is true
+        :return: None, if nothing is found, otherwise it will return the email message that was found
         """
-        self.utils.print_info(f"Check the subj line:{subj} email in inbox folder")
-        inbox_mail_items = self._mail_initialization(mail_id, password, 'inbox')
-        email_msg = self._get_raw_email(inbox_mail_items, subj)
-        if email_msg:
-            return email_msg
 
-        self.utils.print_info(f"Check the subj line:{subj} email in spam folder")
-        inbox_mail_items = self._mail_initialization(mail_id, password, '[Gmail]/Spam')
-        email_msg = self._get_raw_email(inbox_mail_items, subj)
-        if email_msg:
-            return email_msg
+        device_selected = 0
+        counter = 0
+        while device_selected == 0:
+            if counter > 10:
+                break
+            else:
+                counter = counter + 1
+            self.utils.print_info(f'Getting the email, counter: {counter}')
+            self.utils.print_info(f"Check the subject line: {subj} email in inbox folder")
+            inbox_mail_items = self._mail_initialization(mail_id, password, 'inbox')
+            email_msg = self._get_raw_email(inbox_mail_items, subj)
+            if email_msg:
+                if mail_trash == 'True':
+                    self._move_email_to_trash()
+                return email_msg
 
-        self.builtin.fail(f"There are no email with subj line{subj}  in inbox/spam folder")
+            self.utils.print_info(f"Check the subj line:{subj} email in spam folder")
+            inbox_mail_items = self._mail_initialization(mail_id, password, '[Gmail]/Spam')
+            email_msg = self._get_raw_email(inbox_mail_items, subj)
+            if email_msg:
+                if mail_trash == 'True':
+                    self._move_email_to_trash()
+                return email_msg
+            self.utils.print_info(f'Email was not found, sleep for 5 seconds and try again, counter: {counter}')
+            time.sleep(5)
+
+        # No email was found, so return None
+        self.builtin.fail(f"There are no email with subject line {subj}  in inbox/spam folder")
         return None
 
     def _get_content_from_email_body(self, email_msg):
@@ -398,13 +457,19 @@ class GmailHandler:
         :return: credentials dict
         """
         self.utils.print_info("Using Mail ID: ", mail_id, " Password: ", password)
-        if email_msg := self._get_raw_email_from_folder(mail_id, password, "Login Credentials"):
-            cred_file, _html, _ = self._get_content_from_email_body(email_msg)
-            credentials = self._get_data_from_csv(cred_file)
-            self.utils.print_info(credentials)
-            if mail_trash == 'True':
-                self._move_email_to_trash()
-            return credentials
+        if email_msg := self._get_raw_email_from_folder(mail_id, password, "Login Credentials", mail_trash):
+            try:
+                cred_file, _html, _ = self._get_content_from_email_body(email_msg)
+                if cred_file != None:
+                    credentials = self._get_data_from_csv(cred_file)
+                else:
+                    credentials = self._get_data_from_html(_html)
+                self.utils.print_info(credentials)
+                return credentials
+            except Exception as e:
+                self.builtin.fail(f"Failure to get the credentials from attachment or html email with exception: {e}")
+        else:
+            self.print_error('Failed to find the email using the subject: Login Credentials' )
 
     def get_cloud_pin_for_wi_fi_network(self, mail_id, password, mail_trash='True'):
         """

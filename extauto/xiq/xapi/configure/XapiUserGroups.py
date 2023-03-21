@@ -4,7 +4,6 @@ from extremecloudiq.models.xiq_user_group import XiqUserGroup
 from extremecloudiq.models.xiq_end_user import XiqEndUser
 from ExtremeAutomation.Library.Utils.DotDict import DotDict
 import time
-import random
 
 class XapiUserGroups(XapiHelper):
 
@@ -13,7 +12,7 @@ class XapiUserGroups(XapiHelper):
         self.xapiBaseConfigurationUserManagementApi = XapiBaseConfigurationUserManagementApi()
 
 
-
+    # This need to support bulk user add
     def xapi_create_user_group(self, group_name='Demo', user_group_profile=None, **kwargs):
         """
              Will craate the user group based on the parameters that are passed in.
@@ -39,7 +38,7 @@ class XapiUserGroups(XapiHelper):
                                         "enable_letters": True,
                                         "enable_numbers": True,
                                         "enable_special_characters": True,
-                                        "password_concat_string": "string",
+                                        "password_concat_string": "",
                                         "psk_generation_method": "PASSWORD_ONLY",
                                         "password_character_types": "INCLUDE_ALL_CHARACTER_TYPE_ENABLED",
                                         "password_length": 8
@@ -61,7 +60,7 @@ class XapiUserGroups(XapiHelper):
                                                 "hour_of_day": 0,
                                                 "minute_of_hour": 0
                                             },
-                                            "time_zone": "string"
+                                            "time_zone": ""
                                         },
                                         "valid_for_time_period": {
                                             "valid_time_period_after": "ID_CREATION",
@@ -164,7 +163,7 @@ class XapiUserGroups(XapiHelper):
                                   "email_address": "",
                                   "phone_number": "",
                                   "password": "",
-                                  "email_password_delivery": "",
+                                  "email_password_delivery": '',
                                   "sms_password_delivery": ""
                                 }
 
@@ -173,26 +172,23 @@ class XapiUserGroups(XapiHelper):
                 # Add in full user details
                 if users_config.get('user-type', '') == 'single':
                     new_user = DotDict(base_user_template)
-                    if password_db_loc.upper() == 'LOCAL':
-                        new_user.email_address = user_info['email_address']
-                    else:
-                        new_user.name = users_config.get('name', 'default_name')
-                        new_user.user_name = users_config.get('name', 'default_name')
-                        new_user.organization = users_config.get('organization', '')
-                        new_user.visit_purpose = users_config.get('purpose_of_visit', '')
-                        new_user.email_address = users_config.get('email_address', '')
-                        new_user.phone_number = phone_number = users_config.get('phone_number', '')
-                        new_user.description = users_config.get('description', 'Created with the Automation Framework')
+                    new_user.name = users_config.get('name', 'default_name')
+                    new_user.user_name = users_config.get('name', 'default_name')
+                    new_user.organization = users_config.get('organization', '')
+                    new_user.visit_purpose = users_config.get('purpose_of_visit', '')
+                    new_user.email_address = users_config.get('email_address', '')
+                    new_user.phone_number = phone_number = users_config.get('phone_number', '')
+                    new_user.description = users_config.get('description', 'Created with the Automation Framework')
 
-                        if not user_info.get('pass-generate','') == 'Enable':
-                            new_user.password = users_config.get('password', '')
+                    if not user_info.get('pass-generate','') == 'Enable':
+                        new_user.password = users_config.get('password', '')
 
-                        if user_info.get('deliver_pass', None):
-                            new_user.email_password_delivery = users_config.get('deliver_pass', '')
+                    if user_info.get('deliver_pass', None):
+                        new_user.email_password_delivery = users_config.get('deliver_pass', '')
 
-                        response = self.xapiBaseConfigurationUserManagementApi.xapi_base_create_end_user(xiq_create_end_user_request=new_user, _preload_content=False)
-                        # Validate the reponse
-                        self.valid_http_response(response)
+                    response = self.xapiBaseConfigurationUserManagementApi.xapi_base_create_end_user(xiq_create_end_user_request=new_user, _preload_content=False)
+                    # Validate the reponse
+                    self.valid_http_response(response)
 
                 # Mostly blank users, but username is added
                 elif users_config.get('user-type', '') == 'bulk':
@@ -201,9 +197,14 @@ class XapiUserGroups(XapiHelper):
                         # 'email_user_account_to' Is this a new feature?
                         username_prefix = users_config.get('username_prefix', "user_")
                         new_user = DotDict(base_user_template)
-                        new_user_random_string = ''.join(random.choices(string.ascii_lowercase, k=5))
-                        new_user.name = f'{username_prefix}{new_user_random_string}_{account_number+1}'
-                        new_user.user_name = f'{username_prefix}{new_user_random_string}_{account_number+1}'
+                        new_user.name = f'{username_prefix}{account_number+1}'
+                        new_user.user_name = f'{username_prefix}{account_number+1}'
+                        if email_address := users_config.get('email_user_account_to', None):
+                            new_user.email_password_delivery = email_address
+                        else:
+                            kwargs['fail_msg'] = f' "email_user_account_to" can\'t be None for user: -> {new_user.user_name}'
+                            self.common_validation.fault(**kwargs)
+                            return -1
                         response = self.xapiBaseConfigurationUserManagementApi.xapi_base_create_end_user(xiq_create_end_user_request=new_user, _preload_content=False)
                         # Validate the reponse
                         self.valid_http_response(response)
@@ -215,29 +216,24 @@ class XapiUserGroups(XapiHelper):
                     if isinstaceof(names, array) and \
                         isinstaceof(passwords, array) and \
                         len(names) == len(passwords):
-
                         for name, password in zip(names, passwords):
                             new_user = DotDict(base_user_template)
-                            if password_db_loc.upper() == 'LOCAL':
-                                new_user.email_address = user_info['email_address']
-                            else:
-                                new_user.name = name
-                                new_user.user_name = name
-                                new_user.organization = users_config.get('organization', '')
-                                new_user.visit_purpose = users_config.get('purpose_of_visit', '')
-                                new_user.email_address = users_config.get('email_address', '')
-                                new_user.phone_number = phone_number = users_config.get('phone_number', '')
-                                # new_user.user_name = users_config.get('user_name_type', '')
-                                new_user.description = users_config.get('description',
-                                                                        'Created with the Automation Framework')
-                                new_user.password = password
-                                if user_info.get('deliver_pass', None):
-                                    new_user.email_password_delivery = users_config.get('deliver_pass', '')
+                            new_user.name = name
+                            new_user.user_name = name
+                            new_user.organization = users_config.get('organization', '')
+                            new_user.visit_purpose = users_config.get('purpose_of_visit', '')
+                            new_user.email_address = users_config.get('email_address', '')
+                            new_user.phone_number = phone_number = users_config.get('phone_number', '')
+                            new_user.description = users_config.get('description',
+                                                                    'Created with the Automation Framework')
+                            new_user.password = password
+                            if user_info.get('deliver_pass', None):
+                                new_user.email_password_delivery = users_config.get('deliver_pass', '')
 
-                                response = self.xapiBaseConfigurationUserManagementApi.xapi_base_create_end_user(
-                                    xiq_create_end_user_request=new_user, _preload_content=False)
-                                # Validate the reponse
-                                self.valid_http_response(response)
+                            response = self.xapiBaseConfigurationUserManagementApi.xapi_base_create_end_user(
+                                xiq_create_end_user_request=new_user, _preload_content=False)
+                            # Validate the reponse
+                            self.valid_http_response(response)
                 else:
                     kwargs['fail_msg'] = f'Failed the users_config {users_config} missing the user-type'
                     self.common_validation.fault(**kwargs)
