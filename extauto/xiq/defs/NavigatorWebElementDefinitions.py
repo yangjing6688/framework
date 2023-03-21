@@ -483,7 +483,8 @@ class NavigatorWebElementDefinitions:
 
     card_view = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-config-card']"
+            'XPATH': "//*[@data-automation-tag='automation-config-card']",
+            'wait_for': 30
         }
 
     network_policy_page_size = \
