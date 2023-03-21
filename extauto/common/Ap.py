@@ -2,14 +2,16 @@ import re
 import time
 import shlex
 import subprocess
-from extauto.common.Cli import Cli
-from extauto.common.Utils import Utils
+# from extauto.common.Cli import Cli
+# from extauto.common.Utils import Utils
 
 
 class Ap:
     def __init__(self):
-        self.cli = Cli()
-        self.utils = Utils()
+        x = 0/0
+        print(x)
+        # self.cli = Cli()
+        # self.utils = Utils()
 
     def load_cloud_certificate_on_ap(self, spawn, mac):
         """
@@ -133,3 +135,6 @@ class Ap:
         """
         self.utils.print_info("Sending Command to AP wit MAC: ", ap_mac)
         return self.cli.send(ap_spawn, command)
+
+if __name__ == "__main__":
+    ap = Ap()
