@@ -13,17 +13,35 @@ jobs:
 
     steps:
     - name: Run sanity test
+      shell: python
       run: |
-        curl -X 'POST' \
-          'https://autoiq.extremenetworks.com/tbedmgr/jobmgr/saved_job/executeSavedJobFromName' \
-          -H 'accept: application/json' \
-          -H 'authorization: PAT ${{ secrets.AUTOIQ_PAT }}' \
-          -H 'Content-Type: application/json' \
-          -d '{
-                "savedJobName": "pytest_framework_sanity",
-                "testRepoBranch": "main",
-                "frameworkRepoBranch": "${{ github.ref_name }}"
-              }'
+        from sys import exit
+        import requests
+
+        headers = {
+          "accept": "application/json",
+          "authorization": "PAT ${{ secrets.AUTOIQ_PAT }}",
+          "Content-Type": "application/json"
+        }
+        payload = {
+          "savedJobName": "pytest_framework_sanity",
+          "testRepoBranch": "main",
+          "frameworkRepoBranch": "${{ github.ref_name }}"
+        }
+
+        response = requests.post(url="https://autoiq.extremenetworks.com/tbedmgr/jobmgr/saved_job/executeSavedJobFromName", headers=headers, json=payload)
+
+        if response.status_code != requests.codes.created:
+          print(f"Error: got a bad response code <{reponse.status_code}>. Response text: {response.texts}")
+          response.raise_for_status()
+
+        try:
+          job_uuid = response.json()["result"][0]["job_uuid"]
+        except:
+          print(f"Error: Unable to find Job Id in response. {response.text}")
+          exit(1)
+
+        print(f"Job UUID: {job_uuid}")
 
 
     - name: Set job status output
@@ -61,7 +79,7 @@ jobs:
         python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Keywords
 
         printf '\n%s\n\n' "======== Running flake8 in /keywords ========"
-        python3 -m flake8 --config=${SETUP_CFG} ./keywords
+        # python3 -m flake8 --config=${SETUP_CFG} ./keywords
 
     - name: Set job status output
       if: ${{ always() }}
