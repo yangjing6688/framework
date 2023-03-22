@@ -1,8 +1,7 @@
 class NavigatorWebElementDefinitions:
     configure_nav = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-header-configure"]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="automation-header-configure"]'
         }
 
     configure_nav_img = \
@@ -20,7 +19,6 @@ class NavigatorWebElementDefinitions:
     configure_network_policy_nav = \
         {
             'XPATH': '//*[@data-automation-tag="automation-header-nav-policy"]',
-            'wait_for': 2
         }
 
     manage_nav = \
@@ -486,7 +484,7 @@ class NavigatorWebElementDefinitions:
     card_view = \
         {
             'XPATH': "//*[@data-automation-tag='automation-config-card']",
-            
+            'wait_for': 30
         }
 
     network_policy_page_size = \
