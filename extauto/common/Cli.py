@@ -2765,7 +2765,7 @@ class Cli(object):
             self.utils.print_info("Checking for connected ports on voss switch...")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbor', max_wait=10, interval=2)
             lldp_neighbor_summary_output = output[0].cmd_obj.return_text
-            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=Port: )\d+/\d+)', 1)
+            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=Port: )\\d+/\\d+)', 1)
 
         elif dut.cli_type.lower() == "exos" and dut.platform.lower() == 'stack':
             self.utils.print_info("Checking for connected ports on exos stack...")
@@ -2774,7 +2774,7 @@ class Cli(object):
                                                                                 "be repopulated on switch")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
             lldp_neighbor_summary_output = output[0].cmd_obj.return_text
-            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output,'((?<=LLDP Port )\d+:\d+)', 1)
+            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output,'((?<=LLDP Port )\\d+:\\d+)', 1)
 
         elif dut.cli_type.lower() == "exos":
             self.utils.print_info("Checking for connected ports on exos switch...")
@@ -2783,7 +2783,7 @@ class Cli(object):
                                                                                 "be repopulated on stack")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
             lldp_neighbor_summary_output = output[0].cmd_obj.return_text
-            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=LLDP Port )\d+)', 1)
+            connected_ports = self.utils.get_regexp_matches(lldp_neighbor_summary_output, '((?<=LLDP Port )\\d+)', 1)
         return connected_ports
 
     def get_switch_disconnected_ports(self, dut, connected_ports):
