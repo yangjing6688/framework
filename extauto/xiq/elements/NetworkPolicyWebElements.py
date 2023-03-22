@@ -516,6 +516,9 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
             if field in cell.get_attribute("class"):
                 return cell
 
+    def get_network_policy_card_item(self):
+        return self.weh.get_element(self.network_policy_card_item)
+
     def get_common_settings_exos(self):
         return self.weh.get_element(self.common_settings_exos)
 
