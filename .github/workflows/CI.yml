@@ -64,7 +64,9 @@ jobs:
             exit(1)
 
           print(f"::group::Job Status #{i}")
+          print("")
           print(dumps(response.json(), indent=2))
+          print("")
           print("::endgroup::")
 
           if job_status == "complete":
