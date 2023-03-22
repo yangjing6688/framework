@@ -221,7 +221,7 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def create_express_network_policy_no_wireless(self, policy_name):
+    def create_express_network_policy_no_wireless(self, policy_name, **kwargs):
         """
         - Create  network express network policy (no wireless)
         - Keyword Usage:
@@ -250,5 +250,9 @@ class ExpressNetworkPolicies(NPExpressPolicyWebElements):
                 self.auto_actions.click(done_button)
             else:
                 self.utils.print_info("Could not locate Done button")
+            kwargs['pass_msg'] = "Successfully created express network policy no wireless"
+            self.common_validation.passed(**kwargs)
             return 1
+        kwargs['fail_msg'] = "Unsuccessfully created express network policy no wireless"
+        self.common_validation.failed(**kwargs)
         return -1
