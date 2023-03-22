@@ -16,9 +16,9 @@ jobs:
     - name: Run sanity test
       shell: python
       env:
-        JOBMGR_BASE_URL: https://autoiq.extremenetworks.com/tbedmgr/jobmgr
-        RUN_JOB_ENDPOINT: /saved_job/executeSavedJobFromName
-        SAVED_JOB_NAME: extreme_automation_framework_sanity
+        JOBMGR_BASE_URL: "https://autoiq.extremenetworks.com/tbedmgr/jobmgr"
+        RUN_JOB_ENDPOINT: "/saved_job/executeSavedJobFromName"
+        SAVED_JOB_NAME: "extreme_automation_framework_sanity"
       run: |
         from json import dumps
         from sys import exit
@@ -41,7 +41,7 @@ jobs:
         response = requests.post(url=f"{jobmgr_base_url}${{ env.SAVED_JOB_ENDPOINT }}", headers=headers, json=payload)
 
         if response.status_code != requests.codes.created:
-          print(f"Error: got a bad response code <{reponse.status_code}>. Response text: {response.texts}")
+          print(f"Error: got a bad response code <{response.status_code}>. Response text: {response.texts}")
           response.raise_for_status()
 
         try:
@@ -57,7 +57,7 @@ jobs:
         for i in range(60): # Wait for 20 minutes
           response = requests.get(url=f"{jobmgr_base_url}/jobs/{job_uuid}", headers=headers)
           if response.status_code != requests.codes.ok:
-            print(f"Error: got a bad response code <{reponse.status_code}>. Response text: {response.texts}")
+            print(f"Error: got a bad response code <{response.status_code}>. Response text: {response.texts}")
             response.raise_for_status()
 
           try:
