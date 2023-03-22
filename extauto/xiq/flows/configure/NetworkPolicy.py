@@ -747,6 +747,7 @@ class NetworkPolicy(object):
             self.utils.print_info(f"Current page: {current_page}")
             self.utils.print_info("Waiting for Network Policy rows to load...")
             self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
+            self.navigator.wait_until_loading_is_done()
             self.utils.print_info("Network Policy rows have been loaded. Searching for "
                                   f"Network Policy: {policy_name} ...")
 
