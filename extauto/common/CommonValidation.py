@@ -2,7 +2,11 @@ from inspect import currentframe
 
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.common.Logging import Logging
+from ExtremeAutomation.Imports.CommonObjectUtils import CommonObjectUtils
+if CommonObjectUtils().executionModePytest():
+    from ExtremeAutomation.Library.Logger.PytestLogger import PytestLogger as Logging
+else:
+    from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 
 
 class FailureException(AssertionError):
@@ -12,7 +16,7 @@ class FailureException(AssertionError):
 class CommonValidation():
 
     def __init__(self):
-        self.logger = Logging().get_logger()
+        self.logger = Logging()
         self.utils = Utils()
         self.screen = Screen()
 
@@ -96,9 +100,9 @@ class CommonValidation():
                 test_result = True
 
             elif expect_error and test_result:
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.info("[IRV] IRV is configured to expect a failure and the keyword did not fail")
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.error("[IRV] IRV is configured to expect a failure and the keyword did not fail")
+                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 test_result = False
 
             # Print the output

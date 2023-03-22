@@ -38,8 +38,7 @@ class NetworkPolicyWebElementDefinition:
 
     np_add_button = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Add"]',
-            'wait_for': 1
+            'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Add"]'
         }
 
     np_policy_crumb_button = \
@@ -51,8 +50,7 @@ class NetworkPolicyWebElementDefinition:
     np_edit_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Edit"]',
-            'CSS_SELECTOR': '.table-action-icons.table-edit',
-            'wait_for': 1
+            'CSS_SELECTOR': '.table-action-icons.table-edit'
         }
 
     np_wireless_check_box = \
