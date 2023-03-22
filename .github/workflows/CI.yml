@@ -25,7 +25,7 @@ jobs:
         from time import sleep
         import requests
 
-        jobmgr_base_url = ${{ env.JOBMGR_BASE_URL }}
+        jobmgr_base_url = "${{ env.JOBMGR_BASE_URL }}"
 
         headers = {
           "accept": "application/json",
