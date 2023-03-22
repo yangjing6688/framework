@@ -2002,10 +2002,6 @@ class Cli(object):
             kwargs["fail_msg"] = f"Failed to verify the path cost of port='{port}' on this dut\n{device}"
             self.commonValidation.failed(**kwargs)
             return -1
-        
-        if 'EXOS' in cli_type.upper():
-            self.send_pxssh(spawn, 'disable cli paging')
-            self.send_pxssh(spawn, 'debug iqagent show log hive-agent tail')
 
     def verify_port_removed_from_vlan(self, dut, port, port_type, vlan=None, allowed_vlans="all", **kwargs):
         """Method that verifies if given port is removed from a specific vlan of a switch.
