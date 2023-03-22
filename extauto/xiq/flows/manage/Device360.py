@@ -13879,11 +13879,15 @@ class Device360(Device360WebElements):
             self.utils.wait_till(timeout=2)
 
         if access_vlan_id:
-
-            if device_os == "EXOS":
-                input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield(port_row)
-            else:
-                input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield_VOSS(port_row)
+            # 3/22/2023, WD1R2, 23.3.0.20-WI23R3IN-SNAPSHOT
+            # I commented this because now these XPATHs are identical for both EXOS/VOSS
+            # note: this commented code block can be deleted later; also the defs and web elements
+            # if device_os == "EXOS":
+            #     input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield(port_row)
+            # else:
+            #     input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield_VOSS(port_row)
+                
+            input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield(port_row)
 
             if not input_field_access_vlan_id:
                 kwargs["fail_msg"] = "Failed to get the input_field_access_vlan_id" \
@@ -13902,10 +13906,15 @@ class Device360(Device360WebElements):
 
         if native_vlan:
 
-            if device_os == "EXOS":
-                input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
-            else:
-                input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield_VOSS(port_row)
+            # 3/22/2023, WD1R2, 23.3.0.20-WI23R3IN-SNAPSHOT
+            # I commented this because now these XPATHs are identical for both EXOS/VOSS
+            # note: this commented code block can be deleted later; also the defs and web elements
+            # if device_os == "EXOS":
+            #     input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
+            # else:
+            #     input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield_VOSS(port_row)
+                
+            input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
 
             if not input_field_trunk_native:
                 kwargs["fail_msg"] = "Failed to get the input_field_trunk_native element"
@@ -13924,10 +13933,15 @@ class Device360(Device360WebElements):
 
         if allowed_vlans:
 
-            if device_os == "EXOS":
-                input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
-            else:
-                input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield_VOSS(port_row)
+            # 3/22/2023, WD1R2, 23.3.0.20-WI23R3IN-SNAPSHOT
+            # I commented this because now these XPATHs are identical for both EXOS/VOSS
+            # note: this commented code block can be deleted later; also the defs and web elements
+            # if device_os == "EXOS":
+            #     input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
+            # else:
+            #     input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield_VOSS(port_row)
+                
+            input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
 
             if not input_field_allowed_vlans:
                 kwargs["fail_msg"] = "Failed to get the input_field_allowed_vlans element"
