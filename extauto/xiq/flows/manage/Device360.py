@@ -1430,7 +1430,7 @@ class Device360(Device360WebElements):
         :return: 1 if page was refreshed, -1 if not
         """
         ret_val = -1
-        refresh_btn = self.get_device360_refresh_page_button()
+        refresh_btn = self.dev360.get_device360_refresh_page_button()
         if refresh_btn:
             self.utils.print_info("Clicking Refresh Page button")
             self.auto_actions.click(refresh_btn)
