@@ -67,7 +67,7 @@ jobs:
           print("")
           print(dumps(response.json(), indent=2))
           print("")
-          print("::endgroup::")
+          print("::endgroup::", end="\n\n")
 
           if job_status == "complete":
             print(f"Job Completed Successfully!")
