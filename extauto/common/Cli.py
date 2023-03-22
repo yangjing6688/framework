@@ -2769,7 +2769,7 @@ class Cli(object):
 
         elif dut.cli_type.lower() == "exos" and dut.platform.lower() == 'stack':
             self.utils.print_info("Checking for connected ports on exos stack...")
-            clear_lldp_table = self.networkElementCliSend.send_cmd(dut.name, 'clear lldp neighbors all', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'clear lldp neighbors all', max_wait=10, interval=2)
             self.utils.wait_till(timeout=90, delay=30, silent_failure=True, msg="Waiting for lldp table to "
                                                                                 "be repopulated on switch")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
@@ -2778,7 +2778,7 @@ class Cli(object):
 
         elif dut.cli_type.lower() == "exos":
             self.utils.print_info("Checking for connected ports on exos switch...")
-            clear_lldp_table = self.networkElementCliSend.send_cmd(dut.name, 'clear lldp neighbors all', max_wait=10, interval=2)
+            self.networkElementCliSend.send_cmd(dut.name, 'clear lldp neighbors all', max_wait=10, interval=2)
             self.utils.wait_till(timeout=90, delay=30, silent_failure=True, msg="Waiting for lldp table to "
                                                                                 "be repopulated on stack")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbors detail', max_wait=10, interval=2)
