@@ -15759,3 +15759,376 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info("Unable to find the clients count")
         return ret_clientcount
+
+    def d360_get_info(self, device_mac, get_d360, **kwargs):
+        """
+        - This keyword obtains information from device360 page by demand from $(GET_D360) Dictionary
+        - Flow: Manage --> Devices --> click on(device serial hyperlink).
+        - Keyword Usage:
+        - ``${D360_INFO}    D360 GET INFO    ${DEVICE_MAC}    ${GET_D360}``
+
+        :param device_mac: MAC of the device
+        :param get_d360: (Dict) Info. request to get from Device 360 page
+        :return: (Dict) Device 360 information if successfully else -1
+        """
+        monitor        = get_d360.get('monitor'       , 'None')
+        unique_clients = get_d360.get('unique_clients', 'None')
+
+        try:
+            self.deviceCommon.go_to_device360_window(device_mac, device_mac)
+            if unique_clients != 'None':
+                self.utils.wait_till(self.dev360.get_connected_clients_count, timeout=12, delay=3, is_logging_enabled=True)
+                get_d360['unique_clients'] = self.dev360.get_leftpane_unique_clients().text
+                self.utils.print_info("Unique Clients:", get_d360['unique_clients'])
+
+            if monitor != 'None':
+                get_d360['monitor'] = self._get_d360_monitor(monitor)
+
+
+            self.utils.print_info("Click on close Diaglog Window(x)")
+            self.auto_actions.click_reference(self.dev360.get_close_dialog)
+
+            kwargs['pass_msg'] = "Successfully able to get D360 Information."
+            self.common_validation.passed(**kwargs)
+            return get_d360
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to get D360 Information: {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _get_d360_monitor(self, get_monitor, **kwargs):
+        """
+        - This keyword obtains Monitor info page.
+        - Flow: Manage -->Devices --> click on(device serial hyperlink) -> Monitor
+
+        :param get_monitor: (Dict) Info. request to get from Device 360 Monitor page
+        :return: (Dict) Device 360 information monitor if successfully else -1
+        """
+        overview            = get_monitor.get('overview'           , 'None')
+        system_information  = get_monitor.get('system_information' , 'None')
+        wireless_interfaces = get_monitor.get('wireless_interfaces', 'None')
+        clients             = get_monitor.get('clients'            , 'None')
+
+        try:
+            if overview != 'None':
+                get_monitor['overview'] = self._get_d360_monitor_overview(overview)
+
+            if system_information != 'None':
+                get_monitor['system_information'] = self._get_d360_monitor_system_information(system_information)
+
+            if wireless_interfaces != 'None':
+                get_monitor['wireless_interfaces'] = self._get_d360_monitor_wireless_interfaces(wireless_interfaces)
+
+            if clients != 'None':
+                get_monitor['clients'] = self._get_d360_monitor_clients(clients)
+
+            kwargs['pass_msg'] = "Successfully able to get D360 Monitor."
+            self.common_validation.passed(**kwargs)
+            return get_monitor
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to get D360 Monitor: {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _get_d360_monitor_overview(self, get_overview, **kwargs):
+        """
+        - This keyword obtains Overview page.
+        - Flow: Manage -->Devices --> click on(device serial hyperlink) -> Monitor -> OverView
+
+        :param get_overview: (Dict) Info. request to get from Device 360 Overview page
+        :return: (Dict) Device 360 information monitor overview if successfully else -1
+        """
+        connected_clients = get_overview.get('connected_clients', 'None')
+
+        try:
+            if connected_clients != 'None':
+                self.utils.wait_till(self.dev360.get_connected_clients_count, timeout=20, delay=4, is_logging_enabled=True)
+                get_overview['connected_clients'] = self.dev360.get_connected_clients_count().text
+                self.utils.print_info("Connected clients: ", get_overview['connected_clients'])
+
+            kwargs['pass_msg'] = "Successfully able to get D360 Monitor Overview."
+            self.common_validation.passed(**kwargs)
+            return get_overview
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to get D360 Monitor Overview: {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _get_d360_monitor_system_information(self, get_system_info, **kwargs):
+        """
+        - This keyword obtains System Information page.
+        - Flow: Manage -->Devices --> click on(device serial hyperlink) -> Monitor -> System Information
+
+        :param get_system_info: (Dict) Info. request to get from Device 360 System Information page
+        :return: (Dict) Device 360 information monitor System Information if successfully else -1
+        """
+        host_name            = get_system_info.get('host_name'           , 'None')
+        network_policy       = get_system_info.get('network_policy'      , 'None')
+        ssid                 = get_system_info.get('ssid'                , 'None')
+        device_model         = get_system_info.get('device_model'        , 'None')
+        function             = get_system_info.get('function'            , 'None')
+        device_template      = get_system_info.get('device_template'     , 'None')
+        configuration_type   = get_system_info.get('configuration_type'  , 'None')
+        serial_number        = get_system_info.get('serial_number'       , 'None')
+        iq_engine            = get_system_info.get('iq_engine'           , 'None')
+        device_status        = get_system_info.get('device_status'       , 'None')
+        mgt0_ipv4_address    = get_system_info.get('mgt0_ipv4_address'   , 'None')
+        mgt0_ipv6_address    = get_system_info.get('mgt0_ipv6_address'   , 'None')
+        ipv4_subnet_mask     = get_system_info.get('ipv4_subnet_mask'    , 'None')
+        ipv6_subnet_mask     = get_system_info.get('ipv6_subnet_mask', 'None')
+        ipv4_default_gateway = get_system_info.get('ipv4_default_gateway', 'None')
+        ipv6_default_gateway = get_system_info.get('ipv6_default_gateway', 'None')
+        mgt0_mac_address     = get_system_info.get('mgt0_mac_address'    , 'None')
+        dns                  = get_system_info.get('dns'                 , 'None')
+        ntp                  = get_system_info.get('ntp'                 , 'None')
+
+        try:
+            self.utils.print_info("Clicking on System Information")
+            self.auto_actions.click_reference(self.dev360.get_system_info_button)
+            self.utils.wait_till(self.dev360.get_system_info_iq_engine, timeout=15, delay=3, is_logging_enabled=True)
+            self.screen.save_screen_shot()
+
+            self.utils.print_info("Getting System Information.")
+            if host_name != 'None':
+                get_system_info['host_name'] = self.dev360.get_system_info_device_host_name().text
+                self.utils.print_info('Host Name: ', get_system_info['host_name'])
+
+            if network_policy != 'None':
+                get_system_info['network_policy'] = self.dev360.get_system_info_network_policy().text
+                self.utils.print_info('Network Policy: ', get_system_info['network_policy'])
+
+            if ssid != 'None':
+                get_system_info['ssid'] = self.dev360.get_system_info_device_ssids().text
+                self.utils.print_info('SSID: ', get_system_info['ssid'])
+
+            if device_model != 'None':
+                get_system_info['device_model'] = self.dev360.get_system_info_device_model().text
+                self.utils.print_info('Devie Model: ', get_system_info['device_model'])
+
+            if function != 'None':
+                get_system_info['function'] = self.dev360.get_system_info_device_function().text
+                self.utils.print_info('Function: ', get_system_info['function'])
+
+            if device_template != 'None':
+                get_system_info['device_template'] = self.dev360.get_system_info_device_template().text
+                self.utils.print_info('Device Template: ', get_system_info['device_template'])
+
+            if configuration_type != 'None':
+                get_system_info['configuration_type'] = self.dev360.get_system_info_conf_type().text
+                self.utils.print_info('Configuration Type: ', get_system_info['configuration_type'])
+
+            if serial_number!= 'None':
+                get_system_info['serial_number'] = self.dev360.get_system_info_serial_num().text
+                self.utils.print_info('Serial Number: ', get_system_info['serial_number'])
+
+            if iq_engine != 'None':
+                get_system_info['iq_engine'] = self.dev360.get_system_info_iq_engine().text
+                self.utils.print_info('IQ Engine: ', get_system_info['iq_engine'])
+
+            if device_status != 'None':
+                get_system_info['device_status'] = self.dev360.get_system_info_dev_status().text
+                self.utils.print_info('Device Status: ', get_system_info['device_status'])
+
+            if mgt0_ipv4_address != 'None':
+                get_system_info['mgt0_ipv4_address'] = self.dev360.get_system_info_mgt0_ipv4().text
+                self.utils.print_info('Mgt0 IPv4 Address: ', get_system_info['mgt0_ipv4_address'])
+
+            if mgt0_ipv6_address != 'None':
+                get_system_info['mgt0_ipv6_address'] = self.dev360.get_system_info_mgt0_ipv6().text
+                self.utils.print_info('Mgt0 IPv6 Address: ', get_system_info['mgt0_ipv6_address'])
+
+            if ipv4_subnet_mask != 'None':
+                get_system_info['ipv4_subnet_mask'] = self.dev360.get_system_info_ipv4_subnet().text
+                self.utils.print_info('IPv4 Subnet Mask: ', get_system_info['ipv4_subnet_mask'])
+
+            if ipv6_subnet_mask != 'None':
+                get_system_info['ipv6_subnet_mask'] = self.dev360.get_system_info_ipv6_subnet().text
+                self.utils.print_info('IPv6 Subnet Mask: ', get_system_info['ipv6_subnet_mask'])
+
+            if ipv4_default_gateway!= 'None':
+                get_system_info['ipv4_default_gateway'] = self.dev360.get_system_info_ipv4_default().text
+                self.utils.print_info('IPv4 Default Gateway: ', get_system_info['ipv4_default_gateway'])
+
+            if ipv6_default_gateway!= 'None':
+                get_system_info['ipv6_default_gateway'] = self.dev360.get_system_info_ipv6_default().text
+                self.utils.print_info('IPv6 Default Gateway: ', get_system_info['ipv6_default_gateway'])
+
+            if mgt0_mac_address != 'None':
+                get_system_info['mgt0_mac_address'] = self.dev360.get_system_info_mgt0_mac().text
+                self.utils.print_info('Mgt0 Mac Address: ', get_system_info['mgt0_mac_address'])
+
+            if dns != 'None':
+                get_system_info['dns'] = self.dev360.get_system_info_dns().text
+                self.utils.print_info('DNS: ', get_system_info['dns'])
+
+            if ntp != 'None':
+                get_system_info['ntp'] = self.dev360.get_system_info_ntp().text
+                self.utils.print_info('NTP: ', get_system_info['ntp'])
+
+            kwargs['pass_msg'] = "Successfully able to get D360 Monitor System Information."
+            self.common_validation.passed(**kwargs)
+            return get_system_info
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to get D360 Monitor System Information: {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _get_d360_monitor_wireless_interfaces(self, get_wireless_interfaces, **kwargs):
+        """
+        - This keyword obtains Wireless Interfaces page.
+        - Flow: Manage -->Devices --> click on(device serial hyperlink) -> Monitor -> Wireless Interfaces
+
+        :param get_wireless_interfaces: (Dict) Info. request to get from Device 360 Wireless Interfaces page
+        :return: (Dict) Device 360 information monitor Wireless Interfaces if successfully else -1
+        """
+        total_clients        = get_wireless_interfaces.get('total_clients'       , 'None')
+        wifi_health_2ghz     = get_wireless_interfaces.get('wifi_health_2.4ghz'  , 'None')
+        wifi_health_5ghz     = get_wireless_interfaces.get('wifi_health_5ghz'    , 'None')
+        wifi_health_6ghz     = get_wireless_interfaces.get('wifi_health_6ghz'    , 'None')
+        wifi_health_combined = get_wireless_interfaces.get('wifi_health_combined', 'None')
+        wifi2                = get_wireless_interfaces.get('wifi2'               , 'None')
+
+        try:
+            self.utils.print_info("Clicking on Wireless Interface")
+            self.auto_actions.click_reference(self.dev360.get_device360_wireless_interface_tab)
+
+            if total_clients != 'None':
+                self.utils.wait_till(self.dev360.get_device360_total_wireless_clients, timeout=12, delay=3, is_logging_enabled=True)
+                get_wireless_interfaces['total_clients'] = self.dev360.get_device360_total_wireless_clients().text
+                self.utils.print_info("Total Clients: ", get_wireless_interfaces['total_clients'])
+
+            if wifi_health_2ghz != 'None':
+                get_wireless_interfaces['wifi_health_2.4ghz'] = self._get_d360_monitor_wireless_interfaces_wifi_health('2ghz', wifi_health_2ghz)
+
+            if wifi_health_5ghz != 'None':
+                get_wireless_interfaces['wifi_health_5ghz'] = self._get_d360_monitor_wireless_interfaces_wifi_health('5ghz', wifi_health_5ghz)
+
+            if wifi_health_6ghz != 'None':
+                get_wireless_interfaces['wifi_health_6ghz'] = self._get_d360_monitor_wireless_interfaces_wifi_health('6ghz', wifi_health_6ghz)
+
+            if wifi_health_combined != 'None':
+                get_wireless_interfaces['wifi_health_combined'] = self._get_d360_monitor_wireless_interfaces_wifi_health('combined',  wifi_health_combined)
+
+            if wifi2 != 'None':
+                get_wireless_interfaces['wifi2'] = self._get_get_d360_monitor_wireless_interfaces_wifix('wifi2', wifi2)
+
+            kwargs['pass_msg'] = "Successfully able to get D360 Monitor Wireless Interfaces."
+            self.common_validation.passed(**kwargs)
+            return get_wireless_interfaces
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to get D360 Monitor Wireless Interfaces: {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _get_d360_monitor_clients(self, get_clients, **kwargs):
+        """
+        - This keyword obtains Clients page.
+        - Flow: Manage -->Devices --> click on(device serial hyperlink) -> Monitor -> Clients
+
+        :param get_clients: (Dict) Info. request to get from Device 360 Clients page
+        :return: (Dict) Device 360 information monitor Clients if successfully else -1
+        """
+        total_clients          = get_clients.get('total_clients'         , 'None')
+        client_mac             = get_clients.get('client_mac'            , 'None')
+        current_connect_status = get_clients.get('current_connect_status', 'None')
+
+        try:
+            self.utils.print_info("Click on Clients tab")
+            self.auto_actions.click_reference(self.deviceConfig.get_go_to_clients)
+
+            if total_clients != 'None':
+                self.utils.wait_till(self.dev360.get_device_active_clients_grid, timeout=12, delay=3, is_logging_enabled=True)
+                get_clients['total_clients'] = self.dev360.get_device360_total_clients_clientspage().text
+                self.utils.print_info("Total Clients within selected time range: ", get_clients['total_clients'])
+
+            if client_mac != 'None':
+                self.utils.wait_till(self.dev360.get_device_active_clients_grid, timeout=12, delay=3, is_logging_enabled=True)
+                table = self.dev360.get_device_active_clients_grid()
+                rows = self.dev360.get_device_active_clients_grid_rows(table)
+                self.utils.print_info("Getting the total number of rows: ", len(rows))
+                self.screen.save_screen_shot()
+                for row in rows:
+                    self.utils.print_info("Getting the clients rows: ", row.text)
+                    if client_mac in row.text and "CONNECTED" in row.text:
+                        if current_connect_status != 'None':
+                            get_clients['current_connect_status'] = "CONNECTED"
+                            self.utils.print_info("Client current connect status: ", get_clients['current_connect_status'])
+                        break
+
+            kwargs['pass_msg'] = "Successfully able to get D360 Monitor Clients."
+            self.common_validation.passed(**kwargs)
+            return get_clients
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to get D360 Monitor Clients: {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _get_get_d360_monitor_wireless_interfaces_wifix(self, wifix, get_wifix, **kwargs):
+        """
+        - This keyword obtains WIFIx frame.
+        - Flow: Manage -->Devices --> click on(device serial hyperlink) -> Monitor -> WIFIx(frame)
+
+        :param get_clients: (Dict) Info. request to get from Device 360 wireless interfaces WIFIx frame
+        :return: (Dict) Device 360 information monitor wireless interfaces WIFIx if successfully else -1
+        """
+        my_clients = get_wifix.get('my_clients', 'None')
+
+        try:
+            self.utils.wait_till(self.dev360.get_device360_wireless_wifi2widgetclient, timeout=12, delay=3, is_logging_enabled=True)
+            if wifix == 'wifi2':
+                if my_clients != 'None':
+                    self.utils.print_info("Getting Device360 Total Wireless Count")
+                    get_wifix['my_clients'] = self.dev360.get_device360_wireless_wifi2widgetclient().text
+
+            kwargs['pass_msg'] = f"Successfully able to get D360 Monitor Wireless Interface WIFIx: {wifix}"
+            self.common_validation.passed(**kwargs)
+            return get_wifix
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to get D360 Monitor Interface WIFIx: {wifix} : {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def _get_d360_monitor_wireless_interfaces_wifi_health(self, band, get_wifi_health, **kwargs):
+        """
+        - This keyword obtains WIFI HEALTH frame.
+        - Flow: Manage -->Devices --> click on(device serial hyperlink) -> Monitor -> Wireless Interfaces -> WIFI HEALTH(frame)
+
+        :param get_clients: (Dict) Info. request to get from Device 360 wireless interfaces WIFI HEALTH page
+        :return: (Dict) Device 360 information monitor wireless interfaces WIFI HEALTH if successfully else -1
+        """
+        overall_score = get_wifi_health.get('overall_score', 'None')
+
+        try:
+            if   band == '2ghz':
+                self.utils.print_info("Click on 2.4 GHz tab")
+                self.auto_actions.click_reference(self.get_device360_wireless_wifi2gscoretab)
+            elif band == '5ghz':
+                self.utils.print_info("Click on 5 GHz tab")
+                self.auto_actions.click_reference(self.get_device360_wireless_wifi5gscoretab)
+            elif band == '6ghz':
+                self.utils.print_info("Click on 6 GHz tab")
+                self.auto_actions.click_reference(self.get_device360_wireless_wifi6gscoretab)
+            elif band == 'combined':
+                self.utils.print_info("Click on combined tab")
+                self.auto_actions.click_reference(self.get_device360_wireless_combinedscoretab)
+
+            if overall_score != 'None':
+                self.utils.wait_till(self.dev360.get_device360_wireless_combinedscore, timeout=15, delay=5, is_logging_enabled=True)
+                get_wifi_health['overall_score'] = self.dev360.get_device360_wireless_combinedscore().text
+                self.utils.print_info("Overall Score Value: ", get_wifi_health['overall_score'])
+
+            kwargs['pass_msg'] = f"Successfully able to get D360 Monitor Wireless Interface WIFI HEALTH: {band}"
+            self.common_validation.passed(**kwargs)
+            return get_wifi_health
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to get D360 Monitor WIFI HEALTH: {band} : {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
