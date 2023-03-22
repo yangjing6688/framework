@@ -1528,7 +1528,7 @@ class Devices:
             self.clear_search_field()
             returnValue = self.auto_actions.click_reference(self.devices_web_elements.get_refresh_devices_page)
             if returnValue == -1:
-                kwargs['fail_msg'] = "Device page was not refreshed successfully"
+                kwargs['fail_msg'] = "Device page was NOT refreshed"
                 self.common_validation.failed(**kwargs)
                 return -1
             else:
