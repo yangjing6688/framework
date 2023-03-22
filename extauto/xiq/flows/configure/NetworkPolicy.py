@@ -2955,4 +2955,101 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -1
 
+    def set_dns_server_status(self, status="enable", **kwargs):
+        
+        if not status in ["enable", "disable"]:
+            kwargs["fail_msg"] = "given status should be enable or disable"
+            self.common_validation.fault(**kwargs)
+        
+        button, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_dns_server_status,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
 
+        if button is None:
+            kwargs["fail_msg"] = "Failed to get the dns server status button"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
+        if (button.is_selected() and status == "disable") or (not button.is_selected() and status == "enable"):
+            self.utils.print_info(f"{status} dns server")
+            
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(button),
+                exp_func_resp=True,
+                delay=4,
+                silent_failure=True
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the dns server status button"
+                self.common_validation.fault(**kwargs)
+                return -1
+        else:
+            self.utils.print_info(f"status of dns server is already {status}d")
+            
+        kwargs["pass_msg"] = f"Successfully set the status of dns server - {status}d"
+        self.common_validation.passed(**kwargs)
+        return 1
+        
+    def go_to_dns_server_tab(self, **kwargs):
+        
+        tab, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_nw_policy_additional_settings_dns_server_tab,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if tab is None:
+            kwargs["fail_msg"] = "Failed to get the dns server tab"
+            self.common_validation.fault(**kwargs)
+            return -1
+    
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(tab),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the dns server status tab"
+            self.common_validation.fault(**kwargs)
+            return -1
+            
+        kwargs["pass_msg"] = "Successfully went to the dns server tab"
+        self.common_validation.passed(**kwargs)
+        return 1
+    
+    def save_dns_server_tab(self, **kwargs):
+
+        button, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_dns_server_save_button,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if button is None:
+            kwargs["fail_msg"] = "Failed to get the dns server save button"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(button),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the dns server save button"
+            self.common_validation.fault(**kwargs)
+            return -1
+            
+        kwargs["pass_msg"] = "Successfully clicked the dns server save button"
+        self.common_validation.passed(**kwargs)
+        return 1
