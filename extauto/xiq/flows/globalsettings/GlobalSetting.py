@@ -1005,46 +1005,57 @@ class GlobalSetting(GlobalSettingWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def change_exos_device_management_settings(self, option, platform, **kwargs):
+    def change_device_management_settings(self, option, **kwargs):
         """
-        - This Keyword will Enable/Disable device management settings for EXOS switches.
+        - This Keyword will Enable/Disable device management settings for devices that support this feature.
         - Flow : User account image-->Global Settings--> Device Management Settings
         - Keyword Usage
-        - ``Change exos device management settings     ${OPTION}   {DUT_PLATFORM}``
+        - ``Change device management settings     ${OPTION} ''
 
-        :param option: Choose an option for Device management settings for EXOS switches:"enable"\"disable"
-        :param platform: Choose the platform:  EXOS/VOSS
-        :return: 1 If device management settings for EXOS switches is Successful
+        :param option: Choose an option for Device management settings :"enable"\"disable"
+        :return: 1 If changing device management settings is Successful
         """
-        if platform.lower() == "exos":
-            self.utils.print_info("Navigating to the global settings---> Device Management Settings")
-            self.navigate.navigate_to_device_management_settings()
-            sleep(5)
-            self.utils.print_info("Device management settings for EXOS switches:{}".format(option))
-            if option.lower() == "enable":
-                if not self.get_exos_device_management_settings_status().is_selected():
-                    self.utils.print_info("Enabling..")
-                    self.auto_actions.click_reference(self.get_exos_device_management_settings_status)
-                    self.utils.print_info("Saving option")
-                    self.auto_actions.click_reference(self.get_exos_device_management_settings_save_button)
-                    sleep(1)
-                else:
-                    self.utils.print_info("Option already enabled...")
-            if option.lower() == "disable":
-                if not self.get_exos_device_management_settings_status().is_selected():
-                    self.utils.print_info("Option already disabled")
-                else:
-                    self.utils.print_info("Disabling...")
-                    self.auto_actions.click_reference(self.get_exos_device_management_settings_status)
-                    self.utils.print_info("Saving option")
-                    self.auto_actions.click_reference(self.get_exos_device_management_settings_save_button)
-                    sleep(1)
+        self.utils.print_info("Navigating to the global settings---> Device Management Settings")
+        self.navigate.navigate_to_device_management_settings()
+        sleep(5)
+        settings_successfully_changed = False
+        did_not_change_settings = False
+        self.utils.print_info(f"Changing Device management settings to:{option}")
+        if option.lower() == "enable":
+            if not self.get_device_management_settings_status().is_selected():
+                self.utils.print_info("Enabling..")
+                self.auto_actions.click_reference(self.get_device_management_settings_status)
+                self.utils.print_info("Saving option")
+                self.auto_actions.click_reference(self.get_device_management_settings_save_button)
+                sleep(1)
+                settings_successfully_changed = True
+            else:
+                self.utils.print_info("Option already enabled...")
+                did_not_change_settings = True
+        if option.lower() == "disable":
+            if not self.get_device_management_settings_status().is_selected():
+                self.utils.print_info("Option already disabled")
+                did_not_change_settings = True
+            else:
+                self.utils.print_info("Disabling...")
+                self.auto_actions.click_reference(self.get_device_management_settings_status)
+                self.utils.print_info("Saving option")
+                self.auto_actions.click_reference(self.get_device_management_settings_save_button)
+                sleep(1)
+                settings_successfully_changed = True
+
+        if did_not_change_settings:
+            kwargs['pass_msg'] = f"Did not Changing Device management settings to '{option}' since it was already set to that value"
+            self.common_validation.passed(**kwargs)
+            return 1
+        elif settings_successfully_changed:
+            kwargs['pass_msg'] = f"Successfully change device management settings to '{option}'"
+            self.common_validation.passed(**kwargs)
+            return 1
         else:
-            self.utils.print_info("Device is not EXOS")
-            pass
-        kwargs['pass_msg'] = "Successfully device management settings for EXOS switches"
-        self.common_validation.passed(**kwargs)
-        return 1
+            kwargs['fail_msg'] = f"Could not successfully change device management settings to '{option}'"
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def check_audit_log(self, date_start, description, rows_number='20', **kwargs):
         """
