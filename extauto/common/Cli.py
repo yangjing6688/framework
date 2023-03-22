@@ -2893,6 +2893,82 @@ class Cli(object):
         self.commonValidation.passed(**kwargs)
         return match_port_mac_locking_state
 
+    def get_nw_templ_device_config_forward_delay(self, dut, **kwargs):
+        '''
+        - Get the forward delay for a device
+        :param dut: the dut object
+        :return: the forward delay
+        '''
+        if dut.cli_type.upper() == "EXOS":
+
+            for attempts in range(3):
+                sleep(5)
+                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+                self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging',
+                                     max_wait=10, interval=2)
+
+                output = self.networkElementCliSend.send_cmd(dut.name, 'show stpd detail',
+                                                      max_wait=10,
+                                                      interval=2)
+                self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+                print(output[0].return_text)
+
+                p = re.compile(r'(CfgBrForwardDelay:\s+)+(\d+)', re.M)
+
+                match_text = re.findall(p, output[0].return_text)
+                print(f"{match_text}")
+
+                sw_model = []
+                sw_model.append(match_text[0][1])
+
+                print(f"forward delay is {match_text[0][1]} seconds")
+
+                kwargs['pass_msg'] = f"Forw delay for device is: {match_text[0][1]}"
+                self.commonValidation.passed(**kwargs)
+
+                return match_text[0][1]
+
+        else:
+            kwargs['fail_msg'] = f"get_nw_templ_device_config_forward_delay() failed, {dut.cli_type} not timplemented"
+            self.commonValidation.fault(**kwargs)
+
+    def set_nw_templ_device_config_forward_delay(self, dut, forward_delay=15, **kwargs):
+        '''
+        - Set the forward delay for a given EXOS device
+        :param dut: the dut object
+        :param forward_delay: the value of the forward delay to be set
+        :return: the forward delay after being set
+        '''
+        if dut.cli_type.upper() == "EXOS":
+
+            for attempts in range(3):
+                sleep(5)
+                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+                self.networkElementCliSend.send_cmd(dut.name, f'configure stpd s0 forwarddelay {forward_delay}',
+                                     max_wait=10, interval=2)
+
+                output = self.networkElementCliSend.send_cmd(dut.name, 'show stpd detail',
+                                              max_wait=10,
+                                              interval=2)
+                self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+                print(output[0].return_text)
+
+                p = re.compile(r'(CfgBrForwardDelay:\s+)+(\d+)', re.M)
+
+                match_text = re.findall(p, output[0].return_text)
+                print(f"{match_text}")
+
+                sw_model = []
+                sw_model.append(match_text[0][1])
+
+                kwargs['pass_msg'] = f"Forw delay for device is: {match_text[0][1]}"
+                self.commonValidation.passed(**kwargs)
+
+                return match_text[0][1]
+
+        else:
+            kwargs['fail_msg'] = f"get_nw_templ_device_config_forward_delay() failed, {dut.cli_type} not timplemented"
+            self.commonValidation.fault(**kwargs)
 
 if __name__ == '__main__':
     from pytest_testconfig import config

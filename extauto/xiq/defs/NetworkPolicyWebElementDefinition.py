@@ -9,7 +9,7 @@ class NetworkPolicyWebElementDefinition:
     card_view = \
         {
             'XPATH': "//span[@data-automation-tag='automation-config-card']",
-            'wait_for': 5
+            'wait_for': 30
         }
 
     np_grid_rows = \
@@ -38,8 +38,7 @@ class NetworkPolicyWebElementDefinition:
 
     np_add_button = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Add"]',
-            'wait_for': 1
+            'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Add"]'
         }
 
     np_policy_crumb_button = \
@@ -51,8 +50,7 @@ class NetworkPolicyWebElementDefinition:
     np_edit_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Edit"]',
-            'CSS_SELECTOR': '.table-action-icons.table-edit',
-            'wait_for': 1
+            'CSS_SELECTOR': '.table-action-icons.table-edit'
         }
 
     np_wireless_check_box = \
@@ -92,8 +90,7 @@ class NetworkPolicyWebElementDefinition:
 
     network_policy_card_item_edit_icon = \
         {
-            'CSS_SELECTOR': '.card-item-action-edit',
-            'wait_for': 5
+            'CSS_SELECTOR': '.card-item-action-edit'
         }
 
     network_policy_wireless_networks_tab = \
@@ -128,8 +125,7 @@ class NetworkPolicyWebElementDefinition:
 
     network_policy_wireless_ssid_name_textfield = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-ssid-details-ssid-name']",
-            'wait_for': 5
+            'XPATH': "//*[@data-automation-tag='automation-ssid-details-ssid-name']"
         }
 
     network_policy_wireless_networks_save_button = \
@@ -138,7 +134,7 @@ class NetworkPolicyWebElementDefinition:
             'wait_for': 5
         }
 
-    network_policy_card_item = {'CSS_SELECTOR': '.card-item-static', 'wait_for': 5}
+    network_policy_card_item = {'CSS_SELECTOR': '.card-item-static'}
 
     deploy_policy_tab = \
         {
