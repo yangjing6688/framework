@@ -18,10 +18,10 @@ def deprecated(message):
             warning_message_header = ("*" * 200) + "\n"
             warning_message = f"DEPRECATED FUNCTION WARNING -> {func.__name__} is a deprecated function and will be removed from the framework soon. {message}"
             full_warning_meesage = "\n\n" + warning_message_header + "\n\t" + warning_message + "\n\n" + warning_message_header + "\n\n"
+            warnings.simplefilter('default', DeprecationWarning)
             warnings.warn(warning_message,
                             category=DeprecationWarning,
                             stacklevel=2)
-            warnings.simplefilter('default', DeprecationWarning)
             Logger().log_warn(full_warning_meesage)
             return func(*args, **kwargs)
         return deprecated_func
