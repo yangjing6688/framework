@@ -2347,8 +2347,8 @@ class NetworkPolicy(object):
     def get_switching_tab(self):
         self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
 
-    def get_common_settings_voss(self):
-        self.auto_actions.click_reference(self.np_web_elements.get_common_settings_voss)
+    # def get_common_settings_voss(self):
+    #     self.auto_actions.click_reference(self.np_web_elements.get_common_settings_voss)
 
     def check_common_settings_voss_parameters(self):
         voss_settings_text = self.np_web_elements.get_voss_parameters_text()
@@ -2910,13 +2910,6 @@ class NetworkPolicy(object):
             "Failed to navigate to Network Policy Edit Tab"
 
         self.get_switching_tab()
-
-    def generate_policy_name(self):
-        """
-        - This Keyword will generate policy name
-        :return: random policy name
-        """
-        return f"test_policy_{str(time.time())[::-1][:5]}"
 
     def open_network_policy_ssid_page(self, policy_name, ssid_name, **kwargs):
         """

@@ -827,3 +827,33 @@ class NetworkPolicyWebElementDefinition:
             'CSS_SELECTOR': '.dgrid-cell',
             'wait_for': 3
         }
+
+    common_settings_exos = \
+        {
+            'XPATH': '//li[@data-automation-tag="policy-switching-settings-exos"]',
+            'wait_for': 3
+        }
+
+    common_settings_exos_stp_toogle = \
+        {
+            'CSS_SELECTOR': '.panel-container.exos-settings [data-automation-tag="automation-common-settings-stp-toggle"]',
+            'wait_for': 3
+        }
+
+    common_settings_voss_stp_toogle = \
+        {
+            'CSS_SELECTOR': '.panel-container.exos-settings.fn-hidden [data-automation-tag="automation-common-settings-stp-toggle"]',
+            'wait_for': 3
+        }
+
+    common_settings_save_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="common-settings-save"]',
+            'wait_for': 3
+        }
+
+    all_common_settings_configs = \
+        {
+            'CSS_SELECTOR': '.ui-tle .title',
+            'wait_for': 3
+        }
