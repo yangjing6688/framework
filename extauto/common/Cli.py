@@ -2752,10 +2752,8 @@ class Cli(object):
 
     def get_switch_connected_ports(self, dut):
         """ Method that returns a list of all connected ports on a device.
-        Args:
-            dut (dict): the dut, e.g. dut1, node_1
-        Returns:
-            connected_ports: a list of all connected ports on device if the function call has succeeded else -1
+        :param : dut (dict): the dut, e.g. dut1, node_1
+        :return: connected_ports: a list of all connected ports on device if the function call has succeeded else -1
         """
         if dut.cli_type.lower() == "voss":
             self.utils.print_info("Checking for connected ports on voss switch...")
@@ -2784,11 +2782,9 @@ class Cli(object):
 
     def get_switch_disconnected_ports(self, dut, connected_ports):
         """ Method that returns a list of all disconnected ports on a device.
-        Args:
-            dut (dict): the dut, e.g. dut1, node_1
-            connected_ports: list of connected ports detected on dut
-        Returns:
-            disconnected_ports: a list of all disconnected ports on device if the function call has succeeded else -1
+        :param: dut (dict): the dut, e.g. dut1, node_1
+        :param: connected_ports: list of connected ports detected on dut
+        :return: disconnected_ports: a list of all disconnected ports on device if the function call has succeeded else -1
         """
         if dut.cli_type.lower() == "voss":
             system_type_regex = "(\\d+/\\d+)\\s+\\w+"
@@ -2812,10 +2808,8 @@ class Cli(object):
 
     def get_switch_poe_ports(self, dut):
         """ Method that returns a list of all ports that support POE on a device.
-        Args:
-            dut (dict): the dut, e.g. dut1, node_1
-        Returns:
-            poe_ports: a list of all poe ports on device if the function call has succeeded else -1
+        :param: dut (dict): the dut, e.g. dut1, node_1
+        return: poe_ports: a list of all poe ports on device if the function call has succeeded else -1
         """
         if dut.cli_type.lower() == "voss":
             self.utils.print_info("Checking for POE ports on voss switch...")
@@ -2841,10 +2835,8 @@ class Cli(object):
         Assumption for VOSS is "clear logging" command was issued on CLI before using this method
         For EXOS, currently there is no equivalent for the clear logging command from VOSS,
         so we need to filter based on current time on device.
-        Args:
-            dut (dict): the dut, e.g. dut1, node_1
-        Returns:
-           1 if the function call has succeeded else -1
+        :param: dut (dict): the dut, e.g. dut1, node_1
+        :return: 1 if the function call has succeeded else -1
         """
 
         if dut.cli_type.lower() == 'voss':
