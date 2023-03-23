@@ -2809,7 +2809,7 @@ class Cli(object):
     def get_switch_poe_ports(self, dut):
         """ Method that returns a list of all ports that support POE on a device.
         :param: dut (dict): the dut, e.g. dut1, node_1
-        return: poe_ports: a list of all poe ports on device if the function call has succeeded else -1
+        :return: poe_ports: a list of all poe ports on device if the function call has succeeded else -1
         """
         if dut.cli_type.lower() == "voss":
             self.utils.print_info("Checking for POE ports on voss switch...")
