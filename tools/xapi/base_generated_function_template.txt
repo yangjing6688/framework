@@ -1,8 +1,8 @@
     def {FUNCTION_NAME}(self, **kwargs):
 
-        {COMMMENT_HEADER}
+        {COMMENT_HEADER}
 
-        # Get the configuration from the Global varibles
+        # Get the configuration from the Global variables
         configuration = self.get_xapi_configuration()
         api_response = None
 
@@ -16,7 +16,7 @@
             api_instance = self.extremecloudiq.{XAPI_API_CLASS}(api_client)
             try:
                 api_response = api_instance.{XAPI_API_FUNCTION}(**kwargs)
-                # If the _async is True, we will use the Long Runnning Operation methods
+                # If the _async is True, we will use the Long Running Operation methods
                 if kwargs.get('_async', False):
                     # Get the ID
                     operation_id = self.getLongRunningOperationId(api_response)
@@ -31,7 +31,7 @@
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
-                    # Make sure this isn't a async call because the thread will be returned and the
+                    # Make sure this is not a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return

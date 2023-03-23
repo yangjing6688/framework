@@ -333,7 +333,6 @@ class NetworkPolicy(object):
         if self.xapiNetworkPolicy.is_xapi_enabled():
             return self.xapiNetworkPolicy.xapi_delete_network_polices(policies, **kwargs)
 
-
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
             kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
             self.common_validation.failed(**kwargs)
@@ -461,14 +460,13 @@ class NetworkPolicy(object):
             if self._select_ssid(ssid_name):
                 self.utils.print_info("Sending New SSID: ", new_ssid_name)
                 self.auto_actions.send_keys(self.np_web_elements.get_network_policy_wireless_ssid_name_textfield(), new_ssid_name)
-                sleep(5)
 
         self.utils.print_info("Clicking on Network Save button..")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
 
-    def select_network_policy_in_card_view(self, policy_name):
+    def select_network_policy_in_card_view(self, policy_name, **kwargs):
         """
         - Selects the existing network polices card view
 
@@ -477,20 +475,25 @@ class NetworkPolicy(object):
         """
 
         self.utils.print_info("Selecting Network Policy: ", policy_name)
-
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
+        self.utils.wait_till(self.np_web_elements.get_network_policy_card_item,timeout=6, delay=2)
 
         policy_cards = self.np_web_elements.get_network_policy_card_items()
         if policy_cards is None:
-            self.utils.print_info("No Network Policy cards present. No policy configured")
+            kwargs['fail_msg'] = "No Network Policy cards present. No policy configured"
+            self.common_validation.failed(**kwargs)
             return -1
 
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
                 self.auto_actions.click(self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
+                kwargs['pass_msg'] = "Network Policy card/s present"
+                self.common_validation.passed(**kwargs)
                 return 1
+        kwargs['fail_msg'] = "Unsuccessfully select network policy in card view"
+        self.common_validation.failed(**kwargs)
         return -1
 
     def _select_ssid(self, ssid):
