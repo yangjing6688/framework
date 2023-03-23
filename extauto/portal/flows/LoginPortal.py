@@ -80,10 +80,10 @@ class LoginPortal:
         expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
         result = self._login_user(username, password, url, **kwargs)
 
-        # Let's try again if we don't expect and error and the results were not good
+        # Let's try again if we don't expect an error and the results were not good
         if not expect_error:
             while result != 1 and count < max_retries:
-                self.utils.print_warning(f'Trying to log in again: {count}')
+                self.utils.print_warning(f'Trying to log in again: {count} of {max_retries}')
                 result = self._login_user(username, password, url, **kwargs)
                 count = count + 1
         if result != 1:
