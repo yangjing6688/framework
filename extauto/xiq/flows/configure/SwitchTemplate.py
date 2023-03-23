@@ -42,7 +42,7 @@ class SwitchTemplate(object):
         self.dialogue_web_elements = DialogWebElements()
         self.common_objects = CommonObjects()
 
-    def check_sw_template(self, sw_template):
+    def check_sw_template(self, sw_template, **kwargs):
         """
         - Check the Switch template in the Switch template Grid
         - Assumes That Already in Network Policy Edit Page
@@ -58,11 +58,16 @@ class SwitchTemplate(object):
 
         sw_template_rows_elements = self.sw_template_web_elements.get_sw_template_rows()
         if not sw_template_rows_elements:
+            kwargs['fail_msg'] = "sw_template_rows_elements is not present"
+            self.common_validation.failed(**kwargs)
             return False
         for el in sw_template_rows_elements:
             if sw_template.upper() in el.text.upper():
-                self.utils.print_info("Template Already present in the template grid")
+                kwargs['pass_msg'] = "Template Already present in the template grid"
+                self.common_validation.passed(**kwargs)
                 return True
+        kwargs['fail_msg'] = "Switch Template Not Found on Grid"
+        self.common_validation.failed(**kwargs)
         return False
 
     def add_sw_template(self, nw_policy, sw_model, sw_template_name, **kwargs):
@@ -278,7 +283,7 @@ class SwitchTemplate(object):
             self.auto_actions.click(tab)
             sleep(2)
 
-        if self.check_sw_template(sw_template_name):
+        if self.check_sw_template(sw_template_name, ignore_failure=True):
             kwargs['pass_msg'] = "Template Already present in the template grid"
             self.common_validation.passed(**kwargs)
             return 1
@@ -476,25 +481,31 @@ class SwitchTemplate(object):
                     return 0
         return 1
 
-    def verify_sw_template_port_status(self, port_list, status, default):
+    def verify_sw_template_port_status(self, port_list, status, default, **kwargs):
         element_list = self.sw_template_web_elements.get_sw_template_all_port_status()
         _port_list = self.utils.expand_port_range(port_list)
         for i in range(len(element_list)):
             e = element_list[i]
             if i+1 in _port_list:
                 if status == 'Disabled' and e.is_selected():
-                    self.utils.print_info("ERROR: Port ", i+1, " status is ON but should be OFF")
+                    kwargs['fail_msg'] = f"ERROR: Port {i+1} status is ON but should be OFF"
+                    self.common_validation.failed(**kwargs)
                     return 0
                 elif status == 'Enabled' and not e.is_selected():
-                    self.utils.print_info("ERROR: Port ", i+1, " status is OFF but should be ON")
+                    kwargs['fail_msg'] = f"ERROR: Port {i+1} status is OFF but should be ON"
+                    self.common_validation.failed(**kwargs)
                     return 0
             elif default is not None:
                 if default == 'Disabled' and e.is_selected():
-                    self.utils.print_info("ERROR: Port ", i+1, " status is ON but should be OFF")
+                    kwargs['fail_msg'] = f"ERROR: Port {i+1} status is ON but should be OFF"
+                    self.common_validation.failed(**kwargs)
                     return 0
                 elif default == 'Enabled' and not e.is_selected():
-                    self.utils.print_info("ERROR: Port ", i+1, " status is OFF but should be ON")
+                    kwargs['fail_msg'] = f"ERROR: Port {i+1} status is OFF but should be ON"
+                    self.common_validation.failed(**kwargs)
                     return 0
+        kwargs['pass_msg'] = "Successfully verify sw template port status"
+        self.common_validation.passed(**kwargs)
         return 1
 
     def add_5520_sw_stack_template(self, model_units, nw_policy, sw_model, sw_template_name, save_template=True, **kwargs):
@@ -751,7 +762,8 @@ class SwitchTemplate(object):
                     self.screen.save_screen_shot()
                     rc = 1
             else:
-                self.utils.print_info("Not found 'Save template' button ")
+                kwargs['fail_msg'] = "Not found 'Save template' button"
+                self.common_validation.fault(**kwargs)
         return rc
 
     def delete_stack_units_device_template(self, nw_policy, sw_template_name, **kwargs):
@@ -1210,7 +1222,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Click on Switch Templates tab")
             self.auto_actions.click(tab)
             sleep(2)
-        if self.check_sw_template(device_model):
+        if self.check_sw_template(device_model, ignore_failure=True):
             kwargs['pass_msg'] = "Template Already present in the template grid"
             self.common_validation.passed(**kwargs)
             return 1
@@ -1414,7 +1426,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Click on Switch Templates tab")
             self.auto_actions.click(tab)
             sleep(2)
-        if self.check_sw_template(device_model):
+        if self.check_sw_template(device_model, ignore_failure=True):
             kwargs['pass_msg'] = "Template Already present in the template grid"
             self.common_validation.passed(**kwargs)
             return 1
@@ -1562,7 +1574,7 @@ class SwitchTemplate(object):
             self.utils.print_info("Click on Switch Templates tab")
             self.auto_actions.click(tab)
             sleep(2)
-        if self.check_sw_template(device_model):
+        if self.check_sw_template(device_model, ignore_failure=True):
             kwargs['pass_msg'] = "Template Already present in the template grid"
             self.common_validation.passed(**kwargs)
             return 1
