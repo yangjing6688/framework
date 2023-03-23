@@ -248,6 +248,18 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_unlock_port_config_button = \
+        {
+            'XPATH': "//span[@data-dojo-attach-point='unlockButton' and text()='UNLOCK']",
+            'wait_for': 5
+        }
+
+    device360_unlock_port_config_confirmation_button = \
+        {
+            'XPATH': "//button[@data-dojo-attach-point='saveBtn' and text()='UNLOCK']",
+            'wait_for': 5
+        }
+    
     device360_configure_ssh_cli_tab = \
         {
             'XPATH': '//*[@data-id="sshavailability"]',
@@ -1274,7 +1286,7 @@ class Device360WebElementDefs:
 
     sw_template_stack_add_items = \
         {
-            'XPATH': '//div[@id="switchesMenu"]//ul/li/a',
+            'XPATH': '//div[@data-dojo-attach-point="switchesMenu"]//ul/li/a',
             'wait_for': 5
         }
 

@@ -178,7 +178,7 @@ class SwitchTemplate(object):
 
                         def _is_sw_template_available():
                             return self.get_sw_template_row(sw_template_name)
-                        self.utils.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
+                        self.utils.wait_till(_is_sw_template_available, delay=3, is_logging_enabled=True, silent_failure=False)
 
                         self.screen.save_screen_shot()
                         rc = 1
@@ -200,11 +200,19 @@ class SwitchTemplate(object):
         :return: Switch Template Cell present on row
         """
         self.utils.print_info("Getting the switch template rows.")
-        rows = self.sw_template_web_elements.get_sw_template_rows()
+
+        rows, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_sw_template_rows,
+            exp_func_resp=True,
+            silent_failure=True, 
+            delay=5
+        )
+        
         if not rows:
             kwargs['fail_msg'] = "There are no device templates defined in switch template page"
             self.common_validation.failed(**kwargs)
             return False
+   
         for row in rows:
             cells = self.sw_template_web_elements.get_sw_template_row_cell(row, 'dgrid-row')
             for cell in cells:
@@ -2814,7 +2822,7 @@ class SwitchTemplate(object):
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
         policy_cards, _ = self.utils.wait_till(
-            func=self.np_web_elements.get_network_policy_card_items, delay=6)
+            func=self.np_web_elements.get_network_policy_card_items, delay=10)
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
@@ -4595,7 +4603,7 @@ class SwitchTemplate(object):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def device_templ_advanced_settings(self, nw_policy, sw_template_name, sw_model='Default', upgrade_device_upon_auth=False,
+    def device_templ_advanced_settings(self, nw_policy, sw_template_name, cli_type, sw_model='Default', upgrade_device_upon_auth=False,
                                        current_image_version=False, upload_auto=False, select_current=False, **kwargs):
         """
         - Checks the given switch template present already in the switch Templates Grid
@@ -4615,7 +4623,7 @@ class SwitchTemplate(object):
         :return: 1 if Switch Template Configured Successfully else -1
         """
         self.navigator.navigate_to_switch_templates()
-        if self.select_adv_settings_tab(nw_policy, sw_template_name) == -1:
+        if self.select_adv_settings_tab(nw_policy, sw_template_name, cli_type) == -1:
             kwargs['fail_msg'] = "Unable to navigate to 'Advanced Settings'."
             self.common_validation.fault(**kwargs)
         if upgrade_device_upon_auth:

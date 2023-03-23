@@ -13555,7 +13555,7 @@ class Device360(Device360WebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def go_to_device_360_port_config(self, dut, slot=None, **kwargs):
+    def go_to_device_360_port_config(self, dut, slot=None, unlock_button_flag=True, **kwargs):
         """Method that goes to the port configuration tab of the device 360 window.
 
         Args:
@@ -13611,6 +13611,38 @@ class Device360(Device360WebElements):
         kwargs["pass_msg"] = "Successfully went to the port configuration tab of the device 360 window"
         self.common_validation.passed(**kwargs)
         self.utils.wait_till(timeout=20)
+        
+        if unlock_button_flag:
+            unlock_button, _ = self.utils.wait_till(
+                func=self.get_device360_unlock_port_config_button,
+                exp_func_resp=True,
+                silent_failure=True, 
+                delay=3
+            )
+            
+            if unlock_button and unlock_button.is_displayed():
+                if self.auto_actions.click_reference(lambda: unlock_button) != 1:
+                    kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_button element"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                
+                confirmation_button, _ = self.utils.wait_till(
+                    func=self.get_device360_unlock_port_config_confirmation_button,
+                    exp_func_resp=True,
+                    silent_failure=True, 
+                    delay=3
+                )
+            
+                if not confirmation_button:
+                    kwargs["fail_msg"] = "Failed to get the device360_unlock_port_config_confirmation_button element"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+                if self.auto_actions.click_reference(lambda: confirmation_button) != 1:
+                    kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_confirmation_button element"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+            
         return 1
 
     def verify_none_vlan_id_appears_in_device_view(self, dut, port, **kwargs):
@@ -13847,11 +13879,15 @@ class Device360(Device360WebElements):
             self.utils.wait_till(timeout=2)
 
         if access_vlan_id:
-
-            if device_os == "EXOS":
-                input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield(port_row)
-            else:
-                input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield_VOSS(port_row)
+            # 3/22/2023, WD1R2, 23.3.0.20-WI23R3IN-SNAPSHOT
+            # I commented this because now these XPATHs are identical for both EXOS/VOSS
+            # note: this commented code block can be deleted later; also the defs and web elements
+            # if device_os == "EXOS":
+            #     input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield(port_row)
+            # else:
+            #     input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield_VOSS(port_row)
+                
+            input_field_access_vlan_id = self.get_device360_configure_port_access_vlan_textfield(port_row)
 
             if not input_field_access_vlan_id:
                 kwargs["fail_msg"] = "Failed to get the input_field_access_vlan_id" \
@@ -13870,10 +13906,15 @@ class Device360(Device360WebElements):
 
         if native_vlan:
 
-            if device_os == "EXOS":
-                input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
-            else:
-                input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield_VOSS(port_row)
+            # 3/22/2023, WD1R2, 23.3.0.20-WI23R3IN-SNAPSHOT
+            # I commented this because now these XPATHs are identical for both EXOS/VOSS
+            # note: this commented code block can be deleted later; also the defs and web elements
+            # if device_os == "EXOS":
+            #     input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
+            # else:
+            #     input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield_VOSS(port_row)
+                
+            input_field_trunk_native = self.get_device360_configure_port_trunk_native_vlan_textfield(port_row)
 
             if not input_field_trunk_native:
                 kwargs["fail_msg"] = "Failed to get the input_field_trunk_native element"
@@ -13892,10 +13933,15 @@ class Device360(Device360WebElements):
 
         if allowed_vlans:
 
-            if device_os == "EXOS":
-                input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
-            else:
-                input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield_VOSS(port_row)
+            # 3/22/2023, WD1R2, 23.3.0.20-WI23R3IN-SNAPSHOT
+            # I commented this because now these XPATHs are identical for both EXOS/VOSS
+            # note: this commented code block can be deleted later; also the defs and web elements
+            # if device_os == "EXOS":
+            #     input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
+            # else:
+            #     input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield_VOSS(port_row)
+                
+            input_field_allowed_vlans = self.get_device360_configure_port_trunk_vlan_textfield(port_row)
 
             if not input_field_allowed_vlans:
                 kwargs["fail_msg"] = "Failed to get the input_field_allowed_vlans element"
