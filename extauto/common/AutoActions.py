@@ -116,6 +116,12 @@ class AutoActions:
         action = ActionChains(CloudDriver().cloud_driver)
         sleep(2)
 
+        # Reset the cursor before moving to the element.  This is necessary in cases where the cursor is already
+        # hovering over the element.  In some cases (like menus) moving to the same location will not have the desired
+        # affect (like redrawing the menu)
+        action.reset_actions()
+
+        # Now move to the element
         action.move_to_element(element)
         action.perform()
         sleep(2)

@@ -25,14 +25,23 @@ import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
 import extauto.xiq.flows.globalsettings.GlobalSetting
 
+# jefjones - Keywords will be deprecated when the keywords for the entire file have been moved and tested
+#from ExtremeAutomation.Utilities.deprecated import deprecated
+from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 
-class Login:
+class Login(object, metaclass=Singleton):
 
     def __init__(self):
+        # This is a singleton, avoid initializing for each instance
+        if hasattr(self, 'initialized'):
+            return
+        self.initialized = True
+
         self.common_validation = CommonValidation()
         self.record = False
         self.t1 = None
+        self.window_index = -1
         self.utils = Utils()
         self.login_web_elements = LoginWebElements()
         self.pw_web_elements = PasswordResetWebElements()
@@ -41,6 +50,7 @@ class Login:
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.xapiLogin = XapiLogin()
+
 
     def _init(self, url="default", incognito_mode="False"):
         """
@@ -66,7 +76,11 @@ class Login:
         """
         return CloudDriver().cloud_driver.title
 
+    # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {login_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_window_index(self):
+        return self.gui_get_window_index()
+    def gui_get_window_index(self):
         """
         - Get the index of the window handle for this session
         - Keyword Usage:
@@ -93,9 +107,30 @@ class Login:
         self.common_validation.passed(**kwargs)
         return 1
 
+    # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {login_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
+
+        if self.xapiLogin.is_xapi_enabled():
+            # new XAPI call to get and set the XAPI token
+            self.xapiLogin.login(username, password, **kwargs)
+
+            # Look for the XAPI_ONLY and if set return
+            xapi_only = kwargs.get('XAPI_ONLY', False)
+            if xapi_only:
+                self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
+                return 1
+
+        return self.gui_login_user(username, password, capture_version, login_option, url,
+                   incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                   salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
+                   max_retries, recover_login, map_override, ignore_map, **kwargs)
+    def gui_login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
+                   incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
+                   salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
                    max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
         """
         - Login to Xiq account with username and password (we will try up to 3 times)
@@ -113,37 +148,28 @@ class Login:
         :param password: login account password
         :param capture_version: true if want capture the xiq build version
         :param login_option: login option to get started with any of options: 30-day-trial, License, Legacy Entitlement, Pilot License & Connect
+        :param url: url to load
         :param incognito_mode: Enable/Disable incognito_mode
         :param co_pilot_status: Enable Co-Pilot Status in XIQ Login Page
-        :param url: url to load
         :param entitlement_key: Entitlement Key
         :param salesforce_username: Salesforce Username
         :param salesforce_password: Salesforce Password
-        :param saleforce_shared_cuid: Salesforce Shared CUID
+        :param salesforce_shared_cuid: Salesforce Shared CUID
         :param quick: Quick login without more sleep time while loading url
         :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
+        :param max_retries:  The number of times to retry logging in if the login fails and a failure is not expected
         :param recover_login: Allows an attempt to reload map and/or move to devices page if login not completed
         :param map_override: Allows the ability to set (override) the map file used
+        :param ignore_map: If set to true the login process won't check for or upload a map in case of VIQ reset
         :param (**kwarg) expect_error: the keyword is expected to fail
         :return: 1 if login successful else -1
         """
 
-        if self.xapiLogin.is_xapi_enabled():
-            # new XAPI call to get and set the XAPI token
-            self.xapiLogin.login(username, password, **kwargs)
-
-            # Look for the XAPI_ONLY and if set return
-            xapi_only = kwargs.get('XAPI_ONLY', False)
-            if xapi_only:
-                self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
-                return 1
-
-        result = -1
         count = 0
         expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
         result = self._login_user(username, password, capture_version, login_option, url,
                     incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                    salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, recover_login,
+                    salesforce_password, salesforce_shared_cuid, quick, check_warning_msg, recover_login,
                     map_override, ignore_map, **kwargs)
 
         # Let's try again if we don't expect and error and the results were not good
@@ -152,7 +178,7 @@ class Login:
                 self.utils.print_warning(f'Trying to log in again: {count}')
                 result = self._login_user(username, password, capture_version, login_option, url,
                                           incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                                          salesforce_password, saleforce_shared_cuid, quick, check_warning_msg, ignore_map,
+                                          salesforce_password, salesforce_shared_cuid, quick, check_warning_msg, ignore_map,
                                           **kwargs)
                 count = count + 1
         if result != 1:
@@ -163,10 +189,10 @@ class Login:
             self.common_validation.passed(**kwargs)
         return result
 
-    def _login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
-                   incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                   recover_login=True, map_override=None, ignore_map=False, **kwargs):
+    def _login_user(self, username, password, capture_version, login_option, url,
+                   incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                   salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
+                   recover_login, map_override, ignore_map, **kwargs):
         if url == "default":
             self._init(incognito_mode=incognito_mode)
         else:
@@ -339,10 +365,11 @@ class Login:
                 self.utils.print_info("Continuing with own organization")
                 self.screen.save_screen_shot()
 
+        # If there is a welcome page we'll need to select a option like: "30-day-trial" or "ExtremeCloud IQ License"
         if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
-                                    salesforce_password=salesforce_password, saleforce_shared_cuid=saleforce_shared_cuid,
-                                    recover_login=recover_login, map_override=map_override) == -1:
-            kwargs['fail_msg'] = "Can not login with option. Try Again"
+                                    salesforce_password=salesforce_password, salesforce_shared_cuid=salesforce_shared_cuid,
+                                    recover_login=recover_login, map_override=map_override, **kwargs) == -1:
+            kwargs['fail_msg'] = "'select_login_option()' Failed"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -398,6 +425,7 @@ class Login:
         except Exception:
             pass
 
+        # If set to true we won't check for or upload a map
         if ignore_map:
             return 1
 
@@ -430,21 +458,12 @@ class Login:
 
         return 1
 
+    # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {logout_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def logout_user(self, **kwargs):
-        """
-        - Logout the current user
-        - Keyword Usage:
-        - ``Logout User``
-
-        Supported Modes:
-            UI - default mode
-            XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
-
-        :return: 1 if logout success
-        """
 
         if self.xapiLogin.is_xapi_enabled():
-            # remove the token for xpapi
+            # remove the token for xapi
             self.xapiLogin.logout(**kwargs)
 
             # Look for the XAPI_ONLY and if set return
@@ -453,19 +472,38 @@ class Login:
                 self.utils.print_info("XAPI_ONLY detected in logout, XAPI ONLY TEST")
                 return 1
 
+        return self.gui_logout_user(**kwargs)
+
+    def gui_logout_user(self, **kwargs):
+        """
+        - Logout the current user
+        - Keyword Usage:
+        - ``Logout User``
+
+        :return: 1 if logout success, -1 if logout not successful
+
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
+
+        :return: 1 if logout success
+        """
+
         # stop tool tip text capture thread
         self.utils.switch_to_default(CloudDriver().cloud_driver)
-        try:
-            self.t1.do_run = False
-            sleep(10)
-        except Exception:
-            print("t1.do_run not initialized")
+        if self.t1:
+            try:
+                if self.t1.is_alive():
+                    self.t1.do_run = False
+                    # t1 is a thread used to check for messages on the webpage.  It loops every second.  Wait 2
+                    # seconds to give it time to shutdown
+                    sleep(2)
+            except Exception:
+                print("t1.do_run not initialized")
 
         try:
             self.utils.print_info("Clicking on Logout Menu")
             self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
-            sleep(2)
-
             self.auto_actions.click_reference(self.login_web_elements.get_logout_link)
         except Exception as e:
             self.utils.print_debug("Error: ", e)
@@ -477,20 +515,25 @@ class Login:
         self.common_validation.passed(**kwargs)
         return 1
 
+    # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {quit_browser} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def quit_browser(self, _driver=None, **kwargs):
+        return self.gui_quit_browser(_driver, **kwargs)
+
+    def gui_quit_browser(self, _driver=None, **kwargs):
         """
         - Closes all the browser windows and ends the WebDriver session gracefully.
-        - if the driver object is passed, quits and returns
+        - if the driver object is passed, quits only the specified browser and returns
         - Keyword Usage:
         - ``Quit Browser``
 
-        :param _driver
+        :param _driver: Use this to close a specific browser window instead of all browswer windows
         :return: 1 if success
         """
 
         if _driver:
             _driver.quit()
-            kwargs['pass_msg'] = "Quit browser Successfully"
+            kwargs['pass_msg'] = "Successfully quit browser"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -499,8 +542,10 @@ class Login:
             if self.t1:
                 if self.t1.is_alive():
                     self.t1.do_run = False
-                    sleep(10)
-                kwargs['pass_msg'] = "Quit browser Successfully"
+                    # t1 is a thread used to check for messages on the webpage.  It loops every second.  Wait 2
+                    # seconds to give it time to shutdown
+                    sleep(2)
+                kwargs['pass_msg'] = "Successfully quit browser"
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
@@ -1211,13 +1256,12 @@ class Login:
                 return 1
             except Exception:
                 pass
-            self.utils.print_info(login_option + " login is successful.")
+            self.utils.print_info(f"'{login_option}' login is successful")
             kwargs['pass_msg'] = "Login is successful"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info("Not a valid login option.")
-            kwargs['fail_msg'] = "Not a valid login option."
+            kwargs['fail_msg'] = "f'{login_option}' is not a valid login option"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -1398,41 +1442,68 @@ class Login:
         return 1
 
     def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
-                            salesforce_password=False, saleforce_shared_cuid=False,
-                            recover_login=True, map_override=None):
+                            salesforce_password=False, salesforce_shared_cuid=False,
+                            recover_login=True, map_override=None, **kwargs):
+        """
+        Select a login option for when logging into a VIQ that is new or has recently been reset
+
+        :param login_option: A string reprensting the type of account that should be used for the new or recently reset
+                  VIQ.  Options include:
+                     "30-day-trial"
+                     "ExtremeCloud IQ License"
+                     "Legacy Entitlement Key"
+                     "Pilot License"
+                     "ExtremeCloud IQ Connect"
+        :param entitlement_key: Used only for the "Legacy Entitlement Key" option
+        :param salesforce_username: Used only for the "ExtremeCloud IQ License" option
+        :param salesforce_password: Used only for the "ExtremeCloud IQ License" option
+        :param salesforce_shared_cuid: Used only for the "ExtremeCloud IQ License" option
+        :param recover_login: Used only for the "30-day-trial" option
+        :param map_override: Used only for the "30-day-trial" option
+        :return: 1 If login option selection is successful.  -1 if an error occurs
+        """
         welcome_wizard_page = self.login_web_elements.get_welcome_wizard_heading()
-        self.utils.print_info(f"Welcome wizard page: {welcome_wizard_page}")
+        self.utils.print_info(f"Welcome wizard page element: {welcome_wizard_page}")
         if welcome_wizard_page:
             self.utils.print_info("Welcome page wizard found. Looks like you are logging in for the first time!")
-            self.utils.print_info("Selecting login option: ", login_option)
+            self.utils.print_info(f"Selecting login option: '{login_option}'")
             self.screen.save_screen_shot()
 
-            if "30-day-trial" in login_option:
-                return self._30_day_trial(recover_login, map_override)
+            login_option = login_option.lower()
+            if "30-day-trial".lower() == login_option:
+                return self._30_day_trial(recover_login, map_override, **kwargs)
 
-            if "ExtremeCloud IQ License" in login_option:
-                return self._extreme_cloud_iq_license(salesforce_username, salesforce_password, saleforce_shared_cuid)
+            if "ExtremeCloud IQ License".lower() == login_option:
+                return self._extreme_cloud_iq_license(salesforce_username, salesforce_password, salesforce_shared_cuid, **kwargs)
 
-            if "Legacy Entitlement Key" in login_option:
-                return self._legacy_entitlement_key(entitlement_key)
+            if "Legacy Entitlement Key".lower() == login_option:
+                return self._legacy_entitlement_key(entitlement_key, **kwargs)
 
-            if "Pilot License" in login_option:
-                return self._pilot_license()
+            if "Pilot License".lower() == login_option:
+                return self._pilot_license(**kwargs)
 
-            if "ExtremeCloud IQ Connect" in login_option:
-                return self._extremecloud_iq_connect()
+            if "ExtremeCloud IQ Connect".lower() == login_option:
+                return self._extremecloud_iq_connect(**kwargs)
 
-            return 1
+            # If we get here then the user selected an option that doesn't exist
+            kwargs['fail_msg'] = f"login_option [{login_option}] does is not supported"
+            self.common_validation.fault(**kwargs)
+            return -1
 
-    def _30_day_trial(self, recover_login=True, map_override=None):
-        self.utils.print_info("Selecting Default Option: 30 Day Trial...")
+        # There is no welcome screen present.  There is no need to select a login option
+        return 1
+
+    def _30_day_trial(self, recover_login=True, map_override=None, **kwargs):
+
         if self.login_web_elements.get_30_days_trial_txt().is_displayed():
+            self.utils.print_info("Selecting Default Option: 30 Day Trial...")
             self.auto_actions.click_reference(self.login_web_elements.get_option_30_days_trial)
             sleep(2)
             self.screen.save_screen_shot()
 
             self.utils.print_info("Clicking on Get Started...")
             self.auto_actions.click_reference(self.login_web_elements.get_get_started_button)
+
             sleep(10)
             self.screen.save_screen_shot()
 
@@ -1443,6 +1514,7 @@ class Login:
             sleep(5)
 
             if recover_login:
+                self.utils.print_info("Recovering login")
                 network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
                 map_imported_status = network360Plan.import_map_in_network360plan(map_override)
                 if map_imported_status == 1:
@@ -1452,10 +1524,12 @@ class Login:
 
             return 1
         else:
-            self.utils.print_info("No selecting menu ")
-            return 1
+            self.utils.print_info()
+            kwargs['fail_msg'] = "The '30 Day Trial' menu option is not visible"
+            self.common_validation.fault(**kwargs)
+            return -1
 
-    def _extreme_cloud_iq_license(self, salesforce_username, salesforce_password, saleforce_shared_cuid, **kwargs):
+    def _extreme_cloud_iq_license(self, salesforce_username, salesforce_password, salesforce_shared_cuid, **kwargs):
         self.utils.print_info("Selecting ExtremeCloud IQ License...")
         self.auto_actions.click_reference(self.login_web_elements.get_option_extr_cloudiq_license)
         sleep(2)
@@ -1484,7 +1558,7 @@ class Login:
         sleep(10)
         enter_shared_cuid = self.login_web_elements.get_enter_shared_cuid()
         if enter_shared_cuid:
-            self.auto_actions.send_keys(enter_shared_cuid, saleforce_shared_cuid)
+            self.auto_actions.send_keys(enter_shared_cuid, salesforce_shared_cuid)
             submit_shared_cuid = self.login_web_elements.get_submit_shared_cuid()
             if submit_shared_cuid:
                 self.utils.print_info("submit button was found")

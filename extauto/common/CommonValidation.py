@@ -2,7 +2,11 @@ from inspect import currentframe
 
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
-from extauto.common.Logging import Logging
+from ExtremeAutomation.Imports.CommonObjectUtils import CommonObjectUtils
+if CommonObjectUtils().executionModePytest():
+    from ExtremeAutomation.Library.Logger.PytestLogger import PytestLogger as Logging
+else:
+    from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 
 
 class FailureException(AssertionError):
@@ -12,7 +16,7 @@ class FailureException(AssertionError):
 class CommonValidation():
 
     def __init__(self):
-        self.logger = Logging().get_logger()
+        self.logger = Logging()
         self.utils = Utils()
         self.screen = Screen()
 
@@ -29,12 +33,13 @@ class CommonValidation():
             expect_error = verifies that a failure was returned by the keyword
             expect_failure = Same as 'expect_error'
             calling_function = The name of the function that called IRV
+            not_supported = The keyword is not supported, return True if keyword should "Pass", otherwise False
         """
         test_result = False
         irv_flag = kwargs.get("IRV", True)
 
         if irv_flag:
-            self.logger.info("Internal Result Verification [IRV] is: Enabled")
+            self.logger.debug("Internal Result Verification [IRV] is: Enabled")
             fail_msg = kwargs.get("fail_msg", "The keyword failed expectations")
             pass_msg = kwargs.get("pass_msg", "The keyword passed expectations")
             calling_function = kwargs.get("calling_function", "")
@@ -73,6 +78,20 @@ class CommonValidation():
             elif 'expect_failure' in kwargs:
                 expect_error = self.get_kwarg_bool(kwargs, "expect_failure", False)
 
+            # Handle keywords that are "Not supported".  The method should return True for "not supported" keywords
+            # unless a failure is expected.
+            if 'not_supported' in kwargs:
+                not_supported = self.get_kwarg_bool(kwargs, "not_supported", False)
+                if not_supported:
+                    return_value = True
+                    if expect_error:
+                        return_value = False
+
+                    # Return a return value here so the caller can return the proper return value expected if the
+                    # keyword were supported.  Don't print any pass or fail messages.  Instead print a message
+                    # letting the user
+                    self.logger.info(f"Keyword not supported: returning [{return_value}]")
+                    return return_value
 
             # Get the expected value test result
             if value == expectedValue:
@@ -96,9 +115,9 @@ class CommonValidation():
                 test_result = True
 
             elif expect_error and test_result:
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.info("[IRV] IRV is configured to expect a failure and the keyword did not fail")
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.error("[IRV] IRV is configured to expect a failure and the keyword did not fail")
+                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                 test_result = False
 
             # Print the output
