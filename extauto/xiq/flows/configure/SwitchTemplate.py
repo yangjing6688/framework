@@ -178,7 +178,7 @@ class SwitchTemplate(object):
 
                         def _is_sw_template_available():
                             return self.get_sw_template_row(sw_template_name)
-                        self.utils.wait_till(_is_sw_template_available, delay=0.5, is_logging_enabled=True, silent_failure=False)
+                        self.utils.wait_till(_is_sw_template_available, delay=3, is_logging_enabled=True, silent_failure=False)
 
                         self.screen.save_screen_shot()
                         rc = 1
@@ -4603,7 +4603,7 @@ class SwitchTemplate(object):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def device_templ_advanced_settings(self, nw_policy, sw_template_name, sw_model='Default', upgrade_device_upon_auth=False,
+    def device_templ_advanced_settings(self, nw_policy, sw_template_name, cli_type, sw_model='Default', upgrade_device_upon_auth=False,
                                        current_image_version=False, upload_auto=False, select_current=False, **kwargs):
         """
         - Checks the given switch template present already in the switch Templates Grid
@@ -4623,7 +4623,7 @@ class SwitchTemplate(object):
         :return: 1 if Switch Template Configured Successfully else -1
         """
         self.navigator.navigate_to_switch_templates()
-        if self.select_adv_settings_tab(nw_policy, sw_template_name) == -1:
+        if self.select_adv_settings_tab(nw_policy, sw_template_name, cli_type) == -1:
             kwargs['fail_msg'] = "Unable to navigate to 'Advanced Settings'."
             self.common_validation.fault(**kwargs)
         if upgrade_device_upon_auth:
