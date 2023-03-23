@@ -16,16 +16,17 @@ jobs:
     - name: Run sanity test
       shell: python
       env:
-        JOBMGR_BASE_URL: "https://autoiq.extremenetworks.com/tbedmgr/jobmgr"
+        JOBMGR_URL_BASE: https://autoiq.extremenetworks.com/jobmanager
+        JOBMGR_API_BASE: "https://autoiq.extremenetworks.com/tbedmgr/jobmgr"
         RUN_JOB_ENDPOINT: "/saved_job/executeSavedJobFromName"
         SAVED_JOB_NAME: "extreme_automation_framework_sanity"
       run: |
-        from json import dumps
+        from json import dumps, loads
         from sys import exit
         from time import sleep
         import requests
 
-        jobmgr_base_url = "${{ env.JOBMGR_BASE_URL }}"
+        jobmgr_base_url = "${{ env.JOBMGR_API_BASE }}"
 
         headers = {
           "accept": "application/json",
@@ -62,10 +63,11 @@ jobs:
 
           try:
             job_status = response.json()["result"][0]["status"]
+            job_stats = response.json()["result"][0]["statsJson"]
+            job_stats = loads(job_stats)
             job_status_message = response.json()["result"][0]["statusMessage"]
-          except:
-            print(f"Error: Unable to find Job Status in response. {response.text}")
-            exit(1)
+          except Exception as e:
+            raise Exception(f"Error: Unable to find Job Status in response. {response.text}") from e
 
           print(f"::group::Job Status #{i}")
           print("")
@@ -74,15 +76,22 @@ jobs:
           print("::endgroup::", end="\n\n")
 
           if job_status == "complete":
-            print(f"Job Completed Successfully!")
-            exit(0)
+            # Check if tests failed or were killed. All tests should run so a skip is a failure
+            if job_stats.get("Failed") or job_stats.get("Killed") or job_stats.get("Skipped"):
+              print(f"Job Completed Unsuccessfully! View on AutoIQ: ${{env.JOBMGR_URL_BASE}}/{job_uuid}")
+              exit(1)
+            else:
+              print(f"Job Completed Successfully!")
+              exit(0)
           elif job_status in ["queued", "running", "validating", "processing"]:
             print(f"Job Not Finished. Waiting for job to complete...")
           else:
-            print(f"Job Completed Unsuccessfully! Status: {job_status}. Status Message: {job_status_message}")
+            # Job aborted, was killed, or is a zombie
+            print(f"Status: {job_status}. Status Message: {job_status_message}")
+            print(f"Job Completed Unsuccessfully! View on AutoIQ: ${{env.JOBMGR_URL_BASE}}/{job_uuid}")
+            exit(1)
 
           sleep(sleep_interval)
-      # TODO: use statsJson here instead of statusMessage
 
 
     - name: Set job status output
