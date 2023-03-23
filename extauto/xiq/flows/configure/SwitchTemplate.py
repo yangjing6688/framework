@@ -537,7 +537,8 @@ class SwitchTemplate(object):
         self.utils.print_debug("Click on Device Template tab button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
-
+        self.utils.print_debug("Click on Switch Templates menu item.")
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_tab_button)
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = f"Template with name {sw_template_name} already present in the template grid"
             self.common_validation.failed(**kwargs)

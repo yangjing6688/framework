@@ -243,7 +243,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_stack_add_button = \
         {
-            'XPATH': '//div[@id="switchesMenu"]//div//button',
+            'XPATH': '//div[@data-dojo-attach-point="switchesMenu"]//div//button',
             'wait_for': 5
         }
 
