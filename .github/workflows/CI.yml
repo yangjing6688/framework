@@ -46,7 +46,7 @@ jobs:
           response.raise_for_status()
 
         try:
-          job_uuid = response.json()["result"][0]["job_uuid"]
+          job_uuid = response.json()["result"]["job_uuid"]
         except:
           print(f"Error: Unable to find Job Id in response. {response.text}")
           exit(1)
