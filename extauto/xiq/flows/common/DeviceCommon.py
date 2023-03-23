@@ -156,7 +156,6 @@ class DeviceCommon(DeviceCommonElements):
             search_criteria = "Name"
 
         if not search_str:
-            self.utils.print_info("Pass the Device Serial Number, MAC address, or Name.")
             kwargs['fail_msg'] = "Pass the Device Serial Number, MAC address, or Name."
             self.common_validation.fault(**kwargs)
             return -1
@@ -170,12 +169,10 @@ class DeviceCommon(DeviceCommonElements):
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:
-                    self.utils.print_info("device grid row not selected")
                     kwargs['fail_msg'] = "Device grid row is not selected"
                     self.common_validation.fault(**kwargs)
                     return -1
 
-        self.utils.print_info(f"Device row not found with {search_criteria}: {search_str}")
         kwargs['fail_msg'] = f"Device row not found with {search_criteria}: {search_str}"
         self.common_validation.failed(**kwargs)
         return -1
@@ -198,7 +195,6 @@ class DeviceCommon(DeviceCommonElements):
             device_list = device_serials.split(',')
             for device in device_list:
                 if self.select_device_row(device_serial=device) == -1:
-                    self.utils.print_info(f"The Device with Serial Number {device} was not found")
                     kwargs['fail_msg'] = f"The Device with Serial Number {device} was not found"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -207,7 +203,6 @@ class DeviceCommon(DeviceCommonElements):
             device_list = device_macs.split(',')
             for device in device_list:
                 if self.select_device_row(device_mac=device) == -1:
-                    self.utils.print_info(f"The Device with MAC Address {device} was not found")
                     kwargs['fail_msg'] = f"The Device with MAC Address {device} was not found"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -216,13 +211,11 @@ class DeviceCommon(DeviceCommonElements):
             device_list = device_names.split(',')
             for device in device_list:
                 if self.select_device_row(device_name=device) == -1:
-                    self.utils.print_info(f"The Device with Name {device} was not found")
                     kwargs['fail_msg'] = f"The Device with Name {device} was not found"
                     self.common_validation.failed(**kwargs)
                     return -1
             return 1
         else:
-            self.utils.print_info("Pass the Device Serial Number, MAC address, or Name.")
             kwargs['fail_msg'] = "Pass the Device Serial Number, MAC address, or Name."
             self.common_validation.fault(**kwargs)
             return -1
@@ -240,6 +233,8 @@ class DeviceCommon(DeviceCommonElements):
         if self.select_device_row(device_serial):
             self.utils.print_info("Click on device tab edit button")
             self.auto_actions.click_reference(self.get_device_table_edit_button)
+            kwargs['pass_msg'] = "The device is selected in grid and able to click edit button"
+            self.common_validation.passed(**kwargs)
             return 1
 
         kwargs['fail_msg'] = "The device is not selected in grid"
@@ -421,11 +416,9 @@ class DeviceCommon(DeviceCommonElements):
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info("Select Device Checkbox not selected")
                 kwargs['fail_msg'] = "Select Device Checkbox not selected"
-                self.common_validation.fail(**kwargs)
+                self.common_validation.failed(**kwargs)
                 return -1
-        self.utils.print_info(f"Select Device Checkbox is Checked with serial number:{device_serial}")
         kwargs['fail_msg'] = f"Select Device Checkbox is Checked with serial number:{device_serial}"
         self.common_validation.fault(**kwargs)
         return -1
@@ -516,13 +509,11 @@ class DeviceCommon(DeviceCommonElements):
 
         if the_field:
             self.auto_actions.move_to_element(the_field)
-            self.utils.print_info(f"Updating Devices Per Page value to {device_count}")
-            self.auto_actions.click(self.get_devices_per_page_value(device_count=device_count))
             kwargs['pass_msg'] = f"Updating Devices Per Page value to {device_count}"
+            self.auto_actions.click_reference(lambda: self.get_devices_per_page_value(device_count=device_count))
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            self.utils.print_info(f"A Devices Per Page value of {device_count} is not supported.")
             kwargs['fail_msg'] = f"A Devices Per Page value of {device_count} is not supported."
             self.common_validation.fault(**kwargs)
 
