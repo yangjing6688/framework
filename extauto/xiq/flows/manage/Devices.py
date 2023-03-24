@@ -5782,6 +5782,7 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
+
     def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
@@ -10462,7 +10463,7 @@ class Devices:
                 complete = True
                 break
             # If there are other 'Failed' conditions please add them here
-            elif update_status == 'Device Update Failed.':
+            elif update_status == 'Device Update Failed.' or update_status == 'Device Update Failed To Proceed.':
                 kwargs['pass_msg'] = "Device has finished updating but with a failed condition"
                 self.common_validation.passed(**kwargs)
                 complete = True
