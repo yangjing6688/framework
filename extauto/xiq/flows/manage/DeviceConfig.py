@@ -86,14 +86,14 @@ class DeviceConfig(DeviceConfigElements):
             self.auto_actions.click_reference(self.get_wireless_interface_toggle)
             self.utils.print_info("able to click toggle")
 
-    def override_client_mode_in_device_config(self, device_mac='', interface='', *client_mode_profile, **kwargs):
+    def override_client_mode_in_device_config(self, device_mac, interface, client_mode_profile, **kwargs):
         """
         - This keyword is used to modify or override the client mode settings in wireless interface settings page
         - override wireless interface settings includes client mode options of radio usage
         - Flow: Manage --> Devices --> Select single device -->  Select interface setting tab --> Wireless Interfaces
         - Keyword Usage:
-        - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi0   &{client_mode_profile}``
-        - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi1   &{client_mode_profile}``
+        - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi0   ${client_mode_profile}``
+        - ``Override PSK SSID Settings     device_mac=${DEVICE}   interface=WiFi1   ${client_mode_profile}``
 
         :param device_mac:  device mac
         :param interface: device interface i.e WiFi0/WiFi1
@@ -140,7 +140,7 @@ class DeviceConfig(DeviceConfigElements):
         else:
             self.utils.print_info("Can you specify interface(wifi0 or wifi1)?")
 
-        self._override_client_mode_wifi0_1(**client_mode_profile)
+        self._override_client_mode_wifi0_1(client_mode_profile)
         sleep(3)
         self.utils.print_info("Click on interface settings save button")
         self.auto_actions.click_reference(self.get_interface_settings_save_button)
@@ -160,7 +160,7 @@ class DeviceConfig(DeviceConfigElements):
             self.common_validation.failed(**kwargs)
             return -1
 
-    def _override_client_mode_wifi0_1(self, **client_mode_profile):
+    def _override_client_mode_wifi0_1(self, client_mode_profile):
         """
         - Get the override client mode wifi0 and 1
         :return:
