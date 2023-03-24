@@ -545,7 +545,7 @@ class PytestConfigHelper():
         else:
             print("Could not locate configuration file {}".format(cfgFile))
         if roboIze:
-            xiqVarList = ['${ELEMENT_INFO}', '${OUTPUT DIR}', '${TEST_NAME}', '${PROXY_STATUS}',
+            xiqVarList = ['${OUTPUT DIR}', '${TEST_NAME}', '${PROXY_STATUS}',
                           '${LOG_LEVEL}', '${ELEMENT_DELAY}', '${BROWSER}', '${WEB_DRIVER_LOC}',
                           '${OS_PLATFORM}']
             for xiqvar in xiqVarList:

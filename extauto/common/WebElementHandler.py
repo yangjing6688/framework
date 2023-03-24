@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, ElementNotSelectableException, ElementNotInteractableException
-from robot.libraries.BuiltIn import BuiltIn
 
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
