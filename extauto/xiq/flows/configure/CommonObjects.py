@@ -160,7 +160,7 @@ class CommonObjects(object):
         """
 
         # Wating for XAPI SDK Support
-        # if self.xapiNetworkPolicy.is_xapi_enabled():
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
         #     return self.xapiNetworkPolicy.xapi_delete_ssids([ssid_name], **kwargs)
 
         self.navigator.navigate_to_ssids()
@@ -207,7 +207,7 @@ class CommonObjects(object):
         """
 
         # Wating for XAPI SDK Support
-        # if self.xapiNetworkPolicy.is_xapi_enabled():
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
         #     return self.xapiNetworkPolicy.xapi_delete_ssids(*ssids, **kwargs)
 
         self.navigator.navigate_to_ssids()

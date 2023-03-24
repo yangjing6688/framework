@@ -1034,6 +1034,10 @@ class Navigator(NavigatorWebElements):
             kwargs['pass_msg'] = "Navigation Successful to the policies card view page"
             self.common_validation.passed(**kwargs)
             return 1
+        else:
+            kwargs['fail_msg'] = "Failed to Navigation to the policies card view page"
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def navigate_to_multiple_device_configuration_page(self, device_serials='', **kwargs):
         """

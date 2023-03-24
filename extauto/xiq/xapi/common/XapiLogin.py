@@ -55,7 +55,7 @@ class XapiLogin(XapiHelper):
                     configuration.access_token = api_response.access_token
                     # Set the configuration with the new token
                     self.set_xapi_configuration(configuration)
-                    kwargs['pass_msg'] = 'User was logged in and token was generated'
+                    kwargs['pass_msg'] = f'User was logged in and token was generated: {configuration.access_token}'
                     self.common_validation.passed(**kwargs)
                     return 1
                 else:

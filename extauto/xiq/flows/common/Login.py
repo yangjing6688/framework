@@ -128,7 +128,7 @@ class Login:
         :return: 1 if login successful else -1
         """
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             # new XAPI call to get and set the XAPI token
             self.xapiLogin.login(username, password, **kwargs)
 
@@ -443,7 +443,7 @@ class Login:
         :return: 1 if logout success
         """
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             # remove the token for xpapi
             self.xapiLogin.logout(**kwargs)
 
@@ -700,7 +700,7 @@ class Login:
         :return: data_center_name
         """
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             return self.xapiLogin.xapi_capture_data_center_name(**kwargs)
 
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
@@ -730,7 +730,7 @@ class Login:
         """
 
         # This isn't supported yet
-        # if self.xapiLogin.is_xapi_enabled():
+        # if self.xapiLogin.is_xapi_enabled(**kwargs):
         #     return self.xapiLogin.xapi_capture_xiq_version(**kwargs)
 
         self.utils.print_info("Clicking on About ExtremecloudIQ link")

@@ -399,7 +399,7 @@ class UserGroups(UserGroupsWebElements):
         """
 
         # Need to add support in XAPI for bulk user add in order to support this feature
-        # if self.xapiUserGroups.is_xapi_enabled():
+        # if self.xapiUserGroups.is_xapi_enabled(**kwargs):
         #     return self.xapiUserGroups.xapi_create_user_group(group_name=group_name,
         #                                                         user_group_profile=user_group_profile,
         #                                                         **kwargs)
@@ -475,7 +475,7 @@ class UserGroups(UserGroupsWebElements):
         :return: 1 if deleted successfully else -1
         """
 
-        if self.xapiUserGroups.is_xapi_enabled():
+        if self.xapiUserGroups.is_xapi_enabled(**kwargs):
             return self.xapiUserGroups.xapi_delete_user_group(user_group_name=user_group_name, **kwargs)
 
         self.utils.print_info("Navigating to the configure users")
