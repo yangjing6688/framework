@@ -134,14 +134,14 @@ class DeviceTemplate(object):
         self.screen.save_screen_shot()
         sleep(2)
 
-        result = -1
+        result = 1
         if "AP template was saved successfully" in observed_profile_message:
             kwargs['pass_msg'] = "AP template was saved successfully"
             self.common_validation.passed(**kwargs)
-            result = 1
         else:
             kwargs['fail_msg'] = "Failed to add AP template"
             self.common_validation.failed(**kwargs)
+            result = -1
         del tool_tip.tool_tip_text[:]
         return result
 
