@@ -3505,9 +3505,9 @@ class Devices:
                             self.screen.save_screen_shot()
                             selected_columns.append(filter_)
                         else:
+                            self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
                             self.auto_actions.click(filter_row)
                             self.screen.save_screen_shot()
-                            self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
                             selected_columns.append(filter_)
             else:
                 self.utils.print_info("Unable to select the Column Picker Filter ", filter_)

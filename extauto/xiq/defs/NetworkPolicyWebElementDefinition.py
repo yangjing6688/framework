@@ -842,6 +842,7 @@ class NetworkPolicyWebElementDefinition:
         {
             "XPATH": '//button[@data-dojo-attach-point="saveButton" and text()="Save DNS Server"]',
             'wait_for': 5
+        }
 
     common_settings_exos = \
         {
