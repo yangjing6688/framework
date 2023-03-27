@@ -597,7 +597,7 @@ class Devices:
                      'WIFI0 RADIO PROFILE': 'radioProfile24g',
                      'WIFI1 RADIO PROFILE': 'radioProfile5g',
                      'WIFI2 RADIO PROFILE': 'radioProfile6g',
-                     'OS VERSION': 'displayVer',
+                     'OS VERSION': 'softwareVersion',
                      'OS': 'os',
                      'IQAGENT': 'agentVersion',
                      'MANAGED': 'adminState',
@@ -6012,7 +6012,7 @@ class Devices:
                      'WIFI1 CHANNEL': 'channel5g',
                      'WIFI0 RADIO PROFILE': 'radioProfile24g',
                      'WIFI1 RADIO PROFILE': 'radioProfile5g',
-                     'OS VERSION': 'displayVer',
+                     'OS VERSION': 'softwareVersion',
                      'OS': 'os',
                      'IQAGENT': 'agentVersion',
                      'MANAGED': 'adminState',
@@ -6047,10 +6047,10 @@ class Devices:
         else:
             self.utils.print_info(f"Could not find device row matching the search parameter {search_string}")
 
-        self.utils.print_info("****************** DEVICE ROW VALUES ************************")
+        self.utils.print_info("****************** START DEVICE ROW VALUES ************************")
         for key, value in device_detail_dict.items():
             self.utils.print_info(f"{key}:{value}")
-
+        self.utils.print_info("****************** END DEVICE ROW VALUES ************************")
         return device_detail_dict
 
     def confirm_no_duplicate_rows(self, search_string):
