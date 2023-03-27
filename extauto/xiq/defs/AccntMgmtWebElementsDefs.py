@@ -131,10 +131,10 @@ class AccntMgmtWebElementsDefs:
             'CSS_SELECTOR': '.ui-tipbox-error',
             'wait_for': 2
         }
+
     Rbac_Assign_Location_checkbox = \
         {
-            'XPATH': "//div[@class='lbl fn-ellipsis'] [@title='Bengaluru']",
-            'wait_for': 2
+            'XPATH': "//div[@class='lbl fn-ellipsis']"
         }
 
     credential_distribution_groups_add_button = \
@@ -219,4 +219,10 @@ class AccntMgmtWebElementsDefs:
         {
             'XPATH': "//*[@data-dojo-attach-point='inputEl']",
             'wait_for': 2
+        }
+
+    rbac_location_tree_checkbox_selected_status = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='locationTree']//*[@class='generic level-0 selected']",
+            'wait_for': 5
         }

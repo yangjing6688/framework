@@ -9586,20 +9586,15 @@ class Devices:
     def _is_delete_button_visible(self):
         """
         - This helper function verify if the delete button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if delete button is visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_delete_button().is_displayed():
-                self.utils.print_info("Delete button is displayed")
-                return True
-
+        delete_button = self.devices_web_elements.get_delete_button()
+        if delete_button is not None and delete_button.is_displayed():
+            self.utils.print_info("Delete button is displayed")
+            return True
+        else:
             self.utils.print_info("Delete button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_delete_button_visible(self, **kwargs):
         """
@@ -9638,20 +9633,15 @@ class Devices:
     def _is_download_button_visible(self):
         """
         - This helper function verify if the download button is visible or not
-        :return: True if visible, False if hidden, fail if exception occurs
+        :return: True if download button is visible, False if hidden
         """
-        try:
-            if self.devices_web_elements.get_download_button().is_displayed():
-                self.utils.print_info("Download button is displayed")
-                return True
-
+        download_button = self.devices_web_elements.get_download_button()
+        if download_button is not None and download_button.is_displayed():
+            self.utils.print_info("Download button is displayed")
+            return True
+        else:
             self.utils.print_info("Download button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_download_button_visible(self, **kwargs):
         """
@@ -9690,20 +9680,15 @@ class Devices:
     def _is_bulk_edit_button_visible(self):
         """
         - This helper function verify if the bulk edit button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if bulk edit button is visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_bulk_edit_button().is_displayed():
-                self.utils.print_info("Bulk edit button is displayed")
-                return True
-
+        edit_button = self.devices_web_elements.get_bulk_edit_button()
+        if edit_button is not None and edit_button.is_displayed():
+            self.utils.print_info("Bulk edit button is displayed")
+            return True
+        else:
             self.utils.print_info("Bulk edit button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_bulk_edit_button_visible(self, **kwargs):
         """
@@ -9742,20 +9727,15 @@ class Devices:
     def _is_add_button_visible(self):
         """
         - This helper function verify if the add button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_devices_add_button().is_displayed():
-                self.utils.print_info("Add button is displayed")
-                return True
-
+        add_button = self.devices_web_elements.get_devices_add_button()
+        if add_button is not None and add_button.is_displayed():
+            self.utils.print_info("Add button is displayed")
+            return True
+        else:
             self.utils.print_info("Add button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_add_button_visible(self, **kwargs):
         """
@@ -9794,20 +9774,15 @@ class Devices:
     def _is_update_device_button_visible(self):
         """
         - This helper function checks if the device update button is visible or not`
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if device update button is visible, False if not
         """
-        try:
-            if self.devices_web_elements.get_update_device_button().is_displayed():
-                self.utils.print_info("Update button is displayed")
-                return True
-
+        update_device_button = self.devices_web_elements.get_update_device_button()
+        if update_device_button is not None and update_device_button.is_displayed():
+            self.utils.print_info("Update button is displayed")
+            return True
+        else:
             self.utils.print_info("Update button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_update_device_button_visible(self, **kwargs):
         """
@@ -9846,20 +9821,15 @@ class Devices:
     def _is_actions_button_visible(self):
         """
         - This helper functions verify if the actions button is visible or not
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if devices action button visible, False if not
         """
-        try:
-            if self.devices_web_elements.get_manage_device_actions_button().is_displayed():
-                self.utils.print_info("Actions button is displayed")
-                return True
-
+        device_actions_button = self.devices_web_elements.get_manage_device_actions_button()
+        if device_actions_button is not None and device_actions_button.is_displayed():
+            self.utils.print_info("Actions button is displayed")
+            return True
+        else:
             self.utils.print_info("Actions button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_actions_button_visible(self, **kwargs):
         """
