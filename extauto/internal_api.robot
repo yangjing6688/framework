@@ -13,7 +13,6 @@ ${TENANT_USERNAME}          admin@cust001.com
 ${TENANT_PASSWORD}          aerohive
 ${TEST_URL}                 https://10.16.118.155
 ${BASE_URL}                 https://10.16.118.155
-${ELEMENT_INFO}             None
 ${BROWSER}                  chrome
 ${GETPATH}                  acct-webapp/oauth/cookietoken
 

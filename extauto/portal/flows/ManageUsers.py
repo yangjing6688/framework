@@ -26,7 +26,7 @@ class ManageUsers():
         self.driver = CloudDriver().cloud_driver
 
 
-    def create_MSP_user(self,username,useremail,**kwargs):
+    def create_user(self,role,username,useremail,**kwargs):
         """
         - This keyword can be used in USERS page,it will create a msp-admin account on Portal
         - Keyword Usage
@@ -44,7 +44,7 @@ class ManageUsers():
             kwargs['fail_msg'] = "Not able to find the input 'Full Name' which means the create users page may not open"
             self.common_validation.fault(**kwargs)
             return -1
-        if self.check_role_type("MSP") == -1:
+        if self.check_role_type(role) == -1:
             return -1
         self.screen.save_screen_shot()
         self.utils.print_info("Entering Username...")
@@ -53,9 +53,10 @@ class ManageUsers():
         self.utils.print_info("Entering Email...")
         self.auto_actions.send_keys(self.portal_web_elements.get_add_users_page_email_text(), useremail)
         sleep(1)
-        self.utils.print_info("Select a data center...")
-        self.auto_actions.click_reference(self.portal_web_elements.get_add_users_page_datacenter_checkbox)
-        sleep(1)
+        if(role == "MSP"):
+            self.utils.print_info("Select a data center...")
+            self.auto_actions.click_reference(self.portal_web_elements.get_add_users_page_datacenter_checkbox)
+            sleep(1)
         self.utils.print_info("Clicking on submit button")
         self.auto_actions.click_reference(self.portal_web_elements.get_users_page_submit_button)
         sleep(1)

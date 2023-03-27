@@ -51,9 +51,9 @@ class TestFlow:
         for test in search_test_dependency:
             matching = [test_fail for test_fail in list_failed_test if test in test_fail]
             if len(matching) > 0:
-                self.utils.print_info("Depending test case failed. Skipping this test case")
-                self.utils.print_info("List of failed test cases:", str(list_failed_test))
-                self.robot_built_in.fail('Aborting TEST CASE...')
+                self.utils.print_info("Depending Test Case Failed. Skipping This Test Case")
+                self.utils.print_info("List of Failed Test Cases:", str(list_failed_test))
+                self.robot_built_in.skip('Skipping TEST CASE...')
         return list_failed_test
 
     def Run_Again_If_Keyword_Fails(self, cmd, *pars):
