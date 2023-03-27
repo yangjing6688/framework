@@ -1369,3 +1369,9 @@ class NavigatorWebElementDefinitions:
             'XPATH': '//div[@data-dojo-attach-point="spinner"]',
             'wait_for': 5
         }
+
+    tools_page = \
+        {
+            'CSS_SELECTOR': '.tools-controller',
+            'wait_for': 5
+        }

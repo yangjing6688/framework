@@ -616,7 +616,7 @@ class Device360WebElementDefs:
 
     device360_refresh_page_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="pageRefresh"]',
+            'XPATH': '//div[@class="entity-page-actions"]//div[@data-dojo-attach-point="pageRefresh"]',
             'wait_for': 5
         }
 
@@ -3221,6 +3221,18 @@ class Device360WebElementDefs:
     device360_wireless_wifi6gscoretab = \
         {
             'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-3"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi5gscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-2"]',
+            'wait_for': 15
+        }
+
+    device360_wireless_wifi2gscoretab = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="widgetCtn"]//*[@for="radio-healthCardOptions-1"]',
             'wait_for': 15
         }
 
