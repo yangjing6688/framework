@@ -2351,21 +2351,6 @@ class NetworkPolicy(object):
     def get_switching_tab(self):
         self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
 
-    # def get_common_settings_voss(self):
-    #     self.auto_actions.click_reference(self.np_web_elements.get_common_settings_voss)
-
-    def check_common_settings_voss_parameters(self):
-        voss_settings_text = self.np_web_elements.get_voss_parameters_text()
-
-        # self.utils.print_info(voss_settings_text)
-        # stringz = str(voss_settings_text)
-        # self.utils.print_info(stringz)
-        self.utils.print_info(f"mai sus!!! {voss_settings_text}")
-
-        if "STP Configurations" and "IGMP Settings" and "MTU Settings" and "PSE Settings" in voss_settings_text:
-            self.utils.print_info("VOSS common settings contain the required parameters")
-            return True
-
     def get_port_types_section(self, **kwargs):
         """
         - This keyword will navigate to Port Types section in Network Policies tab
