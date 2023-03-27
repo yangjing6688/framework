@@ -42,32 +42,22 @@ class SwitchTemplate(object):
         self.dialogue_web_elements = DialogWebElements()
         self.common_objects = CommonObjects()
 
-    def check_sw_template(self, sw_template, **kwargs):
+    def check_sw_template(self, sw_template):
         """
         - Check the Switch template in the Switch template Grid
-        - Assumes That Already in Network Policy Edit Page
+        - Assumes That Already in Switch template Grid Page
         - Keyword Usage
         - ``Check SW Template  ${SWITCH_TEMPLATE_NAME}``
-
         :param sw_template: Switch Template Name ie SR2024P,X440-G2-24p-10G4 etc
         :return: True if Switch Template Found on Grid else False
         """
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
-
         sw_template_rows_elements = self.sw_template_web_elements.get_sw_template_rows()
         if not sw_template_rows_elements:
-            kwargs['fail_msg'] = "sw_template_rows_elements is not present"
-            self.common_validation.failed(**kwargs)
             return False
         for el in sw_template_rows_elements:
             if sw_template.upper() in el.text.upper():
-                kwargs['pass_msg'] = "Template Already present in the template grid"
-                self.common_validation.passed(**kwargs)
+                self.utils.print_info("Template Already present in the template grid")
                 return True
-        kwargs['fail_msg'] = "Switch Template Not Found on Grid"
-        self.common_validation.failed(**kwargs)
         return False
 
     def add_sw_template(self, nw_policy, sw_model, sw_template_name, **kwargs):
@@ -548,7 +538,8 @@ class SwitchTemplate(object):
         self.utils.print_debug("Click on Device Template tab button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
-
+        self.utils.print_debug("Click on Switch Templates menu item.")
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_tab_button)
         if self.check_sw_template(sw_template_name):
             kwargs['fail_msg'] = f"Template with name {sw_template_name} already present in the template grid"
             self.common_validation.failed(**kwargs)
