@@ -9590,8 +9590,8 @@ class Devices:
         """
         delete_button = self.devices_web_elements.get_delete_button()
         if delete_button is not None and delete_button.is_displayed():
-           self.utils.print_info("Delete button is displayed")
-           return True
+            self.utils.print_info("Delete button is displayed")
+            return True
         else:
             self.utils.print_info("Delete button is hidden")
             return False
@@ -9637,8 +9637,8 @@ class Devices:
         """
         download_button = self.devices_web_elements.get_download_button()
         if download_button is not None and download_button.is_displayed():
-           self.utils.print_info("Download button is displayed")
-           return True
+            self.utils.print_info("Download button is displayed")
+            return True
         else:
             self.utils.print_info("Download button is hidden")
             return False
@@ -9731,8 +9731,8 @@ class Devices:
         """
         add_button = self.devices_web_elements.get_devices_add_button()
         if add_button is not None and add_button.is_displayed():
-           self.utils.print_info("Add button is displayed")
-           return True
+            self.utils.print_info("Add button is displayed")
+            return True
         else:
             self.utils.print_info("Add button is hidden")
             return False
@@ -9825,8 +9825,8 @@ class Devices:
         """
         device_actions_button = self.devices_web_elements.get_manage_device_actions_button()
         if device_actions_button is not None and device_actions_button.is_displayed():
-           self.utils.print_info("Actions button is displayed")
-           return True
+            self.utils.print_info("Actions button is displayed")
+            return True
         else:
             self.utils.print_info("Actions button is hidden")
             return False
