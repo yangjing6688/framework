@@ -9586,7 +9586,7 @@ class Devices:
     def _is_delete_button_visible(self):
         """
         - This helper function verify if the delete button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if delete button is visible, False if it's hidden
         """
         delete_button = self.devices_web_elements.get_delete_button()
         if delete_button is not None and delete_button.is_displayed():
@@ -9633,7 +9633,7 @@ class Devices:
     def _is_download_button_visible(self):
         """
         - This helper function verify if the download button is visible or not
-        :return: True if visible, False if hidden, fail if exception occurs
+        :return: True if download button is visible, False if hidden
         """
         download_button = self.devices_web_elements.get_download_button()
         if download_button is not None and download_button.is_displayed():
@@ -9680,7 +9680,7 @@ class Devices:
     def _is_bulk_edit_button_visible(self):
         """
         - This helper function verify if the bulk edit button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if bulk edit button is visible, False if it's hidden
         """
         edit_button = self.devices_web_elements.get_bulk_edit_button()
         if edit_button is not None and edit_button.is_displayed():
@@ -9774,7 +9774,7 @@ class Devices:
     def _is_update_device_button_visible(self):
         """
         - This helper function checks if the device update button is visible or not`
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if device update button is visible, False if not
         """
         update_device_button = self.devices_web_elements.get_update_device_button()
         if update_device_button is not None and update_device_button.is_displayed():
@@ -9821,7 +9821,7 @@ class Devices:
     def _is_actions_button_visible(self):
         """
         - This helper functions verify if the actions button is visible or not
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if devices action button visible, False if not
         """
         device_actions_button = self.devices_web_elements.get_manage_device_actions_button()
         if device_actions_button is not None and device_actions_button.is_displayed():
