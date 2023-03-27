@@ -428,13 +428,14 @@ class Network360Monitor:
         - This keyword navigates to one of the options available from the dropdown
         Assumes that already navigated to ML Insights -> Network 360 Monitor
         Available options for keyword usage(option parameter): "All Devices", "All Access Points", "IQ Engine Access Points", "WiNG Access Points", "All Switches"
-        :return: returns 1 if Navigation successful
+        :return: returns 1 if Navigation successful, -1 if fails
         """
 
         self.utils.print_info("Go to ML Insights->Network 360 Monitor")
         if self.navigator.navigate_to_network360monitor() != 1:
             kwargs["fail_msg"] = "Fail to navigate to N360 Monitor"
             self.common_validation.failed(**kwargs)
+            return -1
         self.utils.print_info("Search and select floor.")
         if self._search_and_click_floor(floor) != 1:
             kwargs['fail_msg'] = "Unsuccessfully clicked on floor"
@@ -446,6 +447,7 @@ class Network360Monitor:
         if self.auto_actions.click_reference(lambda: self.n360_elements.get_n360_monitor_drop_down_options(option)) != 1:
             kwargs["fail_msg"] = f"Failed to click on option {option} from the dropdown."
             self.common_validation.failed(**kwargs)
+            return -1
         kwargs["pass_msg"] = f"Successfully selected {option} from the dropdown."
         self.common_validation.passed(**kwargs)
 
@@ -454,7 +456,7 @@ class Network360Monitor:
         - This keyword verifies if the device health table is sorted
         the table, are hyperlinks
         Assumes that already navigated to ML Insights -> Network 360 Monitor -> Devices Card with Device Health option selected
-        :return: returns 1 if successful
+        :return: returns 1 if successful, -1 if fails
         """
 
         self.utils.print_info("Getting the initial table elements.")
