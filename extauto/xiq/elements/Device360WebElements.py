@@ -25,6 +25,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_wireless_wifi6gscoretab(self):
         return self.weh.get_element(self.device360_wireless_wifi6gscoretab)
 
+    def get_device360_wireless_wifi5gscoretab(self):
+        return self.weh.get_element(self.device360_wireless_wifi5gscoretab)
+
+    def get_device360_wireless_wifi2gscoretab(self):
+        return self.weh.get_element(self.device360_wireless_wifi2gscoretab)
+
     def get_device360_wireless_wifi6gscore(self):
         return self.weh.get_element(self.device360_wireless_wifi6gscore)
 

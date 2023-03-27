@@ -49,13 +49,6 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
         """
         return self.weh.get_element(self.ap_template_save_button)
 
-    def get_ap_template_save_tool_tip(self):
-        """
-
-        :return:
-        """
-        return self.weh.get_element(self.ap_template_save_tool_tip)
-
     def get_ap_template_rows(self):
         """
 
