@@ -137,7 +137,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_based_grp_enabled_status(self, mode):
+    def get_based_grp_enabled_status(self, mode, **kwargs):
         """
         - This keyword get a staus of the enable based groups button when the current status is on or off
         - Flow: Configure --> Users --> User Management --->Private Client Group
@@ -163,7 +163,8 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
             element = self.get_private_client_grp_enable_key_based_on_off_button()
 
         if element is None:
-            self.utils.print_info(" The enable based groups button does not exist ")
+            kwargs['fail_msg'] = "The enable based groups button does not exist"
+            self.common_validation.fault(**kwargs)
             return 0
 
         if element.is_selected():
@@ -474,7 +475,7 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def search_in_table(self, no_columns_per_row, cells, searched_value):
+    def search_in_table(self, no_columns_per_row, cells, searched_value, **kwargs):
 
         """
         - This function searches a value in a table and return a selected row
@@ -512,6 +513,8 @@ class PrivateClientGroups(PrivateClientGroupsWebElements):
                 cnt = 0
 
         if not found:
+            kwargs['fail_msg'] = f"Failed to Search in Table. Found value {found} didn't found"
+            self.common_validation.failed(**kwargs)
             return 0
 
     def wait_until_elements_available(self, elements, seconds=60):
