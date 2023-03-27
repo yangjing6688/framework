@@ -133,8 +133,7 @@ class AccntMgmtWebElementsDefs:
         }
     Rbac_Assign_Location_checkbox = \
         {
-            'XPATH': "//div[@class='lbl fn-ellipsis'] [@title='Bengaluru']",
-            'wait_for': 2
+            'XPATH': "//div[@class='lbl fn-ellipsis']"
         }
 
     credential_distribution_groups_add_button = \
