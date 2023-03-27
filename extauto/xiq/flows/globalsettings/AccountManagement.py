@@ -87,7 +87,7 @@ class AccountManagement(AccntMgmtWebElements):
         timeout = accnt_config.get('timeout')
         role = accnt_config.get('role')
         # Commented on 1/18/23 because it is unused
-        location = accnt_config.get('location')
+        #location = accnt_config.get('location')
         organization = accnt_config.get('organization')
 
         self.utils.print_info("Navigating to the account Management page..")
