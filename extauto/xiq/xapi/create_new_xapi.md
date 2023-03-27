@@ -74,7 +74,7 @@ This will allow all users to know that this keyword now support the XAPI method.
 modify the original UI keywords with the following code template. The if statements ensures the 
 XAPI_ENABLE flag is set for the test or keyword and the call is to the new XAPI function. 
     
-     if self.xapi<your new classname>.is_xapi_enabled():
+     if self.xapi<your new classname>.is_xapi_enabled(**kwargs):
             return self.<your new classname>.xapi_<your new function name>(..., **kwargs)
 
 

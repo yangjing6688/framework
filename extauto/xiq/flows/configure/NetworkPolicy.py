@@ -176,7 +176,7 @@ class NetworkPolicy(object):
         """
 
         # This code is currently disabled until the XAPI support SSID creation
-        # if self.xapiNetworkPolicy.xapiNetworkPolicy.is_xapi_enabled():
+        # if self.xapiNetworkPolicy.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
         #    return self.xapiNetworkPolicy.xapi_create_network_policy(policy, wireless_profile, cli_type, **kwargs)
 
         # UI code to add a new network policy
@@ -263,7 +263,7 @@ class NetworkPolicy(object):
         :return: 1 if deleted else -1
         """
 
-        if self.xapiNetworkPolicy.is_xapi_enabled():
+        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
             policies = []
             policies.append(policy)
             return self.xapiNetworkPolicy.delete_network_polices(policies, **kwargs)
@@ -330,7 +330,7 @@ class NetworkPolicy(object):
         :return: 1 if deleted successfully else -1
         """
 
-        if self.xapiNetworkPolicy.is_xapi_enabled():
+        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
             return self.xapiNetworkPolicy.xapi_delete_network_polices(policies, **kwargs)
 
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
@@ -427,7 +427,7 @@ class NetworkPolicy(object):
         :return: 1 if deleted successfully else -1
         """
 
-        if self.xapiNetworkPolicy.is_xapi_enabled():
+        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
             return self.xapiNetworkPolicy.xapi_delete_network_polices(exclude_list=exclude_list, **kwargs)
 
         exclude_list = exclude_list.split(",")

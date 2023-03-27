@@ -114,7 +114,7 @@ class Login(object, metaclass=Singleton):
                    salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
                    max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             # new XAPI call to get and set the XAPI token
             self.xapiLogin.login(username, password, **kwargs)
 
@@ -463,7 +463,7 @@ class Login(object, metaclass=Singleton):
     #@deprecated('Please use the {logout_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def logout_user(self, **kwargs):
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             # remove the token for xapi
             self.xapiLogin.logout(**kwargs)
 
@@ -746,7 +746,7 @@ class Login(object, metaclass=Singleton):
         :return: data_center_name
         """
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             return self.xapiLogin.xapi_capture_data_center_name(**kwargs)
 
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
@@ -776,7 +776,7 @@ class Login(object, metaclass=Singleton):
         """
 
         # This isn't supported yet
-        # if self.xapiLogin.is_xapi_enabled():
+        # if self.xapiLogin.is_xapi_enabled(**kwargs):
         #     return self.xapiLogin.xapi_capture_xiq_version(**kwargs)
 
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
