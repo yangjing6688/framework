@@ -95,7 +95,6 @@ class Login:
 
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                   salesforce_password=False, saleforce_shared_cuid=False, quick=False, check_warning_msg=False,
                    max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
         """
         - Login to Xiq account with username and password (we will try up to 3 times)

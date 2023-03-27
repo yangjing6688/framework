@@ -2572,6 +2572,139 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
+    def _select_and_delete(self, device_dict):
+        """
+        - This helper is used in delete_device_by_object() only to select and click on delete button
+
+        :param device_dict: data passed as a dictionary
+
+        :return: 1 if device deleted successfully, False if it was unable to delete the device
+        """
+
+        self.select_device_by_object(device_dict, skip_refresh=True, skip_navigation=True)
+        self.utils.print_info("Click delete button")
+        self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
+
+        self.utils.print_info("Click confirmation Yes Button")
+        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
+        self.screen.save_screen_shot()
+
+        # Wait until 'loading' mask is cleared
+        self.navigator.wait_until_devices_load_spinner_cleared(retry_duration=1, retry_count=180)
+
+        # Wait until the device is removed from the view
+        result = self.wait_until_device_removed_by_object(device_dict, retry_duration=10, retry_count=6)
+        # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
+        if result == 1:
+            self.utils.print_info(f"Deleted device successfully with {device_dict}")
+            return 1
+
+        # Confirm device was deleted successfully
+        if self.search_device_by_object(device_dict, skip_navigation=True, ignore_failure=True) == 1:
+            self.utils.print_info(f"Unable to delete the device with {device_dict}")
+            return False
+        else:
+            self.utils.print_info(f"Device with {device_dict} was deleted successfully!")
+            return 1
+
+    def delete_device_by_object(self, *device_dict, **kwargs):
+        """
+        - Deletes Device matching either any of either one of serial, name, MAC
+        - Keyword Usage:
+        - ``Delete Device    device_serial=${ap1}``
+
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
+        :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
+        :param kwargs: keyword arguments XAPI_ENABLE
+        :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
+        """
+        device_dict = device_dict[0]
+        device_serial = device_dict.get("serial")
+        device_mac = device_dict.get("mac")
+        device_name = device_dict.get("name")
+        device_type = device_dict.get("platform")
+
+        device_keys = {
+            "mac": device_dict.get("mac"),
+            "serial": device_dict.get("serial"),
+            "name": device_dict.get("name"),
+            "platform": device_dict.get("platform")
+        }
+        device_keys = {key: value for key, value in device_keys.items() if value}
+
+        if len(device_keys.keys()) == 0:
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
+            return self.xapiDevices.xapi_delete_device(device_serial=device_serial, device_name=device_name,
+                                                       device_mac=device_mac, **kwargs)
+
+        self.navigator.enable_page_size()
+        self.utils.print_info(f"Deleting device with {device_keys}")
+
+        if device_type == "Stack":
+            dict_stack = {'mac': device_mac}
+            search_result = self.search_device_by_object(dict_stack, ignore_failure=True)
+            if search_result != -1:
+                if self.wait_until_device_update_done(device_mac=device_mac, skip_navigation=True, skip_refresh=True):
+                    if self._select_and_delete(dict_stack):
+                        kwargs['pass_msg'] = "Deleted Device Successfully!"
+                        self.common_validation.passed(**kwargs)
+                        return 1
+                    else:
+                        kwargs['fail_msg'] = f"Unable to delete the device with {dict_stack}"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+            elif "," in device_serial:
+                serials = device_serial.split(",")
+                device_found = -1
+                for serial in serials:
+                    dict_serial = {'serial': serial}
+                    if self.search_device_by_object(dict_serial, skip_refresh=True, skip_navigation=True, ignore_failure=True) != -1:
+                        device_found = 1
+                        if self.wait_until_device_update_done(device_serial=serial, skip_navigation=True, skip_refresh=True):
+                            if not self._select_and_delete(dict_serial):
+                                kwargs['fail_msg'] = f"Unable to delete the device with {dict_serial}"
+                                self.common_validation.failed(**kwargs)
+                                return -1
+
+                if device_found == 1:
+                    kwargs['pass_msg'] = "Device(s) successfully deleted!"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+
+            kwargs['pass_msg'] = f"Device with {device_keys} does not exist / is already deleted!"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            search_result = self.search_device_by_object(device_keys, ignore_failure=True)
+            if search_result != -1:
+                if self.wait_until_device_update_done(device_serial=device_serial, device_mac=device_mac,
+                                                      device_name=device_name, skip_navigation=True, skip_refresh=True):
+                    if self._select_and_delete(device_keys):
+                        kwargs['pass_msg'] = "Deleted Device Successfully!"
+                        self.common_validation.passed(**kwargs)
+                        return 1
+                    else:
+                        kwargs['fail_msg'] = f"Unable to delete the device with {device_keys}"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+            else:
+                kwargs['pass_msg'] = f"Device with {device_keys} does not exist / is already deleted"
+                self.common_validation.passed(**kwargs)
+                return 1
+
+        kwargs['fail_msg'] = "Device was not deleted. Make sure to pass a data as a dictionary!"
+        self.common_validation.fault(**kwargs)
+        return -1
+
     def delete_devices(self, *device_list, **kwargs):
         """
         - Deletes the list of devices denoted by serial numbers
@@ -2718,6 +2851,7 @@ class Devices:
                                                         device_name=device_name,
                                                        device_mac=device_mac,
                                                        **kwargs)
+
         device_keys = {}
         if device_mac:
             device_keys['device_mac'] = device_mac
@@ -2746,6 +2880,82 @@ class Devices:
                 kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
             self.common_validation.passed(**kwargs)
             return 1
+
+        kwargs['fail_msg'] = f"Did not find device row with {device_keys}"
+        self.common_validation.failed(**kwargs)
+        return -1
+
+    def search_device_by_object(self, *device_dict, select_device=False, skip_refresh=False, skip_navigation=False, **kwargs):
+        """
+        - Searches for the device using serial, name or MAC, and selects it if desired
+        - Supported Modes:
+          - UI - default mode
+          - XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
+        :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
+        :param select_device: True - to select the device, default set to False
+        :param skip_refresh: True - to skip the refresh of the devices page, default set to False
+        :param skip_navigation: True - to skip the navigation to the devices page, default set to False
+        :param kwargs: keyword arguments XAPI_ENABLE
+
+        :return: 1 if device found else -1
+        """
+        device_dict = device_dict[0]
+        device_serial = device_dict.get("serial")
+        device_mac = device_dict.get("mac")
+        device_name = device_dict.get("name")
+
+        device_keys = {
+            "mac": device_dict.get("mac"),
+            "serial": device_dict.get("serial"),
+            "name": device_dict.get("name")
+        }
+
+        device_keys = {key: value for key, value in device_keys.items() if value}
+        if len(device_keys.keys()) == 0:
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        # We need to skip this when we are selecting a device
+        if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
+            return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
+                                                       device_mac=device_mac, **kwargs)
+
+        # navigate to devices page and refresh
+        if not skip_navigation:
+            self.navigator.navigate_to_devices()
+        if not skip_refresh:
+            self.refresh_devices_page()
+
+        row = self._find_device_row(device_keys)
+        if row:
+            kwargs['pass_msg'] = f"Device with {device_keys} was found!"
+            if select_device:
+                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                self.screen.save_screen_shot()
+                kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        if device_serial:
+            if "," in device_serial:
+                serials = device_serial.split(",")
+                serials_found = []
+                for serial in serials:
+                    dict_serial = {'serial': serial}
+                    row = self._find_device_row(dict_serial)
+                    if row:
+                        self.utils.print_info(f"Device with {dict_serial} was found!")
+                        if select_device:
+                            self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                            self.screen.save_screen_shot()
+                            self.utils.print_info(f"Device with {dict_serial} was found and selected")
+                        serials_found.append(serial)
+
+                kwargs['pass_msg'] = f"Device serials found: {serials_found}"
+                self.common_validation.passed(**kwargs)
+                return 1
 
         kwargs['fail_msg'] = f"Did not find device row with {device_keys}"
         self.common_validation.failed(**kwargs)

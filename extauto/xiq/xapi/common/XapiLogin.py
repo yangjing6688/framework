@@ -24,6 +24,10 @@ class XapiLogin(XapiHelper):
 
         # Login information
         xapi_url = self.get_xapi_url()
+
+
+
+
         if xapi_url:
             configuration = self.xapiBaseAuthenticationApi.extremecloudiq.Configuration(
                 host=xapi_url,
