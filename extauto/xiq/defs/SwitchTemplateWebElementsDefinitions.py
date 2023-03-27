@@ -7,7 +7,7 @@ class SwitchTemplateWebElementDefinitions:
 
     device_template_switch_template_tab = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='showSwitch']",
+            'XPATH': "//li[@data-automation-tag='policy-switching-templates']",
             'wait_for': 5
         }
 
@@ -32,11 +32,11 @@ class SwitchTemplateWebElementDefinitions:
 
     device_sw_template_items = {'CSS_SELECTOR': '.ui-menu-item', 'wait_for': 5}
 
-    sw_device_template_grid_rows = {'CSS_SELECTOR': '.dgrid-row', 'wait_for': 5}
+    sw_device_template_grid_rows = {'CSS_SELECTOR': '[data-dojo-attach-point="templateGridArea"] .dgrid-row', 'wait_for': 5}
 
     sw_template_enable_spanningtree = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpSwitch']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-stp-toggle']",
             'wait_for': 5
         }
 
@@ -243,7 +243,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_stack_add_button = \
         {
-            'XPATH': '//div[@id="switchesMenu"]//div//button',
+            'XPATH': '//div[@data-dojo-attach-point="switchesMenu"]//div//button',
             'wait_for': 5
         }
 
@@ -1220,4 +1220,10 @@ class SwitchTemplateWebElementDefinitions:
         {
             'CSS_SELECTOR': '.state-expanded.state-type-access-port',
             'wait_for': 10
+        }
+
+    device_template_override_policy = \
+        {
+            'XPATH': '//input[@data-automation-tag="switch-template-override-settings"]',
+            'wait_for': 2
         }
