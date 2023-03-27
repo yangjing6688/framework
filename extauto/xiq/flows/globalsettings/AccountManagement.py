@@ -122,7 +122,6 @@ class AccountManagement(AccntMgmtWebElements):
         self.auto_actions.send_keys(self.get_account_mgmt_timeout(), timeout)
 
         self.utils.print_info(f"Selecting the role:{role}")
-
         role_dict = {'Administrator': self.get_administrator_role_radio_button(),
                      'Operator': self.get_operator_role_radio_button(),
                      'Monitor': self.get_monitor_role_radio_button(),
@@ -137,8 +136,8 @@ class AccountManagement(AccntMgmtWebElements):
             self.utils.print_info(f'Cannot select location for :{role} role')
         if role != "GuestManagement" and role != "Administrator":
             self.utils.print_info('selecting the location check box')
-            location_checkbox = self.get_Rbac_Assign_Location_checkbox()
-            if location_checkbox.is_selected():
+            location_checkbox_selected = self.get_rbac_location_tree_checkbox_selected_status()
+            if not location_checkbox_selected:
                 self.auto_actions.click_reference(self.get_Rbac_Assign_Location_checkbox)
         self.screen.save_screen_shot()
         sleep(2)
