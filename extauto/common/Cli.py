@@ -1261,6 +1261,7 @@ class Cli(object):
             self.send(connection, 'no capwap client server name')
             self.send(connection, 'no capwap client default-server-name')
             self.send(connection, 'no capwap client server backup name')
+            self.send(connection, 'no capwap client vhm-name')
             self.send(connection, 'no capwap client enable')
             self.send(connection, 'save config')
             count = 1
