@@ -119,7 +119,7 @@ class KeywordsLogin(object, metaclass=Singleton):
                 self.keyword_utils.timing.end(keyword_name)
 
         # Log into XAPI only if XAPI is enabled globally
-        if self.xapi_helper.is_xapi_enabled():
+        if self.xapi_helper.is_xapi_enabled(**kwargs):
             try:
                 self.keyword_utils.timing.start(keyword_name, 'XAPI')
                 xapi_return_code = self.xapi_login.login(username, password, **kwargs)
