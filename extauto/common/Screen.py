@@ -37,7 +37,7 @@ class Screen:
                 self.add_screen_shot_to_allure(file_name, CloudDriver().cloud_driver)
                 time.sleep(2)
             print(
-                "*HTML* <a href=" + file_name + "> <img src=" + file_name + " width=\"600px\" style=\"border:5px solid red\"></a>")
+                '*HTML* <img src=" {} "width=\"1200px\" style=\"border:5px solid red\"></a>'.format(file_name))
         except Exception as e:
             print(f"Can't get the screenshot: {e}")
         return file_name

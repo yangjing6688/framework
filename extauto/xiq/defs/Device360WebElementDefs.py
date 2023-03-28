@@ -604,7 +604,7 @@ class Device360WebElementDefs:
 
     device360_refresh_page_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="pageRefresh"]',
+            'XPATH': '//div[@class="entity-page-actions"]//div[@data-dojo-attach-point="pageRefresh"]',
             'wait_for': 5
         }
 
@@ -1274,7 +1274,7 @@ class Device360WebElementDefs:
 
     sw_template_stack_add_items = \
         {
-            'XPATH': '//div[@id="switchesMenu"]//ul/li/a',
+            'XPATH': '//div[@data-dojo-attach-point="switchesMenu"]//ul/li/a',
             'wait_for': 5
         }
 

@@ -176,7 +176,7 @@ class NetworkPolicy(object):
         """
 
         # This code is currently disabled until the XAPI support SSID creation
-        # if self.xapiNetworkPolicy.xapiNetworkPolicy.is_xapi_enabled():
+        # if self.xapiNetworkPolicy.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
         #    return self.xapiNetworkPolicy.xapi_create_network_policy(policy, wireless_profile, cli_type, **kwargs)
 
         # UI code to add a new network policy
@@ -263,7 +263,7 @@ class NetworkPolicy(object):
         :return: 1 if deleted else -1
         """
 
-        if self.xapiNetworkPolicy.is_xapi_enabled():
+        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
             policies = []
             policies.append(policy)
             return self.xapiNetworkPolicy.delete_network_polices(policies, **kwargs)
@@ -330,7 +330,7 @@ class NetworkPolicy(object):
         :return: 1 if deleted successfully else -1
         """
 
-        if self.xapiNetworkPolicy.is_xapi_enabled():
+        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
             return self.xapiNetworkPolicy.xapi_delete_network_polices(policies, **kwargs)
 
         if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
@@ -427,7 +427,7 @@ class NetworkPolicy(object):
         :return: 1 if deleted successfully else -1
         """
 
-        if self.xapiNetworkPolicy.is_xapi_enabled():
+        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
             return self.xapiNetworkPolicy.xapi_delete_network_polices(exclude_list=exclude_list, **kwargs)
 
         exclude_list = exclude_list.split(",")
@@ -751,6 +751,7 @@ class NetworkPolicy(object):
             self.utils.print_info(f"Current page: {current_page}")
             self.utils.print_info("Waiting for Network Policy rows to load...")
             self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
+            self.navigator.wait_until_loading_is_done()
             self.utils.print_info("Network Policy rows have been loaded. Searching for "
                                   f"Network Policy: {policy_name} ...")
 
@@ -2350,21 +2351,6 @@ class NetworkPolicy(object):
     def get_switching_tab(self):
         self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
 
-    def get_common_settings_voss(self):
-        self.auto_actions.click_reference(self.np_web_elements.get_common_settings_voss)
-
-    def check_common_settings_voss_parameters(self):
-        voss_settings_text = self.np_web_elements.get_voss_parameters_text()
-
-        # self.utils.print_info(voss_settings_text)
-        # stringz = str(voss_settings_text)
-        # self.utils.print_info(stringz)
-        self.utils.print_info(f"mai sus!!! {voss_settings_text}")
-
-        if "STP Configurations" and "IGMP Settings" and "MTU Settings" and "PSE Settings" in voss_settings_text:
-            self.utils.print_info("VOSS common settings contain the required parameters")
-            return True
-
     def get_port_types_section(self, **kwargs):
         """
         - This keyword will navigate to Port Types section in Network Policies tab
@@ -2913,13 +2899,6 @@ class NetworkPolicy(object):
             "Failed to navigate to Network Policy Edit Tab"
 
         self.get_switching_tab()
-
-    def generate_policy_name(self):
-        """
-        - This Keyword will generate policy name
-        :return: random policy name
-        """
-        return f"test_policy_{str(time.time())[::-1][:5]}"
 
     def open_network_policy_ssid_page(self, policy_name, ssid_name, **kwargs):
         """
