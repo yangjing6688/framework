@@ -3,11 +3,12 @@ from robot.libraries.BuiltIn import BuiltIn
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from selenium.common.exceptions import (
-    ElementClickInterceptedException,
-    StaleElementReferenceException,
-    ElementNotInteractableException
-)
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import StaleElementReferenceException
+from selenium.common.exceptions import ElementNotInteractableException
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.CloudDriver import CloudDriver
@@ -41,7 +42,8 @@ class AutoActions:
             return -1
 
         else:
-            self.utils.print_debug("Clicking Element: ", element)
+            # this line should be uncommented only when debugging
+            # self.utils.print_debug("Clicking Element: ", element)
             count = 0
             while count < self.retries:
                 try:
@@ -114,6 +116,12 @@ class AutoActions:
         action = ActionChains(CloudDriver().cloud_driver)
         sleep(2)
 
+        # Reset the cursor before moving to the element.  This is necessary in cases where the cursor is already
+        # hovering over the element.  In some cases (like menus) moving to the same location will not have the desired
+        # affect (like redrawing the menu)
+        action.reset_actions()
+
+        # Now move to the element
         action.move_to_element(element)
         action.perform()
         sleep(2)
@@ -197,6 +205,30 @@ class AutoActions:
         :return: None
         """
         CloudDriver().cloud_driver.find_element_by_tag_name('body').send_keys(Keys.PAGE_DOWN)
+
+    def scroll_down_table(self, element_def):
+        """
+        This method is used to scroll down a table until all elements are visible
+        :param element_def: the definition of the last element of a table. It must be an CSS_SELECTOR
+        :return: None
+        """
+
+        last_elem = ''
+        driver = CloudDriver().cloud_driver
+        while True:
+            try:
+                WebDriverWait(driver, 5).until(ec.presence_of_element_located((By.CSS_SELECTOR,
+                                                                               element_def['CSS_SELECTOR'])))
+            except Exception as e:
+                self.utils.print_warning("Exception while scrolling table: ", e)
+
+            current_last_elem = driver.find_element(By.CSS_SELECTOR, element_def['CSS_SELECTOR'])
+            driver.execute_script("document.querySelector(\'" + element_def['CSS_SELECTOR'] + "\').scrollIntoView();")
+            sleep(3)
+            if last_elem == current_last_elem:
+                break
+            else:
+                last_elem = current_last_elem
 
     def scroll_up(self):
         """

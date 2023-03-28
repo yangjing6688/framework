@@ -163,12 +163,6 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 7
         }
 
-    ap_template_save_tool_tip = \
-        {
-            'XPATH': '//*[contains(@class, "ui-tipbox-success")]//*[@data-dojo-attach-point="textEl"]',
-            'wait_for': 5
-        }
-
     device_template_page_next_button = \
         {
             'XPATH': '//*[@id="ah/comp/configuration/ConfigWizard_0"]/fixed-bar/button[2]',
@@ -313,7 +307,7 @@ class DeviceTemplateWebElementDefinitions:
     click_selected_ap_template = \
         {
             'CSS_SELECTOR': '.dojoxGridCell ',
-            
+
         }
 
     ap_template_dialog_select_button = \
@@ -451,7 +445,7 @@ class DeviceTemplateWebElementDefinitions:
 
     device_switch_template_menue_filter = \
         {
-            'XPATH': "//*[@automation-tag='automation-switch-device-templates-menu-filter']"
+            'XPATH': "//*[@class='ui-menu-filter']"
         }
 
     switch_template_device_configuration_igmp_settings = \

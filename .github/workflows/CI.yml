@@ -4,109 +4,94 @@ on:
     branches: [main, RELEASE-**]
 
 jobs:
+
   framework_sanity:
     name: Validate Framework Functionality
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     outputs:
       status: ${{ steps.set-output.outputs.status }}
 
     steps:
-    - name: Run "sanity" tests to ensure basic framework functionality
+    - name: Run sanity test
+      shell: python
+      env:
+        JOBMGR_URL_BASE: https://autoiq.extremenetworks.com/jobmanager
+        JOBMGR_API_BASE: "https://autoiq.extremenetworks.com/tbedmgr/jobmgr"
+        RUN_JOB_ENDPOINT: "/saved_job/executeSavedJobFromName"
+        SAVED_JOB_NAME: "extreme_automation_framework_sanity"
       run: |
-        ### Get Session token
-        curl_return_code=0
-        curl_output=$( curl -X GET  --no-progress-meter \
-                        "http://autoiq.extremenetworks.com/auth/getSessionTokenFromPAT" \
-                        -H "accept: application/json" \
-                        -H "authorization: PAT ${{ secrets.AUTOIQ_PAT }}" )
-        curl_return_code=$?
+        from json import dumps, loads
+        from sys import exit
+        from time import sleep
+        import requests
 
-        if (( $curl_return_code != 0 )); then
-          echo "Error getting session token. Message: ${curl_output}"
-          exit 1
-        else
-          SESSION_TOKEN=$( echo "${curl_output}" |  jq -r '.result.sessionToken' )
-        fi
+        jobmgr_base_url = "${{ env.JOBMGR_API_BASE }}"
 
-        # CreateJob body template
-        job_template='{
-                "jsonString":{
-                    "description": "  [Username]: CI_Service [JobType]: private  [Group]: CICD [Harness]:  [RDC]: None",
-                    "priority": 3,
-                    "version": 1,
-                    "rerun": 0,
-                    "postResults": 1,
-                    "notifyOnStart": 0,
-                    "username": "CI_Service",
-                    "group": "CICD",
-                    "jobType": "private",
-                    "auxInfoList" : [
-                      {"cicd_pr":1},
-                      {"context": "${{ github.event.repository.name }}/test-context"},
-                      {"repo":"${{ github.repository }}"},
-                      {"sha":"${{ github.sha }}"},
-                      {"state":"pending"}
-                    ],
-                    "jobPlatforms": [
-                      {
-                        "platform": "EXOS-DT",
-                        "hardwareConfiguration": "Standalone",
-                        "priority": 3,
-                        "auxInfoList": [],
-                        "jobPlatformTestModules" :
-                        [
-                            {
-                                "testModule_uuid": $harness_uuid,
-                                "auxInfoList" : [
-                                                  {"nodeCount": 4},
-                                                  {"universalTestBedOs": "EXOS"},
-                                                  {"test_name": $tests }
-                                                  ]
-                            }
-                        ]
-                      }
-                    ]
-                }
-              }'
+        headers = {
+          "accept": "application/json",
+          "authorization": "PAT ${{ secrets.AUTOIQ_PAT }}",
+          "Content-Type": "application/json"
+        }
+        payload = {
+          "savedJobName": "${{ env.SAVED_JOB_NAME }}",
+          "testRepoBranch": "main",
+          "frameworkRepoBranch": "${{ github.head_ref }}"
+        }
 
-        # Format Test Lists
-        pytest_tests=$( echo "extreme_automation_tests/Tests/Pytest/Demos/DefaultTemplateUI/TestCases,extreme_automation_tests/Tests/Pytest/Demos/VLAN/TestCases" | jq -ncR 'inputs | split(",")' )
-        robot_tests=$( echo "extreme_automation_tests/Tests/Robot/Demos/XiQ/TestCases" | jq -ncR 'inputs | split(",")' )
+        response = requests.post(url=f"{jobmgr_base_url}${{ env.RUN_JOB_ENDPOINT }}", headers=headers, json=payload)
 
-        pytest_harness_uuid="11111111-2222-2222-2222-111111111111"
-        robot_harness_uuid="11111111-6666-6666-6666-111111111111"
+        if response.status_code != requests.codes.created:
+          print(f"Error: got a bad response code <{response.status_code}>. Response text: {response.text}")
+          response.raise_for_status()
 
-        printf 'Pytest tests to run: %s\nRobot tests to run: %s\n' "$pytest_tests" "$robot_tests"
+        try:
+          job_uuid = response.json()["result"][0]["job_uuid"]
+        except:
+          print(f"Error: Unable to find Job Id in response. {response.text}")
+          exit(1)
 
-        # Generate robot JSON body
-        CURL_BODY=$(jq --null-input \
-                  --argjson tests "$robot_tests" \
-                  --arg harness_uuid "$robot_harness_uuid" \
-                  "$job_template")
+        print(f"Job Created! UUID: {job_uuid}. Waiting for job to complete...")
+        sleep(60) # Wait for job to start
 
-        printf '%s\n\n' "[*] Robot Job Submit JSON: $CURL_BODY"
+        sleep_interval = 20 # seconds
+        for i in range(60): # Wait for 20 minutes
+          response = requests.get(url=f"{jobmgr_base_url}/jobs/{job_uuid}", headers=headers)
+          if response.status_code != requests.codes.ok:
+            print(f"Error: got a bad response code <{response.status_code}>. Response text: {response.text}")
+            response.raise_for_status()
 
-        curl -X POST --no-progress-meter \
-        "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
-        -H "accept: application/json" \
-        -H "Content-Type: application/json" \
-        -H "authorization: Bearer ${SESSION_TOKEN}" \
-        -d "${CURL_BODY}"
+          try:
+            job_status = response.json()["result"][0]["status"]
+            job_stats = response.json()["result"][0]["statsJson"]
+            job_stats = loads(job_stats)
+            job_status_message = response.json()["result"][0]["statusMessage"]
+          except Exception as e:
+            raise Exception(f"Error: Unable to find Job Status in response. {response.text}") from e
 
-        # Generate pytest JSON body
-        CURL_BODY=$(jq --null-input \
-                  --argjson tests "$pytest_tests" \
-                  --arg harness_uuid "$pytest_harness_uuid" \
-                  "$job_template")
+          print(f"::group::Job Status #{i}")
+          print("")
+          print(dumps(response.json(), indent=2))
+          print("")
+          print("::endgroup::", end="\n\n")
 
-        printf '%s\n\n' "[*] Pytest Job Submit JSON: $CURL_BODY"
+          if job_status == "complete":
+            # Check if tests failed or were killed. All tests should run so a skip is a failure
+            if job_stats.get("Failed") or job_stats.get("Killed") or job_stats.get("Skipped"):
+              print(f"Job Completed Unsuccessfully! View on AutoIQ: ${{env.JOBMGR_URL_BASE}}/{job_uuid}")
+              exit(1)
+            else:
+              print(f"Job Completed Successfully!")
+              exit(0)
+          elif job_status in ["queued", "running", "validating", "processing"]:
+            print(f"Job Not Finished. Waiting for job to complete...")
+          else:
+            # Job aborted, was killed, or is a zombie
+            print(f"Status: {job_status}. Status Message: {job_status_message}")
+            print(f"Job Completed Unsuccessfully! View on AutoIQ: ${{env.JOBMGR_URL_BASE}}/{job_uuid}")
+            exit(1)
 
-        curl -X POST --no-progress-meter \
-        "https://autoiq.extremenetworks.com/tbedmgr/jobmgr/createJob" \
-        -H "accept: application/json" \
-        -H "Content-Type: application/json" \
-        -H "authorization: Bearer ${SESSION_TOKEN}" \
-        -d "${CURL_BODY}"
+          sleep(sleep_interval)
 
 
     - name: Set job status output
@@ -117,8 +102,7 @@ jobs:
 
   code_checks:
     name: Run code quality tools
-    # runs-on: ubuntu-latest
-    runs-on: Ubuntu-20.04
+    runs-on: ubuntu-latest
     outputs:
       status: ${{ steps.set-output.outputs.status }}
     env:
@@ -143,6 +127,10 @@ jobs:
 
         printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Keywords ========"
         python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Keywords
+
+        # TODO: uncomment once Eric cleans up the generation of the keywords
+        # printf '\n%s\n\n' "======== Running flake8 in /keywords ========"
+        # python3 -m flake8 --config=${SETUP_CFG} ./keywords
 
     - name: Set job status output
       if: ${{ always() }}

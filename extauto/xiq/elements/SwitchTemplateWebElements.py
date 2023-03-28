@@ -814,3 +814,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_device_template_no_of_ports(self):
         return self.weh.get_elements(self.device_template_no_of_ports)
+
+    def get_device_template_override_policy(self):
+        return self.weh.get_element(self.device_template_override_policy)

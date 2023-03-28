@@ -38,8 +38,7 @@ class NetworkPolicyWebElementDefinition:
 
     np_add_button = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Add"]',
-            'wait_for': 1
+            'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Add"]'
         }
 
     np_policy_crumb_button = \
@@ -51,8 +50,7 @@ class NetworkPolicyWebElementDefinition:
     np_edit_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@data-tip="Edit"]',
-            'CSS_SELECTOR': '.table-action-icons.table-edit',
-            'wait_for': 1
+            'CSS_SELECTOR': '.table-action-icons.table-edit'
         }
 
     np_wireless_check_box = \
@@ -825,5 +823,35 @@ class NetworkPolicyWebElementDefinition:
     port_type_row_cells = \
         {
             'CSS_SELECTOR': '.dgrid-cell',
+            'wait_for': 3
+        }
+
+    common_settings_exos = \
+        {
+            'XPATH': '//li[@data-automation-tag="policy-switching-settings-exos"]',
+            'wait_for': 3
+        }
+
+    common_settings_exos_stp_toogle = \
+        {
+            'CSS_SELECTOR': '.panel-container.exos-settings [data-automation-tag="automation-common-settings-stp-toggle"]',
+            'wait_for': 3
+        }
+
+    common_settings_voss_stp_toogle = \
+        {
+            'CSS_SELECTOR': '.panel-container.exos-settings.fn-hidden [data-automation-tag="automation-common-settings-stp-toggle"]',
+            'wait_for': 3
+        }
+
+    common_settings_save_button = \
+        {
+            'XPATH': '//button[@data-automation-tag="common-settings-save"]',
+            'wait_for': 3
+        }
+
+    all_common_settings_configs = \
+        {
+            'CSS_SELECTOR': '.ui-tle .title',
             'wait_for': 3
         }

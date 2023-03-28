@@ -483,7 +483,8 @@ class NavigatorWebElementDefinitions:
 
     card_view = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-config-card']"
+            'XPATH': "//*[@data-automation-tag='automation-config-card']",
+            'wait_for': 30
         }
 
     network_policy_page_size = \
@@ -1358,5 +1359,11 @@ class NavigatorWebElementDefinitions:
     grid_spinner = \
         {
             'XPATH': '//div[@data-dojo-attach-point="spinner"]',
+            'wait_for': 5
+        }
+
+    tools_page = \
+        {
+            'CSS_SELECTOR': '.tools-controller',
             'wait_for': 5
         }

@@ -29,6 +29,7 @@ from extauto.common.WebElementHandler import WebElementHandler
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from extauto.xiq.xapi.manage.XapiDevices import XapiDevices
 from ExtremeAutomation.Utilities.deprecated import unsupported
+from extauto.xiq.elements.ClientWebElements import ClientWebElements
 
 
 
@@ -784,7 +785,7 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
-    def _search_simulated_devices(self, ap_serial):
+    def _search_simulated_devices(self, device_model):
         """
         Searches for AP matching AP's Serial Number
 
@@ -797,7 +798,7 @@ class Devices:
         if rows:
             for row in rows:
                 self.utils.print_info("row data: ", self.format_row(row.text))
-                if ap_serial in row.text:
+                if device_model in row.text:
                     return 1
         else:
             return False
@@ -1288,7 +1289,7 @@ class Devices:
             kwargs['fail_msg'] = "You must pass the serial number!"
             self.common_validation.fault(**kwargs)
             return -1
-        
+
         self.refresh_devices_page()
         row = self._find_device_row(device_keys)
         if row:
@@ -1537,7 +1538,7 @@ class Devices:
             self.clear_search_field()
             returnValue = self.auto_actions.click_reference(self.devices_web_elements.get_refresh_devices_page)
             if returnValue == -1:
-                kwargs['fail_msg'] = "Device page was not refreshed successfully"
+                kwargs['fail_msg'] = "Device page was NOT refreshed"
                 self.common_validation.failed(**kwargs)
                 return -1
             else:
@@ -1741,29 +1742,6 @@ class Devices:
         self.screen.save_screen_shot()
         sleep(2)
 
-        # Code taken from the ap_onboard code.
-        # This code was need because it took a longer to onboard an AP on an AIO
-        # Updated logic to use a whil loop with a timer so that if the process nerver finishes we will abort and throw an error
-        check_process_count = 90
-        retry_duration = 2
-        count = 1
-        while check_process_count > 0:
-            # If the quick add block is present, this inidcates the process is not done, then sleep a second and try again
-            self.utils.print_info(f"Checking to see if adding device process has completeed: loop {count}")
-            if self.devices_web_elements.get_devices_quick_add_block_show():
-                self.utils.print_info(f"Still in adding device process, Waiting for {retry_duration} seconds...")
-                sleep(retry_duration)
-            else:
-                kwargs['pass_msg'] = "Finish device adding process ..."
-                self.common_validation.passed(**kwargs)
-                break
-            check_process_count = check_process_count - 1
-            count = count + 1
-        if check_process_count == 0:
-            kwargs['fail_msg'] = "Adding device process never completed"
-            self.common_validation.fault(**kwargs)
-            return -1
-
         self.utils.print_info("Checking for Errors...")
         dialog_message = self.dialogue_web_elements.get_dialog_message()
 
@@ -1772,9 +1750,6 @@ class Devices:
             if "Device already onboarded" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-
                 kwargs['fail_msg'] = "Fail Onboarded - Device already onboarded"
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -1782,18 +1757,12 @@ class Devices:
             elif "License limit exceeded for managed device" in dialog_message:
                 self.utils.print_info("Error: ", dialog_message)
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ", BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-
                 kwargs['fail_msg'] = "Fail Onboarded - License limit exceeded for managed device"
                 self.common_validation.failed(**kwargs)
                 return -1
 
             elif "A stake record of the device was found in the redirector." in dialog_message:
                 self.auto_actions.click_reference(self.dialogue_web_elements.get_dialog_box_ok_button)
-                self.utils.print_info("EXIT LEVEL: ",BuiltIn().get_variable_value("${EXIT_LEVEL}", default='-200'))
-                self._exit_here(BuiltIn().get_variable_value("${EXIT_LEVEL}"))
-
                 kwargs['fail_msg'] = "Fail Onboarded - A stake record of the device was found in the redirector."
                 self.common_validation.failed(**kwargs)
                 return -1
@@ -1803,7 +1772,29 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("No Dialog box")
+
+            # Code taken from the ap_onboard code.
+            # This code was need because it took a longer to onboard an AP on an AIO
+            # Updated logic to use a whil loop with a timer so that if the process nerver finishes we will abort and throw an error
+            check_process_count = 90
+            retry_duration = 2
+            count = 1
+            while check_process_count > 0:
+                # If the quick add block is present, this inidcates the process is not done, then sleep a second and try again
+                self.utils.print_info(f"Checking to see if adding device process has completeed: loop {count}")
+                if self.devices_web_elements.get_devices_quick_add_block_show():
+                    self.utils.print_info(f"Still in adding device process, Waiting for {retry_duration} seconds...")
+                    sleep(retry_duration)
+                else:
+                    kwargs['pass_msg'] = "Finish device adding process ..."
+                    self.common_validation.passed(**kwargs)
+                    break
+                check_process_count = check_process_count - 1
+                count = count + 1
+            if check_process_count == 0:
+                kwargs['fail_msg'] = "Adding device process never completed"
+                self.common_validation.fault(**kwargs)
+                return -1
 
         if "real" in device_type.lower():
             '''
@@ -2458,7 +2449,7 @@ class Devices:
         :return: 1 if device finished update, else -1
         """
         update_status = ['Querying', 'IQ Engine Firmware Updating', 'User Configuration Updating', 'Rebooting',
-                         'Certification Updating']
+                         'Certification Updating', 'Firmware Updating']
         device_update_status = ""
         for delay in range(retry_count):
             self.utils.print_info(f"Device Update Status Check - Loop: {delay+1}")
@@ -2848,7 +2839,7 @@ class Devices:
         # We need to skip this when we are selecting a device
         if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
             return self.xapiDevices.xapi_search_device(device_serial=device_serial,
-                                                        device_name=device_name,
+                                                       device_name=device_name,
                                                        device_mac=device_mac,
                                                        **kwargs)
 
@@ -2980,6 +2971,21 @@ class Devices:
         """
         return self.search_device(device_serial=device_serial, device_mac=device_mac, device_name=device_name,
                                   select_device=True, skip_refresh=skip_refresh, skip_navigation=skip_navigation, **kwargs)
+
+    def select_device_by_object(self, *device_dict, skip_refresh=False, skip_navigation=False, **kwargs):
+        """
+        - Selects the device matching device's Serial Number,Device Mac address and device mane
+        - Keyword Usage:
+        - ``Select Device      device_serial=${ap1}``
+
+        :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1):
+        :param skip_refresh: True - to skip the refresh of the devices page, default set to False
+        :param skip_navigation: True - to skip the navigation to the devices page, default set to False
+
+        :return: return 1 if device found else -1
+        """
+        return self.search_device_by_object(*device_dict, select_device=True, skip_refresh=skip_refresh,
+                                            skip_navigation=skip_navigation, **kwargs)
 
     def _get_row(self, key, value):
         device_row = -1
@@ -3444,9 +3450,17 @@ class Devices:
                 self.utils.print_info("Device Updating Status: IQ Engine Firmware Updating")
                 return 'IQ Engine Firmware Updating'
 
+            if "Firmware Updating" in device_updated_status:
+                self.utils.print_info("Device Updating Status: IQ Engine Firmware Updating")
+                return 'Firmware Updating'
+
             if "User Configuration Updating" in device_updated_status:
                 self.utils.print_info("Device Updating Status: User Configuration Updating")
                 return 'User Configuration Updating'
+
+            if "Configuration Updating" in device_updated_status:
+                self.utils.print_info("Device Updating Status: User Configuration Updating")
+                return 'Configuration Updating'
 
             if "Rebooting" in device_updated_status:
                 self.utils.print_info("Device Updating Status: Rebooting")
@@ -5736,6 +5750,52 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
+    def wait_until_device_removed_by_object(self, *device_dict, retry_duration=10, retry_count=30, **kwargs):
+        """
+        - This keyword is used to wait for the device to be removed from extauto.xiq.
+        - This keyword by default loops 10 times every 30 seconds to check if the device exists
+        - Flow:
+        - Navigate to Manage --> Devices
+        - search for the device based on specified device criteria
+        - Keyword Usage:
+        - ``Wait Until Device Removed    device_serial=${device_dict}    retry_duration=15    retry_count=20``
+
+        :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
+        :param retry_duration: duration between each retry
+        :param retry_count: retry count
+        :return: 1 if device removed within time; else -1
+        """
+
+        device_keys = {
+            "mac": device_dict[0].get("mac"),
+            "serial": device_dict[0].get("serial"),
+            "name": device_dict[0].get("name")
+        }
+        device_keys = {key: value for key, value in device_keys.items() if value}
+
+        if len(device_keys.keys()) == 0:
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        count = 1
+        while count <= retry_count:
+            self.utils.print_info(f"Searching for device using {device_keys} --- Loop {count}")
+            if self.search_device_by_object(device_keys, skip_refresh=True, skip_navigation=True, ignore_failure=True) == 1:
+                self.utils.print_info(f"Device with: {device_keys} is still present. Waiting for {retry_duration} seconds...")
+                sleep(retry_duration)
+                self.refresh_devices_page()
+            else:
+                kwargs['pass_msg'] = f"Device with {device_keys} has been removed"
+                self.common_validation.passed(**kwargs)
+                return 1
+            count += 1
+
+        kwargs['fail_msg'] = "Device still exists in the view. Please check."
+        self.common_validation.failed(**kwargs)
+        return -1
+
+
     def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
@@ -5837,7 +5897,7 @@ class Devices:
         Supported Modes:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
-            
+
         :param device_serial: Serial number of Device Ex:11301810220048
         :param device_name: Device name Ex: AP1130
         :param device_mac: Device mac Ex: F09CE9F89600
@@ -6285,49 +6345,15 @@ class Devices:
 
         return device_updated_status
 
-    def get_stack_status(self, device_mac='default'):
+
+    def get_stack_status(self, device_mac=None, **kwargs):
         """
-        - This keyword returns the Stack status
-        - Keyword Usage:
-        - ``Get Stack Status   device_mac=${DEVICE_MAC}``
-
-       :param device_mac: device MAC address
-
-       :return:
-       - 'enabled' if stack is connected and enabled properly else 'disabled'
-
-       """
-        device_row = -1
-        self.refresh_devices_page()
-
-        self.utils.print_info('Getting Stack Status ')
-
-        if device_mac != 'default':
-            self.utils.print_info("Getting status of device with MAC: ", device_mac)
-            device_row = self.get_device_row(device_mac=device_mac)
-
-        if device_row:
-            sleep(5)
-            stack_status = self.devices_web_elements.get_stack_status_cell(device_row)
-            self.screen.save_screen_shot()
-            sleep(2)
-
-            if stack_status:
-                if "ui-icon-stack" in stack_status:
-                    return "enabled"
-                else:
-                    return "disabled"
-            else:
-                self.utils.print_info("Could not get Stack status")
-
-    def get_exos_stack_status(self, device_mac='default', **kwargs):
-        """
-        - This keyword returns the EXOS Stack icon status is blue or red
+        - This keyword returns the Stack icon status is blue or red
         - 'blue' means all the stack members are in managed state
         - 'red' means one or more slot is not in managed state
         - '-1' means the device is not a stack device
         - Keyword Usage:
-        - ``Get Exos Stack Status   device_mac=${DEVICE_MAC}``
+        - ``Get Stack Status   device_mac=${DEVICE_MAC}``
 
        :param device_mac: device MAC address
 
@@ -6341,7 +6367,7 @@ class Devices:
 
         self.utils.print_info('Getting Stack Status ')
 
-        if device_mac != 'default':
+        if device_mac:
             self.utils.print_info("Getting status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac=device_mac)
 
@@ -9573,20 +9599,15 @@ class Devices:
     def _is_delete_button_visible(self):
         """
         - This helper function verify if the delete button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if delete button is visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_delete_button().is_displayed():
-                self.utils.print_info("Delete button is displayed")
-                return True
-
+        delete_button = self.devices_web_elements.get_delete_button()
+        if delete_button is not None and delete_button.is_displayed():
+            self.utils.print_info("Delete button is displayed")
+            return True
+        else:
             self.utils.print_info("Delete button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_delete_button_visible(self, **kwargs):
         """
@@ -9625,20 +9646,15 @@ class Devices:
     def _is_download_button_visible(self):
         """
         - This helper function verify if the download button is visible or not
-        :return: True if visible, False if hidden, fail if exception occurs
+        :return: True if download button is visible, False if hidden
         """
-        try:
-            if self.devices_web_elements.get_download_button().is_displayed():
-                self.utils.print_info("Download button is displayed")
-                return True
-
+        download_button = self.devices_web_elements.get_download_button()
+        if download_button is not None and download_button.is_displayed():
+            self.utils.print_info("Download button is displayed")
+            return True
+        else:
             self.utils.print_info("Download button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_download_button_visible(self, **kwargs):
         """
@@ -9677,20 +9693,15 @@ class Devices:
     def _is_bulk_edit_button_visible(self):
         """
         - This helper function verify if the bulk edit button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if bulk edit button is visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_bulk_edit_button().is_displayed():
-                self.utils.print_info("Bulk edit button is displayed")
-                return True
-
+        edit_button = self.devices_web_elements.get_bulk_edit_button()
+        if edit_button is not None and edit_button.is_displayed():
+            self.utils.print_info("Bulk edit button is displayed")
+            return True
+        else:
             self.utils.print_info("Bulk edit button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_bulk_edit_button_visible(self, **kwargs):
         """
@@ -9729,20 +9740,15 @@ class Devices:
     def _is_add_button_visible(self):
         """
         - This helper function verify if the add button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_devices_add_button().is_displayed():
-                self.utils.print_info("Add button is displayed")
-                return True
-
+        add_button = self.devices_web_elements.get_devices_add_button()
+        if add_button is not None and add_button.is_displayed():
+            self.utils.print_info("Add button is displayed")
+            return True
+        else:
             self.utils.print_info("Add button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_add_button_visible(self, **kwargs):
         """
@@ -9781,20 +9787,15 @@ class Devices:
     def _is_update_device_button_visible(self):
         """
         - This helper function checks if the device update button is visible or not`
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if device update button is visible, False if not
         """
-        try:
-            if self.devices_web_elements.get_update_device_button().is_displayed():
-                self.utils.print_info("Update button is displayed")
-                return True
-
+        update_device_button = self.devices_web_elements.get_update_device_button()
+        if update_device_button is not None and update_device_button.is_displayed():
+            self.utils.print_info("Update button is displayed")
+            return True
+        else:
             self.utils.print_info("Update button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_update_device_button_visible(self, **kwargs):
         """
@@ -9833,20 +9834,15 @@ class Devices:
     def _is_actions_button_visible(self):
         """
         - This helper functions verify if the actions button is visible or not
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if devices action button visible, False if not
         """
-        try:
-            if self.devices_web_elements.get_manage_device_actions_button().is_displayed():
-                self.utils.print_info("Actions button is displayed")
-                return True
-
+        device_actions_button = self.devices_web_elements.get_manage_device_actions_button()
+        if device_actions_button is not None and device_actions_button.is_displayed():
+            self.utils.print_info("Actions button is displayed")
+            return True
+        else:
             self.utils.print_info("Actions button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_actions_button_visible(self, **kwargs):
         """
@@ -10401,7 +10397,8 @@ class Devices:
                 sleep(30)
                 self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
-    def wait_until_device_update_done(self, device_serial=None, device_mac=None, device_name=None, wait_time_in_min=15, **kwargs):
+    def wait_until_device_update_done(self, device_serial=None, device_mac=None, device_name=None, wait_time_in_min=15,
+                                      skip_navigation=False, skip_refresh=False, **kwargs):
         """
         - This keyword checks if the expected device is done with updating - even if the update failed
         - Keyword Usage:
@@ -10413,11 +10410,14 @@ class Devices:
         :param device_mac: mac of the device. Example: 885BDD4BE380
         :param device_name: name of the device. Example: bui-flo-0005
         :param wait_time_in_min: time to wait in min
+        :param skip_refresh: skipping the refresh of the devices page
+        :param skip_navigation: skipping the navigation to the devices page
         :return: 1 if done, -1 if not
         """
-
-        self.navigator.navigate_to_manage_tab()
-        self.refresh_devices_page()
+        if not skip_navigation:
+            self.navigator.navigate_to_manage_tab()
+        if not skip_refresh:
+            self.refresh_devices_page()
 
         complete = False
         n_time = 0
@@ -10440,13 +10440,13 @@ class Devices:
             # 1) There is no update to do
             # 2) The update was attempted but failed
             # 3) The update was completed
-            if update_status == '' :
+            if update_status == '':
                 kwargs['pass_msg'] = "Device is not in the process of updating thus it is considered updated"
                 self.common_validation.passed(**kwargs)
                 complete = True
                 break
             # If there are other 'Failed' conditions please add them here
-            elif update_status == 'Device Update Failed.':
+            elif update_status == 'Device Update Failed.' or update_status == 'Device Update Failed To Proceed.':
                 kwargs['pass_msg'] = "Device has finished updating but with a failed condition"
                 self.common_validation.passed(**kwargs)
                 complete = True
@@ -11378,14 +11378,6 @@ class Devices:
                 sleep(20)
         self.screen.save_screen_shot()
         return [available, activated]
-
-    def delete_all_aps(self):
-        """
-        This function is deprecated. This Keyword will Delete All the Devices in the Manage--> Devices Grid
-
-        :return: 1 if Devices Deleted Successfully else -1
-        """
-        return self.delete_all_devices()
 
     def update_device_policy_config_simple(self, device_serial):
         self.utils.print_info("Select Device row")
@@ -12708,6 +12700,57 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
+    def get_latest_version_from_device_update(self, dut, **kwargs):
+        """
+        - This method returns the latest os version from device update
+
+        :param device_serial: dut object
+        :return: latest version
+        """
+
+        device_serial = dut.serial
+        latest_version = -1
+        sleep(5)
+
+        if self.select_device(device_serial):
+            def _click_update_devices_button():
+                return self.auto_actions.click(DeviceUpdate().get_update_devices_button())
+
+            self.utils.wait_till(_click_update_devices_button, timeout=30, delay=20,
+                                 msg="Selecting Update Devices button")
+
+            checkbox_status = DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
+
+            if checkbox_status == "true":
+                self.utils.print_info("Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
+            else:
+                def _click_upgrade_iq_engine_button():
+                    return self.auto_actions.click(DeviceUpdate().get_upgrade_iq_engine_checkbox())
+
+                self.utils.wait_till(_click_upgrade_iq_engine_button, timeout=30, delay=20,
+                                     msg="Selecting upgrade IQ Engine checkbox")
+
+            self.utils.print_info("Selecting upgrade to latest version checkbox")
+            self.auto_actions.click(DeviceUpdate().get_upgrade_to_latest_version_radio())
+            sleep(2)
+
+            latest_version = DeviceUpdate().get_latest_version()
+            sleep(3)
+
+            self.utils.print_info("Selecting Close button...")
+            self.auto_actions.click_reference(ClientWebElements().get_client_dialog_window_close_button)
+            sleep(3)
+
+            kwargs["pass_msg"] = f"Successfully found the latest version: {latest_version}"
+            self.common_validation.passed(**kwargs)
+
+            return latest_version
+
+        kwargs["fail_msg"] = f"Couldn't select device with serial: {dut.serial}"
+        self.common_validation.failed(**kwargs)
+
+        return None
+
     def check_update_column_by_failure_message(self, device_serial, failure_message, **kwargs):
         """
         This function is used to check the UPDATED column from device grid from a device with device_serial given as
@@ -12751,6 +12794,24 @@ class Devices:
         kwargs["pass_msg"] = f"Successfully found the expected failure message: {failure_message}"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def wait_for_update_column_status_change(self, device_serial):
+        """
+        - This method waits for the device update column to cahnge status and keeps track of how much time it took
+
+        :param device_serial: serial number of the device
+        :param status_before: the status before the update began
+        """
+        # Foremerly check_update_column_2
+        count = 0
+        max_wait = 300
+        status = self.get_device_updated_status(device_serial=device_serial)
+        while not status and count < max_wait:
+            sleep(10)
+            count += 10
+            status = self.get_device_updated_status(device_serial=device_serial)
+            print(
+                f"\nINFO \t Time elapsed in the update column to reflect the firmware updating is '{count} seconds'\n")
 
     def update_and_wait_device(self, policy_name, dut, wait=True, **kwargs):
         """Method that updates the switch and then wait for the update to finish.
@@ -12796,6 +12857,39 @@ class Devices:
         kwargs["pass_msg"] = f"Successfully updated the switch {dut.mac}"
         self.common_validation.passed(**kwargs)
         return 1
+
+    def check_update_column_change(self, device_serial, status_before, **kwargs):
+        '''
+        - Check to see that the update column changes status
+
+        :param device_serial: the dut serial
+        :param status_before: the dut status before change
+        '''
+
+        print(f"Status before: {status_before}")
+        status_after = self.get_device_updated_status(device_serial=device_serial)
+        count = 0
+        max_wait = 900
+        current_date = datetime.now()
+        update_text = str(current_date).split()[0]
+
+        while update_text not in status_after:
+            sleep(10)
+            count += 10
+            status_after = self.get_device_updated_status(device_serial=device_serial)
+            print(
+                f"\nINFO \t Time elapsed in the update column to reflect the firmware updating is '{count} seconds'\n")
+            if ("Failed" in status_after) or ("failed" in status_after) or (count > max_wait):
+                kwargs["fail_msg"] = "Device update failed"
+                self.common_validation.fault(**kwargs)
+
+        print(f"Status after: {status_after}")
+        if status_before != status_after:
+            kwargs["pass_msg"] = "Successfully changed the UPDATED status"
+            self.common_validation.passed(**kwargs)
+        else:
+            kwargs["fail_msg"] = f"Failed to change the status from {status_before}"
+            self.common_validation.failed(**kwargs)
 
     def deploy_switch_network_policy_with_complete_update(self, device_serial, policy_name):
         """
@@ -12926,3 +13020,65 @@ class Devices:
                              f"or serial number: {dut.serial} was not found thus failed to get it"
         self.common_validation.failed(**kwargs)
         return latest_version
+
+    def delete_simulated_device(self, device_model, **kwargs):
+        """
+        - Deletes Simulated Device from the device grid based on device model
+        - Keyword Usage:
+         - ``Delete Simulated device   ${DEVICE_MODEL}``
+        :param device_model: Model of the Device Example: AP410C, AP460C
+        :return: 1 if simulated device deleted successfully else -1
+        """
+        self.utils.print_info("Searching Simulated Device with Model: ", device_model)
+        search_result = self._search_simulated_devices(device_model)
+
+        if search_result:
+            if self.select_device(device_model):
+                self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+
+                if self._search_simulated_devices(device_model) != 1:
+                    kwargs['fail_msg'] = f"Unable to find the Simulated Device with Model{device_model}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                else:
+                    kwargs['pass_msg'] = f"Deleted Simulated Device with Model {device_model} Successfully"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+        else:
+            kwargs['fail_msg'] = f"Unable to find the Simulated Device with Model{device_model} in Devices Grid"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def delete_simulated_devices(self, device_model, **kwargs):
+        """
+        - Delete all Simulated devices from the device grid based on device model
+        - Keyword Usage:
+         - ``Delete Simulated devices    ${DEVICE_MODEL}``
+        :param device_model: model of the Device Example: AP410C, AP460C
+        :return: 1 if simulated devices deleted  successfully else -1
+        """
+        self.utils.print_info("Searching Simulated Device with Model: ", device_model)
+        search_result = self._search_simulated_devices(device_model)
+
+        self.utils.print_info("Getting Simulated Devices Row with Model: ", device_model)
+        rows = self.devices_web_elements.get_simulated_devices_grid_rows()
+        if search_result and rows:
+            for row in rows:
+                self.utils.print_info("Selecting Simulated Device Row ", self.format_row(row.text))
+                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                self.screen.save_screen_shot()
+            self.utils.print_info("Clicking Delete Button")
+            self.auto_actions.click(self.devices_web_elements.get_delete_button())
+            self.utils.print_info("Clicking Delete Confirmation Button")
+            self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+
+        self.refresh_devices_page()
+        if self._search_simulated_devices(device_model) == 1:
+            kwargs['fail_msg'] = f"Simulated Device with Model {device_model} still exists in Devices Page"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = f"Deleted Simulated Device with Model {device_model} Successfully"
+            self.common_validation.passed(**kwargs)
+            return 1
