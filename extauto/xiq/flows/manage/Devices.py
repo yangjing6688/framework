@@ -11449,7 +11449,7 @@ class Devices:
 
         self.utils.print_info("Selecting image option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
-
+        sleep(5)
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
