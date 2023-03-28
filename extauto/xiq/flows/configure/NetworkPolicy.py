@@ -947,20 +947,16 @@ class NetworkPolicy(object):
         - Keyword Usage:
         - ``Deploy Network Policy With Delta Update   ${POLICY_NAME}   ${DEVICE_MAC}``
 
-        Supported Modes:
-            UI - default mode
-            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
-
         :param policy_name: Name of the policy
         :param devices: Device serial number
         :return:
         """
-        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
-            self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
-                                                                                   devices,
-                                                                                   'delta')
-        else:
-            return self.deploy_network_policy(policy_name, devices, 'delta')
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
+        #     self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
+        #                                                                            devices,
+        #                                                                            'delta')
+        # else:
+        return self.deploy_network_policy(policy_name, devices, 'delta')
 
     def _check_navigation_to_network_policy_page(self):
         """

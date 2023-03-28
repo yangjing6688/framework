@@ -1,7 +1,6 @@
 from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
 from keywords.xapi_base.XapiBaseConfigurationPolicyApi import XapiBaseConfigurationPolicyApi
 from keywords.xapi_base.XapiBaseConfigurationDeploymentApi import XapiBaseConfigurationDeploymentApi
-from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
 from extauto.xiq.xapi.manage.XapiDevices import XapiDevices
 import time
 
@@ -184,7 +183,6 @@ class XapiNetworkPolicy(XapiHelper):
         :param next_reboot: Do the update on the next reboot
         :return: 1 for success or -1 for failure
         """
-        failed_to_deploy = False
         update_type_value = True # Complete
         if update_type == 'delta':
             update_type_value = False
@@ -249,6 +247,6 @@ class XapiNetworkPolicy(XapiHelper):
             kwargs['fail_msg'] = f'Failed to completed the deployment with exception {e}" '
             self.common_validation.fault(**kwargs)
 
-        kwargs['pass_msg'] = f'The deployment is completed" '
+        kwargs['pass_msg'] = 'The deployment is completed'
         self.common_validation.passed(**kwargs)
 
