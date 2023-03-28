@@ -13,12 +13,12 @@ if CommonObjectUtils().executionModePytest():
 else:
     from ExtremeAutomation.Library.Logger.RobotLogger import RobotLogger as Logging
 
-
 class Utils:
     def __init__(self):
         self.logger = Logging()
         self.cfgHelp = ConfigFileHelper()
         self.cfgHelp.checkConfigRefresh()
+
 
     def get_config_value(self, conf_str):
         """

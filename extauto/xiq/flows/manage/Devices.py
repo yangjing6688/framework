@@ -785,7 +785,7 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
-    def _search_simulated_devices(self, ap_serial):
+    def _search_simulated_devices(self, device_model):
         """
         Searches for AP matching AP's Serial Number
 
@@ -798,7 +798,7 @@ class Devices:
         if rows:
             for row in rows:
                 self.utils.print_info("row data: ", self.format_row(row.text))
-                if ap_serial in row.text:
+                if device_model in row.text:
                     return 1
         else:
             return False
@@ -1528,7 +1528,7 @@ class Devices:
             self.clear_search_field()
             returnValue = self.auto_actions.click_reference(self.devices_web_elements.get_refresh_devices_page)
             if returnValue == -1:
-                kwargs['fail_msg'] = "Device page was not refreshed successfully"
+                kwargs['fail_msg'] = "Device page was NOT refreshed"
                 self.common_validation.failed(**kwargs)
                 return -1
             else:
@@ -3505,9 +3505,9 @@ class Devices:
                             self.screen.save_screen_shot()
                             selected_columns.append(filter_)
                         else:
+                            self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
                             self.auto_actions.click(filter_row)
                             self.screen.save_screen_shot()
-                            self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
                             selected_columns.append(filter_)
             else:
                 self.utils.print_info("Unable to select the Column Picker Filter ", filter_)
@@ -5780,6 +5780,7 @@ class Devices:
         kwargs['fail_msg'] = "Device still exists in the view. Please check."
         self.common_validation.failed(**kwargs)
         return -1
+
 
     def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
         """
@@ -9584,20 +9585,15 @@ class Devices:
     def _is_delete_button_visible(self):
         """
         - This helper function verify if the delete button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if delete button is visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_delete_button().is_displayed():
-                self.utils.print_info("Delete button is displayed")
-                return True
-
+        delete_button = self.devices_web_elements.get_delete_button()
+        if delete_button is not None and delete_button.is_displayed():
+            self.utils.print_info("Delete button is displayed")
+            return True
+        else:
             self.utils.print_info("Delete button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_delete_button_visible(self, **kwargs):
         """
@@ -9636,20 +9632,15 @@ class Devices:
     def _is_download_button_visible(self):
         """
         - This helper function verify if the download button is visible or not
-        :return: True if visible, False if hidden, fail if exception occurs
+        :return: True if download button is visible, False if hidden
         """
-        try:
-            if self.devices_web_elements.get_download_button().is_displayed():
-                self.utils.print_info("Download button is displayed")
-                return True
-
+        download_button = self.devices_web_elements.get_download_button()
+        if download_button is not None and download_button.is_displayed():
+            self.utils.print_info("Download button is displayed")
+            return True
+        else:
             self.utils.print_info("Download button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_download_button_visible(self, **kwargs):
         """
@@ -9688,20 +9679,15 @@ class Devices:
     def _is_bulk_edit_button_visible(self):
         """
         - This helper function verify if the bulk edit button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if bulk edit button is visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_bulk_edit_button().is_displayed():
-                self.utils.print_info("Bulk edit button is displayed")
-                return True
-
+        edit_button = self.devices_web_elements.get_bulk_edit_button()
+        if edit_button is not None and edit_button.is_displayed():
+            self.utils.print_info("Bulk edit button is displayed")
+            return True
+        else:
             self.utils.print_info("Bulk edit button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_bulk_edit_button_visible(self, **kwargs):
         """
@@ -9740,20 +9726,15 @@ class Devices:
     def _is_add_button_visible(self):
         """
         - This helper function verify if the add button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_devices_add_button().is_displayed():
-                self.utils.print_info("Add button is displayed")
-                return True
-
+        add_button = self.devices_web_elements.get_devices_add_button()
+        if add_button is not None and add_button.is_displayed():
+            self.utils.print_info("Add button is displayed")
+            return True
+        else:
             self.utils.print_info("Add button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_add_button_visible(self, **kwargs):
         """
@@ -9792,20 +9773,15 @@ class Devices:
     def _is_update_device_button_visible(self):
         """
         - This helper function checks if the device update button is visible or not`
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if device update button is visible, False if not
         """
-        try:
-            if self.devices_web_elements.get_update_device_button().is_displayed():
-                self.utils.print_info("Update button is displayed")
-                return True
-
+        update_device_button = self.devices_web_elements.get_update_device_button()
+        if update_device_button is not None and update_device_button.is_displayed():
+            self.utils.print_info("Update button is displayed")
+            return True
+        else:
             self.utils.print_info("Update button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_update_device_button_visible(self, **kwargs):
         """
@@ -9844,20 +9820,15 @@ class Devices:
     def _is_actions_button_visible(self):
         """
         - This helper functions verify if the actions button is visible or not
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if devices action button visible, False if not
         """
-        try:
-            if self.devices_web_elements.get_manage_device_actions_button().is_displayed():
-                self.utils.print_info("Actions button is displayed")
-                return True
-
+        device_actions_button = self.devices_web_elements.get_manage_device_actions_button()
+        if device_actions_button is not None and device_actions_button.is_displayed():
+            self.utils.print_info("Actions button is displayed")
+            return True
+        else:
             self.utils.print_info("Actions button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_actions_button_visible(self, **kwargs):
         """
@@ -10461,7 +10432,7 @@ class Devices:
                 complete = True
                 break
             # If there are other 'Failed' conditions please add them here
-            elif update_status == 'Device Update Failed.':
+            elif update_status == 'Device Update Failed.' or update_status == 'Device Update Failed To Proceed.':
                 kwargs['pass_msg'] = "Device has finished updating but with a failed condition"
                 self.common_validation.passed(**kwargs)
                 complete = True
@@ -13035,3 +13006,65 @@ class Devices:
                              f"or serial number: {dut.serial} was not found thus failed to get it"
         self.common_validation.failed(**kwargs)
         return latest_version
+
+    def delete_simulated_device(self, device_model, **kwargs):
+        """
+        - Deletes Simulated Device from the device grid based on device model
+        - Keyword Usage:
+         - ``Delete Simulated device   ${DEVICE_MODEL}``
+        :param device_model: Model of the Device Example: AP410C, AP460C
+        :return: 1 if simulated device deleted successfully else -1
+        """
+        self.utils.print_info("Searching Simulated Device with Model: ", device_model)
+        search_result = self._search_simulated_devices(device_model)
+
+        if search_result:
+            if self.select_device(device_model):
+                self.auto_actions.click(self.devices_web_elements.get_delete_button())
+                self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+
+                if self._search_simulated_devices(device_model) != 1:
+                    kwargs['fail_msg'] = f"Unable to find the Simulated Device with Model{device_model}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                else:
+                    kwargs['pass_msg'] = f"Deleted Simulated Device with Model {device_model} Successfully"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+        else:
+            kwargs['fail_msg'] = f"Unable to find the Simulated Device with Model{device_model} in Devices Grid"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+    def delete_simulated_devices(self, device_model, **kwargs):
+        """
+        - Delete all Simulated devices from the device grid based on device model
+        - Keyword Usage:
+         - ``Delete Simulated devices    ${DEVICE_MODEL}``
+        :param device_model: model of the Device Example: AP410C, AP460C
+        :return: 1 if simulated devices deleted  successfully else -1
+        """
+        self.utils.print_info("Searching Simulated Device with Model: ", device_model)
+        search_result = self._search_simulated_devices(device_model)
+
+        self.utils.print_info("Getting Simulated Devices Row with Model: ", device_model)
+        rows = self.devices_web_elements.get_simulated_devices_grid_rows()
+        if search_result and rows:
+            for row in rows:
+                self.utils.print_info("Selecting Simulated Device Row ", self.format_row(row.text))
+                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                self.screen.save_screen_shot()
+            self.utils.print_info("Clicking Delete Button")
+            self.auto_actions.click(self.devices_web_elements.get_delete_button())
+            self.utils.print_info("Clicking Delete Confirmation Button")
+            self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
+
+        self.refresh_devices_page()
+        if self._search_simulated_devices(device_model) == 1:
+            kwargs['fail_msg'] = f"Simulated Device with Model {device_model} still exists in Devices Page"
+            self.common_validation.failed(**kwargs)
+            return -1
+        else:
+            kwargs['pass_msg'] = f"Deleted Simulated Device with Model {device_model} Successfully"
+            self.common_validation.passed(**kwargs)
+            return 1

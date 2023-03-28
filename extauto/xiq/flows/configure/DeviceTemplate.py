@@ -67,10 +67,10 @@ class DeviceTemplate(object):
         - If it is not there add New AP Template
         - WiFi2 config was removed as per jira ticket EXTAUTO-113 and APC-44337.
         - Keyword Usage
-        - ``Add AP Template  ${AP_TEMPLATE_NAME}   &{AP_TEMPLATE_CONFIG}``
+        - ``Add AP Template  ${AP_MODEL}   ${AP_TEMPLATE_NAME}  ${WIFI_INTERFACE_CONFIG}``
 
-        :param ap_template_name: AP Template Name ie prod_sanity_ap410ctemplate
         :param ap_model: AP MODEL ie AP630,AP410C
+        :param ap_template_name: AP Template Name ie prod_sanity_ap410ctemplate
         :param wifi_interface_config: (Config Dict) Enable/Disable Client Access,Backhaul Mesh Link,Sensor
         :return: 1 if AP Template Configured Successfully else -1
         """
@@ -126,23 +126,26 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Click on the save template button")
         self.auto_actions.scroll_up()
+        del tool_tip.tool_tip_text[:]
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_save_button)
         sleep(2)
 
         self.utils.print_info("Checking the Save profile message...")
-        observed_profile_message = self.device_template_web_elements.get_ap_template_save_tool_tip().text
+        observed_profile_message = tool_tip.tool_tip_text[-1]
         self.utils.print_info("Observed Message: ", observed_profile_message)
         self.screen.save_screen_shot()
         sleep(2)
 
+        result = 1
         if "AP template was saved successfully" in observed_profile_message:
             kwargs['pass_msg'] = "AP template was saved successfully"
             self.common_validation.passed(**kwargs)
-            return 1
         else:
             kwargs['fail_msg'] = "Failed to add AP template"
             self.common_validation.failed(**kwargs)
-            return -1
+            result = -1
+        del tool_tip.tool_tip_text[:]
+        return result
 
     def edit_ap_net_policy_template_wifi2(self, policy_name, **kwargs):
         """

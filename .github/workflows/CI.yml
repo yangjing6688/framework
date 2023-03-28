@@ -4,23 +4,101 @@ on:
     branches: [main, RELEASE-**]
 
 jobs:
-  # Leaving this in place for future sanity testing.
-  # We will use the executeJobFromName endpoint to run a saved sanity test job.
-  #
-  # framework_sanity:
-  #   name: Validate Framework Functionality
-  #   runs-on: ubuntu-latest
-  #   outputs:
-  #     status: ${{ steps.set-output.outputs.status }}
 
-  #   steps:
+  framework_sanity:
+    name: Validate Framework Functionality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    outputs:
+      status: ${{ steps.set-output.outputs.status }}
+
+    steps:
+    - name: Run sanity test
+      shell: python
+      env:
+        JOBMGR_URL_BASE: https://autoiq.extremenetworks.com/jobmanager
+        JOBMGR_API_BASE: "https://autoiq.extremenetworks.com/tbedmgr/jobmgr"
+        RUN_JOB_ENDPOINT: "/saved_job/executeSavedJobFromName"
+        SAVED_JOB_NAME: "extreme_automation_framework_sanity"
+      run: |
+        from json import dumps, loads
+        from sys import exit
+        from time import sleep
+        import requests
+
+        jobmgr_base_url = "${{ env.JOBMGR_API_BASE }}"
+
+        headers = {
+          "accept": "application/json",
+          "authorization": "PAT ${{ secrets.AUTOIQ_PAT }}",
+          "Content-Type": "application/json"
+        }
+        payload = {
+          "savedJobName": "${{ env.SAVED_JOB_NAME }}",
+          "testRepoBranch": "main",
+          "frameworkRepoBranch": "${{ github.head_ref }}"
+        }
+
+        response = requests.post(url=f"{jobmgr_base_url}${{ env.RUN_JOB_ENDPOINT }}", headers=headers, json=payload)
+
+        if response.status_code != requests.codes.created:
+          print(f"Error: got a bad response code <{response.status_code}>. Response text: {response.text}")
+          response.raise_for_status()
+
+        try:
+          job_uuid = response.json()["result"][0]["job_uuid"]
+        except:
+          print(f"Error: Unable to find Job Id in response. {response.text}")
+          exit(1)
+
+        print(f"Job Created! UUID: {job_uuid}. Waiting for job to complete...")
+        sleep(60) # Wait for job to start
+
+        sleep_interval = 20 # seconds
+        for i in range(60): # Wait for 20 minutes
+          response = requests.get(url=f"{jobmgr_base_url}/jobs/{job_uuid}", headers=headers)
+          if response.status_code != requests.codes.ok:
+            print(f"Error: got a bad response code <{response.status_code}>. Response text: {response.text}")
+            response.raise_for_status()
+
+          try:
+            job_status = response.json()["result"][0]["status"]
+            job_stats = response.json()["result"][0]["statsJson"]
+            job_stats = loads(job_stats)
+            job_status_message = response.json()["result"][0]["statusMessage"]
+          except Exception as e:
+            raise Exception(f"Error: Unable to find Job Status in response. {response.text}") from e
+
+          print(f"::group::Job Status #{i}")
+          print("")
+          print(dumps(response.json(), indent=2))
+          print("")
+          print("::endgroup::", end="\n\n")
+
+          if job_status == "complete":
+            # Check if tests failed or were killed. All tests should run so a skip is a failure
+            if job_stats.get("Failed") or job_stats.get("Killed") or job_stats.get("Skipped"):
+              print(f"Job Completed Unsuccessfully! View on AutoIQ: ${{env.JOBMGR_URL_BASE}}/{job_uuid}")
+              exit(1)
+            else:
+              print(f"Job Completed Successfully!")
+              exit(0)
+          elif job_status in ["queued", "running", "validating", "processing"]:
+            print(f"Job Not Finished. Waiting for job to complete...")
+          else:
+            # Job aborted, was killed, or is a zombie
+            print(f"Status: {job_status}. Status Message: {job_status_message}")
+            print(f"Job Completed Unsuccessfully! View on AutoIQ: ${{env.JOBMGR_URL_BASE}}/{job_uuid}")
+            exit(1)
+
+          sleep(sleep_interval)
 
 
-    # - name: Set job status output
-    #   if: ${{ always() }}
-    #   id: set-output
-    #   run: |
-    #     echo "status=${{ job.status }}" >> $GITHUB_OUTPUT
+    - name: Set job status output
+      if: ${{ always() }}
+      id: set-output
+      run: |
+        echo "status=${{ job.status }}" >> $GITHUB_OUTPUT
 
   code_checks:
     name: Run code quality tools
@@ -49,6 +127,10 @@ jobs:
 
         printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Keywords ========"
         python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Keywords
+
+        # TODO: uncomment once Eric cleans up the generation of the keywords
+        # printf '\n%s\n\n' "======== Running flake8 in /keywords ========"
+        # python3 -m flake8 --config=${SETUP_CFG} ./keywords
 
     - name: Set job status output
       if: ${{ always() }}
