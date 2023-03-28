@@ -1350,7 +1350,7 @@ class Devices:
         """
 
         # Execute the XAPI call and return the value
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_reboot_device(device_serial, device_mac, **kwargs)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -1652,7 +1652,7 @@ class Devices:
         os_persona = device_dict.get("digital_twin_persona")
 
         # Execute the XAPI call and return the value
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_onboard_device_quick(device_dict, **kwargs)
 
         if "csv_location" in device_dict:
@@ -2479,7 +2479,7 @@ class Devices:
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_delete_device( device_serial=device_serial,
                                                         device_name=device_name,
                                                         device_mac=device_mac,
@@ -2621,7 +2621,7 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_delete_device(device_serial=device_serial, device_name=device_name,
                                                        device_mac=device_mac, **kwargs)
 
@@ -2827,7 +2827,7 @@ class Devices:
         """
 
         # We need to skip this when we are selecting a device
-        if self.xapiDevices.is_xapi_enabled() and not select_device:
+        if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
             return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
                                                        device_mac=device_mac, **kwargs)
         device_keys = {}
@@ -2896,7 +2896,7 @@ class Devices:
             return -1
 
         # We need to skip this when we are selecting a device
-        if self.xapiDevices.is_xapi_enabled() and not select_device:
+        if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
             return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
                                                        device_mac=device_mac, **kwargs)
 
@@ -4254,7 +4254,7 @@ class Devices:
             sleep(30)
             retry_time += 30
 
-    def get_device_column_information(self, device_serial, column_array):
+    def get_device_column_information(self, device_serial, column_array, **kwargs):
         """
         - This keyword is used to get the column data for the device
         - Keyword Usage:
@@ -4269,7 +4269,7 @@ class Devices:
         :param column_array: The device array of columns to get data for
         :return: object map of data columns to data, spaces are replaced with _
         """
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_get_device_column_information(device_serial, column_array)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -4349,7 +4349,7 @@ class Devices:
         :return: 1 if device connected within time else -1
         """
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_wait_until_device_online(device_serial=device_serial, device_mac=device_mac, retry_duration=retry_duration, retry_count=retry_count, **kwargs)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -4420,7 +4420,7 @@ class Devices:
         :return: 1 if device disconnected within time, else -1
         """
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_wait_until_device_offline(device_serial=device_serial, device_mac=device_mac, retry_duration=retry_duration, retry_count=retry_count, **kwargs)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -5804,7 +5804,7 @@ class Devices:
         :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, retry_duration=retry_duration, retry_count=retry_count)
 
         # UI Support
@@ -5892,7 +5892,7 @@ class Devices:
         """
 
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_get_device_management_ip_address(device_serial=device_serial, device_mac=device_mac, **kwargs)
 
         self.navigator.navigate_to_manage_tab()
@@ -9586,20 +9586,15 @@ class Devices:
     def _is_delete_button_visible(self):
         """
         - This helper function verify if the delete button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if delete button is visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_delete_button().is_displayed():
-                self.utils.print_info("Delete button is displayed")
-                return True
-
+        delete_button = self.devices_web_elements.get_delete_button()
+        if delete_button is not None and delete_button.is_displayed():
+            self.utils.print_info("Delete button is displayed")
+            return True
+        else:
             self.utils.print_info("Delete button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_delete_button_visible(self, **kwargs):
         """
@@ -9638,20 +9633,15 @@ class Devices:
     def _is_download_button_visible(self):
         """
         - This helper function verify if the download button is visible or not
-        :return: True if visible, False if hidden, fail if exception occurs
+        :return: True if download button is visible, False if hidden
         """
-        try:
-            if self.devices_web_elements.get_download_button().is_displayed():
-                self.utils.print_info("Download button is displayed")
-                return True
-
+        download_button = self.devices_web_elements.get_download_button()
+        if download_button is not None and download_button.is_displayed():
+            self.utils.print_info("Download button is displayed")
+            return True
+        else:
             self.utils.print_info("Download button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_download_button_visible(self, **kwargs):
         """
@@ -9690,20 +9680,15 @@ class Devices:
     def _is_bulk_edit_button_visible(self):
         """
         - This helper function verify if the bulk edit button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if bulk edit button is visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_bulk_edit_button().is_displayed():
-                self.utils.print_info("Bulk edit button is displayed")
-                return True
-
+        edit_button = self.devices_web_elements.get_bulk_edit_button()
+        if edit_button is not None and edit_button.is_displayed():
+            self.utils.print_info("Bulk edit button is displayed")
+            return True
+        else:
             self.utils.print_info("Bulk edit button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_bulk_edit_button_visible(self, **kwargs):
         """
@@ -9742,20 +9727,15 @@ class Devices:
     def _is_add_button_visible(self):
         """
         - This helper function verify if the add button is visible or not
-        :return: True if visible, False if it's hidden, fail if exception occurs
+        :return: True if visible, False if it's hidden
         """
-        try:
-            if self.devices_web_elements.get_devices_add_button().is_displayed():
-                self.utils.print_info("Add button is displayed")
-                return True
-
+        add_button = self.devices_web_elements.get_devices_add_button()
+        if add_button is not None and add_button.is_displayed():
+            self.utils.print_info("Add button is displayed")
+            return True
+        else:
             self.utils.print_info("Add button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_add_button_visible(self, **kwargs):
         """
@@ -9794,20 +9774,15 @@ class Devices:
     def _is_update_device_button_visible(self):
         """
         - This helper function checks if the device update button is visible or not`
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if device update button is visible, False if not
         """
-        try:
-            if self.devices_web_elements.get_update_device_button().is_displayed():
-                self.utils.print_info("Update button is displayed")
-                return True
-
+        update_device_button = self.devices_web_elements.get_update_device_button()
+        if update_device_button is not None and update_device_button.is_displayed():
+            self.utils.print_info("Update button is displayed")
+            return True
+        else:
             self.utils.print_info("Update button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_update_device_button_visible(self, **kwargs):
         """
@@ -9846,20 +9821,15 @@ class Devices:
     def _is_actions_button_visible(self):
         """
         - This helper functions verify if the actions button is visible or not
-        :return: True if visible, False if not, fail if exception occurs
+        :return: True if devices action button visible, False if not
         """
-        try:
-            if self.devices_web_elements.get_manage_device_actions_button().is_displayed():
-                self.utils.print_info("Actions button is displayed")
-                return True
-
+        device_actions_button = self.devices_web_elements.get_manage_device_actions_button()
+        if device_actions_button is not None and device_actions_button.is_displayed():
+            self.utils.print_info("Actions button is displayed")
+            return True
+        else:
             self.utils.print_info("Actions button is hidden")
             return False
-
-        except Exception:
-            kwargs = {'fail_msg': "Exception"}
-            self.common_validation.fault(**kwargs)
-            return -1
 
     def validate_actions_button_visible(self, **kwargs):
         """
@@ -10752,7 +10722,7 @@ class Devices:
         :param manage_type: Manage/Unmanage device
         :return: 1 if the management status was changed
         """
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_change_manage_device_status(manage_type=manage_type, device_serial=device_serial, device_mac=device_mac, device_name=device_name, **kwargs)
 
         # Commented on 1/18/23 because it is unused

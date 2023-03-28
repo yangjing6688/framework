@@ -519,3 +519,22 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
     def get_network_policy_card_item(self):
         return self.weh.get_element(self.network_policy_card_item)
 
+    def get_common_settings_exos(self):
+        return self.weh.get_element(self.common_settings_exos)
+
+    def get_common_settings_exos_stp_toogle(self):
+        return self.weh.get_element(self.common_settings_exos_stp_toogle)
+
+    def get_common_settings_voss_stp_toogle(self):
+        return self.weh.get_element(self.common_settings_voss_stp_toogle)
+
+    def get_common_settings_save_button(self):
+        return self.weh.get_element(self.common_settings_save_button)
+
+    def get_all_common_settings_configs(self):
+        elems = []
+        for el in self.weh.get_elements(self.all_common_settings_configs):
+            if el.is_displayed():
+                elems.append(el)
+        return elems
+

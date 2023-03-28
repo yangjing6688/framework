@@ -103,3 +103,6 @@ class AccntMgmtWebElements(AccntMgmtWebElementsDefs):
     def get_credential_distribution_groups_member_of(self):
         parent = self.weh.get_element(self.credential_distribution_groups_member_of_parent)
         return self.weh.get_element(self.credential_distribution_groups_member_of, parent=parent)
+
+    def get_rbac_location_tree_checkbox_selected_status(self):
+        return self.weh.get_element(self.rbac_location_tree_checkbox_selected_status)

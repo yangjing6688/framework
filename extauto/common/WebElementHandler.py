@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.common.exceptions import NoSuchElementException, ElementNotVisibleException, ElementNotSelectableException, ElementNotInteractableException
-from robot.libraries.BuiltIn import BuiltIn
 
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.Utils import Utils
@@ -15,7 +14,6 @@ from extauto.common.ImageHandler import ImageHandler
 
 class WebElementHandler:
     def __init__(self):
-        self.el_info = BuiltIn().get_variable_value('${ELEMENT_INFO}')
         self.utils = Utils()
         self.delay = 10 # BuiltIn().get_variable_value('${ELEMENT_DELAY}')
         self.desc = None
@@ -53,6 +51,9 @@ class WebElementHandler:
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
         _driver = CloudDriver().cloud_driver if parent == "default" else parent
 
+        # Log what we're searching for
+        self.utils.print_info(f"get_element(): key_val: {key_val}")
+
         self.utils.print_debug("Waiting for page to complete loading")
         while not self.check_for_page_is_loading(_driver):
             continue
@@ -69,9 +70,7 @@ class WebElementHandler:
             else:
                 continue
             try:
-                if self.el_info:
-                    if 'True' in self.el_info:
-                        self.utils.print_info("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
+                self.utils.print_debug("Using locator Type: {} Value: {} Index: {} Wait: {} Description: {}"
                                                 .format(key, value, _index, _delay, _desc))
                 if list:
                     if type(value) is list:
@@ -99,9 +98,8 @@ class WebElementHandler:
                         ec.presence_of_all_elements_located((by, value)))[_index]
 
             except Exception:
-                if 'True' in self.el_info:
-                    self.utils.print_info("Unable to find the element handle with: ", key, ' -- ', value)
-                    self.utils.print_info('Unable to find web element ', json.dumps(key_val))
+                self.utils.print_debug("Unable to find the element handle with: ", key, ' -- ', value)
+                self.utils.print_debug('Unable to find web element ', json.dumps(key_val))
 
         return None
 
@@ -116,15 +114,17 @@ class WebElementHandler:
         _delay = key_val.get('wait_for', self.delay)  # Explicit delay
         _driver = CloudDriver().cloud_driver if parent == "default" else parent
 
+        # Log what we're searching for
+        self.utils.print_info(f"get_element(): key_val: {key_val}")
+
         for key, value in key_val.items():
             if key in self.locator.keys():  # check the key is in locator or not
                 by = self.locator[key]
             else:
                 continue
             try:
-                if 'True' in self.el_info:
-                    self.utils.print_info(
-                        "Using locator type:{} value:{} Index:{} wait:{}".format(key, value, _index, _delay))
+                self.utils.print_debug(
+                    "Using locator type:{} value:{} Index:{} wait:{}".format(key, value, _index, _delay))
                 if _index == 0:
                     return WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
                         ec.presence_of_all_elements_located((by, value)))
@@ -132,15 +132,12 @@ class WebElementHandler:
                     return WebDriverWait(_driver, _delay, ignored_exceptions=self.ignored_exceptions).until(
                         ec.presence_of_all_elements_located((by, value)))[_index]
 
-            except Exception as e:
-                if 'True' in self.el_info:
-                    self.utils.print_info(e)
-                    self.utils.print_info("Unable to find the element handle with: ", key, ' -- ', value)
+            except Exception:
+                self.utils.print_debug("Unable to find the element handle with: ", key, ' -- ', value)
         return None
 
     def get_a_href(self, element):
-        if 'True' in self.el_info:
-            self.utils.print_info("Using locator TAG_NAME Index:0 Wait:0")
+        self.utils.print_debug("Using locator TAG_NAME Index:0 Wait:0")
         return element.find_element_by_tag_name('a')
 
     def get_displayed_element(self, elements):
