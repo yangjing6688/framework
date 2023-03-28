@@ -663,9 +663,9 @@ class XapiDevices(XapiHelper):
             return device_id
 
         # Get all of the devices
-        device_api_data = self.xapi_get_device(device_serial=device_serial, \
-                                               device_name=device_name, \
-                                               device_mac=device_mac, \
+        device_api_data = self.xapi_get_device(device_serial=device_serial,
+                                               device_name=device_name,
+                                               device_mac=device_mac,
                                                **kwargs)
 
         device_list = device_api_data['data']
