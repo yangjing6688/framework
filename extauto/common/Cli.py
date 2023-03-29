@@ -2509,7 +2509,6 @@ class Cli(object):
     def verify_poe_supported(self, dut, **kwargs):
         """
         Method that verifies if the device has power over ethernet capabilities.
-
         Currently this method supports only devices with cli_type exos/voss.
         
         :param dut: the dut, e.g. tb.dut1
@@ -2528,12 +2527,14 @@ class Cli(object):
             self.utils.print_info("Trying to see if device supoorts POE")
             result = self.networkElementCliSend.send_cmd(dut.name, 'show poe-main-status', max_wait=30, interval=10)[0].cmd_obj._return_text
             self.utils.print_info(f"Result was: {result}")
+            
             if "PoE Main Status" in result:
                 check_poe = True
             elif "POE not supported by device" in result:
                 kwargs['fail_msg'] = f"POE not supported by device"
                 self.commonValidation.failed(**kwargs)
-        
+                return -1
+            
         elif dut.cli_type.lower() == "exos" and not dut.platform == 'Stack':
             
             self.networkElementCliSend.send_cmd(dut.name, 'enable telnet')
@@ -2545,7 +2546,8 @@ class Cli(object):
             except Exception:
                 kwargs['fail_msg'] = f"POE not supported by device"
                 self.commonValidation.failed(**kwargs)
-
+                return -1
+            
             self.utils.print_info(f"Result was: {result}")
             if 'Inline Power System Information' in result:
                 self.utils.print_info("EXOS device supports PoE")
@@ -2553,7 +2555,8 @@ class Cli(object):
             else:
                 kwargs['fail_msg'] = f"POE not supported by device"
                 self.commonValidation.failed(**kwargs)
-        
+                return -1
+            
         elif dut.cli_type.lower() == "exos" and dut.platform == 'Stack':
             
             self.networkElementCliSend.send_cmd(dut.name, 'enable telnet')
@@ -2574,6 +2577,8 @@ class Cli(object):
             else:
                 kwargs['fail_msg'] = f"POE not supported by device"
                 self.commonValidation.failed(**kwargs)
+                return -1
+            
         else:
             kwargs['fail_msg'] = f"CLI type not supported"
             self.commonValidation.failed(**kwargs)
@@ -2584,7 +2589,7 @@ class Cli(object):
 
     def get_cli_poe_details(self, dut, **kwargs):
         """
-        Method that returns string with power details.
+        Method that returns string with power details from switch CLI.
         Currently this method supports only devices with cli_type exos.
         
         :param dut: the dut, e.g. tb.dut1
@@ -2599,7 +2604,7 @@ class Cli(object):
             
             elem = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
             inline_power_info = self.utils.get_regexp_matches(elem,
-                            "(\w+['Inline']\s+\w+['Power]\s+\w+['System']\s+\w+['Information'])",1)
+                            r"(\w+['Inline']\s+\w+['Power]\s+\w+['System']\s+\w+['Information'])",1)
             
             if not inline_power_info:
                 kwargs['fail_msg'] = f"POE not supported by device"
@@ -2610,12 +2615,15 @@ class Cli(object):
                 self.utils.print_info("EXOS device supports PoE")
                 #get PoE values
                 var_operational_power = self.utils.get_regexp_matches(elem, "\w+['Operational']\s+(\d+)", 1)
+                
                 if not var_operational_power:
                     kwargs['fail_msg'] = f"Device POE is not opperational"
                     self.commonValidation.failed(**kwargs)
+                    return -1
+                
                 var_operational_power =  var_operational_power[0]
-                var_threshold_power_procents = self.utils.get_regexp_matches(elem, "\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)[0]
-                self.utils.print_info("Operational Values from CLI is :",var_operational_power)
+                var_threshold_power_procents = self.utils.get_regexp_matches(elem, r"\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)[0]
+                self.utils.print_info("Operational Values from CLI is :", var_operational_power)
                 self.utils.print_info("Power Threshold value from CLI is :", var_threshold_power_procents)
 
                 # Transform the POE threshold power in watts
@@ -2628,25 +2636,31 @@ class Cli(object):
 
     def get_cli_poe_details_updated(self, dut, **kwargs):
         """
-        Return string with raw power details
+        Method that returns power usage threshold int value from switch CLI.
         Currently this method supports only devices with cli_type exos.
         
         :param dut: the dut, e.g. tb.dut1
         """
 
-        if dut.cli_type.lower() not in ["exos", "voss"]:
+        if dut.cli_type.lower() not in ["exos"]:
             kwargs["fail_msg"] = "Failed! OS not supported."
             self.commonValidation.fault(**kwargs)
             return -1
         
         if dut.cli_type.lower() == "exos":
             elem = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
-            inline_power_info = self.utils.get_regexp_matches(elem,"\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)[0]
+            inline_power_info = self.utils.get_regexp_matches(elem, r"\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)
+            
+            if inline_power_info:
+                inline_power_info = inline_power_info[0]
+                self.utils.print_info("CLI value is ", inline_power_info)
 
-            self.utils.print_info("CLI value is ", inline_power_info)
-
-            self.commonValidation.passed(**kwargs)
-            return int(inline_power_info)
+                self.commonValidation.passed(**kwargs)
+                return int(inline_power_info)
+            
+            kwargs["fail_msg"] = "Failed to get power usage threshold value from switch CLI"
+            self.commonValidation.failed(**kwargs)
+            return -1
 
     def get_stack_slot_poe(self, dut, **kwargs):
         """
@@ -2656,14 +2670,14 @@ class Cli(object):
         :param dut: the dut, e.g. tb.dut1
         """
 
-        if dut.cli_type.lower() not in ["exos", "voss"]:
+        if dut.cli_type.lower() not in ["exos"]:
             kwargs["fail_msg"] = "Failed! OS not supported."
             self.commonValidation.fault(**kwargs)
             return -1
 
         if dut.cli_type.lower() == "exos":
             elem = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
-            inline_power_slot = self.utils.get_regexp_matches(elem, "(\d)\s+\w+['Enabled']\s+\w+['Operational']", 1)
+            inline_power_slot = self.utils.get_regexp_matches(elem, r"(\d)\s+\w+['Enabled']\s+\w+['Operational']", 1)
             self.utils.print_info(inline_power_slot)
 
             if type(inline_power_slot) == list:
@@ -2682,7 +2696,7 @@ class Cli(object):
         :param dut: the dut, e.g. tb.dut1
         """
         
-        if dut.cli_type.lower() not in ["exos", "voss"]:
+        if dut.cli_type.lower() not in ["exos"]:
             kwargs["fail_msg"] = "Failed! OS not supported."
             self.commonValidation.fault(**kwargs)
             return -1
@@ -2690,7 +2704,7 @@ class Cli(object):
         if dut.cli_type.lower() == "exos":
             
             power_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Power', max_wait=30, interval=10)[0].cmd_obj._return_text
-            power_slot = self.utils.get_regexp_matches(power_details,"\w+['Slot'].(\d)\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+\d+.\d+", 1)
+            power_slot = self.utils.get_regexp_matches(power_details, r"\w+['Slot'].(\d)\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+\d+.\d+", 1)
             self.utils.print_info(power_slot)
 
             if type(power_slot) == list or type(power_slot) == str:
@@ -2710,7 +2724,7 @@ class Cli(object):
         :param dut: the dut, e.g. tb.dut1
         """
 
-        if dut.cli_type.lower() not in ["exos", "voss"]:
+        if dut.cli_type.lower() not in ["exos"]:
             kwargs["fail_msg"] = "Failed! OS not supported."
             self.commonValidation.fault(**kwargs)
             return -1
@@ -2723,7 +2737,7 @@ class Cli(object):
                 operational_power_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Output', max_wait=30, interval=10)[0].cmd_obj._return_text
                 operational_power_slot = self.utils.get_regexp_matches(operational_power_details, "\d+['V]\/(\d+)['W]\s+\w+", 1)
                 power_usage_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Power', max_wait=30, interval=10)[0].cmd_obj._return_text
-                power_usage_slot = self.utils.get_regexp_matches(power_usage_details, "\w+['Slot'].\d\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+(\d+.\d+)\s+\w+", 1)
+                power_usage_slot = self.utils.get_regexp_matches(power_usage_details, r"\w+['Slot'].\d\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+(\d+.\d+)\s+\w+", 1)
                 for operational_power_slot_element in operational_power_slot:
                     all_powers_list.append(operational_power_slot_element)
                 for power_per_slot in power_usage_slot:
@@ -2739,8 +2753,8 @@ class Cli(object):
                 psu_details = self.utils.get_regexp_matches(powerdetails,"(\w+['PowerSupply']\s\w\s\w+['information'])", 1)[0]
 
                 if psu_details in powerdetails:
-                    total_power_available = self.utils.get_regexp_matches(powerdetails, "\w+['Output']\s+\d+\s*\S\s\d*.\d*\s+\w+.\s+\d+.\d+\s+\w+\s+\S\d+\w\/(\d+)", 1)[0]
-                    total_power_consumed = self.utils.get_regexp_matches(powerdetails, "\w+['System']\s+\w+['Power']\s+\w+['Usage']\s+.\s+(\d+.\d+)", 1)[0]
+                    total_power_available = self.utils.get_regexp_matches(powerdetails, r"\w+['Output']\s+\d+\s*\S\s\d*.\d*\s+\w+.\s+\d+.\d+\s+\w+\s+\S\d+\w\/(\d+)", 1)[0]
+                    total_power_consumed = self.utils.get_regexp_matches(powerdetails, r"\w+['System']\s+\w+['Power']\s+\w+['Usage']\s+.\s+(\d+.\d+)", 1)[0]
                     self.utils.print_info(total_power_available)
                     new_total_power_consumed = int(float(total_power_consumed))
                     self.utils.print_info(new_total_power_consumed)
@@ -2753,7 +2767,7 @@ class Cli(object):
                     self.commonValidation.fault(**kwargs)
                     return -1
 
-    def change_threshold_power_from_cli (self, dut, new_threshold_value, **kwargs):
+    def change_threshold_power_from_cli(self, dut, new_threshold_value, **kwargs):
         """
         Method that changes the threshold power value from CLI.
         Currently this method supports only devices with cli_type exos.
@@ -2762,20 +2776,21 @@ class Cli(object):
         :param new_threshold_value: the int value of the new_threshold_value, 0-100
         """
 
-        if dut.cli_type.lower() not in ["exos", "voss"]:
+        if dut.cli_type.lower() not in ["exos"]:
             kwargs["fail_msg"] = "Failed! OS not supported."
             self.commonValidation.fault(**kwargs)
             return -1
         
         if dut.cli_type == "exos":
+            
             elem = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
-            inline_power_info = self.utils.get_regexp_matches(elem, "(\w+['Inline']\s+\w+['Power]\s+\w+['System']\s+\w+['Information'])", 1)[0]
+            inline_power_info = self.utils.get_regexp_matches(elem, r"(\w+['Inline']\s+\w+['Power]\s+\w+['System']\s+\w+['Information'])", 1)[0]
 
             if inline_power_info in elem:
                 self.utils.print_info("EXOS device supports PoE")
                 #get the Threshold POwer value
-                var_operational_power = self.utils.get_regexp_matches(elem, "\w+['Operational']\s+(\d+)", 1)[0]
-                var_threshold_power_procents = self.utils.get_regexp_matches(elem, "\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)[0]
+                var_operational_power = self.utils.get_regexp_matches(elem, r"\w+['Operational']\s+(\d+)", 1)[0]
+                var_threshold_power_procents = self.utils.get_regexp_matches(elem, r"\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)[0]
                 self.utils.print_info(var_operational_power)
                 self.utils.print_info(var_threshold_power_procents)
                 #change the Threshold Power value from CLI
@@ -2789,6 +2804,7 @@ class Cli(object):
 
             kwargs['fail_msg'] = f"POE not supported by device"
             self.commonValidation.failed(**kwargs)
+            return -1
 
     def search_last_command_cli_journal(self, info: str, command, **kwargs):
         """
