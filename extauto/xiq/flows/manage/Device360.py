@@ -5520,7 +5520,13 @@ class Device360(Device360WebElements):
         return str(res)
 
     def unlock_device360_port_config(self, raise_error_if_button_not_found=False, **kwargs):
+        """
+        Method that unlocks the port configuration menu in Device360.
         
+        kwargs:
+            :raise_error_if_button_not_found: specifies if an error should be raised if the button is not find
+                                              it is disabled by default so the keyword is backwards compatible   
+        """
         unlock_button, _ = self.utils.wait_till(
             func=self.get_device360_unlock_port_config_button,
             exp_func_resp=True,
