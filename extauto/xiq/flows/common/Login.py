@@ -296,21 +296,19 @@ class Login(object, metaclass=Singleton):
                 self.common_validation.failed(**kwargs)
                 return -1
 
-        page_still_loading = True
-        while page_still_loading:
-            page_loading = self.login_web_elements.get_page_loading()
-            self.utils.print_info(f"Page loading element: {page_loading}")
-            if page_loading:
-                self.utils.print_info("Page is still loading")
-                sleep(3)
-            else:
-                page_still_loading = False
-                self.utils.print_info("Page is loaded successfully")
+        # Wait for page to load
+        #
+        try:
+            self.utils.wait_till(self.login_web_elements.get_page_loading, timeout=(5*60), delay=3, exp_func_resp=False, is_logging_enabled=True)
+            self.utils.print_info("Page was loaded successfully")
+        except Exception:
+            kwargs['fail_msg'] = f"Page was unable to load"
+            self.common_validation.fault(**kwargs)
 
         if self.login_web_elements.get_admin_portal_page().is_displayed():
             account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
             if account_name:
-                self.utils.print_info("Enter Account Name {account_name} in Search Field")
+                self.utils.print_info(f"Enter Account Name {account_name} in Search Field")
                 account_search_field = self.login_web_elements.get_external_admin_account_name_search_field()
                 self.auto_actions.send_keys(account_search_field, account_name)
                 self.screen.save_screen_shot()
