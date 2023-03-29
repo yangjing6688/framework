@@ -2963,11 +2963,11 @@ class Cli(object):
         """
         - This Keyword will configure necessary CLI commands to delete Client from Access Point
         - Keyword Usage:
-        -  ``ddelete_client_from_ap     ${CLI_TYPE}  ${CONNECTION}  ${CLIENT_MAC}``
+        -  ``delete_client_from_ap     ${CLI_TYPE}  ${CONNECTION}  ${CLIENT_MAC}``
         :param cli_type: The cli type
         :param connection: The open connection
         :param client_mac: Client Mac Address
-        :return:  1 if commands successfully configured and client removed from AP else -1
+        :return:  1 if commands successfully configured and client is getting removed from AP else -1
         """
         if NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'clear auth station mac {client_mac}')
