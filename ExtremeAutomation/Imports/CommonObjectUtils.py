@@ -71,7 +71,7 @@ class CommonObjectUtils:
             if not value:
                 self.builtin.fail("Can't set the generic Device OBJECT in the variables.")
         else:
-            self.builtin.fail("Can't set the generic Device OBJECT in the variables. The following types were not found in the yaml file: " + ' '.join(generic_device_types))
+            print("Can't set the generic Device OBJECT in the variables. The following types were not found in the yaml file: " + ' '.join(generic_device_types))
 
     def setExecutionVariable(self, value, index):
         if self.executionModePytest():

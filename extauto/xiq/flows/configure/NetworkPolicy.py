@@ -165,13 +165,16 @@ class NetworkPolicy(object):
         - This keyword will create the network policy and wireless network
         - Wireless network includes open, ppsk, psk and enterprise network
         - Keyword Usage:
-        - ``Create Network Policy   ${POLICY_NAME}   &{WIRELESS_NW_PROFILE}``
-        - &{WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-        - Fof Creating  &{WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+        - ``Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}``
+        - ``Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}     ${CLI_TYPE}``
+        - ${POLICY_NAME} --> Name of the network policy to create
+        - ${WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
+        - For Creating  ${WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
+        - ${CLI_TYPE} --> Device type of the DUT. Default is 'AH-AP'.
 
         :param policy: Name of the network policy to create
         :param wireless_profile: (dict) wireless network creation profile parameters
-        :param cli_type: Device type of the DUT
+        :param cli_type: Device type of the DUT. Default is 'AH-AP'.
         :return: 1 if network policy creation is success
         """
 

@@ -11,25 +11,27 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 class JobsSuitesVersions():
-    """ Manage data inside the tbedmgr 'jobsSuitesVersions' table """ 
 
-    # Retrieve the 'encoded' URL and PAT string from the ENV:
-    #
-    magic_key = os.getenv('MAGIC_KEY')
-    base64_bytes = magic_key.encode("ascii")
-    string_bytes = base64.b64decode(base64_bytes)
-    decoded_magic_key = string_bytes.decode("ascii")
-    decoded_pat,base_url = decoded_magic_key.split('#')
-    test_version_url = base_url + 'tbedmgr/testsuites/storeversioninfo'
+    def __init__(self):
+        """ Manage data inside the tbedmgr 'jobsSuitesVersions' table """
 
-    test_headers = {
-            'Content-Type': 'application/json',
-            'accept': 'application/json',
-            'authorization': 'PAT ' + decoded_pat
-        }
+        # Retrieve the 'encoded' URL and PAT string from the ENV:
+        #
+        magic_key = os.getenv('MAGIC_KEY')
+        base64_bytes = magic_key.encode("ascii")
+        string_bytes = base64.b64decode(base64_bytes)
+        decoded_magic_key = string_bytes.decode("ascii")
+        decoded_pat,base_url = decoded_magic_key.split('#')
+        test_version_url = base_url + 'tbedmgr/testsuites/storeversioninfo'
 
-    url = test_version_url
-    headers = test_headers
+        test_headers = {
+                'Content-Type': 'application/json',
+                'accept': 'application/json',
+                'authorization': 'PAT ' + decoded_pat
+            }
+
+        self.url = test_version_url
+        self.headers = test_headers
 
     def post(self, **kwargs):
         """ Add data via the tbedmgr microservice """

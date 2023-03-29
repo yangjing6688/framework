@@ -35,3 +35,13 @@ extremecloudiq-api==23.1.0.40
 docstring-parser==0.15
 opencv-python
 beautifulsoup4
+
+pytest==6.2.2
+pytest-html==3.1.1
+pytest-testconfig==0.2.0
+pytest-yaml==1.2.1
+pytest-sugar==0.9.4
+pytest-xdist==2.2.1
+pytest-helpers-namespace
+pytest-ordering==0.6
+allure-pytest==2.8.36
