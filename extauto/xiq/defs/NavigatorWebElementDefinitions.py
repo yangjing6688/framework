@@ -1375,3 +1375,9 @@ class NavigatorWebElementDefinitions:
             'CSS_SELECTOR': '.tools-controller',
             'wait_for': 5
         }
+
+    grid_loading_mark = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="loadingMark"]',
+            'wait_for': 5
+        }

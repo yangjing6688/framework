@@ -2347,11 +2347,11 @@ class NetworkPolicy(object):
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
+    # This is not a real keyword, it only clicks on an element. Let it comment as I do not know who else is using it.
+    # def get_switching_tab(self):
+    #     self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
 
-    def get_switching_tab(self):
-        self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
-
-    def get_port_types_section(self, **kwargs):
+    def check_port_types_section(self, **kwargs):
         """
         - This keyword will navigate to Port Types section in Network Policies tab
         - Assumption: Already Opened Network Policy
@@ -2363,6 +2363,7 @@ class NetworkPolicy(object):
         # this sleep is necessary for allowing the page to load before performing any action
         time.sleep(1)
         self.auto_actions.click_reference(self.np_web_elements.get_port_types_section)
+        self.navigator.wait_until_loading_is_done()
         self.screen.save_screen_shot()
         title = self.np_web_elements.get_port_types_title_page()
         title_text = title.text
@@ -2656,7 +2657,7 @@ class NetworkPolicy(object):
                 self.common_validation.fault(**kwargs)
                 return -1, {}
 
-            if self.auto_actions.click(save_button) == 1:
+            if self.auto_actions.click_with_js(save_button) == 1:
                 self.utils.print_info("Successfully clicked on the Save element")
             else:
                 kwargs['fail_msg'] = "Failed to click on the Save element"
@@ -2676,13 +2677,13 @@ class NetworkPolicy(object):
         cli_type = cli_type.upper()
         if cli_type is not None:
             if cli_type == "VOSS":
-                self.auto_actions.click_reference(self.np_web_elements.get_select_platform_voss)
+                self.auto_actions.click_with_js(self.np_web_elements.get_select_platform_voss())
                 kwargs['pass_msg'] = "Selected Platform VOSS"
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
                 return 1
             elif cli_type == "EXOS":
-                self.auto_actions.click_reference(self.np_web_elements.get_select_platform_exos)
+                self.auto_actions.click_with_js(self.np_web_elements.get_select_platform_exos())
                 kwargs['pass_msg'] = "Selected Platform EXOS"
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
@@ -2701,7 +2702,7 @@ class NetworkPolicy(object):
 
         if self.dev360.get_d360_switch_port_view_all_pages_button():
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_with_js(self.dev360.get_d360_switch_port_view_all_pages_button())
             self.screen.save_screen_shot()
         sleep(2)
         if port_type_name is not None:
@@ -2709,11 +2710,12 @@ class NetworkPolicy(object):
             sleep(3)
             self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.np_web_elements.get_port_type_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.auto_actions.click_with_js(self.np_web_elements.get_port_type_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.navigator.wait_until_loading_is_done()
             self.screen.save_screen_shot()
             sleep(3)
             self.utils.print_info(f"Editing port_type {port_type_name} ")
-            if self.auto_actions.click(self.np_web_elements.get_edit_port_type()) == 1:
+            if self.auto_actions.click_with_js(self.np_web_elements.get_edit_port_type()) == 1:
                 kwargs['pass_msg'] = f"Successfully opened configuration window for port_type {port_type_name} "
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
@@ -2735,17 +2737,17 @@ class NetworkPolicy(object):
         """
         if self.dev360.get_d360_switch_port_view_all_pages_button():
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_with_js(self.dev360.get_d360_switch_port_view_all_pages_button())
             self.screen.save_screen_shot()
         sleep(2)
         if port_type_name is not None:
             port_type_table_item = self.get_port_type_row(port_type_name)
             sleep(2)
             self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
-            self.auto_actions.click(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.auto_actions.click_with_js(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
             self.screen.save_screen_shot()
             self.utils.print_info(f"Deleting port_type {port_type_name} ")
-            if self.auto_actions.click(self.np_web_elements.get_delete_port_type()) == 1:
+            if self.auto_actions.click_with_js(self.np_web_elements.get_delete_port_type()) == 1:
                 kwargs['pass_msg'] = f"Deleting port_type {port_type_name} "
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
