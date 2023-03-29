@@ -186,7 +186,7 @@ class ExtremeLocationWebElementsDefs:
         }
 
     xloc_search_name_field = \
-        {   'XPATH': '//input[@id="allcolumnssearch-1641-inputEl"]',
+        {   'XPATH': '(//input[contains(@placeholder,"Search Name, MAC, Site, UUID")])[2]',
             'wait_for': 5
         } 
 
