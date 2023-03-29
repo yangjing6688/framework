@@ -26,10 +26,9 @@ class XapiVlan(XapiHelper):
             raise "Error: access_token is None in the configuration"
 
         try:
-            # Get VIQ Info
-            api_response = self.xapi_base_config_api.xapi_base_create_vlan_profile(xiq_create_vlan_profile_request=data,_preload_content=False)
-            #api_response_json = api_response.to_json()
-            #api_response_dict = json.loads(api_response_json)
+            # Get VIQ Info (_preload_content=False)
+            api_http_response = self.xapi_base_config_api.xapi_base_create_vlan_profile(xiq_create_vlan_profile_request=data,_preload_content=False)
+            api_response = json.loads(api_http_response.data)
 
         except self.ApiException as e:
             self.utils.print_error("Exception when calling AccountApi->get_viq_info: %s\n" % e)
