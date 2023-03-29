@@ -5,11 +5,11 @@
 # the repo. Unless a later match takes precedence, and
 # will be requested for review when someone opens a pull request.
 #
-*   @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @mgoddard27
-/extauto/xiq/           @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @damccarth @shreenbanu @pdungdo @rvellasamy @mgoddard27
-/extauto/xca/           @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @damccarth @mgoddard27
-/extauto/common/        @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @damccarth @shreenbanu @pdungdo @rvellasamy @mgoddard27
-/extauto/xiqse/         @elatour2000 @jsubler93 @ghundertmark @jstokes1967 @jeffrwsd @petersadej @damccarth @mgoddard27
+*   @extremenetworks/autoiq-framework @jsubler93 
+/extauto/xiq/           @extremenetworks/autoiq-framework @jsubler93 @damccarth @shreenbanu @pdungdo @rvellasamy 
+/extauto/xca/           @extremenetworks/autoiq-framework @jsubler93 @damccarth 
+/extauto/common/        @extremenetworks/autoiq-framework @jsubler93 @damccarth @shreenbanu @pdungdo @rvellasamy 
+/extauto/xiqse/         @extremenetworks/autoiq-framework @jsubler93 @damccarth 
 
 # Michael White wants to review all items in the following directory
-/extauto/ucp/ @mike-white-extr @jeffrwsd
+/extauto/ucp/ @mike-white-extr @extremenetworks/autoiq-framework
