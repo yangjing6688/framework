@@ -302,7 +302,7 @@ class Login(object, metaclass=Singleton):
             self.utils.wait_till(self.login_web_elements.get_page_loading, timeout=(5*60), delay=3, exp_func_resp=False, is_logging_enabled=True)
             self.utils.print_info("Page was loaded successfully")
         except Exception:
-            kwargs['fail_msg'] = f"Page was unable to load"
+            kwargs['fail_msg'] = "Page was unable to load"
             self.common_validation.fault(**kwargs)
 
         if self.login_web_elements.get_admin_portal_page().is_displayed():
