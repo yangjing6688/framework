@@ -2974,7 +2974,7 @@ class Cli(object):
             self.send(connection, f'clear auth local-cache mac {client_mac}')
             self.send(connection, f'clear auth roaming-cache mac {client_mac} hive-all')
             self.send(connection, f'clear auth roaming-cache mac {client_mac}')
-            show_client_output = self.send(connection, f'show station')
+            show_client_output = self.send(connection, 'show station')
             client_mac_address = ':'.join(client_mac[i:i + 4] for i in range(0,len(client_mac),4))
             if client_mac_address.lower() not in show_client_output:
                 kwargs['pass_msg'] = f"Client with Mac {client_mac} Successfully Deleted/Removed from AP "
