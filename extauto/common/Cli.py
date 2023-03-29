@@ -2958,6 +2958,33 @@ class Cli(object):
             kwargs['fail_msg'] = f"get_nw_templ_device_config_forward_delay() failed, {dut.cli_type} not timplemented"
             self.commonValidation.fault(**kwargs)
 
+    def delete_client_from_ap(self, cli_type, connection, client_mac, **kwargs):
+        """
+        - This Keyword will configure necessary CLI commands to delete Client from Access Point
+        - Keyword Usage:
+        -  ``ddelete_client_from_ap     ${CLI_TYPE}  ${CONNECTION}  ${CLIENT_MAC}``
+        :param cli_type: The cli type
+        :param connection: The open connection
+        :param client_mac: Client Mac Address
+        :return:  1 if commands successfully configured and client removed from AP else -1
+        """
+        if NetworkElementConstants.OS_AHAP in cli_type.upper():
+            self.send(connection, f'clear auth station mac {client_mac}')
+            self.send(connection, f'clear auth local-cache mac {client_mac}')
+            self.send(connection, f'clear auth roaming-cache mac {client_mac} hive-all')
+            self.send(connection, f'clear auth roaming-cache mac {client_mac}')
+            show_client_output = self.send(connection, f'show station')
+            client_mac_address = ':'.join(client_mac[i:i + 4] for i in range(0,len(client_mac),4))
+            if client_mac_address.lower() not in show_client_output:
+                kwargs['pass_msg'] = f"Client with Mac {client_mac} Successfully Deleted/Removed from AP "
+                self.commonValidation.passed(**kwargs)
+                return 1
+            else:
+                kwargs['fail_msg'] = f"Client with MAC {client_mac} still Present in the AP"
+                self.commonValidation.failed(**kwargs)
+                return -1
+        return -1
+
 if __name__ == '__main__':
     from pytest_testconfig import config
     config['${TEST_NAME}'] = 'bob'
