@@ -71,7 +71,6 @@ class Login(object, metaclass=Singleton):
         - Get the title of the page
         - Keyword Usage:
         - ``Get Page Title``
-
         :return: page title
         """
         return CloudDriver().cloud_driver.title
@@ -85,7 +84,6 @@ class Login(object, metaclass=Singleton):
         - Get the index of the window handle for this session
         - Keyword Usage:
         - ``Get Window Index``
-
         :return: index of window handle
         """
         return self.window_index
@@ -95,7 +93,6 @@ class Login(object, metaclass=Singleton):
         - for Exos switch to appear in UI we need to load the provided url
         - Keyword Usage:
         - ``Enable Exos Status On Xiq   ${URL}``
-
         :param url: url to load for enabling exos on cloud UI
         :return: 1 if loaded the url successfully
         """
@@ -107,365 +104,355 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-        # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
-        # @deprecated('Please use the {login_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
-        def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
-                       incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
-                       salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
-                       max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
+    # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {login_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
+                   incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
+                   salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
 
-            if self.xapiLogin.is_xapi_enabled(**kwargs):
-                # new XAPI call to get and set the XAPI token
-                self.xapiLogin.login(username, password, **kwargs)
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
+            # new XAPI call to get and set the XAPI token
+            self.xapiLogin.login(username, password, **kwargs)
 
-                # Look for the XAPI_ONLY and if set return
-                xapi_only = kwargs.get('XAPI_ONLY', False)
-                if xapi_only:
-                    self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
-                    return 1
-
-            return self.gui_login_user(username, password, capture_version, login_option, url,
-                                       incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                                       salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
-                                       max_retries, recover_login, map_override, ignore_map, **kwargs)
-
-        def gui_login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
-                           incognito_mode="False", co_pilot_status=False, entitlement_key=False,
-                           salesforce_username=False,
-                           salesforce_password=False, salesforce_shared_cuid=False, quick=False,
-                           check_warning_msg=False,
-                           max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
-            """
-            - Login to Xiq account with username and password (we will try up to 3 times)
-            - By default url will load from the topology file
-            - keyword Usage:
-            - ``Login User   ${USERNAME}   ${PASSWORD}``
-            - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
-            - ``Login User   ${USERNAME}   ${PASSWORD}    co_pilot_status=True``
-            Supported Modes:
-                UI - default mode
-                XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
-            :param username: login account username
-            :param password: login account password
-            :param capture_version: true if want capture the xiq build version
-            :param login_option: login option to get started with any of options: 30-day-trial, License, Legacy Entitlement, Pilot License & Connect
-            :param url: url to load
-            :param incognito_mode: Enable/Disable incognito_mode
-            :param co_pilot_status: Enable Co-Pilot Status in XIQ Login Page
-            :param entitlement_key: Entitlement Key
-            :param salesforce_username: Salesforce Username
-            :param salesforce_password: Salesforce Password
-            :param salesforce_shared_cuid: Salesforce Shared CUID
-            :param quick: Quick login without more sleep time while loading url
-            :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
-            :param max_retries:  The number of times to retry logging in if the login fails and a failure is not expected
-            :param recover_login: Allows an attempt to reload map and/or move to devices page if login not completed
-            :param map_override: Allows the ability to set (override) the map file used
-            :param ignore_map: If set to true the login process won't check for or upload a map in case of VIQ reset
-            :param (**kwarg) expect_error: the keyword is expected to fail
-            :return: 1 if login successful else -1
-            """
-
-            count = 0
-            expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
-            result = self._login_user(username, password, capture_version, login_option, url,
-                                      incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                                      salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
-                                      recover_login,
-                                      map_override, ignore_map, **kwargs)
-
-            # Let's try again if we don't expect and error and the results were not good
-            if not expect_error:
-                while result != 1 and count < max_retries:
-                    self.utils.print_warning(f'Trying to log in again: {count}')
-                    result = self._login_user(username, password, capture_version, login_option, url,
-                                              incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                                              salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
-                                              ignore_map,
-                                              **kwargs)
-                    count = count + 1
-            if result != 1:
-                kwargs['fail_msg'] = "Login was not successful"
-                self.common_validation.failed(**kwargs)
-            else:
-                kwargs['pass_msg'] = "Login was successful"
-                self.common_validation.passed(**kwargs)
-            return result
-
-        def _login_user(self, username, password, capture_version, login_option, url,
-                        incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                        salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
-                        recover_login, map_override, ignore_map, **kwargs):
-            if url == "default":
-                self._init(incognito_mode=incognito_mode)
-            else:
-                self._init(url=url, incognito_mode=incognito_mode)
-
-            # start the thread to capture the tool tip text
-            self.t1 = threading.Thread(target=extauto.xiq.flows.common.ToolTipCapture.tool_tip_capture, daemon=True)
-            self.t1.start()
-
-            browser = BuiltIn().get_variable_value("${BROWSER}")
-
-            self.utils.print_info("Browser: ", browser)
-
-            try:
-                self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['version'])
-            except Exception as e:
-                self.utils.print_debug(e)
-                self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['browserVersion'])
-
-            self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
-            if 'portal' in url:
-                self.screen.save_screen_shot()
-                self.utils.print_info("Entering Username...")
-                self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_username_text(), username)
-                sleep(3)
-                self.utils.print_info("Entering Password...")
-                self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_password_text(), password)
-                sleep(3)
-                self.utils.print_info("Clicking on Sign In button")
-                self.auto_actions.click_reference(self.login_web_elements.get_login_portal_page_login_button)
-                sleep(2)
-                self.screen.save_screen_shot()
-                check_error = self.login_web_elements.get_login_portal_check_error()
-                if check_error:
-                    self.utils.print_info("Error is displayed at loging : ", check_error.text)
-                    kwargs['fail_msg'] = f"Error is displayed at loging : {check_error.text}"
-                    self.common_validation.fault(**kwargs)
-                    return -1
-                else:
-                    pass
-                sleep(5)
-                kwargs['pass_msg'] = "Login successful"
-                self.common_validation.passed(**kwargs)
+            # Look for the XAPI_ONLY and if set return
+            xapi_only = kwargs.get('XAPI_ONLY', False)
+            if xapi_only:
+                self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
                 return 1
 
-            test_url = BuiltIn().get_variable_value("${TEST_URL}")
-            if test_url and ('sso' in test_url or 'tinyurl' in test_url):
-                self.utils.print_info("Loading SSO Login URL")
-                self.screen.save_screen_shot()
-                self.utils.print_info("Entering SSO Username")
-                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_username_text(), username)
-                self.screen.save_screen_shot()
+        return self.gui_login_user(username, password, capture_version, login_option, url,
+                   incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                   salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
+                   max_retries, recover_login, map_override, ignore_map, **kwargs)
+    def gui_login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
+                   incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
+                   salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
+                   max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
+        """
+        - Login to Xiq account with username and password (we will try up to 3 times)
+        - By default url will load from the topology file
+        - keyword Usage:
+        - ``Login User   ${USERNAME}   ${PASSWORD}``
+        - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
+        - ``Login User   ${USERNAME}   ${PASSWORD}    co_pilot_status=True``
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
+        :param username: login account username
+        :param password: login account password
+        :param capture_version: true if want capture the xiq build version
+        :param login_option: login option to get started with any of options: 30-day-trial, License, Legacy Entitlement, Pilot License & Connect
+        :param url: url to load
+        :param incognito_mode: Enable/Disable incognito_mode
+        :param co_pilot_status: Enable Co-Pilot Status in XIQ Login Page
+        :param entitlement_key: Entitlement Key
+        :param salesforce_username: Salesforce Username
+        :param salesforce_password: Salesforce Password
+        :param salesforce_shared_cuid: Salesforce Shared CUID
+        :param quick: Quick login without more sleep time while loading url
+        :param check_warning_msg: Flag to Enable to Warning Messages validation during XIQ Login
+        :param max_retries:  The number of times to retry logging in if the login fails and a failure is not expected
+        :param recover_login: Allows an attempt to reload map and/or move to devices page if login not completed
+        :param map_override: Allows the ability to set (override) the map file used
+        :param ignore_map: If set to true the login process won't check for or upload a map in case of VIQ reset
+        :param (**kwarg) expect_error: the keyword is expected to fail
+        :return: 1 if login successful else -1
+        """
 
-                self.utils.print_info("Entering SSO Password")
-                self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_password_text(), password)
-                self.screen.save_screen_shot()
+        count = 0
+        expect_error = self.common_validation.get_kwarg_bool(kwargs, "expect_error", False)
+        result = self._login_user(username, password, capture_version, login_option, url,
+                    incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                    salesforce_password, salesforce_shared_cuid, quick, check_warning_msg, recover_login,
+                    map_override, ignore_map, **kwargs)
 
-                self.utils.print_info("Clicking on SSO Sign In button")
-                self.auto_actions.click_reference(self.login_web_elements.get_login_sso_page_login_button)
-                self.screen.save_screen_shot()
+        # Let's try again if we don't expect and error and the results were not good
+        if not expect_error:
+            while result != 1 and count < max_retries:
+                self.utils.print_warning(f'Trying to log in again: {count}')
+                result = self._login_user(username, password, capture_version, login_option, url,
+                                          incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                                          salesforce_password, salesforce_shared_cuid, quick, check_warning_msg, ignore_map,
+                                          **kwargs)
+                count = count + 1
+        if result != 1:
+            kwargs['fail_msg'] = "Login was not successful"
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Login was successful"
+            self.common_validation.passed(**kwargs)
+        return result
 
-                if self.login_web_elements.get_drawer_content().is_displayed():
-                    self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
+    def _login_user(self, username, password, capture_version, login_option, url,
+                   incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                   salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
+                   recover_login, map_override, ignore_map, **kwargs):
+        if url == "default":
+            self._init(incognito_mode=incognito_mode)
+        else:
+            self._init(url=url, incognito_mode=incognito_mode)
 
-                self.utils.print_info("Check for wrong credentials in SSO Login Page..")
-                sign_in_error_message = self.login_web_elements.get_login_sso_page_sign_in_error_message()
-                self.utils.print_info("Wrong Credential Message: ", sign_in_error_message)
-                if 'No Message' in sign_in_error_message:
-                    kwargs['pass_msg'] = "No Error Message Found in SSO Login Page"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-                else:
-                    if "Incorrect user ID or password" in sign_in_error_message:
-                        kwargs['fail_msg'] = "SSO Login Failed.Wrong Credentials. Try Again"
-                        self.common_validation.failed(**kwargs)
-                        return -1
+        # start the thread to capture the tool tip text
+        self.t1 = threading.Thread(target=extauto.xiq.flows.common.ToolTipCapture.tool_tip_capture, daemon=True)
+        self.t1.start()
 
+        browser = BuiltIn().get_variable_value("${BROWSER}")
+
+        self.utils.print_info("Browser: ", browser)
+
+        try:
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['version'])
+        except Exception as e:
+            self.utils.print_debug(e)
+            self.utils.print_info("Version: ", CloudDriver().cloud_driver.capabilities['browserVersion'])
+
+        self.utils.print_info("Logging with Username : ", username, " -- Password : ", password)
+        if 'portal' in url:
+            self.screen.save_screen_shot()
             self.utils.print_info("Entering Username...")
-            self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
-
+            self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_username_text(), username)
+            sleep(3)
             self.utils.print_info("Entering Password...")
-            self.auto_actions.send_keys(self.login_web_elements.get_login_page_password_text(), password)
-
+            self.auto_actions.send_keys(self.login_web_elements.get_login_portal_page_password_text(), password)
+            sleep(3)
             self.utils.print_info("Clicking on Sign In button")
-
-            self.auto_actions.click_reference(self.login_web_elements.get_login_page_login_button)
-            if quick:
-                sleep(2)
+            self.auto_actions.click_reference(self.login_web_elements.get_login_portal_page_login_button)
+            sleep(2)
+            self.screen.save_screen_shot()
+            check_error = self.login_web_elements.get_login_portal_check_error()
+            if check_error:
+                self.utils.print_info("Error is displayed at loging : ", check_error.text)
+                kwargs['fail_msg'] = f"Error is displayed at loging : {check_error.text}"
+                self.common_validation.fault(**kwargs)
+                return -1
             else:
-                sleep(5)
-
-            self.utils.print_info("Check for wrong credentials..")
-            credential_warnings = self.login_web_elements.get_credentials_error_message()
-            self.utils.print_info("Wrong Credential Message: ", credential_warnings)
-            if credential_warnings is None:
                 pass
+            sleep(5)
+            kwargs['pass_msg'] = "Login successful"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        test_url = BuiltIn().get_variable_value("${TEST_URL}")
+        if test_url and ('sso' in test_url or 'tinyurl' in test_url):
+            self.utils.print_info("Loading SSO Login URL")
+            self.screen.save_screen_shot()
+            self.utils.print_info("Entering SSO Username")
+            self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_username_text(), username)
+            self.screen.save_screen_shot()
+
+            self.utils.print_info("Entering SSO Password")
+            self.auto_actions.send_keys(self.login_web_elements.get_login_sso_page_password_text(), password)
+            self.screen.save_screen_shot()
+
+            self.utils.print_info("Clicking on SSO Sign In button")
+            self.auto_actions.click_reference(self.login_web_elements.get_login_sso_page_login_button)
+            self.screen.save_screen_shot()
+
+            if self.login_web_elements.get_drawer_content().is_displayed():
+                self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
+
+            self.utils.print_info("Check for wrong credentials in SSO Login Page..")
+            sign_in_error_message = self.login_web_elements.get_login_sso_page_sign_in_error_message()
+            self.utils.print_info("Wrong Credential Message: ", sign_in_error_message)
+            if 'No Message' in sign_in_error_message:
+                kwargs['pass_msg'] = "No Error Message Found in SSO Login Page"
+                self.common_validation.passed(**kwargs)
+                return 1
             else:
-                if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
-                    # self.utils.print_info("Wrong Credentials. Try Again")
-                    kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+                if "Incorrect user ID or password" in sign_in_error_message:
+                    kwargs['fail_msg'] = "SSO Login Failed.Wrong Credentials. Try Again"
                     self.common_validation.failed(**kwargs)
                     return -1
 
-            page_still_loading = True
-            while page_still_loading:
-                page_loading = self.login_web_elements.get_page_loading()
-                self.utils.print_info(f"Page loading element: {page_loading}")
-                if page_loading:
-                    self.utils.print_info("Page is still loading")
-                    sleep(3)
-                else:
-                    page_still_loading = False
-                    self.utils.print_info("Page is loaded successfully")
+        self.utils.print_info("Entering Username...")
+        self.auto_actions.send_keys(self.login_web_elements.get_login_page_username_text(), username)
 
-            if self.login_web_elements.get_admin_portal_page().is_displayed():
-                account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
-                if account_name:
-                    self.utils.print_info("Enter Account Name {account_name} in Search Field")
-                    account_search_field = self.login_web_elements.get_external_admin_account_name_search_field()
-                    self.auto_actions.send_keys(account_search_field, account_name)
-                    self.screen.save_screen_shot()
+        self.utils.print_info("Entering Password...")
+        self.auto_actions.send_keys(self.login_web_elements.get_login_page_password_text(), password)
 
-                    self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
-                    account_names = self.login_web_elements.get_external_admin_account_names()
-                    for account in account_names:
-                        if account_name in account.text:
-                            self.auto_actions.click(account)
-                            self.screen.save_screen_shot()
-                            sleep(10)
-                            break
+        self.utils.print_info("Clicking on Sign In button")
+
+        self.auto_actions.click_reference(self.login_web_elements.get_login_page_login_button)
+        if quick:
+            sleep(2)
+        else:
+            sleep(5)
+
+        self.utils.print_info("Check for wrong credentials..")
+        credential_warnings = self.login_web_elements.get_credentials_error_message()
+        self.utils.print_info("Wrong Credential Message: ", credential_warnings)
+        if credential_warnings is None:
+            pass
+        else:
+            if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
+                # self.utils.print_info("Wrong Credentials. Try Again")
+                kwargs['fail_msg'] = "Wrong Credentials. Try Again"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+        page_still_loading = True
+        while page_still_loading:
+            page_loading = self.login_web_elements.get_page_loading()
+            self.utils.print_info(f"Page loading element: {page_loading}")
+            if page_loading:
+                self.utils.print_info("Page is still loading")
+                sleep(3)
+            else:
+                page_still_loading = False
+                self.utils.print_info("Page is loaded successfully")
+
+        if self.login_web_elements.get_admin_portal_page().is_displayed():
+            account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
+            if account_name:
+                self.utils.print_info("Enter Account Name {account_name} in Search Field")
+                account_search_field = self.login_web_elements.get_external_admin_account_name_search_field()
+                self.auto_actions.send_keys(account_search_field, account_name)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info(f"Selecting the Account Name {account_name} in Admin Portal")
+                account_names = self.login_web_elements.get_external_admin_account_names()
+                for account in account_names:
+                    if account_name in account.text:
+                        self.auto_actions.click(account)
+                        self.screen.save_screen_shot()
+                        sleep(10)
+                        break
+            else:
+                self.utils.print_info("External Account Name Not Mentioned.So Continuing with managing own network")
+                self.screen.save_screen_shot()
+                self.auto_actions.click_reference(self.login_web_elements.get_external_admin_manage_my_network_button)
+
+        view_org_button = self.msp_web_elements.get_view_organization_button()
+        if view_org_button.is_displayed():
+            self.utils.print_info("User Credentials belongs to MSP account")
+            org_name = BuiltIn().get_variable_value("${organization_name}")
+            if org_name:
+                msp_module = extauto.xiq.flows.manage.Msp.Msp()
+                device_page_found = self.nav_web_elements.get_devices_page()
+                if not device_page_found:
+                    self.utils.print_info("Devices page not found.Navigating to Manage-->Devices Page")
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+
+                global_settings = extauto.xiq.flows.globalsettings.GlobalSetting.GlobalSetting()
+                if global_settings.search_organization_name(org_name) == 1:
+                    self.utils.print_info(f"Organization name {org_name} Already exists in MSP")
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+                    msp_module.select_organization(organization_name=org_name)
                 else:
-                    self.utils.print_info("External Account Name Not Mentioned.So Continuing with managing own network")
-                    self.screen.save_screen_shot()
+                    self.utils.print_info(f"Organization name {org_name} Not exists in MSP.So Creating organization")
+                    global_settings.create_organization(org_name)
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+                    msp_module.select_organization(organization_name=org_name)
+
+                    self.utils.print_info("Unselecting Own MSP Organization Name to Import Map")
+                    msp_module.unselect_organization(organization_name='YOUR ORGANIZATION')
+                    self.utils.print_info(f"Importing Map for New Organization {org_name} Created")
+                    network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
+                    network360Plan.import_map_in_network360plan(map_override)
+                    local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+                    local_navigator.navigate_to_devices()
+
+            else:
+                self.utils.print_info("Continuing with own organization")
+                self.screen.save_screen_shot()
+
+        # If there is a welcome page we'll need to select a option like: "30-day-trial" or "ExtremeCloud IQ License"
+        if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
+                                    salesforce_password=salesforce_password, salesforce_shared_cuid=salesforce_shared_cuid,
+                                    recover_login=recover_login, map_override=map_override, **kwargs) == -1:
+            kwargs['fail_msg'] = "'select_login_option()' Failed"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        if quick:
+            sleep(2)
+        else:
+            sleep(10)
+        if check_warning_msg:
+            self.utils.print_info("Check for Warning Messages..")
+            if self.login_web_elements.get_dialog_message():
+                self.utils.print_info("Clicking Close button")
+                self.auto_actions.click_reference(self.login_web_elements.get_dialog_box_close_button)
+
+            self.utils.print_info("Check for WIPS Warning Messages..")
+            wips_warnings = self.login_web_elements.get_wips_dialog_message()
+            self.utils.print_info("Check for WIPS Warning Message is : ", wips_warnings)
+            if self.login_web_elements.get_wips_dialog_message():
+                if "Please update existing WIPS policies" in wips_warnings:
+                    self.utils.print_info("Clicking Don't show again Checkbox")
                     self.auto_actions.click_reference(
-                        self.login_web_elements.get_external_admin_manage_my_network_button)
+                        self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox)
+                    sleep(2)
 
-            view_org_button = self.msp_web_elements.get_view_organization_button()
-            if view_org_button.is_displayed():
-                self.utils.print_info("User Credentials belongs to MSP account")
-                org_name = BuiltIn().get_variable_value("${organization_name}")
-                if org_name:
-                    msp_module = extauto.xiq.flows.manage.Msp.Msp()
-                    device_page_found = self.nav_web_elements.get_devices_page()
-                    if not device_page_found:
-                        self.utils.print_info("Devices page not found.Navigating to Manage-->Devices Page")
-                        local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
-                        local_navigator.navigate_to_devices()
+                    self.utils.print_info("Clicking Close button")
+                    self.auto_actions.click_reference(self.login_web_elements.get_wips_popup_dialog_close_button)
+                    sleep(2)
 
-                    global_settings = extauto.xiq.flows.globalsettings.GlobalSetting.GlobalSetting()
-                    if global_settings.search_organization_name(org_name) == 1:
-                        self.utils.print_info(f"Organization name {org_name} Already exists in MSP")
-                        local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
-                        local_navigator.navigate_to_devices()
-                        msp_module.select_organization(organization_name=org_name)
-                    else:
-                        self.utils.print_info(
-                            f"Organization name {org_name} Not exists in MSP.So Creating organization")
-                        global_settings.create_organization(org_name)
-                        local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
-                        local_navigator.navigate_to_devices()
-                        msp_module.select_organization(organization_name=org_name)
+            self.utils.print_info("Check for Advance Onboard Popup page after login..")
+            try:
+                if self.login_web_elements.get_drawer_content().is_displayed():
+                    self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
+            except Exception:
+                pass
+        # if self.login_web_elements.get_devices_list_check().is_displayed():
+        #     self.utils.print_info("webelement exists in the mainpage")
 
-                        self.utils.print_info("Unselecting Own MSP Organization Name to Import Map")
-                        msp_module.unselect_organization(organization_name='YOUR ORGANIZATION')
-                        self.utils.print_info(f"Importing Map for New Organization {org_name} Created")
-                        network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
-                        network360Plan.import_map_in_network360plan(map_override)
-                        local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
-                        local_navigator.navigate_to_devices()
+        # self.get_version()
+        if co_pilot_status:
+            url = BuiltIn().get_variable_value("${TEST_URL}")
+            copilot_url = f"{url}/hm-webapp/?copilotBeta=true"
+            self.utils.print_info(f"URL To Enable Co-Pilot Beta is : {copilot_url}")
+            self._enable_copilot_status_on_xiq(copilot_url)
+            self.utils.print_info("Added sleep for soft launch of copilot url")
+            sleep(15)
 
-                else:
-                    self.utils.print_info("Continuing with own organization")
-                    self.screen.save_screen_shot()
+        if capture_version:
+            self._capture_xiq_version()
 
-            # If there is a welcome page we'll need to select a option like: "30-day-trial" or "ExtremeCloud IQ License"
-            if self.select_login_option(login_option, entitlement_key=entitlement_key,
-                                        salesforce_username=salesforce_username,
-                                        salesforce_password=salesforce_password,
-                                        salesforce_shared_cuid=salesforce_shared_cuid,
-                                        recover_login=recover_login, map_override=map_override, **kwargs) == -1:
-                kwargs['fail_msg'] = "'select_login_option()' Failed"
+        try:
+            if self.login_web_elements.get_right_arrow().is_displayed():
+                self.utils.print_info("Clicking welcome popup")
+                self.auto_actions.click_reference(self.login_web_elements.click_right_arrow)
+        except Exception:
+            pass
+
+        # If set to true we won't check for or upload a map
+        if ignore_map:
+            return 1
+
+        device_page_found = self.nav_web_elements.get_devices_page()
+        tools_page_found = self.nav_web_elements.get_tools_page()
+        if device_page_found or tools_page_found:
+            return 1
+        else:
+            self.utils.print_info("Current page is not the Manage Devices or tools Page...login process not completed")
+            if not recover_login:
+                kwargs['fail_msg'] = "Current page is not the Manage Devices or tools Page...login process" \
+                                     " not completed"
                 self.common_validation.fault(**kwargs)
                 return -1
 
-            if quick:
-                sleep(2)
-            else:
-                sleep(10)
-            if check_warning_msg:
-                self.utils.print_info("Check for Warning Messages..")
-                if self.login_web_elements.get_dialog_message():
-                    self.utils.print_info("Clicking Close button")
-                    self.auto_actions.click_reference(self.login_web_elements.get_dialog_box_close_button)
+            self.utils.print_info("Attempting to load Map...")
+            network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
+            network360Plan.import_map_in_network360plan(map_override)
 
-                self.utils.print_info("Check for WIPS Warning Messages..")
-                wips_warnings = self.login_web_elements.get_wips_dialog_message()
-                self.utils.print_info("Check for WIPS Warning Message is : ", wips_warnings)
-                if self.login_web_elements.get_wips_dialog_message():
-                    if "Please update existing WIPS policies" in wips_warnings:
-                        self.utils.print_info("Clicking Don't show again Checkbox")
-                        self.auto_actions.click_reference(
-                            self.login_web_elements.get_wips_popup_dialog_dont_show_again_checkbox)
-                        sleep(2)
-
-                        self.utils.print_info("Clicking Close button")
-                        self.auto_actions.click_reference(self.login_web_elements.get_wips_popup_dialog_close_button)
-                        sleep(2)
-
-                self.utils.print_info("Check for Advance Onboard Popup page after login..")
-                try:
-                    if self.login_web_elements.get_drawer_content().is_displayed():
-                        self.auto_actions.click_reference(self.login_web_elements.get_drawer_trigger)
-                except Exception:
-                    pass
-            # if self.login_web_elements.get_devices_list_check().is_displayed():
-            #     self.utils.print_info("webelement exists in the mainpage")
-
-            # self.get_version()
-            if co_pilot_status:
-                url = BuiltIn().get_variable_value("${TEST_URL}")
-                copilot_url = f"{url}/hm-webapp/?copilotBeta=true"
-                self.utils.print_info(f"URL To Enable Co-Pilot Beta is : {copilot_url}")
-                self._enable_copilot_status_on_xiq(copilot_url)
-                self.utils.print_info("Added sleep for soft launch of copilot url")
-                sleep(15)
-
-            if capture_version:
-                self._capture_xiq_version()
-
-            try:
-                if self.login_web_elements.get_right_arrow().is_displayed():
-                    self.utils.print_info("Clicking welcome popup")
-                    self.auto_actions.click_reference(self.login_web_elements.click_right_arrow)
-            except Exception:
-                pass
-
-            # If set to true we won't check for or upload a map
-            if ignore_map:
-                return 1
+            self.utils.print_info("Attempting to move to the Manage Device Page...")
+            local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
+            local_navigator.navigate_to_devices()
 
             device_page_found = self.nav_web_elements.get_devices_page()
-            tools_page_found = self.nav_web_elements.get_tools_page()
-            if device_page_found or tools_page_found:
+            if device_page_found:
                 return 1
             else:
-                self.utils.print_info(
-                    "Current page is not the Manage Devices or tools Page...login process not completed")
-                if not recover_login:
-                    kwargs['fail_msg'] = "Current page is not the Manage Devices or tools Page...login process" \
-                                         " not completed"
-                    self.common_validation.fault(**kwargs)
-                    return -1
+                kwargs['fail_msg'] = "Device page not found"
+                self.common_validation.fault(**kwargs)
+                return -1
 
-                self.utils.print_info("Attempting to load Map...")
-                network360Plan = extauto.xiq.flows.mlinsights.Network360Plan.Network360Plan()
-                network360Plan.import_map_in_network360plan(map_override)
-
-                self.utils.print_info("Attempting to move to the Manage Device Page...")
-                local_navigator = extauto.xiq.flows.common.Navigator.Navigator()
-                local_navigator.navigate_to_devices()
-
-                device_page_found = self.nav_web_elements.get_devices_page()
-                if device_page_found:
-                    return 1
-                else:
-                    kwargs['fail_msg'] = "Device page not found"
-                    self.common_validation.fault(**kwargs)
-                    return -1
-
-            return 1
+        return 1
 
     # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
     #@deprecated('Please use the {logout_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
@@ -488,25 +475,12 @@ class Login(object, metaclass=Singleton):
         - Logout the current user
         - Keyword Usage:
         - ``Logout User``
-
         :return: 1 if logout success, -1 if logout not successful
-
         Supported Modes:
             UI - default mode
             XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
-
         :return: 1 if logout success
         """
-
-        if self.xapiLogin.is_xapi_enabled(**kwargs):
-            # remove the token for xpapi
-            self.xapiLogin.logout(**kwargs)
-
-            # Look for the XAPI_ONLY and if set return
-            xapi_only = kwargs.get('XAPI_ONLY', False)
-            if xapi_only:
-                self.utils.print_info("XAPI_ONLY detected in logout, XAPI ONLY TEST")
-                return 1
 
         # stop tool tip text capture thread
         self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -545,7 +519,6 @@ class Login(object, metaclass=Singleton):
         - if the driver object is passed, quits only the specified browser and returns
         - Keyword Usage:
         - ``Quit Browser``
-
         :param _driver: Use this to close a specific browser window instead of all browswer windows
         :return: 1 if success
         """
@@ -582,7 +555,6 @@ class Login(object, metaclass=Singleton):
     def start_video_record(self, record_sta_ip, test_name=None):
         """
         - This Keyword will Start Video Record on mentioned machine IP Address .
-
         :param record_sta_ip: Station IP address to Start the Video Recordings
         :param test_name: Test Name for Video Recordings
         :return: None
@@ -599,7 +571,6 @@ class Login(object, metaclass=Singleton):
     def stop_video_record(self, record_sta_ip):
         """
         - This Keyword will Stop Video Record on mentioned machine IP Address .
-
         :param record_sta_ip: Station IP address to Stop the Video Recordings
         :return: None
         """
@@ -611,7 +582,6 @@ class Login(object, metaclass=Singleton):
     def _post_url(self, url):
         """
         - This method is used to call the API requests using requests
-
         :param url: api complete url
         :return: response_code, json_response, total_time
         """
@@ -639,7 +609,6 @@ class Login(object, metaclass=Singleton):
         - Loads web page with the passed URL
         - Keyword Usage:
         - ``Load Web Page    ${URL}``
-
         :param url: Proper URL
         :return: creates global driver object & returns
         """
@@ -654,7 +623,6 @@ class Login(object, metaclass=Singleton):
         - Set new password for the account
         - Keyword Usage:
         - ``Set Password   ${NEW_PASSWORD}``
-
         :param new_pwd: New Password string to set
         :return: 1 if Able to Set the Password Successfully for the Account else None
         """
@@ -691,7 +659,6 @@ class Login(object, metaclass=Singleton):
         - Reset the user account password
         - Keyword Usage:
         - `` Reset Password  ${NEW_PASSWORD}``
-
         :param new_pwd:
         :return: 1 if able to Reset the Password Successfully
         """
@@ -719,7 +686,6 @@ class Login(object, metaclass=Singleton):
         - Get the link to set the forget password
         - Keyword Usage:
         - ``Forget Password   ${EMAIL}``
-
         :param _email: Email Address
         :param url: Forget Password URL
         :return: 1 if reset password message displayed on Page else -1
@@ -759,7 +725,6 @@ class Login(object, metaclass=Singleton):
     def _capture_data_center_name(self, **kwargs):
         """
         - Get XIQ Data Center Name
-
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: data_center_name
         """
@@ -788,7 +753,6 @@ class Login(object, metaclass=Singleton):
     def _capture_xiq_version(self, **kwargs):
         """
         - Get XIQ Build version details
-
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: xiq_version
         """
@@ -820,7 +784,6 @@ class Login(object, metaclass=Singleton):
         - Reset password for xiq account with passed reset password url link
         - Keyword Usage:
         - ``Reset Password For New Account  ${RESET_PASSWORD}   ${RESET_URL_LINK}``
-
         :param password:  password to reset
         :param url: reset password url link
         :return: 1
@@ -888,7 +851,6 @@ class Login(object, metaclass=Singleton):
         - This method is used to get the build id or owner id
         - Keyword Usage:
         - ``Get Viq Owner Id``
-
         :return: viq id
         """
         self.screen.save_screen_shot()
@@ -914,7 +876,6 @@ class Login(object, metaclass=Singleton):
         - This Keyword is used to get the url of current loaded page
         - Keyword Usage:
         - ``Get Base URL Of Current Page``
-
         :return: current page url
         """
         base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', CloudDriver().cloud_driver.current_url)
@@ -927,7 +888,6 @@ class Login(object, metaclass=Singleton):
         - This Keyword returns URL of current page
         - Keyword Usage:
         - ``Get Current Page URL``
-
         :return: current page url
         """
         return CloudDriver().cloud_driver.current_url
@@ -937,7 +897,6 @@ class Login(object, metaclass=Singleton):
         - This keyword detects a license of 90 days and clicks on the option of 90 days
         - Keyword Usage:
         - ``skip_if_account_90_days``
-
         :return: None
         """
         self.utils.print_info(" Select the option of 90 days trial if exists")
@@ -956,7 +915,6 @@ class Login(object, metaclass=Singleton):
     def get_data_center_name(self):
         """
         - Get XIQ Data Center Name
-
         :return: data_center_name
         """
         return self._capture_data_center_name()
@@ -964,7 +922,6 @@ class Login(object, metaclass=Singleton):
     def get_xiq_version(self):
         """
         - Get XIQ Build version details
-
         :return: xiq_version
         """
         return self._capture_xiq_version()
@@ -972,7 +929,6 @@ class Login(object, metaclass=Singleton):
     def switch_to_window(self, win_index):
         """
         - Switches to the specified window
-
         :param:  win_index - Index of the window to switch to
         :return: None
         """
@@ -981,7 +937,6 @@ class Login(object, metaclass=Singleton):
     def close_window(self, win_index):
         """
         - Closes the specified window
-
         :param:  win_index - Index of the window to close
         :return: None
         """
@@ -993,7 +948,6 @@ class Login(object, metaclass=Singleton):
         - if the driver object is passed, quits and returns
         - Keyword Usage:
         - ``XIQ Quit Browser``
-
         :param _driver: specific driver to use; if not specified, default driver will be used
         :return: None
         """
@@ -1034,7 +988,6 @@ class Login(object, metaclass=Singleton):
     def logo_check_on_login_screen(self):
         """
         - Get the login logo and save it as screenshot
-
         :return: login logo
         """
         sleep(5)
@@ -1045,7 +998,6 @@ class Login(object, metaclass=Singleton):
     def _enable_copilot_status_on_xiq(self, url):
         """
         - This keyword is to enable Co-Pilot Beta status on XIQ UI
-
         :param url: url to load for enabling Co-Pilot Beta status on XIQ UI
         :return: 1 if loaded the url successfully
         """
@@ -1066,7 +1018,6 @@ class Login(object, metaclass=Singleton):
         - ``Login User   ${USERNAME}   ${PASSWORD}``
         - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
         - $login_type} : trial, connect, extremecloudiq license, legacy license
-
         :param username: login account username
         :param password: login account password
         :param login_option: trial, connect, extremecloudiq license, legacy license
@@ -1390,7 +1341,6 @@ class Login(object, metaclass=Singleton):
         - Assumes that user already in login option selection page
         - Keyword Usage:
         - ``Login For First Time``
-
         :return: 1
         """
 
@@ -1465,7 +1415,6 @@ class Login(object, metaclass=Singleton):
                             recover_login=True, map_override=None, **kwargs):
         """
         Select a login option for when logging into a VIQ that is new or has recently been reset
-
         :param login_option: A string reprensting the type of account that should be used for the new or recently reset
                   VIQ.  Options include:
                      "30-day-trial"
@@ -2150,7 +2099,6 @@ class Login(object, metaclass=Singleton):
     def switch_to_extreme_guest_window(self, win_index=1):
         """
         - Switches to the specified window
-
         :param:  win_index - Index of the window to switch to
         :return: 1
         """
@@ -2160,7 +2108,6 @@ class Login(object, metaclass=Singleton):
     def close_extreme_guest_window(self, win_index=1):
         """
         - Closes the specified window
-
         :param:  win_index - Index of the window to close
         :return: 1
         """
