@@ -308,7 +308,7 @@ class Login(object, metaclass=Singleton):
         if self.login_web_elements.get_admin_portal_page().is_displayed():
             account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
             if account_name:
-                self.utils.print_info(f"Enter Account Name {account_name} in Search Field")
+                self.utils.print_info(f"Entering Account Name {account_name} in Search Field")
                 account_search_field = self.login_web_elements.get_external_admin_account_name_search_field()
                 self.auto_actions.send_keys(account_search_field, account_name)
                 self.screen.save_screen_shot()
