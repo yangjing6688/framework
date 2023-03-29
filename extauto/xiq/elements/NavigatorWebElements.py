@@ -720,3 +720,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_grid_spinner(self):
         return self.weh.get_elements(self.grid_spinner)
+
+    def get_tools_page(self):
+        return self.weh.get_element(self.tools_page)
