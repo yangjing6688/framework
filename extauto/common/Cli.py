@@ -2531,7 +2531,7 @@ class Cli(object):
             if "PoE Main Status" in result:
                 check_poe = True
             elif "POE not supported by device" in result:
-                kwargs['fail_msg'] = f"POE not supported by device"
+                kwargs['fail_msg'] = "POE not supported by device"
                 self.commonValidation.failed(**kwargs)
                 return -1
             
@@ -2544,7 +2544,7 @@ class Cli(object):
             try:
                 result = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
             except Exception:
-                kwargs['fail_msg'] = f"POE not supported by device"
+                kwargs['fail_msg'] = "POE not supported by device"
                 self.commonValidation.failed(**kwargs)
                 return -1
             
@@ -2553,7 +2553,7 @@ class Cli(object):
                 self.utils.print_info("EXOS device supports PoE")
                 check_poe = True
             else:
-                kwargs['fail_msg'] = f"POE not supported by device"
+                kwargs['fail_msg'] = "POE not supported by device"
                 self.commonValidation.failed(**kwargs)
                 return -1
             
@@ -2575,12 +2575,12 @@ class Cli(object):
                 self.utils.print_info("EXOS device supports PoE")
                 check_poe = True
             else:
-                kwargs['fail_msg'] = f"POE not supported by device"
+                kwargs['fail_msg'] = "POE not supported by device"
                 self.commonValidation.failed(**kwargs)
                 return -1
             
         else:
-            kwargs['fail_msg'] = f"CLI type not supported"
+            kwargs['fail_msg'] = "CLI type not supported"
             self.commonValidation.failed(**kwargs)
             return -1
         
@@ -2607,17 +2607,17 @@ class Cli(object):
                             r"(\w+['Inline']\s+\w+['Power]\s+\w+['System']\s+\w+['Information'])",1)
             
             if not inline_power_info:
-                kwargs['fail_msg'] = f"POE not supported by device"
+                kwargs['fail_msg'] = "POE not supported by device"
                 self.commonValidation.failed(**kwargs)
                 return -1
             
             else:
                 self.utils.print_info("EXOS device supports PoE")
                 #get PoE values
-                var_operational_power = self.utils.get_regexp_matches(elem, "\w+['Operational']\s+(\d+)", 1)
+                var_operational_power = self.utils.get_regexp_matches(elem, r"\w+['Operational']\s+(\d+)", 1)
                 
                 if not var_operational_power:
-                    kwargs['fail_msg'] = f"Device POE is not opperational"
+                    kwargs['fail_msg'] = "Device POE is not opperational"
                     self.commonValidation.failed(**kwargs)
                     return -1
                 
@@ -2684,7 +2684,7 @@ class Cli(object):
                 self.commonValidation.passed(**kwargs)
                 return inline_power_slot
 
-            kwargs['fail_msg'] = f"POE not supported by device"
+            kwargs['fail_msg'] = "POE not supported by device"
             self.commonValidation.failed(**kwargs)
             return -1
 
@@ -2712,7 +2712,7 @@ class Cli(object):
                 return power_slot
 
             else:
-                kwargs['fail_msg'] = f"PSU details cannot be collected"
+                kwargs['fail_msg'] = "PSU details cannot be collected"
                 self.commonValidation.failed(**kwargs)
                 return -1
 
@@ -2735,7 +2735,7 @@ class Cli(object):
                 all_powers_list = []
 
                 operational_power_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Output', max_wait=30, interval=10)[0].cmd_obj._return_text
-                operational_power_slot = self.utils.get_regexp_matches(operational_power_details, "\d+['V]\/(\d+)['W]\s+\w+", 1)
+                operational_power_slot = self.utils.get_regexp_matches(operational_power_details, r"\d+['V]\/(\d+)['W]\s+\w+", 1)
                 power_usage_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Power', max_wait=30, interval=10)[0].cmd_obj._return_text
                 power_usage_slot = self.utils.get_regexp_matches(power_usage_details, r"\w+['Slot'].\d\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+(\d+.\d+)\s+\w+", 1)
                 for operational_power_slot_element in operational_power_slot:
@@ -2750,7 +2750,7 @@ class Cli(object):
 
             else:
                 powerdetails = self.networkElementCliSend.send_cmd(dut.name, 'show power detail', max_wait=30, interval=10)[0].cmd_obj._return_text
-                psu_details = self.utils.get_regexp_matches(powerdetails,"(\w+['PowerSupply']\s\w\s\w+['information'])", 1)[0]
+                psu_details = self.utils.get_regexp_matches(powerdetails, r"(\w+['PowerSupply']\s\w\s\w+['information'])", 1)[0]
 
                 if psu_details in powerdetails:
                     total_power_available = self.utils.get_regexp_matches(powerdetails, r"\w+['Output']\s+\d+\s*\S\s\d*.\d*\s+\w+.\s+\d+.\d+\s+\w+\s+\S\d+\w\/(\d+)", 1)[0]
@@ -2763,7 +2763,7 @@ class Cli(object):
                     return [total_power_available, str(new_total_power_consumed)]
 
                 else:
-                    kwargs['fail_msg'] = f"Total and Consumed power can't be collected"
+                    kwargs['fail_msg'] = "Total and Consumed power can't be collected"
                     self.commonValidation.fault(**kwargs)
                     return -1
 
@@ -2802,7 +2802,7 @@ class Cli(object):
                 self.commonValidation.passed(**kwargs)
                 return [str(int(threshold_power_changed_watts)), var_operational_power]
 
-            kwargs['fail_msg'] = f"POE not supported by device"
+            kwargs['fail_msg'] = "POE not supported by device"
             self.commonValidation.failed(**kwargs)
             return -1
 

@@ -5468,8 +5468,6 @@ class Device360(Device360WebElements):
         :param device_name: Device Name
         :return: list with power supply details
         """
-        rez = -1
-
         def _power_detail():
             power_el = self.dev360.get_device360_thunderbold_icon()
             if power_el:
@@ -5485,7 +5483,7 @@ class Device360(Device360WebElements):
             self.utils.wait_till(self.dev360.get_device360_power_details, timeout=5, is_logging_enabled=True, delay=1)
             power_details = self.dev360.get_device360_power_details()
             if power_details:
-                self.utils.print_info(f"Power details from XIQ are : ", power_details.text)
+                self.utils.print_info("Power details from XIQ are : ", power_details.text)
                 self.utils.print_info("Close Dialogue Window")
                 self.screen.save_screen_shot()
                 details = power_details.text
@@ -5497,7 +5495,7 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Power details not found")
                 self.auto_actions.click(self.get_close_dialog())
                 self.screen.save_screen_shot()
-                kwargs['fail_msg'] = f"Power details not found"
+                kwargs['fail_msg'] = "Power details not found"
                 self.common_validation.fault(**kwargs)
                 return False
 
