@@ -2512,6 +2512,7 @@ class Cli(object):
         Currently this method supports only devices with cli_type exos/voss.
         
         :param dut: the dut, e.g. tb.dut1
+        :return: 1 if the function call has succeeded else -1
         """
         
         if dut.cli_type.lower() not in ["exos", "voss"]:
@@ -2519,7 +2520,7 @@ class Cli(object):
             self.commonValidation.fault(**kwargs)
             return -1
         
-        check_poe = False
+        check_poe = 1
         if dut.cli_type.lower() == "voss":
             
             self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=30, interval=10)
@@ -2529,7 +2530,7 @@ class Cli(object):
             self.utils.print_info(f"Result was: {result}")
             
             if "PoE Main Status" in result:
-                check_poe = True
+                check_poe = 1
             elif "POE not supported by device" in result:
                 kwargs['fail_msg'] = "POE not supported by device"
                 self.commonValidation.failed(**kwargs)
@@ -2551,7 +2552,7 @@ class Cli(object):
             self.utils.print_info(f"Result was: {result}")
             if 'Inline Power System Information' in result:
                 self.utils.print_info("EXOS device supports PoE")
-                check_poe = True
+                check_poe = 1
             else:
                 kwargs['fail_msg'] = "POE not supported by device"
                 self.commonValidation.failed(**kwargs)
@@ -2573,7 +2574,7 @@ class Cli(object):
             self.utils.print_info(f"Result was: {result}")
             if 'Firmware Status' in result:
                 self.utils.print_info("EXOS device supports PoE")
-                check_poe = True
+                check_poe = 1
             else:
                 kwargs['fail_msg'] = "POE not supported by device"
                 self.commonValidation.failed(**kwargs)
@@ -2593,6 +2594,7 @@ class Cli(object):
         Currently this method supports only devices with cli_type exos.
         
         :param dut: the dut, e.g. tb.dut1
+        :return: a list with two string elements (the threshold power and the operation power) if the function call has succeeded else -1
         """
 
         if dut.cli_type.lower() not in ["exos"]:
@@ -2640,6 +2642,7 @@ class Cli(object):
         Currently this method supports only devices with cli_type exos.
         
         :param dut: the dut, e.g. tb.dut1
+        :return: the power usage as int if the function call has succeeded else -1
         """
 
         if dut.cli_type.lower() not in ["exos"]:
@@ -2668,6 +2671,7 @@ class Cli(object):
         Currently this method supports only devices with cli_type exos.
         
         :param dut: the dut, e.g. tb.dut1
+        :return: a list of strings (where each string is a slot of the stack) if the function call has succeeded else -1
         """
 
         if dut.cli_type.lower() not in ["exos"]:
@@ -2694,6 +2698,7 @@ class Cli(object):
         Currently this method supports only devices with cli_type exos.
         
         :param dut: the dut, e.g. tb.dut1
+        :return: a list of strings if the function call has succeeded else -1
         """
         
         if dut.cli_type.lower() not in ["exos"]:
@@ -2704,7 +2709,8 @@ class Cli(object):
         if dut.cli_type.lower() == "exos":
             
             power_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Power', max_wait=30, interval=10)[0].cmd_obj._return_text
-            power_slot = self.utils.get_regexp_matches(power_details, r"\w+['Slot'].(\d)\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+\d+.\d+", 1)
+            power_slot = self.utils.get_regexp_matches(
+                power_details, r"\w+['Slot'].(\d)\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+\d+.\d+", 1)
             self.utils.print_info(power_slot)
 
             if type(power_slot) == list or type(power_slot) == str:
@@ -2722,6 +2728,7 @@ class Cli(object):
         Currently this method supports only devices with cli_type exos.
         
         :param dut: the dut, e.g. tb.dut1
+        :return: a list of strings if the function call has succeeded else -1
         """
 
         if dut.cli_type.lower() not in ["exos"]:
@@ -2774,6 +2781,7 @@ class Cli(object):
         
         :param dut: the dut, e.g. tb.dut1
         :param new_threshold_value: the int value of the new_threshold_value, 0-100
+        :return: a list of strings if the function call has succeeded else -1
         """
 
         if dut.cli_type.lower() not in ["exos"]:
