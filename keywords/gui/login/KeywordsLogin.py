@@ -359,7 +359,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         -    GUI
         -    XAPI - ** Not Supported **
 
-        :return: 1 if success
+        :return: Returns the page title that "ExtremeCloud IQ" if success. Returns "" if not success.
         """
 
         # Notes:
@@ -372,7 +372,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Assume if no page title
-        return_code = -1
+        return_code = ""
 
         # Call the helper function that implements this keyword
         try:
@@ -383,12 +383,6 @@ class KeywordsLogin(object, metaclass=Singleton):
                     return_code = self.login.gui_get_page_title()
                 else:
                     return_code = self.keyword_utils.implementations.not_supported(**kwargs)
-
-                    # not_supported() returns True if keyword should pass else returns False
-                    if return_code:
-                        return_code = 0
-                    else:
-                        return_code = -1
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
