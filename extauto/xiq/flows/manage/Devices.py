@@ -3492,6 +3492,8 @@ class Devices:
         sleep(2)
         self.utils.print_info("Column list to select: ", columns)
         for filter_ in columns:
+            # Get the row index base on the name of the column
+            # This will be used when clicking on the element represetning that row
             filter_row, row_num = self._get_column_picker_filter_exact(filter_)
             if filter_row != "":
                 row_inputs = self.devices_web_elements.get_column_picker_row_input()
@@ -3501,14 +3503,27 @@ class Devices:
                     if row_input_count == row_num:
                         ans = row_inp.get_attribute("checked")
                         if ans == "true":
-                            self.utils.print_info(f"Column Picker Filter {filter_} is already checked")
+                            self.utils.print_info(f"Column Picker Filter '{filter_}' is already checked")
                             self.screen.save_screen_shot()
                             selected_columns.append(filter_)
+                            break
                         else:
-                            self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
+                            self.utils.print_info(f"Column Picker Filter '{filter_}' is not already checked - checking")
                             self.auto_actions.click(filter_row)
                             self.screen.save_screen_shot()
-                            selected_columns.append(filter_)
+                            value_after_click_action = row_inp.get_attribute("checked")
+                            if value_after_click_action != "true":
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is not enable")
+                                self.screen.save_screen_shot()
+                                self.close_last_refreshed_tooltip()
+                                self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
+                                sleep(2)
+                                kwargs['fail_msg'] = f"Failed to enable '{filter_}' via the Column Picker Filter"
+                                self.common_validation.fault(**kwargs)
+                                return -1
+                            else:
+                                selected_columns.append(filter_)
+                            break
             else:
                 self.utils.print_info("Unable to select the Column Picker Filter ", filter_)
                 unselected_columns.append(filter_)
