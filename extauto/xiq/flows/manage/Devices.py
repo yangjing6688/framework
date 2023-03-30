@@ -11417,10 +11417,10 @@ class Devices:
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
-
+        sleep(2)
         self.utils.print_info("Selecting image option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
-        sleep(5)
+        sleep(2)
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
@@ -11430,7 +11430,7 @@ class Devices:
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
-
+        sleep(2)
         self.utils.print_info("Selecting image option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
 
