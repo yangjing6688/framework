@@ -5488,12 +5488,20 @@ class Device360(Device360WebElements):
                 self.screen.save_screen_shot()
                 details = power_details.text
                 self.utils.print_info("Close Dialogue Window")
-                self.auto_actions.click(self.get_close_dialog())
+
+                if self.auto_actions.click_reference(self.get_close_dialog) != 1:
+                    kwargs["fail_msg"] = "Failed to click the close_dialog element"
+                    self.common_validation.fault(**kwargs)
+            
                 self.common_validation.passed(**kwargs)
                 return details
             else:
                 self.utils.print_info("Power details not found")
-                self.auto_actions.click(self.get_close_dialog())
+                
+                if self.auto_actions.click_reference(self.get_close_dialog) != 1:
+                    kwargs["fail_msg"] = "Failed to click the close_dialog element"
+                    self.common_validation.fault(**kwargs)
+                
                 self.screen.save_screen_shot()
                 kwargs['fail_msg'] = "Power details not found"
                 self.common_validation.fault(**kwargs)
