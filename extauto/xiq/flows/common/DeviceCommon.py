@@ -296,7 +296,6 @@ class DeviceCommon(DeviceCommonElements):
                             if self.get_cell_href(cell):
                                 self.auto_actions.click(self.get_cell_href(cell))
                                 sleep(5)
-                                self.screen.save_screen_shot()
                                 kwargs['pass_msg'] = "Clicked on device cell"
                                 self.common_validation.passed(**kwargs)
                                 return 1
