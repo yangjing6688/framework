@@ -66,7 +66,12 @@ class Login(object, metaclass=Singleton):
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
             self.window_index = CloudDriver().open_window(url)
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_page_title} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_page_title(self):
+        return self.gui_get_page_title()
+
+    def gui_get_page_title(self):
         """
         - Get the title of the page
         - Keyword Usage:
