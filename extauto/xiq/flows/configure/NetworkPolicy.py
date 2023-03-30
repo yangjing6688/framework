@@ -2890,18 +2890,6 @@ class NetworkPolicy(object):
         self.utils.print_info(f"Policy name is: {policy_name}")
         return policy_name
 
-    # def navigate_to_switching_tab(self, policy_name):
-    #     """
-    #     Method used to create a Network Policy, navigate to Edit Tab then Switching Tab
-    #     :param policy_name: the name of the policy
-    #     :return:
-    #     """
-    #
-    #     assert self.navigate_to_np_edit_tab(policy_name=policy_name) == 1, \
-    #         "Failed to navigate to Network Policy Edit Tab"
-    #
-    #     self.get_switching_tab()
-
     def open_network_policy_ssid_page(self, policy_name, ssid_name, **kwargs):
         """
         - This Keyword will Open Particular SSID name of the wireless network in the network policy
