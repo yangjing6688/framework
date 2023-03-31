@@ -5468,7 +5468,45 @@ class Device360(Device360WebElements):
         :param device_name: Device Name
         :return: list with power supply details
         """
-        rez = -1
+        def _power_detail():
+            power_el = self.dev360.get_device360_thunderbold_icon()
+            if power_el:
+                self.utils.print_info("Power Details")
+                self.auto_actions.click_and_hold_element(power_el)
+                self.auto_actions.move_to_element(power_el)
+                self.screen.save_screen_shot()
+            else:
+                self.utils.print_info("Power details not found")
+                self.screen.save_screen_shot()
+                return False
+
+            self.utils.wait_till(self.dev360.get_device360_power_details, timeout=5, is_logging_enabled=True, delay=1)
+            power_details = self.dev360.get_device360_power_details()
+            if power_details:
+                self.utils.print_info("Power details from XIQ are : ", power_details.text)
+                self.utils.print_info("Close Dialogue Window")
+                self.screen.save_screen_shot()
+                details = power_details.text
+                self.utils.print_info("Close Dialogue Window")
+
+                if self.auto_actions.click_reference(self.get_close_dialog) != 1:
+                    kwargs["fail_msg"] = "Failed to click the close_dialog element"
+                    self.common_validation.fault(**kwargs)
+            
+                self.common_validation.passed(**kwargs)
+                return details
+            else:
+                self.utils.print_info("Power details not found")
+                
+                if self.auto_actions.click_reference(self.get_close_dialog) != 1:
+                    kwargs["fail_msg"] = "Failed to click the close_dialog element"
+                    self.common_validation.fault(**kwargs)
+                
+                self.screen.save_screen_shot()
+                kwargs['fail_msg'] = "Power details not found"
+                self.common_validation.fault(**kwargs)
+                return False
+
         self.navigator.navigate_to_devices()
         if device_mac:
             self.utils.print_info("Checking Search Result with Device Mac : ", device_mac)
@@ -5481,34 +5519,66 @@ class Device360(Device360WebElements):
             if device_row:
                 self.navigator.navigate_to_device360_page_with_host_name(device_name)
 
-        self.utils.wait_till(self.dev360.get_device360_thunderbold_icon, timeout=30, is_logging_enabled=True, delay=5)
-        power_el = self.dev360.get_device360_thunderbold_icon()
-        if power_el:
-            self.utils.print_info("Power Details")
-            self.auto_actions.click_and_hold_element(power_el)
-            self.auto_actions.move_to_element(power_el)
-            self.screen.save_screen_shot()
-        else:
-            self.utils.print_info("Power details not found")
-            self.screen.save_screen_shot()
+        self.utils.wait_till(self.dev360.get_device360_thunderbold_icon, timeout=20, is_logging_enabled=True, delay=1)
+        res = self.utils.wait_till(_power_detail, timeout=20, is_logging_enabled=True, delay=1)[0]
+        self.common_validation.passed(**kwargs)
 
-        self.utils.wait_till(self.dev360.get_device360_power_details, timeout=30, is_logging_enabled=True, delay=5)
-        power_details = self.dev360.get_device360_power_details()
-        if power_details:
-            self.utils.print_info(f"Power details from XIQ are : {power_details.text}")
-            # self.utils.print_info("Close Dialogue Window")
-            # self.auto_actions.click_reference(self.get_close_dialog)
-            # self.screen.save_screen_shot()
-            rez = power_details.text
-            self.auto_actions.click_reference(self.get_close_dialog)
-        else:
-            self.utils.print_info("Power details not found")
-            self.auto_actions.click_reference(self.get_close_dialog)
-            kwargs['fail_msg'] = "Power details not found"
-            self.common_validation.failed(**kwargs)
-            return -1
-        return str(rez)
+        return str(res)
 
+    def unlock_device360_port_config(self, raise_error_if_button_not_found=False, **kwargs):
+        """
+        Method that unlocks the port configuration menu in Device360.
+        
+        :param raise_error_if_button_not_found: specifies if an error should be raised if the button is not found
+                                                it is disabled by default so the keyword is backwards compatible   
+        :return: 1 if the function call has succeeded else -1
+        """
+        unlock_button, _ = self.utils.wait_till(
+            func=self.get_device360_unlock_port_config_button,
+            exp_func_resp=True,
+            silent_failure=True, 
+            delay=3
+        )
+        
+        if not unlock_button:
+            if raise_error_if_button_not_found:
+                kwargs["fail_msg"] = "Failed to get the device360_unlock_port_config_button element"
+                self.common_validation.failed(**kwargs)
+                return -1
+   
+        if unlock_button:
+            
+            if not unlock_button.is_displayed():
+                kwargs["pass_msg"] = "The device360 unlock button is already pressed"
+                self.common_validation.passed(**kwargs)
+                return 1
+
+            if self.auto_actions.click_reference(lambda: unlock_button) != 1:
+                kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_button element"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
+            confirmation_button, _ = self.utils.wait_till(
+                func=self.get_device360_unlock_port_config_confirmation_button,
+                exp_func_resp=True,
+                silent_failure=True, 
+                delay=3
+            )
+        
+            if not confirmation_button:
+                kwargs["fail_msg"] = "Failed to get the device360_unlock_port_config_confirmation_button element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            if self.auto_actions.click_reference(lambda: confirmation_button) != 1:
+                kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_confirmation_button element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            kwargs["pass_msg"] = "Successfully clicked device360 unlock button"
+            self.common_validation.passed(**kwargs)
+            return 1
+        
     def device360_configure_poe_threshold_value(self, threshold_value, device_mac="", device_name="", **kwargs):
         """
         - This keyword will configure the POE threshold value in Device 360
@@ -5537,6 +5607,10 @@ class Device360(Device360WebElements):
         self.select_configure_tab()
         self.select_port_configuration_view()
         sleep(2)
+
+        self.unlock_device360_port_config()
+        
+        sleep(5)
         self.utils.print_info("Click PSE Tab")
         self.auto_actions.click_reference(self.get_device360_port_configuration_pse_tab)
         sleep(2)
@@ -5549,6 +5623,7 @@ class Device360(Device360WebElements):
             self.common_validation.fault(**kwargs)
             return -1
         sleep(2)
+            
         edit_threshold_poe = self.get_device360_edit_threshold_poe()
         self.utils.print_info("Editing threshold value")
         self.auto_actions.send_keys(edit_threshold_poe, Keys.CONTROL + "a" + Keys.BACK_SPACE)
@@ -7935,6 +8010,10 @@ class Device360(Device360WebElements):
         self.select_port_configuration_view()
         self.select_stack_unit(slot=slot)
         sleep(2)
+        
+        self.unlock_device360_port_config()
+        sleep(2)
+        
         self.utils.print_info("Click PSE Tab")
         self.auto_actions.click_reference(self.get_device360_port_config_pse_tab_slot_stack)
         sleep(2)
