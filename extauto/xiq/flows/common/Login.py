@@ -30,9 +30,14 @@ import extauto.xiq.flows.globalsettings.GlobalSetting
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 
-class Login:
+class Login(object, metaclass=Singleton):
 
     def __init__(self):
+        # This is a singleton, avoid initializing for each instance
+        if hasattr(self, 'initialized'):
+            return
+        self.initialized = True
+
         self.common_validation = CommonValidation()
         self.record = False
         self.t1 = None
