@@ -27,3 +27,4 @@ extremecloudiq-api==23.1.0.40
 docstring-parser==0.15
 opencv-python
 beautifulsoup4
+robotframework-dependencylibrary==4.0.1
