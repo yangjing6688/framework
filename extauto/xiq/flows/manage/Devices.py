@@ -59,6 +59,41 @@ class Devices:
         self.cloud_driver = CloudDriver()
         self.xapiDevices = XapiDevices()
 
+        self.device_column_values = {'LOCATION': 'locationName',
+                                    'NTP STATE': 'ntp_state',
+                                    'MGT IP ADDRESS': 'ipAddress',
+                                    'MAC': 'macAddress',
+                                    'CLIENTS': 'activeClientCount',
+                                    'HOST NAME': 'hostname',
+                                    'MODEL': 'productType',
+                                    'MAKE': 'make',
+                                    'UPDATED': 'updatedOn',
+                                    'UPTIME': 'systemUpTime',
+                                    'SERIAL': 'serialNumber',
+                                    'MGT VLAN': 'mgtVlan',
+                                    'POLICY': 'networkPolicyName',
+                                    'COUNTRY': 'countryCode',
+                                    'WIFI0 POWER': 'power24g',
+                                    'WIFI1 POWER': 'power5g',
+                                    'WIFI2 POWER': 'power6g',
+                                    'WIFI0 CHANNEL': 'channel24g',
+                                    'WIFI1 CHANNEL': 'channel5g',
+                                    'WIFI2 CHANNEL': 'channel6g',
+                                    'WIFI0 RADIO PROFILE': 'radioProfile24g',
+                                    'WIFI1 RADIO PROFILE': 'radioProfile5g',
+                                    'WIFI2 RADIO PROFILE': 'radioProfile6g',
+                                    'OS VERSION': 'softwareVersion',
+                                    'OS': 'os',
+                                    'IQAGENT': 'agentVersion',
+                                    'MANAGED': 'adminState',
+                                    'MANAGED BY': 'managedBy',
+                                    'CLOUD CONFIG GROUPS': 'cloudConfigGroups',
+                                    'WAN IP ADDRESS': 'wanIpAddress',
+                                    'PUBLIC IP ADDRESS': 'extIpAddress',
+                                    'DEVICE LICENSE': 'subscriptionLicense',
+                                    'COPILOT': 'copilotLicenseStatus'
+                                     }
+
     @deprecated("Please use onboard_device_quick(...)")
     def _onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
         """
@@ -574,40 +609,6 @@ class Devices:
                       UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN, COPILOT
         :return: column header value
         """
-        label_map = {'LOCATION': 'locationName',
-                     'NTP STATE': 'ntp_state',
-                     'MGT IP ADDRESS': 'ipAddress',
-                     'MAC': 'macAddress',
-                     'CLIENTS': 'activeClientCount',
-                     'HOST NAME': 'hostname',
-                     'MODEL': 'productType',
-                     'MAKE': 'make',
-                     'UPDATED': 'updatedOn',
-                     'UPTIME': 'systemUpTime',
-                     'SERIAL': 'serialNumber',
-                     'MGT VLAN': 'mgtVlan',
-                     'POLICY': 'networkPolicyName',
-                     'COUNTRY': 'countryCode',
-                     'WIFI0 POWER': 'power24g',
-                     'WIFI1 POWER': 'power5g',
-                     'WIFI0 CHANNEL': 'channel24g',
-                     'WIFI1 CHANNEL': 'channel5g',
-                     'WIFI2 POWER': 'power6g',
-                     'WIFI2 CHANNEL': 'channel6g',
-                     'WIFI0 RADIO PROFILE': 'radioProfile24g',
-                     'WIFI1 RADIO PROFILE': 'radioProfile5g',
-                     'WIFI2 RADIO PROFILE': 'radioProfile6g',
-                     'OS VERSION': 'softwareVersion',
-                     'OS': 'os',
-                     'IQAGENT': 'agentVersion',
-                     'MANAGED': 'adminState',
-                     'MANAGED BY': 'managedBy',
-                     'CLOUD CONFIG GROUPS': 'cloudConfigGroups',
-                     'WAN IP ADDRESS': 'wanIpAddress',
-                     'PUBLIC IP ADDRESS': 'extIpAddress',
-                     'DEVICE LICENSE': 'subscriptionLicense',
-                     'COPILOT': 'copilotLicenseStatus'
-                     }
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
@@ -638,7 +639,7 @@ class Devices:
                                     device_detail_dict[label] = cell.text
                             else:
                                 device_detail_dict[label] = cell.text
-                    return device_detail_dict[label_map[label_str]]
+                    return device_detail_dict[self.device_column_values[label_str]]
                 else:
                     self.utils.print_info(f"Unable to retrieve device row for {search_string}")
                     self.screen.save_screen_shot()
@@ -3492,6 +3493,8 @@ class Devices:
         sleep(2)
         self.utils.print_info("Column list to select: ", columns)
         for filter_ in columns:
+            # Get the row index base on the name of the column
+            # This will be used when clicking on the element represetning that row
             filter_row, row_num = self._get_column_picker_filter_exact(filter_)
             if filter_row != "":
                 row_inputs = self.devices_web_elements.get_column_picker_row_input()
@@ -3501,14 +3504,27 @@ class Devices:
                     if row_input_count == row_num:
                         ans = row_inp.get_attribute("checked")
                         if ans == "true":
-                            self.utils.print_info(f"Column Picker Filter {filter_} is already checked")
+                            self.utils.print_info(f"Column Picker Filter '{filter_}' is already checked")
                             self.screen.save_screen_shot()
                             selected_columns.append(filter_)
+                            break
                         else:
-                            self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
+                            self.utils.print_info(f"Column Picker Filter '{filter_}' is not already checked - checking")
                             self.auto_actions.click(filter_row)
                             self.screen.save_screen_shot()
-                            selected_columns.append(filter_)
+                            value_after_click_action = row_inp.get_attribute("checked")
+                            if value_after_click_action != "true":
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is not enable")
+                                self.screen.save_screen_shot()
+                                self.close_last_refreshed_tooltip()
+                                self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
+                                sleep(2)
+                                kwargs['fail_msg'] = f"Failed to enable '{filter_}' via the Column Picker Filter"
+                                self.common_validation.fault(**kwargs)
+                                return -1
+                            else:
+                                selected_columns.append(filter_)
+                            break
             else:
                 self.utils.print_info("Unable to select the Column Picker Filter ", filter_)
                 unselected_columns.append(filter_)
@@ -5993,35 +6009,6 @@ class Devices:
         :param col_list: comma-separated list of column headers (e.g., LOCATION,MAC,MGT IP ADDRESS)
         :return: dictionary containing the values for each of the specified columns
         """
-        label_map = {'LOCATION': 'locationName',
-                     'NTP STATE': 'ntp_state',
-                     'MGT IP ADDRESS': 'ipAddress',
-                     'MAC': 'macAddress',
-                     'CLIENTS': 'activeClientCount',
-                     'HOST NAME': 'hostname',
-                     'MODEL': 'productType',
-                     'MAKE': 'make',
-                     'UPDATED': 'updatedOn',
-                     'UPTIME': 'systemUpTime',
-                     'SERIAL': 'serialNumber',
-                     'MGT VLAN': 'mgtVlan',
-                     'POLICY': 'networkPolicyName',
-                     'COUNTRY': 'countryCode',
-                     'WIFI0 POWER': 'power24g',
-                     'WIFI1 POWER': 'power5g',
-                     'WIFI0 CHANNEL': 'channel24g',
-                     'WIFI1 CHANNEL': 'channel5g',
-                     'WIFI0 RADIO PROFILE': 'radioProfile24g',
-                     'WIFI1 RADIO PROFILE': 'radioProfile5g',
-                     'OS VERSION': 'softwareVersion',
-                     'OS': 'os',
-                     'IQAGENT': 'agentVersion',
-                     'MANAGED': 'adminState',
-                     'MANAGED BY': 'managedBy',
-                     'CLOUD CONFIG GROUPS': 'cloudConfigGroups',
-                     'WAN IP ADDRESS': 'wanIpAddress',
-                     'PUBLIC IP ADDRESS': 'extIpAddress'
-                     }
 
         device_detail_dict = dict()
 
@@ -6035,7 +6022,7 @@ class Devices:
                 if re.search(r'field-\w*', cell.get_attribute("class")):
                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
                     for label_str in col_labels:
-                        map_value = label_map.get(label_str)
+                        map_value = self.device_column_values.get(label_str)
                         if label == map_value:
                             if label == "productType":
                                 if cell.text:
