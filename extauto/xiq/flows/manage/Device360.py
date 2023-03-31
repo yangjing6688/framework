@@ -931,6 +931,7 @@ class Device360(Device360WebElements):
             self.utils.print_info("Closing device360 Dialog Window.")
             self.auto_actions.click_reference(self.dev360.get_close_dialog)
             kwargs['pass_msg'] = "Closing device360 Dialog Window.0"
+            self.screen.save_screen_shot()
             self.common_validation.passed(**kwargs)
             return 1
         else:
@@ -1229,19 +1230,57 @@ class Device360(Device360WebElements):
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def select_port_configuration_view(self, **kwargs):
+    def select_port_configuration_view(self, unlock_button_flag=True, **kwargs):
         """
         - This keyword clicks the Port Configuration link on the Configure tab in the Device360 dialog window.
           It assumes the Device360 Window is open and on the Configure tab.
         - Flow: Device 360 Window --> Configure tab --> Click "Port Configuration" link
         - Keyword Usage:
         - ``Select Port Configuration View``
+        - Starting in 23R3, the user has to unlock the configuration in order to change it.
+        - The keyword will automatically the configuration
         :return: 1 if the Port Configuration view was selected, else -1
         """
         port_conf_link = self.get_device360_port_configuration_button()
+
         if port_conf_link:
             self.utils.print_info("Clicking Port Configuration on the Device360 Configure tab")
             self.auto_actions.click(port_conf_link)
+
+            # Need for 23R3 unlock feature
+            if unlock_button_flag:
+                unlock_button, _ = self.utils.wait_till(
+                    func=self.get_device360_unlock_port_config_button,
+                    exp_func_resp=True,
+                    silent_failure=True,
+                    delay=3
+                )
+                self.screen.save_screen_shot()
+                if unlock_button and unlock_button.is_displayed():
+                    if self.auto_actions.click_reference(lambda: unlock_button) != 1:
+                        kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_button element"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    confirmation_button, _ = self.utils.wait_till(
+                        func=self.get_device360_unlock_port_config_confirmation_button,
+                        exp_func_resp=True,
+                        silent_failure=True,
+                        delay=3
+                    )
+
+                    if not confirmation_button:
+                        kwargs[
+                            "fail_msg"] = "Failed to get the device360_unlock_port_config_confirmation_button element"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    if self.auto_actions.click_reference(lambda: confirmation_button) != 1:
+                        kwargs[
+                            "fail_msg"] = "Failed to click the device360_unlock_port_config_confirmation_button element"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+            self.screen.save_screen_shot()
             kwargs['pass_msg'] = "The event is present"
             self.common_validation.passed(**kwargs)
             return 1
