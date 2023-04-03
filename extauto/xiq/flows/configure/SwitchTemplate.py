@@ -4574,7 +4574,8 @@ class SwitchTemplate(object):
         - Keyword Usage: global mac locking status change  ${NW_POLICY}  ${SW_TEMPLATE_NAME}
         """
         status = kwargs.get("status", "OFF")
-        if self.select_sw_template(policy_name, template_name) != 1:
+        cli_type = kwargs.get("cli_type", "exos")
+        if self.select_sw_template(policy_name, template_name, cli_type) != 1:
             kwargs["fail_msg"] = "Not found the network policy. Make sure that it was created before."
             self.common_validation.failed(**kwargs)
             return -1
