@@ -32,6 +32,7 @@ from ExtremeAutomation.Utilities.deprecated import unsupported
 from extauto.xiq.elements.ClientWebElements import ClientWebElements
 
 
+
 class Devices:
     def __init__(self):
         self.utils = Utils()
