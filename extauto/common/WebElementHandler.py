@@ -51,6 +51,9 @@ class WebElementHandler:
         _desc = key_val.get('DESC', self.desc)  # Explicit delay
         _driver = CloudDriver().cloud_driver if parent == "default" else parent
 
+        # Log what we're searching for
+        self.utils.print_info(f"get_element(): key_val: {key_val}")
+
         self.utils.print_debug("Waiting for page to complete loading")
         while not self.check_for_page_is_loading(_driver):
             continue
@@ -110,6 +113,9 @@ class WebElementHandler:
         _index = key_val.get('index', 0)  # web element index
         _delay = key_val.get('wait_for', self.delay)  # Explicit delay
         _driver = CloudDriver().cloud_driver if parent == "default" else parent
+
+        # Log what we're searching for
+        self.utils.print_info(f"get_element(): key_val: {key_val}")
 
         for key, value in key_val.items():
             if key in self.locator.keys():  # check the key is in locator or not

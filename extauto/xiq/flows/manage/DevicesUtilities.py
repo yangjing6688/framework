@@ -2023,9 +2023,9 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         :return: 1 if is displayed else -1
         """
-        if self.navigator.get_reset_device_to_default_menu_item() and self.navigator.get_reset_device_to_default_menu_item().is_displayed():
+        reset_device_to_default = self.navigator.get_reset_device_to_default_menu_item()
+        if reset_device_to_default is not None and reset_device_to_default.is_displayed():
             return 1
-
         return -1
 
     def verify_reset_device_to_default_available(self, **kwargs):
@@ -2036,7 +2036,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         :return: 1  if is available else -1 is not available
         """
-        if self._is_reset_device_to_default_available():
+        if self._is_reset_device_to_default_available() == 1:
             kwargs['pass_msg'] = "the reset device to default option is available"
             self.common_validation.passed(**kwargs)
             return 1

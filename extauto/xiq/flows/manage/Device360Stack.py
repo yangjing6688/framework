@@ -387,7 +387,7 @@ class Device360Stack(Device360WebElements):
 
         return device360_info
 
-    def device360_get_stack_slot_top_bar_temperature(self, slot_number):
+    def device360_get_stack_slot_top_bar_temperature(self, slot_number, **kwargs):
         """
         - This keyword obtains the value of the Temperature field from the top bar in the Device360 view.
         - Keyword Usage
@@ -401,11 +401,12 @@ class Device360Stack(Device360WebElements):
         if temp_el:
             ret_val = temp_el.text
         else:
-            self.utils.print_info("Could not determine value for Temperature")
+            kwargs["fail_msg"] = "Could not determine value for Temperature"
+            self.common_validation.failed(**kwargs)
 
         return ret_val
 
-    def device360_get_stack_slot_top_bar_last_update_time(self, slot_number):
+    def device360_get_stack_slot_top_bar_last_update_time(self, slot_number, **kwargs):
         """
         - This keyword gets information from the left sidebar of the Device360 view.
         - It is assumed that the Device360 window is open.
@@ -444,11 +445,14 @@ class Device360Stack(Device360WebElements):
                     ret_val = uptime_date + " " + uptime_time
                     self.utils.print_info(f"Returning Last Update Time {ret_val}")
                 else:
-                    self.utils.print_info("Unable to parse value for Uptime")
+                    kwargs["fail_msg"] = "Unable to parse value for Uptime"
+                    self.common_validation.failed(**kwargs)
             else:
-                self.utils.print_info("Could not determine value for Uptime")
+                kwargs["fail_msg"] = "Could not determine value for Uptime"
+                self.common_validation.failed(**kwargs)
         else:
-            self.utils.print_info("Could not find Uptime element")
+            kwargs["fail_msg"] = "Could not find Uptime element"
+            self.common_validation.failed(**kwargs)
 
         return ret_val
 
@@ -533,7 +537,7 @@ class Device360Stack(Device360WebElements):
 
         return device360_info
 
-    def device360_stack_get_port_icon_count(self):
+    def device360_stack_get_port_icon_count(self, **kwargs):
         """
         - This keyword gets the number of port icons displayed for Stack in the Device360 view.
         - It is assumed that the Device360 window is open.
@@ -550,7 +554,8 @@ class Device360Stack(Device360WebElements):
             ret_val = len(port_icon_list)
             self.utils.print_info(f"Stack port icon list {ret_val}")
         else:
-            self.utils.print_info("Unable to get the list of port icons")
+            kwargs["fail_msg"] = "Unable to get the list of port icons"
+            self.common_validation.failed(**kwargs)
 
         return ret_val
 
