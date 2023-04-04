@@ -4,6 +4,7 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.common.CommonValidation import CommonValidation
 
@@ -13,6 +14,7 @@ class Navigator(NavigatorWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
+        self.dev360 = Device360WebElements()
         self.device_common = DeviceCommon()
         self.common_validation = CommonValidation()
 
@@ -3677,11 +3679,13 @@ class Navigator(NavigatorWebElements):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def navigate_to_port_configuration_d360(self, **kwargs):
+    def navigate_to_port_configuration_d360(self, unlock_button_flag=True,**kwargs):
         """
         - Assumes that D360 poge is already open
         - Flow: Clicks 'Configure' button -> Scrolls down -> Clicks 'Port Configuration" ->
                  Waits for the port rows to load
+        - Starting in 23R3, the user has to unlock the configuration in order to change it.
+        - The keyword will automatically the configuration
         :return: 1 if 'Port Configuration' has been clicked and the port rows have been loaded on the page
                  -1 if elements are not found along the way
         """
@@ -3704,6 +3708,40 @@ class Navigator(NavigatorWebElements):
                 self.utils.print_info("SAVING SCREENSHOT FOR D360 PORT CONFIGURATION PAGE...")
                 self.screen.save_screen_shot()
                 self.utils.print_info("Rows have been loaded! 'Port Configuration' button clicked!")
+                # Need for 23R3 unlock feature
+                if unlock_button_flag:
+                    unlock_button, _ = self.utils.wait_till(
+                        func=self.dev360.get_device360_unlock_port_config_button,
+                        exp_func_resp=True,
+                        silent_failure=True,
+                        delay=3
+                    )
+
+                    if unlock_button and unlock_button.is_displayed():
+                        if self.auto_actions.click_reference(lambda: unlock_button) != 1:
+                            kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_button element"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        confirmation_button, _ = self.utils.wait_till(
+                            func=self.dev360.get_device360_unlock_port_config_confirmation_button,
+                            exp_func_resp=True,
+                            silent_failure=True,
+                            delay=3
+                        )
+
+                        if not confirmation_button:
+                            kwargs[
+                                "fail_msg"] = "Failed to get the device360_unlock_port_config_confirmation_button element"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        if self.auto_actions.click_reference(lambda: confirmation_button) != 1:
+                            kwargs[
+                                "fail_msg"] = "Failed to click the device360_unlock_port_config_confirmation_button element"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+                        self.screen.save_screen_shot()
                 kwargs['pass_msg'] = " 'Port Configuration' button clicked!"
                 self.common_validation.passed(**kwargs)
                 return 1
