@@ -1351,7 +1351,7 @@ class Devices:
         """
 
         # Execute the XAPI call and return the value
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_reboot_device(device_serial, device_mac, **kwargs)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -1653,7 +1653,7 @@ class Devices:
         os_persona = device_dict.get("digital_twin_persona")
 
         # Execute the XAPI call and return the value
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_onboard_device_quick(device_dict, **kwargs)
 
         if "csv_location" in device_dict:
@@ -2479,7 +2479,7 @@ class Devices:
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_delete_device( device_serial=device_serial,
                                                         device_name=device_name,
                                                         device_mac=device_mac,
@@ -2621,7 +2621,7 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_delete_device(device_serial=device_serial, device_name=device_name,
                                                        device_mac=device_mac, **kwargs)
 
@@ -2827,7 +2827,7 @@ class Devices:
         """
 
         # We need to skip this when we are selecting a device
-        if self.xapiDevices.is_xapi_enabled() and not select_device:
+        if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
             return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
                                                        device_mac=device_mac, **kwargs)
         device_keys = {}
@@ -2896,7 +2896,7 @@ class Devices:
             return -1
 
         # We need to skip this when we are selecting a device
-        if self.xapiDevices.is_xapi_enabled() and not select_device:
+        if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
             return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
                                                        device_mac=device_mac, **kwargs)
 
@@ -4269,7 +4269,7 @@ class Devices:
             sleep(30)
             retry_time += 30
 
-    def get_device_column_information(self, device_serial, column_array):
+    def get_device_column_information(self, device_serial, column_array, **kwargs):
         """
         - This keyword is used to get the column data for the device
         - Keyword Usage:
@@ -4284,7 +4284,7 @@ class Devices:
         :param column_array: The device array of columns to get data for
         :return: object map of data columns to data, spaces are replaced with _
         """
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_get_device_column_information(device_serial, column_array)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -4364,7 +4364,7 @@ class Devices:
         :return: 1 if device connected within time else -1
         """
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_wait_until_device_online(device_serial=device_serial, device_mac=device_mac, retry_duration=retry_duration, retry_count=retry_count, **kwargs)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -4435,7 +4435,7 @@ class Devices:
         :return: 1 if device disconnected within time, else -1
         """
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_wait_until_device_offline(device_serial=device_serial, device_mac=device_mac, retry_duration=retry_duration, retry_count=retry_count, **kwargs)
 
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -5819,7 +5819,7 @@ class Devices:
         :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, retry_duration=retry_duration, retry_count=retry_count)
 
         # UI Support
@@ -5907,7 +5907,7 @@ class Devices:
         """
 
 
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_get_device_management_ip_address(device_serial=device_serial, device_mac=device_mac, **kwargs)
 
         self.navigator.navigate_to_manage_tab()
@@ -10708,7 +10708,7 @@ class Devices:
         :param manage_type: Manage/Unmanage device
         :return: 1 if the management status was changed
         """
-        if self.xapiDevices.is_xapi_enabled():
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_change_manage_device_status(manage_type=manage_type, device_serial=device_serial, device_mac=device_mac, device_name=device_name, **kwargs)
 
         # Commented on 1/18/23 because it is unused
