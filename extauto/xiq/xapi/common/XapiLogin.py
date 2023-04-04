@@ -24,6 +24,12 @@ class XapiLogin(XapiHelper):
 
         # Login information
         xapi_url = self.get_xapi_url()
+        
+        # Check for https
+        if not xapi_url.lower().startswith(('http://', 'https://')):
+            xapi_url = f'https://{xapi_url}'
+        self.utils.print_info(f'Using XAPI URL: {xapi_url}')
+        
         if xapi_url:
             configuration = self.xapiBaseAuthenticationApi.extremecloudiq.Configuration(
                 host=xapi_url,
