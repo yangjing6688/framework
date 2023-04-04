@@ -11404,10 +11404,10 @@ class Devices:
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
-
+        sleep(3)
         self.utils.print_info("Selecting image option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
-
+        sleep(3)
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
@@ -11417,13 +11417,13 @@ class Devices:
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
-
+        sleep(3)
         self.utils.print_info("Selecting image option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
 
         self.utils.print_info("Deselecting upgrade configuration option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_config_checkbox)
-
+        sleep(3)
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
@@ -11444,7 +11444,7 @@ class Devices:
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
 
             self.utils.print_info("Clicking on Reboot")
-            self.auto_actions.click_reference(self.device_actions.get_device_actions_reboot_menu_item)
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
 
             self.utils.print_info("Confirming...")
             self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button_reboot)
@@ -11464,11 +11464,11 @@ class Devices:
         self.select_device(device_serial)
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_button)
 
         self.utils.print_info("Checking if License option is displayed")
         license_button = self.devices_web_elements.get_license_action_button()
-        if license_button.is_displayed():
+        if license_button:
             kwargs['fail_msg'] = "License action is available"
             self.common_validation.failed(**kwargs)
             return -1
@@ -11491,11 +11491,11 @@ class Devices:
         self.select_device(device_serial)
         if self.select_device(device_serial):
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_button)
 
-        self.utils.print_info("Checking if License option is displayed")
-        reboot_button = self.device_actions.get_device_actions_reboot_menu_item()
-        if reboot_button.is_displayed():
+        self.utils.print_info("Checking if Reboot option is displayed")
+        reboot_button = self.devices_web_elements.get_device_actions_reboot_button()
+        if reboot_button:
             kwargs['fail_msg'] = "Reboot button is available"
             self.common_validation.failed(**kwargs)
             return -1
