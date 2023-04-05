@@ -950,32 +950,38 @@ class Devices:
         while True:
             self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
-            self.utils.print_info(f"Status returned: {device_serial}")
+            self.utils.print_info(f"Status returned: {device_update_status}")
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif 'Rebooting' in device_update_status:
                 reboot_res = self.wait_until_device_reboots(device_serial, retry_duration=15, retry_count=12)
                 if reboot_res == 1:
-                    self.utils.print_info(
-                        'Reboot for device with serial number: {} is successful'.format(device_serial))
+                    self.utils.print_info(f"Reboot for device with serial number: {device_serial} is successful")
                 else:
-                    kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(
-                        device_serial, reboot_res)
+                    kwargs['fail_msg'] = f"Reboot for device with serial number: '{device_serial}' is NOT successful: '{reboot_res}'"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif 'Certification' in device_update_status or 'Application' in device_update_status:
                 # Some other random push to the device is blocking my policy update!
-                self.utils.print_info("Non-update text in status :{}".format(device_update_status))
+                self.utils.print_info(f"Non-update text in status :{device_update_status}")
                 self.screen.save_screen_shot()
                 sleep(30)
                 update_time += 30
                 if update_time >= 300:
-                    kwargs['fail_msg'] = "Config push to AP BLOCKED for more than 300 seconds"
+                    kwargs['fail_msg'] = "Config push to Device BLOCKED for more than 300 seconds"
                     self.common_validation.failed(**kwargs)
                     return -1
                 continue
+            elif device_update_status == 'Device Update Failed':
+                # The actual update failed, so catch the error and report the error
+                # This may not report the error seen in the device info cell
+                # If the error is Device Update Failed To Proceed, this will not print that error becauase
+                # get_device_updated_status returns 'Device Update Failed' for both 'Device Update Failed' and 'Device Update Failed To Proceed'
+                kwargs['fail_msg'] = f"Policy update failed for device with serial number: '{device_serial}' for the following error condition: '{device_update_status}'"
+                self.common_validation.failed(**kwargs)
+                return -1
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
+                self.utils.print_info(f"Config push to device taking more than {max_config_push_wait} seconds")
                 return -1
             sleep(30)
             update_time += 30
@@ -983,7 +989,7 @@ class Devices:
 
         policy_applied = self.get_ap_network_policy(ap_serial=device_serial)
         if policy_name.upper() == policy_applied.upper():
-            self.utils.print_info("Applied network policy:{}".format(policy_applied))
+            self.utils.print_info(f"Applied network policy:{policy_applied}")
             return 1
         self.utils.print_info(f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}")
         return -1
