@@ -2179,8 +2179,9 @@ class Cli(object):
         :return: a list of tuples
         """
         units_list = []
-        # /extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition/CommandApiDefinition/DutLearning/dutlearning.yaml
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2867
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
 
             stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, 'show stacking', max_wait=10, interval=2)
@@ -2971,24 +2972,24 @@ class Cli(object):
         :param forward_delay: the value of the forward delay to be set
         :return: the forward delay after being set
         '''
-        # /extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition/CommandApiDefinition/L2/spanningtree.yaml
-        # search for forwarddelay
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2867
         if dut.cli_type.upper() == "EXOS":
 
             for attempts in range(3):
                 sleep(5)
-                self.networkElementSpanningtreeGenKeywords.spanningtree_set_fwd_delay(dut.name, forward_delay, "0")
-
                 # self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
-                # self.networkElementCliSend.send_cmd(dut.name, f'configure stpd s0 forwarddelay {forward_delay}',
-                #                      max_wait=10, interval=2)
-                output = self.networkElementSpanningtreeGenKeywords.spanningtree_verify_bridge_forward_delay(dut.name,
-                                                                                                    forward_delay, "0")
-
-                # output = self.networkElementCliSend.send_cmd(dut.name, 'show stpd detail',
-                #                               max_wait=10,
-                #                               interval=2)
-                # self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+                # output = self.networkElementSpanningtreeGenKeywords.spanningtree_set_fwd_delay(dut.name, forward_delay, "0")
+                # print(output)
+                # output = self.networkElementSpanningtreeGenKeywords.spanningtree_verify_bridge_forward_delay(dut.name,
+                #                                                                                     forward_delay, "0")
+                # print(output)
+                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+                self.networkElementCliSend.send_cmd(dut.name, f'configure stpd s0 forwarddelay {forward_delay}',
+                                     max_wait=10, interval=2)
+                output = self.networkElementCliSend.send_cmd(dut.name, 'show stpd detail',
+                                              max_wait=10,
+                                              interval=2)
+                self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
                 print(output[0].return_text)
 
                 p = re.compile(r'(CfgBrForwardDelay:\s+)+(\d+)', re.M)
