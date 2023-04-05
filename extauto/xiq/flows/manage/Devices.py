@@ -953,7 +953,7 @@ class Devices:
             if tooltip_msg in tool_tp_text:
                 tool_tp_text.remove(tooltip_msg)
 
-        if "Deployed devices successfully." in tool_tp_text[-1]:
+        if "Deployed devices successfully." in tool_tp_text:
             kwargs['pass_msg'] = "Device update Successfully Triggered"
             self.common_validation.passed(**kwargs)
             return 1
