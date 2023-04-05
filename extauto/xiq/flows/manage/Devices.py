@@ -919,7 +919,7 @@ class Devices:
             sleep(2)
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
-            sleep(2)
+            sleep(30)
             self.screen.save_screen_shot()
 
             tool_tp_text = tool_tip.tool_tip_text
