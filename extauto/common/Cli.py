@@ -29,6 +29,8 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.Network
     NetworkElementLacpGenKeywords
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementMltGenKeywords import \
     NetworkElementMltGenKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementSpanningtreeGenKeywords import \
+    NetworkElementSpanningtreeGenKeywords
 from itertools import islice
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
@@ -53,6 +55,7 @@ class Cli(object):
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
         self.networkElementMltGenKeywords = NetworkElementMltGenKeywords()
         self.networkElementLacpGenKeywords = NetworkElementLacpGenKeywords()
+        self.networkElementSpanningtreeGenKeywords = NetworkElementSpanningtreeGenKeywords()
 
     def close_spawn(self, spawn, pxssh=False, **kwargs):
         """
@@ -2744,7 +2747,7 @@ class Cli(object):
         """
 
         supported_devices = ["EXOS"]
-        # /extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition/CommandApiDefinition/L2/vlan.yaml
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
             self.commonValidation.fault(**kwargs)
@@ -2824,7 +2827,7 @@ class Cli(object):
         :return: disconnected_ports: a list of all disconnected ports on device if the function call has succeeded else -1
         """
 
-        # /extreme_automation_framework/ExtremeAutomation/Apis/NetworkElement/ApiDefinition/CommandApiDefinition/L2/vlan.yaml
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842
         if dut.cli_type.lower() == "voss":
             system_type_regex = "(\\d+/\\d+)\\s+\\w+"
             self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=30, interval=10)
@@ -2974,14 +2977,18 @@ class Cli(object):
 
             for attempts in range(3):
                 sleep(5)
-                self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
-                self.networkElementCliSend.send_cmd(dut.name, f'configure stpd s0 forwarddelay {forward_delay}',
-                                     max_wait=10, interval=2)
+                self.networkElementSpanningtreeGenKeywords.spanningtree_set_fwd_delay(dut.name, forward_delay, "0")
 
-                output = self.networkElementCliSend.send_cmd(dut.name, 'show stpd detail',
-                                              max_wait=10,
-                                              interval=2)
-                self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
+                # self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+                # self.networkElementCliSend.send_cmd(dut.name, f'configure stpd s0 forwarddelay {forward_delay}',
+                #                      max_wait=10, interval=2)
+                output = self.networkElementSpanningtreeGenKeywords.spanningtree_verify_bridge_forward_delay(dut.name,
+                                                                                                    forward_delay, "0")
+
+                # output = self.networkElementCliSend.send_cmd(dut.name, 'show stpd detail',
+                #                               max_wait=10,
+                #                               interval=2)
+                # self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
                 print(output[0].return_text)
 
                 p = re.compile(r'(CfgBrForwardDelay:\s+)+(\d+)', re.M)
