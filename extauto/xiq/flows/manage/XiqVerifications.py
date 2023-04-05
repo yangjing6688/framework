@@ -629,7 +629,7 @@ class XiqVerifications:
                          'page9 summary': ["next_page", None]
                          }
 
-        self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+        self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
         self.switch_template.go_to_port_configuration()
         self.device360.create_new_port_type(template_exos, port_numbers.split(',')[0])
 
@@ -638,7 +638,7 @@ class XiqVerifications:
 
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     def _check_sw_template_selection():
-                        return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+                        return self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
 
                     self.utils.wait_till(_check_sw_template_selection, timeout=30, delay=5)
 
@@ -647,7 +647,7 @@ class XiqVerifications:
                     self.switch_template.template_assign_ports_to_an_existing_port_type(port_numbers, trunk_port_type_name)
             else:
                 def _check_sw_template_selection():
-                    return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+                    return self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
 
                 self.utils.wait_till(_check_sw_template_selection, timeout=30, delay=5)
 

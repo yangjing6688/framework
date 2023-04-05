@@ -293,9 +293,7 @@ class DevicesWebElementsDefinitions:
 
     update_config_delta_radio_button = \
         {
-            'CLASS_NAME': 'J-up',
-            'index': 1,
-            'wait_for': 1
+            "XPATH": "//input[@data-automation-tag='override-checkbox' and @value='override']"
         }
 
     update_devices_button = \
