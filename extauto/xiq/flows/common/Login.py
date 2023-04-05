@@ -66,7 +66,12 @@ class Login(object, metaclass=Singleton):
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
             self.window_index = CloudDriver().open_window(url)
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_page_title} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_page_title(self):
+        return self.gui_get_page_title()
+
+    def gui_get_page_title(self):
         """
         - Get the title of the page
         - Keyword Usage:
@@ -295,15 +300,6 @@ class Login(object, metaclass=Singleton):
                 kwargs['fail_msg'] = "Wrong Credentials. Try Again"
                 self.common_validation.failed(**kwargs)
                 return -1
-
-        # Wait for page to load
-        #
-        try:
-            self.utils.wait_till(self.login_web_elements.get_page_loading, timeout=(5*60), delay=3, exp_func_resp=False, is_logging_enabled=True)
-            self.utils.print_info("Page was loaded successfully")
-        except Exception:
-            kwargs['fail_msg'] = "Page was unable to load"
-            self.common_validation.fault(**kwargs)
 
         if self.login_web_elements.get_admin_portal_page().is_displayed():
             account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
