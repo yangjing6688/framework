@@ -5,6 +5,7 @@
 #    =========================================
 
 
+
 from tools.xapi.XapiHelper import XapiHelper
 
 
@@ -16,48 +17,51 @@ class XapiBaseAlertApi(XapiHelper):
     def xapi_base_count_alerts_by_group(self, **kwargs):
 
         """
-        Count the alerts by different grouping  # noqa: E501
-        
-        Count the number of alerts and events based on Severity, Category, and Alert Type.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.count_alerts_by_group(group, start_time, end_time, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as seprate arguments.
-        
-            Robot:
+            Count the alerts by different grouping  # noqa: E501
+            
+            Count the number of alerts and events based on Severity, Category, and Alert Type.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+            >>> thread = api.count_alerts_by_group(group, start_time, end_time, async_req=True)
+            >>> result = thread.get()
+            
+            **Note - The kwargs options are explained in the :param section below.
+            These can be placed in the kwargs dict as key / values pairs or 
+            passed into the function as key / value pairs as separate arguments.
+            
+            Robot ->
+            
                 Library    keywords/xapi_base/XapiBaseAlertApi.py
-        
+            
                 count alerts by group    **kwargs
-        
-            Pytest:
+            
+            Pytest ->
+            
                 from keywords.xapi_base.XapiBaseAlertApi import XapiBaseAlertApi
-        
+            
                 xapiBaseAlertApi = XapiBaseAlertApi()
                 xapiBaseAlertApi.count_alerts_by_group(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param XiqAlertGroupQuery group: The group to count from (required)
-        :param int start_time: The start time for counting the alerts (required)
-        :param int end_time: The end time for counting the alerts (required)
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: dict(str, int)
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
+            
+            :param async_req bool: execute request asynchronously
+            :param XiqAlertGroupQuery group: The group to count from (required)
+            :param int start_time: The start time for counting the alerts (required)
+            :param int end_time: The end time for counting the alerts (required)
+            :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                     be returned without reading/decoding response
+                                     data. Default is True.
+            :param _request_timeout: timeout setting for this request. If one
+                                     number provided, it will be total request
+                                     timeout. It can also be a pair (tuple) of
+                                     (connection, read) timeouts.
+            :return: dict(str, int)
+                     If the method is called asynchronously,
+                     returns the request thread.
+
+                    -1 if there is a error (fault)
         """
 
 
-        # Get the configuration from the Global varibles
+        # Get the configuration from the Global variables
         configuration = self.get_xapi_configuration()
         api_response = None
 
@@ -78,7 +82,7 @@ class XapiBaseAlertApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -100,8 +104,8 @@ class XapiBaseAlertApi(XapiHelper):
                 return -1
 
     def xapi_base_list_alerts(self, **kwargs):
-        """
 
+        """
             List the alerts  # noqa: E501
             
             List a page of alerts by filter.  # noqa: E501
@@ -172,7 +176,7 @@ class XapiBaseAlertApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:

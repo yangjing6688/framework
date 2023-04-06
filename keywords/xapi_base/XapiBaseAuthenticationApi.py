@@ -69,6 +69,7 @@ class XapiBaseAuthenticationApi(XapiHelper):
             api_instance = self.extremecloudiq.AuthenticationApi(api_client)
             try:
                 api_response = api_instance.login(**kwargs)
+                kwargs['pass_msg'] = f"returned: {api_response}"
                 self.common_validation.passed(**kwargs)
                 return api_response
 
@@ -142,7 +143,7 @@ class XapiBaseAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:

@@ -639,7 +639,6 @@ class XapiDevices(XapiHelper):
            :param device_serial: The device serial number
            :param device_name: The device hostname
            :param device_mac: The device MAC address
-           :param skip_global_check: false by default, will skip the global device check
            :return: The device ID for success and -1 for failure
         """
         device_id = -1

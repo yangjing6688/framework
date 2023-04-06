@@ -80,7 +80,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -167,7 +167,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -254,7 +254,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -341,7 +341,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -428,7 +428,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -516,7 +516,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -525,91 +525,6 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                         return -1
                 else:
                     # Make sure this is not a async call because the thread will be returned and the
-                    # api_response is not None
-                    if not kwargs.get('async_req', False) and api_response:
-                        # Non async call, check the http return
-                        self.valid_http_response(api_response)
-                    self.common_validation.passed(**kwargs)
-                    return api_response
-
-            except self.ApiException as e:
-                kwargs['fail_msg'] = f"ApiException : {e}"
-                self.common_validation.fault(**kwargs)
-                return -1
-
-    def xapi_base_delete_bulk_internal_radius_server(self, **kwargs):
-
-        """
-        [LRO] Delete internal RADIUS server configuration  # noqa: E501
-        
-        Delete an existing internal RADIUS server configuration by ID.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-        >>> thread = api.delete_bulk_internal_radius_server(ids, async_req=True)
-        >>> result = thread.get()
-        
-        **Note: The kwargs options are explained in the :param section below.
-        These can be placed in the kwargs dict as key / values pairs or 
-        passed into the function as key / value pairs as seprate arguments.
-        
-            Robot:
-                Library    keywords/xapi_base/XapiBaseConfigurationAuthenticationApi.py
-        
-                delete bulk internal radius server    **kwargs
-        
-            Pytest:
-                from keywords.xapi_base.XapiBaseConfigurationAuthenticationApi import XapiBaseConfigurationAuthenticationApi
-        
-                xapiBaseConfigurationAuthenticationApi = XapiBaseConfigurationAuthenticationApi()
-                xapiBaseConfigurationAuthenticationApi.delete_bulk_internal_radius_server(**kwargs)
-        
-        :param async_req bool: execute request asynchronously
-        :param list[int] ids: The internal RADIUS server IDs to be delete, min = 1 ID, max = 100 IDs (required)
-        :param bool _async: Whether to enable async mode
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: None
-                 If the method is called asynchronously,
-                 returns the request thread.
-				-1 if there is a error (fault)
-        """
-
-
-        # Get the configuration from the Global varibles
-        configuration = self.get_xapi_configuration()
-        api_response = None
-
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
-        # Enter a context with an instance of the API client
-        with self.extremecloudiq.ApiClient(configuration) as api_client:
-            # Create an instance of the API class
-            api_instance = self.extremecloudiq.ConfigurationAuthenticationApi(api_client)
-            try:
-                api_response = api_instance.delete_bulk_internal_radius_server(**kwargs)
-                # If the _async is True, we will use the Long Runnning Operation methods
-                if kwargs.get('_async', False):
-                    # Get the ID
-                    operation_id = self.getLongRunningOperationId(api_response)
-                    # Query the ID until completed
-                    returnValue = self.getAsyncLongRunningOperation(operation_id)
-                    if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
-                        self.common_validation.passed(**kwargs)
-                        return returnValue
-                    else:
-                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
-                        self.common_validation.fault(**kwargs)
-                        return -1
-                else:
-                    # Make sure this isn't a async call because the thread will be returned and the
                     # api_response is not None
                     if not kwargs.get('async_req', False) and api_response:
                         # Non async call, check the http return
@@ -688,7 +603,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -775,7 +690,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -862,7 +777,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -949,7 +864,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1036,7 +951,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1123,7 +1038,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1210,7 +1125,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1297,7 +1212,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1384,7 +1299,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1471,7 +1386,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1559,7 +1474,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1647,7 +1562,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1735,7 +1650,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1823,7 +1738,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1911,7 +1826,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1999,7 +1914,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2087,7 +2002,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2175,7 +2090,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2263,7 +2178,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2351,7 +2266,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2439,7 +2354,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2527,7 +2442,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2615,7 +2530,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2703,7 +2618,7 @@ class XapiBaseConfigurationAuthenticationApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:

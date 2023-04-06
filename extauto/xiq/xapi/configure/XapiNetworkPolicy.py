@@ -226,7 +226,7 @@ class XapiNetworkPolicy(XapiHelper):
             while not finished:
                 deployment_status_reponse = self.xapiBaseConfigurationDeploymentApi.xapi_base_get_deploy_status(device_ids=[device_id], _preload_content=False)
                 self.valid_http_response(deployment_status_reponse)
-                deployment_data = self.convertPreloadContentDataToObject(deployment_status_reponse.data)
+                deployment_data = self.convert_preload_content_data_to_object(deployment_status_reponse.data)
                 data = deployment_data[str(device_id)]
                 finished = data.finished
                 if not finished:

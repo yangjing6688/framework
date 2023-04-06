@@ -135,10 +135,10 @@ class XapiUserGroups(XapiHelper):
         #                             predefined=False,
         #                             password_db_location=password_db_loc,
         #                             password_type=password_type,
-        #                             pcg_use_only=self.convertEnableDisableToBool(pcg_use),
+        #                             pcg_use_only=self.convert_enable_disable_to_bool(pcg_use),
         #                             pcg_type=pcg_type,
-        #                             ppsk_use_only=self.convertEnableDisableToBool(client_per_ppsk),
-        #                             enable_cwp_reg=self.convertEnableDisableToBool(cwp_register),
+        #                             ppsk_use_only=self.convert_enable_disable_to_bool(client_per_ppsk),
+        #                             enable_cwp_reg=self.convert_enable_disable_to_bool(cwp_register),
         #                             password_settings=password_settings,
         #                             expiration_settings=expiration_settings,
         #                             delivery_settings=delivery_settings,
@@ -152,7 +152,7 @@ class XapiUserGroups(XapiHelper):
         #     # Validate the reponse
         #     self.valid_http_response(response)
         #     # Conver the raw response to an object
-        #     user_group_data =  self.convertPreloadContentDataToObject(response.data)
+        #     user_group_data =  self.convert_preload_content_data_to_object(response.data)
         #     # Get the user group ID
         #     user_group_id = user_group_data.id
         #     base_user_template = {
@@ -262,7 +262,7 @@ class XapiUserGroups(XapiHelper):
         """
         try:
             user_group_list_preload = self.xapiBaseConfigurationUserManagementApi.xapi_base_list_user_groups(limit=100, _preload_content=False)
-            user_group_list = self.convertPreloadContentDataToObject(user_group_list_preload.data)
+            user_group_list = self.convert_preload_content_data_to_object(user_group_list_preload.data)
             for user_group in user_group_list.data:
                 if user_group_name == user_group.name:
                     response = self.xapiBaseConfigurationUserManagementApi.xapi_base_delete_user_group(id=user_group.id)

@@ -203,22 +203,27 @@ class XapiHelper():
         """
         self.builtin.set_global_variable("${XAPI_ENABLE}", value)
 
-
-    def convertPreloadContentDataToObject(self, object_string):
+    def convert_preload_content_data_to_object(self, object_string):
         """
             When using the _preload_content=False with any XAPI SDK keyword, you
             will get back a byte string data from the SDK. This method will convert
             that byte string to a JSON object
-        :param object_string: The object string to convert (btye string) (repsonse.data from the XAPI SDK call)
+        :param object_string: The object string to convert (btye string) (repsonse.data from the XAPI SDK call) (can take the HTTPRepsonse)
         :return: The json object for the string
         """
-        # Decode UTF-8 bytes to Unicode, and convert single quotes
-        # to double quotes to make it valid JSON
-        json_friendly = object_string.decode('utf8').replace("'", '"')
+
+        if isinstance(object_string, urllib3.HTTPResponse):
+            object_string = object_string.data
+        if isinstance(object_string, (bytes, bytearray)):
+            # Decode UTF-8 bytes to Unicode, and convert single quotes
+            # to double quotes to make it valid JSON
+            json_friendly = object_string.decode('utf8').replace("'", '"')
+        else:
+            json_friendly = object_string
         data = json.loads(json_friendly)
         return DotDict(data)
 
-    def checkDictKeysInOriginalDict(self, original_dict, check_dict, level=0):
+    def check_dict_keys_in_original_dict(self, original_dict, check_dict, level=0):
         """
             Check the keys from the check dict to the keys in the check dict
         :param original_dict:  The base dict for all of the key values
@@ -247,8 +252,7 @@ class XapiHelper():
                     return_value = checkDictKeysInArray(orignal_value, check_value, level + 1)
         return return_value
 
-
-    def convertEnableDisableToBool(self, value):
+    def convert_enable_disable_to_bool(self, value):
         """
             Convert enable (set to lower case) to True and Disable to False.
         :param value:
