@@ -2715,14 +2715,14 @@ class NetworkPolicy(object):
             if not port_type_table_item:
                 self.utils.print_info(f"Searching {port_type_name} on next page page.")
                 next_page_button = self.dev360.get_device360_pagination_next_button()
-                assert next_page_button, f"Did not find the next page button"
+                assert next_page_button, "Did not find the next page button"
                 self.auto_actions.click_with_js(next_page_button)
                 self.navigator.wait_until_loading_is_done()
                 port_type_table_item = self.get_port_type_row(port_type_name)
             if not port_type_table_item:
                 self.utils.print_info(f"Searching {port_type_name} on next page page.")
                 next_page_button = self.dev360.get_device360_pagination_next_button()
-                assert next_page_button, f"Did not find the next page button"
+                assert next_page_button, "Did not find the next page button"
                 self.auto_actions.click_with_js(next_page_button)
                 self.navigator.wait_until_loading_is_done()
                 port_type_table_item = self.get_port_type_row(port_type_name)
@@ -2765,14 +2765,14 @@ class NetworkPolicy(object):
             if not port_type_table_item:
                 self.utils.print_info(f"Searching {port_type_name} on next page page.")
                 next_page_button = self.dev360.get_device360_pagination_next_button()
-                assert next_page_button, f"Did not find the next page button"
+                assert next_page_button, "Did not find the next page button"
                 self.auto_actions.click_with_js(next_page_button)
                 self.navigator.wait_until_loading_is_done()
                 port_type_table_item = self.get_port_type_row(port_type_name)
             if not port_type_table_item:
                 self.utils.print_info(f"Searching {port_type_name} on next page page.")
                 next_page_button = self.dev360.get_device360_pagination_next_button()
-                assert next_page_button, f"Did not find the next page button"
+                assert next_page_button, "Did not find the next page button"
                 self.auto_actions.click_with_js(next_page_button)
                 self.navigator.wait_until_loading_is_done()
                 port_type_table_item = self.get_port_type_row(port_type_name)
