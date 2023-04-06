@@ -389,7 +389,8 @@ class DevicesActions:
                     self.common_validation.passed(**kwargs)
                     return 1
         else:
-            self.utils.print_info("Could not find the 'Actions > Relaunch Digital Twin' link.")
+            kwargs['fail_msg'] = "Could not find the 'Actions > Relaunch Digital Twin' link."
+            self.common_validation.fault(**kwargs)
 
         return -1
 
@@ -462,7 +463,7 @@ class DevicesActions:
             hidden = shutdown_link.get_attribute("class")
             self.utils.print_info(f"'Shutdown Digital Twin' menu item Class value: {hidden}")
             if "fn-hidden" in hidden:
-                kwargs['fail_msg'] = "actions_shutdown_digital_twin() -> The 'Shutdown Digital Twin' link is not displayed."
+                kwargs['fail_msg'] = "The 'Shutdown Digital Twin' link is not displayed."
                 self.utils.print_info("Closing Actions menu")
                 self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
                 self.common_validation.failed(**kwargs)
@@ -489,6 +490,7 @@ class DevicesActions:
                     self.common_validation.passed(**kwargs)
                     return 1
         else:
-            self.utils.print_info("Could not find the 'Actions > Shutdown Digital Twin' link.")
+            kwargs['fail_msg'] = "Could not find the 'Actions > Shutdown Digital Twin' link."
+            self.common_validation.failed(**kwargs)
 
         return -1
