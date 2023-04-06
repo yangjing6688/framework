@@ -950,32 +950,38 @@ class Devices:
         while True:
             self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
-            self.utils.print_info(f"Status returned: {device_serial}")
+            self.utils.print_info(f"Status returned: {device_update_status}")
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif 'Rebooting' in device_update_status:
                 reboot_res = self.wait_until_device_reboots(device_serial, retry_duration=15, retry_count=12)
                 if reboot_res == 1:
-                    self.utils.print_info(
-                        'Reboot for device with serial number: {} is successful'.format(device_serial))
+                    self.utils.print_info(f"Reboot for device with serial number: {device_serial} is successful")
                 else:
-                    kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(
-                        device_serial, reboot_res)
+                    kwargs['fail_msg'] = f"Reboot for device with serial number: '{device_serial}' is NOT successful: '{reboot_res}'"
                     self.common_validation.failed(**kwargs)
                     return -1
             elif 'Certification' in device_update_status or 'Application' in device_update_status:
                 # Some other random push to the device is blocking my policy update!
-                self.utils.print_info("Non-update text in status :{}".format(device_update_status))
+                self.utils.print_info(f"Non-update text in status :{device_update_status}")
                 self.screen.save_screen_shot()
                 sleep(30)
                 update_time += 30
                 if update_time >= 300:
-                    kwargs['fail_msg'] = "Config push to AP BLOCKED for more than 300 seconds"
+                    kwargs['fail_msg'] = "Config push to Device BLOCKED for more than 300 seconds"
                     self.common_validation.failed(**kwargs)
                     return -1
                 continue
+            elif device_update_status == 'Device Update Failed':
+                # The actual update failed, so catch the error and report the error
+                # This may not report the error seen in the device info cell
+                # If the error is Device Update Failed To Proceed, this will not print that error becauase
+                # get_device_updated_status returns 'Device Update Failed' for both 'Device Update Failed' and 'Device Update Failed To Proceed'
+                kwargs['fail_msg'] = f"Policy update failed for device with serial number: '{device_serial}' for the following error condition: '{device_update_status}'"
+                self.common_validation.failed(**kwargs)
+                return -1
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
+                self.utils.print_info(f"Config push to device taking more than {max_config_push_wait} seconds")
                 return -1
             sleep(30)
             update_time += 30
@@ -983,7 +989,7 @@ class Devices:
 
         policy_applied = self.get_ap_network_policy(ap_serial=device_serial)
         if policy_name.upper() == policy_applied.upper():
-            self.utils.print_info("Applied network policy:{}".format(policy_applied))
+            self.utils.print_info(f"Applied network policy:{policy_applied}")
             return 1
         self.utils.print_info(f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}")
         return -1
@@ -5797,8 +5803,7 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-
-    def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
+    def wait_until_device_managed(self, device_serial=None, device_mac=None, device_name=None, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
         - This keyword by default loops every 30 seconds for 10 times to check the MANAGED column data
@@ -5813,14 +5818,17 @@ class Devices:
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
         :param device_serial: device serial number to check the device 'managed' state
+        :param device_mac: device mac address to check the device 'managed' state
+        :param device_name: device name to check the device 'managed' state
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
-
-        if self.xapiDevices.is_xapi_enabled(**kwargs):
-            return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, retry_duration=retry_duration, retry_count=retry_count)
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, device_mac=device_mac,
+                                                                   device_name=device_name, retry_duration=retry_duration,
+                                                                   retry_count=retry_count)
 
         # UI Support
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -5830,25 +5838,46 @@ class Devices:
         self.column_picker_select('Managed')
 
         count = 1
-
+        passing_message = ""
+        retry_message = ""
+        failing_message = ""
         while count <= retry_count:
             self.utils.print_info(f"Searching for device {device_serial}: loop {count}")
-            col_value = self.get_device_details(device_serial, 'MANAGED')
-            if col_value == "Managed":
-                kwargs['pass_msg'] = f"MANAGED column for device {device_serial} contains expected data: '{col_value}"
+            if device_mac:
+                managed_status = self.get_device_details(device_mac, 'MANAGED')
+                self.utils.print_info(f"Managed status is: '{managed_status}' for the device_mac: '{device_mac}'")
+                passing_message = f"MANAGED column for device '{device_mac}' contains expected data: '{managed_status}'"
+                retry_message =   f"MANAGED column for device '{device_mac}' contains value: '{managed_status}'"
+                failing_message = f"MANAGED column for device '{device_mac}' does not contain expected value 'Managed'"
+            elif device_serial:
+                managed_status = self.get_device_details(device_serial, 'MANAGED')
+                self.utils.print_info(f"Managed status is: '{managed_status}' for the device_serial: '{device_serial}'")
+                passing_message = f"MANAGED column for device '{device_serial}' contains expected data: '{managed_status}'"
+                retry_message =   f"MANAGED column for device '{device_serial}' contains value: '{managed_status}'"
+                failing_message = f"MANAGED column for device '{device_serial}' does not contain expected value 'Managed'"
+
+            elif device_name:
+                managed_status = self.get_device_details(device_name, 'MANAGED')
+                self.utils.print_info(f"Managed status is: '{managed_status}' for the device_name: '{device_name}'")
+                passing_message = f"MANAGED column for device '{device_name}' contains expected data: '{managed_status}'"
+                retry_message =   f"MANAGED column for device '{device_name}' contains value: '{managed_status}'"
+                failing_message = f"MANAGED column for device '{device_name}' does not contain expected value 'Managed'"
+
+            if managed_status == "Managed":
+                kwargs['pass_msg'] = passing_message
                 self.common_validation.passed(**kwargs)
                 return 1
             else:
-                self.utils.print_info(
-                    f"MANAGED column for device {device_serial} contains value: '{col_value}' "
-                    f"still not matching expected value 'Managed'. Waiting for {retry_duration} seconds...")
+                self.utils.print_info(retry_message)
+                self.utils.print_info(f"still not matching expected value 'Managed'. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
                 self.refresh_devices_page()
             count += 1
 
-        kwargs['fail_msg'] = f"MANAGED column for device {device_serial} does not contain expected value 'Managed'"
+        kwargs['fail_msg'] = failing_message
         self.common_validation.failed(**kwargs)
         return -1
+
 
     def wait_until_device_data_present(self, device_serial, col, retry_duration=30, retry_count=10, **kwargs):
         """
