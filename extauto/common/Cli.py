@@ -1639,17 +1639,9 @@ class Cli(object):
         self.close_connection_with_error_handling(onboarded_switch)
         self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2869
         logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
-        for port, vlan in port_vlan_mapping.items():
-            try:
-                self.networkElementVlanGenKeywords.vlan_verify_port_is_member_of_vlan(onboarded_switch.name, port,
-                                                                                      vlan, wait_for=120)
-            except Exception as exc:
-                logger.info(f"Sleep 10s...\n{repr(exc)}")
-                sleep(10)
-            else:
-                logger.info("Configuration successfully updated on the dut")
-                break
+
         start_time = time()
         while time() - start_time < 120:
 
