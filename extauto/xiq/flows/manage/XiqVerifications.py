@@ -246,7 +246,7 @@ class XiqVerifications:
 
                 finally:
 
-                    self.utils.wait_till(timeout=5)
+                    self.utils.wait_till(timeout=10)
                     self.switch_template.switch_template_save()
                     self.utils.wait_till(timeout=10)
 

@@ -4392,6 +4392,9 @@ class SwitchTemplate(object):
             return -1
         
         if (button.is_selected() and state == "disable") or (not button.is_selected() and state == "enable"):
+            
+            self.utils.print_info(f"Click on the device_template_override_policy button in order to {state} it.")
+            
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click(button),
                 exp_func_resp=True,
@@ -4403,7 +4406,7 @@ class SwitchTemplate(object):
                 self.common_validation.fault(**kwargs)
                 return -1
 
-            kwargs["pass_msg"] = "Successfully clicked the device_template_override_policy button"
+            kwargs["pass_msg"] = f"Successfully clicked the device_template_override_policy button and {state}d it."
             self.common_validation.passed(**kwargs)
             return 1
         
