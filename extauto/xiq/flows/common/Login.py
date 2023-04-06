@@ -610,7 +610,12 @@ class Login(object, metaclass=Singleton):
 
         return response_code, json_response, total_time
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {load_web_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def load_web_page(self, url="default"):
+        return self.gui_load_web_page(url)
+
+    def gui_load_web_page(self, url="default"):
         """
         - Loads web page with the passed URL
         - Keyword Usage:
@@ -690,7 +695,12 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {forgot_password} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def forgot_password(self, _email, url='default', **kwargs):
+        return self.gui_forgot_password(_email, url, **kwargs)
+
+    def gui_forgot_password(self, _email, url='default', **kwargs):
         """
         - Get the link to set the forget password
         - Keyword Usage:
@@ -859,7 +869,13 @@ class Login(object, metaclass=Singleton):
                               f"found '{switch_connection_host}'"
             self.common_validation.failed(**kwargs)
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_viq_id} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_viq_id(self, **kwargs):
+        return self.gui_get_viq_id()
+
+
+    def gui_get_viq_id(self, **kwargs):
         """
         - This method is used to get the build id or owner id
         - Keyword Usage:
@@ -885,7 +901,12 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return viq_id
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_base_url_of_current_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_base_url_of_current_page(self, **kwargs):
+        return self.gui_get_base_url_of_current_page()
+
+    def gui_get_base_url_of_current_page(self, **kwargs):
         """
         - This Keyword is used to get the url of current loaded page
         - Keyword Usage:
@@ -898,7 +919,12 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return base_url.group()
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_current_page_url} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_current_page_url(self):
+        return self.gui_get_current_page_url()
+
+    def gui_get_current_page_url(self):
         """
         - This Keyword returns URL of current page
         - Keyword Usage:
@@ -929,7 +955,13 @@ class Login(object, metaclass=Singleton):
             return -1, "Could not select the option of 90 days trial "
         return str(1), None
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_data_center_name} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_data_center_name(self):
+        return self.gui_get_data_center_name()
+
+
+    def gui_get_data_center_name(self):
         """
         - Get XIQ Data Center Name
 
@@ -937,7 +969,12 @@ class Login(object, metaclass=Singleton):
         """
         return self._capture_data_center_name()
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_xiq_version} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_xiq_version(self):
+        return self.gui_get_xiq_version()
+
+    def gui_get_xiq_version(self):
         """
         - Get XIQ Build version details
 
@@ -1007,7 +1044,12 @@ class Login(object, metaclass=Singleton):
         window_index_list = CloudDriver().get_child_window_list(win_index)
         return window_index_list
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {logo_check_on_login_screen} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def logo_check_on_login_screen(self):
+        return self.gui_logo_check_on_login_screen()
+
+    def gui_logo_check_on_login_screen(self):
         """
         - Get the login logo and save it as screenshot
 
@@ -1700,7 +1742,12 @@ class Login(object, metaclass=Singleton):
             self.utils.print_debug(e)
             return 1
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {refresh_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def refresh_page(self, refresh_delay=10):
+        return self.gui_refresh_page(refresh_delay)
+
+    def gui_refresh_page(self, refresh_delay=10):
         """
         This keyword refreshes the current page
         :param refresh_delay: delay needed to reload the page
@@ -1714,7 +1761,12 @@ class Login(object, metaclass=Singleton):
             self.utils.print_info("Unable to refresh the page...")
             self.utils.print_info(e)
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {click_advanced_onboard_popup} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def click_advanced_onboard_popup(self):
+        return self.gui_click_advanced_onboard_popup()
+
+    def gui_click_advanced_onboard_popup(self):
         """
         This keyword just clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
         - Keyword Usage:
