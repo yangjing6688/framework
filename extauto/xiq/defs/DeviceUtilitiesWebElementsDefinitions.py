@@ -181,8 +181,7 @@ class DeviceUtilitiesWebElementsDefinitions:
 
     show_ping_view = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-show-ping-view"]',
-            'wait_for': 2
+            'XPATH': '//*[@data-automation-tag="automation-show-ping-view"]'
         }
 
     show_ping_ip_address_input = \
