@@ -2353,8 +2353,6 @@ class Cli(object):
         """
 
         # TODO: https://jira.extremenetworks.com/browse/AIQ-2853
-        ret_val = self.deviceDiscoveryKeywords.get_system_info(dut.name)
-        print(ret_val)
         if cli_type.lower() == 'exos':
             device_system_output = self.networkElementCliSend.send_cmd(dut.name, 'show system | include System')[0].cmd_obj._return_text
             system_type_regex = '(System Type:[ ]{2,}.{0,})'
@@ -2982,6 +2980,7 @@ class Cli(object):
 
             for attempts in range(3):
                 sleep(5)
+                # once support is added for any of the stories, the code will look like this:
                 # self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
                 # output = self.networkElementSpanningtreeGenKeywords.spanningtree_set_fwd_delay(dut.name, forward_delay, "0")
                 # print(output)
