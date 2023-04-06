@@ -333,10 +333,11 @@ class XapiDevices(XapiHelper):
 
             :return: The device ID for success and -1 for failure
        """
+
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.common_validation.fail(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         try:

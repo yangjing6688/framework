@@ -228,7 +228,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
         -      Calling Keyword:
         -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_window_index()
+        -         keywords_login.quit_browser()
         -
         - Keyword Implementations:
         -    GUI
@@ -337,3 +337,60 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         # Return the return value of the keyword
         return return_code
+
+    def get_page_title(self, **kwargs):
+        """
+        Gets the title of the page
+
+        This method gets the current page title.
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/login/KeywordsLogin.py
+        -      Get Page Title
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
+        -      Calling Keyword:
+        -         keywords_login = KeywordsLogin()
+        -         keywords_login.get_page_title()
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Supported **
+
+        :return: Returns the page title that "ExtremeCloud IQ" if successful. Returns "" if not successful.
+        """
+
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+        keyword_name = inspect.stack()[0][3]
+        self.keyword_utils.implementations.set_keyword_uuid("bc887c5e-0c31-41ba-89b3-ff426fde1699", keyword_name)
+        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.xapi_implemented(keyword_name)
+
+        # Assume if no page title
+        return_code = ""
+
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, 'GUI')
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_get_page_title()
+                else:
+                    return_code = self.keyword_utils.implementations.not_supported(**kwargs)
+                    return_code = ""
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
+
+        # Return the return value of the keyword
+        return return_code
+
+

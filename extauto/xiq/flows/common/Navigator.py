@@ -2713,7 +2713,7 @@ class Navigator(NavigatorWebElements):
         :return: 1 if Navigation Successful else -1
         """
         self.utils.print_info("Clicking on Utilities Button")
-        if self.get_device_utilities_button().is_enabled():
+        if self.get_device_utilities_button():
             self.auto_actions.click_reference(self.get_device_utilities_button)
             sleep(2)
         else:
@@ -2743,9 +2743,9 @@ class Navigator(NavigatorWebElements):
         - ``Navigate To Device Ping``
         :return: 1 if Navigation Successful else -1
         """
-        if self.navigate_to_device_utilities_diagnostics() == -1:
+        if self.navigate_to_device_utilities_diagnostics(ignore_failure=True) == -1:
             kwargs['fail_msg'] = "Unable to Navigate To Device Utilities Diagnostics"
-            self.common_validation.fault(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Ping Menu Item")
@@ -2981,9 +2981,9 @@ class Navigator(NavigatorWebElements):
         - ``Navigate To Device Show Roaming Cache``
         :return: 1 if Navigation Successful else -1
         """
-        if self.navigate_to_device_utilities_diagnostics() == -1:
+        if self.navigate_to_device_utilities_diagnostics(ignore_failure=True) == -1:
             kwargs['fail_msg'] = "Unable to navigate to Device Utilities Diagnostics"
-            self.common_validation.fault(**kwargs)
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.utils.print_info("Clicking on Show Roaming Cache Menu Item")

@@ -95,7 +95,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_client_info_dialog_close_button)
         sleep(2)
 
-        if self.verify_device_tool_client_information_is_open() == 1:
+        if self.verify_device_tool_client_information_is_open(ignore_failure=True) == 1:
             kwargs['fail_msg'] = "Could not close Client Information dialog"
             self.common_validation.failed(**kwargs)
             return -1
@@ -160,7 +160,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_tech_data_dialog_close_button)
         sleep(2)
 
-        if self.verify_device_tool_get_tech_data_is_open() == 1:
+        if self.verify_device_tool_get_tech_data_is_open(ignore_failure=True) == 1:
             kwargs['fail_msg'] = "Could not close Get Tech Data dialog"
             self.common_validation.failed(**kwargs)
             return -1
@@ -204,7 +204,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_confirm_message_no_button)
         sleep(2)
 
-        if self.verify_confirm_message_dialog_is_open() == 1:
+        if self.verify_confirm_message_dialog_is_open(ignore_failure=True) == 1:
             kwargs['fail_msg'] = "Could not close Confirm Message dialog"
             self.common_validation.failed(**kwargs)
             return -1
@@ -225,13 +225,13 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_confirm_message_yes_button)
         sleep(3)
 
-        if self.verify_confirm_message_dialog_is_open() == 1:
+        if self.verify_confirm_message_dialog_is_open(ignore_failure=True) == 1:
             self.utils.print_info("The Verify Message Dialog did not close when 'Yes' was clicked")
             kwargs['fail_msg'] = "The Verify Message Dialog did not close when 'Yes' was clicked"
             self.common_validation.failed(**kwargs)
             return -1
 
-        if self.verify_device_tool_loading_is_open() == 1:
+        if self.verify_device_tool_loading_is_open(ignore_failure=True) == 1:
             self.screen.save_screen_shot()
             kwargs['pass_msg'] = "The Verify Message Dialog  close when 'Yes' was clicked"
             self.common_validation.passed(**kwargs)
@@ -297,7 +297,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_neighbor_info_dialog_close_button)
         sleep(2)
 
-        if self.verify_device_tool_neighbor_info_is_open() == 1:
+        if self.verify_device_tool_neighbor_info_is_open(ignore_failure=True) == 1:
             kwargs['fail_msg'] = "Could not close Neighbor Info dialog"
             self.common_validation.failed(**kwargs)
             return -1
@@ -362,7 +362,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_locate_device_cancel_button)
         sleep(2)
 
-        if self.verify_device_tool_locate_device_is_open() == 1:
+        if self.verify_device_tool_locate_device_is_open(ignore_failure=True) == 1:
             kwargs['fail_msg'] = "Could not close Locate Device dialog"
             self.common_validation.failed(**kwargs)
             return -1
@@ -427,7 +427,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_packet_capture_cancel_button)
         sleep(2)
 
-        if self.verify_device_tool_packet_capture_is_open() == 1:
+        if self.verify_device_tool_packet_capture_is_open(ignore_failure=True) == 1:
             kwargs['fail_msg'] = "Could not close Packet Capture dialog"
             self.common_validation.failed(**kwargs)
             return -1
@@ -490,7 +490,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_show_cli_dialog_close_button)
         sleep(2)
 
-        if self.verify_device_tool_cli_is_open() == 1:
+        if self.verify_device_tool_cli_is_open(ignore_failure=True) == 1:
             kwargs['fail_msg'] = "could not CLI dialog"
             self.common_validation.failed(**kwargs)
             return -1
@@ -1027,7 +1027,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_show_ping_dialog_close_button)
         sleep(2)
 
-        if self.verify_device_tool_ping_is_open() == 1:
+        if self.verify_device_tool_ping_is_open(ignore_failure=True) == 1:
             self.utils.print_info("Could not close Ping dialog")
             self.screen.save_screen_shot()
             kwargs['fail_msg'] = "Ping dialog is not close"
@@ -1069,9 +1069,9 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         count = 1
         while count <= retry_count:
             self.utils.print_info(f"Checking that VLAN Probe dialog is open: loop {count}")
-            if self.verify_device_tool_vlan_probe_is_open() == 1:
-                kwargs['fail_msg'] = "VLAN Probe dialog is open"
-                self.common_validation.failed(**kwargs)
+            if self.verify_device_tool_vlan_probe_is_open(ignore_failure=True) == 1:
+                kwargs['pass_msg'] = "VLAN Probe dialog is open"
+                self.common_validation.passed(**kwargs)
                 return 1
             else:
                 self.utils.print_info(f"VLAN Probe is not loaded yet. Waiting for {retry_duration} seconds...")
@@ -1094,12 +1094,12 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
         self.auto_actions.click_reference(self.get_vlan_probe_dialog_close_button)
         sleep(2)
 
-        if self.verify_device_tool_vlan_probe_is_open() == 1:
+        if self.verify_device_tool_vlan_probe_is_open(ignore_failure=True) == 1:
             kwargs['fail_msg'] = "VLAN Probe dialog could not close"
             self.common_validation.failed(**kwargs)
             return -1
         else:
-            kwargs['pass_msg'] = "VLAN Probe dialog is close"
+            kwargs['pass_msg'] = "VLAN Probe dialog is closed"
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -2023,9 +2023,9 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         :return: 1 if is displayed else -1
         """
-        if self.navigator.get_reset_device_to_default_menu_item() and self.navigator.get_reset_device_to_default_menu_item().is_displayed():
+        reset_device_to_default = self.navigator.get_reset_device_to_default_menu_item()
+        if reset_device_to_default is not None and reset_device_to_default.is_displayed():
             return 1
-
         return -1
 
     def verify_reset_device_to_default_available(self, **kwargs):
@@ -2036,7 +2036,7 @@ class DevicesUtilities(DeviceUtilitiesWebElements):
 
         :return: 1  if is available else -1 is not available
         """
-        if self._is_reset_device_to_default_available():
+        if self._is_reset_device_to_default_available() == 1:
             kwargs['pass_msg'] = "the reset device to default option is available"
             self.common_validation.passed(**kwargs)
             return 1
