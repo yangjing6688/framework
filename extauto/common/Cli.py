@@ -31,6 +31,8 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.Network
     NetworkElementMltGenKeywords
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementSpanningtreeGenKeywords import \
     NetworkElementSpanningtreeGenKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementVlanGenKeywords import \
+    NetworkElementVlanGenKeywords
 from itertools import islice
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
@@ -56,6 +58,7 @@ class Cli(object):
         self.networkElementMltGenKeywords = NetworkElementMltGenKeywords()
         self.networkElementLacpGenKeywords = NetworkElementLacpGenKeywords()
         self.networkElementSpanningtreeGenKeywords = NetworkElementSpanningtreeGenKeywords()
+        self.networkElementVlanGenKeywords = NetworkElementVlanGenKeywords()
 
     def close_spawn(self, spawn, pxssh=False, **kwargs):
         """
@@ -1637,6 +1640,16 @@ class Cli(object):
         self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
 
         logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
+        for port, vlan in port_vlan_mapping.items():
+            try:
+                self.networkElementVlanGenKeywords.vlan_verify_port_is_member_of_vlan(onboarded_switch.name, port,
+                                                                                      vlan, wait_for=120)
+            except Exception as exc:
+                logger.info(f"Sleep 10s...\n{repr(exc)}")
+                sleep(10)
+            else:
+                logger.info("Configuration successfully updated on the dut")
+                break
         start_time = time()
         while time() - start_time < 120:
 
