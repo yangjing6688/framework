@@ -33,27 +33,11 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 import extauto.xiq.flows.configure.SwitchTemplate
 from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
 
-from selenium.webdriver.support.expected_conditions import staleness_of
-
-
-class NoElementsPresentException(Exception):
-    pass
-
-class WaitForElementsCountToStabilizeLimitExceededException(Exception):
-    def __init__(self, limit):
-        self.limit = limit
-        super().__init__()
-
-class WaitForElementsToBecomeFreshLimitExceededException(Exception):
-    def __init__(self, limit):
-        self.limit = limit
-        super().__init__()
 
 class ExceededWaitForElementsToUpdateLimitException(Exception):
     def __init__(self, limit):
         self.limit = limit
         super().__init__()
-
 
 
 class NetworkPolicy(object):
@@ -500,19 +484,14 @@ class NetworkPolicy(object):
         self.utils.print_info("Selecting Network Policy: ", policy_name)
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
-
-        wait_args = {
-            "first_item_finder": self.np_web_elements.get_network_policy_card_item,
-            "all_items_finder": self.np_web_elements.get_network_policy_card_items,
-            "load_time": 1,
-            "elements_name": "Network Policy Cards"
-        }
-        try:
-            policy_cards = self._wait_for_elements_to_load(**wait_args)
-        except NoElementsPresentException:
+        self.utils.wait_till(self.np_web_elements.get_network_policy_card_item,timeout=6, delay=2)
+        policy_card = self.np_web_elements.get_network_policy_card_item()
+        if policy_card is None:
             kwargs['fail_msg'] = "No Network Policy cards present. No policy configured"
             self.common_validation.failed(**kwargs)
             return -1
+        try:
+            policy_cards = self._wait_for_elements_to_load(self.np_web_elements.get_network_policy_card_items, 2)
         except ExceededWaitForElementsToUpdateLimitException as e:
             kwargs['fail_msg'] = f"The number of Network Policy cards changed {e.limit} times"
             self.common_validation.failed(**kwargs)
@@ -529,109 +508,40 @@ class NetworkPolicy(object):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _wait_for_elements_count_to_stabilize(self, max_check_cycles, check_cycle_time, elements_name, all_items_finder):
+    def _wait_for_elements_to_load(self, find, wait_time=1, loop_max=30, **args):
         """Waits for the number of found elements to stabilize in order to avoid stale elements.
         Stops once the numbers are the same between two subsequent cycles.
 
-        :param max_check_cycles : int
+        :param find: function
+            Function to find the elements.
+        :param wait_time : int
+            Duration to wait for loading
+        :param loop_max : int
             Maximum number of times to check if the count of elements has changed.
-        :param check_cycle_time : int
-            Duration of a check cycle.
-        :param elements_name: string
-            Description of the elements for logging purposes.
-        :param all_items_finder: function
-            Function to retrieve the elements.
         :raises ExceededWaitForElementsCountToStabilizeLimitException
             If max_check_cycles is reached.
         """
 
-        elements = all_items_finder()
+        elements = find()
         last_count = len(elements)
         current_count = -1
-        current_cycle = 0
+        loop_index = 0
 
-        while last_count != current_count and current_cycle < max_check_cycles:
-            sleep(check_cycle_time)  # Allow for elements to load
-            elements = all_items_finder()
+        while last_count != current_count and loop_index < loop_max:
+            sleep(wait_time)  # Allow for elements to load
+            elements = find()
             last_count = current_count
             current_count = len(elements)
             self.utils.print_info(
-                f"Getting {elements_name}: current_count = {current_count}, last_count = {last_count}, current_cycle = {current_cycle}")
+                f"Getting: current_count = {current_count}, last_count = {last_count}, loop_index = {loop_index}")
 
             # Fail safe... If we keep getting different counts for loop_max seconds then fail
-            current_cycle = current_cycle + 1
+            loop_index = loop_index + 1
 
-        if current_cycle == max_check_cycles:
-            raise WaitForElementsCountToStabilizeLimitExceededException(max_check_cycles)
+        if loop_index >= loop_max:
+            ExceededWaitForElementsToUpdateLimitException(loop_max)
 
-    def _are_any_elements_stale(self, elements):
-        for element in elements:
-            if staleness_of(element)(None):
-                return True
-        return False
-
-    def _wait_for_elements_to_become_fresh(self, max_check_cycles, check_cycle_time, elements_name, all_items_finder):
-        """Waits for the the elements to become fresh in order to avoid stale elements.
-        Stops once all elements are not stale between two subsequent cycles.
-
-        :param max_check_cycles : int
-            Maximum number of times to check if the count of elements has changed.
-        :param check_cycle_time : int
-            Duration of a check cycle.
-        :param elements_name: string
-            Description of the elements for logging purposes.
-        :param all_items_finder: function
-            Function to retrieve the elements.
-        :raises WaitForElementsToBecomeFreshLimitExceededException
-            If max_check_cycles is reached.
-        """
-
-        elements = all_items_finder()
-        last_stale_element_exists = self._are_any_elements_stale(elements)
-        current_stale_element_exists = -1
-        current_cycle = 0
-
-        while (last_stale_element_exists != current_stale_element_exists or current_stale_element_exists is True) \
-                and current_cycle < max_check_cycles:
-            sleep(check_cycle_time)  # Allow for elements to load
-            elements = all_items_finder()
-            last_stale_element_exists = current_stale_element_exists
-            current_stale_element_exists = self._are_any_elements_stale(elements)
-            self.utils.print_info(
-                f"Getting {elements_name}: current_stale_element_exists = {current_stale_element_exists}, last_stale_element_exists = {last_stale_element_exists}, current_cycle = {current_cycle}")
-
-            # Fail safe... If we keep getting different counts for loop_max seconds then fail
-            current_cycle = current_cycle + 1
-
-        if current_cycle == max_check_cycles:
-            raise WaitForElementsToBecomeFreshLimitExceededException(max_check_cycles)
-
-    def _wait_for_elements_to_load(self, elements_name="Elements", first_item_timeout=2, first_item_delay=6,
-                                   load_time=1, load_cycles=30, **args):
-        first_item_finder = args["first_item_finder"]
-        all_items_finder = args["all_items_finder"]
-
-        self.utils.print_debug(f"first_item_timeout={first_item_timeout}")
-        self.utils.print_debug(f"first_item_delay={first_item_delay}")
-        self.utils.print_debug(f"load_time={load_time}")
-        self.utils.print_debug(f"load_cycles={load_cycles}")
-
-        try:
-            self.utils.wait_till(first_item_finder, first_item_timeout, first_item_delay)
-        except Exception as e:
-            if hasattr(e, 'message' and e.message == "Request Timedout"):
-                raise NoElementsPresentException()
-            else:
-                raise e
-
-        try:
-            self._wait_for_elements_count_to_stabilize(load_cycles, load_time, elements_name, all_items_finder)
-            self._wait_for_elements_to_become_fresh(load_cycles, load_time, elements_name, all_items_finder)
-        except (WaitForElementsCountToStabilizeLimitExceededException,
-                WaitForElementsToBecomeFreshLimitExceededException) as e:
-            raise ExceededWaitForElementsToUpdateLimitException(e.limit) from e
-
-        return all_items_finder()
+        return find()
 
     def _select_ssid(self, ssid):
         """
