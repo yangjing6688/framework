@@ -82,6 +82,7 @@ class XiqVerifications:
             f"Go to the port configuration of '{template_switch}' template")
         self.switch_template.select_sw_template(
             network_policy, template_switch, cli_type)
+        self.switch_template.set_override_policy_common_settings(state=True)
         self.switch_template.set_stp(enable=True)
         self.switch_template.choose_stp_mode(mode=stp_mode)
         self.switch_template.go_to_port_configuration()
@@ -141,7 +142,7 @@ class XiqVerifications:
 
             finally:
 
-                self.utils.wait_till(timeout=5)
+                self.utils.wait_till(timeout=10)
                 self.switch_template.switch_template_save()
                 self.utils.wait_till(timeout=10)
 
@@ -149,7 +150,7 @@ class XiqVerifications:
                 self.utils.print_info(
                     f"Verifying STP tab for port {port}: {port_type_config}")
                 self.switch_template.verify_path_cost_in_port_configuration_stp_tab(
-                    template_switch, network_policy, port,
+                    onboarded_switch.cli_type, template_switch, network_policy, port,
                     port_type_config["path_cost"], slot=slot
                 )
 
@@ -245,7 +246,7 @@ class XiqVerifications:
 
                 finally:
 
-                    self.utils.wait_till(timeout=5)
+                    self.utils.wait_till(timeout=10)
                     self.switch_template.switch_template_save()
                     self.utils.wait_till(timeout=10)
 
@@ -629,7 +630,7 @@ class XiqVerifications:
                          'page9 summary': ["next_page", None]
                          }
 
-        self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+        self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
         self.switch_template.go_to_port_configuration()
         self.device360.create_new_port_type(template_exos, port_numbers.split(',')[0])
 
@@ -638,7 +639,7 @@ class XiqVerifications:
 
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     def _check_sw_template_selection():
-                        return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+                        return self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
 
                     self.utils.wait_till(_check_sw_template_selection, timeout=30, delay=5)
 
@@ -647,7 +648,7 @@ class XiqVerifications:
                     self.switch_template.template_assign_ports_to_an_existing_port_type(port_numbers, trunk_port_type_name)
             else:
                 def _check_sw_template_selection():
-                    return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+                    return self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
 
                 self.utils.wait_till(_check_sw_template_selection, timeout=30, delay=5)
 

@@ -66,7 +66,12 @@ class Login(object, metaclass=Singleton):
             self.utils.print_info("Cloud driver already exists - opening new window using same driver")
             self.window_index = CloudDriver().open_window(url)
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_page_title} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_page_title(self):
+        return self.gui_get_page_title()
+
+    def gui_get_page_title(self):
         """
         - Get the title of the page
         - Keyword Usage:
@@ -114,7 +119,7 @@ class Login(object, metaclass=Singleton):
                    salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
                    max_retries=3, recover_login=True, map_override=None, ignore_map=False, **kwargs):
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             # new XAPI call to get and set the XAPI token
             self.xapiLogin.login(username, password, **kwargs)
 
@@ -296,21 +301,10 @@ class Login(object, metaclass=Singleton):
                 self.common_validation.failed(**kwargs)
                 return -1
 
-        page_still_loading = True
-        while page_still_loading:
-            page_loading = self.login_web_elements.get_page_loading()
-            self.utils.print_info(f"Page loading element: {page_loading}")
-            if page_loading:
-                self.utils.print_info("Page is still loading")
-                sleep(3)
-            else:
-                page_still_loading = False
-                self.utils.print_info("Page is loaded successfully")
-
         if self.login_web_elements.get_admin_portal_page().is_displayed():
             account_name = BuiltIn().get_variable_value("${tenant_ext_name}")
             if account_name:
-                self.utils.print_info("Enter Account Name {account_name} in Search Field")
+                self.utils.print_info(f"Entering Account Name {account_name} in Search Field")
                 account_search_field = self.login_web_elements.get_external_admin_account_name_search_field()
                 self.auto_actions.send_keys(account_search_field, account_name)
                 self.screen.save_screen_shot()
@@ -474,7 +468,7 @@ class Login(object, metaclass=Singleton):
     #@deprecated('Please use the {logout_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def logout_user(self, **kwargs):
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             # remove the token for xapi
             self.xapiLogin.logout(**kwargs)
 
@@ -757,7 +751,7 @@ class Login(object, metaclass=Singleton):
         :return: data_center_name
         """
 
-        if self.xapiLogin.is_xapi_enabled():
+        if self.xapiLogin.is_xapi_enabled(**kwargs):
             return self.xapiLogin.xapi_capture_data_center_name(**kwargs)
 
         self.utils.print_info("Clicking on About ExtremecloudIQ link")
@@ -787,7 +781,7 @@ class Login(object, metaclass=Singleton):
         """
 
         # This isn't supported yet
-        # if self.xapiLogin.is_xapi_enabled():
+        # if self.xapiLogin.is_xapi_enabled(**kwargs):
         #     return self.xapiLogin.xapi_capture_xiq_version(**kwargs)
 
         self.utils.print_info("Clicking on About ExtremecloudIQ link")

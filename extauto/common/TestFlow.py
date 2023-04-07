@@ -1,5 +1,6 @@
 from extauto.common.Utils import Utils
 from robot.libraries.BuiltIn import BuiltIn
+from ExtremeAutomation.Utilities.deprecated import deprecated
 
 list_failed_test = []
 
@@ -31,6 +32,7 @@ class TestFlow:
                 self.utils.print_info("List of failed test cases:", str(list_failed_test))
         return list_failed_test
 
+    @deprecated('Please use the \'depends_on\' keyword from DependencyLibrary. This method will be removed after 6/1/2023')
     def depends_on(self, *search_test_dependency):
         """
         - Current test execution depends on status of test[s] passed as arguments.

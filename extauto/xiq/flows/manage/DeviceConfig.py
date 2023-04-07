@@ -369,8 +369,9 @@ class DeviceConfig(DeviceConfigElements):
         """
 
         if len(device_serials.split(',')) == 1:
-            self.utils.print_info("This keyword works with multiple devices")
-            self.utils.print_info("Pass te device serial numbers with comma separated")
+            kwargs['fail_msg'] = "This keyword works with multiple devices." \
+                                 "Pass the device serial numbers with comma separated "
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.navigator.navigate_to_multiple_device_configuration_page(device_serials)
@@ -591,8 +592,9 @@ class DeviceConfig(DeviceConfigElements):
         :return: 1 if WiFi radio Status Updated successfully
         """
         if len(device_serials.split(',')) == 1:
-            self.utils.print_info("This keyword works with multiple devices")
-            self.utils.print_info("Pass te device serial numbers with comma separated")
+            kwargs['fail_msg'] = "This keyword works with multiple devices." \
+                                 "Pass the device serial numbers with comma separated"
+            self.common_validation.failed(**kwargs)
             return -1
 
         self.navigator.navigate_to_multiple_device_configuration_page(device_serials)
@@ -768,7 +770,6 @@ class DeviceConfig(DeviceConfigElements):
         else:
             return "OFF"
 
-
     def _check_wifi2_radio_status(self):
         """
         - Configure WiFi1 Radio Status on Device Override
@@ -782,7 +783,6 @@ class DeviceConfig(DeviceConfigElements):
             return "ON"
         else:
             return "OFF"
-
 
     def check_wifi_radio_status(self, wifi_interface_name, device_mac="", device_name=""):
         """
@@ -880,7 +880,7 @@ class DeviceConfig(DeviceConfigElements):
                         break
                     count += 1
             self.screen.save_screen_shot()
-        kwargs['pass_msg'] = "Successfully confiruge wifi0 transmission power"
+        kwargs['pass_msg'] = "Successfully configure wifi0 transmission power"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -930,7 +930,7 @@ class DeviceConfig(DeviceConfigElements):
                         break
                     count += 1
             self.screen.save_screen_shot()
-        kwargs['pass_msg'] = "Successfully confiruge wifi1 transmission power"
+        kwargs['pass_msg'] = "Successfully configure wifi1 transmission power"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -943,15 +943,16 @@ class DeviceConfig(DeviceConfigElements):
         - ``Change Transmission Power To Multiple Devices  device_serials=${AP1_SERIAL},${AP2_SERIAL}
              interface_name=${INTERFACE_NAME}  transmission_mode=${MANUAL}  power_value=${VALUE}``
 
-        :param device_serials: Device Serial Numbers seperated by comma
+        :param device_serials: Device Serial Numbers separated by comma
         :param interface_name: Wireless Interface Name
         :param transmission_mode: Transmission Mode ie Manual or Auto
         :param power_value: name of the network to deploy
         :return: 1 if Transmission Power Updated successfully
         """
         if len(device_serials.split(',')) == 1:
-            self.utils.print_info("This keyword works with multiple devices")
-            self.utils.print_info("Pass te device serial numbers with comma separated")
+            kwargs['fail_msg'] = "This keyword works with multiple devices." \
+                                 "Pass the device serial numbers with comma separated"
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.navigator.navigate_to_multiple_device_configuration_page(device_serials)
@@ -989,7 +990,7 @@ class DeviceConfig(DeviceConfigElements):
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "change_transmission_power_to_multiple_devices() -> Interface Settings were updated unsuccessfully"
+            kwargs['fail_msg'] = "Interface Settings were updated unsuccessfully"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1180,22 +1181,17 @@ class DeviceConfig(DeviceConfigElements):
         else:
             self.auto_actions.click_reference(self.get_device_override_configure_button)
 
-
         self.utils.print_info("Click Device Configuration Button")
         self.auto_actions.click_reference(self.get_device_override_configure_exos_device_configuration_button)
-
 
         self.utils.print_info("Click on Supplemental cli add option")
         self.auto_actions.click_reference(self.get_device_config_supplemental_cli_add_button)
 
-
         self.utils.print_info(f"Entering Supplemental Cli Name:{suppl_cli_name}")
         self.auto_actions.send_keys(self.get_device_config_supplemental_cli_enter_name(), suppl_cli_name)
 
-
         self.utils.print_info(f"Entering Supplemental Cli Commands:{suppl_cli_cmds}")
         self.auto_actions.send_keys(self.get_device_config_supplemental_cli_enter_commands(), suppl_cli_cmds)
-
 
         self.utils.print_info("Saving Supplemental Cli Configs")
         self.auto_actions.click_reference(self.get_device_config_supplemental_cli_save_button)
@@ -1207,13 +1203,11 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("Save Device Configuration")
         self.auto_actions.click_reference(self.get_device_override_exos_save_device_configuration)
 
-
         tool_tip_text = tool_tip.tool_tip_text
         self.utils.print_info("Tool tip Text Displayed on Page", tool_tip_text)
 
         self.utils.print_info("Close Dialogue Window")
         self.auto_actions.click_reference(self.get_close_dialog)
-
 
         if "Device configuration was updated successfully" in tool_tip_text:
             kwargs['pass_msg'] = "Device configuration was updated successfully"
@@ -1465,11 +1459,11 @@ class DeviceConfig(DeviceConfigElements):
         sleep(3)
         if self.auto_actions.select_drop_down_options(self.get_severity_dropdown_options(), severity):
             sleep(3)
-            kwargs['pass_msg'] = "Successfully select the severnity"
+            kwargs['pass_msg'] = "Successfully select the severity"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "UnSuccessfully select the severnity"
+            kwargs['fail_msg'] = "UnSuccessfully select the severity"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -1480,7 +1474,7 @@ class DeviceConfig(DeviceConfigElements):
                 -->Wireless settings--> WiFi2
 
         - Keyword Usage:
-        - ``Device Override Change WiFi2 Interface Status  device_serial=${DEVICE_SERIAL}   interface_status=${STATUS} ``
+        - ``Device Override Change WiFi2 Interface Status  device_serial=${DEVICE_SERIAL}   interface_status=${STATUS}``
 
         :param device_serial: Device serial Number
         :param interface_status: Interface status Enable/Disable
@@ -2058,19 +2052,20 @@ class DeviceConfig(DeviceConfigElements):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_unique_clients_number(self, device_mac=""):
+    def get_unique_clients_number(self, device_mac="", **kwargs):
         """
         - Get the number of Unique Clients on AP using AP's serial number,Name or Mac address.
         - Keyword Usage:
         - ``Get Unique Client Number   ap_mac=${AP_MAC}``
 
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param device_mac: Ap mac Ex: F09CE9F89600
         :return: Number of unique clients as shown on device 360 page.
         """
         try:
             self.utils.print_info("Navigating to device 360 page")
             if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
-                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                kwargs['fail_msg'] = f"Device not found in the device row grid with mac:{device_mac}"
+                self.common_validation.failed(**kwargs)
                 return -1
         except Exception:
             self.utils.print_info("Not able to navigate to the page")
@@ -2082,7 +2077,7 @@ class DeviceConfig(DeviceConfigElements):
 
         return unique_clients
 
-    def get_unique_client_details(self, device_mac, search_string):
+    def get_unique_client_details(self, device_mac, search_string, **kwargs):
         """
         - Stores the Unique Client Page device row's keys and values in a dictionary based on the passed search string.
         - Supported search_strings are Column headers like Hostname, MAC Address and IP Address
@@ -2097,10 +2092,12 @@ class DeviceConfig(DeviceConfigElements):
         try:
             self.utils.print_info("Navigating to device 360 page")
             if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
-                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                kwargs['fail_msg'] = f"Device not found in the device row grid with mac:{device_mac}"
+                self.common_validation.failed(**kwargs)
                 return -1
         except Exception:
-            self.utils.print_info("Not able to navigate to the page")
+            kwargs['fail_msg'] = "Not able to navigate to the page"
+            self.common_validation.fault(**kwargs)
         sleep(5)
 
         self.utils.print_info("Click on Clients")
@@ -2140,7 +2137,8 @@ class DeviceConfig(DeviceConfigElements):
     def navigate_to_device_config_device_config_dhcp(self, device_mac, dhcp="ENABLE", **kwargs):
         """
         - This keyword will retrieve the all settings in the device configuration interface WiFi2 page
-        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> Device Configuration -->dhcp
+        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> Device Configuration
+                -->dhcp
 
         - Keyword Usage:
         - ``navigate_to_device_config_device   ${DEVICE_MAC}   Enable''
@@ -2185,7 +2183,8 @@ class DeviceConfig(DeviceConfigElements):
     def navigate_to_device_config_interface_wireless(self, device_mac, interface='wifi2', **kwargs):
         """
         - This keyword will retrieve the all settings in the device configuration interface WiFi2 page
-        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> wireless --> WiFi2
+        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings
+                --> wireless --> WiFi2
 
         - Keyword Usage:
         - ``navigate_to_device_config_interface_wireless_wifi2   ${DEVICE_MAC}  ''
@@ -2198,7 +2197,8 @@ class DeviceConfig(DeviceConfigElements):
         try:
             self.utils.print_info("Navigating to device 360 page")
             if self.navigator.navigate_to_device360_page_with_mac(device_mac) == -1:
-                self.utils.print_info(f"Device not found in the device row grid with mac:{device_mac}")
+                kwargs['fail_msg'] = f"Device not found in the device row grid with mac:{device_mac}"
+                self.common_validation.failed(**kwargs)
                 return -1
 
             self.utils.print_info("click on configuration tab")
@@ -2245,7 +2245,8 @@ class DeviceConfig(DeviceConfigElements):
                     self.auto_actions.click_reference(self.get_wifi0_interface_tab)
 
         except Exception:
-            self.utils.print_info("Not able to navigate to the page")
+            kwargs['fail_msg'] = "Not able to navigate to the page"
+            self.common_validation.fault(**kwargs)
 
         kwargs['pass_msg'] = "Successfully navigate to device config interface wireless"
         self.common_validation.passed(**kwargs)
@@ -2254,13 +2255,14 @@ class DeviceConfig(DeviceConfigElements):
     def get_device_configuration_interface_WiFi2_details(self):
         """
         - This keyword fetches all values on the device configuration interface WiFi2 page
-        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> WiFi2
+        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings
+                --> WiFi2
         - Keyword Usage:
         - ``get_device_configuration_interface_WiFi2_details  ''
 
         """
         sleep(5)
-        self.utils.print_info("Retrieve the device configuration interface wirless Wiffi2")
+        self.utils.print_info("Retrieve the device configuration interface wireless Wifi2")
         interface_info = dict()
         interface_info["device_model"] = self.get_wireless_wifi_device_model().text
         interface_info["device_template"] = self.get_wireless_wifi_device_template().text
@@ -2286,13 +2288,14 @@ class DeviceConfig(DeviceConfigElements):
     def get_device_configuration_interface_WiFi1_details(self):
         """
         - This keyword fetches all values on the device configuration interface WiFi2 page
-        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> WiFi2
+        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings
+                --> WiFi2
         - Keyword Usage:
         - ``get_device_configuration_interface_WiFi2_details  ''
 
         """
         sleep(5)
-        self.utils.print_info("Retrieve the device configuration interface wirless Wiffi2")
+        self.utils.print_info("Retrieve the device configuration interface wireless Wifi2")
         interface_info = dict()
         interface_info["device_model"] = self.get_wireless_wifi_device_model().text
         interface_info["device_template"] = self.get_wireless_wifi_device_template().text
@@ -2314,13 +2317,14 @@ class DeviceConfig(DeviceConfigElements):
     def get_device_configuration_interface_WiFi0_details(self):
         """
         - This keyword fetches all values on the device configuration interface WiFi0 page
-        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings --> WiFi0
+        - Flow: Manage --> Device --> Click on Device MAC hyperlink --> click on configure --> interface settings
+                --> WiFi0
         - Keyword Usage:
         - ``get_device_configuration_interface_WiFi2_details  ''
 
         """
         sleep(5)
-        self.utils.print_info("Retrieve the device configuration interface wirless Wiffi2")
+        self.utils.print_info("Retrieve the device configuration interface wireless Wifi2")
         interface_info = dict()
         interface_info["device_model"] = self.get_wireless_wifi_device_model().text
         interface_info["device_template"] = self.get_wireless_wifi_device_template().text
@@ -2373,14 +2377,16 @@ class DeviceConfig(DeviceConfigElements):
 
             if value == "default":
                 if dic2[key] in ['', 'N/A', 'n/a', '0']:
-                    self.utils.print_info("value is not by default for " + str(key))
+                    kwargs['fail_msg'] = f"value is not by default for {str(key)}"
+                    self.common_validation.failed(**kwargs)
                     return -1
                 else:
                     found = True
 
             if value == 'blank':
                 if dic2[key] != '':
-                    self.utils.print_info("Value is not empty for " + str(key))
+                    kwargs['fail_msg'] = f"Value is not empty for {str(key)}"
+                    self.common_validation.failed(**kwargs)
                     return -1
 
             if not found:
@@ -2430,7 +2436,7 @@ class DeviceConfig(DeviceConfigElements):
         - ``enable_radio_status  ON     interface=wifi2      ''
 
         :param  mode: ON or OFF
-        :param  interface: either inface wifi0, wifi1, wifi2
+        :param  interface: either interface wifi0, wifi1, wifi2
 
         """
         self.utils.print_info("Disable the radio status OFF")
@@ -2893,16 +2899,13 @@ class DeviceConfig(DeviceConfigElements):
                             else:
                                 return False
                 else:
-                    self.utils.print_info(f"The mac {str(device_mac)} is invalid.")
                     kwargs['fail_msg'] = f"The mac {str(device_mac)} is invalid."
                     self.common_validation.failed(**kwargs)
             else:
-                self.utils.print_info("Did not find any rows!")
                 kwargs['fail_msg'] = "Did not find any rows!"
                 self.common_validation.failed(**kwargs)
 
             if device_found != 1:
-                self.utils.print_info(f"Did not find any device with mac address: {device_mac}")
                 kwargs['fail_msg'] = f"Did not find any device with mac address: {device_mac}"
                 self.common_validation.failed(**kwargs)
 
@@ -2920,7 +2923,6 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Clicking the delta view button...")
                     self.auto_actions.click(audit_delta_view_button)
                 else:
-                    self.utils.print_info("Did not find the delta view button")
                     kwargs['fail_msg'] = "Did not find the delta view button"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -2945,7 +2947,6 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Clicking on Device Config Audit Delta View...")
                     self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
                 else:
-                    self.utils.print_info("Did not find the delta view...")
                     kwargs['fail_msg'] = "Did not find the delta view..."
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -2961,7 +2962,6 @@ class DeviceConfig(DeviceConfigElements):
                                          timeout=50, delay=10)
                     delta_configs = self.get_device_config_audit_delta_view_content().text
                 else:
-                    self.utils.print_info("Did not manage to locate the content...")
                     kwargs['fail_msg'] = "Did not manage to locate the content..."
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -2976,13 +2976,11 @@ class DeviceConfig(DeviceConfigElements):
                     self.common_validation.failed(**kwargs)
                     return -1
                 if delta_configs:
-                    self.utils.print_info("Successfully collected Delta CLI configs")
-                    self.utils.print_info("Delta Configs : ", delta_configs)
                     kwargs['pass_msg'] = "Successfully collected Delta CLI configs"
+                    self.utils.print_info("Delta Configs : ", delta_configs)
                     self.common_validation.passed(**kwargs)
                     return delta_configs
                 else:
-                    self.utils.print_info("Did not manage to get any configurations")
                     kwargs['fail_msg'] = "Did not manage to get any configurations"
                     self.common_validation.failed(**kwargs)
                     return -1
@@ -3018,7 +3016,6 @@ class DeviceConfig(DeviceConfigElements):
                             self.utils.print_info("Clicking the config audit view button...")
                             self.auto_actions.click(config_audit_view_button)
                         else:
-                            self.utils.print_info("Did not find the config audit view button")
                             kwargs['fail_msg'] = "Did not find the config audit view button"
                             self.common_validation.failed(**kwargs)
                             return -1
@@ -3029,7 +3026,6 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Clicking on Device Config Audit Complete View...")
                                 self.auto_actions.click_reference(self.get_device_config_audit_complete_view)
                             else:
-                                self.utils.print_info("Did not find the complete view...")
                                 kwargs['fail_msg'] = "Did not find the complete view..."
                                 self.common_validation.failed(**kwargs)
                                 return -1
@@ -3043,8 +3039,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.wait_till(check_device_config_audit_complete_view_content, is_logging_enabled=True)
                                 get_configs_result = self.get_device_config_audit_complete_view_content().text
                             else:
-                                self.utils.print_info("Did not manage to locate the content...")
-                                kwargs['fail_msg'] = "Did not manage to locate the content..."
+                                kwargs['fail_msg'] = "Did not manage to locate the content."
                                 self.common_validation.failed(**kwargs)
                                 return -1
                         elif config_type.upper() == "DELTA":
@@ -3054,8 +3049,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Clicking on Device Config Audit Delta View...")
                                 self.auto_actions.click_reference(self.get_device_config_audit_delta_view)
                             else:
-                                self.utils.print_info("Did not find the delta view...")
-                                kwargs['fail_msg'] = "Did not find the delta view..."
+                                kwargs['fail_msg'] = "Did not find the delta view."
                                 self.common_validation.failed(**kwargs)
                                 return -1
                             self.utils.print_info("Attempting to locate the delta config content...")
@@ -3068,8 +3062,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True)
                                 get_configs_result = self.get_device_config_audit_delta_view_content().text
                             else:
-                                self.utils.print_info("Did not manage to locate the content...")
-                                kwargs['fail_msg'] = "Did not manage to locate the content..."
+                                kwargs['fail_msg'] = "Did not manage to locate the content."
                                 self.common_validation.failed(**kwargs)
                                 return -1
                         elif config_type.upper() == "AUDIT":
@@ -3079,8 +3072,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.print_info("Clicking on Device Config Audit audit View...")
                                 self.auto_actions.click_reference(self.get_device_config_audit_audit_view)
                             else:
-                                self.utils.print_info("Did not find the audit view...")
-                                kwargs['fail_msg'] = "Did not find the audit view..."
+                                kwargs['fail_msg'] = "Did not find the audit view."
                                 self.common_validation.failed(**kwargs)
                                 return -1
                             self.utils.print_info("Attempting to locate the audit config content...")
@@ -3093,8 +3085,7 @@ class DeviceConfig(DeviceConfigElements):
                                 self.utils.wait_till(check_device_config_audit_audit_view_content, is_logging_enabled=True)
                                 get_configs_result = self.get_device_config_audit_audit_view_content().text
                             else:
-                                self.utils.print_info("Did not manage to locate the content...")
-                                kwargs['fail_msg'] = "Did not manage to locate the content..."
+                                kwargs['fail_msg'] = "Did not manage to locate the content."
                                 self.common_validation.failed(**kwargs)
                                 return -1
 
@@ -3108,30 +3099,27 @@ class DeviceConfig(DeviceConfigElements):
                             self.common_validation.failed(**kwargs)
                             return -1
                         if get_configs_result:
-                            self.utils.print_info(f"Successfully collected {config_type} CLI configs")
-                            self.utils.print_info("{config_type} Configs : ", get_configs_result)
-                            kwargs['pass_msg'] = f"Successfully collected {config_type} CLI configs"
+                            kwargs['pass_msg'] = f"Successfully collected {config_type} CLI configs. " \
+                                                 f"{config_type} Configs : {get_configs_result}"
                             self.common_validation.passed(**kwargs)
                             return get_configs_result
                         else:
-                            self.utils.print_info("Did not manage to get any configurations")
                             kwargs['fail_msg'] = "Did not manage to get any configurations"
                             self.common_validation.failed(**kwargs)
                             return -1
                 if device_found == 0:
-                    self.utils.print_info(f"Did not find any device with AP serial: {ap_serial}")
                     kwargs['fail_msg'] = f"Did not find any device with AP serial: {ap_serial}"
                     self.common_validation.failed(**kwargs)
                     return -1
         else:
-            self.utils.print_info("Did not find any rows!")
             kwargs['fail_msg'] = "Did not find any rows!"
             self.common_validation.failed(**kwargs)
             return -1
 
     def clear_audit_commands(self, audit):
         """
-            - This keyword is used to "clean" the output from audit-delta of the commands that sometimes appear at the beginning of the output
+            - This keyword is used to "clean" the output from audit-delta of the commands that sometimes appear at the
+              beginning of the output
 
         :param audit: the output from audit-delta
         :return: audit_clean: a list with the output from audit-delta without the commands that sometimes appear at
@@ -3147,7 +3135,7 @@ class DeviceConfig(DeviceConfigElements):
                 audit_list.remove('save configuration y')
         return audit_clean
 
-    def configure_device_function(self, ap_serial, device_function='AP'):
+    def configure_device_function(self, ap_serial, device_function='AP', **kwargs):
         """
         - This keyword will configure device function as AP or Router
         :param ap_serial:   The serial of the device
@@ -3207,7 +3195,8 @@ class DeviceConfig(DeviceConfigElements):
                     self.utils.print_info("Device function already is set as router mode...")
                     pass
                 else:
-                    self.utils.print_info("No valid device function found!!!")
+                    kwargs['fail_msg'] = "No valid device function found!!!"
+                    self.common_validation.failed(**kwargs)
                     return -1
                 sleep(3)
                 self.utils.print_info("Click Save Device Configuration button...")
@@ -3221,7 +3210,8 @@ class DeviceConfig(DeviceConfigElements):
                 self.utils.print_info("Refresh page and try to select AP again")
                 try_cnt += 1
                 if try_cnt == 10:
-                    self.utils.print_info(f"Max {try_cnt} to select device is reached")
+                    kwargs['fail_msg'] = f"Max {try_cnt} to select device is reached"
+                    self.common_validation.failed(**kwargs)
                     return -1
 
     def verify_delta_cli_commands(self, dut, commands, retries=5, step=15, **kwargs):

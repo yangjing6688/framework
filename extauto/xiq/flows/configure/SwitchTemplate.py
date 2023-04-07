@@ -4365,6 +4365,55 @@ class SwitchTemplate(object):
 
         return 1
 
+    def set_override_policy_common_settings(self, state, **kwargs):
+        """ Method that enables/disables the Override Policy Common Settings option in Template Configuration.
+        
+        :param state: True|False
+        :return: 1 if the method call is successful else -1
+        """
+        
+        if not isinstance(state, bool):
+            kwargs["fail_msg"] = "The 'state' argument should be a boolean value"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        state = "enable" if state else "disable"
+
+        button, _ = self.utils.wait_till(
+            func=self.sw_template_web_elements.get_device_template_override_policy,
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=5
+        )
+        
+        if not button:
+            kwargs["fail_msg"] = "Failed to get the device_template_override_policy button"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
+        if (button.is_selected() and state == "disable") or (not button.is_selected() and state == "enable"):
+            
+            self.utils.print_info(f"Click on the device_template_override_policy button in order to {state} it.")
+            
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(button),
+                exp_func_resp=True,
+                delay=4
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the device_template_override_policy button"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+            kwargs["pass_msg"] = f"Successfully clicked the device_template_override_policy button and {state}d it."
+            self.common_validation.passed(**kwargs)
+            return 1
+        
+        kwargs["pass_msg"] = f"device_template_override_policy button is already {state}d."
+        self.common_validation.passed(**kwargs)
+        return 1
+    
     def choose_stp_mode(self, mode, **kwargs):
         """Method that choses the STP mode in Template Configuration.
 
