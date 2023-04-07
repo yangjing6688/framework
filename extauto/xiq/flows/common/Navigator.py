@@ -3924,8 +3924,10 @@ class Navigator(NavigatorWebElements):
         retry = 1
         load_grid_complete = False
         load_spinner_complete = False
+        load_loading_mark_complete = False
         grid_marks = self.get_grid_loading_wheel()
         grid_spinners = self.get_grid_spinner()
+        grid_loading_marks = self.get_grid_loading_mark()
         if grid_marks:
             self.utils.print_info(f"Found {len(grid_marks)} loading grids on the page.")
             self.utils.print_info("Checking if the grid is still loading.")
@@ -3965,6 +3967,27 @@ class Navigator(NavigatorWebElements):
                     grid_spinners = self.get_grid_spinner()
         else:
             self.utils.print_info("Spinner is not present on this page. No wait is needed.")
+
+        retry = 1
+        if grid_loading_marks:
+            self.utils.print_info(f"Found {len(grid_loading_marks)} loading marks on the page.")
+            self.utils.print_info("Checking if loading mark is still loading.")
+            while not load_loading_mark_complete and retry < 10:
+                load_mark_fully_loaded = 0
+                for loading_mark in grid_loading_marks:
+                    if "fn-hidden" not in loading_mark.get_attribute("class"):
+                        self.utils.print_info(f"Loading mark is still loading. Retry: {retry}")
+                        retry += 1
+                        sleep(2)
+                    else:
+                        self.utils.print_info("Loading mark is not loading anymore.")
+                        load_mark_fully_loaded += 1
+                if load_mark_fully_loaded == len(grid_loading_marks):
+                    load_loading_mark_complete = True
+                else:
+                    grid_loading_marks = self.get_grid_loading_mark()
+        else:
+            self.utils.print_info("Loading mark is not present on this page. No wait is needed.")
         kwargs['pass_msg'] = "Page finished loading."
         self.common_validation.passed(**kwargs)
         return 1

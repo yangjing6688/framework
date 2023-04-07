@@ -729,3 +729,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_tools_page(self):
         return self.weh.get_element(self.tools_page)
+
+    def get_grid_loading_mark(self):
+        return self.weh.get_elements(self.grid_loading_mark)
