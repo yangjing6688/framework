@@ -3816,8 +3816,21 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Successfully Clicked Configure menu and then Navigated to Network Policies Menu else return -1
         """
+        
+        configure_tab, _ = self.utils.wait_till(
+            func=self.get_configure_tab,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=6
+        )
+
+        if not configure_tab:
+            kwargs["fail_msg"] = "Failed to get configure_tab element"
+            self.common_validation.fault(**kwargs)
+            return -1
+            
         self.utils.print_info("Selecting Configure tab...")
-        if self.get_configure_tab().is_displayed():
+        if configure_tab.is_displayed():
             self.navigate_to_configure_tab()
             kwargs['pass_msg'] = " Successfully Clicked Configure Menu"
             self.common_validation.passed(**kwargs)
