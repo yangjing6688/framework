@@ -33,11 +33,7 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 import extauto.xiq.flows.configure.SwitchTemplate
 from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
 
-
-class ExceededWaitForElementsToUpdateLimitException(Exception):
-    def __init__(self, limit):
-        self.limit = limit
-        super().__init__()
+from extauto.common.KeywordUtils import KeywordUtils
 
 
 class NetworkPolicy(object):
@@ -66,6 +62,7 @@ class NetworkPolicy(object):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.switch_template = extauto.xiq.flows.configure.SwitchTemplate.SwitchTemplate()
         self.xapiNetworkPolicy = XapiNetworkPolicy()
+        self.keyword_utils = KeywordUtils()
 
     def select_network_policy_row(self, policy):
         """
@@ -491,9 +488,9 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -1
         try:
-            policy_cards = self._wait_for_elements_to_load(self.np_web_elements.get_network_policy_card_items, 2)
-        except ExceededWaitForElementsToUpdateLimitException as e:
-            kwargs['fail_msg'] = f"The number of Network Policy cards changed {e.limit} times"
+            policy_cards = self.keyword_utils.wait_for_elements_to_load(self.np_web_elements.get_network_policy_card_items, 2)
+        except Exception as e:
+            kwargs['fail_msg'] = f"The number of Network Policy cards changed {e} times"
             self.common_validation.failed(**kwargs)
             return -1
 
@@ -508,40 +505,6 @@ class NetworkPolicy(object):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def _wait_for_elements_to_load(self, find, wait_time=1, loop_max=30, **args):
-        """Waits for the number of found elements to stabilize in order to avoid stale elements.
-        Stops once the numbers are the same between two subsequent cycles.
-
-        :param find: function
-            Function to find the elements.
-        :param wait_time : int
-            Duration to wait for loading
-        :param loop_max : int
-            Maximum number of times to check if the count of elements has changed.
-        :raises ExceededWaitForElementsCountToStabilizeLimitException
-            If max_check_cycles is reached.
-        """
-
-        elements = find()
-        last_count = len(elements)
-        current_count = -1
-        loop_index = 0
-
-        while last_count != current_count and loop_index < loop_max:
-            sleep(wait_time)  # Allow for elements to load
-            elements = find()
-            last_count = current_count
-            current_count = len(elements)
-            self.utils.print_info(
-                f"Getting: current_count = {current_count}, last_count = {last_count}, loop_index = {loop_index}")
-
-            # Fail safe... If we keep getting different counts for loop_max seconds then fail
-            loop_index = loop_index + 1
-
-        if loop_index >= loop_max:
-            ExceededWaitForElementsToUpdateLimitException(loop_max)
-
-        return find()
 
     def _select_ssid(self, ssid):
         """
