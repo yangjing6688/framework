@@ -42,19 +42,19 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_enable_stp = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpMode-stp']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-stp-mode']",
             'wait_for': 5
         }
 
     sw_template_enable_rstp = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpMode-rstp']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-rapid-stp']",
             'wait_for': 5
         }
 
     sw_template_enable_mstp = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpMode-mstp']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-multiple-stp']",
             'wait_for': 5
         }
 
