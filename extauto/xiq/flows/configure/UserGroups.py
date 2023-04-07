@@ -9,6 +9,7 @@ from extauto.xiq.flows.configure.ExpirationSettings import ExpirationSettings
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 from extauto.common.CommonValidation import CommonValidation
+from extauto.xiq.xapi.configure.XapiUserGroups import XapiUserGroups
 
 
 class UserGroups(UserGroupsWebElements):
@@ -22,6 +23,7 @@ class UserGroups(UserGroupsWebElements):
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
         self.builtin = BuiltIn()
+        self.xapiUserGroups = XapiUserGroups()
 
     def _select_password_db_loc_type(self, password_db_loc, password_type):
         """
@@ -301,15 +303,16 @@ class UserGroups(UserGroupsWebElements):
         Flow changed in this keyword because of: APC-47809
         Does not require save button to be clicked
         """
+
         user_group_config = group_group_profile.get('user_group_config')
         password_settings = group_group_profile.get('passwd_settings', 'None')
         expiration_settings = group_group_profile.get('expiration_settings', 'None')
         delivery_settings = group_group_profile.get('delivery_settings', 'None')
         users_config = group_group_profile.get('users_config')
-
         password_db_loc = user_group_config.get('pass_db_loc', 'CLOUD')
         password_type = user_group_config.get('pass_type', 'PPSK')
         cwp_register = user_group_config.get("cwp_register")
+
 
         self.utils.print_info("Enter the user group name")
         self.auto_actions.send_keys(self.get_user_group_name_field(), group_name)
@@ -382,7 +385,7 @@ class UserGroups(UserGroupsWebElements):
             if "The User Group cannot be saved because the name" in text:
                 self.builtin.fail(f"{text}. delete the user group or choose different name and re-run the test")
 
-    def create_user_group(self, group_name='Demo', user_group_profile=None):
+    def create_user_group(self, group_name='Demo', user_group_profile=None, **kwargs):
         """
         - Flow: Configure --> Users --> User Groups
         - Create User Groups and add users to user Groups
@@ -394,6 +397,12 @@ class UserGroups(UserGroupsWebElements):
         :param user_group_profile: (dict)  configuration parameter
         :return: 1 if created else -1
         """
+
+        # Need to add support in XAPI for bulk user add in order to support this feature
+        # if self.xapiUserGroups.is_xapi_enabled(**kwargs):
+        #     return self.xapiUserGroups.xapi_create_user_group(group_name=group_name,
+        #                                                         user_group_profile=user_group_profile,
+        #                                                         **kwargs)
 
         self.utils.print_info("Navigating to the configure users")
         self.navigator.navigate_to_configure_user_groups()
@@ -451,16 +460,24 @@ class UserGroups(UserGroupsWebElements):
                 return 1
         return -1
 
-    def delete_user_group(self, user_group_name):
+    def delete_user_group(self, user_group_name, **kwargs):
         """
         - Flow Configure --> Users --> User Groups
         - Delete the User Groups form User Groups grid
         - Keyword Usage:
         - ``Delete User Group   ${USER_GROUP_NAME}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param user_group_name: Name of the user group
         :return: 1 if deleted successfully else -1
         """
+
+        if self.xapiUserGroups.is_xapi_enabled(**kwargs):
+            return self.xapiUserGroups.xapi_delete_user_group(user_group_name=user_group_name, **kwargs)
+
         self.utils.print_info("Navigating to the configure users")
         self.navigator.navigate_to_configure_user_groups()
 
