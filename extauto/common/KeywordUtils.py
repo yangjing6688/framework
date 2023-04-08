@@ -535,6 +535,7 @@ class KeywordUtils(object, metaclass=Singleton):
             Duration to wait for loading
         :param loop_max : int
             Maximum number of times to check if the count of elements has changed.
+        :return found elements for which to wait for
         :raises ExceededWaitForElementsCountToStabilizeLimitException
             If max_check_cycles is reached.
         """

@@ -505,7 +505,6 @@ class NetworkPolicy(object):
         self.common_validation.failed(**kwargs)
         return -1
 
-
     def _select_ssid(self, ssid):
         """
         - Selects an SSID
