@@ -104,7 +104,7 @@ class GmailHandler:
         # using imap module connect the gmail imap server
         if re.search(r"autoiqmail", mail_id):
             try:
-                self.builtin.log_to_console(f"Using IMAP autoiqmail")
+                self.builtin.log_to_console("Using IMAP autoiqmail.com")
                 self.mail = imaplib.IMAP4_SSL('secure318.inmotionhosting.com', 993)
                 self.provider = 'inmotion'
             except Exception as e:
