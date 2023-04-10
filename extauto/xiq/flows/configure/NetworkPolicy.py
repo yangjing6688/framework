@@ -33,7 +33,7 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 import extauto.xiq.flows.configure.SwitchTemplate
 from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
 
-
+from extauto.common.KeywordUtils import KeywordUtils
 
 
 class NetworkPolicy(object):
@@ -62,6 +62,7 @@ class NetworkPolicy(object):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.switch_template = extauto.xiq.flows.configure.SwitchTemplate.SwitchTemplate()
         self.xapiNetworkPolicy = XapiNetworkPolicy()
+        self.keyword_utils = KeywordUtils()
 
     def select_network_policy_row(self, policy):
         """
@@ -481,17 +482,22 @@ class NetworkPolicy(object):
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
         self.utils.wait_till(self.np_web_elements.get_network_policy_card_item,timeout=6, delay=2)
-
-        policy_cards = self.np_web_elements.get_network_policy_card_items()
-        if policy_cards is None:
+        policy_card = self.np_web_elements.get_network_policy_card_item()
+        if policy_card is None:
             kwargs['fail_msg'] = "No Network Policy cards present. No policy configured"
+            self.common_validation.failed(**kwargs)
+            return -1
+        try:
+            policy_cards = self.keyword_utils.wait_for_elements_to_load(self.np_web_elements.get_network_policy_card_items, 2)
+        except Exception as e:
+            kwargs['fail_msg'] = f"The number of Network Policy cards changed {e} times"
             self.common_validation.failed(**kwargs)
             return -1
 
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
-                self.auto_actions.click(self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
+                self.auto_actions.click_reference(lambda: self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
                 kwargs['pass_msg'] = "Network Policy card/s present"
                 self.common_validation.passed(**kwargs)
                 return 1
