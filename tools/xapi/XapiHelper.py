@@ -3,10 +3,8 @@ from robot.libraries.BuiltIn import BuiltIn
 import json
 from time import sleep
 import pprint
-import urllib3
 from extauto.common.Utils import Utils
 from ExtremeAutomation.Library.Utils.DotDict import DotDict
-
 
 try:
     import extremecloudiq
@@ -199,7 +197,6 @@ class XapiHelper():
         :return: None
         """
         self.builtin.set_global_variable("${XAPI_ENABLE}", value)
-
 
     def convert_preload_content_data_to_object(self, object_string):
         """

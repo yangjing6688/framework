@@ -12,6 +12,7 @@
             api_instance = self.extremecloudiq.{XAPI_API_CLASS}(api_client)
             try:
                 api_response = api_instance.{XAPI_API_FUNCTION}(**kwargs)
+                kwargs['pass_msg'] = f"returned: {api_response}"
                 self.common_validation.passed(**kwargs)
                 return api_response
 
