@@ -891,13 +891,14 @@ class NetworkPolicy(object):
         :return: 1 if success else -1
         """
 
-        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
-            if cli_type == 'AH-AP':
-                self.utils.print_info("ClI Type: AH-AP detected, updated type to Complete")
-                update_type = 'complete'
-            return self.xapiNetworkPolicy.xapi_deploy_network_policy_with_complete_update(policy_name,
-                                                                                          devices,
-                                                                                          update_type)
+        # Need to write up a bug on this XAPI not working correctly
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
+        #     if cli_type == 'AH-AP':
+        #         self.utils.print_info("ClI Type: AH-AP detected, updated type to Complete")
+        #         update_type = 'complete'
+        #     return self.xapiNetworkPolicy.xapi_deploy_network_policy_with_complete_update(policy_name,
+        #                                                                                   devices,
+        #                                                                                   update_type)
         # UI
         if cli_type == 'AH-AP':
             return self.deploy_network_policy(policy_name, devices, 'complete')
@@ -951,12 +952,13 @@ class NetworkPolicy(object):
         :param devices: Device serial number
         :return:
         """
-        if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
-            return self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
-                                                                                       devices,
-                                                                                        'delta')
-        else:
-            return self.deploy_network_policy(policy_name, devices, 'delta')
+        # need to write up a bug on this XAPI
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
+        #     return self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
+        #                                                                                devices,
+        #                                                                                 'delta')
+        #else:
+        return self.deploy_network_policy(policy_name, devices, 'delta')
 
     def _check_navigation_to_network_policy_page(self):
         """
