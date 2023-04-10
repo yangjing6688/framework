@@ -3006,6 +3006,10 @@ class Devices:
         - ``Get Device Status   device_mac=${DEVICE_MAC}``
         - ``Get Device Status   device_serial=${DEVICE_SERIAL}  device_mac=${DEVICE_MAC}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device Serial
         :param device_name: device host name
         :param device_mac: device MAC address
@@ -3016,6 +3020,10 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
+
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
+            return self.xapiDevices.xapi_get_device_status(device_serial=device_serial, device_name=device_name,
+                                                       device_mac=device_mac, **kwargs)
 
         # UI Support
         self.utils.print_info("Navigate to Manage-->Devices")
