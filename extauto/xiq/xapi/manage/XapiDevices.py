@@ -636,7 +636,7 @@ class XapiDevices(XapiHelper):
           :param: device_serial - The device serial
           :param: device_name - The device name
           :param: device_mac - The device mac
-          :return: The device status as Green (connected) or disconnected if an error occured
+          :return: The device status as Green (connected) or disconnected. if an error occured, a -1 will be returned
         """
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
