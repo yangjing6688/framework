@@ -497,7 +497,7 @@ class NetworkPolicy(object):
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
-                self.auto_actions.click(self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
+                self.auto_actions.click_reference(lambda: self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
                 kwargs['pass_msg'] = "Network Policy card/s present"
                 self.common_validation.passed(**kwargs)
                 return 1
