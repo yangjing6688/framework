@@ -4628,11 +4628,20 @@ class SwitchTemplate(object):
             kwargs["fail_msg"] = "Not found the network policy. Make sure that it was created before."
             self.common_validation.failed(**kwargs)
             return -1
-
+        self.set_override_policy_common_settings(state=True)
         enable_mac = self.sw_template_web_elements.get_sw_template_enable_mac_locking()
         if not enable_mac.is_selected() and status == "ON":
             self.utils.print_info("Enabling MAC Locking...")
             self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking)
+            confirmation_message = self.sw_template_web_elements.get_sw_template_enable_mac_locking_confirm_message()
+            if "none" not in confirmation_message.get_attribute("style"):
+                self.utils.print_info("Selecting YES in confirmation pop-up.")
+                self.auto_actions.click_reference(
+                    self.sw_template_web_elements.get_sw_template_enable_mac_locking_confirm_message_yes_button)
+            else:
+                kwargs["fail_msg"] = "Confirmation pop-up did not appear. Check override common settings is enabled."
+                self.common_validation.failed(**kwargs)
+                return -1
         elif enable_mac.is_selected() and status == "OFF":
             self.utils.print_info("Disabling MAC Locking...")
             self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking)
@@ -4649,11 +4658,7 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
 
-        confirmation_button = self.sw_template_web_elements.get_sw_template_enable_mac_locking_confirm_message_yes_button()
-        if confirmation_button and status == "ON":
-            self.utils.print_info("Selecting YES in confirmation pop-up.")
-            self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_enable_mac_locking_confirm_message_yes_button)
-        self.utils.print_info("Saving changes...")
+        self.utils.print_info("Saving template default changes...")
         self.switch_template_save()
         kwargs["pass_msg"] = f"Successfully changed MAC Locking state to {status}"
         self.common_validation.passed(**kwargs)
