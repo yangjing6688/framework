@@ -216,7 +216,7 @@ class XapiNetworkPolicy(XapiHelper):
                     }
         try:
             # Do the deployment
-            deployment_reponse_preload = self.xapiBaseConfigurationDeploymentApi.xapi_base_deploy_config(xiq_deployment_request=deployment, _preload_content=False)
+            self.xapiBaseConfigurationDeploymentApi.xapi_base_deploy_config(xiq_deployment_request=deployment, _preload_content=False)
 
             # Get the status
             finished = False
