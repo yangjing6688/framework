@@ -554,14 +554,18 @@ class Device360WebElements(Device360WebElementDefs):
         :return: 'Select All Ports' button of the Port Diagnostics page in the device360 view
         """
         elements = self.weh.get_elements(self.device360_port_diagnostics_select_all_ports_button)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_device360_port_diagnostics_deselect_all_ports_button(self):
         """
         :return: 'Deselect All Ports' button of the Port Diagnostics page in the device360 view
         """
         elements = self.weh.get_elements(self.device360_port_diagnostics_deselect_all_ports_button)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_device360_port_diagnostics_selected_ports(self):
         """
@@ -1767,31 +1771,45 @@ class Device360WebElements(Device360WebElementDefs):
 
     def get_device360_monitor_diagnostics_health_item_ip_address_stack_active_unit(self, ip_address):
         elements = self.weh.get_template_elements(self.device360_monitor_diagnostics_health_item_ip_address_stack_active_unit, ip_address=ip_address)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_device360_monitor_diagnostics_health_item_mac_address_stack_active_unit(self, mac_address):
         elements = self.weh.get_template_elements(self.device360_monitor_diagnostics_health_item_mac_address_stack_active_unit, mac_address=mac_address)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
     
     def get_device360_monitor_diagnostics_health_item_soft_version_stack_active_unit(self, soft_version):
         elements = self.weh.get_template_elements(self.device360_monitor_diagnostics_health_item_soft_version_stack_active_unit, soft_version=soft_version)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
     
     def get_device360_monitor_diagnostics_health_item_model_stack_active_unit(self, model):
         elements = self.weh.get_template_elements(self.device360_monitor_diagnostics_health_item_model_stack_active_unit, model=model)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
     
     def get_device360_monitor_diagnostics_health_item_serial_number_stack_active_unit(self, serial_number):
         elements = self.weh.get_template_elements(self.device360_monitor_diagnostics_health_item_serial_number_stack_active_unit, serial_number=serial_number)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
     
     def get_device360_monitor_diagnostics_health_item_make_stack_active_unit(self, make):
         elements = self.weh.get_template_elements(self.device360_monitor_diagnostics_health_item_make_stack_active_unit, make=make)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
     
     def get_device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit(self, iqagent_version):
         elements = self.weh.get_template_elements(self.device360_monitor_diagnostics_health_item_iqagent_version_stack_active_unit, iqagent_version=iqagent_version)
-        return [e for e in elements if e.is_displayed()][0]
+        for el in elements:
+            if el.is_displayed():
+                return el
     
     def get_device360_monitor_diagnostics_stack_drop_down_unit(self):
         return self.weh.get_element(self.device360_monitor_diagnostics_stack_drop_down_unit)
