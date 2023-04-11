@@ -171,16 +171,16 @@ class XapiNetworkPolicy(XapiHelper):
         :param update_type: The update type [complete or delta]
         :return: 1 for success or -1 for failure
         """
-        return self.xapi_deploy_network_policy_with_complete_update(self, policy_name, device_serial, update_type)
+        return self.xapi_deploy_network_policy_with_complete_update( policy_name, device_serial, update_type)
 
-    def xapi_deploy_network_policy_with_complete_update(self, policy_name, device_serial, update_type, next_reboot=False, **kwargs):
+    def xapi_deploy_network_policy_with_complete_update(self, policy_name, device_serial, update_type, next_reboot=True, **kwargs):
         """
             This will deploy the nextwork policy to the devices that were selected
 
         :param policy_name: The policy name
         :param device_serial: The devices that were selected
         :param update_type: The update type [complete or delta]
-        :param next_reboot: Do the update on the next reboot
+        :param next_reboot: Do the update on the next reboot (default = True)
         :return: 1 for success or -1 for failure
         """
         update_type_value = True # Complete
@@ -204,8 +204,8 @@ class XapiNetworkPolicy(XapiHelper):
                       "policy": {
                         "enable_complete_configuration_update": update_type_value,
                         "firmware_upgrade_policy": {
-                          "enable_enforce_upgrade": True,
-                          "enable_distributed_upgrade": True
+                          "enable_enforce_upgrade": False,
+                          "enable_distributed_upgrade": False
                         },
                         "firmware_activate_option": {
                           "enable_activate_at_next_reboot": next_reboot,
@@ -216,16 +216,14 @@ class XapiNetworkPolicy(XapiHelper):
                     }
         try:
             # Do the deployment
-            deployment_reponse_preload = self.xapiBaseConfigurationDeploymentApi.xapi_base_deploy_config(xiq_deployment_request=deployment, _preload_content=False)
-            self.valid_http_response(deployment_reponse_preload)
+            self.xapiBaseConfigurationDeploymentApi.xapi_base_deploy_config(xiq_deployment_request=deployment, _preload_content=False)
 
             # Get the status
             finished = False
             count = 0
-            max_count = 300 # # 5 minutes
+            max_count = 600 # # 10 minutes
             while not finished:
                 deployment_status_reponse = self.xapiBaseConfigurationDeploymentApi.xapi_base_get_deploy_status(device_ids=[device_id], _preload_content=False)
-                self.valid_http_response(deployment_status_reponse)
                 deployment_data = self.convert_preload_content_data_to_object(deployment_status_reponse.data)
                 data = deployment_data[str(device_id)]
                 finished = data.finished
@@ -237,16 +235,25 @@ class XapiNetworkPolicy(XapiHelper):
                         kwargs['fail_msg'] = f'Failed to completed the deployment -> Device serial: {device_serial}, Status: {data.current_step_message}, Completed: {finished}" '
                         self.common_validation.failed(**kwargs)
                 else:
-                    self.utils.print_info(f"Device serial: {device_serial}, Deployment Sucessful: {data.is_finished_successful}, Completed: {finished}")
+                    self.utils.print_info(f"Device serial: {device_serial}, Deployment Sucessful: {data.is_finished_successful}, Completed: {finished} Full Data: {data}")
                     if not data.is_finished_successful:
+                        try:
+                            # Try and navigate to the devices page and see the UI result (if enabled)
+                            from extauto.xiq.flows.common.Navigator import Navigator
+                            Navigator().navigate_to_devices()
+                        except Exception:
+                            pass
                         kwargs['fail_msg'] = f'Failed to completed the deployment with status: {data.is_finished_successful}"'
                         self.common_validation.failed(**kwargs)
+                        return -1
 
                 count = count +1
         except Exception as e:
             kwargs['fail_msg'] = f'Failed to completed the deployment with exception {e}" '
             self.common_validation.fault(**kwargs)
+            return -1
 
         kwargs['pass_msg'] = 'The deployment is completed'
         self.common_validation.passed(**kwargs)
+        return 1
 
