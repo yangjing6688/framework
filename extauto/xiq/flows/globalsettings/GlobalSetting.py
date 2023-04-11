@@ -9,6 +9,7 @@ from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.xapi.globalsettings.XapiGlobalSettings import XapiGlobalSettings
 
 
 class GlobalSetting(GlobalSettingWebElements):
@@ -22,6 +23,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.builtin = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
         self.common_validation = CommonValidation()
+        self.xapiGlobalSettings = XapiGlobalSettings()
 
     def get_authentication_logs_row(self, search_string):
         """
@@ -63,7 +65,7 @@ class GlobalSetting(GlobalSettingWebElements):
             if search_string in row.text:
                 return row
 
-    def get_authentication_logs_details(self, search_string, search_filter=None):
+    def get_authentication_logs_details(self, search_string, search_filter=None, **kwargs):
         """
         - Filter the logs based on the Filter arguments Allowed Filters are: Client or user name
         - Gets all authentication details from the row
@@ -71,10 +73,18 @@ class GlobalSetting(GlobalSettingWebElements):
         - Keyword Usage
         - ``Get Authentication Logs Details   ${SEARCH_STRING}    ${SEARCH_FILTER``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param search_filter:  filter string
         :param search_string:  row search string i.e client mac or user name
         :return: authentication details dict
         """
+
+        # if self.xapiDevices.is_xapi_enabled(**kwargs):
+        #     return self.xapiGlobalSettings.xapi_get_authentication_logs_details(search_string=search_string, search_filter=search_filter, **kwargs)
+
         self.utils.print_info("Navigate to Global Settings-->Authentication Logs")
         self.navigate.navigate_to_authentication_logs()
         sleep(5)
