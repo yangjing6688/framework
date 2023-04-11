@@ -1433,15 +1433,25 @@ class Devices:
         self.navigator.navigate_to_devices()
 
         returned_version = -1
-        device_selected = False
+        device_selected = 0
         device_dict = device_dict[0]
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
 
-        if self.select_device(device_mac=device_mac, device_serial=device_serial):
-            device_selected = 1
+        # Let's make sure we can get the device selected
+        counter = 0
+        while device_selected != 1:
+            if counter > 10:
+                self.utils.print_info(f'We reached the limit of trying to selecting the device, counter: {counter}')
+                break
+            else:
+                counter = counter + 1
+            self.utils.print_info(f'Selecting the device, counter: {counter}')
+            device_selected = self.select_device(device_mac=device_mac, device_serial=device_serial)
 
-        if device_selected:
+
+        # we have selected a device
+        if device_selected == 1:
             self.utils.print_info("Selecting Update Devices button")
             self.auto_actions.click_reference(self.device_update.get_update_devices_button)
             sleep(5)
@@ -1459,7 +1469,7 @@ class Devices:
             if version is None:
                 self.utils.print_info("Selecting upgrade to latest version checkbox")
                 self.auto_actions.click_reference(self.device_update.get_upgrade_to_latest_version_radio)
-                sleep(2)
+                sleep(5)
 
                 if not self.device_update.get_upgrade_even_if_versions_are_same_button().is_selected():
                     self.utils.print_info("Click on Upgrade even if the versions are the same button")
@@ -2860,8 +2870,11 @@ class Devices:
 
         # We need to skip this when we are selecting a device
         if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
-            return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
-                                                       device_mac=device_mac, **kwargs)
+            return self.xapiDevices.xapi_search_device(device_serial=device_serial,
+                                                       device_name=device_name,
+                                                       device_mac=device_mac,
+                                                       **kwargs)
+
         device_keys = {}
         if device_mac:
             device_keys['device_mac'] = device_mac
