@@ -4,6 +4,8 @@ from extauto.common.KeywordUtils import KeywordUtils
 import inspect
 from tools.xapi.XapiHelper import XapiHelper
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
+from extauto.xiq.xapi.globalsettings.XapiGlobalSettings import XapiGlobalSettings
+
 
 # Keyword imports required to run keywords implemented in this file
 from extauto.xiq.xapi.common.XapiLogin import XapiLogin
@@ -20,6 +22,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         self.common_validation = CommonValidation()
         self.keyword_utils = KeywordUtils()
         self.xapi_helper = XapiHelper()
+        self.XapiGlobalSettings = XapiGlobalSettings()
 
         # Object used to run keywords implemented in this file
         self.login = Login()
@@ -452,7 +455,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         """
         Gets the base url of current page
 
-        This method gets the base url of current page.
+        This method gets the website address of the current page for example https://va2.extremecloudiq.com
 
         - Keyword Usage:
         -   Robot:
@@ -507,12 +510,12 @@ class KeywordsLogin(object, metaclass=Singleton):
         """
         Gets the XIQ Build version details
 
-        This method gets the XIQ Build version details.
+        This method clicks on "About ExtremeCloud IQ" at the top right and gets the Build version details from the "About ExtremeCloud IQ" popup. For example "Build Version: 23.2.0.30"
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get XIQ Build version details
+        -      Get XIQ Version
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -560,14 +563,14 @@ class KeywordsLogin(object, metaclass=Singleton):
 
     def get_viq_id(self, **kwargs):
         """
-        Gets the viq id
+        Gets the VIQ ID.
 
-        This method gets the build id or viq owner id.
+        This method clicks on "About ExtremeCloud IQ" at the top right and gets the VIQ ID details from the "About ExtremeCloud IQ" popup. For example "VIQ ID: 306811".
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get viq owner id
+        -      Get viq id
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -577,9 +580,9 @@ class KeywordsLogin(object, metaclass=Singleton):
         -
         - Keyword Implementations:
         -    GUI
-        -    XAPI - ** Not Supported **
+        -    XAPI
 
-        :return: Returns the VIQ ID if successful. Returns "" if not successful.
+        :return: Returns the VIQ ID (string) if successful. Returns "" if not successful.
         """
 
         # Notes:
@@ -588,41 +591,59 @@ class KeywordsLogin(object, metaclass=Singleton):
         #   - This method will catch any errors that are raised and not handled in the keyword
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("8ef7bee7-5436-4a5d-b809-a6d7ec37e27a", keyword_name)
-        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.gui_implemented(keyword_name)
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
-        # Assume if no viq id
-        return_code = ""
+        # The value returned will be based on which implementations we run.  We'll return "" if we fail to login
+        # to any implementations.  We'll return VIQ ID if there is no error raised in any of the implementations.
+        gui_return_code = ""
+        xapi_return_code = ""
 
-        # Call the helper function that implements this keyword
-        try:
-            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
-            if implementation_to_run != '':
-                self.keyword_utils.timing.start(keyword_name, 'GUI')
-                if implementation_to_run == "GUI":
-                    return_code = self.login.gui_get_viq_id()
-                else:
-                    return_code = self.keyword_utils.implementations.not_supported(**kwargs)
-                    return_code = ""
-        except Exception as e:
-            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
-            self.common_validation.fault(**kwargs)
-        finally:
-            self.keyword_utils.timing.end(keyword_name)
+        # Log into the GUI unless explicitly requested not to
+        # xapi_only = kwargs.get('XAPI_ONLY', False)
+        # if not xapi_only:
+        if self.keyword_utils.implementations.gui_active:
 
-        # Return the return value of the keyword
-        return return_code
+            # Call the helper function that implements this keyword
+            try:
+                implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+                if implementation_to_run != '':
+                    self.keyword_utils.timing.start(keyword_name, 'GUI')
+                    if implementation_to_run == "GUI":
+                        gui_return_code = self.login.gui_get_viq_id()
+            except Exception as e:
+                kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+                self.common_validation.fault(**kwargs)
+            finally:
+                self.keyword_utils.timing.end(keyword_name)
+
+            # Return the return value of the keyword
+            return gui_return_code
+
+        if self.keyword_utils.implementations.xapi_active:
+            try:
+                self.keyword_utils.timing.start(keyword_name, 'XAPI')
+                xapi_return_code = self.XapiGlobalSettings.xapi_get_viq_id(**kwargs)
+            except Exception as e:
+                kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+                self.common_validation.fault(**kwargs)
+            finally:
+                self.keyword_utils.timing.end(keyword_name)
+
+            # Return the return value of the keyword
+            return xapi_return_code
+
 
     def get_data_center_name(self, **kwargs):
         """
-        Gets the XIQ Data Center Name
+        Gets the Data Center Name details
 
-        This method gets the XIQ Data Center Name.
+        This method clicks on "About ExtremeCloud IQ" at the top right and gets the Data Center Name details from the "About ExtremeCloud IQ" popup. For example "Data Center Name: US_East2"
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get XIQ Data Center Name
+        -      Get Data Center Name
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -632,9 +653,9 @@ class KeywordsLogin(object, metaclass=Singleton):
         -
         - Keyword Implementations:
         -    GUI
-        -    XAPI - ** Not Supported **
+        -    XAPI - ** "Not Implemented" **
 
-        :return: Returns the XIQ Data Center Name if successful. Returns "" if not successful.
+        :return: Returns the Data Center Name if successful. Returns "" if not successful.
         """
 
         # Notes:
@@ -657,7 +678,8 @@ class KeywordsLogin(object, metaclass=Singleton):
                 if implementation_to_run == "GUI":
                     return_code = self.login.gui_get_data_center_name()
                 else:
-                    return_code = self.keyword_utils.implementations.not_supported(**kwargs)
+                    # XAPI is not implemented
+                    self.common_validation.fault(**kwargs)
                     return_code = ""
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
@@ -670,14 +692,14 @@ class KeywordsLogin(object, metaclass=Singleton):
 
     def logo_check_on_login_screen(self, **kwargs):
         """
-        Checks the login page logo
+        Checks the banner image on the login screen
 
-        This method Checks the login page logo.
+        This method checks the banner image on the right side of the login screen. For example "ExtremeCloud IQ  Mobile Companion"
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get login logo
+        -      logo check on login screen
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -727,12 +749,12 @@ class KeywordsLogin(object, metaclass=Singleton):
         """
         Refreshes the current page
 
-        This method refreshes the current page.
+        This method uses the browser's refresh button to refresh the current page. Default refresh delay is 10 seconds.
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Refreshes the current page
+        -      Refresh page
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -744,7 +766,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         -    GUI
         -    XAPI - ** Not Supported **
 
-        :param refresh_delay: delay needed to reload the page
+        :param refresh_delay: Default refresh delay is 10 seconds. Waits 10 seconds of time after the page is refreshed.
         :return: Returns None
         """
 
@@ -781,7 +803,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Clicks the advanced Onboard popup sliding window
+        -      Click advanced Onboard popup
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -822,14 +844,14 @@ class KeywordsLogin(object, metaclass=Singleton):
 
     def load_web_page(self, url="default", **kwargs):
         """
-        Loads the webpage
+        Loads the webpage of extremecloudiq
 
-        This method loads the webpage.
+        This method loads the webpage url https://extremecloudiq.com/login if url parameter is default. To pass a url value it must be a string, for example url="https://extremecloudiq.com"
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Loads the webpage
+        -      Load web page
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -841,7 +863,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         -    GUI
         -    XAPI - ** Not Supported **
 
-        :param url: webpage url to load
+        :param url: webpage url to load.For example url="https://extremecloud.com" or url="default". If url is default loads the "https://extremecloudiq.com" webpage.
         :return: Returns None
         """
 
@@ -876,12 +898,12 @@ class KeywordsLogin(object, metaclass=Singleton):
         """
         Get the link to email to set the forget password
 
-        This method gets the link to email to set the forget password.
+        This method gets the link to email to set the forget password. _email is the mandatory parameter. Examples of parameters _email = "xiqextremeqa+adess-va2@gmail.com" and url="https://extremecloud.com" or url="default"
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Forgot Password
+        -      Forgot Password      _email=${email}   # ${email}= xiqextremeqa+adess-va2@gmail.com
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -893,8 +915,8 @@ class KeywordsLogin(object, metaclass=Singleton):
         -    GUI
         -    XAPI - ** Not Supported **
 
-        :param _email: Email id of the user to reset the password
-        :param url: Forgot Password URL
+        :param _email: Email id of the user to reset the password. Example _email = "xiqextremeqa+adess-va2@gmail.com"
+        :param url: Forgot Password URL. Examples url="https://extremecloud.com" or url="default"
         :return: Returns 1 if successful. Returns -1 if not successful.
         """
         # Notes:
