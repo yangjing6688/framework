@@ -521,5 +521,42 @@ class KeywordUtils(object, metaclass=Singleton):
             return
         self.initialized = True
 
+        self.utils = Utils()
         self.implementations = KeywordImplementations()
         self.timing = KeywordTiming()
+
+    def wait_for_elements_to_load(self, find, wait_time=1, loop_max=30, **args):
+        """Waits for the number of found elements to stabilize in order to avoid stale elements.
+        Stops once the numbers are the same between two subsequent cycles.
+
+        :param find: function
+            Function to find the elements.
+        :param wait_time : int
+            Duration to wait for loading
+        :param loop_max : int
+            Maximum number of times to check if the count of elements has changed.
+        :return found elements for which to wait for
+        :raises ExceededWaitForElementsCountToStabilizeLimitException
+            If max_check_cycles is reached.
+        """
+
+        elements = find()
+        last_count = len(elements)
+        current_count = -1
+        loop_index = 0
+
+        while last_count != current_count and loop_index < loop_max:
+            time.sleep(wait_time)  # Allow for elements to load
+            elements = find()
+            last_count = current_count
+            current_count = len(elements)
+            self.utils.print_info(
+                f"Getting: current_count = {current_count}, last_count = {last_count}, loop_index = {loop_index}")
+
+            # Fail safe... If we keep getting different counts for loop_max seconds then fail
+            loop_index = loop_index + 1
+
+        if loop_index >= loop_max:
+            raise Exception(loop_max)
+
+        return find()

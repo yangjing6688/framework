@@ -79,7 +79,7 @@ class XapiBaseAccountApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -165,7 +165,7 @@ class XapiBaseAccountApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -251,7 +251,7 @@ class XapiBaseAccountApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -337,7 +337,7 @@ class XapiBaseAccountApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -423,7 +423,7 @@ class XapiBaseAccountApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -510,7 +510,7 @@ class XapiBaseAccountApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -597,7 +597,7 @@ class XapiBaseAccountApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
