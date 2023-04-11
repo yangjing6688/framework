@@ -155,7 +155,7 @@ class Utils:
             except TypeError:
                 pass
 
-        self.logger.error(line)
+        self.logger.error(line, stacklevel=2)
 
     def print_warning(self, *words):
         """
@@ -171,7 +171,7 @@ class Utils:
             except TypeError:
                 pass
 
-        self.logger.warning(line)
+        self.logger.warning(line, stacklevel=2)
 
     def print_info(self, *words):
         """
@@ -187,7 +187,7 @@ class Utils:
             except TypeError:
                 pass
 
-        self.logger.info(line)
+        self.logger.info(line, stacklevel=2)
 
     def print_debug(self, *words):
         """
@@ -203,7 +203,7 @@ class Utils:
             except TypeError:
                 pass
 
-        self.logger.debug(line)
+        self.logger.debug(line, stacklevel=2)
 
     def get_utc_time_difference(self, t1, t2):
         """
