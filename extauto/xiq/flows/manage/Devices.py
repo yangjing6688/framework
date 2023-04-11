@@ -814,8 +814,14 @@ class Devices:
         """
         self.utils.print_info("Click on actions button")
         self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
-        sleep(10)
-        if self.device_actions.get_device_actions_dropdown():
+        self.utils.print_info("sleeping for 10 seconds")
+        retry_times = 1
+        while not (b := self.device_actions.get_device_actions_dropdown()) and retry_times < 10:
+            sleep(1)
+            self.utils.print_info(f"slept for 1 seconds action click is {b}")
+            retry_times += 1
+        self.utils.print_info(f"slept for {retry_times} seconds")
+        if b:
             self.utils.print_info("Move to Assign Network policy action")
             self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
             self.utils.print_info("Click on Assign Network policy action")
