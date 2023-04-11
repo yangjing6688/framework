@@ -814,7 +814,7 @@ class Devices:
         """
         self.utils.print_info("Click on actions button")
         self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
-        # sleep(3)
+        sleep(10)
         if self.device_actions.get_device_actions_dropdown():
             self.utils.print_info("Move to Assign Network policy action")
             self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
