@@ -139,7 +139,7 @@ class GmailHandler:
             if email_count == 1:
                 break
 
-    def _get_raw_email_from_folder(self, mail_id, password, subj, mail_trash):
+    def _get_raw_email_from_folder(self, mail_id, password, subj, mail_trash=False):
         """
         - This method will check the emails with subject line in inbox folder and spam folder
         - If email exists return the raw email else return -1
@@ -416,7 +416,7 @@ class GmailHandler:
         :return: credentials dict
         """
         self.utils.print_info("Using Mail ID: ", mail_id, " Password: ", password)
-        if email_msg := self._get_raw_email_from_folder(mail_id, password, "Login Credentials", mail_trash):
+        if email_msg := self._get_raw_email_from_folder(mail_id, password, "Login Credentials", mail_trash=mail_trash):
             try:
                 cred_file, _html, _ = self._get_content_from_email_body(email_msg)
                 if cred_file != None:
