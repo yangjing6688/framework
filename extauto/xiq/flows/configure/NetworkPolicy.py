@@ -443,7 +443,7 @@ class NetworkPolicy(object):
 
         return self.delete_network_polices(*delete_np_list)
 
-    def edit_network_policy_ssid(self, policy_name, ssid_name, new_ssid_name):
+    def edit_network_policy_ssid(self, policy_name, ssid_name, new_ssid_name, **kwargs):
         """
         - Edit the SSID name of the wireless network in the network policy
         - Flow: Navigate to the network policy -- > click on network policy card view
@@ -457,7 +457,7 @@ class NetworkPolicy(object):
         :return: 1 if success
         """
         self.utils.print_info("Click on Network Policy card view button")
-        self.navigator.navigate_to_network_policies_card_view_page()
+        self.navigator.navigate_to_network_policies_card_view_page(**kwargs)
 
         if self.select_network_policy_in_card_view(policy_name):
             if self._select_ssid(ssid_name):
@@ -583,6 +583,7 @@ class NetworkPolicy(object):
         :param _time: time when to update
         :return:
         """
+
         if self.np_web_elements.get_np_policy_crumb_button():
             self.utils.print_info("Inside Network Policy...")
         else:
@@ -873,7 +874,7 @@ class NetworkPolicy(object):
 
         return None
 
-    def deploy_network_policy_with_complete_update(self, policy_name, devices, cli_type='AH-AP'):
+    def deploy_network_policy_with_complete_update(self, policy_name, devices, cli_type='AH-AP', **kwargs):
         """
         - Config push network policy with complete update
         - This will reboot the Device
@@ -881,10 +882,23 @@ class NetworkPolicy(object):
         - Keyword Usage:
         - ``Deploy Network Policy With Complete Update   ${POLICY_NAME}    ${DEVICE_MAC}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param policy_name: Name of the policy
         :param devices: Device serial number
         :return: 1 if success else -1
         """
+
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
+        #     if cli_type == 'AH-AP':
+        #         self.utils.print_info("ClI Type: AH-AP detected, updated type to Complete")
+        #         update_type = 'complete'
+        #     self.xapiNetworkPolicy.xapi_deploy_network_policy_with_complete_update(policy_name,
+        #                                                                            devices,
+        #                                                                            update_type)
+        # UI
         if cli_type == 'AH-AP':
             return self.deploy_network_policy(policy_name, devices, 'complete')
         else:
@@ -926,7 +940,7 @@ class NetworkPolicy(object):
         if self.deploy_network_policy(policy_name, devices, _date=update_date, _time=_upgrade_time):
             return _upgrade_time_24
 
-    def deploy_network_policy_with_delta_update(self, policy_name, devices):
+    def deploy_network_policy_with_delta_update(self, policy_name, devices, **kwargs):
         """
         - delta config push of network policy
         - if already in network policy then deploy the policy else navigate to network policy--> deploy policy tab
@@ -937,6 +951,11 @@ class NetworkPolicy(object):
         :param devices: Device serial number
         :return:
         """
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
+        #     self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
+        #                                                                            devices,
+        #                                                                            'delta')
+        # else:
         return self.deploy_network_policy(policy_name, devices, 'delta')
 
     def _check_navigation_to_network_policy_page(self):
