@@ -139,7 +139,7 @@ class GmailHandler:
             if email_count == 1:
                 break
 
-    def _get_raw_email_from_folder(self, mail_id, password, subj, mail_trash='True'):
+    def _get_raw_email_from_folder(self, mail_id, password, subj, mail_trash):
         """
         - This method will check the emails with subject line in inbox folder and spam folder
         - If email exists return the raw email else return -1
