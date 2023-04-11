@@ -628,14 +628,14 @@ class XapiDevices(XapiHelper):
             return -1
 
 
-    def xapi_get_device_status(self, device_serial='default', device_name='default', device_mac='default', **kwargs):
+    def xapi_get_device_status(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
           This  function will get the device status ('green', 'disconnected') given the parmeters that are passed in for
           device_serial, device_name or device_mac
 
-          :param: device_serial - The device serial
-          :param: device_name - The device name
-          :param: device_mac - The device mac
+          :param: device_serial - The device serial (default=None)
+          :param: device_name - The device name (default=None)
+          :param: device_mac - The device mac (default=None)
           :return: The device status as Green (connected) or disconnected. if an error occured, a -1 will be returned
         """
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
