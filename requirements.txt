@@ -23,7 +23,7 @@ xmlrunner==1.7.7
 PyMySQL==1.0.2
 wheel==0.36.2
 ansi2html==1.8.0
-extremecloudiq-api==23.1.0.40
+extremecloudiq-api==23.2.0.30
 docstring-parser==0.15
 opencv-python
 beautifulsoup4
