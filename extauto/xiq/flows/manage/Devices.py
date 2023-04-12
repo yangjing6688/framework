@@ -12486,7 +12486,8 @@ class Devices:
                         func=self.device_actions.get_close_button, 
                         exp_func_resp=True,
                         silent_failure=True,
-                        delay=6
+                        timeout=60,
+                        delay=20
                     )
                     
                     if close_button:
