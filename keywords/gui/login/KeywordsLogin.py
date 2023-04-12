@@ -460,7 +460,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get Current Page base URL
+        -      Get Base URL of Current Page
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
@@ -594,45 +594,27 @@ class KeywordsLogin(object, metaclass=Singleton):
         self.keyword_utils.implementations.gui_implemented(keyword_name)
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
-        # The value returned will be based on which implementations we run.  We'll return "" if we fail to login
-        # to any implementations.  We'll return VIQ ID if there is no error raised in any of the implementations.
-        gui_return_code = ""
-        xapi_return_code = ""
+        #Assume if no VIQ ID
+        return_code = ""
 
-        # Log into the GUI unless explicitly requested not to
-        # xapi_only = kwargs.get('XAPI_ONLY', False)
-        # if not xapi_only:
-        if self.keyword_utils.implementations.gui_active:
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, 'GUI')
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_get_viq_id()
+                    return return_code
+                elif implementation_to_run == "XAPI":
+                    return_code = self.XapiGlobalSettings.xapi_get_viq_id(**kwargs)
+                    return return_code
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
 
-            # Call the helper function that implements this keyword
-            try:
-                implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
-                if implementation_to_run != '':
-                    self.keyword_utils.timing.start(keyword_name, 'GUI')
-                    if implementation_to_run == "GUI":
-                        gui_return_code = self.login.gui_get_viq_id()
-            except Exception as e:
-                kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
-                self.common_validation.fault(**kwargs)
-            finally:
-                self.keyword_utils.timing.end(keyword_name)
-
-            # Return the return value of the keyword
-            return gui_return_code
-
-        if self.keyword_utils.implementations.xapi_active:
-            try:
-                self.keyword_utils.timing.start(keyword_name, 'XAPI')
-                xapi_return_code = self.XapiGlobalSettings.xapi_get_viq_id(**kwargs)
-            except Exception as e:
-                kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
-                self.common_validation.fault(**kwargs)
-            finally:
-                self.keyword_utils.timing.end(keyword_name)
-
-            # Return the return value of the keyword
-            return xapi_return_code
-
+        return return_code
 
     def get_data_center_name(self, **kwargs):
         """
@@ -665,7 +647,6 @@ class KeywordsLogin(object, metaclass=Singleton):
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("0e6d527e-be34-4f60-b112-af4136ee71d9", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
-        self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Assume if no XIQ Data Center Name
         return_code = ""
@@ -846,7 +827,8 @@ class KeywordsLogin(object, metaclass=Singleton):
         """
         Loads the webpage of extremecloudiq
 
-        This method loads the webpage url https://extremecloudiq.com/login if url parameter is default. To pass a url value it must be a string, for example url="https://extremecloudiq.com"
+        This method loads the webpage url which is the ${TEST_URL} parameter provided in the internal_api.robot file if url='default'.
+        To pass a url value, example url="https://10.16.118.155"
 
         - Keyword Usage:
         -   Robot:
@@ -874,9 +856,6 @@ class KeywordsLogin(object, metaclass=Singleton):
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("e5c444e6-64ec-4d45-860a-801c7d068137", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
-
-        self.keyword_utils.implementations.set_gui_active(True)
-
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Call the helper function that implements this keyword
@@ -896,9 +875,11 @@ class KeywordsLogin(object, metaclass=Singleton):
 
     def forgot_password(self, _email, url='default', **kwargs):
         """
-        Get the link to email to set the forget password
+        Sends a link to email to reset a forgotten password
 
-        This method gets the link to email to set the forget password. _email is the mandatory parameter. Examples of parameters _email = "xiqextremeqa+adess-va2@gmail.com" and url="https://extremecloud.com" or url="default"
+        This method sends a link to the provided email to reset the password
+        _email is the mandatory parameter.
+        Examples of parameters _email = "xiqextremeqa+adess-va2@gmail.com" and url="https://extremecloud.com" or url="default"
 
         - Keyword Usage:
         -   Robot:
@@ -926,7 +907,6 @@ class KeywordsLogin(object, metaclass=Singleton):
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("eae76737-aa73-41d4-a6f9-e7aead2d57e5", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
-        self.keyword_utils.implementations.set_gui_active(True)
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Assume a failure
