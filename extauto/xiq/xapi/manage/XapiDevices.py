@@ -642,7 +642,7 @@ class XapiDevices(XapiHelper):
             kwargs['fail_msg'] = f"Failed to get the policy ID for serial:{policy_name}"
             self.common_validation.fault(**kwargs)
             return -1
-        api_response = self.xapiBaseDeviceApi.xapi_base_assign_device_network_policy(id=device_id, network_policy_id=policy_id, _preload_content=False)
+        self.xapiBaseDeviceApi.xapi_base_assign_device_network_policy(id=device_id, network_policy_id=policy_id, _preload_content=False)
         return 1
 
 
