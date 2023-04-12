@@ -30,6 +30,7 @@ from ExtremeAutomation.Utilities.deprecated import deprecated
 from extauto.xiq.xapi.manage.XapiDevices import XapiDevices
 from ExtremeAutomation.Utilities.deprecated import unsupported
 from extauto.xiq.elements.ClientWebElements import ClientWebElements
+from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
 
 
 
@@ -58,6 +59,7 @@ class Devices:
         self.web_elements_handler = WebElementHandler()
         self.cloud_driver = CloudDriver()
         self.xapiDevices = XapiDevices()
+        self.xapiNetworkPolicy = XapiNetworkPolicy()
 
     @deprecated("Please use onboard_device_quick(...)")
     def _onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
@@ -1152,6 +1154,17 @@ class Devices:
         :param update_method: Perform Complete update or delta update
         :return: 1 if policy is updated else -1
         """
+
+        # Need to write up a bug on this XAPI not working correctly
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
+            # Assign the network policy to the device
+            self.xapiDevices.xapi_update_network_policy(policy_name, ap_serial, **kwargs)
+            # Push the network policy to the device
+            return self.xapiNetworkPolicy.xapi_deploy_network_policy_with_complete_update(policy_name,
+                                                                                          ap_serial,
+                                                                                          'complete',
+                                                                                          skip_update_check=True)
+
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
         sleep(5)
@@ -10447,6 +10460,7 @@ class Devices:
         :return: 1 if done, -1 if not
         """
         if not skip_navigation:
+            self.navigator.navigate_to_devices()
             self.navigator.navigate_to_manage_tab()
         if not skip_refresh:
             self.refresh_devices_page()
