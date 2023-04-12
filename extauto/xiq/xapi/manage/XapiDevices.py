@@ -647,6 +647,43 @@ class XapiDevices(XapiHelper):
 
 
 
+    def xapi_get_device_status(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+        """
+          This  function will get the device status ('green', 'disconnected') given the parmeters that are passed in for
+          device_serial, device_name or device_mac
+
+          :param: device_serial - The device serial (default=None)
+          :param: device_name - The device name (default=None)
+          :param: device_mac - The device mac (default=None)
+          :return: The device status as Green (connected) or disconnected. if an error occured, a -1 will be returned
+        """
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
+        if id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id,
+                                                                   fields=['connected'],
+                                                                   _preload_content=False)
+        data = json.loads(api_response.data)
+        device_connected_state = data.get('connected', '')
+        if device_connected_state == True:
+            kwargs['pass_msg'] = "Device is in the connected state"
+            self.common_validation.passed(**kwargs)
+            return 'green'
+        elif device_connected_state == False:
+            kwargs['pass_msg'] = "Device is in the  disconnected state"
+            self.common_validation.passed(**kwargs)
+            return 'disconnected'
+        else:
+            kwargs[
+                'fail_msg'] = f"Failed - '{device_connected_state}' does not match either 'true' or 'false'"
+            self.common_validation.fault(**kwargs)
+            return 'disconnected'
+
+
+
     #########################################################################
     # Helper functions
     #########################################################################
