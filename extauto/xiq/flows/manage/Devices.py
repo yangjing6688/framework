@@ -1155,7 +1155,6 @@ class Devices:
         :return: 1 if policy is updated else -1
         """
 
-        # Need to write up a bug on this XAPI not working correctly
         if self.xapiDevices.is_xapi_enabled(**kwargs):
             # Assign the network policy to the device
             self.xapiDevices.xapi_update_network_policy(policy_name, ap_serial, **kwargs)
