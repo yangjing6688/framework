@@ -416,7 +416,7 @@ class GmailHandler:
         :return: credentials dict
         """
         self.utils.print_info("Using Mail ID: ", mail_id, " Password: ", password)
-        if email_msg := self._get_raw_email_from_folder(mail_id, password, "Login Credentials", mail_trash):
+        if email_msg := self._get_raw_email_from_folder(mail_id, password, "Login Credentials", mail_trash=mail_trash):
             try:
                 cred_file, _html, _ = self._get_content_from_email_body(email_msg)
                 if cred_file != None:
