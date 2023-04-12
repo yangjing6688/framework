@@ -870,10 +870,12 @@ class Devices:
                               "you must select a Complete Configuration Update."
         update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
         update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+        update_tooltip_msg4 = "To avoid conflict, please try your operation after some time."
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
+        self.screen.save_screen_shot()
 
         if update_method == "Delta":
             self.utils.print_info("click on delta config radio button")
@@ -882,9 +884,11 @@ class Devices:
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(30)
+            self.screen.save_screen_shot()
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
+
             if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
                 self.utils.print_info('Convert to Complete. Delta not supported')
                 update_method = "Complete"
@@ -898,13 +902,25 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
 
+            if update_tooltip_msg4 in tool_tp_text[-1]:
+                self.utils.print_info(f"The device is currently in update progress : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_tooltip_close_button)
+                self.utils.print_info("Wait for few minutes and perform update")
+                sleep(120)
+                self.utils.print_info("click on perform update button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
+                sleep(30)
+                self.screen.save_screen_shot()
+
         if update_method == "Complete":
             self.utils.print_info("click on complete config radio button")
             self.auto_actions.click_reference(self.devices_web_elements.get_full_config_update_button)
             sleep(2)
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
-            sleep(2)
+            sleep(30)
+            self.screen.save_screen_shot()
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
@@ -918,17 +934,33 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
 
+            if update_tooltip_msg4 in tool_tp_text[-1]:
+                self.utils.print_info(f"The device is currently in update progress : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_tooltip_close_button)
+                self.utils.print_info("Wait for few minutes and perform update")
+                sleep(120)
+                self.utils.print_info("click on perform update button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
+                sleep(30)
+                self.screen.save_screen_shot()
+
         self.screen.save_screen_shot()
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
-        for tooltip_msg in [update_tooltip_msg, update_tooltip_msg1, update_tooltip_msg2, update_tooltip_msg3]:
+        for tooltip_msg in [update_tooltip_msg, update_tooltip_msg1, update_tooltip_msg2, update_tooltip_msg3, update_tooltip_msg4]:
             if tooltip_msg in tool_tp_text:
                 tool_tp_text.remove(tooltip_msg)
 
-        kwargs['pass_msg'] = "Device update Successfully Triggered"
-        self.common_validation.passed(**kwargs)
-        return 1
+        if "Deployed devices successfully." in tool_tp_text:
+            kwargs['pass_msg'] = "Device update Successfully Triggered"
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def _check_update_network_policy_status(self, policy_name, device_serial, **kwargs):
         """
