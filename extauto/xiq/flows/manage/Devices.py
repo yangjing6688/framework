@@ -900,8 +900,7 @@ class Devices:
                 self.screen.save_screen_shot()
                 self.utils.print_info("click on Device Update Cancel Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                self.common_validation.failed(**kwargs)
+                self.utils.print_info("Error: ", tool_tp_text)
                 return -1
 
             if update_tooltip_msg4 in tool_tp_text[-1]:
@@ -932,8 +931,7 @@ class Devices:
                 self.screen.save_screen_shot()
                 self.utils.print_info("click on Device Update Cancel Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                self.common_validation.failed(**kwargs)
+                self.utils.print_info("Error: ", tool_tp_text)
                 return -1
 
             if update_tooltip_msg4 in tool_tp_text[-1]:
@@ -956,8 +954,7 @@ class Devices:
                 tool_tp_text.remove(tooltip_msg)
 
         if "Deployed devices successfully." in tool_tp_text:
-            kwargs['pass_msg'] = "Device update Successfully Triggered"
-            self.common_validation.passed(**kwargs)
+            self.utils.print_info("Device update Successfully Triggered")
             return 1
         else:
             kwargs['fail_msg'] = f"Error: {tool_tp_text}"
@@ -992,9 +989,8 @@ class Devices:
                     self.utils.print_info(
                         'Reboot for device with serial number: {} is successful'.format(device_serial))
                 else:
-                    kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(
-                        device_serial, reboot_res)
-                    self.common_validation.failed(**kwargs)
+                    self.utils.print_info('Reboot for device with serial number: {} is NOT successful: {}'.format(
+                        device_serial, reboot_res))
                     return -1
             elif 'Certification' in device_update_status or 'Application' in device_update_status:
                 # Some other random push to the device is blocking my policy update!
@@ -1003,8 +999,7 @@ class Devices:
                 sleep(30)
                 update_time += 30
                 if update_time >= 300:
-                    kwargs['fail_msg'] = "Config push to AP BLOCKED for more than 300 seconds"
-                    self.common_validation.failed(**kwargs)
+                    self.utils.print_info("Config push to AP BLOCKED for more than 300 seconds")
                     return -1
                 continue
             elif retry_count >= int(max_config_push_wait):
@@ -1718,6 +1713,8 @@ class Devices:
         if self.check_onboard_device_quick_parameters(device_type, entry_type, device_serial, device_make, location,
                                                       csv_location, device_model, os_version, os_persona,
                                                       **kwargs) == -1:
+            kwargs['fail_msg'] = "The Mandatory arguments for onboard device quick method missing."
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Onboarding: ", device_make)
@@ -1752,16 +1749,22 @@ class Devices:
         if device_type.lower() == "real":
             if self.set_onboard_values_for_real(device_serial, device_make, entry_type, device_os, service_tag,
                                                 device_mac, location) != 1:
+                kwargs['fail_msg'] = "Fail onboarded device with device_type == Real"
+                self.common_validation.fault(**kwargs)
                 return -1
 
         elif device_type.lower() == "simulated":
             list_initial_simulated_serial = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_simulated(device_model, device_count) != 1:
+                kwargs['fail_msg'] = "Fail onboarded device with device_type == Simulated"
+                self.common_validation.fault(**kwargs)
                 return -1
 
         elif device_type.lower() == "digital twin":
             list_initial_serial_dt = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
+                kwargs['fail_msg'] = "Fail onboarded device with device_type == Digital Twin"
+                self.common_validation.fault(**kwargs)
                 return -1
 
         if location and self.devices_web_elements.get_location_button().is_displayed():
@@ -1962,7 +1965,7 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            if device_model == None or os_version == None or os_persona == None:
+            if device_model is None or os_version is None or os_persona is None:
                 kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{os_version}] and 'OS persona': " \
                                   f"[{os_persona}] are required when onboarding 'Digital Twin' devices. " \
                                   f"One or more of the required values are missing."
@@ -2064,7 +2067,6 @@ class Devices:
             if _errors != 1:
                 return _errors
 
-
         elif 'Universal Appliance' in device_make:
             if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
                 self.utils.print_info("Selecting Device Type : Universal Appliance")
@@ -2111,7 +2113,6 @@ class Devices:
             elif 'WING' in device_os.upper():
                 self.utils.print_info("Selecting Device Type : WING")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_wing_radio)
-
 
         return 1
 
@@ -3050,6 +3051,10 @@ class Devices:
         - ``Get Device Status   device_mac=${DEVICE_MAC}``
         - ``Get Device Status   device_serial=${DEVICE_SERIAL}  device_mac=${DEVICE_MAC}``
 
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
         :param device_serial: device Serial
         :param device_name: device host name
         :param device_mac: device MAC address
@@ -3060,6 +3065,10 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
+
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
+            return self.xapiDevices.xapi_get_device_status(device_serial=device_serial, device_name=device_name,
+                                                       device_mac=device_mac, **kwargs)
 
         # UI Support
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -5338,7 +5347,7 @@ class Devices:
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def select_table_view_type(self, view_type="Default View"):
+    def select_table_view_type(self, view_type="Default View", **kwargs):
         """
         - This keyword selects the view type for the Manage> Devices view.
         - Keyword Usage:
@@ -5374,6 +5383,12 @@ class Devices:
             self.utils.print_info("Could not find Devices Table View Type Selector")
             ret_val = -1
 
+        if ret_val != 1:
+            kwargs['fail_msg'] = "Could not find Devices Table View Type Selector"
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Devices Table View Type Selector was found/selected"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def _assign_network_policy_to_switch(self, policy_name):
@@ -5839,7 +5854,6 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-
     def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
@@ -5948,7 +5962,6 @@ class Devices:
         :return: Device Management IP Address
         """
 
-
         if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_get_device_management_ip_address(device_serial=device_serial, device_mac=device_mac, **kwargs)
 
@@ -5968,7 +5981,7 @@ class Devices:
             return -1
 
     @deprecated("Please use get_device_management_ip_address(...)")
-    # This was put into depreacted mode on March 9th 2023
+    # This was put into deprecated mode on March 9th 2023
     def get_ap_management_ip_address(self, ap_serial=None, ap_name=None, ap_mac=None):
         """
         - Get Management IP Assigned to the AP
@@ -6112,7 +6125,7 @@ class Devices:
 
         return device_detail_dict
 
-    def confirm_no_duplicate_rows(self, search_string):
+    def confirm_no_duplicate_rows(self, search_string, **kwargs):
         """
         - Searches for device rows containing the search_string and confirms only one row exists with the value.
         - This is useful for confirming only one device with a specified MAC Address exists in the table, but
@@ -6138,13 +6151,16 @@ class Devices:
                         ret_val = -1
                         break
 
-        if matching_rows == 0:
-            self.utils.print_info(f"No rows contain the value {search_string}")
-        elif matching_rows == 1:
-            self.utils.print_info(f"Found one row with the value {search_string}")
+        if ret_val == 1:
+            if matching_rows == 0:
+                kwargs['pass_msg'] = f"No rows contain the value {search_string}"
+                self.common_validation.passed(**kwargs)
+            elif matching_rows == 1:
+                kwargs['pass_msg'] = f"Found one row with the value {search_string}"
+                self.common_validation.passed(**kwargs)
         else:
-            self.utils.print_info(f"Found more then one row with the value {search_string}")
-
+            kwargs['fail_msg'] = f"Found more then one row {matching_rows} with the value {search_string}"
+            self.common_validation.failed(**kwargs)
         return ret_val
 
     def close_last_refreshed_tooltip(self):
@@ -6388,7 +6404,6 @@ class Devices:
                 count += retry_duration
 
         return device_updated_status
-
 
     def get_stack_status(self, device_mac=None, **kwargs):
         """
@@ -6726,7 +6741,7 @@ class Devices:
                     if try_one_more_time_serial:
                         try_one_more_time_serial = False
                     else:
-                        kwargs['fail_msg'] = "Not found a raw with serial {device_serial} or mac {device_mac}"
+                        kwargs['fail_msg'] = f"Not found a raw with serial {device_serial} or mac {device_mac}"
                         self.common_validation.fault(**kwargs)
                         return -1
             retry_count += 30
@@ -7012,7 +7027,7 @@ class Devices:
         else:
             return 1
 
-    def select_location_quick_onboarding(self, sel_loc):
+    def select_location_quick_onboarding(self, sel_loc, **kwargs):
         """
         - This keyword selects a location in the location dialog and clicks the "Select" button.
         - It is assumed the location dialog is already open.
@@ -7064,6 +7079,8 @@ class Devices:
             else:
                 self.utils.print_info("Cancel button was not found")
                 sleep(3)
+            kwargs['fail_msg'] = "Location has not been found"
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Selecting Building: ", location_list[1])
         for location_building in location_buildings:
@@ -7075,7 +7092,8 @@ class Devices:
         if building_set:
             self.utils.print_info("Building has been selected")
         else:
-            self.utils.print_info("Building has not been found")
+            kwargs['fail_msg'] = "Building has not been found"
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Selecting Floor: ", location_list[2])
         for location_floor in location_floors:
@@ -7087,11 +7105,12 @@ class Devices:
         if floor_set:
             self.utils.print_info("Floor has been selected")
         else:
-            self.utils.print_info("Floor has not been found")
+            kwargs['fail_msg'] = "Floor has not been found"
+            self.common_validation.failed(**kwargs)
             return -1
         return 1
 
-    def quick_onboarding_cloud_manual(self, device_sn, device_make, location, policy_name=None):
+    def quick_onboarding_cloud_manual(self, device_sn, device_make, location, policy_name=None, **kwargs):
         """
         This keyword on boards your devices directly to cloud by using new onboarding flow
         Can on boards an aerohive device [AP or Switch], Universal APs , Exos Switch, Exos Stack and Voss devices
@@ -7112,21 +7131,24 @@ class Devices:
             self.utils.print_info("Click on '+' button")
             self.auto_actions.click(add_button)
         else:
-            self.utils.print_info("'+' button not found")
+            kwargs['fail_msg'] = "'+' button not found"
+            self.common_validation.fault(**kwargs)
             return -1
         quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
         if quick_add_devices_button:
             self.utils.print_info("Click on 'Quick Add Devices'")
             self.auto_actions.move_to_element(quick_add_devices_button)
         else:
-            self.utils.print_info("'Quick Add Devices' button not found")
+            kwargs['fail_msg'] = "'Quick Add Devices' button not found"
+            self.common_validation.fault(**kwargs)
             return -1
         deploy_to_cloud_button = self.devices_web_elements.get_deploy_to_cloud()
         if deploy_to_cloud_button:
             self.utils.print_info("Click on 'Deploy to the cloud'")
             self.auto_actions.click(deploy_to_cloud_button)
         else:
-            self.utils.print_info("'Deploy to the cloud' button not found")
+            kwargs['fail_msg'] = "'Deploy to the cloud' button not found"
+            self.common_validation.fault(**kwargs)
             return -1
         tool_tp_text_before_insert_sn = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before_insert_sn)
@@ -7146,7 +7168,8 @@ class Devices:
                     self.utils.print_info(item_after_sn)
                     return item_after_sn
         else:
-            self.utils.print_info("'Serial number' box not found")
+            kwargs['fail_msg'] = "'Serial number' box not found"
+            self.common_validation.fault(**kwargs)
             return -1
         if location:
             if self.devices_web_elements.get_add_location_button():
@@ -7162,7 +7185,8 @@ class Devices:
                     self.utils.print_info("Selecting Cancel button")
                     return -1
             else:
-                self.utils.print_info("'Location' button not found")
+                kwargs['fail_msg'] = "'Location' button not found"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
             self.utils.print_info("The location will not be selected")
@@ -7197,7 +7221,8 @@ class Devices:
                     self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
                     self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_voss)
                 else:
-                    self.utils.print_info("Button 'VOSS' not found")
+                    kwargs['fail_msg'] = "Button 'VOSS' not found"
+                    self.common_validation.fault(**kwargs)
                     return -1
         elif 'exos' in device_make.lower():
             if self.devices_web_elements.get_device_make_list():
@@ -7212,7 +7237,8 @@ class Devices:
                     self.utils.print_info("Selecting 'EXOS' from the 'Device OS' checkbox...")
                     self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_exos)
                 else:
-                    self.utils.print_info("Button 'EXOS' not found")
+                    kwargs['fail_msg'] = "Button 'EXOS' not found"
+                    self.common_validation.fault(**kwargs)
                     return -1
         elif 'aerohive' in device_make.lower():
             self.utils.print_info("Selecting 'Extreme - Aerohive' from the 'Device Make' drop down...")
@@ -7224,10 +7250,12 @@ class Devices:
                 self.utils.print_info("'cloudIqEngine' autodetection is working ")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio)
             else:
-                self.utils.print_info("'cloudIqEngine' autodetection is not working ")
+                kwargs['fail_msg'] = "'cloudIqEngine' autodetection is not working "
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("'Device make' list not found")
+            kwargs['fail_msg'] = "'Device make' list not found"
+            self.common_validation.failed(**kwargs)
             return -1
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
@@ -7262,7 +7290,8 @@ class Devices:
             else:
                 self.utils.print_info("No SN error")
         else:
-            self.utils.print_info("'Add Devices' button not found or the button is not active")
+            kwargs['fail_msg'] = "'Add Devices' button not found or the button is not active"
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
@@ -10578,7 +10607,7 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
-    def get_ap_wifi0and1_configured_ssids(self, ap_name):
+    def get_ap_wifi0and1_configured_ssids(self, ap_name, **kwargs):
         """
         - This keyword will get wifi0 and wifi1 ssids from interface settings page behind Configure tab in AP device level
         - flow:
@@ -10624,6 +10653,8 @@ class Devices:
             self.utils.print_info(f"The WiFi0 and WiFi1 SSID list is: {wifi0_1_lists}")
             return wifi0_1_lists
         else:
+            kwargs['fail_msg'] = "Unsuccessfully ssid dictionary whatever it is null"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_hostname(self, device_serial, **kwargs):
@@ -12173,14 +12204,12 @@ class Devices:
                     pass
                 return 1
             else:
-                self.utils.print_info("The device clone has been successfully completed, but the device cannot be "
-                                      "updated at this time as it's disconnected or in the unmanaged state.")
+                kwargs['fail_msg'] = "The device clone - successfully completed, but the device " \
+                                     "cannot be updated at this time as it's disconnected or in the unmanaged state"
                 cancel_button = self.device_actions.get_cancel_button()
                 self.utils.print_info("Closing the Clone window")
                 self.screen.save_screen_shot()
                 self.auto_actions.click(cancel_button)
-                kwargs['fail_msg'] = "The device clone - successfully completed, but the device " \
-                                     "cannot be updated at this time as it's disconnected or in the unmanaged state"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
@@ -12793,7 +12822,6 @@ class Devices:
 
         kwargs["fail_msg"] = f"Couldn't select device with serial: {dut.serial}"
         self.common_validation.failed(**kwargs)
-
         return None
 
     def check_update_column_by_failure_message(self, device_serial, failure_message, **kwargs):

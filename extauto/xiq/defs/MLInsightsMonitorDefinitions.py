@@ -456,3 +456,4 @@ class MLInsightsMonitorDefinitions:
             'XPATH': '//*[@class="text"]',
             'wait_for': 5
         }
+
