@@ -14,6 +14,184 @@ class XapiBaseClientApi(XapiHelper):
     def __init__(self):
         super().__init__()
 
+    def xapi_base_disconnect_client(self, **kwargs):
+
+        """
+            Disconnect the client  # noqa: E501
+            
+            Disconnect the client by macAddress.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+            >>> thread = api.disconnect_client(client_mac, async_req=True)
+            >>> result = thread.get()
+            
+            **Note - The kwargs options are explained in the :param section below.
+            These can be placed in the kwargs dict as key / values pairs or 
+            passed into the function as key / value pairs as separate arguments.
+            
+            Robot ->
+            
+                Library    keywords/xapi_base/XapiBaseClientApi.py
+            
+                disconnect client    **kwargs
+            
+            Pytest ->
+            
+                from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
+            
+                xapiBaseClientApi = XapiBaseClientApi()
+                xapiBaseClientApi.disconnect_client(**kwargs)
+            
+            :param async_req bool: execute request asynchronously
+            :param str client_mac: The client mac address (required)
+            :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                     be returned without reading/decoding response
+                                     data. Default is True.
+            :param _request_timeout: timeout setting for this request. If one
+                                     number provided, it will be total request
+                                     timeout. It can also be a pair (tuple) of
+                                     (connection, read) timeouts.
+            :return: None
+                     If the method is called asynchronously,
+                     returns the request thread.
+
+                    -1 if there is a error (fault)
+        """
+
+
+        # Get the configuration from the Global variables
+        configuration = self.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.ClientApi(api_client)
+            try:
+                api_response = api_instance.disconnect_client(**kwargs)
+                # If the _async is True, we will use the Long Running Operation methods
+                if kwargs.get('_async', False):
+                    # Get the ID
+                    operation_id = self.getLongRunningOperationId(api_response)
+                    # Query the ID until completed
+                    returnValue = self.getAsyncLongRunningOperation(operation_id)
+                    if returnValue:
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        self.common_validation.passed(**kwargs)
+                        return returnValue
+                    else:
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
+                        self.common_validation.fault(**kwargs)
+                        return -1
+                else:
+                    # Make sure this is not a async call because the thread will be returned and the
+                    # api_response is not None
+                    if not kwargs.get('async_req', False) and api_response:
+                        # Non async call, check the http return
+                        self.valid_http_response(api_response)
+                    self.common_validation.passed(**kwargs)
+                    return api_response
+
+            except self.ApiException as e:
+                kwargs['fail_msg'] = f"ApiException : {e}"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+    def xapi_base_get_active_clients_count(self, **kwargs):
+
+        """
+            Get active clients count  # noqa: E501
+            
+            Get number of active clients with filters and pagination.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+            >>> thread = api.get_active_clients_count(async_req=True)
+            >>> result = thread.get()
+            
+            **Note - The kwargs options are explained in the :param section below.
+            These can be placed in the kwargs dict as key / values pairs or 
+            passed into the function as key / value pairs as separate arguments.
+            
+            Robot ->
+            
+                Library    keywords/xapi_base/XapiBaseClientApi.py
+            
+                get active clients count    **kwargs
+            
+            Pytest ->
+            
+                from keywords.xapi_base.XapiBaseClientApi import XapiBaseClientApi
+            
+                xapiBaseClientApi = XapiBaseClientApi()
+                xapiBaseClientApi.get_active_clients_count(**kwargs)
+            
+            :param async_req bool: execute request asynchronously
+            :param list[int] location_ids: The location IDs
+            :param list[int] device_ids: The device IDs
+            :param list[int] vlans: The associate VLAN IDs
+            :param list[str] user_profile_names: The user profile names
+            :param list[str] ssids: The SSIDs
+            :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                     be returned without reading/decoding response
+                                     data. Default is True.
+            :param _request_timeout: timeout setting for this request. If one
+                                     number provided, it will be total request
+                                     timeout. It can also be a pair (tuple) of
+                                     (connection, read) timeouts.
+            :return: int
+                     If the method is called asynchronously,
+                     returns the request thread.
+
+                    -1 if there is a error (fault)
+        """
+
+
+        # Get the configuration from the Global variables
+        configuration = self.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.ClientApi(api_client)
+            try:
+                api_response = api_instance.get_active_clients_count(**kwargs)
+                # If the _async is True, we will use the Long Running Operation methods
+                if kwargs.get('_async', False):
+                    # Get the ID
+                    operation_id = self.getLongRunningOperationId(api_response)
+                    # Query the ID until completed
+                    returnValue = self.getAsyncLongRunningOperation(operation_id)
+                    if returnValue:
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        self.common_validation.passed(**kwargs)
+                        return returnValue
+                    else:
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
+                        self.common_validation.fault(**kwargs)
+                        return -1
+                else:
+                    # Make sure this is not a async call because the thread will be returned and the
+                    # api_response is not None
+                    if not kwargs.get('async_req', False) and api_response:
+                        # Non async call, check the http return
+                        self.valid_http_response(api_response)
+                    self.common_validation.passed(**kwargs)
+                    return api_response
+
+            except self.ApiException as e:
+                kwargs['fail_msg'] = f"ApiException : {e}"
+                self.common_validation.fault(**kwargs)
+                return -1
+
     def xapi_base_get_client(self, **kwargs):
 
         """
@@ -318,6 +496,7 @@ class XapiBaseClientApi(XapiHelper):
             :param list[str] user_profile_names: The user profile names
             :param list[str] ssids: The SSIDs
             :param int page: Page number, min = 1
+            :param str search_string: The search string
             :param int limit: Page Size, min = 1, max = 100
             :param list[XiqClientView] views: The views to return client fields (Check fields for each view at XiqClientView schema)
             :param list[XiqClientField] fields: The client fields to return
