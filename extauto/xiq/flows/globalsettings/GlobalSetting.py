@@ -82,8 +82,8 @@ class GlobalSetting(GlobalSettingWebElements):
         :return: authentication details dict
         """
 
-        # if self.xapiDevices.is_xapi_enabled(**kwargs):
-        #     return self.xapiGlobalSettings.xapi_get_authentication_logs_details(search_string=search_string, search_filter=search_filter, **kwargs)
+        if self.xapiGlobalSettings.is_xapi_enabled(**kwargs):
+            return self.xapiGlobalSettings.xapi_get_authentication_logs_details(search_string=search_string, search_filter=search_filter, **kwargs)
 
         self.utils.print_info("Navigate to Global Settings-->Authentication Logs")
         self.navigate.navigate_to_authentication_logs()
