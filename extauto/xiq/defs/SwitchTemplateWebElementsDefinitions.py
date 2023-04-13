@@ -874,7 +874,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_enable_mac_locking = \
         {
-            'XPATH': "//input[@data-automation-tag='template-maclock-enable']",
+            'XPATH': "//section[@class='mac-locking state-configuration-device']//input[@data-automation-tag='template-maclock-enable']",
             'wait_for': 5
         }
     sw_template_enable_mac_locking_confirm_message_yes_button = \
@@ -1226,4 +1226,10 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': '//input[@data-automation-tag="switch-template-override-settings"]',
             'wait_for': 2
+        }
+
+    sw_template_enable_mac_locking_confirm_message = \
+        {
+            'CSS_SELECTOR': '.ui-cfmsg.confirm',
+            'wait_for': 10
         }
