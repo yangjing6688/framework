@@ -39,7 +39,7 @@ class CommonValidation():
         irv_flag = kwargs.get("IRV", True)
 
         if irv_flag:
-            self.logger.debug("Internal Result Verification [IRV] is: Enabled")
+            self.logger.debug("Internal Result Verification [IRV] is: Enabled", stacklevel=2)
             fail_msg = kwargs.get("fail_msg", "The keyword failed expectations")
             pass_msg = kwargs.get("pass_msg", "The keyword passed expectations")
             calling_function = kwargs.get("calling_function", "")
@@ -90,7 +90,7 @@ class CommonValidation():
                     # Return a return value here so the caller can return the proper return value expected if the
                     # keyword were supported.  Don't print any pass or fail messages.  Instead print a message
                     # letting the user
-                    self.logger.info(f"Keyword not supported: returning [{return_value}]")
+                    self.logger.info(f"Keyword not supported: returning [{return_value}]", stacklevel=2)
                     return return_value
 
             # Get the expected value test result
@@ -103,21 +103,21 @@ class CommonValidation():
 
             # If the test result failed and we're ignoring failures then we'll return true
             if not test_result and ignore_cli:
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.info("[IRV] IRV is configured to ignore failures but a failure occurred!")
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", stacklevel=2)
+                self.logger.info("[IRV] IRV is configured to ignore failures but a failure occurred!", stacklevel=2)
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", stacklevel=2)
                 test_result = True
 
             if expect_error and not test_result:
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.info("[IRV] IRV is configured to expect a failure and the keyword failed!")
-                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", stacklevel=2)
+                self.logger.info("[IRV] IRV is configured to expect a failure and the keyword failed!", stacklevel=2)
+                self.logger.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", stacklevel=2)
                 test_result = True
 
             elif expect_error and test_result:
-                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-                self.logger.error("[IRV] IRV is configured to expect a failure and the keyword did not fail")
-                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", stacklevel=2)
+                self.logger.error("[IRV] IRV is configured to expect a failure and the keyword did not fail", stacklevel=2)
+                self.logger.error("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", stacklevel=2)
                 test_result = False
 
             # Print the output

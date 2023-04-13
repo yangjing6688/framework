@@ -4,6 +4,8 @@ import json
 from time import sleep
 import pprint
 from extauto.common.Utils import Utils
+from ExtremeAutomation.Library.Utils.DotDict import DotDict
+import urllib3
 
 try:
     import extremecloudiq
@@ -202,130 +204,64 @@ class XapiHelper():
         """
         self.builtin.set_global_variable("${XAPI_ENABLE}", value)
 
-
-    #########################################################################
-    # Helper functions
-    #########################################################################
-
-    def _xapi_search_for_device_id(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def convert_preload_content_data_to_object(self, object_string):
         """
-           This helper function will search for the device ID given the parameters that were passed in.
-           This ID is used in all of the XAPI keywords as the device ID
-
-           :param device_serial: The device serial number
-           :param device_name: The device hostname
-           :param device_mac: The device MAC address
-           :param skip_global_check: false by default, will skip the global device check
-           :return: The device ID for success and -1 for failure
+            When using the _preload_content=False with any XAPI SDK keyword, you
+            will get back a byte string data from the SDK. This method will convert
+            that byte string to a JSON object
+        :param object_string: The object string to convert (btye string) (repsonse.data from the XAPI SDK call) (can take the HTTPRepsonse)
+        :return: The json object for the string
         """
-        device_id = -1
 
-        # figure out the value being used to look for the device
-        search_type = None
-        if device_serial:
-            self.utils.print_info(f"XAPI - Searching for device based on serial {device_serial}")
-            search_type = device_serial
-        elif device_name:
-            self.utils.print_info(f"XAPI - Searching for device based on name {device_name}")
-            search_type = device_name
-        elif device_mac:
-            self.utils.print_info(f"XAPI - Searching for device based on mac {device_mac}")
-            search_type = device_mac
+        if isinstance(object_string, urllib3.HTTPResponse):
+            object_string = object_string.data
+        if isinstance(object_string, (bytes, bytearray)):
+            # Decode UTF-8 bytes to Unicode, and convert single quotes
+            # to double quotes to make it valid JSON
+            json_friendly = object_string.decode('utf8').replace("'", '"')
+        else:
+            json_friendly = object_string
+        data = json.loads(json_friendly)
+        return DotDict(data)
 
-        # get the global dict for the type
-        device_id = self.get_xapi_global_device(search_type)
-        if device_id != -1:
-            self.utils.print_info(f"Found device ID: {device_id}")
-            return device_id
-
-        # Get all of the devices
-        device_api_data = self.xapi_get_device(device_serial=device_serial, \
-                                               device_name=device_name, \
-                                               device_mac=device_mac, \
-                                               **kwargs)
-
-        device_list = device_api_data['data']
-
-        if len(device_list) != 0:
-            for device in device_list:
-                # Search for the device based on the parameters that were passed in
-                if device_serial:
-                    if device['serial_number'] == device_serial:
-                        device_id = device['id']
-                        self.utils.print_info(
-                            f"Setting global value for device [serial]: {device_serial}:{device_id}")
-                        self.set_xapi_global_device(device_serial, device_id)
-                        break
-                elif device_name:
-                    if device['hostname'] == device_name:
-                        device_id = device['id']
-                        self.utils.print_info(f"Setting global value for device [name]: {device_name}:{device_id}")
-                        self.set_xapi_global_device(device_name, device_id)
-                        break
-                elif device_mac:
-                    if device['mac_address'] == device_mac:
-                        device_id = device['id']
-                        self.utils.print_info(f"Setting global value for device [mac]: {device_mac}:{device_id}")
-                        self.set_xapi_global_device(device_mac, device_id)
-                        break
-        return device_id
-
-
-    def xapi_search_for_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def check_dict_keys_in_original_dict(self, original_dict, check_dict, level=0):
         """
-            This function will search for a device with the serial, name or mac address that is passed in.
-
-            :param device_serial: The device serial number
-            :param device_name: The device hostname
-            :param device_mac: The device MAC address
-            :return: 1 for success and -1 for failure
+            Check the keys from the check dict to the keys in the check dict
+        :param original_dict:  The base dict for all of the key values
+        :param check_dict:  The dict to check againsted the original_dict
+        :param level: Always set to 0, unless this is called internally from this function
+        :return: True, if all of the keys exist, false if they don't
         """
-        id = self._xapi_search_for_device_id(device_serial=device_serial, device_name=device_name, device_mac=device_mac, **kwargs)
-        if id == -1:
-            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac} or name: {device_name}"
-            self.common_validation.failed(**kwargs)
-            return -1
+        return_value = True
+        if isinstance(original_dict, dict) and isinstance(check_dict, dict):
+            check_top_level_keys = check_dict.keys()
+            original_top_level_keys = original_dict.keys()
 
-        return self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
+            for check_key in check_top_level_keys:
+                level_tabs = '\t' * level
+                if check_key not in original_top_level_keys:
+                    print(f"{level_tabs}Mising key: {check_key}")
+                    return_value = False
+                else:
+                    print(f"{level_tabs}key: {check_key}")
+                check_value = check_dict[check_key]
+                if check_key in original_dict:
+                    orignal_value = original_dict[check_key]
+                else:
+                    orignal_value = original_dict
+                if isinstance(check_value, dict):
+                    return_value = checkDictKeysInArray(orignal_value, check_value, level + 1)
+        return return_value
 
-    def xapi_get_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def convert_enable_disable_to_bool(self, value):
         """
-           This helper function will get the device given the parmeters that are passed in for
-           device_serial, device_name or device_mac
-
-           :param: device_serial - The device serial
-           :param: device_name - The device name
-           :param: device_mac - The device mac
-           :return: The device JSON or -1 if an error occured
+            Convert enable (set to lower case) to True and Disable to False.
+        :param value:
+        :return: enable returns True and Disable returns False
         """
-        # Get the configuration from the Global varibles
-        configuration = self.get_xapi_configuration()
-        api_response = None
-
-        # Check that the access_token is in
-        if configuration.access_token == None:
-            raise Exception("Error: access_token is None in the configuration")
-
-        try:
-            api_response = None
-            device_args = {}
-            device_args['_async'] = True
-            device_args['_preload_content'] = False
-            if device_serial:
-                device_args['sns']=[device_serial]
-            elif device_name:
-                device_args['hostnames']=[device_name]
-            elif device_mac:
-                device_args['mac_addresses']=[device_mac]
+        if not isinstance(value, bool):
+            if str(value).lower() == 'disable':
+                return False
             else:
-                kwargs['fail_msg'] = f"xapi_get_device -> device_serial: {device_serial}, device_name: {device_name}, device_mac: {device_mac} are not set!"
-                self.common_validation.fault(**kwargs)
-                return -1
-            api_response = self.xapiBaseDeviceApi.xapi_base_list_devices(**device_args)
-            return api_response
-
-        except Exception as e:
-            kwargs['fail_msg'] = f"Exception when calling DeviceApi->list_devices: {e}"
-            self.common_validation.fault(**kwargs)
-            return -1
-
+                return True
+        return value
