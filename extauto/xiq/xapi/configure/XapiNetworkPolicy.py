@@ -181,7 +181,7 @@ class XapiNetworkPolicy(XapiHelper):
         :param device_serial: The devices that were selected
         :param update_type: The update type [complete or delta]
         :param next_reboot: Do the update on the next reboot (default = True)
-        :param skip_update_check: skip the update check (in case you are calling the UI keyword) Deafult = False
+        :param skip_update_check: skip the update check (in case you are calling the UI keyword) (Deafult = False)
         :return: 1 for success or -1 for failure
         """
         update_type_value = True # Complete
