@@ -76,7 +76,6 @@ class Login(object, metaclass=Singleton):
         - Get the title of the page
         - Keyword Usage:
         - ``Get Page Title``
-
         :return: page title
         """
         return CloudDriver().cloud_driver.title
@@ -90,7 +89,6 @@ class Login(object, metaclass=Singleton):
         - Get the index of the window handle for this session
         - Keyword Usage:
         - ``Get Window Index``
-
         :return: index of window handle
         """
         return self.window_index
@@ -100,7 +98,6 @@ class Login(object, metaclass=Singleton):
         - for Exos switch to appear in UI we need to load the provided url
         - Keyword Usage:
         - ``Enable Exos Status On Xiq   ${URL}``
-
         :param url: url to load for enabling exos on cloud UI
         :return: 1 if loaded the url successfully
         """
@@ -144,11 +141,9 @@ class Login(object, metaclass=Singleton):
         - ``Login User   ${USERNAME}   ${PASSWORD}``
         - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
         - ``Login User   ${USERNAME}   ${PASSWORD}    co_pilot_status=True``
-
         Supported Modes:
             UI - default mode
             XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
-
         :param username: login account username
         :param password: login account password
         :param capture_version: true if want capture the xiq build version
@@ -485,13 +480,10 @@ class Login(object, metaclass=Singleton):
         - Logout the current user
         - Keyword Usage:
         - ``Logout User``
-
         :return: 1 if logout success, -1 if logout not successful
-
         Supported Modes:
             UI - default mode
             XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
-
         :return: 1 if logout success
         """
 
@@ -532,7 +524,6 @@ class Login(object, metaclass=Singleton):
         - if the driver object is passed, quits only the specified browser and returns
         - Keyword Usage:
         - ``Quit Browser``
-
         :param _driver: Use this to close a specific browser window instead of all browswer windows
         :return: 1 if success
         """
@@ -569,7 +560,6 @@ class Login(object, metaclass=Singleton):
     def start_video_record(self, record_sta_ip, test_name=None):
         """
         - This Keyword will Start Video Record on mentioned machine IP Address .
-
         :param record_sta_ip: Station IP address to Start the Video Recordings
         :param test_name: Test Name for Video Recordings
         :return: None
@@ -586,7 +576,6 @@ class Login(object, metaclass=Singleton):
     def stop_video_record(self, record_sta_ip):
         """
         - This Keyword will Stop Video Record on mentioned machine IP Address .
-
         :param record_sta_ip: Station IP address to Stop the Video Recordings
         :return: None
         """
@@ -598,7 +587,6 @@ class Login(object, metaclass=Singleton):
     def _post_url(self, url):
         """
         - This method is used to call the API requests using requests
-
         :param url: api complete url
         :return: response_code, json_response, total_time
         """
@@ -621,12 +609,16 @@ class Login(object, metaclass=Singleton):
 
         return response_code, json_response, total_time
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {load_web_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def load_web_page(self, url="default"):
+        return self.gui_load_web_page(url)
+
+    def gui_load_web_page(self, url="default"):
         """
         - Loads web page with the passed URL
         - Keyword Usage:
         - ``Load Web Page    ${URL}``
-
         :param url: Proper URL
         :return: creates global driver object & returns
         """
@@ -641,7 +633,6 @@ class Login(object, metaclass=Singleton):
         - Set new password for the account
         - Keyword Usage:
         - ``Set Password   ${NEW_PASSWORD}``
-
         :param new_pwd: New Password string to set
         :return: 1 if Able to Set the Password Successfully for the Account else None
         """
@@ -678,7 +669,6 @@ class Login(object, metaclass=Singleton):
         - Reset the user account password
         - Keyword Usage:
         - `` Reset Password  ${NEW_PASSWORD}``
-
         :param new_pwd:
         :return: 1 if able to Reset the Password Successfully
         """
@@ -701,12 +691,16 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {forgot_password} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def forgot_password(self, _email, url='default', **kwargs):
+        return self.gui_forgot_password(_email, url, **kwargs)
+
+    def gui_forgot_password(self, _email, url='default', **kwargs):
         """
         - Get the link to set the forget password
         - Keyword Usage:
         - ``Forget Password   ${EMAIL}``
-
         :param _email: Email Address
         :param url: Forget Password URL
         :return: 1 if reset password message displayed on Page else -1
@@ -746,7 +740,6 @@ class Login(object, metaclass=Singleton):
     def _capture_data_center_name(self, **kwargs):
         """
         - Get XIQ Data Center Name
-
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: data_center_name
         """
@@ -775,7 +768,6 @@ class Login(object, metaclass=Singleton):
     def _capture_xiq_version(self, **kwargs):
         """
         - Get XIQ Build version details
-
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: xiq_version
         """
@@ -807,7 +799,6 @@ class Login(object, metaclass=Singleton):
         - Reset password for xiq account with passed reset password url link
         - Keyword Usage:
         - ``Reset Password For New Account  ${RESET_PASSWORD}   ${RESET_URL_LINK}``
-
         :param password:  password to reset
         :param url: reset password url link
         :return: 1
@@ -870,12 +861,17 @@ class Login(object, metaclass=Singleton):
                               f"found '{switch_connection_host}'"
             self.common_validation.failed(**kwargs)
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_viq_id} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_viq_id(self, **kwargs):
+        return self.gui_get_viq_id()
+
+
+    def gui_get_viq_id(self, **kwargs):
         """
         - This method is used to get the build id or owner id
         - Keyword Usage:
         - ``Get Viq Owner Id``
-
         :return: viq id
         """
         self.screen.save_screen_shot()
@@ -896,12 +892,16 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return viq_id
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_base_url_of_current_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_base_url_of_current_page(self, **kwargs):
+        return self.gui_get_base_url_of_current_page()
+
+    def gui_get_base_url_of_current_page(self, **kwargs):
         """
         - This Keyword is used to get the url of current loaded page
         - Keyword Usage:
         - ``Get Base URL Of Current Page``
-
         :return: current page url
         """
         base_url = re.search(r'^(http:\/\/|https:\/\/)?([a-zA-Z0-9-_]+\.)*[a-zA-Z0-9][a-zA-Z0-9-_]+\.[a-zA-Z]*', CloudDriver().cloud_driver.current_url)
@@ -909,12 +909,16 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return base_url.group()
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_current_page_url} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_current_page_url(self):
+        return self.gui_get_current_page_url()
+
+    def gui_get_current_page_url(self):
         """
         - This Keyword returns URL of current page
         - Keyword Usage:
         - ``Get Current Page URL``
-
         :return: current page url
         """
         return CloudDriver().cloud_driver.current_url
@@ -924,7 +928,6 @@ class Login(object, metaclass=Singleton):
         - This keyword detects a license of 90 days and clicks on the option of 90 days
         - Keyword Usage:
         - ``skip_if_account_90_days``
-
         :return: None
         """
         self.utils.print_info(" Select the option of 90 days trial if exists")
@@ -940,18 +943,27 @@ class Login(object, metaclass=Singleton):
             return -1, "Could not select the option of 90 days trial "
         return str(1), None
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_data_center_name} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_data_center_name(self):
+        return self.gui_get_data_center_name()
+
+
+    def gui_get_data_center_name(self):
         """
         - Get XIQ Data Center Name
-
         :return: data_center_name
         """
         return self._capture_data_center_name()
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_xiq_version} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def get_xiq_version(self):
+        return self.gui_get_xiq_version()
+
+    def gui_get_xiq_version(self):
         """
         - Get XIQ Build version details
-
         :return: xiq_version
         """
         return self._capture_xiq_version()
@@ -959,7 +971,6 @@ class Login(object, metaclass=Singleton):
     def switch_to_window(self, win_index):
         """
         - Switches to the specified window
-
         :param:  win_index - Index of the window to switch to
         :return: None
         """
@@ -968,7 +979,6 @@ class Login(object, metaclass=Singleton):
     def close_window(self, win_index):
         """
         - Closes the specified window
-
         :param:  win_index - Index of the window to close
         :return: None
         """
@@ -980,7 +990,6 @@ class Login(object, metaclass=Singleton):
         - if the driver object is passed, quits and returns
         - Keyword Usage:
         - ``XIQ Quit Browser``
-
         :param _driver: specific driver to use; if not specified, default driver will be used
         :return: None
         """
@@ -1018,10 +1027,14 @@ class Login(object, metaclass=Singleton):
         window_index_list = CloudDriver().get_child_window_list(win_index)
         return window_index_list
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {logo_check_on_login_screen} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def logo_check_on_login_screen(self):
+        return self.gui_logo_check_on_login_screen()
+
+    def gui_logo_check_on_login_screen(self):
         """
         - Get the login logo and save it as screenshot
-
         :return: login logo
         """
         sleep(5)
@@ -1032,7 +1045,6 @@ class Login(object, metaclass=Singleton):
     def _enable_copilot_status_on_xiq(self, url):
         """
         - This keyword is to enable Co-Pilot Beta status on XIQ UI
-
         :param url: url to load for enabling Co-Pilot Beta status on XIQ UI
         :return: 1 if loaded the url successfully
         """
@@ -1053,7 +1065,6 @@ class Login(object, metaclass=Singleton):
         - ``Login User   ${USERNAME}   ${PASSWORD}``
         - ``Login User   ${USERNAME}   ${PASSWORD}    capture_version=True``
         - $login_type} : trial, connect, extremecloudiq license, legacy license
-
         :param username: login account username
         :param password: login account password
         :param login_option: trial, connect, extremecloudiq license, legacy license
@@ -1377,7 +1388,6 @@ class Login(object, metaclass=Singleton):
         - Assumes that user already in login option selection page
         - Keyword Usage:
         - ``Login For First Time``
-
         :return: 1
         """
 
@@ -1452,7 +1462,6 @@ class Login(object, metaclass=Singleton):
                             recover_login=True, map_override=None, **kwargs):
         """
         Select a login option for when logging into a VIQ that is new or has recently been reset
-
         :param login_option: A string reprensting the type of account that should be used for the new or recently reset
                   VIQ.  Options include:
                      "30-day-trial"
@@ -1711,7 +1720,12 @@ class Login(object, metaclass=Singleton):
             self.utils.print_debug(e)
             return 1
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {refresh_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def refresh_page(self, refresh_delay=10):
+        return self.gui_refresh_page(refresh_delay)
+
+    def gui_refresh_page(self, refresh_delay=10):
         """
         This keyword refreshes the current page
         :param refresh_delay: delay needed to reload the page
@@ -1725,7 +1739,12 @@ class Login(object, metaclass=Singleton):
             self.utils.print_info("Unable to refresh the page...")
             self.utils.print_info(e)
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {click_advanced_onboard_popup} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def click_advanced_onboard_popup(self):
+        return self.gui_click_advanced_onboard_popup()
+
+    def gui_click_advanced_onboard_popup(self):
         """
         This keyword just clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
         - Keyword Usage:
@@ -2137,7 +2156,6 @@ class Login(object, metaclass=Singleton):
     def switch_to_extreme_guest_window(self, win_index=1):
         """
         - Switches to the specified window
-
         :param:  win_index - Index of the window to switch to
         :return: 1
         """
@@ -2147,7 +2165,6 @@ class Login(object, metaclass=Singleton):
     def close_extreme_guest_window(self, win_index=1):
         """
         - Closes the specified window
-
         :param:  win_index - Index of the window to close
         :return: 1
         """
