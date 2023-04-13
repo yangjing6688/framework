@@ -815,7 +815,12 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_switch_connection_host(self, **kwargs):
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_switch_connection_host} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    def get_switch_connection_host(self):
+        return self.gui_get_switch_connection_host()
+
+    def gui_get_switch_connection_host(self, **kwargs):
         """
         - This keyword Get Switch Connection Host
         - Keyword Usage
@@ -912,7 +917,12 @@ class Login(object, metaclass=Singleton):
         """
         return CloudDriver().cloud_driver.current_url
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {skip_if_account_90_days} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def skip_if_account_90_days(self, **kwargs):
+        return self.gui_skip_if_account_90_days()
+
+    def gui_skip_if_account_90_days(self, **kwargs):
         """
         - This keyword detects a license of 90 days and clicks on the option of 90 days
         - Keyword Usage:
@@ -957,7 +967,12 @@ class Login(object, metaclass=Singleton):
         """
         return self._capture_xiq_version()
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {switch_to_window} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def switch_to_window(self, win_index):
+        return self.gui_switch_to_window(win_index)
+
+    def gui_switch_to_window(self, win_index):
         """
         - Switches to the specified window
         :param:  win_index - Index of the window to switch to
@@ -965,7 +980,13 @@ class Login(object, metaclass=Singleton):
         """
         CloudDriver().switch_to_window(win_index)
 
+
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {close_window} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def close_window(self, win_index):
+        return self.gui_close_window(win_index)
+
+    def gui_close_window(self, win_index):
         """
         - Closes the specified window
         :param:  win_index - Index of the window to close
@@ -1271,7 +1292,12 @@ class Login(object, metaclass=Singleton):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_upgrade_option_for_connect_user(self, **kwargs):
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {verify_upgrade_option_for_connect_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    def verify_upgrade_option_for_connect_user(self):
+        return self.gui_verify_upgrade_option_for_connect_user()
+
+    def gui_verify_upgrade_option_for_connect_user(self, **kwargs):
         """
         - This keyword checks if upgrade button is displayed and clicking on upgrade button
         navigates connect user to license management UI
