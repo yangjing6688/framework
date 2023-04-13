@@ -990,7 +990,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         # Return the return value of the keyword
         return return_code
 
-    def switch_to_window(self, win_index, **kwargs):
+    def switch_to_window(self, win_index=0, **kwargs):
         """
         To switch from one window to another window of the browser
 
