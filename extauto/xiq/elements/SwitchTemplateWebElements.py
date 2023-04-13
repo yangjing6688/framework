@@ -817,3 +817,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_device_template_override_policy(self):
         return self.weh.get_element(self.device_template_override_policy)
+
+    def get_sw_template_enable_mac_locking_confirm_message(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message)
