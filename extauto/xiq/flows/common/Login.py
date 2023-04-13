@@ -919,10 +919,10 @@ class Login(object, metaclass=Singleton):
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
     # @deprecated('Please use the {skip_if_account_90_days} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
-    def skip_if_account_90_days(self, **kwargs):
-        return self.gui_skip_if_account_90_days()
+    def licence_validation(self, **kwargs):
+        return self.gui_licence_validation()
 
-    def gui_skip_if_account_90_days(self, **kwargs):
+    def gui_licence_validation(self, **kwargs):
         """
         - This keyword detects a license of 90 days and clicks on the option of 90 days
         - Keyword Usage:
@@ -1294,10 +1294,10 @@ class Login(object, metaclass=Singleton):
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
     # @deprecated('Please use the {verify_upgrade_option_for_connect_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
-    def verify_upgrade_option_for_connect_user(self):
-        return self.gui_verify_upgrade_option_for_connect_user()
+    def execute_upgrade_option_for_connect_user(self):
+        return self.gui_execute_upgrade_option_for_connect_user()
 
-    def gui_verify_upgrade_option_for_connect_user(self, **kwargs):
+    def gui_execute_upgrade_option_for_connect_user(self, **kwargs):
         """
         - This keyword checks if upgrade button is displayed and clicking on upgrade button
         navigates connect user to license management UI

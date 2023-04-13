@@ -1022,6 +1022,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("7471b963-c9f0-42f2-ab81-c6731661198b", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Assume if unable to switch window
         return_code = -1
@@ -1045,11 +1046,12 @@ class KeywordsLogin(object, metaclass=Singleton):
         # Return the return value of the keyword
         return return_code
 
-    def close_window(self, win_index, **kwargs):
+    def close_window(self, win_index=0, **kwargs):
         """
         To close the window of the browser
 
-        This method is used to close the window of the browser.
+        This keyword will close Windows handles based on windows index value
+        By default it will close windows handles index 0
 
         - Keyword Usage:
         -   Robot:
@@ -1077,6 +1079,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("33bc046f-ccb5-4219-9d8d-f1c3ba459d90", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Assume if unable to switch window
         return_code = -1
@@ -1100,22 +1103,23 @@ class KeywordsLogin(object, metaclass=Singleton):
         # Return the return value of the keyword
         return return_code
 
-    def skip_if_account_90_days(self, **kwargs):
+    #This keyword is currently not used in any tests
+    def licence_validation(self, **kwargs):
         """
-        Detects a license of 90 days and clicks on the option of 90 days
+        Clicks 90 day option
 
-        This method detects a license of 90 days on home page and clicks on the option of 90 days
+        This keyword will determine if the 90 license option appears on the screen and will click the option if it does.
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Skip If Account 90 Days
+        -      Licence validation
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
         -      Calling Keyword:
         -         keywords_login = KeywordsLogin()
-        -         keywords_login.skip_if_account_90_days()
+        -         keywords_login.licence_validation()
         -
         - Keyword Implementations:
         -    GUI
@@ -1141,8 +1145,7 @@ class KeywordsLogin(object, metaclass=Singleton):
             if implementation_to_run != '':
                 self.keyword_utils.timing.start(keyword_name, implementation_to_run)
                 if implementation_to_run == "GUI":
-                    return_code = self.login.gui_skip_if_account_90_days()
-                    #return_code = int(return_code)
+                    return_code = self.login.gui_licence_validation()
                 else:
                     return_code = self.keyword_utils.implementations.not_supported(**kwargs)
                     # not_supported() returns True if keyword should pass else returns False
@@ -1159,7 +1162,8 @@ class KeywordsLogin(object, metaclass=Singleton):
         # Return the return value of the keyword
         return return_code
 
-    def verify_upgrade_option_for_connect_user(self, **kwargs):
+    #This keyword is currently not used in any tests
+    def execute_upgrade_option_for_connect_user(self, **kwargs):
         """
         Clicks on the upgrade button and navigates connect user to license management UI
 
@@ -1168,17 +1172,17 @@ class KeywordsLogin(object, metaclass=Singleton):
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Verify Upgrade Option For Connect User
+        -      Execute Upgrade Option For Connect User
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
         -      Calling Keyword:
         -         keywords_login = KeywordsLogin()
-        -         keywords_login.verify_upgrade_option_for_connect_user()
+        -         keywords_login.execute_upgrade_option_for_connect_user()
         -
         - Keyword Implementations:
         -    GUI
-        -    XAPI - ** Not Supported **
+        -    XAPI - ** Not Implemented **
 
         :return: Returns 1 if success. Returns -1 if not success.
         """
@@ -1189,7 +1193,6 @@ class KeywordsLogin(object, metaclass=Singleton):
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("777346b6-8887-41e3-8d94-ef7bbc8f359d", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
-        self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Assume a failure
         return_code = -1
@@ -1200,10 +1203,9 @@ class KeywordsLogin(object, metaclass=Singleton):
             if implementation_to_run != '':
                 self.keyword_utils.timing.start(keyword_name, implementation_to_run)
                 if implementation_to_run == "GUI":
-                    return_code = self.login.gui_verify_upgrade_option_for_connect_user()
+                    return_code = self.login.gui_execute_upgrade_option_for_connect_user()
                 else:
-                    return_code = self.keyword_utils.implementations.not_supported(**kwargs)
-                    # not_supported() returns True if keyword should pass else returns False
+                    self.common_validation.fault(**kwargs)
                     if return_code:
                         return_code = 0
                     else:
