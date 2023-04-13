@@ -1228,11 +1228,11 @@ class FilterManageDevices():
         Usage of test case:
             Set CoPilot License Filter  All  true
             Set CoPilot License Filter  CoPilot Active  true
-            Set CoPilot License Filter  CoPilot EXpired  true
+            Set CoPilot License Filter  CoPilot Expired  true
             Set CoPilot License Filter  CoPilot None  true
             Set CoPilot License Filter  All  false
             Set CoPilot License Filter  CoPilot Active  false
-            Set CoPilot License Filter  CoPilot EXpired  false
+            Set CoPilot License Filter  CoPilot Expired  false
             Set CoPilot License Filter  CoPilot None  false
 
         :param filter: name of the filter to set
