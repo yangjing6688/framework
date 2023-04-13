@@ -902,10 +902,10 @@ class Cli(object):
             self.send(connection, 'save config')
 
         elif NetworkElementConstants.OS_AHAP in cli_type.upper():
+            self.send(connection, 'no capwap client enable')
             self.send(connection, f'capwap client server name {server_name}')
             self.send(connection, f'capwap client default-server-name {server_name}')
             self.send(connection, f'capwap client server backup name {server_name}')
-            self.send(connection, 'no capwap client enable')
             self.send(connection, 'capwap client enable')
             self.send(connection, 'save config')
 
