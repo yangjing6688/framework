@@ -1,6 +1,7 @@
 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
 from keywords.xapi_base.XapiBaseLogApi import XapiBaseLogApi
 from tools.xapi.XapiHelper import XapiHelper
+import time
 
 class XapiGlobalSettings(XapiHelper):
 
@@ -57,7 +58,11 @@ class XapiGlobalSettings(XapiHelper):
 
         search_filtered_data = []
         try:
-            api_raw_response = self.xapiBaseLogApi.xapi_base_list_auth_logs(_preload_content=False)
+            # assume last 15 mintutes for start time (logs)
+            CONSTANT_SECONDS = 900  # time  in seconds (900 seconds = 15 min)
+            current_time = int(time.time())
+            time_before_15_min = current_time - CONSTANT_SECONDS
+            api_raw_response = self.xapiBaseLogApi.xapi_base_list_auth_logs(_preload_content=False, start_time=time_before_15_min, limit=100)
             api_reponse = self.convert_preload_content_data_to_object(api_raw_response)
             # Search the data (userName or Mac)
             if search_filter:
@@ -69,14 +74,32 @@ class XapiGlobalSettings(XapiHelper):
                 search_filtered_data = api_reponse.data
 
             # Filter the data
-            return_values = []
+            filtered_data = []
             for record in search_filtered_data:
                 # Search all keys for the search_string
                 values_found = [value for value, record_value in record.items() if record_value == search_string]
                 if len(values_found) > 0:
-                    return_values.append(record)
+                    filtered_data.append(record)
 
-            return return_values
+            # Let's normalize the data
+            normalized_data = []
+            normalized_template = {
+                'userName': '',
+                'ssid': '',
+                'authType': '',
+                'callingStationId': '',
+                'authdate' : ''
+            }
+            for record in filtered_data:
+                new_record = normalized_template.copy()
+                new_record['userName'] = record.username
+                new_record['ssid'] = record.ssid
+                new_record['authType'] = record.auth_type
+                new_record['callingStationId'] = record.called_station_id
+                new_record['authdate'] = record.auth_date
+                normalized_data.append(new_record)
+
+            return normalized_data
 
         except self.ApiException as e:
             self.utils.print_error("Exception when calling AccountApi->get_viq_info: %s\n" % e)
