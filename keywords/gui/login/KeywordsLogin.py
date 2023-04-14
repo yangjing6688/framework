@@ -1163,7 +1163,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         return return_code
 
     #This keyword is currently not used in any tests
-    def execute_upgrade_option_for_connect_user(self, **kwargs):
+    def verify_upgrade_option_for_connect_user(self, **kwargs):
         """
         Clicks on the upgrade button and navigates connect user to license management UI
 
@@ -1203,7 +1203,7 @@ class KeywordsLogin(object, metaclass=Singleton):
             if implementation_to_run != '':
                 self.keyword_utils.timing.start(keyword_name, implementation_to_run)
                 if implementation_to_run == "GUI":
-                    return_code = self.login.gui_execute_upgrade_option_for_connect_user()
+                    return_code = self.login.gui_verify_upgrade_option_for_connect_user()
                 else:
                     self.common_validation.fault(**kwargs)
                     if return_code:
