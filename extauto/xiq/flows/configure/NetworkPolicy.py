@@ -497,14 +497,13 @@ class NetworkPolicy(object):
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
-                self.auto_actions.click(self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
+                self.auto_actions.click_reference(lambda: self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
                 kwargs['pass_msg'] = "Network Policy card/s present"
                 self.common_validation.passed(**kwargs)
                 return 1
         kwargs['fail_msg'] = "Unsuccessfully select network policy in card view"
         self.common_validation.failed(**kwargs)
         return -1
-
 
     def _select_ssid(self, ssid):
         """
@@ -898,13 +897,14 @@ class NetworkPolicy(object):
         :return: 1 if success else -1
         """
 
+        # Need to write up a bug on this XAPI not working correctly
         # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
         #     if cli_type == 'AH-AP':
         #         self.utils.print_info("ClI Type: AH-AP detected, updated type to Complete")
         #         update_type = 'complete'
-        #     self.xapiNetworkPolicy.xapi_deploy_network_policy_with_complete_update(policy_name,
-        #                                                                            devices,
-        #                                                                            update_type)
+        #     return self.xapiNetworkPolicy.xapi_deploy_network_policy_with_complete_update(policy_name,
+        #                                                                                   devices,
+        #                                                                                   update_type)
         # UI
         if cli_type == 'AH-AP':
             return self.deploy_network_policy(policy_name, devices, 'complete')
@@ -958,11 +958,12 @@ class NetworkPolicy(object):
         :param devices: Device serial number
         :return:
         """
+        # need to write up a bug on this XAPI
         # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
-        #     self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
-        #                                                                            devices,
-        #                                                                            'delta')
-        # else:
+        #     return self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
+        #                                                                                devices,
+        #                                                                                 'delta')
+        #else:
         return self.deploy_network_policy(policy_name, devices, 'delta')
 
     def _check_navigation_to_network_policy_page(self):

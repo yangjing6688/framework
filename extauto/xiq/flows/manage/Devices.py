@@ -28,7 +28,6 @@ from extauto.common.WebElementController import WebElementController
 from extauto.common.WebElementHandler import WebElementHandler
 from ExtremeAutomation.Utilities.deprecated import deprecated
 from extauto.xiq.xapi.manage.XapiDevices import XapiDevices
-from ExtremeAutomation.Utilities.deprecated import unsupported
 from extauto.xiq.elements.ClientWebElements import ClientWebElements
 
 
@@ -174,77 +173,6 @@ class Devices:
             self.utils.print_info('No exit level defined')
             return 1
 
-    @unsupported('This function is not supported')
-    def get_ap_status(self, ap_serial='default', ap_name='default', ap_mac='default', **kwargs):
-        pass
-        # """
-        # - This keyword returns the AP's status by searching AP using serial, name or mac address
-        # - Keyword Usage:
-        # - ``Get Ap Status    ap_serial=${AP_SERIAL}``
-        # - ``Get Ap Status    ap_name=${AP_NAME}``
-        # - ``Get Ap Status    ap_mac=${AP_MAC}``
-        #
-        # :param ap_serial: AP Serial
-        # :param ap_name: AP Name ie AP Host name in GUI ex: AH-2aa840
-        # :param ap_mac: AP MAC
-        # :return: 'green' if the AP is online else return -1
-        # """
-        # ap_row = -1
-        # self.utils.print_info('Getting AP Status using')
-        # if ap_serial != 'default':
-        #     self.utils.print_info("Getting status of AP with serial: ", ap_serial)
-        #     ap_row = self.get_ap_row(ap_serial=ap_serial)
-        #
-        # if ap_name != 'default':
-        #     self.utils.print_info("Getting status2 of AP with name: ", ap_name)
-        #     ap_row = self.get_ap_row(ap_name=ap_name)
-        #
-        # if ap_mac != 'default':
-        #     self.utils.print_info("Getting status of AP with MAC: ", str(ap_mac).upper())
-        #     ap_row = self.get_ap_row(ap_mac=str(ap_mac).upper())
-        #
-        # if ap_row:
-        #     sleep(10)
-        #     ap_status = self.devices_web_elements.get_status_cell(ap_row)
-        #     self.utils.print_info("ap status " + ap_status)
-        #
-        #     if self.devices_web_elements.get_manage_device_search_clear_button().is_displayed():
-        #         self.utils.print_info("Clear search filter option")
-        #         self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_search_clear_button)
-        #         sleep(5)
-        #
-        #     if 'true' in ap_status:
-        #         kwargs['pass_msg'] = "AP Status: Connected"
-        #         self.common_validation.passed(**kwargs)
-        #         return 'green'
-        #
-        # kwargs['fail_msg'] = "AP not online"
-        # self.common_validation.failed(**kwargs)
-        # return -1
-
-    @unsupported('This function is not supported')
-    def _verify_ap_status(self, ap_serial='default', ap_name='default', ap_mac='default', status='default'):
-        pass
-        # """
-        # - This keyword returns 1 if AP status expected matches the status passed as argument
-        #
-        # :param ap_serial: AP Serial
-        # :param ap_name: AP Name
-        # :param ap_mac: AP MAC
-        # :param status: green, red, or amber as of now - may change in future
-        #
-        # :return:
-        # """
-        # if ap_serial != 'default':
-        #     if status in self.get_ap_status(ap_serial=ap_serial):
-        #         return 1
-        # if ap_name != 'default':
-        #     if status in self.get_ap_status(ap_name=ap_name):
-        #         return 1
-        # if ap_mac != 'default':
-        #     if status in self.get_ap_status(ap_mac=ap_mac):
-        #         return 1
-
     def get_os_change(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         if device_mac:
             search_result = self.search_device(device_mac)
@@ -319,185 +247,6 @@ class Devices:
                 kwargs['fail_msg'] = f"Device with device name {device_name} is not EXOS or VOSS device"
                 self.common_validation.failed(**kwargs)
                 return -1
-
-    @unsupported('This function is not supported')
-    def search_exos_device(self, EXOS_VOSS_device, **kwargs):
-        pass
-        # self.refresh_devices_page()
-        # self.screen.save_screen_shot()
-        # sleep(2)
-        # device_tag = False
-        # rows = self.devices_web_elements.get_grid_rows()
-        # if rows:
-        #     self.utils.print_debug(f"Searching {len(rows)} rows")
-        #     for row in rows:
-        #         if EXOS_VOSS_device in row.text and 'VOSS' in row.text:
-        #             self.utils.print_info("Found VOSS device: ", self.format_row(row.text))
-        #             self.voss = True
-        #             device_tag = True
-        #             return 1
-        #         if EXOS_VOSS_device in row.text and 'EXOS' in row.text:
-        #             self.utils.print_info("Found EXOS device: ", self.format_row(row.text))
-        #             device_tag = True
-        #             self.exos = True
-        #             return 1
-        # else:
-        #     self.utils.print_info("No rows present")
-        #
-        # if device_tag == False:
-        #     kwargs['fail_msg'] = "Device is not EXOS or VOSS"
-        #     self.common_validation.failed(**kwargs)
-        #     return -1
-        #
-        # kwargs['fail_msg'] = f"Did not find device row {EXOS_VOSS_device}"
-        # self.common_validation.failed(**kwargs)
-        # return -1
-
-    @unsupported('This function is not supported')
-    def get_ap_row_with_search_option(self, ap_serial='default', ap_name='default', ap_mac='default'):
-        pass
-        # """
-        # - Get the AP row object from the Devices grid
-        # - Keyword Usage:
-        # - ``Get AP Row With Search Option  ap_serial=${AP_SERIAL}``
-        # - ``Get AP Row With Search Option  ap_name=${AP_NAME}``
-        # - ``Get AP Row With Search Option  ap_mac=${AP_MAC}``
-        #
-        # :param ap_serial: AP Serial
-        # :param ap_name: AP Name
-        # :param ap_mac: AP MAC
-        # :return: returns the row object
-        # """
-        # if ap_serial != 'default':
-        #     self.utils.print_info("Searching Device Entry with AP Serial : ", ap_serial)
-        #     self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_serial)
-        #     self.screen.save_screen_shot()
-        #     sleep(5)
-        #
-        # if ap_name != 'default':
-        #     self.utils.print_info("Searching Device Entry with AP Name : ", ap_name)
-        #     self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_name)
-        #     self.screen.save_screen_shot()
-        #     sleep(5)
-        #
-        # if ap_mac != 'default':
-        #     self.utils.print_info("Searching Device Entry with AP Mac : ", ap_mac)
-        #     self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), ap_mac)
-        #     self.screen.save_screen_shot()
-        #     sleep(5)
-        #
-        # rows = self.devices_web_elements.get_grid_rows()
-        # if rows:
-        #     for row in rows:
-        #         if ap_serial != 'default':
-        #             if ap_serial in row.text:
-        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
-        #                 return row
-        #         if ap_name != 'default':
-        #             if ap_name in row.text:
-        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
-        #                 sleep(5)
-        #                 return row
-        #         if ap_mac != 'default':
-        #             if ap_mac in row.text:
-        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
-        #                 return row
-        # else:
-        #     self.utils.print_info("No rows present")
-
-    @unsupported('This function is not supported')
-    def get_ap_row_without_search_option(self, ap_serial='default', ap_name='default', ap_mac='default'):
-        pass
-        # """
-        # - Get the AP row object from the Devices grid
-        # - Keyword Usage:
-        # - ``Get AP Row Without Search Option  ap_serial=${AP_SERIAL}``
-        # - ``Get AP Row Without Search Option  ap_name=${AP_NAME}``
-        # - ``Get AP Row Without Search Option  ap_mac=${AP_MAC}``
-        #
-        # :param ap_serial: AP Serial
-        # :param ap_name: AP Name
-        # :param ap_mac: AP MAC
-        # :return: returns the row object
-        # """
-        #
-        # self.utils.print_info('Getting AP row on Devices Page...')
-        # rows = self.devices_web_elements.get_grid_rows()
-        # if rows:
-        #     for row in rows:
-        #         if ap_serial != 'default':
-        #             if ap_serial in row.text:
-        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
-        #                 return row
-        #         if ap_name != 'default':
-        #             if ap_name in row.text:
-        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
-        #                 return row
-        #         if ap_mac != 'default':
-        #             if str(ap_mac) in row.text:
-        #                 self.utils.print_info("Found AP row: ", self.format_row(row.text))
-        #                 return row
-        # else:
-        #     self.utils.print_info("No rows present")
-
-    @unsupported('This function is not supported')
-    def get_ap_row(self, ap_serial='default', ap_name='default', ap_mac='default'):
-        pass
-        # """
-        # - Get the AP row object from the Devices grid
-        # - Keyword Usage:
-        # - ``Get AP Row  ap_serial=${AP_SERIAL}``
-        # - ``Get AP Row  ap_name=${AP_NAME}``
-        # - ``Get AP Row  ap_mac=${AP_MAC}``
-        #
-        # :param ap_serial: AP Serial
-        # :param ap_name: AP Name
-        # :param ap_mac: AP MAC
-        # :return: returns the row object
-        # """
-        #
-        # page_size_field_text = ""
-        # page_number_field_text = ""
-        # page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
-        # if page_size_field:
-        #     page_size_field_text = (page_size_field.text).strip()
-        # page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
-        # if page_number_field:
-        #     page_number_field_text = (page_number_field.text).strip()
-        #
-        # if page_size_field_text and page_number_field_text:
-        #     self.utils.print_info('Getting AP row with Pagination Enabled on Devices Page...')
-        #     if ap_serial != 'default':
-        #         self.utils.print_info("Getting status of AP with serial: ", ap_serial)
-        #         ap_row = self.get_ap_row_with_search_option(ap_serial=ap_serial)
-        #         return ap_row
-        #
-        #     if ap_name != 'default':
-        #         self.utils.print_info("Getting status of AP with name: ", ap_name)
-        #         ap_row = self.get_ap_row_with_search_option(ap_name=ap_name)
-        #         return ap_row
-        #
-        #     if ap_mac != 'default':
-        #         self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
-        #         ap_row = self.get_ap_row_with_search_option(ap_mac=ap_mac)
-        #         return ap_row
-        # else:
-        #     self.utils.print_info('Getting AP row on Devices Page without Pagination Enabled...')
-        #     if ap_serial != 'default':
-        #         self.utils.print_info("Getting status of AP with serial: ", ap_serial)
-        #         ap_row = self.get_ap_row_without_search_option(ap_serial=ap_serial)
-        #         return ap_row
-        #
-        #     if ap_name != 'default':
-        #         self.utils.print_info("Getting status of AP with name: ", ap_name)
-        #         ap_row = self.get_ap_row_without_search_option(ap_name=ap_name)
-        #         return ap_row
-        #
-        #     if ap_mac != 'default':
-        #         self.utils.print_info("Getting status of AP with MAC: ", ap_mac)
-        #         ap_row = self.get_ap_row_without_search_option(ap_mac=ap_mac)
-        #         return ap_row
-        # return -1
 
     def clear_search_field(self):
         """
@@ -659,9 +408,9 @@ class Devices:
         - ``Get Ap Network Policy   ap_name=${AP_NAME}``
         - ``Get Ap Network Policy   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: network policy name applied to the AP
         """
         self.navigator.navigate_to_manage_tab()
@@ -876,10 +625,12 @@ class Devices:
                               "you must select a Complete Configuration Update."
         update_tooltip_msg3 = "Please first upgrade device to the supported OS version and then try configuration update."
         update_tooltip_msg = "Please first upgrade device to the supported OS version and then try configuration update."
+        update_tooltip_msg4 = "To avoid conflict, please try your operation after some time."
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(2)
+        self.screen.save_screen_shot()
 
         if update_method == "Delta":
             self.utils.print_info("click on delta config radio button")
@@ -888,9 +639,11 @@ class Devices:
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
             sleep(30)
+            self.screen.save_screen_shot()
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
+
             if update_tooltip_msg2 in tool_tp_text or update_tooltip_msg1 in tool_tp_text:
                 self.utils.print_info('Convert to Complete. Delta not supported')
                 update_method = "Complete"
@@ -900,9 +653,19 @@ class Devices:
                 self.screen.save_screen_shot()
                 self.utils.print_info("click on Device Update Cancel Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                self.common_validation.failed(**kwargs)
+                self.utils.print_info("Error: ", tool_tp_text)
                 return -1
+
+            if update_tooltip_msg4 in tool_tp_text[-1]:
+                self.utils.print_info(f"The device is currently in update progress : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_tooltip_close_button)
+                self.utils.print_info("Wait for few minutes and perform update")
+                sleep(120)
+                self.utils.print_info("click on perform update button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
+                sleep(30)
+                self.screen.save_screen_shot()
 
         if update_method == "Complete":
             self.utils.print_info("click on complete config radio button")
@@ -910,7 +673,8 @@ class Devices:
             sleep(2)
             self.utils.print_info("click on perform update button")
             self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
-            sleep(2)
+            sleep(30)
+            self.screen.save_screen_shot()
 
             tool_tp_text = tool_tip.tool_tip_text
             self.utils.print_info(tool_tp_text)
@@ -920,21 +684,35 @@ class Devices:
                 self.screen.save_screen_shot()
                 self.utils.print_info("click on Device Update Cancel Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_action_assign_network_policy_dialog_cancel_button)
-                kwargs['fail_msg'] = f"Error: {tool_tp_text}"
-                self.common_validation.failed(**kwargs)
+                self.utils.print_info("Error: ", tool_tp_text)
                 return -1
+
+            if update_tooltip_msg4 in tool_tp_text[-1]:
+                self.utils.print_info(f"The device is currently in update progress : {tool_tp_text}")
+                self.screen.save_screen_shot()
+                self.auto_actions.click_reference(self.dialogue_web_elements.get_tooltip_close_button)
+                self.utils.print_info("Wait for few minutes and perform update")
+                sleep(120)
+                self.utils.print_info("click on perform update button")
+                self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
+                sleep(30)
+                self.screen.save_screen_shot()
 
         self.screen.save_screen_shot()
         sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
-        for tooltip_msg in [update_tooltip_msg, update_tooltip_msg1, update_tooltip_msg2, update_tooltip_msg3]:
+        for tooltip_msg in [update_tooltip_msg, update_tooltip_msg1, update_tooltip_msg2, update_tooltip_msg3, update_tooltip_msg4]:
             if tooltip_msg in tool_tp_text:
                 tool_tp_text.remove(tooltip_msg)
 
-        kwargs['pass_msg'] = "Device update Successfully Triggered"
-        self.common_validation.passed(**kwargs)
-        return 1
+        if "Deployed devices successfully." in tool_tp_text:
+            self.utils.print_info("Device update Successfully Triggered")
+            return 1
+        else:
+            kwargs['fail_msg'] = f"Error: {tool_tp_text}"
+            self.common_validation.failed(**kwargs)
+            return -1
 
     def _check_update_network_policy_status(self, policy_name, device_serial, **kwargs):
         """
@@ -964,9 +742,8 @@ class Devices:
                     self.utils.print_info(
                         'Reboot for device with serial number: {} is successful'.format(device_serial))
                 else:
-                    kwargs['fail_msg'] = 'Reboot for device with serial number: {} is NOT successful: {}'.format(
-                        device_serial, reboot_res)
-                    self.common_validation.failed(**kwargs)
+                    self.utils.print_info('Reboot for device with serial number: {} is NOT successful: {}'.format(
+                        device_serial, reboot_res))
                     return -1
             elif 'Certification' in device_update_status or 'Application' in device_update_status:
                 # Some other random push to the device is blocking my policy update!
@@ -975,8 +752,7 @@ class Devices:
                 sleep(30)
                 update_time += 30
                 if update_time >= 300:
-                    kwargs['fail_msg'] = "Config push to AP BLOCKED for more than 300 seconds"
-                    self.common_validation.failed(**kwargs)
+                    self.utils.print_info("Config push to AP BLOCKED for more than 300 seconds")
                     return -1
                 continue
             elif retry_count >= int(max_config_push_wait):
@@ -1004,9 +780,9 @@ class Devices:
         - ``Assign and Update Network Policy To EXOS   policy_name=${POLICY_NAME}    serial=${SW1_SERIAL}``
         - ``Assign and Update Network Policy To EXOS   policy_name=${POLICY_NAME}    serial=${SW1_SERIAL}  update_method=Complete``
 
-        :param policy_name: name of the network to deploy
-        :param serial: serial number of the switch to select
-        :param update_method: Perform Complete update or delta update
+        :param policy_name: name of the network to deploy, by default set to None
+        :param serial: serial number of the switch to select, by default set to None
+        :param update_method: Perform Complete update or delta update, by default set to 'PolicyAndConfig'
         :return: 1 if policy is updated else -1
         """
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -1037,7 +813,7 @@ class Devices:
 
         :param update_method:
             PolicyAndConfig - selects the "Update Network Policy and Configuration" check button
-        :param serial: serial number of the device
+        :param serial: serial number of the device, by default set to None
         :return:  1 if update was performed, -1 if not
         """
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -1121,9 +897,9 @@ class Devices:
         - ``Update Network Policy To Ap   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}``
         - ``Update Network Policy To Ap   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}  update_method=Complete``
 
-        :param policy_name: name of the network to deploy
-        :param ap_serial: serial number of the ap to select
-        :param update_method: Perform Complete update or delta update
+        :param policy_name: name of the network to deploy, by default set to None
+        :param ap_serial: serial number of the ap to select, by default set to None
+        :param update_method: Perform Complete update or delta update, by default set to 'Delta'
         :return: 1 if policy is updated else -1
         """
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -1350,8 +1126,8 @@ class Devices:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param device_serial: device serial number
-        :param device_mac: device mac address
+        :param device_serial: device serial number, by default set to None
+        :param device_mac: device mac address, by default set to None
         :return: None
         """
 
@@ -1565,9 +1341,9 @@ class Devices:
         - ``Edit Ap Description   ${AP_DESC}   ap_serial=${AP_SERIAL}``
 
         :param ap_desc: AP's Description
-        :param ap_serial: AP Serial
-        :param ap_name: AP Name
-        :param ap_mac: AP MAC
+        :param ap_serial: AP Serial, by default set to None
+        :param ap_name: AP Name, by default set to None
+        :param ap_mac: AP MAC, by default set to None
         :return: 1 if success else -1
         """
 
@@ -1641,7 +1417,7 @@ class Devices:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param policy_name: Name of policy that would be used when onboarding a device
+        :param policy_name: Name of policy that would be used when onboarding a device, by default set to None
         :return:  1 if onboarding success
         :return: -1 for errors
         """
@@ -1680,6 +1456,8 @@ class Devices:
         if self.check_onboard_device_quick_parameters(device_type, entry_type, device_serial, device_make, location,
                                                       csv_location, device_model, os_version, os_persona,
                                                       **kwargs) == -1:
+            kwargs['fail_msg'] = "The Mandatory arguments for onboard device quick method missing."
+            self.common_validation.fault(**kwargs)
             return -1
 
         self.utils.print_info("Onboarding: ", device_make)
@@ -1714,16 +1492,22 @@ class Devices:
         if device_type.lower() == "real":
             if self.set_onboard_values_for_real(device_serial, device_make, entry_type, device_os, service_tag,
                                                 device_mac, location) != 1:
+                kwargs['fail_msg'] = "Fail onboarded device with device_type == Real"
+                self.common_validation.fault(**kwargs)
                 return -1
 
         elif device_type.lower() == "simulated":
             list_initial_simulated_serial = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_simulated(device_model, device_count) != 1:
+                kwargs['fail_msg'] = "Fail onboarded device with device_type == Simulated"
+                self.common_validation.fault(**kwargs)
                 return -1
 
         elif device_type.lower() == "digital twin":
             list_initial_serial_dt = self.get_device_serial_numbers(device_model)
             if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
+                kwargs['fail_msg'] = "Fail onboarded device with device_type == Digital Twin"
+                self.common_validation.fault(**kwargs)
                 return -1
 
         if location and self.devices_web_elements.get_location_button().is_displayed():
@@ -1924,7 +1708,7 @@ class Devices:
                 return -1
 
         elif device_type.lower() == "digital twin":
-            if device_model == None or os_version == None or os_persona == None:
+            if device_model is None or os_version is None or os_persona is None:
                 kwargs['fail_msg'] = f"The 'model': [{device_model}], 'OS version': [{os_version}] and 'OS persona': " \
                                   f"[{os_persona}] are required when onboarding 'Digital Twin' devices. " \
                                   f"One or more of the required values are missing."
@@ -2026,7 +1810,6 @@ class Devices:
             if _errors != 1:
                 return _errors
 
-
         elif 'Universal Appliance' in device_make:
             if self.switch_web_elements.get_switch_make_drop_down().is_displayed():
                 self.utils.print_info("Selecting Device Type : Universal Appliance")
@@ -2073,7 +1856,6 @@ class Devices:
             elif 'WING' in device_os.upper():
                 self.utils.print_info("Selecting Device Type : WING")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_wing_radio)
-
 
         return 1
 
@@ -2447,9 +2229,9 @@ class Devices:
         - ``wait_for_device_to_finish_update       ${DEVICE_SERIAL}        retry_duration=10       retry_count=12``
         - ``wait_for_device_to_finish_update       ${DEVICE_MAC}           retry_duration=15       retry_count=5``
 
-        :param device_serial: device serial number to check the device update status
-        :param device_mac: device mac to check the device update status
-        :param device_name: device name to check the device update status
+        :param device_serial: device serial number to check the device update status, by default set to None
+        :param device_mac: device mac to check the device update status, by default set to None
+        :param device_name: device name to check the device update status, by default set to None
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :return: 1 if device finished update, else -1
@@ -2489,9 +2271,9 @@ class Devices:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param device_serial: device serial number
-        :param device_name: name of the device
-        :param device_mac: mac address of the device
+        :param device_serial: device serial number, by default set to None
+        :param device_name: name of the device, by default set to None
+        :param device_mac: mac address of the device, by default set to None
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
@@ -2831,9 +2613,9 @@ class Devices:
           - XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
 
-        :param device_serial: serial number of the device
-        :param device_name: name of the device
-        :param device_mac: MAC of the device
+        :param device_serial: serial number of the device, by default set to None
+        :param device_name: name of the device, by default set to None
+        :param device_mac: MAC of the device, by default set to None
         :param select_device: True - to select the device, default set to False
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
         :param skip_navigation: True - to skip the navigation to the devices page, default set to False
@@ -2967,9 +2749,9 @@ class Devices:
         - ``Select Device      device_name=${DEVICE_NAME}``
         - ``Select Device      device_mac=${DEVICE_MAC}``
 
-        :param device_serial: device Serial
-        :param device_name: device host name
-        :param device_mac: device MAC address
+        :param device_serial: device Serial, by default set to None
+        :param device_name: device host name, by default set to None
+        :param device_mac: device MAC address, by default set to None
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
         :param skip_navigation: True - to skip the navigation to the devices page, default set to False
 
@@ -3003,7 +2785,7 @@ class Devices:
             device_row = self.get_device_row(device_name=value)
         return device_row
 
-    def get_device_status(self, device_serial='default', device_name='default', device_mac='default', **kwargs):
+    def get_device_status(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
@@ -3012,9 +2794,13 @@ class Devices:
         - ``Get Device Status   device_mac=${DEVICE_MAC}``
         - ``Get Device Status   device_serial=${DEVICE_SERIAL}  device_mac=${DEVICE_MAC}``
 
-        :param device_serial: device Serial
-        :param device_name: device host name
-        :param device_mac: device MAC address
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
+        :param device_serial: device Serial, by default set to None
+        :param device_name: device host name, by default set to None
+        :param device_mac: device MAC address, by default set to None
         :return:
         - 'green' if device connected and config audit match
         - 'config audit mismatch' if device connected and config audit mismatch
@@ -3022,6 +2808,10 @@ class Devices:
         - 'unknown' if device connection status is 'Unknown'
 
         """
+
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
+            return self.xapiDevices.xapi_get_device_status(device_serial=device_serial, device_name=device_name,
+                                                       device_mac=device_mac, **kwargs)
 
         # UI Support
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -3031,11 +2821,11 @@ class Devices:
         device_keys = {}
         device_status = ''
         audit_config_status = ''
-        if device_mac != 'default':
+        if device_mac:
             device_keys['device_mac'] = device_mac
-        if device_serial != 'default':
+        if device_serial:
             device_keys['device_serial'] = device_serial
-        if device_name != 'default':
+        if device_name:
             device_keys['device_name'] = device_name
         if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "No valid args passed. Must be device_serial, device_name, device_mac!"
@@ -3153,8 +2943,8 @@ class Devices:
         self.common_validation.fault(**kwargs)
         return "Unknown"
 
-    def verify_device_status(self, device_serial='default', device_name='default', device_mac='default',
-                             status='default'):
+    def verify_device_status(self, device_serial=None, device_name=None, device_mac=None,
+                             status=None):
         """
         - This keyword returns 1 if device status expected matches the status passed as argument
         - Keyword Usage:
@@ -3162,39 +2952,39 @@ class Devices:
         - ``Verify Device Status   device_name=${DEVICE_NAME}    status=green``
         - ``Verify Device Status   device_mac=${DEVICE_MAC}    status=green``
 
-        :param device_serial: device Serial
-        :param device_name: device Name
-        :param device_mac: device MAC
-        :param status: green, red, or amber as of now - may change in future
+        :param device_serial: device Serial, by default set to None
+        :param device_name: device Name, by default set to None
+        :param device_mac: device MAC, by default set to None
+        :param status: green, red, or amber as of now - may change in future, by default set to None
 
         :return:
         """
-        if device_serial != 'default':
+        if device_serial:
             if status in self.get_device_status(device_serial):
                 return 1
-        if device_name != 'default':
+        if device_name:
             if status in self.get_device_status(device_name):
                 return 1
-        if device_mac != 'default':
-            if status in self.get_device_status(device_mac):
+        if device_mac:
+            if status and status in self.get_device_status(device_mac):
                 return 1
 
     def get_device_row(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - This keyword returns the row of matched device
 
-        :param device_serial: device Serial
-        :param device_name: device Name
-        :param device_mac: device MAC
+        :param device_serial: device Serial, by default set to None
+        :param device_name: device Name, by default set to None
+        :param device_mac: device MAC, by default set to None
 
         :return: returns the row object or -1 if unable to find row
         """
         device_keys = {}
-        if device_mac not in [None, "default"]:
+        if device_mac:
             device_keys['device_mac'] = device_mac
-        if device_serial not in [None, "default"]:
+        if device_serial:
             device_keys['device_serial'] = device_serial
-        if device_name not in [None, "default"]:
+        if device_name:
             device_keys['device_name'] = device_name
         if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, " \
@@ -3212,32 +3002,6 @@ class Devices:
         kwargs['fail_msg'] = f"Didn't find the device with {device_keys} in the grid"
         self.common_validation.failed(**kwargs)
         return -1
-
-    @unsupported('This function is not supported')
-    def search_device_model(self, device_model, **kwargs):
-        pass
-        # """
-        # - Searches for Device matching Device's name in device grid
-        # - Keyword Usage:
-        # - ``Search Device Model  ${DEVICE_MODEL}``
-        #
-        # :param device_model: Device's Name
-        # :return: return 1 if Device found
-        # """
-        # rows = self.devices_web_elements.get_grid_rows()
-        # if rows:
-        #     for row in rows:
-        #         if device_model in row.text:
-        #             kwargs['pass_msg'] = f"Found Device Row with Model {device_model}"
-        #             self.common_validation.passed(**kwargs)
-        #             return 1
-        #     self.utils.print_info(f"Did not find row with model {device_model}")
-        # else:
-        #     self.utils.print_info("No rows present")
-        #
-        # kwargs['fail_msg'] = "Didn't find the device in grid"
-        # self.common_validation.failed(**kwargs)
-        # return -1
 
     def get_device_model_serial_numbers(self, device_model, device_type):
         rows = self.devices_web_elements.get_grid_rows()
@@ -3275,9 +3039,9 @@ class Devices:
         - ``Update Network Policy To Router   policy_name=${POLICY_NAME}``
         - ``Update Network Policy To Router   router_serial=${ROUTER_SERIAL}``
 
-        :param policy_name: name of the network to deploy
-        :param router_serial: serial number of the ap to select
-        :param update_method: Perform Complete update or delta update
+        :param policy_name: name of the network to deploy, by default set to None
+        :param router_serial: serial number of the ap to select, by default set to None
+        :param update_method: Perform Complete update or delta update, by default set to 'Delta'
         :return: 1 if policy updated else -1
         """
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -3401,9 +3165,9 @@ class Devices:
         - ``Get ROuter Network Policy  router_name=${ROUTER_NAME}``
         - ``Get ROuter Network Policy  router_mac=${ROUTER_MAC}``
 
-        :param router_serial: router serial number
-        :param router_name: router host name
-        :param router_mac: router mac address
+        :param router_serial: router serial number, by default set to None
+        :param router_name: router host name, by default set to None
+        :param router_mac: router mac address, by default set to None
         :return: nw policy applied to the router
         """
 
@@ -3425,9 +3189,9 @@ class Devices:
         - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
         - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
 
-        :param device_serial: device Serial
-        :param device_name: device Name
-        :param device_mac: device MAC
+        :param device_serial: device Serial, by default set to None
+        :param device_name: device Name, by default set to None
+        :param device_mac: device MAC, by default set to None
         :return: 'updated Time' if the device is updated correctly else return updating status message
         """
         device_row = -1
@@ -3710,8 +3474,8 @@ class Devices:
         - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}``
         - ``Update Network Policy To All Devices   policy_name=${POLICY_NAME}    ap_serial=${AP1_SERIAL}  update_method=Complete``
 
-        :param policy_name: name of the network to deploy
-        :param update_method: Perform Complete update or delta update
+        :param policy_name: name of the network to deploy, by default set to None
+        :param update_method: Perform Complete update or delta update, by default set to 'Delta'
         :return: 1 if policy is updated else -1
         """
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -3750,9 +3514,9 @@ class Devices:
         - ``Get Ap WIFI0 Power   ap_name=${AP_NAME}``
         - ``Get Ap WIFI0 Power   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Transmission power value of wifi0 interface
         """
         self.navigator.navigate_to_manage_tab()
@@ -3774,9 +3538,9 @@ class Devices:
         - ``Get Ap WIFI1 Power   ap_name=${AP_NAME}``
         - ``Get Ap WIFI1 Power   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Transmission power value of wifi1 interface
         """
         self.navigator.navigate_to_manage_tab()
@@ -3796,9 +3560,9 @@ class Devices:
         - ``Get Ap WIFI0 Channel   ap_name=${AP_NAME}``
         - ``Get Ap WIFI0 Channel   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Channel value of wifi0 interface
         """
         self.navigator.navigate_to_manage_tab()
@@ -3818,9 +3582,9 @@ class Devices:
         - ``Get Ap WIFI1 Channel   ap_name=${AP_NAME}``
         - ``Get Ap WIFI1 Channel   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Channel value of wifi0 interface
         """
         self.navigator.navigate_to_manage_tab()
@@ -4305,8 +4069,8 @@ class Devices:
             return_array_data[column.replace(' ', "_")] = data
         return return_array_data
 
-    def get_device_configuration_audit_status(self, device_serial='default', device_name='default',
-                                              device_mac='default', **kwargs):
+    def get_device_configuration_audit_status(self, device_serial=None, device_name=None,
+                                              device_mac=None, **kwargs):
         """
         - This keyword is used to get the device configuration audit status
         - Flow:
@@ -4314,9 +4078,9 @@ class Devices:
         - Keyword Usage:
         - ``Get Device Configuration Audit Status    ${DEVICE_SERIAL}``
 
-        :param device_serial: device serial number to check the device configuration audit status
-        :param device_name: device Name
-        :param device_mac: device MAC
+        :param device_serial: device serial number to check the device configuration audit status, by default set to None
+        :param device_name: device Name, by default set to None
+        :param device_mac: device MAC, by default set to None
         :return:
         - audit match : if configuration audit matched
         - audit mismatch : if configuration audit mismatch
@@ -4360,10 +4124,10 @@ class Devices:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param device_serial: device serial number to check the device connected status
-        :param device_mac: device mac to check the device connected status
-        :param retry_duration: duration between each retry
-        :param retry_count: retry count
+        :param device_serial: device serial number to check the device connected status, by default set to None
+        :param device_mac: device mac to check the device connected status, by default set to None
+        :param retry_duration: duration between each retry, by default set to 30
+        :param retry_count: retry count, by default set to 20
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if device connected within time else -1
         """
@@ -4432,10 +4196,10 @@ class Devices:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param device_serial: device serial number to check the device connected status
-        :param device_mac: device mac to check the device connected status
-        :param retry_duration: duration between each retry
-        :param retry_count: retry count
+        :param device_serial: device serial number to check the device connected status, by default set to None
+        :param device_mac: device mac to check the device connected status, by default set to None
+        :param retry_duration: duration between each retry, by default set to 30
+        :param retry_count: retry count, by default set to 10
         :return: 1 if device disconnected within time, else -1
         """
 
@@ -4656,8 +4420,8 @@ class Devices:
         - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}  update_method=EngineAndImages``
         - ``Update Network Policy To Switch  policy_name=${POLICY_NAME}  serial=${SWITCH_SERIAL}  update_method=Complete``
 
-        :param policy_name: name of the network policy to deploy
-        :param serial: serial number of the switch to select
+        :param policy_name: name of the network policy to deploy, by default set to None
+        :param serial: serial number of the switch to select, by default set to None
         :param update_method:
             PolicyAndConfig - selects just the "Update Network Policy and Configuration" check button
             EngineAndImages - selects just the "Upgrade IQ Engine and Extreme Network Switch Images" check button
@@ -4695,9 +4459,9 @@ class Devices:
         - ``Get Ap Assigned Location   ap_name=${AP_NAME}``
         - ``Get Ap Assigned Location   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Location applied to the AP
         """
         self.navigator.navigate_to_manage_tab()
@@ -4776,9 +4540,9 @@ class Devices:
         - Keyword Usage:
         - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
 
-        :param device_serial: serial number of the switch to update
-        :param device_name: device Name
-        :param device_mac: device MAC
+        :param device_serial: serial number of the switch to update, by default set to None
+        :param device_name: device Name, by default set to None
+        :param device_mac: device MAC, by default set to None
         :return: 1
         """
         self.utils.print_info("Select Switch row")
@@ -5021,7 +4785,8 @@ class Devices:
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
 
-        :param  device_serial_mac_or_name: device serial number, device mac or device name to check the config push status
+        :param  device_serial_mac_or_name: device serial number, device mac or device name to check the config push status,
+                                           by default set to None
         :return: 1 if config push success else -1
         """
         retry_count = 0
@@ -5300,7 +5065,7 @@ class Devices:
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def select_table_view_type(self, view_type="Default View"):
+    def select_table_view_type(self, view_type="Default View", **kwargs):
         """
         - This keyword selects the view type for the Manage> Devices view.
         - Keyword Usage:
@@ -5336,6 +5101,12 @@ class Devices:
             self.utils.print_info("Could not find Devices Table View Type Selector")
             ret_val = -1
 
+        if ret_val != 1:
+            kwargs['fail_msg'] = "Could not find Devices Table View Type Selector"
+            self.common_validation.failed(**kwargs)
+        else:
+            kwargs['pass_msg'] = "Devices Table View Type Selector was found/selected"
+            self.common_validation.passed(**kwargs)
         return ret_val
 
     def _assign_network_policy_to_switch(self, policy_name):
@@ -5607,11 +5378,11 @@ class Devices:
         - ``Wait Until Device Added    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
         - ``Wait Until Device Added    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
 
-        :param device_serial: device serial number to look for
-        :param device_name: device name to look for
-        :param device_mac: device MAC address to look for
-        :param retry_duration: duration between each retry
-        :param retry_count: retry count
+        :param device_serial: device serial number to look for, by default set to None
+        :param device_name: device name to look for, by default set to None
+        :param device_mac: device MAC address to look for, by default set to None
+        :param retry_duration: duration between each retry, by default set to 30
+        :param retry_count: retry count, by default set to 10
         :return: 1 if device added within time; else -1
         """
         self.utils.print_info("Navigate to Manage> Devices")
@@ -5688,11 +5459,11 @@ class Devices:
         - ``Wait Until Device Removed    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
         - ``Wait Until Device Removed    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
 
-        :param device_serial: device serial number to look for
-        :param device_name: device name to look for
-        :param device_mac: device MAC address to look for
-        :param retry_duration: duration between each retry
-        :param retry_count: retry count
+        :param device_serial: device serial number to look for, by default set to None
+        :param device_name: device name to look for, by default set to None
+        :param device_mac: device MAC address to look for, by default set to None
+        :param retry_duration: duration between each retry, by default set to 10
+        :param retry_count: retry count, by default set to 30
         :return: 1 if device removed within time; else -1
         """
         self.utils.print_info("Navigate to Manage> Devices")
@@ -5801,7 +5572,6 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-
     def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
@@ -5904,12 +5674,11 @@ class Devices:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param device_serial: Serial number of Device Ex:11301810220048
-        :param device_name: Device name Ex: AP1130
-        :param device_mac: Device mac Ex: F09CE9F89600
+        :param device_serial: Serial number of Device Ex:11301810220048, by default set to None
+        :param device_name: Device name Ex: AP1130, by default set to None
+        :param device_mac: Device mac Ex: F09CE9F89600, by default set to None
         :return: Device Management IP Address
         """
-
 
         if self.xapiDevices.is_xapi_enabled(**kwargs):
             return self.xapiDevices.xapi_get_device_management_ip_address(device_serial=device_serial, device_mac=device_mac, **kwargs)
@@ -5930,7 +5699,7 @@ class Devices:
             return -1
 
     @deprecated("Please use get_device_management_ip_address(...)")
-    # This was put into depreacted mode on March 9th 2023
+    # This was put into deprecated mode on March 9th 2023
     def get_ap_management_ip_address(self, ap_serial=None, ap_name=None, ap_mac=None):
         """
         - Get Management IP Assigned to the AP
@@ -5939,9 +5708,9 @@ class Devices:
         - ``Get Ap Management IP Address   ap_name=${AP_NAME}``
         - ``Get Ap Management IP Address   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: AP Management IP Address
         """
         self.navigator.navigate_to_manage_tab()
@@ -5953,7 +5722,7 @@ class Devices:
         if management_ip:
             return management_ip
 
-    def confirm_device_disconnected(self, device_serial='default', device_name='default', device_mac='default', **kwargs):
+    def confirm_device_disconnected(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
         - This keyword confirms the device is disconnected
         - Keyword Usage:
@@ -5961,9 +5730,9 @@ class Devices:
         - ``Confirm Device Disconnected   device_name=${DEVICE_NAme}``
         - ``Confirm Device Disconnected   device_mac=${DEVICE_MAC}``
 
-        :param device_serial: device Serial
-        :param device_name: device host name
-        :param device_mac: device MAC address
+        :param device_serial: device Serial, by default set to None
+        :param device_name: device host name, by default set to None
+        :param device_mac: device MAC address, by default set to None
 
         :return: 1 if device is currently disconnected, else -1
         """
@@ -5971,13 +5740,13 @@ class Devices:
         device_row = -1
         self.refresh_devices_page()
 
-        if device_serial != 'default':
+        if device_serial:
             self.utils.print_info(f"Getting status of device with serial {device_serial}")
             device_row = self.get_device_row(device_serial=device_serial)
-        elif device_name != 'default':
+        elif device_name:
             self.utils.print_info(f"Getting status of device with name {device_name}")
             device_row = self.get_device_row(device_name=device_name)
-        elif device_mac != 'default':
+        elif device_mac:
             self.utils.print_info(f"Getting status of device with MAC {device_mac}")
             device_row = self.get_device_row(device_mac=device_mac)
         else:
@@ -6074,7 +5843,7 @@ class Devices:
 
         return device_detail_dict
 
-    def confirm_no_duplicate_rows(self, search_string):
+    def confirm_no_duplicate_rows(self, search_string, **kwargs):
         """
         - Searches for device rows containing the search_string and confirms only one row exists with the value.
         - This is useful for confirming only one device with a specified MAC Address exists in the table, but
@@ -6100,13 +5869,16 @@ class Devices:
                         ret_val = -1
                         break
 
-        if matching_rows == 0:
-            self.utils.print_info(f"No rows contain the value {search_string}")
-        elif matching_rows == 1:
-            self.utils.print_info(f"Found one row with the value {search_string}")
+        if ret_val == 1:
+            if matching_rows == 0:
+                kwargs['pass_msg'] = f"No rows contain the value {search_string}"
+                self.common_validation.passed(**kwargs)
+            elif matching_rows == 1:
+                kwargs['pass_msg'] = f"Found one row with the value {search_string}"
+                self.common_validation.passed(**kwargs)
         else:
-            self.utils.print_info(f"Found more then one row with the value {search_string}")
-
+            kwargs['fail_msg'] = f"Found more then one row {matching_rows} with the value {search_string}"
+            self.common_validation.failed(**kwargs)
         return ret_val
 
     def close_last_refreshed_tooltip(self):
@@ -6244,9 +6016,9 @@ class Devices:
         - ``Get Ap WIFI0 Radio Profile   ap_name=${AP_NAME}``
         - ``Get Ap WIFI0 Radio Profile   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Radio Profile value of wifi0 interface
         """
         self.navigator.navigate_to_manage_tab()
@@ -6267,9 +6039,9 @@ class Devices:
         - ``Get Ap WIFI1 Radio Profile   ap_name=${AP_NAME}``
         - ``Get Ap WIFI1 Radio Profile   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Radio Profile value of wifi1 interface
         """
         self.navigator.navigate_to_manage_tab()
@@ -6290,9 +6062,9 @@ class Devices:
         - ``Get Ap Public IP Address   ap_name=${AP_NAME}``
         - ``Get Ap Public IP Address   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Ap Public IP Address
         """
         self.navigator.navigate_to_manage_tab()
@@ -6305,7 +6077,7 @@ class Devices:
         if ap_public_ip:
             return ap_public_ip
 
-    def device_update_progress(self, device_serial='default', retry_duration=30, retry_count=900, **kwargs):
+    def device_update_progress(self, device_serial=None, retry_duration=30, retry_count=900, **kwargs):
         """
         - This keyword is used to check the status of the device update and also shows device update progress status
         such as 19%...etc
@@ -6317,9 +6089,9 @@ class Devices:
         - Keyword Usage:
         - `Device Update Progress       ${DEVICE_SERIAL}   retry_duration=30       retry_count=800``
 
-        :param device_serial: device serial number to check the config push status
-        :param retry_duration: duration between each retry
-        :param retry_count: retry count
+        :param device_serial: device serial number to check the config push status, by default set to None
+        :param retry_duration: duration between each retry, by default set to 30
+        :param retry_count: retry count, by default set to 900
         :return: device update status if config push success else -1
         """
         device_updated_status = -1
@@ -6328,7 +6100,7 @@ class Devices:
         self.navigator.navigate_to_devices()
 
         self.utils.print_info('Getting device Updated Status using')
-        if device_serial != 'default':
+        if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
             device_row = self.get_device_row(device_serial=device_serial)
 
@@ -6351,7 +6123,6 @@ class Devices:
 
         return device_updated_status
 
-
     def get_stack_status(self, device_mac=None, **kwargs):
         """
         - This keyword returns the Stack icon status is blue or red
@@ -6361,7 +6132,7 @@ class Devices:
         - Keyword Usage:
         - ``Get Stack Status   device_mac=${DEVICE_MAC}``
 
-       :param device_mac: device MAC address
+       :param device_mac: device MAC address, by default set to None
 
        :return:
        - 'blue' if all the stack members are in managed state else 'red'
@@ -6598,16 +6369,16 @@ class Devices:
         self.utils.print_info("return 1  ", device_update_status)
         return 1
 
-    def get_device_stack_status(self, device_mac='default', device_serial='default', duration_retry=300, **kwargs):
+    def get_device_stack_status(self, device_mac=None, device_serial=None, duration_retry=300, **kwargs):
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
         - ``Get Device Stack Status   device_serial=${DEVICE_SERIAL}``
         - ``Get Device Stack Status   device_mac=${DEVICE_MAC}``
 
-        :param device_serial: device Serial
-        :param device_mac: device MAC address
-        :param duration_retry : duration of retry in seconds
+        :param device_serial: device Serial, by default set to None
+        :param device_mac: device MAC address, by default set to None
+        :param duration_retry : duration of retry in seconds, by default set to 300
 
         :return:
         - 'blue' if device connected and config audit match and stack toggle icon is blue
@@ -6634,7 +6405,7 @@ class Devices:
                 stack_toggle = self.devices_web_elements.get_device_stack_toggle(device_row)
                 if stack_toggle:
                     device_row = -1
-                    if device_serial != "default":
+                    if device_serial:
                         device_row = self.get_device_row(device_serial, ignore_failure=True)
                     if device_row == -1:
                         if "ui-icon-stack" in stack_toggle.split(" "):
@@ -6688,7 +6459,7 @@ class Devices:
                     if try_one_more_time_serial:
                         try_one_more_time_serial = False
                     else:
-                        kwargs['fail_msg'] = "Not found a raw with serial {device_serial} or mac {device_mac}"
+                        kwargs['fail_msg'] = f"Not found a raw with serial {device_serial} or mac {device_mac}"
                         self.common_validation.fault(**kwargs)
                         return -1
             retry_count += 30
@@ -6974,7 +6745,7 @@ class Devices:
         else:
             return 1
 
-    def select_location_quick_onboarding(self, sel_loc):
+    def select_location_quick_onboarding(self, sel_loc, **kwargs):
         """
         - This keyword selects a location in the location dialog and clicks the "Select" button.
         - It is assumed the location dialog is already open.
@@ -7026,6 +6797,8 @@ class Devices:
             else:
                 self.utils.print_info("Cancel button was not found")
                 sleep(3)
+            kwargs['fail_msg'] = "Location has not been found"
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Selecting Building: ", location_list[1])
         for location_building in location_buildings:
@@ -7037,7 +6810,8 @@ class Devices:
         if building_set:
             self.utils.print_info("Building has been selected")
         else:
-            self.utils.print_info("Building has not been found")
+            kwargs['fail_msg'] = "Building has not been found"
+            self.common_validation.failed(**kwargs)
             return -1
         self.utils.print_info("Selecting Floor: ", location_list[2])
         for location_floor in location_floors:
@@ -7049,11 +6823,12 @@ class Devices:
         if floor_set:
             self.utils.print_info("Floor has been selected")
         else:
-            self.utils.print_info("Floor has not been found")
+            kwargs['fail_msg'] = "Floor has not been found"
+            self.common_validation.failed(**kwargs)
             return -1
         return 1
 
-    def quick_onboarding_cloud_manual(self, device_sn, device_make, location, policy_name=None):
+    def quick_onboarding_cloud_manual(self, device_sn, device_make, location, policy_name=None, **kwargs):
         """
         This keyword on boards your devices directly to cloud by using new onboarding flow
         Can on boards an aerohive device [AP or Switch], Universal APs , Exos Switch, Exos Stack and Voss devices
@@ -7064,7 +6839,7 @@ class Devices:
         :param device_sn: serial number of Device; single SN or a list of SNs
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
         :param location: The location, building and floor separated by comma ; e.g. Bucharest,address,Floor 1
-        :param policy_name: The policy name
+        :param policy_name: The policy name, by default set to None
         :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message will be returned ; else -1
         """
 
@@ -7074,21 +6849,24 @@ class Devices:
             self.utils.print_info("Click on '+' button")
             self.auto_actions.click(add_button)
         else:
-            self.utils.print_info("'+' button not found")
+            kwargs['fail_msg'] = "'+' button not found"
+            self.common_validation.fault(**kwargs)
             return -1
         quick_add_devices_button = self.devices_web_elements.get_quick_add_devices()
         if quick_add_devices_button:
             self.utils.print_info("Click on 'Quick Add Devices'")
             self.auto_actions.move_to_element(quick_add_devices_button)
         else:
-            self.utils.print_info("'Quick Add Devices' button not found")
+            kwargs['fail_msg'] = "'Quick Add Devices' button not found"
+            self.common_validation.fault(**kwargs)
             return -1
         deploy_to_cloud_button = self.devices_web_elements.get_deploy_to_cloud()
         if deploy_to_cloud_button:
             self.utils.print_info("Click on 'Deploy to the cloud'")
             self.auto_actions.click(deploy_to_cloud_button)
         else:
-            self.utils.print_info("'Deploy to the cloud' button not found")
+            kwargs['fail_msg'] = "'Deploy to the cloud' button not found"
+            self.common_validation.fault(**kwargs)
             return -1
         tool_tp_text_before_insert_sn = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before_insert_sn)
@@ -7108,7 +6886,8 @@ class Devices:
                     self.utils.print_info(item_after_sn)
                     return item_after_sn
         else:
-            self.utils.print_info("'Serial number' box not found")
+            kwargs['fail_msg'] = "'Serial number' box not found"
+            self.common_validation.fault(**kwargs)
             return -1
         if location:
             if self.devices_web_elements.get_add_location_button():
@@ -7124,7 +6903,8 @@ class Devices:
                     self.utils.print_info("Selecting Cancel button")
                     return -1
             else:
-                self.utils.print_info("'Location' button not found")
+                kwargs['fail_msg'] = "'Location' button not found"
+                self.common_validation.fault(**kwargs)
                 return -1
         else:
             self.utils.print_info("The location will not be selected")
@@ -7159,7 +6939,8 @@ class Devices:
                     self.utils.print_info("Selecting 'VOSS' from the 'Device OS' checkbox...")
                     self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_voss)
                 else:
-                    self.utils.print_info("Button 'VOSS' not found")
+                    kwargs['fail_msg'] = "Button 'VOSS' not found"
+                    self.common_validation.fault(**kwargs)
                     return -1
         elif 'exos' in device_make.lower():
             if self.devices_web_elements.get_device_make_list():
@@ -7174,7 +6955,8 @@ class Devices:
                     self.utils.print_info("Selecting 'EXOS' from the 'Device OS' checkbox...")
                     self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_exos)
                 else:
-                    self.utils.print_info("Button 'EXOS' not found")
+                    kwargs['fail_msg'] = "Button 'EXOS' not found"
+                    self.common_validation.fault(**kwargs)
                     return -1
         elif 'aerohive' in device_make.lower():
             self.utils.print_info("Selecting 'Extreme - Aerohive' from the 'Device Make' drop down...")
@@ -7186,10 +6968,12 @@ class Devices:
                 self.utils.print_info("'cloudIqEngine' autodetection is working ")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_auto_detection_cloudIqEngineRadio)
             else:
-                self.utils.print_info("'cloudIqEngine' autodetection is not working ")
+                kwargs['fail_msg'] = "'cloudIqEngine' autodetection is not working "
+                self.common_validation.failed(**kwargs)
                 return -1
         else:
-            self.utils.print_info("'Device make' list not found")
+            kwargs['fail_msg'] = "'Device make' list not found"
+            self.common_validation.failed(**kwargs)
             return -1
         tool_tp_text_before = tool_tip.tool_tip_text.copy()
         self.utils.print_info(tool_tp_text_before)
@@ -7224,7 +7008,8 @@ class Devices:
             else:
                 self.utils.print_info("No SN error")
         else:
-            self.utils.print_info("'Add Devices' button not found or the button is not active")
+            kwargs['fail_msg'] = "'Add Devices' button not found or the button is not active"
+            self.common_validation.fault(**kwargs)
             return -1
         return 1
 
@@ -7238,10 +7023,10 @@ class Devices:
 
         :param device_sn: serial number of Device; single SN or a list of SNs
         :param device_make: Model of the Device e.g. :aerohive/universal_ap/voss/exos
-        :param location: The location, building and floor separated by comma ; e.g. Bucharest,address,Floor 1
+        :param location: The location, building and floor separated by comma ; e.g. Bucharest,address,Floor 1, by default set to None
         :param csv_location: csv file path
         e.g. ${DUT_CSV_FILE}             /automation/xiq/cw_automation/testsuites/xiq/topologies/${TESTBED}/MultipleVossDevices.csv
-        :param policy_name: The policy name
+        :param policy_name: The policy name, by default set to None
         :return: 1 if successfully onboarded; if any error occurs on banner or when enter the SN the text of error message will be returned ; else -1
         """
 
@@ -7409,14 +7194,14 @@ class Devices:
             return -1
         return 1
 
-    def get_device_template_status(self, device_mac='default', duration_retry=50, **kwargs):
+    def get_device_template_status(self, device_mac=None, duration_retry=50, **kwargs):
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
         - ``Get Template Status   device_mac=${DEVICE_MAC}``
 
-        :param device_mac: device MAC address
-        :param duration_retry : duration of retry in seconds
+        :param device_mac: device MAC address, by default set to None
+        :param duration_retry : duration of retry in seconds, by default set to 50
         :return:
         - 1 for 'empty' if device is a EXOS Stack and don't have a policy
         - 2 for 'Device default-template' if device is a standalone device
@@ -7430,7 +7215,7 @@ class Devices:
         retry_count = 0
         while retry_count <= 50:
             self.refresh_devices_page()
-            if device_mac != 'default':
+            if device_mac:
                 self.utils.print_info("Getting status of Template with MAC: ", device_mac)
                 device_row = self.get_device_row(device_mac=device_mac)
 
@@ -7457,15 +7242,15 @@ class Devices:
                 else:
                     return 1
 
-    def create_stack_auto_template(self, device_mac='default', name_stack_template='default', **kwargs):
+    def create_stack_auto_template(self, device_mac=None, name_stack_template=None, **kwargs):
         """
         - This Keyword will create EXOS Stack Auto Template after assigned a policy to the stack
         - Keyword Usage
         - ``Get Template Status   device_mac=${DEVICE_MAC}``
         - ``Name Stack Template   ${Stack_TEMPLATE_NAME}``
 
-        :param device_mac: device MAC address
-        :param name_stack_template: Name of the stack_template
+        :param device_mac: device MAC address, by default set to None
+        :param name_stack_template: Name of the stack_template, by default set to None
         :return: 1 If successfully Switch Stack template
         """
         device_keys = {}
@@ -7473,6 +7258,10 @@ class Devices:
             device_keys['device_mac'] = device_mac
         if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "You must pass the device mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
+        if name_stack_template == None:
+            kwargs['fail_msg'] = "You must pass the stack template name!"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -7596,9 +7385,9 @@ class Devices:
         - ``Get Ap WIFI2 Power   ap_name=${AP_NAME}``
         - ``Get Ap WIFI2 Power   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Transmission power value of wifi2 interface
         """
         self.navigator.navigate_to_manage_tab()
@@ -7619,9 +7408,9 @@ class Devices:
         - ``Get Ap WIFI2 Channel   ap_mac=${AP_MAC}``
 
         :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
-        :return: Channel value of wifi2 interface
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
+        :return: Channel value of wifi2 interface, by default set to None
         """
         self.navigator.navigate_to_manage_tab()
         sleep(5)
@@ -7640,9 +7429,9 @@ class Devices:
         - ``Get Ap WIFI2 Radio Profile   ap_name=${AP_NAME}``
         - ``Get Ap WIFI2 Radio Profile   ap_mac=${AP_MAC}``
 
-        :param ap_serial: Serial number of AP Ex:11301810220048
-        :param ap_name: Ap name Ex: AP1130
-        :param ap_mac: Ap mac Ex: F09CE9F89600
+        :param ap_serial: Serial number of AP Ex:11301810220048, by default set to None
+        :param ap_name: Ap name Ex: AP1130, by default set to None
+        :param ap_mac: Ap mac Ex: F09CE9F89600, by default set to None
         :return: Radio Profile value of wifi2 interface
         """
         self.navigator.navigate_to_manage_tab()
@@ -7781,8 +7570,8 @@ class Devices:
         - ``Check status rebooting cli   ${SPAWN}       ${DEVICE_SERIAL}      ${DEVICE_MAC}``
 
         :param spawn: device spawn
-        :param device_serial: serial number(s) of the device(s)
-        :param device_mac:  device MAC address
+        :param device_serial: serial number(s) of the device(s), by default set to None
+        :param device_mac:  device MAC address, by default set to None
         :return: 1 if gets information about rebooting from CLI else -1
         """
 
@@ -7822,8 +7611,8 @@ class Devices:
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
 
-        :param device_serial: device serial number to check the config push status
-        :param device_mac: mac of the device
+        :param device_serial: device serial number to check the config push status, by default set to None
+        :param device_mac: mac of the device, by default set to None
         :param duration_retry: default set to 300 seconds
         :return: 1 if config push success else -1
         """
@@ -7855,8 +7644,8 @@ class Devices:
 
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
-        :param device_serial: serial number(s) of the device(s)
-        :param device_mac:  device MAC address
+        :param device_serial: serial number(s) of the device(s), by default set to None
+        :param device_mac:  device MAC address, by default set to None
         :return: 1 if update configuration is pushed on the device with Reboot/Rollback option
         """
 
@@ -7970,8 +7759,8 @@ class Devices:
         - ``Get check update failed after reboot   ${DEVICE_SERIAL} ``
         - ``Get check update failed after reboot   ${DEVICE_MAC} ``
 
-        :param device_serial: Gets the information of the update failed status based on serial number
-        :param device_mac:  Gets the information of the update failed status based on address MAC
+        :param device_serial: Gets the information of the update failed status based on serial number, by default set to None
+        :param device_mac:  Gets the information of the update failed status based on address MAC, by default set to None
         :return: 1 if the information was found else -1
         """
 
@@ -7995,8 +7784,8 @@ class Devices:
 
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
-        :param device_serial: serial number(s) of the device(s)
-        :param device_mac:  device MAC address
+        :param device_serial: serial number(s) of the device(s), by default set to None
+        :param device_mac:  device MAC address, by default set to None
         :return: 1 if the pop-up message has been found else -1
         """
         self.navigator.navigate_to_devices()
@@ -8104,8 +7893,8 @@ class Devices:
 
         :param policy_name: Assign a policy for device
         :param option: Enable/Disable reboot/rollback option in Update Devices
-        :param device_serial: serial number(s) of the device(s)
-        :param device_mac:  device MAC address
+        :param device_serial: serial number(s) of the device(s), by default set to None
+        :param device_mac:  device MAC address, by default set to None
         :return: 1 if the double verification is displayed else -1
         """
 
@@ -8446,11 +8235,11 @@ class Devices:
 
         :param device_serial: Serial of device
         :param license_type: premier or macsec
-        :param username: username
-        :param password: password
-        :param shared_cuid: shared cuid
-        :param warning_msg: warning message
-        :param skip_warning_check: flag
+        :param username: username, by default set to None
+        :param password: password, by default set to None
+        :param shared_cuid: shared cuid, by default set to None
+        :param warning_msg: warning message, by default set to None
+        :param skip_warning_check: flag, by default set to False
         :return: 1 if license was activated ; else -1
         """
 
@@ -8619,11 +8408,11 @@ class Devices:
 
         :param device_serial: Serial of device
         :param license_type: premier or macsec
-        :param username: username
-        :param password: password
-        :param shared_cuid: shared cuid
-        :param warning_msg: warning message
-        :param skip_warning_check: flag
+        :param username: username, by default set to None
+        :param password: password, by default set to None
+        :param shared_cuid: shared cuid, by default set to None
+        :param warning_msg: warning message, by default set to None
+        :param skip_warning_check: flag, by default set to False
         :return: 1 if license was revoked ; else -1
         """
 
@@ -9044,7 +8833,7 @@ class Devices:
 
         :param username: SFDC username account
         :param password: SFDC password account
-        :param shared_cuid: SFDC shared cuid
+        :param shared_cuid: SFDC shared cuid, by default set to None
         :return: 1 if account was linked ; else -1
         """
         self.screen.save_screen_shot()
@@ -9164,7 +8953,7 @@ class Devices:
 
         :param username: SFDC username account
         :param password: SFDC password account
-        :param shared_cuid: SFDC shared cuid
+        :param shared_cuid: SFDC shared cuid, by default set to None
         :return: 1 if the credentials were entered ; else -1
         """
 
@@ -9489,7 +9278,7 @@ class Devices:
 
         :param username: SFDC username account
         :param password: SFDC password account
-        :param shared_cuid: SFDC shared cuid
+        :param shared_cuid: SFDC shared cuid, by default set to None
         :return: 1 if account was linked ; else -1
         """
 
@@ -9936,7 +9725,7 @@ class Devices:
             self.common_validation.failed(**kwargs)
             return -1
 
-    def update_network_device_firmware(self, device_mac='default', version='default', forceDownloadImage="true",
+    def update_network_device_firmware(self, device_mac=None, version='default', forceDownloadImage="true",
                                        performUpgrade="true", saveDefault="false", updateTo="latest",
                                        updatefromD360Page="false", retry_duration=30, retry_count=1200, **kwargs):
 
@@ -9953,7 +9742,7 @@ class Devices:
         :param version = {'default'|'first'|'last'|'latest'|'noncurrent'|'specific version'}
                         - version to which device should get upgraded. This string should contain into image name
                         -  e.g VOSS: "8.3.0.0", EXOS "31.6.1.2"
-        :param device_mac = {"mac adress of the device"}
+        :param device_mac = {"mac adress of the device"}, by default set to None
         :param updatefromD360Page= {false|true}                  # Update page will be launched from D360 if it is true
         :param retry_duration: will check for the firmware upgrade status as per these variable values
         :param retry_count: will check for the firmware upgrade status as per these variable values
@@ -9980,7 +9769,7 @@ class Devices:
         self.refresh_devices_page()
         self.close_last_refreshed_tooltip()
 
-        if device_mac != 'default':
+        if device_mac:
             self.utils.print_info("Getting Updated Status of Device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac=device_mac)
         else:
@@ -10412,12 +10201,12 @@ class Devices:
         - ``wait_until_device_update_done   device_mac=${DEVICE_MAC}``
         - ``wait_until_device_update_done   device_name=${DEVICE_NAME}``
 
-        :param device_serial: serial number of the device. Example: "01301511060005"
-        :param device_mac: mac of the device. Example: 885BDD4BE380
-        :param device_name: name of the device. Example: bui-flo-0005
-        :param wait_time_in_min: time to wait in min
-        :param skip_refresh: skipping the refresh of the devices page
-        :param skip_navigation: skipping the navigation to the devices page
+        :param device_serial: serial number of the device. Example: "01301511060005", by default set to None
+        :param device_mac: mac of the device. Example: 885BDD4BE380, by default set to None
+        :param device_name: name of the device. Example: bui-flo-0005, by default set to None
+        :param wait_time_in_min: time to wait in min, by default set to 15
+        :param skip_refresh: skipping the refresh of the devices page, by default set to False
+        :param skip_navigation: skipping the navigation to the devices page, by default set to False
         :return: 1 if done, -1 if not
         """
         if not skip_navigation:
@@ -10539,7 +10328,7 @@ class Devices:
             self.common_validation.fault(**kwargs)
             return -1
 
-    def get_ap_wifi0and1_configured_ssids(self, ap_name):
+    def get_ap_wifi0and1_configured_ssids(self, ap_name, **kwargs):
         """
         - This keyword will get wifi0 and wifi1 ssids from interface settings page behind Configure tab in AP device level
         - flow:
@@ -10585,6 +10374,8 @@ class Devices:
             self.utils.print_info(f"The WiFi0 and WiFi1 SSID list is: {wifi0_1_lists}")
             return wifi0_1_lists
         else:
+            kwargs['fail_msg'] = "Unsuccessfully ssid dictionary whatever it is null"
+            self.common_validation.failed(**kwargs)
             return -1
 
     def get_hostname(self, device_serial, **kwargs):
@@ -10735,9 +10526,9 @@ class Devices:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param device_serial: device Serial
-        :param device_mac: device MAC address
-        :param device_name: device name
+        :param device_serial: device Serial, by default set to None
+        :param device_mac: device MAC address, by default set to None
+        :param device_name: device name, by default set to None
         :param manage_type: Manage/Unmanage device
         :return: 1 if the management status was changed
         """
@@ -11031,8 +10822,8 @@ class Devices:
             self.common_validation.failed(**kwargs)
             return -1
 
-    def get_device_updated_status_percentage(self, device_serial='default', device_name='default',
-                                             device_mac='default', **kwargs):
+    def get_device_updated_status_percentage(self, device_serial=None, device_name=None,
+                                             device_mac=None, **kwargs):
         """
         - This keyword returns the device updated status in percentage by searching device row using serial, name or mac address
         - Assumes that already navigated to the manage-->device page
@@ -11041,9 +10832,9 @@ class Devices:
         - ``Get Device Updated Status   device_name=${DEVICE_NAME}``
         - ``Get Device Updated Status   device_mac=${DEVICE_MAC}``
 
-        :param device_serial: device Serial
-        :param device_name: device Name
-        :param device_mac: device MAC
+        :param device_serial: device Serial, by default set to None
+        :param device_name: device Name, by default set to None
+        :param device_mac: device MAC, by default set to None
         :return: 'device_update_status_strip' status number without '%'
         """
         device_row = -1
@@ -11053,15 +10844,15 @@ class Devices:
         self.column_picker_select("Updated On")
 
         self.utils.print_info('Getting device Updated Status using')
-        if device_serial != 'default':
+        if device_serial:
             self.utils.print_info("Getting Updated status of device with serial: ", device_serial)
             device_row = self.get_device_row(device_serial=device_serial)
 
-        if device_name != 'default':
+        if device_name:
             self.utils.print_info("Getting Updated status of device with name: ", device_name)
             device_row = self.get_device_row(device_name=device_name)
 
-        if device_mac != 'default':
+        if device_mac:
             self.utils.print_info("Getting Updated status of device with MAC: ", device_mac)
             device_row = self.get_device_row(device_mac=device_mac)
 
@@ -11548,10 +11339,9 @@ class Devices:
         - ``Update Policy and Configuration  ${SWITCH_MAC}``
         - ``Update Policy and Configuration  ${SWITCH_NAME}``
 
-        :param device_mac:
-        :param device_name:
-        :param device_serial:
-        :param  device_serial_mac_or_name: device serial number, mac or name  of the switch to update
+        :param device_mac: MAC address of the device, by default set to None
+        :param device_name: name of the device, by default set to None
+        :param device_serial: serial of the device, by default set to None
         :return: 1 if config push success else -1
         """
         self.utils.print_info("Select Stack")
@@ -11918,7 +11708,7 @@ class Devices:
         - Keyword Usage:
         - ``Get Device Status Icon   device_serial=${DEVICE_SERIAL}``
 
-        :param device_serial: device serial number
+        :param device_serial: device serial number, by default set to None
         :return:
         - 'digital_twin' if Device Status icon is 'Digital Twin'.
         - 'simulated' if Device Status icon is 'Simulated'.
@@ -12134,14 +11924,12 @@ class Devices:
                     pass
                 return 1
             else:
-                self.utils.print_info("The device clone has been successfully completed, but the device cannot be "
-                                      "updated at this time as it's disconnected or in the unmanaged state.")
+                kwargs['fail_msg'] = "The device clone - successfully completed, but the device " \
+                                     "cannot be updated at this time as it's disconnected or in the unmanaged state"
                 cancel_button = self.device_actions.get_cancel_button()
                 self.utils.print_info("Closing the Clone window")
                 self.screen.save_screen_shot()
                 self.auto_actions.click(cancel_button)
-                kwargs['fail_msg'] = "The device clone - successfully completed, but the device " \
-                                     "cannot be updated at this time as it's disconnected or in the unmanaged state"
                 self.common_validation.failed(**kwargs)
                 return -1
         else:
@@ -12568,8 +12356,8 @@ class Devices:
         This keyword gets information of the update failed status in XIQ for a device after reboot/rollback
         configuration
 
-        :param device_serial: Gets the information of the update failed status based on serial number
-        :param device_mac:  Gets the information of the update failed status based on address MAC
+        :param device_serial: Gets the information of the update failed status based on serial number, by default set to None
+        :param device_mac:  Gets the information of the update failed status based on address MAC, by default set to None
         :return: status if the information was found else -1
         """
         if device_serial:
@@ -12754,7 +12542,6 @@ class Devices:
 
         kwargs["fail_msg"] = f"Couldn't select device with serial: {dut.serial}"
         self.common_validation.failed(**kwargs)
-
         return None
 
     def check_update_column_by_failure_message(self, device_serial, failure_message, **kwargs):
