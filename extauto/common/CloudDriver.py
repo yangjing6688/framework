@@ -17,7 +17,6 @@ class CloudDriver():
         if cls.__instance is None:
             cls.__instance = super(CloudDriver, cls).__new__(cls)
             cls.__instance.__initialized = False
-            print(cls.__instance)
         return cls.__instance
 
     def __init__(self):
