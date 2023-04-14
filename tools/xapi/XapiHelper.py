@@ -5,6 +5,7 @@ from time import sleep
 import pprint
 from extauto.common.Utils import Utils
 from ExtremeAutomation.Library.Utils.DotDict import DotDict
+import urllib3
 
 try:
     import extremecloudiq

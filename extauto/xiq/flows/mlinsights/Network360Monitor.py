@@ -422,3 +422,112 @@ class Network360Monitor:
             self.utils.print_info("6G client count", _client_count_6G)
 
         return _client_count_2G, _client_count_5G, _client_count_6G
+
+    def ml_insights_monitor_navigate_to_options_drop_down(self, option="All Devices", floor="floor_04", **kwargs):
+        """
+        - This keyword navigates to one of the options available from the dropdown
+        Assumes that already navigated to ML Insights -> Network 360 Monitor
+        Available options for keyword usage(option parameter): "All Devices", "All Access Points", "IQ Engine Access Points", "WiNG Access Points", "All Switches"
+        :return: returns 1 if Navigation successful, -1 if fails
+        """
+
+        self.utils.print_info("Go to ML Insights->Network 360 Monitor")
+        if self.navigator.navigate_to_network360monitor() != 1:
+            kwargs["fail_msg"] = "Fail to navigate to N360 Monitor"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.utils.print_info("Search and select floor.")
+        if self._search_and_click_floor(floor) != 1:
+            kwargs['fail_msg'] = "Unsuccessfully clicked on floor"
+            self.common_validation.failed(**kwargs)
+            return -1
+        self.utils.print_info("Click on dropdown arrow")
+        self.auto_actions.click_reference(self.n360_elements.get_n360_monitor_port_connection_speed_container_down_arrow)
+        self.utils.print_info(f"Selecting option {option} from the dropdown.")
+        if self.auto_actions.click_reference(lambda: self.n360_elements.get_n360_monitor_drop_down_options(option)) != 1:
+            kwargs["fail_msg"] = f"Failed to click on option {option} from the dropdown."
+            self.common_validation.failed(**kwargs)
+            return -1
+        kwargs["pass_msg"] = f"Successfully selected {option} from the dropdown."
+        self.common_validation.passed(**kwargs)
+
+    def n360_device_health_sorting_table(self, **kwargs):
+        """
+        - This keyword verifies if the device health table is sorted
+        the table, are hyperlinks
+        Assumes that already navigated to ML Insights -> Network 360 Monitor -> Devices Card with Device Health option selected
+        :return: returns 1 if successful, -1 if fails
+        """
+
+        self.utils.print_info("Getting the initial table elements.")
+        table_elem = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
+        table_dict_initial = {}
+        for i in range(len(table_elem)):
+            table_dict_initial[i] = table_elem[i].text
+        if all(table_dict_initial[i].split()[0] <= table_dict_initial[i+1].split()[0] for i in range(len(table_dict_initial)-1)):
+            self.utils.print_info("Initial table is sort in Ascending way.")
+            sorting = "asc"
+        else:
+            self.utils.print_info("Initial table is sort in Descending way.")
+            sorting = "desc"
+
+        self.utils.print_info("Trying to sort by 'HOSTNAME'.")
+        header_hostname = self.n360_elements.get_n360_device_health_column_header_hostname
+        self.utils.print_info('Clicking on hostname.')
+        if sorting == "asc":
+            self.auto_actions.click_reference(header_hostname)
+            self.auto_actions.click_reference(header_hostname)
+        elif sorting == "desc":
+            self.auto_actions.click_reference(header_hostname)
+        self.utils.print_info("Getting the table elements after sorting by HOSTNAME.")
+        table_elem = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
+        table_dict_after_sort = {}
+        for i in range(len(table_elem)):
+            table_dict_after_sort[i] = table_elem[i].text
+        self.utils.print_info("Comparing the Hostnames to check if the sorting has been done")
+        if all(table_dict_after_sort[i].split()[0] >= table_dict_after_sort[i+1].split()[0] for i in range(len(table_dict_after_sort)-1)) and sorting == "asc":
+            self.utils.print_info("Sorting is done correctly by Hostname values. Initial was ascending now is descending.")
+        elif all(table_dict_after_sort[i].split()[0] <= table_dict_after_sort[i+1].split()[0] for i in range(len(table_dict_after_sort)-1)) and sorting == "desc":
+            self.utils.print_info("Sorting is done correctly by Hostname values. Initial was descending now is ascending.")
+        else:
+            kwargs["fail_msg"] = "Table was not sorted after clicking on Hostname"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+        self.utils.print_info("Getting the initial table elements before sorting by MAC Address.")
+        table_elem = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
+        table_dict_initial = {}
+        for i in range(len(table_elem)):
+            table_dict_initial[i] = table_elem[i].text
+        if all(table_dict_initial[i].split()[1] <= table_dict_initial[i+1].split()[1] for i in range(len(table_dict_initial)-1)):
+            self.utils.print_info("Initial table is sort in Ascending way.")
+            sorting = "asc"
+        else:
+            self.utils.print_info("Initial table is sort in Descending way.")
+            sorting = "desc"
+
+        self.utils.print_info("Trying to sort by 'MAC Address'.")
+        header_mac = self.n360_elements.get_n360_device_health_column_header_mac
+        self.utils.print_info('Clicking on "MAC ADDRESS".')
+        if sorting == "asc":
+            self.auto_actions.click_reference(header_mac)
+            self.auto_actions.click_reference(header_mac)
+        elif sorting == "desc":
+            self.auto_actions.click_reference(header_mac)
+        self.utils.print_info("Getting the table elements after sorting by MAC ADDRESS.")
+        table_elem = self.n360_elements.get_n360_monitor_port_device_health_usage_table_rows()
+        table_dict_after_sort = {}
+        for i in range(len(table_elem)):
+            table_dict_after_sort[i] = table_elem[i].text
+        self.utils.print_info("Comparing the MAC ADDRESS to check if the sorting has been done")
+        if all(table_dict_after_sort[i].split()[1] >= table_dict_after_sort[i+1].split()[1] for i in range(len(table_dict_after_sort)-1)) and sorting == "asc":
+            self.utils.print_info("Sorting is done correctly by MAC ADDRESS values.Initial was ascending now is descending.")
+        elif all(table_dict_after_sort[i].split()[1] <= table_dict_after_sort[i+1].split()[1] for i in range(len(table_dict_after_sort)-1)) and sorting == "desc":
+            self.utils.print_info("Sorting is done correctly by MAC ADDRESS values.Initial was descending now is ascending.")
+        else:
+            kwargs["fail_msg"] = "Table was not sorted after clicking on MAC ADDRESS"
+            self.common_validation.failed(**kwargs)
+            return -1
+        kwargs["pass_msg"] = "Successfully sort by HOSTNAME and MAC ADDRESS"
+        self.common_validation.passed(**kwargs)
+        return 1
