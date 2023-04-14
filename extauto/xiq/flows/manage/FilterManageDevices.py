@@ -1221,3 +1221,65 @@ class FilterManageDevices():
                 self.utils.print_info(value)
                 return -1
         return 1
+
+    def set_copilot_license_filter(self, filter='All', select='true', **kwargs):
+        """
+        Sets the copilot license filter to the specified value
+        Usage of test case:
+            Set CoPilot License Filter  All  true
+            Set CoPilot License Filter  CoPilot Active  true
+            Set CoPilot License Filter  CoPilot Expired  true
+            Set CoPilot License Filter  CoPilot None  true
+            Set CoPilot License Filter  All  false
+            Set CoPilot License Filter  CoPilot Active  false
+            Set CoPilot License Filter  CoPilot Expired  false
+            Set CoPilot License Filter  CoPilot None  false
+
+        :param filter: name of the filter to set
+        :param select: indicates whether the filter check box should be selected (true) or deselected (false)
+        :return: 1 if filter was set, else -1
+        """
+        self.utils.print_info(f" -----  Set CoPilot License By {filter} selected {select} ---- ")
+
+        # Open the Filter panel if it is not already open
+        self.open_filter_panel()
+
+        # Expand the CoPilot License filter section if it is not yet expanded
+        copilot_license_filter_collapsed = self.filter_element.get_copilot_license_filter_link_collapsed()
+        if copilot_license_filter_collapsed and copilot_license_filter_collapsed.is_displayed():
+            self.auto_actions.click_reference(self.filter_element.get_copilot_license_filter_link)
+
+        # Get the check box element to toggle
+        element = None
+        if filter == 'All':
+            element = self.filter_element.get_copilot_license_all_filter_chkbox()
+        elif filter == 'CoPilot Active':
+            element = self.filter_element.get_copilot_license_active_filter_chkbox()
+        elif filter == 'CoPilot Expired':
+            element = self.filter_element.get_copilot_license_expired_filter_chkbox()
+        elif filter == 'CoPilot None':
+            element = self.filter_element.get_copilot_license_none_filter_chkbox()
+
+        # Set the desired state of the filter check box
+        return self.toggle_filter_check_box(element, select)
+
+    def apply_filters(self, **kwargs):
+        """
+        Clicks on "Apply Filters" button to apply any selected filters within the Devices panel
+        Usage of test case:
+            Apply Filters
+
+        :return: 1 if filter was set, else -1
+        """
+
+        self.utils.print_info("Clicking on Apply Filters button")
+        apply_filters = self.filter_element.get_apply_filters_btn()
+
+        if apply_filters:
+            self.auto_actions.click_reference(self.filter_element.get_apply_filters_btn)
+            ret_val = 1
+        else:
+            self.utils.print_info("Unable to click Apply Filters button")
+            ret_val = -1
+
+        return ret_val
