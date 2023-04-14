@@ -2802,7 +2802,7 @@ class Devices:
             self.auto_actions.click(pageOne)
 
         device_page_numbers = self.devices_web_elements.get_page_numbers()
-        if device_page_numbers.text:
+        if device_page_numbers and device_page_numbers.text:
             page_len = int(max(device_page_numbers.text))
         else:
             page_len = int(1)
@@ -2831,7 +2831,7 @@ class Devices:
                     except StaleElementReferenceException:
                         self.utils.print_info("Exception in row data (usually caused by XIQ device grid not finished), sleeping and retrying")
                         sleep(1)
-                        retry = retry - 1;
+                        retry = retry - 1
                 page_len = page_len - 1
 
                 if page_len:
