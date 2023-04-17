@@ -1103,7 +1103,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         # Return the return value of the keyword
         return return_code
 
-    def verify_upgrade_option_for_connect_user(self, **kwargs):
+    def execute_upgrade_option_for_connect_user(self, **kwargs):
         """
         Clicks on the upgrade button and navigates connect user to license management UI
 
@@ -1112,13 +1112,13 @@ class KeywordsLogin(object, metaclass=Singleton):
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Verify Upgrade Option For Connect User
+        -      Execute Upgrade Option For Connect User
         -   Pytest:
         -      Imports:
         -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
         -      Calling Keyword:
         -         keywords_login = KeywordsLogin()
-        -         keywords_login.verify_upgrade_option_for_connect_user()
+        -         keywords_login.execute_upgrade_option_for_connect_user()
         -
         - Keyword Implementations:
         -    GUI
@@ -1143,7 +1143,7 @@ class KeywordsLogin(object, metaclass=Singleton):
             if implementation_to_run != '':
                 self.keyword_utils.timing.start(keyword_name, implementation_to_run)
                 if implementation_to_run == "GUI":
-                    return_code = self.login.gui_verify_upgrade_option_for_connect_user()
+                    return_code = self.login.gui_execute_upgrade_option_for_connect_user()
                 else:
                     self.common_validation.fault(**kwargs)
                     if return_code:

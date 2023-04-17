@@ -1288,11 +1288,11 @@ class Login(object, metaclass=Singleton):
             return -1
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {verify_upgrade_option_for_connect_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    # @deprecated('Please use the {gui_execute_upgrade_option_for_connect_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def verify_upgrade_option_for_connect_user(self):
-        return self.gui_verify_upgrade_option_for_connect_user()
+        return self.gui_execute_upgrade_option_for_connect_user()
 
-    def gui_verify_upgrade_option_for_connect_user(self, **kwargs):
+    def gui_execute_upgrade_option_for_connect_user(self, **kwargs):
         """
         - This keyword checks if upgrade button is displayed and clicking on upgrade button
         navigates connect user to license management UI
