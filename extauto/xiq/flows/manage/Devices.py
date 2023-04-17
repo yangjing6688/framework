@@ -5627,6 +5627,7 @@ class Devices:
         passing_message = ""
         retry_message = ""
         failing_message = ""
+        method_used_to_find_device = ""
         while count <= retry_count:
             self.utils.print_info(f"Searching for device {device_serial}: loop {count}")
             if device_mac:
@@ -5635,24 +5636,65 @@ class Devices:
                 passing_message = f"MANAGED column for device '{device_mac}' contains expected data: '{managed_status}'"
                 retry_message =   f"MANAGED column for device '{device_mac}' contains value: '{managed_status}'"
                 failing_message = f"MANAGED column for device '{device_mac}' does not contain expected value 'Managed'"
+                method_used_to_find_device = "mac"
             elif device_serial:
                 managed_status = self.get_device_details(device_serial, 'MANAGED')
                 self.utils.print_info(f"Managed status is: '{managed_status}' for the device_serial: '{device_serial}'")
                 passing_message = f"MANAGED column for device '{device_serial}' contains expected data: '{managed_status}'"
                 retry_message =   f"MANAGED column for device '{device_serial}' contains value: '{managed_status}'"
                 failing_message = f"MANAGED column for device '{device_serial}' does not contain expected value 'Managed'"
-
+                method_used_to_find_device = "serial"
             elif device_name:
                 managed_status = self.get_device_details(device_name, 'MANAGED')
                 self.utils.print_info(f"Managed status is: '{managed_status}' for the device_name: '{device_name}'")
                 passing_message = f"MANAGED column for device '{device_name}' contains expected data: '{managed_status}'"
                 retry_message =   f"MANAGED column for device '{device_name}' contains value: '{managed_status}'"
                 failing_message = f"MANAGED column for device '{device_name}' does not contain expected value 'Managed'"
+                method_used_to_find_device = "name"
 
             if managed_status == "Managed":
-                kwargs['pass_msg'] = passing_message
-                self.common_validation.passed(**kwargs)
-                return 1
+                # At this time only a device found via mac address can be a stack, so only checking if we validate via mac
+                if method_used_to_find_device == "mac":
+                    # We do not care if this calls pass/fails we just want to get the status to see if it a stack
+                    stack_status = self.get_stack_status(device_mac=device_mac, ignore_failure=True)
+                    if stack_status != -1:
+                        count = 0
+                        while count <= retry_count:
+                            self.utils.print_info(f"Count is {count} and retry_count is {retry_count}")
+                            stack_status = self.get_stack_status(device_mac=device_mac)
+                            self.utils.print_info(f"Stack Status is {stack_status} ")
+                            if stack_status == "blue":
+
+                                stack_row = self.get_device_row(device_mac=device_mac)
+                                self.utils.print_info("Click on stack icon")
+                                self.auto_actions.click(self.devices_web_elements.get_stack_status_icon(stack_row))
+                                self.screen.save_screen_shot()
+                                self.utils.print_info("Click on stack icon")
+                                self.auto_actions.click(self.devices_web_elements.get_stack_status_icon(stack_row))
+                                self.screen.save_screen_shot()
+
+                                kwargs['pass_msg'] = passing_message
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            else:
+                                self.utils.print_info(f"Stack is not formed. Waiting for {retry_duration} seconds...")
+                                sleep(retry_duration)
+                                self.refresh_devices_page()
+                                count += 1
+
+                        kwargs['fail_msg'] = "Stack never formed"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    else:
+                        # We are not a stack so print the success message and move on
+                        kwargs['pass_msg'] = passing_message
+                        self.common_validation.passed(**kwargs)
+                        return 1
+                else:
+                    kwargs['pass_msg'] = passing_message
+                    self.common_validation.passed(**kwargs)
+                    return 1
             else:
                 self.utils.print_info(retry_message)
                 self.utils.print_info(f"still not matching expected value 'Managed'. Waiting for {retry_duration} seconds...")
