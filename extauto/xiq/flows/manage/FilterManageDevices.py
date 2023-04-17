@@ -746,9 +746,11 @@ class FilterManageDevices():
                 Set Device Product Type Filter  All  true
                 Set Device Product Type Filter  X460_G2_48t_10_G4  true
                 Set Device Product Type Filter  XIQ_SE  true
+                Set Device Product Type Filter  All CoPilot Eligible Devices  true
                 Set Device Product Type Filter  All  false
                 Set Device Product Type Filter  X460_G2_48t_10_G4  false
                 Set Device Product Type Filter  XIQ_SE  false
+                Set Device Product Type Filter  All CoPilot Eligible Devices  true
 
         :param filter: name of the filter to set
         :param select: indicates whether the filter check box should be selected (true) or deselected (false)
@@ -768,6 +770,8 @@ class FilterManageDevices():
         element = None
         if filter == "All":
             element = self.filter_element.get_device_prod_type_all_filter_checkbox()
+        elif filter == "All CoPilot Eligible Devices":
+            element = self.filter_element.get_device_prod_type_all_copilot_eligible_filter_checkbox()
         else:
             cb_locator = self.filter_element.get_device_prod_type_model_filter_checkbox(filter)
             if cb_locator:
