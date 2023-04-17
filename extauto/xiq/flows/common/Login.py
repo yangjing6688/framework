@@ -917,12 +917,7 @@ class Login(object, metaclass=Singleton):
         """
         return CloudDriver().cloud_driver.current_url
 
-    # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {skip_if_account_90_days} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
-    def licence_validation(self, **kwargs):
-        return self.gui_licence_validation()
-
-    def gui_licence_validation(self, **kwargs):
+    def skip_if_account_90_days(self, **kwargs):
         """
         - This keyword detects a license of 90 days and clicks on the option of 90 days
         - Keyword Usage:
