@@ -93,22 +93,6 @@ class Login(object, metaclass=Singleton):
         """
         return self.window_index
 
-    def enable_exos_status_on_xiq(self, url, **kwargs):
-        """
-        - for Exos switch to appear in UI we need to load the provided url
-        - Keyword Usage:
-        - ``Enable Exos Status On Xiq   ${URL}``
-        :param url: url to load for enabling exos on cloud UI
-        :return: 1 if loaded the url successfully
-        """
-        self.utils.print_info("Refresh Page")
-        CloudDriver().cloud_driver.get(url)
-        CloudDriver().cloud_driver.refresh()
-        sleep(5)
-        kwargs['pass_msg'] = "The url was loaded successfully"
-        self.common_validation.passed(**kwargs)
-        return 1
-
     # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
     #@deprecated('Please use the {login_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
@@ -545,33 +529,6 @@ class Login(object, metaclass=Singleton):
         finally:
             CloudDriver().close_browser()
             self.utils.print_info("Resetting cloud driver to -1")
-
-    def start_video_record(self, record_sta_ip, test_name=None):
-        """
-        - This Keyword will Start Video Record on mentioned machine IP Address .
-        :param record_sta_ip: Station IP address to Start the Video Recordings
-        :param test_name: Test Name for Video Recordings
-        :return: None
-        """
-        self.utils.print_info("WINDOWS 10 STA IP: {}".format(record_sta_ip))
-        self.utils.print_info("test case name: {}".format(test_name))
-        if BuiltIn().get_variable_value("${RECORD}"):
-            start_record_url = "http://" + str(record_sta_ip) + ":5000/video_recording/start" + str(
-                test_name.replace(" ", ""))
-            self.utils.print_info("START RECORD URL:{}".format(start_record_url))
-            self._post_url(start_record_url)
-            self.record = True
-
-    def stop_video_record(self, record_sta_ip):
-        """
-        - This Keyword will Stop Video Record on mentioned machine IP Address .
-        :param record_sta_ip: Station IP address to Stop the Video Recordings
-        :return: None
-        """
-        if self.record:
-            stop_record_url = "http://" + str(record_sta_ip) + ":5000/video_recording/stop"
-            self.utils.print_info("STOP RECORD URL:{}".format(stop_record_url))
-            self._post_url(stop_record_url)
 
     def _post_url(self, url):
         """
