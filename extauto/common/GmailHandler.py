@@ -15,6 +15,7 @@ class GmailHandler:
         self.email_sub = None
         self.email_from = None
         self.email_msg = None
+        self.provider = 'gmail'
         self.save_dir = os.path.dirname(__file__) + '/tools/credentials/'
         self.utils = Utils()
         self.builtin = BuiltIn()
@@ -101,7 +102,15 @@ class GmailHandler:
         :return: all mail uid from inbox
         """
         # using imap module connect the gmail imap server
-        self.mail = imaplib.IMAP4_SSL('imap.gmail.com')
+        if re.search(r"autoiqmail", mail_id):
+            try:
+                self.builtin.log_to_console("Using IMAP autoiqmail.com")
+                self.mail = imaplib.IMAP4_SSL('secure318.inmotionhosting.com', 993)
+                self.provider = 'inmotion'
+            except Exception as e:
+                self.builtin.log_to_console(f"IMAP exception {e}")
+        else:
+            self.mail = imaplib.IMAP4_SSL('imap.gmail.com')
         self.mail.login(mail_id, password)
         # select the inbox
         self.mail.select(folder)
@@ -167,8 +176,13 @@ class GmailHandler:
                     self._move_email_to_trash()
                 return email_msg
 
-            self.utils.print_info(f"Check the subj line:{subj} email in spam folder")
-            inbox_mail_items = self._mail_initialization(mail_id, password, '[Gmail]/Spam')
+            if re.search(r"autoiqmail", mail_id):
+                self.provider = 'inmotion'
+                self.utils.print_info(f"Check the subj line:{subj} email in junk folder")
+                inbox_mail_items = self._mail_initialization(mail_id, password, 'INBOX.Junk')
+            else:
+                self.utils.print_info(f"Check the subj line:{subj} email in spam folder")
+                inbox_mail_items = self._mail_initialization(mail_id, password, '[Gmail]/Spam')
             email_msg = self._get_raw_email(inbox_mail_items, subj)
             if email_msg:
                 if mail_trash == 'True':
@@ -209,8 +223,14 @@ class GmailHandler:
                 plain_content = part.get_payload()
         return file, html_content, plain_content
 
-    def _move_email_to_trash(self):
-        self.mail.store('1:*', '+X-GM-LABELS', '\\Trash')
+    def _move_email_to_trash(self, mail_id=None):
+        if self.provider == 'gmail':
+            self.mail.store('1:*', '+X-GM-LABELS', '\\Trash')
+        else:
+            try:
+                self.mail.store('1:*', '+FLAGS', '\\Deleted')
+            except Exception as e:
+                self.utils.print_info(f"imap store exception {e}")
         self.mail.expunge()
 
     def get_user_approval_url(self, mail_id, password, mail_trash='True'):
