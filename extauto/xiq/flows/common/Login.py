@@ -1467,7 +1467,7 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
+    def _select_login_option(self, login_option, entitlement_key, salesforce_username=False,
                             salesforce_password=False, salesforce_shared_cuid=False,
                             recover_login=True, map_override=None, **kwargs):
         """
