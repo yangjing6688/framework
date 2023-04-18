@@ -980,6 +980,7 @@ class KeywordsLogin(object, metaclass=Singleton):
                     return_code = self.login.gui_get_switch_connection_host()
                 else:
                     self.common_validation.fault(**kwargs)
+                    kwargs['fail_msg'] = f"Keyword: {keyword_name} has not been implemented for XAPI"
                     return_code = ""
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
@@ -1082,7 +1083,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Assume if unable to switch window
-        return_code = -1
+        return_code = None
 
         # Call the helper function that implements this keyword
         try:
@@ -1093,7 +1094,7 @@ class KeywordsLogin(object, metaclass=Singleton):
                     return_code = self.login.gui_close_window(win_index)
                 else:
                     return_code = self.keyword_utils.implementations.not_supported(**kwargs)
-                    return_code = -1
+                    return_code = None
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
@@ -1146,6 +1147,7 @@ class KeywordsLogin(object, metaclass=Singleton):
                     return_code = self.login.gui_execute_upgrade_option_for_connect_user()
                 else:
                     self.common_validation.fault(**kwargs)
+                    kwargs['fail_msg'] = f"Keyword: {keyword_name} has not been implemented for XAPI"
                     if return_code:
                         return_code = 0
                     else:
