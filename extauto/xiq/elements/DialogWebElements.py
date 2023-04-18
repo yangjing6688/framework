@@ -51,3 +51,6 @@ class DialogWebElements(DialogWebElementsDefinitions):
 
     def get_confirm_yes_button_reboot(self):
         return self.weh.get_elements(self.confirm_yes_button_reboot)
+
+    def get_tooltip_close_button(self):
+        return self.weh.get_elements(self.tooltip_close_button)

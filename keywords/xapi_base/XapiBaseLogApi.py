@@ -85,7 +85,7 @@ class XapiBaseLogApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -141,6 +141,7 @@ class XapiBaseLogApi(XapiHelper):
             :param str username: The user login name
             :param int start_time: The start time to query, epoch time in milliseconds since 1/1/1970, default is 0 if not specified or is negative
             :param int end_time: The end time to query, epoch time in milliseconds since 1/1/1970, default is now if not specified or is negative
+            :param str keyword: The case-insensitive keyword to search in description
             :param _preload_content: if False, the urllib3.HTTPResponse object will
                                      be returned without reading/decoding response
                                      data. Default is True.
@@ -177,7 +178,7 @@ class XapiBaseLogApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -269,7 +270,7 @@ class XapiBaseLogApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -360,7 +361,7 @@ class XapiBaseLogApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -451,7 +452,7 @@ class XapiBaseLogApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -542,7 +543,7 @@ class XapiBaseLogApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:

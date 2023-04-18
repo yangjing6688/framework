@@ -16,6 +16,7 @@ from extauto.xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
 from extauto.xiq.elements.WirelessWebElements import WirelessWebElements
 from extauto.xiq.elements.NetworkManagementOptionsElements import NetworkManagementOptionsElements
 from extauto.xiq.elements.UserProfileWebElements import UserProfileWebElements
+from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
 
 
 class CommonObjects(object):
@@ -32,6 +33,7 @@ class CommonObjects(object):
         self.network_management_options_elements = NetworkManagementOptionsElements()
         self.user_profile_web_elements = UserProfileWebElements()
         self.common_validation = CommonValidation()
+        self.xapiNetworkPolicy = XapiNetworkPolicy()
 
     def navigate_to_basic_ip_object_hostname(self):
         """
@@ -156,6 +158,11 @@ class CommonObjects(object):
         :param ssid_name: Name of the ssid_name
         :return: 1 if deleted else -1
         """
+
+        # Wating for XAPI SDK Support
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
+        #     return self.xapiNetworkPolicy.xapi_delete_ssids([ssid_name], **kwargs)
+
         self.navigator.navigate_to_ssids()
         self.screen.save_screen_shot()
         sleep(5)
@@ -198,6 +205,10 @@ class CommonObjects(object):
         :param ssids: (list) list of ssid's to delete
         :return: 1 if deleted else -1
         """
+
+        # Wating for XAPI SDK Support
+        # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
+        #     return self.xapiNetworkPolicy.xapi_delete_ssids(*ssids, **kwargs)
 
         self.navigator.navigate_to_ssids()
         self.screen.save_screen_shot()
