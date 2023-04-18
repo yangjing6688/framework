@@ -12328,8 +12328,14 @@ class Devices:
                     return 1
 
                 else:
-                    self.utils.wait_till()
-                    close_button = self.device_actions.get_close_button()
+                    close_button, _ = self.utils.wait_till(
+                        func=self.device_actions.get_close_button, 
+                        exp_func_resp=True,
+                        silent_failure=True,
+                        timeout=60,
+                        delay=20
+                    )
+                    
                     if close_button:
 
                         self.utils.print_info("Closing the Device Update window")
