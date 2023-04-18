@@ -339,10 +339,10 @@ class Login(object, metaclass=Singleton):
                 self.screen.save_screen_shot()
 
         # If there is a welcome page we'll need to select a option like: "30-day-trial" or "ExtremeCloud IQ License"
-        if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
+        if self._select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, salesforce_shared_cuid=salesforce_shared_cuid,
                                     recover_login=recover_login, map_override=map_override, **kwargs) == -1:
-            kwargs['fail_msg'] = "'select_login_option()' Failed"
+            kwargs['fail_msg'] = "'_select_login_option()' Failed"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -772,7 +772,12 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_switch_connection_host(self, **kwargs):
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_switch_connection_host} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    def get_switch_connection_host(self):
+        return self.gui_get_switch_connection_host()
+
+    def gui_get_switch_connection_host(self, **kwargs):
         """
         - This keyword Get Switch Connection Host
         - Keyword Usage
@@ -914,7 +919,12 @@ class Login(object, metaclass=Singleton):
         """
         return self._capture_xiq_version()
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {switch_to_window} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def switch_to_window(self, win_index):
+        return self.gui_switch_to_window(win_index)
+
+    def gui_switch_to_window(self, win_index):
         """
         - Switches to the specified window
         :param:  win_index - Index of the window to switch to
@@ -922,7 +932,13 @@ class Login(object, metaclass=Singleton):
         """
         CloudDriver().switch_to_window(win_index)
 
+
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {close_window} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def close_window(self, win_index):
+        return self.gui_close_window(win_index)
+
+    def gui_close_window(self, win_index):
         """
         - Closes the specified window
         :param:  win_index - Index of the window to close
@@ -1228,7 +1244,12 @@ class Login(object, metaclass=Singleton):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_upgrade_option_for_connect_user(self, **kwargs):
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {gui_execute_upgrade_option_for_connect_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    def verify_upgrade_option_for_connect_user(self):
+        return self.gui_execute_upgrade_option_for_connect_user()
+
+    def gui_execute_upgrade_option_for_connect_user(self, **kwargs):
         """
         - This keyword checks if upgrade button is displayed and clicking on upgrade button
         navigates connect user to license management UI
@@ -1403,7 +1424,7 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
+    def _select_login_option(self, login_option, entitlement_key, salesforce_username=False,
                             salesforce_password=False, salesforce_shared_cuid=False,
                             recover_login=True, map_override=None, **kwargs):
         """
