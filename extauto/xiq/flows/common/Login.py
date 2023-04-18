@@ -355,10 +355,10 @@ class Login(object, metaclass=Singleton):
                 self.screen.save_screen_shot()
 
         # If there is a welcome page we'll need to select a option like: "30-day-trial" or "ExtremeCloud IQ License"
-        if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
+        if self._select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, salesforce_shared_cuid=salesforce_shared_cuid,
                                     recover_login=recover_login, map_override=map_override, **kwargs) == -1:
-            kwargs['fail_msg'] = "'select_login_option()' Failed"
+            kwargs['fail_msg'] = "'_select_login_option()' Failed"
             self.common_validation.fault(**kwargs)
             return -1
 
