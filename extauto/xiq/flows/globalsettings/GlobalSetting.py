@@ -77,8 +77,8 @@ class GlobalSetting(GlobalSettingWebElements):
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param search_filter:  filter string
-        :param search_string:  row search string i.e client mac or user name
+        :param search_string:  row search
+        :param search_filter:  filter string - i.e client mac or user name
         :return: authentication details dict
         """
 

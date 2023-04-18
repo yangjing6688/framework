@@ -217,15 +217,12 @@ class XapiNetworkPolicy(XapiHelper):
         try:
             # Do the deployment
             deployment_reponse_preload = self.xapiBaseConfigurationDeploymentApi.xapi_base_deploy_config(xiq_deployment_request=deployment, _preload_content=False)
-            self.valid_http_response(deployment_reponse_preload)
-
             # Get the status
             finished = False
             count = 0
-            max_count = 300 # # 5 minutes
+            max_count = 600 # 10 minutes
             while not finished:
                 deployment_status_reponse = self.xapiBaseConfigurationDeploymentApi.xapi_base_get_deploy_status(device_ids=[device_id], _preload_content=False)
-                self.valid_http_response(deployment_status_reponse)
                 deployment_data = self.convert_preload_content_data_to_object(deployment_status_reponse.data)
                 data = deployment_data[str(device_id)]
                 finished = data.finished
@@ -241,12 +238,15 @@ class XapiNetworkPolicy(XapiHelper):
                     if not data.is_finished_successful:
                         kwargs['fail_msg'] = f'Failed to completed the deployment with status: {data.is_finished_successful}"'
                         self.common_validation.failed(**kwargs)
+                        return -1
 
                 count = count +1
         except Exception as e:
-            kwargs['fail_msg'] = f'Failed to completed the deployment with exception {e}" '
+            kwargs['fail_msg'] = f'Failed to completed the deployment with exception {e}'
             self.common_validation.fault(**kwargs)
+            return -1
 
         kwargs['pass_msg'] = 'The deployment is completed'
         self.common_validation.passed(**kwargs)
+        return 1
 
