@@ -1026,7 +1026,7 @@ class KeywordsLogin(object, metaclass=Singleton):
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
         # Assume if unable to switch window
-        return_code = -1
+        return_code = None
 
         # Call the helper function that implements this keyword
         try:
@@ -1037,7 +1037,7 @@ class KeywordsLogin(object, metaclass=Singleton):
                     return_code = self.login.gui_switch_to_window(win_index)
                 else:
                     return_code = self.keyword_utils.implementations.not_supported(**kwargs)
-                    return_code = -1
+                    return_code = None
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
