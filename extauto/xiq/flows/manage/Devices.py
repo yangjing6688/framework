@@ -2648,9 +2648,30 @@ class Devices:
         if row:
             kwargs['pass_msg'] = f"Device with {device_keys} was found!"
             if select_device:
-                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
                 self.screen.save_screen_shot()
-                kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
+                self.utils.print_info(f"Selecting device: '{device_keys}'")
+                # Is the device already selected?  If not select it
+                checkbox = self.devices_web_elements.get_device_select_checkbox(row)
+                if checkbox:
+                    if checkbox.is_selected() == False:
+                        self.utils.print_info(f"Device: '{device_keys}' is not currently selected.  Clicking now to select the device")
+                        self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                    else:
+                        self.utils.print_info(f"Device: '{device_keys}' is already selected")
+
+                    # Make sure the device is currently selected
+                    checkbox = self.devices_web_elements.get_device_select_checkbox(row)
+                    if checkbox and checkbox.is_selected():
+                        kwargs['pass_msg'] = f"Device: '{device_keys}' was found and selected"
+                    else:
+                        kwargs['fail_msg'] = f"Unable to select device: '{device_keys}'"
+                        self.common_validation.fault(**kwargs)
+                        return -1
+                else:
+                    kwargs['fail_msg'] = f"Unable to get element for device '{device_keys}'"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
             self.common_validation.passed(**kwargs)
             return 1
 
