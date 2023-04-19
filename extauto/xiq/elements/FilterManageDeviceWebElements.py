@@ -135,9 +135,6 @@ class FilterManageDeviceWebElements(FilterManageDeviceDefinitions):
     def get_device_prod_type_all_filter_checkbox(self):
         return self.weh.get_element(self.device_prod_type_all_filter_chkbox)
 
-    def get_device_prod_type_all_copilot_eligible_filter_checkbox(self):
-        return self.weh.get_element(self.device_prod_type_all_copilot_eligible_filter_chkbox)
-
     def get_device_prod_type_model_filter_checkbox(self, model):
         item = {}
         item['XPATH'] = self.device_prod_type_model_filter_chkbox['XPATH'] + '"' + model + '"' + ']'
@@ -317,6 +314,9 @@ class FilterManageDeviceWebElements(FilterManageDeviceDefinitions):
 
     def get_copilot_license_all_filter_chkbox(self):
         return self.weh.get_element(self.copilot_license_all_filter_chkbox)
+
+    def get_copilot_license_all_copilot_eligible_filter_chkbox(self):
+        return self.weh.get_element(self.copilot_license_all_copilot_eligible_filter_chkbox)
 
     def get_copilot_license_active_filter_chkbox(self):
         return self.weh.get_element(self.copilot_license_active_filter_chkbox)
