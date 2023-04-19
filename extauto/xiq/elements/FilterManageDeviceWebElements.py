@@ -315,6 +315,9 @@ class FilterManageDeviceWebElements(FilterManageDeviceDefinitions):
     def get_copilot_license_all_filter_chkbox(self):
         return self.weh.get_element(self.copilot_license_all_filter_chkbox)
 
+    def get_copilot_license_all_copilot_eligible_filter_chkbox(self):
+        return self.weh.get_element(self.copilot_license_all_copilot_eligible_filter_chkbox)
+
     def get_copilot_license_active_filter_chkbox(self):
         return self.weh.get_element(self.copilot_license_active_filter_chkbox)
 
