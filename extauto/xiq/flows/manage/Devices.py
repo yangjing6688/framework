@@ -2648,6 +2648,10 @@ class Devices:
         if row:
             kwargs['pass_msg'] = f"Device with {device_keys} was found!"
             if select_device:
+                # jefjones-remove Temporary code for troubleshooting
+                row_id = row.get_attribute("id")
+                self.utils.print_info(f"row_id: '{row_id}'")
+
                 self.screen.save_screen_shot()
                 self.utils.print_info(f"Selecting device: '{device_keys}'")
                 # Is the device already selected?  If not select it
