@@ -2657,7 +2657,8 @@ class Devices:
                 self.screen.save_screen_shot()
                 self.utils.print_info(f"Selecting device: '{device_keys}'")
                 # Is the device already selected?  If not select it
-                checkbox = self.devices_web_elements.get_device_select_checkbox(row)
+                #checkbox = self.devices_web_elements.get_device_select_checkbox(row)
+                checkbox = row.find_element_by_type("checkbox")
                 if checkbox:
                     if checkbox.is_selected() == False:
                         self.utils.print_info(f"Device: '{device_keys}' is not currently selected.  Clicking now to select the device")
@@ -2666,14 +2667,6 @@ class Devices:
                         self.utils.print_info(f"Device: '{device_keys}' is already selected")
 
                     # Make sure the device is currently selected
-                    self.utils.print_info(f"Checkbox: '{checkbox}'")
-                    self.utils.print_info(f"Checkbox is_selected() = '{checkbox.is_selected()}'")
-                    type = checkbox.get_attribute("type")
-                    self.utils.print_info(f"type = '{type}'")
-                    aria_checked = checkbox.get_attribute("aria-checked")
-                    self.utils.print_info(f"Checkbox aria-checked = '{aria_checked}'")
-                    checked = checkbox.get_attribute("checked")
-                    self.utils.print_info(f"Checkbox checked = '{checked}'")
                     self.utils.wait_till(checkbox.is_selected, is_logging_enabled=True, silent_failure=True)
                     if checkbox.is_selected():
                         kwargs['pass_msg'] = f"Device: '{device_keys}' was found and selected"
