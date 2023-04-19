@@ -2651,6 +2651,10 @@ class Devices:
                 # jefjones-remove Temporary code for troubleshooting
                 row_id = row.get_attribute("id")
                 self.utils.print_info(f"row_id: '{row_id}'")
+                col = row.find_elements(By.TAG_NAME, "td")[0]
+                self.utils.print_info(f"col: '{col}'")
+                col_input = col.find_elements(By.TAG_NAME, "input")
+                self.utils.print_info(f"col_input: '{col_input}'")
 
                 self.screen.save_screen_shot()
                 self.utils.print_info(f"Selecting device: '{device_keys}'")
