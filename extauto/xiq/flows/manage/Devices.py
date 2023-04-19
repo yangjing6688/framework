@@ -2660,6 +2660,7 @@ class Devices:
                         self.utils.print_info(f"Device: '{device_keys}' is already selected")
 
                     # Make sure the device is currently selected
+                    sleep(2)
                     checkbox = self.devices_web_elements.get_device_select_checkbox(row)
                     if checkbox and checkbox.is_selected():
                         kwargs['pass_msg'] = f"Device: '{device_keys}' was found and selected"
