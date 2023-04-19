@@ -7471,7 +7471,8 @@ class Device360(Device360WebElements):
                     while more_button_times_found < 10:
                         get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
                         if get_pse_profile_items:
-                            self.utils.print_info(f" {len(get_pse_profile_items)} options are into dropdown and 'more' button is present. Loop {more_button_times_found}")
+                            self.utils.print_info(f" {len(get_pse_profile_items)} options are into dropdown and 'more'"
+                                                  f" button is present. Loop {more_button_times_found}")
 
                         more_button = self.get_select_element_port_type('pse_more_button')
                         if more_button:
