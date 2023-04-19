@@ -249,12 +249,6 @@ class FilterManageDeviceDefinitions:
             'wait_for': 5
         }
 
-    device_prod_type_all_copilot_eligible_filter_chkbox = \
-        {
-            'XPATH': '//input[@data-name="All CoPilot Eligible Devices"]',
-            'wait_for': 5
-        }
-
     # device_prod_type_more_link = \
     #     {
     #         'XPATH': '//a[@class="J-more" and @data-name="PRODUCT_TYPE_IDS"]',
@@ -598,6 +592,12 @@ class FilterManageDeviceDefinitions:
     copilot_license_all_filter_chkbox = \
         {
             'XPATH': '//input[@data-id="ALL_COPILOT_LICENSE"]',
+            'wait_for': 5
+        }
+
+    copilot_license_all_copilot_eligible_filter_chkbox = \
+        {
+            'XPATH': '//input[@data-name="All CoPilot Eligible Devices"]',
             'wait_for': 5
         }
 
