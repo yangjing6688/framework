@@ -2664,7 +2664,9 @@ class Devices:
                     if checkbox and checkbox.is_selected():
                         kwargs['pass_msg'] = f"Device: '{device_keys}' was found and selected"
                     else:
-                        kwargs['fail_msg'] = f"Unable to select device: '{device_keys}'"
+                        kwargs['fail_msg'] = f"Unable to get checkbox for row: '{row}' and device '{device_keys}'"
+                        if checkbox:
+                            kwargs['fail_msg'] = f"Checkbox for device: '{device_keys}' is_selected = {checkbox.is_selected()}"
                         self.common_validation.fault(**kwargs)
                         return -1
                 else:
