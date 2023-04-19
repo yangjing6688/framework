@@ -746,11 +746,9 @@ class FilterManageDevices():
                 Set Device Product Type Filter  All  true
                 Set Device Product Type Filter  X460_G2_48t_10_G4  true
                 Set Device Product Type Filter  XIQ_SE  true
-                Set Device Product Type Filter  All CoPilot Eligible Devices  true
                 Set Device Product Type Filter  All  false
                 Set Device Product Type Filter  X460_G2_48t_10_G4  false
                 Set Device Product Type Filter  XIQ_SE  false
-                Set Device Product Type Filter  All CoPilot Eligible Devices  true
 
         :param filter: name of the filter to set
         :param select: indicates whether the filter check box should be selected (true) or deselected (false)
@@ -770,8 +768,6 @@ class FilterManageDevices():
         element = None
         if filter == "All":
             element = self.filter_element.get_device_prod_type_all_filter_checkbox()
-        elif filter == "All CoPilot Eligible Devices":
-            element = self.filter_element.get_device_prod_type_all_copilot_eligible_filter_checkbox()
         else:
             cb_locator = self.filter_element.get_device_prod_type_model_filter_checkbox(filter)
             if cb_locator:
@@ -1231,10 +1227,12 @@ class FilterManageDevices():
         Sets the copilot license filter to the specified value
         Usage of test case:
             Set CoPilot License Filter  All  true
+            Set CoPilot License Filter  All CoPilot Eligible Devices  true
             Set CoPilot License Filter  CoPilot Active  true
             Set CoPilot License Filter  CoPilot Expired  true
             Set CoPilot License Filter  CoPilot None  true
             Set CoPilot License Filter  All  false
+            Set CoPilot License Filter  All CoPilot Eligible Devices  false
             Set CoPilot License Filter  CoPilot Active  false
             Set CoPilot License Filter  CoPilot Expired  false
             Set CoPilot License Filter  CoPilot None  false
@@ -1257,6 +1255,8 @@ class FilterManageDevices():
         element = None
         if filter == 'All':
             element = self.filter_element.get_copilot_license_all_filter_chkbox()
+        elif filter == 'All CoPilot Eligible Devices':
+            element = self.filter_element.get_copilot_license_all_copilot_eligible_filter_chkbox()
         elif filter == 'CoPilot Active':
             element = self.filter_element.get_copilot_license_active_filter_chkbox()
         elif filter == 'CoPilot Expired':
