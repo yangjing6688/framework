@@ -7467,36 +7467,31 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Click - > Open dropbox")
                 self.auto_actions.click(get_pse_profile)
                 more_button_times_found = 0
-                while self.get_select_element_port_type('pse_more_button'):
-                    more_button_times_found += 1
-                    self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
-                                          "Scrolling down...")
-                    try:
-                        def _check_stale_element_exception_more_button():
-                            try:
-                                self.auto_actions.move_to_element(self.get_select_element_port_type('pse_more_button'))
-                                self.utils.print_info("move to element ",more_button_times_found)
-                                self.screen.save_screen_shot()
-                                return True
-                            except StaleElementReferenceException as e:
-                                self.utils.print_info("Scrolling to 'More' button failed. Stale element exception "
-                                                      f"error detected {e} ; Retrying...")
-                                return False
+                if self.get_select_element_port_type('pse_more_button'):
+                    while more_button_times_found < 10:
+                        get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
+                        if get_pse_profile_items:
+                            self.utils.print_info(f" {len(get_pse_profile_items)} options are into dropdown and 'more' button is present")
 
-                        self.utils.wait_till(_check_stale_element_exception_more_button, is_logging_enabled=True,
-                                             msg="Waiting for StaleElementException to dissapear...")
-                        self.utils.print_info("Clicking 'More' button...")
-                        self.auto_actions.click(self.get_select_element_port_type('pse_more_button'))
-                        self.screen.save_screen_shot()
-                    except ElementNotInteractableException as e:
-                        self.utils.print_info(f"Element not interactable error: {e} ; Element is inactive! "
-                                              "Breaking loop. \n\nNOTE: If 'More' button is visible and active, but "
-                                              "still getting: ElementNotInteractable error ; "
-                                              "check that the CSS_SELECTOR is correct.")
-                        break
+                        more_button = self.get_select_element_port_type('pse_more_button')
+                        if more_button:
+                            more_button_times_found += 1
+                            self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
+                                                "Scrolling down...")
+                            self.auto_actions.move_to_element(more_button)
+                            self.screen.save_screen_shot()
+
+                            self.utils.print_info("Clicking 'More' button...")
+                            self.auto_actions.click(more_button)
+                            self.screen.save_screen_shot()
+                        else:
+                            self.utils.print_info(f" The 'More' button is not present anymore ")
+                            break
 
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
+                self.utils.print_info(
+                    f" {len(get_pse_profile_items)} options are into dropdown and 'more' button is not present")
                 pse_profile_name = value['pse_profile_name']
 
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
