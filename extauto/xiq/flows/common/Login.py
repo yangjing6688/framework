@@ -23,6 +23,7 @@ import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
 import extauto.xiq.flows.globalsettings.GlobalSetting
+from extauto.common.KeywordUtils import KeywordUtils
 
 # jefjones - Keywords will be deprecated when the keywords for the entire file have been moved and tested
 #from ExtremeAutomation.Utilities.deprecated import deprecated
@@ -49,6 +50,7 @@ class Login(object, metaclass=Singleton):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.xapiLogin = XapiLogin()
+        self.keyword_utils = KeywordUtils()
 
 
     def _init(self, url="default", incognito_mode="False"):
@@ -101,7 +103,10 @@ class Login(object, metaclass=Singleton):
 
         if self.xapiLogin.is_xapi_enabled(**kwargs):
             # new XAPI call to get and set the XAPI token
-            self.xapiLogin.login(username, password, **kwargs)
+            return_code = self.xapiLogin.login(username, password, **kwargs)
+            if return_code == 1:
+                # We need to record the fact that we've logged into XAPI which enables all XAPI based keywords
+                self.keyword_utils.implementations.set_xapi_active(True)
 
             # Look for the XAPI_ONLY and if set return
             xapi_only = kwargs.get('XAPI_ONLY', False)
@@ -109,10 +114,17 @@ class Login(object, metaclass=Singleton):
                 self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
                 return 1
 
-        return self.gui_login_user(username, password, capture_version, login_option, url,
-                   incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                   salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
-                   max_retries, recover_login, map_override, ignore_map, **kwargs)
+        return_code = self.gui_login_user(username, password, capture_version, login_option, url,
+                                          incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                                          salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
+                                          max_retries, recover_login, map_override, ignore_map, **kwargs)
+
+        if return_code == 1:
+            # We need to record the fact that we've logged into a GUI which enables all GUI based keywords
+            self.keyword_utils.implementations.set_gui_active(True)
+
+        return return_code
+
     def gui_login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
