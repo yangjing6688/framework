@@ -5385,7 +5385,7 @@ class Device360(Device360WebElements):
         self.common_validation.fault(**kwargs)
         return -1
 
-    def get_supplemental_cli(self, name_s_cli, cli_commands="", **kwargs):
+    def get_supplemental_cli(self, name_s_cli, cli_commands="", enableOverrideNetworkPolicy=True, **kwargs):
         """
         This keyword will add or edit a supplemental cli profile with cli commands in D360
         - Keyword Usage
@@ -5396,6 +5396,13 @@ class Device360(Device360WebElements):
         """
         self.auto_actions.click_reference(self.get_device360_configure_button)
         self.auto_actions.click_reference(self.get_device360_device_configuration_button)
+        sleep(2)
+        # Starting in 23R3, in order to use the supplemental cli feature at the port level the use had to
+        # "override" the newtwork policy supplemental cli
+        if enableOverrideNetworkPolicy:
+            self.auto_actions.click_reference(self.get_device360_supplemental_cli_override_radio_button)
+            self.screen.save_screen_shot()
+
         self.auto_actions.click_reference(self.get_device360_select_supplemental_cli)
         sleep(3)
         list_items = self.get_device360_supplemental_cli_list()
