@@ -569,8 +569,11 @@ class Devices(object, metaclass=Singleton):
         """
         self.utils.print_info("Click on actions button")
         self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
-        sleep(3)
-        if self.device_actions.get_device_actions_dropdown():
+        look_for_dropdown, _  = self.utils.wait_till(self.device_actions.get_device_actions_dropdown, 
+                                                   timeout=15, 
+                                                   exp_func_resp=True,
+                                                   delay=1)
+        if look_for_dropdown:
             self.utils.print_info("Move to Assign Network policy action")
             self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
             self.utils.print_info("Click on Assign Network policy action")
