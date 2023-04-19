@@ -2666,7 +2666,7 @@ class Devices:
                     self.utils.print_info(f"Checkbox aria-checked = '{aria_checked}'")
                     checked = checkbox.get_attribute("checked")
                     self.utils.print_info(f"Checkbox checked = '{checked}'")
-                    self.utils.wait_till(checkbox.is_selected, is_logging_enabled=False)
+                    self.utils.wait_till(checkbox.is_selected, is_logging_enabled=True, silent_failure=True)
                     if checkbox.is_selected():
                         kwargs['pass_msg'] = f"Device: '{device_keys}' was found and selected"
                     else:
