@@ -2475,7 +2475,7 @@ class SwitchTemplate(object):
         return sw_model, -1
 
 
-    def select_sw_template_device_config_forw_delay(self, nw_policy, sw_template, **kwargs):
+    def select_sw_template_device_config_forw_delay(self, nw_policy, sw_template, new_fw_delay=None, **kwargs):
         """
         - This Keyword will Select the Switch Template on Network Policy and change the forward delay time from device configuration
         - Keyword Usage
@@ -2490,21 +2490,31 @@ class SwitchTemplate(object):
 
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
-        print("Click on Device Template tab button")
-        self.auto_actions.click_reference(
-            self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
 
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        tab = self.np_web_elements.get_switching_tab()
         if tab.is_displayed():
             print("Click on Switch Templates tab")
-            self.auto_actions.click_reference(tab)
+            self.auto_actions.click_reference(lambda: tab)
             sleep(2)
 
+        sleep(10)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+        
         print("Switch Template: " + sw_template)
-        row = self.get_sw_template_row_hyperlink(sw_template)
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click_reference(lambda: self.get_sw_template_row_hyperlink(sw_template)),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=4
+        )
 
-        self.auto_actions.click(row)
+        if res != 1:
+            kwargs["fail_msg"] = f"Failed to click the row with the given switch template: {sw_template}"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        self.set_override_policy_common_settings(state=True)
         sleep(5)
 
         self.auto_actions.click_reference(
@@ -2512,8 +2522,8 @@ class SwitchTemplate(object):
         sleep(2)
 
         container = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_container()
-        container_val = container.text[:2]
-        print(f"Default STP forward delay value in device template is {container_val}")
+        delay_container = container.text[:2]
+        print(f"Default STP forward delay value in device template is {delay_container}")
 
         self.auto_actions.click_reference(
             self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_item16)
@@ -2557,21 +2567,32 @@ class SwitchTemplate(object):
 
         self.nw_policy.navigate_to_np_edit_tab(nw_policy)
         sleep(5)
+        
         print("Click on Device Template tab button")
-        self.auto_actions.click_reference(
-            self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
-
-        tab = self.sw_template_web_elements.get_sw_template_tab_button()
+        tab = self.np_web_elements.get_switching_tab()
         if tab.is_displayed():
             print("Click on Switch Templates tab")
-            self.auto_actions.click_reference(tab)
+            self.auto_actions.click_reference(lambda: tab)
             sleep(2)
 
+        sleep(10)
+        self.utils.print_info("Click on Switch Templates Menu Item")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+        
         print("Switch Template: " + sw_template)
-        row = self.get_sw_template_row_hyperlink(sw_template)
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click_reference(lambda: self.get_sw_template_row_hyperlink(sw_template)),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=4
+        )
 
-        self.auto_actions.click(row)
+        if res != 1:
+            kwargs["fail_msg"] = f"Failed to click the row with the given switch template: {sw_template}"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        self.set_override_policy_common_settings(state=True)
         sleep(5)
 
         print(" Go to the advanced settings tab ")
@@ -2653,12 +2674,16 @@ class SwitchTemplate(object):
         for dev_sw_templ in device_switch_template_list:
             self.auto_actions.click(dev_sw_templ)
 
+        sleep(8)
         self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_tab)
+        sleep(4)
         self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgrade_device_on_off_button)
+        sleep(4)
         self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgr_firm_specific_button)
+        sleep(4)
         self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_download_specific_firmware_drop_down_button)
 
-
+        sleep(2)
         # Get all the images from drop down list
         specific_firmware_items = self.sw_template_web_elements.get_sw_template_adv_settings_download_specific_firmware_drop_down_items()
         sleep(2)
