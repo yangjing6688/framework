@@ -1,7 +1,6 @@
 import threading
 import requests
 import re
-import random
 from time import sleep
 
 from robot.libraries.BuiltIn import BuiltIn
