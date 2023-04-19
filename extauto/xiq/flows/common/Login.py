@@ -24,6 +24,7 @@ import extauto.xiq.flows.mlinsights.Network360Plan
 import extauto.xiq.flows.common.Navigator
 import extauto.xiq.flows.manage.Msp
 import extauto.xiq.flows.globalsettings.GlobalSetting
+from extauto.common.KeywordUtils import KeywordUtils
 
 # jefjones - Keywords will be deprecated when the keywords for the entire file have been moved and tested
 #from ExtremeAutomation.Utilities.deprecated import deprecated
@@ -50,6 +51,7 @@ class Login(object, metaclass=Singleton):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.xapiLogin = XapiLogin()
+        self.keyword_utils = KeywordUtils()
 
 
     def _init(self, url="default", incognito_mode="False"):
@@ -93,22 +95,6 @@ class Login(object, metaclass=Singleton):
         """
         return self.window_index
 
-    def enable_exos_status_on_xiq(self, url, **kwargs):
-        """
-        - for Exos switch to appear in UI we need to load the provided url
-        - Keyword Usage:
-        - ``Enable Exos Status On Xiq   ${URL}``
-        :param url: url to load for enabling exos on cloud UI
-        :return: 1 if loaded the url successfully
-        """
-        self.utils.print_info("Refresh Page")
-        CloudDriver().cloud_driver.get(url)
-        CloudDriver().cloud_driver.refresh()
-        sleep(5)
-        kwargs['pass_msg'] = "The url was loaded successfully"
-        self.common_validation.passed(**kwargs)
-        return 1
-
     # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
     #@deprecated('Please use the {login_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
@@ -118,7 +104,10 @@ class Login(object, metaclass=Singleton):
 
         if self.xapiLogin.is_xapi_enabled(**kwargs):
             # new XAPI call to get and set the XAPI token
-            self.xapiLogin.login(username, password, **kwargs)
+            return_code = self.xapiLogin.login(username, password, **kwargs)
+            if return_code == 1:
+                # We need to record the fact that we've logged into XAPI which enables all XAPI based keywords
+                self.keyword_utils.implementations.set_xapi_active(True)
 
             # Look for the XAPI_ONLY and if set return
             xapi_only = kwargs.get('XAPI_ONLY', False)
@@ -126,10 +115,17 @@ class Login(object, metaclass=Singleton):
                 self.utils.print_info("XAPI_ONLY detected in login, XAPI ONLY TEST")
                 return 1
 
-        return self.gui_login_user(username, password, capture_version, login_option, url,
-                   incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
-                   salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
-                   max_retries, recover_login, map_override, ignore_map, **kwargs)
+        return_code = self.gui_login_user(username, password, capture_version, login_option, url,
+                                          incognito_mode, co_pilot_status, entitlement_key, salesforce_username,
+                                          salesforce_password, salesforce_shared_cuid, quick, check_warning_msg,
+                                          max_retries, recover_login, map_override, ignore_map, **kwargs)
+
+        if return_code == 1:
+            # We need to record the fact that we've logged into a GUI which enables all GUI based keywords
+            self.keyword_utils.implementations.set_gui_active(True)
+
+        return return_code
+
     def gui_login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
@@ -355,10 +351,10 @@ class Login(object, metaclass=Singleton):
                 self.screen.save_screen_shot()
 
         # If there is a welcome page we'll need to select a option like: "30-day-trial" or "ExtremeCloud IQ License"
-        if self.select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
+        if self._select_login_option(login_option, entitlement_key=entitlement_key, salesforce_username=salesforce_username,
                                     salesforce_password=salesforce_password, salesforce_shared_cuid=salesforce_shared_cuid,
                                     recover_login=recover_login, map_override=map_override, **kwargs) == -1:
-            kwargs['fail_msg'] = "'select_login_option()' Failed"
+            kwargs['fail_msg'] = "'_select_login_option()' Failed"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -545,33 +541,6 @@ class Login(object, metaclass=Singleton):
         finally:
             CloudDriver().close_browser()
             self.utils.print_info("Resetting cloud driver to -1")
-
-    def start_video_record(self, record_sta_ip, test_name=None):
-        """
-        - This Keyword will Start Video Record on mentioned machine IP Address .
-        :param record_sta_ip: Station IP address to Start the Video Recordings
-        :param test_name: Test Name for Video Recordings
-        :return: None
-        """
-        self.utils.print_info("WINDOWS 10 STA IP: {}".format(record_sta_ip))
-        self.utils.print_info("test case name: {}".format(test_name))
-        if BuiltIn().get_variable_value("${RECORD}"):
-            start_record_url = "http://" + str(record_sta_ip) + ":5000/video_recording/start" + str(
-                test_name.replace(" ", ""))
-            self.utils.print_info("START RECORD URL:{}".format(start_record_url))
-            self._post_url(start_record_url)
-            self.record = True
-
-    def stop_video_record(self, record_sta_ip):
-        """
-        - This Keyword will Stop Video Record on mentioned machine IP Address .
-        :param record_sta_ip: Station IP address to Stop the Video Recordings
-        :return: None
-        """
-        if self.record:
-            stop_record_url = "http://" + str(record_sta_ip) + ":5000/video_recording/stop"
-            self.utils.print_info("STOP RECORD URL:{}".format(stop_record_url))
-            self._post_url(stop_record_url)
 
     def _post_url(self, url):
         """
@@ -815,7 +784,12 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def get_switch_connection_host(self, **kwargs):
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {get_switch_connection_host} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    def get_switch_connection_host(self):
+        return self.gui_get_switch_connection_host()
+
+    def gui_get_switch_connection_host(self, **kwargs):
         """
         - This keyword Get Switch Connection Host
         - Keyword Usage
@@ -957,7 +931,12 @@ class Login(object, metaclass=Singleton):
         """
         return self._capture_xiq_version()
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {switch_to_window} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def switch_to_window(self, win_index):
+        return self.gui_switch_to_window(win_index)
+
+    def gui_switch_to_window(self, win_index):
         """
         - Switches to the specified window
         :param:  win_index - Index of the window to switch to
@@ -965,7 +944,13 @@ class Login(object, metaclass=Singleton):
         """
         CloudDriver().switch_to_window(win_index)
 
+
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {close_window} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
     def close_window(self, win_index):
+        return self.gui_close_window(win_index)
+
+    def gui_close_window(self, win_index):
         """
         - Closes the specified window
         :param:  win_index - Index of the window to close
@@ -1271,7 +1256,12 @@ class Login(object, metaclass=Singleton):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def verify_upgrade_option_for_connect_user(self, **kwargs):
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {gui_execute_upgrade_option_for_connect_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    def verify_upgrade_option_for_connect_user(self):
+        return self.gui_execute_upgrade_option_for_connect_user()
+
+    def gui_execute_upgrade_option_for_connect_user(self, **kwargs):
         """
         - This keyword checks if upgrade button is displayed and clicking on upgrade button
         navigates connect user to license management UI
@@ -1446,7 +1436,7 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    def select_login_option(self, login_option, entitlement_key, salesforce_username=False,
+    def _select_login_option(self, login_option, entitlement_key, salesforce_username=False,
                             salesforce_password=False, salesforce_shared_cuid=False,
                             recover_login=True, map_override=None, **kwargs):
         """
