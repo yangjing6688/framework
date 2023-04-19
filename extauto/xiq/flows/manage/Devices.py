@@ -2662,6 +2662,8 @@ class Devices:
                     # Make sure the device is currently selected
                     self.utils.print_info(f"Checkbox: '{checkbox}'")
                     self.utils.print_info(f"Checkbox is_selected() = '{checkbox.is_selected()}'")
+                    type = checkbox.get_attribute("type")
+                    self.utils.print_info(f"type = '{type}'")
                     aria_checked = checkbox.get_attribute("aria-checked")
                     self.utils.print_info(f"Checkbox aria-checked = '{aria_checked}'")
                     checked = checkbox.get_attribute("checked")
