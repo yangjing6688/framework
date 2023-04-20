@@ -2475,7 +2475,7 @@ class SwitchTemplate(object):
         return sw_model, -1
 
 
-    def select_sw_template_device_config_forw_delay(self, nw_policy, sw_template, new_fw_delay=None, **kwargs):
+    def select_sw_template_device_config_forw_delay(self, nw_policy, sw_template, **kwargs):
         """
         - This Keyword will Select the Switch Template on Network Policy and change the forward delay time from device configuration
         - Keyword Usage
@@ -2497,9 +2497,17 @@ class SwitchTemplate(object):
             self.auto_actions.click_reference(lambda: tab)
             sleep(2)
 
-        sleep(10)
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=10
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = f"Failed to click the policy switch template tab"
+            self.common_validation.failed(**kwargs)
+            return -1
         
         print("Switch Template: " + sw_template)
         res, _ = self.utils.wait_till(
@@ -2575,9 +2583,17 @@ class SwitchTemplate(object):
             self.auto_actions.click_reference(lambda: tab)
             sleep(2)
 
-        sleep(10)
-        self.utils.print_info("Click on Switch Templates Menu Item")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab)
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click_reference(self.device_template_web_elements.get_policy_switch_templates_tab),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=10
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = f"Failed to click the policy switch template tab"
+            self.common_validation.failed(**kwargs)
+            return -1
         
         print("Switch Template: " + sw_template)
         res, _ = self.utils.wait_till(
