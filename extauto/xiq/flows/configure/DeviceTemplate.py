@@ -44,6 +44,10 @@ class DeviceTemplate(object):
         self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
         sleep(2)
 
+        self.utils.print_info("Click on AP Template Menu button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_side_menu)
+        sleep(2)
+
         ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()
         if not ap_template_rows_elements:
             kwargs['fail_msg'] = "check_ap_template() failed. AP Template NOT Found "

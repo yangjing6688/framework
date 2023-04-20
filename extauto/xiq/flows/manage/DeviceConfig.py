@@ -534,16 +534,16 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         if status == "ON":
-            if not self.get_manage_devices_edit_wireless_interface_wifi0_on_button().is_selected():
+            if not self.get_manage_devices_edit_wireless_interface_wifi0_button().is_selected():
                 self.utils.print_info("Changing WIFI0 Interface Radio Status to ON")
-                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_on_button)
+                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_button)
                 self.screen.save_screen_shot()
                 sleep(2)
 
         if status == "OFF":
-            if not self.get_manage_devices_edit_wireless_interface_wifi0_off_button().is_selected():
+            if self.get_manage_devices_edit_wireless_interface_wifi0_button().is_selected():
                 self.utils.print_info("Changing WIFI0 Interface Status to OFF")
-                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_off_button)
+                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_button)
                 self.screen.save_screen_shot()
                 sleep(2)
         kwargs['pass_msg'] = "Successfully configure wifi0 interface radio"
@@ -652,7 +652,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.click_reference(self.get_devices_edit_config_button)
         sleep(5)
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click_reference(self.get_interface_settings_tab)
+        self.auto_actions.click_reference(self.get_interface_settings_tab_single_device)
 
         self._go_to_wireless_interface_settings_page()
 
@@ -868,10 +868,11 @@ class DeviceConfig(DeviceConfigElements):
                 current_value = self.get_wifi0_transmission_power_value_text().text
                 self.utils.print_info("Current Transmission Power Value is: ", current_value)
 
+
                 count = 1
                 while power_value != current_value:
                     self.utils.print_info("Click and Hold Slider")
-                    self.auto_actions.click_and_hold_element(self.get_wifi0_transmission_power_slider_button())
+                    self.auto_actions.click_and_hold_element(self.get_wifi0_transmission_power_slider_button(),10)
                     sleep(2)
 
                     updated_value = self.get_wifi0_transmission_power_value_text().text
@@ -921,7 +922,7 @@ class DeviceConfig(DeviceConfigElements):
                 count = 1
                 while power_value != current_value:
                     self.utils.print_info("Click and Hold Slider")
-                    self.auto_actions.click_and_hold_element(self.get_wifi1_transmission_power_slider_button())
+                    self.auto_actions.click_and_hold_element(self.get_wifi1_transmission_power_slider_button(),10)
                     sleep(2)
 
                     updated_value = self.get_wifi1_transmission_power_value_text().text

@@ -13,6 +13,13 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
         """
         return self.weh.get_element(self.device_template_tab)
 
+    def get_ap_template_side_menu(self):
+        """
+
+        :return:
+        """
+        return self.weh.get_element(self.device_template_side_menu)
+
     def get_ap_template_add_button(self):
         """
 
