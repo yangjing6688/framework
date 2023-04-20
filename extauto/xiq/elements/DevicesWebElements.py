@@ -445,7 +445,21 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_elements(self.assign_policy_close_btn)
 
     def get_device_select_checkbox(self, row):
-        return self.weh.get_element(self.device_select_check_box, parent=row)
+        # Getting the checkboxk is a two step process.  First we get the <TD> element
+        # from the table using CSS.  From there we can get the data-automation-tag and
+        # can create an XPath to get the exact element we are looking for which is the
+        # checkbox for the device.
+        device_checkbox_webelement = None
+        device_checkbox_td_webelement = self.weh.get_element(self.device_select_check_box, parent=row)
+        if device_checkbox_td_webelement:
+            data_automation_tag = device_checkbox_td_webelement.get_attribute('data-automation-tag')
+            if data_automation_tag:
+                search_params = {
+                    'XPATH':  f'//*[@data-automation-tag="{data_automation_tag}"]/input',
+                    'wait_for': 2
+                }
+                device_checkbox_webelement = self.weh.get_element(search_params)
+        return device_checkbox_webelement
 
     def get_advanced_onboard_simulated_button(self):
         return self.weh.get_element(self.adv_onboard_simulated_button)
