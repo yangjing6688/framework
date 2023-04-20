@@ -1227,10 +1227,12 @@ class FilterManageDevices():
         Sets the copilot license filter to the specified value
         Usage of test case:
             Set CoPilot License Filter  All  true
+            Set CoPilot License Filter  All CoPilot Eligible Devices  true
             Set CoPilot License Filter  CoPilot Active  true
             Set CoPilot License Filter  CoPilot Expired  true
             Set CoPilot License Filter  CoPilot None  true
             Set CoPilot License Filter  All  false
+            Set CoPilot License Filter  All CoPilot Eligible Devices  false
             Set CoPilot License Filter  CoPilot Active  false
             Set CoPilot License Filter  CoPilot Expired  false
             Set CoPilot License Filter  CoPilot None  false
@@ -1253,6 +1255,8 @@ class FilterManageDevices():
         element = None
         if filter == 'All':
             element = self.filter_element.get_copilot_license_all_filter_chkbox()
+        elif filter == 'All CoPilot Eligible Devices':
+            element = self.filter_element.get_copilot_license_all_copilot_eligible_filter_chkbox()
         elif filter == 'CoPilot Active':
             element = self.filter_element.get_copilot_license_active_filter_chkbox()
         elif filter == 'CoPilot Expired':
