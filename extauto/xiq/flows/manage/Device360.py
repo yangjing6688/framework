@@ -6432,6 +6432,10 @@ class Device360(Device360WebElements):
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page8 summaryPage': ["next_page", None]
+
+                                        #To navigate directly to last page (summaryPage)
+                                        'page summaryPage': ["next_all_pages", None],
+
                                     }
 
         :param port: the port where new port type will be created
