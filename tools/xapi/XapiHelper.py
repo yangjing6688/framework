@@ -25,7 +25,6 @@ class XapiHelper():
     def set_xapi_global_device(self, value, id):
         """
             This will set the data on the global level for the mapping of device (serial, name or mac) to xapi ID
-
         :param value: The value for the type (device serial, device name, device mac)
         :param id: The device XAPI ID
         :return: None
@@ -43,7 +42,6 @@ class XapiHelper():
     def delete_xapi_global_device(self, value):
         """
             This will delete the data on the global level for the mapping of device (serial, name or mac) to xapi ID
-
         :param value: The value for the type (device serial, device name, device mac)
         :return: None
         """
@@ -54,7 +52,6 @@ class XapiHelper():
     def get_xapi_global_device(self, value):
         """
            This will set the data on the global level for the mapping of device (serial, name or mac) to xapi ID
-
         :param value: The value for the type (device serial, device name, device mac)
         :return: The value if found or -1 if not found
         """
@@ -134,7 +131,6 @@ class XapiHelper():
     def set_xapi_configuration(self, value):
         """
             This function sets the global configuration for the XAPI
-
         :param value: The configuration object
         :return: None
         """
@@ -143,7 +139,6 @@ class XapiHelper():
     def get_xapi_configuration(self):
         """
            This function sets the global configuration for the XAPI
-
        :param value: The configuration object
        :return: None
        """
@@ -252,6 +247,7 @@ class XapiHelper():
                 if isinstance(check_value, dict):
                     return_value = checkDictKeysInArray(orignal_value, check_value, level + 1)
         return return_value
+
 
     def convert_enable_disable_to_bool(self, value):
         """
