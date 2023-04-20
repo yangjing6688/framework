@@ -5392,6 +5392,7 @@ class Device360(Device360WebElements):
         - ``Get supplemental cli       ${NAME_CLI}     ${CLI_COMMANDS}``
         :param name_s_cli: Name of the supplemental cli profile
         :param cli_commands: list of CLI commands separated by comma
+        :param enableOverrideNetworkPolicy: Enable the Override Network Policy capability
         :return: 1 if supplemental cli profile save successfully else -1
         """
         self.auto_actions.click_reference(self.get_device360_configure_button)
