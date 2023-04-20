@@ -10,6 +10,7 @@ import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.UserGroupsWebElements import UserGroupsWebElements
 from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.xapi.configure.XapiUserGroups import XapiUserGroups
+from ExtremeAutomation.Utilities.deprecated import deprecated
 
 
 class UserGroups(UserGroupsWebElements):
@@ -385,7 +386,11 @@ class UserGroups(UserGroupsWebElements):
             if "The User Group cannot be saved because the name" in text:
                 self.builtin.fail(f"{text}. delete the user group or choose different name and re-run the test")
 
+    @deprecated('Please use the {create_user_group} keyword keywords/gui/configure/KeywordsUserGroups.py. This method can removed after 5/20/2023')
     def create_user_group(self, group_name='Demo', user_group_profile=None, **kwargs):
+        return self.gui_create_user_group(group_name, user_group_profile, **kwargs)
+
+    def gui_create_user_group(self, group_name='Demo', user_group_profile=None, **kwargs):
         """
         - Flow: Configure --> Users --> User Groups
         - Create User Groups and add users to user Groups

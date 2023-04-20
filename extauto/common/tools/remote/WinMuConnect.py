@@ -3,6 +3,8 @@ from time import sleep
 import xml.etree.ElementTree as ET
 import re
 
+from ExtremeAutomation.Utilities.deprecated import deprecated
+
 
 def _update_wlan_profile(profile, ssid=None, key=None):
     """
@@ -179,7 +181,11 @@ class WinMuConnect(object):
         sleep(2)
         return self._connect_to_network(ssid)
 
+    @deprecated('Please use the {connect_wpa2_ppsk_network} keyword keywords/gui/configure/KeywordsMacWinConnect.py. This method can removed after 5/20/2023')
     def connect_wpa2_ppsk_network(self, ssid, key, retry_count=5):
+        return self.gui_connect_wpa2_ppsk_network(ssid, key, retry_count)
+
+    def gui_connect_wpa2_ppsk_network(self, ssid, key, retry_count=5):
         """
         - Connect the wpa2 ppsk network
         - This keyword is used with robot remote server
@@ -353,7 +359,11 @@ class WinMuConnect(object):
         else:
             return -1
 
+    @deprecated('Please use the {connectivity_check} keyword keywords/gui/configure/KeywordsMacWinConnect.py. This method can removed after 5/20/2023')
     def connectivity_check(self, destination='https://www.facebook.com/'):
+        return self.gui_connectivity_check(destination)
+
+    def gui_connectivity_check(self, destination='https://www.facebook.com/'):
         """
         - Connectivity check using curl
         - Keyword Usage:

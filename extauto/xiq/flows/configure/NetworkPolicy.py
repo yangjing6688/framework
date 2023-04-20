@@ -34,6 +34,7 @@ import extauto.xiq.flows.configure.SwitchTemplate
 from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
 
 from extauto.common.KeywordUtils import KeywordUtils
+from ExtremeAutomation.Utilities.deprecated import deprecated
 
 
 class NetworkPolicy(object):
@@ -160,7 +161,11 @@ class NetworkPolicy(object):
             return self.create_network_policy(policy, wireless_profile, cli_type)
         return 1
 
+    @deprecated('Please use the {create_network_policy} keyword keywords/gui/configure/KeywordsNetworkPolicy.py. This method can removed after 5/20/2023')
     def create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
+        return self.gui_create_network_policy(self, policy, wireless_profile, cli_type, **kwargs)
+
+    def gui_create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
         """
         - Create the network policy from CONFIGURE-->NETWORK POLICIES
         - This keyword will create the network policy and wireless network
