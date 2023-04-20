@@ -3,7 +3,7 @@ import time
 from time import sleep
 
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
+from selenium.common.exceptions import StaleElementReferenceException
 
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
@@ -7490,7 +7490,7 @@ class Device360(Device360WebElements):
                             self.auto_actions.click(more_button)
                             self.screen.save_screen_shot()
                         else:
-                            self.utils.print_info(f" The 'More' button is not present anymore ")
+                            self.utils.print_info(" The 'More' button is not present anymore ")
                             break
 
                 sleep(2)
