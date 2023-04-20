@@ -595,6 +595,12 @@ class FilterManageDeviceDefinitions:
             'wait_for': 5
         }
 
+    copilot_license_all_copilot_eligible_filter_chkbox = \
+        {
+            'XPATH': '//input[@data-name="All CoPilot Eligible Devices"]',
+            'wait_for': 5
+        }
+
     copilot_license_active_filter_chkbox = \
         {
             'XPATH': '//input[@data-name="CoPilot Active"]',

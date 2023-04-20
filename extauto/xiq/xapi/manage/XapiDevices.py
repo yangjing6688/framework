@@ -336,9 +336,9 @@ class XapiDevices(XapiHelper):
 
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
-            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.common_validation.failed(**kwargs)
-            return -1
+            kwargs['pass_msg'] = "Didn't find the device. Already deleted/ nothing to delete."
+            self.common_validation.passed(**kwargs)
+            return 1
 
         try:
             self.xapiBaseDeviceApi.xapi_base_delete_device(id=id)
