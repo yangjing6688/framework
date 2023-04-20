@@ -2677,13 +2677,13 @@ class Devices(object, metaclass=Singleton):
             if select_device:
                 checkbox_webelement = self.devices_web_elements.get_device_select_checkbox(row)
                 if checkbox_webelement.is_selected():
-                    kwargs['pass_msg'] = f"Device with {device_keys} was found and was already selected"
+                    kwargs['pass_msg'] = f"Device matching '{device_keys}' was found and was already selected"
                 else:
                     self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
                     if checkbox_webelement.is_selected():
-                        kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
+                        kwargs['pass_msg'] = f"Device matching '{device_keys}' was found and has been selected"
                     else:
-                        kwargs['fail_msg'] = f"Device with {device_keys} was found and but could not be selected"
+                        kwargs['fail_msg'] = f"Device matching '{device_keys}' was found and but could not be selected"
                         self.common_validation.fault(**kwargs)
 
             self.screen.save_screen_shot()

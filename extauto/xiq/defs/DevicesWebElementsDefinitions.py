@@ -234,7 +234,6 @@ class DevicesWebElementsDefinitions:
     device_select_check_box = \
         {
             'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
-            #'XPATH': '// input[@type="checkbox"]',
             'wait_for': 2
         }
 

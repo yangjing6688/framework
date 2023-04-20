@@ -275,7 +275,7 @@ class DevicesActions:
         for device in device_list:
             # Refresh the devices table before searching for the first device
             if device == device_list[0]:
-                # This is the search for the firs device so we won't skip the refresh but will skip navigation
+                # This is the search for the first device so we won't skip the refresh but will skip navigation
                 skip_refresh = False
             else:
                 skip_refresh = True
