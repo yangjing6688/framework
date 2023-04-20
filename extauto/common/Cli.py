@@ -29,6 +29,10 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.Network
     NetworkElementLacpGenKeywords
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementMltGenKeywords import \
     NetworkElementMltGenKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementSpanningtreeGenKeywords import \
+    NetworkElementSpanningtreeGenKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementVlanGenKeywords import \
+    NetworkElementVlanGenKeywords
 from itertools import islice
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
@@ -53,6 +57,8 @@ class Cli(object):
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
         self.networkElementMltGenKeywords = NetworkElementMltGenKeywords()
         self.networkElementLacpGenKeywords = NetworkElementLacpGenKeywords()
+        self.networkElementSpanningtreeGenKeywords = NetworkElementSpanningtreeGenKeywords()
+        self.networkElementVlanGenKeywords = NetworkElementVlanGenKeywords()
 
     def close_spawn(self, spawn, pxssh=False, **kwargs):
         """
@@ -885,6 +891,7 @@ class Cli(object):
         return "1".
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             self.send(connection, f'do hivemanager address {server_name}')
 
@@ -956,6 +963,7 @@ class Cli(object):
         return "1".
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             count = 1
             while count <= retry_count:
@@ -1035,6 +1043,7 @@ class Cli(object):
        :param connection: The open connection
        :return: 1 commands successfully configured  else -1
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if cli_type.upper() == 'VOSS':
             return self.downgrade_iqagent_voss(cli_type, connection, **kwargs)
         elif cli_type.upper() == 'EXOS':
@@ -1064,6 +1073,7 @@ class Cli(object):
         :return:  1 if commands successfully configured else -1
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(connection, 'enable')
             self.send(connection, 'config t')
@@ -1089,6 +1099,7 @@ class Cli(object):
         :return:  1 if commands successfully configured else -1
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         returnCode = -1
         try:
             # Make sure the iqagent is enabled
@@ -1423,6 +1434,7 @@ class Cli(object):
         :return: CLI Command Output
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
         output = None
@@ -1453,6 +1465,8 @@ class Cli(object):
         :param dut: the dut, e.g. tb.dut1
         :return: CLI Command Output
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         if dut.cli_type.upper() == "VOSS":
 
             sleep(10)
@@ -1509,6 +1523,8 @@ class Cli(object):
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2838 CDP Support
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2839 LLDP Support for VOSS
         if dut.cli_type.upper() == "EXOS":
             if action == "enable":
                 self.networkElementCliSend.send_cmd(dut.name, 'enable cdp ports all', max_wait=10, interval=2)
@@ -1549,6 +1565,7 @@ class Cli(object):
             self.close_connection_with_error_handling(dut)
             self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if dut.cli_type.upper() == "EXOS":
             self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
                                                 confirmation_phrases='Do you want to continue?',
@@ -1585,6 +1602,7 @@ class Cli(object):
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         if dut.cli_type.upper() == "VOSS":
 
             self.networkElementCliSend.send_cmd(dut.name, 'enable',
@@ -1621,7 +1639,9 @@ class Cli(object):
         self.close_connection_with_error_handling(onboarded_switch)
         self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2869
         logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
+
         start_time = time()
         while time() - start_time < 120:
 
@@ -1664,6 +1684,7 @@ class Cli(object):
          - This keyword sends 'no channelize enable' on all ports in CLI
         :return:
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show interface GigabitEthernet channelize',
                                       max_wait=10,
                                       interval=2)[0].return_text
@@ -1686,8 +1707,8 @@ class Cli(object):
         """
         if networkElementCliSend is None or dut is None:
             return
-
         # get the required information from the device CLI
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         if dut.cli_type.upper() == 'VOSS':
             sleep(10)
             output = networkElementCliSend.send_cmd(
@@ -1730,6 +1751,7 @@ class Cli(object):
         match_port = None
         device_ports_speed = None
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         # get the required information from the device CLI
         if dut.cli_type.upper() == 'VOSS':
             output = networkElementCliSend.send_cmd(dut.name, 'show interfaces gigabitEthernet name | no-more', max_wait=10, interval=2)
@@ -1798,6 +1820,7 @@ class Cli(object):
          first_port: e.g. self.tb.dut1_tgen_port_a.ifname
          second_port: e.g. self.tb.dut1_tgen_port_b.ifname
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2846
         if dut.cli_type.upper() == "EXOS":
             self.networkElementCliSend.send_cmd(
                 dut.name, "clear counters ports all", max_wait=10, interval=2)
@@ -1816,7 +1839,7 @@ class Cli(object):
          second_port: e.g. self.tb.dut1_tgen_port_b.ifname
         return: received traffic list
         """
-
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2847
         if dut.cli_type.upper() == "VOSS":
             sleep(10)
 
@@ -1871,6 +1894,7 @@ class Cli(object):
         :return: transmitted traffic list
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2847
         if dut.cli_type.upper() == "VOSS":
             sleep(10)
 
@@ -1937,6 +1961,7 @@ class Cli(object):
         Returns:
             int: 1 if the function call has succeeded else -1
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2848
         for _ in range(retries):
             try:
 
@@ -2020,6 +2045,7 @@ class Cli(object):
             self.close_connection_with_error_handling(dut)
             self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+            # TODO: https://jira.extremenetworks.com/browse/AIQ-2849
             if NetworkElementConstants.OS_EXOS in dut.cli_type.upper():
                 if port_type == "access":
                     try:
@@ -2070,6 +2096,8 @@ class Cli(object):
         Returns:
             int: slot number for master unit
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2850
         output = self.networkElementCliSend.send_cmd(onboarded_stack.name, "show stacking")[0].return_text
         rows = output.split("\r\n")
         for row in rows:
@@ -2095,6 +2123,7 @@ class Cli(object):
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2851
         if dut.cli_type.upper() == "EXOS":
             self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"{port}", f"{port}-{port}", '')
         elif dut.cli_type.upper() == "VOSS":
@@ -2128,6 +2157,7 @@ class Cli(object):
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2851
         if dut.cli_type.upper() == "EXOS":
             self.networkElementLacpGenKeywords.lacp_delete_lag(dut.name, port, '', '')
         elif dut.cli_type.upper() == "VOSS":
@@ -2154,8 +2184,9 @@ class Cli(object):
         :return: a list of tuples
         """
         units_list = []
-
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2867
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
 
             stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, 'show stacking', max_wait=10, interval=2)
@@ -2180,6 +2211,7 @@ class Cli(object):
         """
         info_list = []
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
             ip_list_cli = []
@@ -2276,6 +2308,7 @@ class Cli(object):
            :return match.group(12): the name of VR used by EXOS / Switch Engine device
                                     or -1 if is unable to get virtual router info
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2852
         global vrName
         if dut.cli_type.upper() == "EXOS":
             result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
@@ -2318,6 +2351,8 @@ class Cli(object):
            :param cli_type: the type of device : EXOS / VOSS
            :return system_type_string: a string with device model
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2853
         if cli_type.lower() == 'exos':
             device_system_output = self.networkElementCliSend.send_cmd(dut.name, 'show system | include System')[0].cmd_obj._return_text
             system_type_regex = '(System Type:[ ]{2,}.{0,})'
@@ -2376,6 +2411,7 @@ class Cli(object):
         cli_type_device_1 = dut1.cli_type
         cli_type_device_2 = dut2.cli_type
 
+        # TODO https://jira.extremenetworks.com/browse/AIQ-2855
         if cli_type_device_1.lower() == 'exos' and cli_type_device_2.lower() == 'exos':
             output_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')
             check_image_version_1 = output_1[0].return_text
@@ -2429,6 +2465,7 @@ class Cli(object):
                 :param iqagent_option: "enable" or "disable" option for iqagent
                 :return 1 if sucess or -1 if fails
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845
         device_1 = device.name
         cli_type_device_1 = device.cli_type
         if iqagent_option == 'disable':
@@ -2473,6 +2510,7 @@ class Cli(object):
         dut - device to test
         lacp_list_ports = ["port1, "port2", "port3", "port4", ...]
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2856
         if dut.cli_type == 'exos':
             for attempts in range(3):
                 self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
@@ -2859,6 +2897,7 @@ class Cli(object):
         :param dut: device to test
         :return: -1 if fails
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2857 AIQ-2857 - Add Support for CLI journaling
         spawn = self.open_spawn(dut.ip, dut.port, dut.username,
                                 dut.password, dut.cli_type)
         if dut.cli_type.upper() in ["VOSS", "AH-FASTPATH"]:
@@ -2887,6 +2926,7 @@ class Cli(object):
         dut1 = dut1.name
         dut2 = dut2.name
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2857 AIQ-2857 - Add Support for CLI journaling
         if cli_type_1.lower() and cli_type_2.lower() == 'exos':
             self.networkElementCliSend.send_cmd(dut1, 'configure cli journal size 200', max_wait=10, interval=2)
             self.networkElementCliSend.send_cmd(dut2, 'configure cli journal size 200', max_wait=10, interval=2)
@@ -2917,6 +2957,7 @@ class Cli(object):
         cli_type_1 = dut1.cli_type
         cli_type_2 = dut2.cli_type
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2857 AIQ-2857 - Add Support for CLI journaling
         if cli_type_1.lower() and cli_type_2.lower() == 'exos':
             cli_journal_1 = self.send_commands(dut1.name, "show cli journal | include hivemanager")
             commands_device_1 = self.get_cli_commands(cli_journal_1, cli_type=dut1.cli_type)
@@ -3018,7 +3059,7 @@ class Cli(object):
         """
 
         supported_devices = ["EXOS"]
-
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
             self.commonValidation.fault(**kwargs)
@@ -3064,6 +3105,8 @@ class Cli(object):
         :param : dut (dict): the dut, e.g. dut1, node_1
         :return: connected_ports: a list of all connected ports on device if the function call has succeeded else -1
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2858
         if dut.cli_type.lower() == "voss":
             self.utils.print_info("Checking for connected ports on voss switch...")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbor', max_wait=10, interval=2)
@@ -3095,6 +3138,8 @@ class Cli(object):
         :param: connected_ports: list of connected ports detected on dut
         :return: disconnected_ports: a list of all disconnected ports on device if the function call has succeeded else -1
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842
         if dut.cli_type.lower() == "voss":
             system_type_regex = "(\\d+/\\d+)\\s+\\w+"
             self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=30, interval=10)
@@ -3120,6 +3165,7 @@ class Cli(object):
         :param: dut (dict): the dut, e.g. dut1, node_1
         :return: poe_ports: a list of all poe ports on device if the function call has succeeded else -1
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2859
         if dut.cli_type.lower() == "voss":
             self.utils.print_info("Checking for POE ports on voss switch...")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show poe-port-status | include Searching', max_wait=10, interval=2)
@@ -3147,7 +3193,7 @@ class Cli(object):
         :param: dut (dict): the dut, e.g. dut1, node_1
         :return: 1 if the function call has succeeded else -1
         """
-
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2857
         if dut.cli_type.lower() == 'voss':
             cli_dut = self.networkElementCliSend.send_cmd(dut.name, "show logging file detail | include SSH:127.0.0.1")
         elif dut.cli_type.lower() == 'exos':
@@ -3176,6 +3222,7 @@ class Cli(object):
         :return: a list of pairs(port number and mac locking state for each port)
         :return: -1 if error
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2860
         if dut.cli_type.upper() != "EXOS":
             kwargs["fail_msg"] = "Wrong cli_type"
             self.commonValidation.fault(**kwargs)
@@ -3236,14 +3283,21 @@ class Cli(object):
         :param forward_delay: the value of the forward delay to be set
         :return: the forward delay after being set
         '''
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2867
         if dut.cli_type.upper() == "EXOS":
 
             for attempts in range(3):
                 sleep(5)
+                # once support is added for any of the stories, the code will look like this:
+                # self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+                # output = self.networkElementSpanningtreeGenKeywords.spanningtree_set_fwd_delay(dut.name, forward_delay, "0")
+                # print(output)
+                # output = self.networkElementSpanningtreeGenKeywords.spanningtree_verify_bridge_forward_delay(dut.name,
+                #                                                                                     forward_delay, "0")
+                # print(output)
                 self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
                 self.networkElementCliSend.send_cmd(dut.name, f'configure stpd s0 forwarddelay {forward_delay}',
                                      max_wait=10, interval=2)
-
                 output = self.networkElementCliSend.send_cmd(dut.name, 'show stpd detail',
                                               max_wait=10,
                                               interval=2)
@@ -3277,6 +3331,7 @@ class Cli(object):
         :param client_mac: Client Mac Address
         :return:  1 if commands successfully configured and client is getting removed from AP else -1
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2861
         if NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'clear auth station mac {client_mac}')
             self.send(connection, f'clear auth local-cache mac {client_mac}')

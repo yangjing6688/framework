@@ -1350,6 +1350,12 @@ class Device360WebElements(Device360WebElementDefs):
     def get_device360_supplemental_cli_save_profile(self):
         return self.weh.get_element(self.device360_supplemental_cli_save_profile)
 
+    def get_device360_supplemental_cli_apply_radio_button(self):
+        return self.weh.get_element(self.device360_apply_supplemental_cli_radio_button)
+
+    def get_device360_supplemental_cli_override_radio_button(self):
+        return self.weh.get_element(self.device360_override_supplemental_cli_radio_button)
+
     def get_device360_supplemental_cli_edit_profile(self):
         return self.weh.get_element(self.device360_supplemental_cli_edit_profile)
 
