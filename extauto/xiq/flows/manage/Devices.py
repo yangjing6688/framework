@@ -12509,7 +12509,7 @@ class Devices(object, metaclass=Singleton):
             def _click_update_devices_button():
                 return self.auto_actions.click(DeviceUpdate().get_update_devices_button())
 
-            self.utils.wait_till(_click_update_devices_button, timeout=30, delay=20,
+            self.utils.wait_till(_click_update_devices_button, timeout=40, delay=30,
                                  msg="Selecting Update Devices button")
 
             checkbox_status = DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
