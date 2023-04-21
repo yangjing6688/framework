@@ -30,10 +30,16 @@ from ExtremeAutomation.Utilities.deprecated import deprecated
 from extauto.xiq.xapi.manage.XapiDevices import XapiDevices
 from extauto.xiq.elements.ClientWebElements import ClientWebElements
 
+from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 
-class Devices:
+class Devices(object, metaclass=Singleton):
     def __init__(self):
+        # This is a singleton, avoid initializing for each instance
+        if hasattr(self, 'initialized'):
+            return
+        self.initialized = True
+
         self.utils = Utils()
         self.common_validation = CommonValidation()
         self.auto_actions = AutoActions()
@@ -210,9 +216,9 @@ class Devices:
 
     def get_os_change(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         if device_mac:
-            search_result = self.search_device(device_mac)
+            search_result = self.search_device(device_mac=device_mac)
             if search_result != -1:
-                if self.select_device(device_mac):
+                if self.select_device(device_mac=device_mac):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
@@ -234,9 +240,9 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
         if device_serial:
-            search_result = self.search_device(device_serial)
+            search_result = self.search_device(device_serial=device_serial)
             if search_result != -1:
-                if self.select_device(device_serial):
+                if self.select_device(device_serial=device_serial):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
@@ -259,9 +265,9 @@ class Devices:
                 self.common_validation.failed(**kwargs)
                 return -1
         if device_name:
-            search_result = self.search_device(device_name)
+            search_result = self.search_device(device_name=device_name)
             if search_result != -1:
-                if self.select_device(device_name):
+                if self.select_device(device_name=device_name):
                     self.utils.print_info("Click ACTION button")
                     self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
                     self.utils.print_info("Click change os Button")
@@ -564,8 +570,11 @@ class Devices:
         """
         self.utils.print_info("Click on actions button")
         self.auto_actions.click_reference(self.devices_web_elements.get_manage_device_actions_button)
-        sleep(3)
-        if self.device_actions.get_device_actions_dropdown():
+        look_for_dropdown, _  = self.utils.wait_till(self.device_actions.get_device_actions_dropdown, 
+                                                   timeout=15, 
+                                                   exp_func_resp=True,
+                                                   delay=1)
+        if look_for_dropdown:
             self.utils.print_info("Move to Assign Network policy action")
             self.auto_actions.move_to_element(self.devices_web_elements.get_actions_assign_network_policy_combo())
             self.utils.print_info("Click on Assign Network policy action")
@@ -793,7 +802,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select Switch row")
-        if not self.select_device(serial, skip_refresh=True, skip_navigation=True):
+        if not self.select_device(device_serial=serial, skip_refresh=True, skip_navigation=True):
             kwargs['fail_msg'] = f"Switch {serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -824,7 +833,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select Switch row")
-        self.select_device(serial, skip_navigation=True)
+        self.select_device(device_serial=serial, skip_navigation=True)
         sleep(5)
 
         # Handle the case where a tooltip / popup is covering the Update Device button
@@ -965,9 +974,9 @@ class Devices:
         ap_serial = ap_serial.split(',')
         for ap_sr in ap_serial:
             if ap_sr == ap_serial[0]:
-                self.select_device(ap_sr, skip_navigation=True)
+                self.select_device(device_serial=ap_sr, skip_navigation=True)
             else:
-                self.select_device(ap_sr, skip_refresh=True, skip_navigation=True)
+                self.select_device(device_serial=ap_sr, skip_refresh=True, skip_navigation=True)
 
         if not self._assign_network_policy(policy_name):
             kwargs['fail_msg'] = f"Can not assign network policy {policy_name}"
@@ -977,9 +986,9 @@ class Devices:
         self.utils.print_info("Selecting the device rows")
         for ap_sr in ap_serial:
             if ap_sr == ap_serial[0]:
-                self.select_device(ap_sr)
+                self.select_device(device_serial=ap_sr)
             else:
-                self.select_device(ap_sr, skip_refresh=True, skip_navigation=True)
+                self.select_device(device_serial=ap_sr, skip_refresh=True, skip_navigation=True)
 
         self._update_network_policy(update_method)
         tool_tip_text = tool_tip.tool_tip_text
@@ -2263,95 +2272,48 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    # This method will not be deprecated until the keywords from the entire file have been moved and tested
+    # @deprecated('Please use the {delete_device} keyword from keywords/gui/manage/KeywordsDevices.py. This method can be removed after 7/1/2023')
+    def delete_device(self, *device_dict, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
-        - Deletes Device matching either any of either one of serial, name, MAC
+        - Deletes a device matching either one of serial, name, MAC or deletes a device identified by 'serial', 'mac'
+        or 'name' provided in device_dict
+
         - Keyword Usage:
         - ``Delete Device    device_serial=${DEVICE_SERIAL}``
+        - ``Delete Device     ${ap1}``
 
         Supported Modes:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-        :param device_serial: device serial number, by default set to None
-        :param device_name: name of the device, by default set to None
-        :param device_mac: mac address of the device, by default set to None
-        :param kwargs: keyword arguments XAPI_ENABLE
+        :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
+        :param device_serial: device serial number
+        :param device_name: name of the device
+        :param device_mac: mac address of the device
+        :param kwargs: Supports all standard kwargs
+
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
-        if self.xapiDevices.is_xapi_enabled(**kwargs):
-            return self.xapiDevices.xapi_delete_device( device_serial=device_serial,
-                                                        device_name=device_name,
-                                                        device_mac=device_mac,
-                                                        **kwargs)
 
-        num_device_params = 0
-        search_device = None
-        search_type = None
-        self.navigator.enable_page_size()
+        if len(device_dict) != 0:
+            device_dict = device_dict[0]
+            device_serial = device_dict.get("serial")
+            device_mac = device_dict.get("mac")
+            device_name = device_dict.get("name")
+            device_type = device_dict.get("platform")
 
-        if device_serial:
-            num_device_params += 1
-            search_type = "device_serial"
-            search_device = device_serial
-        if device_name:
-            num_device_params += 1
-            search_type = "device_name"
-            search_device = device_name
-        if device_mac:
-            num_device_params += 1
-            search_type = "device_mac"
-            search_device = device_mac
-
-        if num_device_params != 1:
-            kwargs['fail_msg'] = f"Expected one device parameter to delete. Instead received {num_device_params}"
-            self.common_validation.failed(**kwargs)
-            return -1
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_name=device_name,
+                                                                     device_mac=device_mac, device_type=device_type)
         else:
-            self.utils.print_info(f"Deleting device with {search_type}: {search_device}")
-            search_result = self.search_device(device_serial=device_serial, device_name=device_name,
-                                               device_mac=device_mac, ignore_failure=True)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
+                                                                     device_name=device_name, device_mac=device_mac)
 
-            if search_result != -1:
-                if self.wait_until_device_update_done(device_serial=device_serial, device_mac=device_mac, device_name=device_name):
-                    if self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac):
-                        self.utils.print_info("Click delete button")
-                        self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
+        if self.xapiDevices.is_xapi_enabled(**kwargs):
+            return self.xapiDevices.xapi_delete_device(device_serial=device_serial, device_name=device_name,
+                                                       device_mac=device_mac, **kwargs)
 
-                        self.utils.print_info("Click confirmation Yes Button")
-                        self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                        self.screen.save_screen_shot()
-
-                        # Wait until 'loading' mask is cleared
-                        self.navigator.wait_until_devices_load_spinner_cleared(retry_duration=1, retry_count=180)
-
-                        # Wait until the device is removed from the view
-                        result = self.wait_until_device_removed(device_serial=device_serial, device_name=device_name,
-                                                                device_mac=device_mac, retry_duration=10, retry_count=6)
-                        # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
-                        if result == 1:
-                            kwargs['pass_msg'] = f"Deleted device successfully with {search_type}: {search_device}"
-                            self.common_validation.passed(**kwargs)
-                            return 1
-
-                        # Confirm device was deleted successfully
-                        if self.search_device(device_serial=device_serial, device_name=device_name,
-                                              device_mac=device_mac, ignore_failure=True) == 1:
-                            kwargs['fail_msg'] = f"Unable to delete the device with {search_type}: {search_device}"
-                            self.common_validation.failed(**kwargs)
-                            return -1
-                        else:
-                            kwargs['pass_msg'] = "Deleted Device Successfully!"
-                            self.common_validation.passed(**kwargs)
-                            return 1
-            else:
-                kwargs['pass_msg'] = f"Device with {search_type}: {search_device} does not exist / is already deleted"
-                self.common_validation.passed(**kwargs)
-                return 1
-
-        kwargs['fail_msg'] = "Device was not deleted. Make sure to specify a serial, name, or MAC"
-        self.common_validation.failed(**kwargs)
-        return -1
+        return self.gui_delete_device(device_object, **kwargs)
 
     def _select_and_delete(self, device_dict):
         """
@@ -2362,7 +2324,7 @@ class Devices:
         :return: 1 if device deleted successfully, False if it was unable to delete the device
         """
 
-        self.select_device_by_object(device_dict, skip_refresh=True, skip_navigation=True)
+        self.gui_select_device(device_dict, skip_refresh=True, skip_navigation=True)
         self.utils.print_info("Click delete button")
         self.auto_actions.click_reference(self.devices_web_elements.get_delete_button)
 
@@ -2374,32 +2336,31 @@ class Devices:
         self.navigator.wait_until_devices_load_spinner_cleared(retry_duration=1, retry_count=180)
 
         # Wait until the device is removed from the view
-        result = self.wait_until_device_removed_by_object(device_dict, retry_duration=10, retry_count=6)
+        result = self.gui_wait_until_device_removed(device_dict, retry_duration=10, retry_count=6)
         # If result is 1 then the device was deleted and could not be found by wait_until_device_removed
         if result == 1:
             self.utils.print_info(f"Deleted device successfully with {device_dict}")
             return 1
 
         # Confirm device was deleted successfully
-        if self.search_device_by_object(device_dict, skip_navigation=True, ignore_failure=True) == 1:
+        if self.gui_search_device(device_dict, skip_navigation=True, ignore_failure=True) == 1:
             self.utils.print_info(f"Unable to delete the device with {device_dict}")
             return False
         else:
             self.utils.print_info(f"Device with {device_dict} was deleted successfully!")
             return 1
 
-    def delete_device_by_object(self, *device_dict, **kwargs):
+    def gui_delete_device(self, *device_dict, **kwargs):
         """
-        - Deletes Device matching either any of either one of serial, name, MAC
-        - Keyword Usage:
-        - ``Delete Device    device_serial=${ap1}``
+        - Deletes a device identified by 'serial' or 'mac' provided in device_dict
 
         Supported Modes:
             UI - default mode
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
-        :param kwargs: keyword arguments XAPI_ENABLE
+        :param kwargs: Supports all standard kwargs
+
         :return: 1 if device deleted successfully or is already deleted/does not exist, else -1
         """
         device_dict = device_dict[0]
@@ -2409,28 +2370,23 @@ class Devices:
         device_type = device_dict.get("platform")
 
         device_keys = {
-            "mac": device_dict.get("mac"),
-            "serial": device_dict.get("serial"),
-            "name": device_dict.get("name"),
-            "platform": device_dict.get("platform")
+            "mac": device_mac,
+            "serial": device_serial,
+            "name": device_name,
+            "platform": device_type
         }
         device_keys = {key: value for key, value in device_keys.items() if value}
-
         if len(device_keys.keys()) == 0:
             kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
             self.common_validation.fault(**kwargs)
             return -1
-
-        if self.xapiDevices.is_xapi_enabled(**kwargs):
-            return self.xapiDevices.xapi_delete_device(device_serial=device_serial, device_name=device_name,
-                                                       device_mac=device_mac, **kwargs)
 
         self.navigator.enable_page_size()
         self.utils.print_info(f"Deleting device with {device_keys}")
 
         if device_type == "Stack":
             dict_stack = {'mac': device_mac}
-            search_result = self.search_device_by_object(dict_stack, ignore_failure=True)
+            search_result = self.gui_search_device(dict_stack, ignore_failure=True)
             if search_result != -1:
                 if self.wait_until_device_update_done(device_mac=device_mac, skip_navigation=True, skip_refresh=True):
                     if self._select_and_delete(dict_stack):
@@ -2447,7 +2403,7 @@ class Devices:
                 device_found = -1
                 for serial in serials:
                     dict_serial = {'serial': serial}
-                    if self.search_device_by_object(dict_serial, skip_refresh=True, skip_navigation=True, ignore_failure=True) != -1:
+                    if self.gui_search_device(dict_serial, skip_refresh=True, skip_navigation=True, ignore_failure=True) != -1:
                         device_found = 1
                         if self.wait_until_device_update_done(device_serial=serial, skip_navigation=True, skip_refresh=True):
                             if not self._select_and_delete(dict_serial):
@@ -2463,8 +2419,9 @@ class Devices:
             kwargs['pass_msg'] = f"Device with {device_keys} does not exist / is already deleted!"
             self.common_validation.passed(**kwargs)
             return 1
+
         else:
-            search_result = self.search_device_by_object(device_keys, ignore_failure=True)
+            search_result = self.gui_search_device(device_keys, ignore_failure=True)
             if search_result != -1:
                 if self.wait_until_device_update_done(device_serial=device_serial, device_mac=device_mac,
                                                       device_name=device_name, skip_navigation=True, skip_refresh=True):
@@ -2505,10 +2462,10 @@ class Devices:
         self.utils.print_info("Deleting devices: ", device_list)
         for device_ in device_list:
             if device_ == device_list[0]:
-                self.select_device(device_)
+                self.select_device(device_serial=device_)
                 self.utils.print_info(f"Selected device {device_}")
             else:
-                self.select_device(device_, skip_refresh=True, skip_navigation=True)
+                self.select_device(device_serial=device_, skip_refresh=True, skip_navigation=True)
                 self.utils.print_info(f"Selected device {device_}")
 
         sleep(2)
@@ -2544,6 +2501,34 @@ class Devices:
             self.common_validation.passed(**kwargs)
         return ret_val
 
+    def _change_parameters_to_device_object(self, device_serial=None, device_name=None, device_mac=None,
+                                            device_type=None, **kwargs):
+        """
+        - Helper function to change parameters to a device object
+
+        :param device_serial: device Serial
+        :param device_name: device host name
+        :param device_mac: device MAC address
+        :param device_type: device platform: E.g: aerohive, stack
+        :param kwargs: keyword arguments
+
+        return device_object, -1 if nothing passed
+        """
+        device_object = {
+            "mac": device_mac,
+            "serial": device_serial,
+            "name": device_name,
+            "platform": device_type
+        }
+        device_object = {key: value for key, value in device_object.items() if value}
+
+        if len(device_object.keys()) == 0:
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        return device_object
+
     def _find_device_row(self, device_keys, **kwargs):
         """
         - This helper function searches for the device in all of the pages and returns its row
@@ -2559,7 +2544,7 @@ class Devices:
             self.auto_actions.click(pageOne)
 
         device_page_numbers = self.devices_web_elements.get_page_numbers()
-        if device_page_numbers.text:
+        if device_page_numbers and device_page_numbers.text:
             page_len = int(max(device_page_numbers.text))
         else:
             page_len = int(1)
@@ -2588,7 +2573,7 @@ class Devices:
                     except StaleElementReferenceException:
                         self.utils.print_info("Exception in row data (usually caused by XIQ device grid not finished), sleeping and retrying")
                         sleep(1)
-                        retry = retry - 1;
+                        retry = retry - 1
                 page_len = page_len - 1
 
                 if page_len:
@@ -2606,69 +2591,59 @@ class Devices:
         self.common_validation.fault(**kwargs)
         return -1
 
-    def search_device(self, device_serial=None, device_name=None, device_mac=None, select_device=False,
+    # This method will not be deprecated until the keywords from the entire file have been moved and tested
+    # @deprecated('Please use the {search_device} keyword from keywords/gui/manage/KeywordsDevices.py. This method can be removed after 7/1/2023')
+    def search_device(self, *device_dict, device_serial=None, device_name=None, device_mac=None, select_device=False,
                       skip_refresh=False, skip_navigation=False, **kwargs):
         """
-        - Searches for the device using serial, name, MAC and selects it if desired
+        - Searches for the device using serial, name or MAC passed, or provided in device_dict.
+        The device (if found) can be optionally selected.
+
+        - Keyword Usage:
+        - ``Search Device      device_serial=${DEVICE_SERIAL}``
+        - ``Search Device      ${ap1}
+
         - Supported Modes:
           - UI - default mode
           - XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
-
-        :param device_serial: serial number of the device, by default set to None
-        :param device_name: name of the device, by default set to None
-        :param device_mac: MAC of the device, by default set to None
+        :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
+        :param device_serial: serial number of the device
+        :param device_name: name of the device
+        :param device_mac: MAC of the device
         :param select_device: True - to select the device, default set to False
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
         :param skip_navigation: True - to skip the navigation to the devices page, default set to False
-        :param kwargs: keyword arguments XAPI_ENABLE
+        :param kwargs:  Supports all standard kwargs
 
         :return: 1 if device found else -1
         """
 
+        if len(device_dict) != 0:
+            device_dict = device_dict[0]
+            device_serial = device_dict.get("serial")
+            device_mac = device_dict.get("mac")
+            device_name = device_dict.get("name")
+
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
+                                                                     device_name=device_name, device_mac=device_mac)
+        else:
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
+                                                                     device_name=device_name, device_mac=device_mac)
+
         # We need to skip this when we are selecting a device
         if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
-            return self.xapiDevices.xapi_search_device(device_serial=device_serial,
-                                                       device_name=device_name,
-                                                       device_mac=device_mac,
-                                                       **kwargs)
+            return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
+                                                       device_mac=device_mac, **kwargs)
 
-        device_keys = {}
-        if device_mac:
-            device_keys['device_mac'] = device_mac
-        if device_serial:
-            device_keys['device_serial'] = device_serial
-        if device_name:
-            device_keys['device_name'] = device_name
-        if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: device_serial, " \
-                                 "device_name, or device_mac!"
-            self.common_validation.fault(**kwargs)
-            return -1
+        return self.gui_search_device(device_object, select_device=select_device,
+                                      skip_refresh=skip_refresh, skip_navigation=skip_navigation, **kwargs)
 
-        # navigate to devices page and refresh
-        if not skip_navigation:
-            self.navigator.navigate_to_devices()
-        if not skip_refresh:
-            self.refresh_devices_page()
 
-        row = self._find_device_row(device_keys)
-        if row:
-            kwargs['pass_msg'] = f"Device with {device_keys} was found!"
-            if select_device:
-                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
-                self.screen.save_screen_shot()
-                kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
-            self.common_validation.passed(**kwargs)
-            return 1
-
-        kwargs['fail_msg'] = f"Did not find device row with {device_keys}"
-        self.common_validation.failed(**kwargs)
-        return -1
-
-    def search_device_by_object(self, *device_dict, select_device=False, skip_refresh=False, skip_navigation=False, **kwargs):
+    def gui_search_device(self, *device_dict, select_device=False, skip_refresh=False, skip_navigation=False, **kwargs):
         """
-        - Searches for the device using serial, name or MAC, and selects it if desired
+        - Searches for a device identified by 'serial', 'mac' or 'name' provided in device_dict
+
         - Supported Modes:
           - UI - default mode
           - XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
@@ -2677,7 +2652,7 @@ class Devices:
         :param select_device: True - to select the device, default set to False
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
         :param skip_navigation: True - to skip the navigation to the devices page, default set to False
-        :param kwargs: keyword arguments XAPI_ENABLE
+        :param kwargs: Supports all standard kwargs
 
         :return: 1 if device found else -1
         """
@@ -2687,9 +2662,9 @@ class Devices:
         device_name = device_dict.get("name")
 
         device_keys = {
-            "mac": device_dict.get("mac"),
-            "serial": device_dict.get("serial"),
-            "name": device_dict.get("name")
+            "mac": device_mac,
+            "serial": device_serial,
+            "name": device_name
         }
 
         device_keys = {key: value for key, value in device_keys.items() if value}
@@ -2697,11 +2672,6 @@ class Devices:
             kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
             self.common_validation.fault(**kwargs)
             return -1
-
-        # We need to skip this when we are selecting a device
-        if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
-            return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
-                                                       device_mac=device_mac, **kwargs)
 
         # navigate to devices page and refresh
         if not skip_navigation:
@@ -2742,14 +2712,17 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def select_device(self, device_serial=None, device_name=None, device_mac=None,
+    # This method will not be deprecated until the keywords from the entire file have been moved and tested
+    # @deprecated('Please use the {select_device} keyword from keywords/gui/manage/KeywordsDevices.py. This method can be removed after 7/1/2023')
+    def select_device(self, *device_dict, device_serial=None, device_name=None, device_mac=None,
                       skip_refresh=False, skip_navigation=False, **kwargs):
         """
-        - Selects the device matching device's Serial Number,Device Mac address and device mane
+        - Selects the device matching device's Serial Number,Device Mac address and device name passed or
+        provided in device_dict
+
         - Keyword Usage:
         - ``Select Device      device_serial=${DEVICE_SERIAL}``
-        - ``Select Device      device_name=${DEVICE_NAME}``
-        - ``Select Device      device_mac=${DEVICE_MAC}``
+        - ``Select Device      ${ap1}
 
         :param device_serial: device Serial, by default set to None
         :param device_name: device host name, by default set to None
@@ -2759,14 +2732,23 @@ class Devices:
 
         :return: return 1 if device found else -1
         """
-        return self.search_device(device_serial=device_serial, device_mac=device_mac, device_name=device_name,
-                                  select_device=True, skip_refresh=skip_refresh, skip_navigation=skip_navigation, **kwargs)
+        if len(device_dict) != 0:
+            device_dict = device_dict[0]
+            device_serial = device_dict.get("serial")
+            device_mac = device_dict.get("mac")
+            device_name = device_dict.get("name")
 
-    def select_device_by_object(self, *device_dict, skip_refresh=False, skip_navigation=False, **kwargs):
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
+                                                                     device_name=device_name, device_mac=device_mac)
+        else:
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
+                                                                     device_name=device_name, device_mac=device_mac)
+
+        return self.gui_select_device(device_object, skip_refresh=skip_refresh, skip_navigation=skip_navigation, **kwargs)
+
+    def gui_select_device(self, *device_dict, skip_refresh=False, skip_navigation=False, **kwargs):
         """
-        - Selects the device matching device's Serial Number,Device Mac address and device mane
-        - Keyword Usage:
-        - ``Select Device      device_serial=${ap1}``
+        - Selects a device identified by 'serial', 'mac' and 'name' provided in device_dict
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1):
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
@@ -2774,8 +2756,8 @@ class Devices:
 
         :return: return 1 if device found else -1
         """
-        return self.search_device_by_object(*device_dict, select_device=True, skip_refresh=skip_refresh,
-                                            skip_navigation=skip_navigation, **kwargs)
+        return self.gui_search_device(*device_dict, select_device=True, skip_refresh=skip_refresh,
+                                      skip_navigation=skip_navigation, **kwargs)
 
     def _get_row(self, key, value):
         device_row = -1
@@ -3051,7 +3033,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select Router row")
-        if not self.select_device(router_serial, skip_navigation=True):
+        if not self.select_device(device_serial=router_serial, skip_navigation=True):
             kwargs['fail_msg'] = f"Router {router_serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -3104,7 +3086,7 @@ class Devices:
                 return -2
 
         self.utils.print_info("Select Device row")
-        self.select_device(router_serial)
+        self.select_device(device_serial=router_serial)
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
@@ -3676,7 +3658,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info("Select Device row")
-        if not self.select_device(device_serial, skip_navigation=True):
+        if not self.select_device(device_serial=device_serial, skip_navigation=True):
             kwargs['fail_msg'] = f"AP {device_serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -4284,7 +4266,7 @@ class Devices:
         :return:
         """
         self.utils.print_info("Select Device row")
-        self.select_device(device_serial)
+        self.select_device(device_serial=device_serial)
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
@@ -4402,7 +4384,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info(f"Select switch row with serial {serial}")
-        if not self.select_device(serial, skip_navigation=True):
+        if not self.select_device(device_serial=serial, skip_navigation=True):
             kwargs['fail_msg'] = f"Switch {serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -4451,7 +4433,7 @@ class Devices:
         sleep(5)
 
         self.utils.print_info(f"Select switch row with serial {serial}")
-        if not self.select_device(serial, skip_navigation=True):
+        if not self.select_device(device_serial=serial, skip_navigation=True):
             kwargs['fail_msg'] = f"Switch {serial} is not present in the grid"
             self.common_validation.fault(**kwargs)
             return -1
@@ -4463,7 +4445,7 @@ class Devices:
             return -1
 
         self.utils.print_info(f"Re-select switch row with serial {serial}")
-        self.select_device(serial)
+        self.select_device(device_serial=serial)
 
         self._update_switch(update_method)
         return self._check_update_network_policy_status(policy_name, serial)
@@ -4584,7 +4566,7 @@ class Devices:
         :return: 1
         """
         self.utils.print_info("Select Switch row")
-        self.select_device(serial)
+        self.select_device(device_serial=serial)
 
         self._update_switch(update_method="EngineAndImages")
 
@@ -4604,7 +4586,7 @@ class Devices:
         :return: 1
         """
         self.utils.print_info("Select Switch row")
-        if not self.select_device(serial):
+        if not self.select_device(device_serial=serial):
             kwargs['fail_msg'] = "Failed to select the device"
             self.common_validation.fault(**kwargs)
             return -1
@@ -5463,8 +5445,10 @@ class Devices:
         self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_until_device_removed(self, device_serial=None, device_name=None, device_mac=None, retry_duration=10,
-                                  retry_count=30, **kwargs):
+    # This method will not be deprecated until the keywords from the entire file have been moved and tested
+    # @deprecated('Please use the {wait_until_device_removed} keyword from keywords/gui/manage/KeywordsDevices.py. This method can be removed after 7/1/2023')
+    def wait_until_device_removed(self, *device_dict, device_serial=None, device_name=None, device_mac=None,
+                                  retry_duration=10, retry_count=30, **kwargs):
         """
         - This keyword is used to wait for the device to be removed from extauto.xiq.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists
@@ -5475,6 +5459,7 @@ class Devices:
         - ``Wait Until Device Removed    device_serial=${DEVICE_SERIAL}    retry_duration=15    retry_count=20``
         - ``Wait Until Device Removed    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
         - ``Wait Until Device Removed    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
+        - ``Wait Until Device Removed    ${ap1}          retry_duration=30    retry_count=10``
 
         :param device_serial: device serial number to look for, by default set to None
         :param device_name: device name to look for, by default set to None
@@ -5483,68 +5468,22 @@ class Devices:
         :param retry_count: retry count, by default set to 30
         :return: 1 if device removed within time; else -1
         """
-        self.utils.print_info("Navigate to Manage> Devices")
-        self.navigator.navigate_to_devices()
+        if len(device_dict) != 0:
+            device_dict = device_dict[0]
+            device_serial = device_dict.get("serial")
+            device_mac = device_dict.get("mac")
+            device_name = device_dict.get("name")
 
-        # Search by Serial
-        if device_serial:
-            count = 1
-            while count <= retry_count:
-                self.utils.print_info(f"Searching for device by Serial Number: loop {count}")
-                if self.search_device(device_serial=device_serial, ignore_failure=True) == 1:
-                    self.utils.print_info(
-                        f"Device with serial {device_serial} is still present. Waiting for {retry_duration} seconds...")
-                    sleep(retry_duration)
-                    self.refresh_devices_page()
-                else:
-                    kwargs['pass_msg'] = f"Device with serial {device_serial} has been removed"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-                count += 1
-
-        # Search by Name
-        elif device_name:
-            count = 1
-            while count <= retry_count:
-                self.utils.print_info(f"Searching for device by Name: loop {count}")
-                if self.search_device(device_name=device_name, ignore_failure=True) == 1:
-                    self.utils.print_info(
-                        f"Device with name {device_name} is still present. Waiting for {retry_duration} seconds...")
-                    sleep(retry_duration)
-                    self.refresh_devices_page()
-                else:
-                    kwargs['pass_msg'] = f"Device with name {device_name} has been removed"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-                count += 1
-
-        # Search by MAC address
-        elif device_mac:
-            count = 1
-            while count <= retry_count:
-                self.utils.print_info(f"Searching for device by MAC Address: loop {count}")
-                if self.search_device(device_mac=device_mac, ignore_failure=True) == 1:
-                    self.utils.print_info(
-                        f"Device with MAC {device_mac} is still present. Waiting for {retry_duration} seconds...")
-                    sleep(retry_duration)
-                    self.refresh_devices_page()
-                else:
-                    kwargs['pass_msg'] = f"Device with MAC address {device_mac} has been removed"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-                count += 1
-
-        # Unknown device search parameter
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
+                                                                     device_name=device_name, device_mac=device_mac)
         else:
-            kwargs['fail_msg'] = "Unknown device search parameter sent;  please use either Serial Number or MAC Address"
-            self.common_validation.fault(**kwargs)
-            return -1
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_name=device_name,
+                                                                     device_mac=device_mac)
 
-        kwargs['fail_msg'] = "Device still exists in the view. Please check."
-        self.common_validation.failed(**kwargs)
-        return -1
+        return self.gui_wait_until_device_removed(device_object, retry_duration=retry_duration,
+                                                  retry_count=retry_count, **kwargs)
 
-    def wait_until_device_removed_by_object(self, *device_dict, retry_duration=10, retry_count=30, **kwargs):
+    def gui_wait_until_device_removed(self, *device_dict, retry_duration=10, retry_count=30, **kwargs):
         """
         - This keyword is used to wait for the device to be removed from extauto.xiq.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists
@@ -5559,7 +5498,6 @@ class Devices:
         :param retry_count: retry count
         :return: 1 if device removed within time; else -1
         """
-
         device_keys = {
             "mac": device_dict[0].get("mac"),
             "serial": device_dict[0].get("serial"),
@@ -5575,7 +5513,7 @@ class Devices:
         count = 1
         while count <= retry_count:
             self.utils.print_info(f"Searching for device using {device_keys} --- Loop {count}")
-            if self.search_device_by_object(device_keys, skip_refresh=True, skip_navigation=True, ignore_failure=True) == 1:
+            if self.gui_search_device(device_keys, skip_refresh=True, skip_navigation=True, ignore_failure=True) == 1:
                 self.utils.print_info(f"Device with: {device_keys} is still present. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
                 self.refresh_devices_page()
@@ -7681,7 +7619,7 @@ class Devices:
                 self.common_validation.passed(**kwargs)
                 return 1
             elif retry_count == 300:
-                self.select_device(device_serial)
+                self.select_device(device_serial=device_serial)
                 self.auto_actions.click(self.devices_web_elements.get_update_status_failed_selected_device)
                 kwargs['fail_msg'] = "Check the status of the device update in XIQ failed."
                 self.common_validation.failed(**kwargs)
@@ -8303,7 +8241,7 @@ class Devices:
         self.navigator.enable_page_size()
         for el in device_serial:
             if el == device_serial[0]:
-                self.select_device(el)
+                self.select_device(device_serial=el)
                 self.utils.print_info("Device with serial {} was selected".format(el))
                 select_flag = True
             else:
@@ -8476,11 +8414,11 @@ class Devices:
         self.navigator.enable_page_size()
         for el in device_serial:
             if el == device_serial[0]:
-                self.select_device(el)
+                self.select_device(device_serial=el)
                 self.utils.print_info("Device with serial {} was selected".format(el))
                 select_flag = True
             else:
-                self.select_device(el, skip_refresh=True, skip_navigation=True)
+                self.select_device(device_serial=el, skip_refresh=True, skip_navigation=True)
                 self.utils.print_info("Device with serial {} was selected".format(el))
                 select_flag = True
 
@@ -10848,11 +10786,11 @@ class Devices:
         self.navigator.enable_page_size()
         for el in device_serial:
             if el == device_serial[0]:
-                self.select_device(el)
+                self.select_device(device_serial=el)
                 self.utils.print_info("Device with serial {} was selected".format(el))
                 select_flag = True
             else:
-                self.select_device(el, skip_refresh=True, skip_navigation=True)
+                self.select_device(device_serial=el, skip_refresh=True, skip_navigation=True)
                 self.utils.print_info("Device with serial {} was selected".format(el))
                 select_flag = True
 
@@ -11024,7 +10962,7 @@ class Devices:
         :return: 1 when device was unmanage ; else -1
         """
 
-        if self.select_device(device_sn) == 1:
+        if self.select_device(device_serial=device_sn) == 1:
             unmanage_button = self.devices_web_elements.get_license_unmanage_box()
             if unmanage_button:
                 self.auto_actions.click(unmanage_button)
@@ -11232,7 +11170,7 @@ class Devices:
 
     def update_device_policy_config_simple(self, device_serial):
         self.utils.print_info("Select Device row")
-        self.select_device(device_serial)
+        self.select_device(device_serial=device_serial)
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
@@ -11244,7 +11182,7 @@ class Devices:
 
     def update_device_policy_config_reboot(self, device_serial):
         self.utils.print_info("Select Device row")
-        self.select_device(device_serial)
+        self.select_device(device_serial=device_serial)
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
@@ -11278,9 +11216,10 @@ class Devices:
 
     def update_device_policy_config_image(self, device_serial):
         self.utils.print_info("Select Device row")
-        self.select_device(device_serial)
+        self.select_device(device_serial=device_serial)
 
         self.utils.print_info("Click on device update button")
+
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
         sleep(3)
         self.utils.print_info("Selecting image option")
@@ -11291,7 +11230,7 @@ class Devices:
 
     def update_device_policy_image(self, device_serial):
         self.utils.print_info("Select Device row")
-        self.select_device(device_serial)
+        self.select_device(device_serial=device_serial)
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
@@ -11317,7 +11256,7 @@ class Devices:
         """
         self.utils.print_info("Rebooting Device with serial: ", device_serial)
 
-        if self.select_device(device_serial):
+        if self.select_device(device_serial=device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
 
@@ -11339,8 +11278,8 @@ class Devices:
         :return: int
         """
         self.utils.print_info("Looking for device with serial: ", device_serial)
-        self.select_device(device_serial)
-        if self.select_device(device_serial):
+        self.select_device(device_serial=device_serial)
+        if self.select_device(device_serial=device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_button)
 
@@ -11366,8 +11305,8 @@ class Devices:
         :return: int
         """
         self.utils.print_info("Looking for device with serial: ", device_serial)
-        self.select_device(device_serial)
-        if self.select_device(device_serial):
+        self.select_device(device_serial=device_serial)
+        if self.select_device(device_serial=device_serial):
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_button)
 
@@ -11432,7 +11371,7 @@ class Devices:
         actions_disabled = False
         try_cnt = 0
         while not actions_disabled:
-            if self.select_device(device_serial):
+            if self.select_device(device_serial=device_serial):
                 self.utils.print_info("Check if Actions button is enable")
                 if self.device_actions.get_device_actions_button_disable():
                     try_cnt += 1
@@ -11566,7 +11505,7 @@ class Devices:
                 kwargs['fail_msg'] = "Failed to navigate to the Devices page"
                 self.common_validation.fault(**kwargs)
                 return -1
-        if self.select_device(device_serial):
+        if self.select_device(device_serial=device_serial):
             self.utils.print_info("Device is selected ...")
         else:
             kwargs['fail_msg'] = "Failed to Select the device"
@@ -11845,7 +11784,7 @@ class Devices:
         self.utils.wait_till(_navigate_to_devices)
         select_flag = False
         if device_serial:
-            self.select_device(device_serial, skip_navigation=True)
+            self.select_device(device_serial=device_serial, skip_navigation=True)
             select_flag = True
         else:
             kwargs['fail_msg'] = "Device is not there"
@@ -12022,7 +11961,7 @@ class Devices:
         self.utils.wait_till(_navigate_to_devices)
         select_flag = False
         if device_serial:
-            self.select_device(device_serial)
+            self.select_device(device_serial=device_serial)
             select_flag = True
         else:
             kwargs['fail_msg'] = "Device is not there"
@@ -12566,7 +12505,7 @@ class Devices:
         latest_version = -1
         sleep(5)
 
-        if self.select_device(device_serial):
+        if self.select_device(device_serial=device_serial):
             def _click_update_devices_button():
                 return self.auto_actions.click(DeviceUpdate().get_update_devices_button())
 
@@ -12886,7 +12825,7 @@ class Devices:
         search_result = self._search_simulated_devices(device_model)
 
         if search_result:
-            if self.select_device(device_model):
+            if self.select_device(device_serial=device_model):
                 self.auto_actions.click(self.devices_web_elements.get_delete_button())
                 self.auto_actions.click(self.devices_web_elements.get_device_delete_confirm_ok_button())
 

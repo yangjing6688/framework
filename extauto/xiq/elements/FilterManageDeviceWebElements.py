@@ -42,6 +42,9 @@ class FilterManageDeviceWebElements(FilterManageDeviceDefinitions):
         item['wait_for'] = 5
         return item
 
+    def get_apply_filters_btn(self):
+        return self.weh.get_element(self.apply_filters_btn)
+
     def get_applied_clear_filter_link(self):
         return self.weh.get_element(self.applied_filter_clear_link)
 
@@ -308,3 +311,27 @@ class FilterManageDeviceWebElements(FilterManageDeviceDefinitions):
 
     def get_filter_by_title(self):
         return self.weh.get_element(self.filter_by_title)
+
+    def get_copilot_license_all_filter_chkbox(self):
+        return self.weh.get_element(self.copilot_license_all_filter_chkbox)
+
+    def get_copilot_license_all_copilot_eligible_filter_chkbox(self):
+        return self.weh.get_element(self.copilot_license_all_copilot_eligible_filter_chkbox)
+
+    def get_copilot_license_active_filter_chkbox(self):
+        return self.weh.get_element(self.copilot_license_active_filter_chkbox)
+
+    def get_copilot_license_expired_filter_chkbox(self):
+        return self.weh.get_element(self.copilot_license_expired_filter_chkbox)
+
+    def get_copilot_license_none_filter_chkbox(self):
+        return self.weh.get_element(self.copilot_license_none_filter_chkbox)
+
+    def get_copilot_license_filter_link(self):
+        return self.weh.get_element(self.copilot_license_filter_link)
+
+    def get_copilot_license_filter_link_expanded(self):
+        return self.weh.get_element(self.copilot_license_filter_link_expanded)
+
+    def get_copilot_license_filter_link_collapsed(self):
+        return self.weh.get_element(self.copilot_license_filter_link_collapsed)

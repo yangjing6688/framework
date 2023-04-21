@@ -2016,7 +2016,7 @@ class SwitchTemplate(object):
                             for save_btn in save_btns:
                                 if save_btn.is_displayed():
                                     self.utils.print_info("Click on the save template button")
-                                    self.auto_actions.click(save_btn)
+                                    self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_save_button)
 
                                     def check_for_confirmation():
                                         tool_tip_text = self.dialogue_web_elements.get_tooltip_text()
