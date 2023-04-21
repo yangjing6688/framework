@@ -163,7 +163,7 @@ class NetworkPolicy(object):
 
     @deprecated('Please use the {create_network_policy} keyword keywords/gui/configure/KeywordsNetworkPolicy.py. This method can removed after 5/20/2023')
     def create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
-        return self.gui_create_network_policy(self, policy, wireless_profile, cli_type, **kwargs)
+        return self.gui_create_network_policy(policy, wireless_profile, cli_type, **kwargs)
 
     def gui_create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
         """
