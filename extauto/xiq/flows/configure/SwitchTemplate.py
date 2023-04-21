@@ -2690,14 +2690,54 @@ class SwitchTemplate(object):
         for dev_sw_templ in device_switch_template_list:
             self.auto_actions.click(dev_sw_templ)
 
-        sleep(8)
-        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_tab)
-        sleep(4)
-        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgrade_device_on_off_button)
-        sleep(4)
-        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgr_firm_specific_button)
-        sleep(4)
-        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_download_specific_firmware_drop_down_button)
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_tab),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=8
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the sw_template_adv_settings_tab web element"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgrade_device_on_off_button),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=4
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the sw_template_adv_settings_upgrade_device_on_off_button web element"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_upgr_firm_specific_button),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=4
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the sw_template_adv_settings_upgr_firm_specific_button web element"
+            self.common_validation.failed(**kwargs)
+            return -1
+        
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_adv_settings_download_specific_firmware_drop_down_button),
+            exp_func_resp=True,
+            silent_failure=True,
+            delay=4
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the sw_template_adv_settings_download_specific_firmware_drop_down_button web element"
+            self.common_validation.failed(**kwargs)
+            return -1
 
         sleep(2)
         # Get all the images from drop down list
