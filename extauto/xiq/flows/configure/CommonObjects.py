@@ -228,24 +228,27 @@ class CommonObjects(object):
             last_page = 1
         page_counter = 0
         self.utils.print_info(f"There are {last_page} page(s) to check")
+        ssid_found = False
         while page_counter < last_page:
             self.utils.print_info(f"Checking SSID's in the Page {page_counter+1}")
-            select_ssid_flag = None
             for ssid in ssids:
                 if self._search_common_object(ssid):
                     self._select_common_object_row(ssid)
-                    select_ssid_flag = True
+                    ssid_found = True
                     self._delete_common_objects()
                 else:
                     self.utils.print_info(f"SSID {ssid} doesn't exist in the page {page_counter+1}")
 
             # goto the next page
             page_counter += 1
-            self.utils.print_info(f"Move to next page {page_counter+1}")
-            self.auto_actions.click_reference(self.cobj_web_elements.get_next_page_element)
-            sleep(5)
+            if (page_counter < last_page):
+                self.utils.print_info(f"Move to next page {page_counter+1}")
+                self.auto_actions.click_reference(self.cobj_web_elements.get_next_page_element)
+                sleep(5)
+            else:
+                self.utils.print_info(f"There are no more pages to check.  Checking ended on page {page_counter}")
 
-        if not select_ssid_flag:
+        if ssid_found == False:
             kwargs['pass_msg'] = "Given SSIDs are not present. Nothing to delete!"
             self.screen.save_screen_shot()
             self.common_validation.passed(**kwargs)
