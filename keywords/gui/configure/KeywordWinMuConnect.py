@@ -26,7 +26,11 @@ class KeywordsWinMuConnect(object, metaclass=Singleton):  # Example line: Change
 
     def connectivity_check(self, destination='https://www.facebook.com/', **kwargs):
         """
-        - Connectivity check using curl
+        Connectivity check using curl
+
+        This keyword uses curl to check the connectivity of the network of the Mobile Unit (MU).
+        The method checks to see if the MU can connect to the specified destination internet address by only fetching headers.
+        If the curl command's result contains a successful status then the connection is considered good.
 
         - Keyword Usage:
         -   Robot:
@@ -56,7 +60,7 @@ class KeywordsWinMuConnect(object, metaclass=Singleton):  # Example line: Change
 
         # The value returned will be based on which implementations we run.  We'll return -1 if we fail to do
         # connectivity check to any implementations.  We'll return 1 if there is no error raised in any of the implementations.
-        return_code = ""
+        return_code = -1
 
         try:
             implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name,
@@ -75,16 +79,16 @@ class KeywordsWinMuConnect(object, metaclass=Singleton):  # Example line: Change
             self.keyword_utils.timing.end(keyword_name)
 
         # Return an error if connectivity check failed
-        return -1 if (return_code == -1) else 1
+        return return_code
 
     def connect_wpa2_ppsk_network(self, ssid, key, retry_count=5, **kwargs):
         """
-        - Connect the wpa2 ppsk network
-        - This keyword is used with robot remote server
-        - start the remote server in windows MU
-        - For starting remote server refer "cw_automation/testsuites/xiq/config/remote_server_config.txt"
-        - Include below library in test suite robot file
-         - ``Library	Remote 	http://${MU1_IP}:${MU1_REMOTE_PORT}   WITH NAME   MU1``
+        Connect the wpa2 ppsk network
+
+        This keyword instructs the Mobile Unit (MU) to connect to wpa2 ppsk network.
+        The method checks for the MU's interface to be in available state, waits for the network to be reachable by the MU,
+        then attempts to connect the MU successfully to the network for the specified amount of retries.
+        If the MU's connection is made without any issues then the connection is considered good.
 
         - Keyword Usage:
         -   Robot:
@@ -117,7 +121,7 @@ class KeywordsWinMuConnect(object, metaclass=Singleton):  # Example line: Change
 
         # The value returned will be based on which implementations we run.  We'll return -1 if we fail to connect
         # the wpa2 ppsk network to any implementations.  We'll return 1 if there is no error raised in any of the implementations.
-        return_code = ""
+        return_code = -1
 
         try:
             implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name,
@@ -136,4 +140,4 @@ class KeywordsWinMuConnect(object, metaclass=Singleton):  # Example line: Change
             self.keyword_utils.timing.end(keyword_name)
 
         # Return an error if connect the wpa2 ppsk network failed
-        return -1 if (return_code == -1) else 1
+        return return_code
