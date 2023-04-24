@@ -12,7 +12,7 @@ from ExtremeAutomation.Library.Utils.Singleton import Singleton
 class KeywordsMacMuConnect(object, metaclass=Singleton):  # Example line: Change as needed
     def __init__(self):
         # This is a singleton, avoid initializing for each instance
-        if not hasattr(self, 'initialized'):
+        if hasattr(self, 'initialized'):
             return
         self.initialized = True
 
