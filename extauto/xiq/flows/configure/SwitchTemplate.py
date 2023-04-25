@@ -160,8 +160,19 @@ class SwitchTemplate(object):
                 sleep(1)
 
                 self.utils.print_info("Get Template Field and enter the switch Template Name: ", sw_template_name)
-                self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(),
-                                            sw_template_name)
+
+                res, _ = self.utils.wait_till(
+                    func=lambda: self.auto_actions.send_keys(self.sw_template_web_elements.get_sw_template_name_textfield(), sw_template_name),
+                    exp_func_resp=True,
+                    delay=5,
+                    silent_failure=True
+                )
+
+                if res != 1:
+                    kwargs["fail_msg"] = f"Failed to enter the switch Template Name: {sw_template_name}"
+                    self.common_validation.fault(**kwargs)
+                    return -1
+
                 sleep(1)
                 self.utils.print_info("Get Template Save Button")
                 save_btns = self.sw_template_web_elements.get_sw_template_save_button()
