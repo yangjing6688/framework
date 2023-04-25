@@ -176,7 +176,6 @@ class ManageUsers():
         """
         self.utils.print_info("Check the created user in users list")
         element = self.portal_web_elements.get_filter_user_name_list(username)
-        print(element)
         try:
             self.driver.find_element_by_xpath(element.get('XPATH'))
         except NoSuchElementException:
@@ -318,7 +317,7 @@ class ManageUsers():
             self.utils.print_info(username + " is not in USERS list")
             return -1
 
-    def delete_customer(self, username):
+    def delete_customer(self, username, **kwargs):
         """
             - This can be used in USERS page
             - Keyword Usage
@@ -335,15 +334,14 @@ class ManageUsers():
         if self.check_users_list(username) != -1:
             self.utils.print_info(username + " is in USERS list page " + str(number))
             element = self.web.get_element(self.portal_web_elements.get_users_page_displayName_item(username))
-            print(self.portal_web_elements.get_users_page_displayName_item(username))
-            print(element)
             self.auto_actions.click(element)
             sleep(1)
             self.auto_actions.click_reference(self.portal_web_elements.get_delete_button_portal)
             sleep(1)
             self.auto_actions.click_reference(self.portal_web_elements.get_delete_confirm_yes_item)
             sleep(2)
-            self.utils.print_info(username + " is deleted")
+            kwargs['delete_success_msg'] = username + "is deleted"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(username + " is not in USERS list")
