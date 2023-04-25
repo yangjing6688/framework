@@ -2534,6 +2534,7 @@ class SwitchTemplate(object):
         delay_container = container.text[:2]
         print(f"Default STP forward delay value in device template is {delay_container}")
 
+        sleep(3)
         self.auto_actions.click_reference(
             self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_item16)
         container = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_container()
