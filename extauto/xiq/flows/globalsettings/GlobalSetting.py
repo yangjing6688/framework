@@ -37,13 +37,24 @@ class GlobalSetting(GlobalSettingWebElements):
         :return: row element if row exists else return None
         """
         self.utils.print_info("Getting authentication logs rows")
+        sleep(5)
         rows = self.get_authentication_logs_grid_rows()
         if not rows:
             self.utils.print_info("Authentication Logs rows are not available in the page")
             return False
-        for row in rows:
-            if search_string in row.text:
-                return row
+        try:
+            for row in rows:
+                row_text = row.text.lower()
+                row_inner_text = row.get_attribute("innerText").lower()
+                search_string_lower = search_string.lower()
+                self.utils.print_info(f"Authentication Logs row text: {row_text} / {row_inner_text} = {search_string}")
+                if search_string_lower in row_text or search_string_lower in row_inner_text:
+                    self.utils.print_info("Authentication Logs row found")
+                    return row
+        except Exception as e:
+            self.utils.print_error("Exception when getting the row element: %s\n" % e)
+            raise e
+
 
     def get_accounting_logs_row(self, search_string):
         """
