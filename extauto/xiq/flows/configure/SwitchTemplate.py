@@ -2025,6 +2025,7 @@ class SwitchTemplate(object):
                                             return "Stack template has been saved successfully." in tool_tip_text or \
                                                 'Switch template has been saved successfully.' in tool_tip_text
                                         else:
+                                            self.screen.save_screen_shot()
                                             return False
 
                                     confirmation_message = self.utils.wait_till(check_for_confirmation,

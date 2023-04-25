@@ -4737,10 +4737,10 @@ class Devices(object, metaclass=Singleton):
 
         the_dlg = self.devices_web_elements.get_global_settings_management_dialog()
 
-        if the_dlg:
+        if the_dlg and the_dlg.is_displayed():
             self.utils.print_debug("The account credential managed by global setting pop-up is displayed")
             yes_btn = self.devices_web_elements.get_global_settings_management_dialog_yes_button()
-            if yes_btn:
+            if yes_btn and yes_btn.is_displayed():
                 self.utils.print_info("Clicking 'Yes' in the account credential managed by global setting pop-up dialog")
                 self.auto_actions.click_reference(self.devices_web_elements.get_global_settings_management_dialog_yes_button)
             else:
