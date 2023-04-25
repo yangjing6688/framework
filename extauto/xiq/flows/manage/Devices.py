@@ -1225,6 +1225,7 @@ class Devices(object, metaclass=Singleton):
                     self.auto_actions.click(uptd)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
+            sleep(5)
             self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
             sleep(5)
 
@@ -12512,6 +12513,7 @@ class Devices(object, metaclass=Singleton):
             self.utils.wait_till(_click_update_devices_button, timeout=40, delay=30,
                                  msg="Selecting Update Devices button")
 
+            sleep(5)
             checkbox_status = DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
 
             if checkbox_status == "true":
