@@ -1,7 +1,7 @@
 import threading
 import requests
 import re
-import deprecation
+from ExtremeAutomation.Utilities.deprecated import deprecated
 from time import sleep
 
 from robot.libraries.BuiltIn import BuiltIn
@@ -914,7 +914,7 @@ class Login(object, metaclass=Singleton):
         """
         CloudDriver().close_window(win_index)
 
-    @deprecation.deprecated('This keyword is a duplicate of quit_browser and will be removed after July 1st 2023. Please change your test to use quit_browser instead')
+    @deprecated('This keyword is a duplicate of quit_browser and will be removed after July 1st 2023. Please change your test to use quit_browser instead')
     def xiq_quit_browser(self, _driver=None, **kwargs):
         """
         - Closes all the browser windows and ends the WebDriver session gracefully.
@@ -1627,7 +1627,7 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    @deprecation.deprecated('This keyword is a duplicate of switch_to_window and will be removed after July 1st 2023. Please change your test to use switch_to_window instead')
+    @deprecated('This keyword is a duplicate of switch_to_window and will be removed after July 1st 2023. Please change your test to use switch_to_window instead')
     def switch_to_extreme_guest_window(self, win_index=1):
         """
         - Switches to the specified window
@@ -1637,7 +1637,7 @@ class Login(object, metaclass=Singleton):
         CloudDriver().switch_to_window(win_index)
         return 1
 
-    @deprecation.deprecated('This keyword is a duplicate of close_window and will be removed after July 1st 2023. Please change your test to use close_window instead')
+    @deprecated('This keyword is a duplicate of close_window and will be removed after July 1st 2023. Please change your test to use close_window instead')
     def close_extreme_guest_window(self, win_index=1):
         """
         - Closes the specified window
