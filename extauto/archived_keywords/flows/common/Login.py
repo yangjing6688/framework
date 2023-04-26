@@ -2,6 +2,8 @@
     If the keywords need to be available again copy the code to xiq/flows/common/Login.py and implement the keyword move process.
     Instructions for moving a keyword can be found here: https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords """
 
+# All Archived keywords will be deleted after December 2023
+
 import random
 import deprecation
 from time import sleep
