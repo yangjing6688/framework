@@ -259,8 +259,8 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_page_numbers(self):
         return self.weh.get_elements(self.page_numbers)
 
-    def get_next_page_element(self, page_size='50'):
-        return self.weh.get_elements(self.next_page_element)
+    def get_next_page_element(self):
+        return self.weh.get_element(self.next_page_element)
 
     def get_common_object_authentication_aaa_server_settings(self):
         """

@@ -3,7 +3,7 @@ import time
 from time import sleep
 
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
+from selenium.common.exceptions import StaleElementReferenceException
 
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
@@ -5385,17 +5385,25 @@ class Device360(Device360WebElements):
         self.common_validation.fault(**kwargs)
         return -1
 
-    def get_supplemental_cli(self, name_s_cli, cli_commands="", **kwargs):
+    def get_supplemental_cli(self, name_s_cli, cli_commands="", enableOverrideNetworkPolicy=True, **kwargs):
         """
         This keyword will add or edit a supplemental cli profile with cli commands in D360
         - Keyword Usage
         - ``Get supplemental cli       ${NAME_CLI}     ${CLI_COMMANDS}``
         :param name_s_cli: Name of the supplemental cli profile
         :param cli_commands: list of CLI commands separated by comma
+        :param enableOverrideNetworkPolicy: Enable the Override Network Policy capability
         :return: 1 if supplemental cli profile save successfully else -1
         """
         self.auto_actions.click_reference(self.get_device360_configure_button)
         self.auto_actions.click_reference(self.get_device360_device_configuration_button)
+        sleep(2)
+        # Starting in 23R3, in order to use the supplemental cli feature at the port level the use had to
+        # "override" the newtwork policy supplemental cli
+        if enableOverrideNetworkPolicy:
+            self.auto_actions.click_reference(self.get_device360_supplemental_cli_override_radio_button)
+            self.screen.save_screen_shot()
+
         self.auto_actions.click_reference(self.get_device360_select_supplemental_cli)
         sleep(3)
         list_items = self.get_device360_supplemental_cli_list()
@@ -6432,6 +6440,10 @@ class Device360(Device360WebElements):
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page8 summaryPage': ["next_page", None]
+
+                                        #To navigate directly to last page (summaryPage)
+                                        'page summaryPage': ["next_all_pages", None],
+
                                     }
 
         :param port: the port where new port type will be created
@@ -7467,36 +7479,32 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Click - > Open dropbox")
                 self.auto_actions.click(get_pse_profile)
                 more_button_times_found = 0
-                while self.get_select_element_port_type('pse_more_button'):
-                    more_button_times_found += 1
-                    self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
-                                          "Scrolling down...")
-                    try:
-                        def _check_stale_element_exception_more_button():
-                            try:
-                                self.auto_actions.move_to_element(self.get_select_element_port_type('pse_more_button'))
-                                self.utils.print_info("move to element ",more_button_times_found)
-                                self.screen.save_screen_shot()
-                                return True
-                            except StaleElementReferenceException as e:
-                                self.utils.print_info("Scrolling to 'More' button failed. Stale element exception "
-                                                      f"error detected {e} ; Retrying...")
-                                return False
+                if self.get_select_element_port_type('pse_more_button'):
+                    while more_button_times_found < 10:
+                        get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
+                        if get_pse_profile_items:
+                            self.utils.print_info(f" {len(get_pse_profile_items)} options are into dropdown and 'more'"
+                                                  f" button is present. Loop {more_button_times_found}")
 
-                        self.utils.wait_till(_check_stale_element_exception_more_button, is_logging_enabled=True,
-                                             msg="Waiting for StaleElementException to dissapear...")
-                        self.utils.print_info("Clicking 'More' button...")
-                        self.auto_actions.click(self.get_select_element_port_type('pse_more_button'))
-                        self.screen.save_screen_shot()
-                    except ElementNotInteractableException as e:
-                        self.utils.print_info(f"Element not interactable error: {e} ; Element is inactive! "
-                                              "Breaking loop. \n\nNOTE: If 'More' button is visible and active, but "
-                                              "still getting: ElementNotInteractable error ; "
-                                              "check that the CSS_SELECTOR is correct.")
-                        break
+                        more_button = self.get_select_element_port_type('pse_more_button')
+                        if more_button:
+                            more_button_times_found += 1
+                            self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
+                                                "Scrolling down...")
+                            self.auto_actions.move_to_element(more_button)
+                            self.screen.save_screen_shot()
+
+                            self.utils.print_info("Clicking 'More' button...")
+                            self.auto_actions.click(more_button)
+                            self.screen.save_screen_shot()
+                        else:
+                            self.utils.print_info(" The 'More' button is not present anymore ")
+                            break
 
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
+                self.utils.print_info(
+                    f" {len(get_pse_profile_items)} options are into dropdown and 'more' button is not present")
                 pse_profile_name = value['pse_profile_name']
 
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):

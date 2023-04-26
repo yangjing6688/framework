@@ -2046,6 +2046,18 @@ class Device360WebElementDefs:
             'wait_for': 3
         }
 
+    device360_apply_supplemental_cli_radio_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="supplementalCliOverrideGUIType-keep"]',
+            'wait_for': 3
+        }
+
+    device360_override_supplemental_cli_radio_button = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="supplementalCliOverrideGUIType-override"]',
+            'wait_for': 3
+        }
+
     device360_supplemental_cli_list = \
         {
             'XPATH': '//*[@class="item-area"]//li',

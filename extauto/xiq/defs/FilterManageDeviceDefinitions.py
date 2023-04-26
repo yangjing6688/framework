@@ -51,6 +51,11 @@ class FilterManageDeviceDefinitions:
             'XPATH': '//span[contains(text(),"Apply Filters") and @data-dojo-attach-point="applyFilterBtn"]',
             'wait_for': 5
         }
+    apply_filters_btn = \
+        {
+            'XPATH': '//span[contains(text(),"Apply Filters") and @data-dojo-attach-point="applyFilterBtn"]',
+            'wait_for': 5
+        }
     applied_filter_link = \
         {
             'XPATH': '//span[contains(text(),"Applied Filters") and @data-dojo-attach-point="titleNode"]',
@@ -563,5 +568,53 @@ class FilterManageDeviceDefinitions:
     filter_by_title = \
         {
             'XPATH': '//span[@data-dojo-attach-point="titleNode" and contains(text(),"Filter By")]',
+            'wait_for': 5
+        }
+
+    copilot_license_filter_link = \
+        {
+            'XPATH': '//span[contains(text(),"CoPilot") and @data-dojo-attach-point="titleNode"]',
+            'wait_for': 5
+        }
+
+    copilot_license_filter_link_expanded = \
+        {
+            'XPATH': '//div[@aria-pressed="true"]//span[contains(text(),"CoPilot") and @data-dojo-attach-point="titleNode"]',
+            'wait_for': 5
+        }
+
+    copilot_license_filter_link_collapsed = \
+        {
+            'XPATH': '//div[@aria-pressed="false"]//span[contains(text(),"CoPilot") and @data-dojo-attach-point="titleNode"]',
+            'wait_for': 5
+        }
+
+    copilot_license_all_filter_chkbox = \
+        {
+            'XPATH': '//input[@data-id="ALL_COPILOT_LICENSE"]',
+            'wait_for': 5
+        }
+
+    copilot_license_all_copilot_eligible_filter_chkbox = \
+        {
+            'XPATH': '//input[@data-name="All CoPilot Eligible Devices"]',
+            'wait_for': 5
+        }
+
+    copilot_license_active_filter_chkbox = \
+        {
+            'XPATH': '//input[@data-name="CoPilot Active"]',
+            'wait_for': 5
+        }
+
+    copilot_license_expired_filter_chkbox = \
+        {
+            'XPATH': '//input[@data-name="CoPilot Expired"]',
+            'wait_for': 5
+        }
+
+    copilot_license_none_filter_chkbox = \
+        {
+            'XPATH': '//input[@data-name="CoPilot None"]',
             'wait_for': 5
         }
