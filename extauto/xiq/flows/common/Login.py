@@ -1,6 +1,7 @@
 import threading
 import requests
 import re
+from ExtremeAutomation.Utilities.deprecated import deprecated
 from time import sleep
 
 from robot.libraries.BuiltIn import BuiltIn
@@ -584,7 +585,11 @@ class Login(object, metaclass=Singleton):
         else:
             return self._init(url)
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {set_password} keyword keywords/KeywordsLogin.py. This method can removed after 7/1/2023')
     def set_password(self, new_pwd, **kwargs):
+        return self.gui_set_password(new_pwd)
+    def gui_set_password(self, new_pwd, **kwargs):
         """
         - Assumes that set password url is already opened
         - Set new password for the account
@@ -620,7 +625,11 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    #@deprecated('Please use the {reset_password} keyword keywords/KeywordsLogin.py. This method can removed after 7/1/2023')
     def reset_password(self, new_pwd, **kwargs):
+        return self.gui_reset_password(new_pwd)
+    def gui_reset_password(self, new_pwd, **kwargs):
         """
         - Assumes that reset password url browser is opened
         - Reset the user account password
@@ -905,6 +914,7 @@ class Login(object, metaclass=Singleton):
         """
         CloudDriver().close_window(win_index)
 
+    @deprecated('This keyword is a duplicate of quit_browser and will be removed after July 1st 2023. Please change your test to use quit_browser instead')
     def xiq_quit_browser(self, _driver=None, **kwargs):
         """
         - Closes all the browser windows and ends the WebDriver session gracefully.
@@ -1596,7 +1606,12 @@ class Login(object, metaclass=Singleton):
         except Exception:
             pass
 
-    def xiq_soft_launch_feature_url(self, url, **kwargs):
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {xiq_soft_launch_feature_url} keyword keywords/KeywordsLogin.py. This method can removed after 7/1/2023')
+    def xiq_soft_launch_feature_url(self, url):
+        return self.gui_xiq_soft_launch_feature_url(url)
+
+    def gui_xiq_soft_launch_feature_url(self, url, **kwargs):
         # xiq_enable_hidden_feature
         """
         - XIQ uses a URL to enable or disable a 'soft launch' (beta) feature.
@@ -1612,6 +1627,7 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
+    @deprecated('This keyword is a duplicate of switch_to_window and will be removed after July 1st 2023. Please change your test to use switch_to_window instead')
     def switch_to_extreme_guest_window(self, win_index=1):
         """
         - Switches to the specified window
@@ -1621,6 +1637,7 @@ class Login(object, metaclass=Singleton):
         CloudDriver().switch_to_window(win_index)
         return 1
 
+    @deprecated('This keyword is a duplicate of close_window and will be removed after July 1st 2023. Please change your test to use close_window instead')
     def close_extreme_guest_window(self, win_index=1):
         """
         - Closes the specified window
