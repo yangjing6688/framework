@@ -1309,3 +1309,9 @@ class CommonObjectsWebElementsDefinitions:
             'XPATH': '//li[@data-dojo-attach-point="pagePrev"]//a[@data-dojo-attach-point="prev-item1"]',
             'index': 0
         }
+
+    scli_grid_bottom = \
+        {
+            'CSS_SELECTOR': '.clisupplement [data-dojo-attach-point="gridBottom"]',
+            'wait_for': 1
+        }

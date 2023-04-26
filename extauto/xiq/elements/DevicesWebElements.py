@@ -1057,13 +1057,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.update_status_failed_selected_device)
 
     def get_status_update_failed_after_reboot(self):
-        el = self.weh.get_element(self.status_update_failed_after_reboot)
-        if el:
-            status = el.get_attribute("errcode")
-            new_status = status.replace("<br>", "")
-            return new_status
-        else:
-            return None
+        return self.weh.get_element(self.status_update_failed_after_reboot)
 
     def get_check_pop_message(self):
         return self.weh.get_element(self.check_pop_message)

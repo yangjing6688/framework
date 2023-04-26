@@ -1222,7 +1222,7 @@ class CommonObjects(object):
             if not found_scli:
                 self.utils.print_info(f"Supplemental Cli Profile: {supplemental_cli_name} is not present on page: "
                                       f"{str(current_page)}")
-                if not self.cobj_web_elements.get_next_page_element_disabled():
+                if not self.cobj_web_elements.get_next_page_element_disabled() and self.cobj_web_elements.get_scli_grid_bottom().is_displayed():
                     self.utils.print_info("Checking the next page: ", str(current_page + 1) + ' ...')
                     self.utils.print_info("Clicking next page...")
                     next_page_button = self.cobj_web_elements.get_next_page_element()

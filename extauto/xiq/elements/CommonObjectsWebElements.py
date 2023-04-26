@@ -776,3 +776,6 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         for el in elements:
             if el.is_displayed():
                 return el
+
+    def get_scli_grid_bottom(self):
+        return self.weh.get_element(self.scli_grid_bottom)
