@@ -14978,7 +14978,7 @@ class Device360(Device360WebElements):
             self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
             return success_message.text
         else:
-            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+            self.utils.print_info (f"Unable to display the success message")
 
     def succesful_message_multi_edit_exos(self):
         """
