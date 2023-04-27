@@ -3971,7 +3971,7 @@ class Device360WebElementDefs:
 
     d360_save_port_configuration_message_voss = \
         {
-            'XPATH': '//div[@class="ui-tipbox ui-tipbox-success"]//*[contains(text(), "updated successfully")]',
+            'XPATH': '//div[@class="ui-tipbox ui-tipbox-success"]//*[contains(text(), "Port Configuration Saved")]',
             'wait_for': 5
         }
 

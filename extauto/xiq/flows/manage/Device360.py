@@ -14989,17 +14989,17 @@ class Device360(Device360WebElements):
         start_time = int(time.time())
         max_wait = 180
         success_message = self.dev360.get_d360_save_port_configuration_message_exos()
-        while not success_message.is_displayed():
+        while not success_message:
             if (int(time.time()) - start_time) < max_wait:
                 success_message = self.dev360.get_d360_save_port_configuration_message_exos()
                 self.utils.wait_till(delay=2)
             else:
-                self.utils.print_info(f"Unable to display the success message: {success_message.text}")
+                self.utils.print_info(f"Unable to display the success message")
         if success_message:
             self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
             return success_message.text
         else:
-            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+            self.utils.print_info (f"Unable to display the success message")
 
     def succesful_message_multi_edit_voss(self):
         """
@@ -15010,17 +15010,17 @@ class Device360(Device360WebElements):
         start_time = int(time.time())
         max_wait = 180
         success_message = self.dev360.get_d360_save_port_configuration_message_voss()
-        while not success_message.is_displayed():
+        while not success_message:
             if (int(time.time()) - start_time) < max_wait:
                 success_message = self.dev360.get_d360_save_port_configuration_message_voss()
                 self.utils.wait_till(delay=2)
             else:
-                self.utils.print_info(f"Unable to display the success message: {success_message.text}")
+                self.utils.print_info(f"Unable to display the success message")
         if success_message:
             self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
             return success_message.text
         else:
-            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+            self.utils.print_info (f"Unable to display the success message")
 
     def device360_get_stack_ports_by_type(self, port_type, **kwargs):
         """
