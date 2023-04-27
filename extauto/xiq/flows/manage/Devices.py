@@ -1228,8 +1228,9 @@ class Devices(object, metaclass=Singleton):
             res, _ = self.utils.wait_till(
                 func=lambda: self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox),
                 exp_func_resp=True,
-                delay=5,
-                silent_failure=True
+                delay=10,
+                silent_failure=True,
+                timeout=40
             )
 
             if res != 1:
