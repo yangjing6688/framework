@@ -41,6 +41,12 @@ class PortalWebElementsDefinitions:
             'wait_for': 3,
         }
 
+    customers_menu_portal = \
+        {
+            'XPATH': '//div[@class="nav-item"]//a[contains(text(),"Customers")]',
+            'wait_for': 3,
+        }
+
     users_page_add_button = \
         {
             'XPATH': '//button[contains(text(),"Add")]',
@@ -166,6 +172,55 @@ class PortalWebElementsDefinitions:
             'XPATH': '//span[@class="in-place-editor-active"]//span[@class="in-place-editor-button in-place-editor-button-accept"]',
             'wait_for': 3,
         }
+
+    edit_users_page_edit_accept_button = \
+        {
+            'XPATH': '//span[@class="in-place-editor-active"]//span[@class="in-place-editor-button in-place-editor-button-accept"]',
+            'wait_for': 3,
+        }
+
+    add_customers_page_customername_text = \
+        {
+            'XPATH': '//input[@id="customerName"]',
+            'wait_for': 3,
+        }
+
+    add_customers_page_firstname_text = \
+        {
+            'XPATH': '//input[@id="firstName"]',
+            'wait_for': 3,
+        }
+
+    add_customers_page_lastname_text = \
+        {
+            'XPATH': '//input[@id="lastName"]',
+            'wait_for': 3,
+        }
+
+    add_customers_page_adminemail_text = \
+        {
+            'XPATH': '//input[@id="email"]',
+            'wait_for': 3,
+        }
+
+    add_customers_page_adminpassword_text = \
+        {
+            'XPATH': '//input[@id="password"]',
+            'wait_for': 3,
+        }
+
+    add_customers_page_submit_button = \
+        {
+            'XPATH': '//div[@class="dialog-form-submit"]//button[@class="button-blue ladda-button"]//span[contains(text(),"Submit")]',
+            'wait_for': 3,
+        }
+
+    customers_page_filter_text = \
+        {
+            'XPATH': '//input[@placeholder="Name, VIQ ID, Owner ID"]',
+            'wait_for': 3,
+        }
+
 
 
 

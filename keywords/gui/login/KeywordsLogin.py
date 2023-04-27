@@ -934,3 +934,411 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         # Return the return value of the keyword
         return return_code
+
+    def get_switch_connection_host(self, **kwargs):
+        """
+        Gets the Switch Connection Host details.
+
+        This method clicks on "About ExtremeCloud IQ" at the top right and gets the Switch Connection Host details from the "About ExtremeCloud IQ" popup.
+        For example "Switch Connection Host: va2.extremecloudiq.com"
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/login/KeywordsLogin.py
+        -      Get Switch Connection Host
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
+        -      Calling Keyword:
+        -         keywords_login = KeywordsLogin()
+        -         keywords_login.get_switch_connection_host()
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Implemented **
+
+        :return: Returns the Switch Connection Host that "va2.extremecloudiq.com" if success. Returns "" if not success.
+        """
+
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+        keyword_name = inspect.stack()[0][3]
+        self.keyword_utils.implementations.set_keyword_uuid("9b91eaa8-0486-4679-88a3-5dea1f45fe29", keyword_name)
+        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+
+        # Assume if no Switch Connection Host
+        return_code = ""
+
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, 'GUI')
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_get_switch_connection_host()
+                else:
+                    self.common_validation.fault(**kwargs)
+                    kwargs['fail_msg'] = f"Keyword: {keyword_name} has not been implemented for XAPI"
+                    return_code = ""
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
+
+        # Return the return value of the keyword
+        return return_code
+
+    def switch_to_window(self, win_index=0, **kwargs):
+        """
+        To switch from one window to another window of the browser
+
+        This method is used to switch from one window to another window of the browser.
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/login/KeywordsLogin.py
+        -      Switch to window     ${win_index}
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
+        -      Calling Keyword:
+        -         keywords_login = KeywordsLogin()
+        -         keywords_login.switch_to_window()
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Supported **
+
+        :param win_index:  Index of the window to switch to, this should be integer ex. 0 or 1 or 2
+        :return: Returns None
+        """
+
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+        keyword_name = inspect.stack()[0][3]
+        self.keyword_utils.implementations.set_keyword_uuid("7471b963-c9f0-42f2-ab81-c6731661198b", keyword_name)
+        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.xapi_implemented(keyword_name)
+
+        # Assume if unable to switch window
+        return_code = None
+
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, 'GUI')
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_switch_to_window(win_index)
+                else:
+                    return_code = self.keyword_utils.implementations.not_supported(**kwargs)
+                    return_code = None
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
+
+        # Return the return value of the keyword
+        return return_code
+
+    def close_window(self, win_index=0, **kwargs):
+        """
+        To close the window of the browser
+
+        This keyword will close Windows handles based on windows index value
+        By default it will close windows handles index 0
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/login/KeywordsLogin.py
+        -      Close window     ${win_index}
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
+        -      Calling Keyword:
+        -         keywords_login = KeywordsLogin()
+        -         keywords_login.close_window()
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Supported **
+
+        :param win_index:  Index of the window to close, this should be integer ex. 0 or 1 or 2
+        :return: Returns None
+        """
+
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+        keyword_name = inspect.stack()[0][3]
+        self.keyword_utils.implementations.set_keyword_uuid("33bc046f-ccb5-4219-9d8d-f1c3ba459d90", keyword_name)
+        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.xapi_implemented(keyword_name)
+
+        # Assume if unable to switch window
+        return_code = None
+
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, 'GUI')
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_close_window(win_index)
+                else:
+                    return_code = self.keyword_utils.implementations.not_supported(**kwargs)
+                    return_code = None
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
+
+        # Return the return value of the keyword
+        return return_code
+
+    def execute_upgrade_option_for_connect_user(self, **kwargs):
+        """
+        Clicks on the upgrade button and navigates connect user to license management UI
+
+        This method checks if upgrade button is displayed and clicks on the upgrade button and navigates connect user to license management UI
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/login/KeywordsLogin.py
+        -      Execute Upgrade Option For Connect User
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
+        -      Calling Keyword:
+        -         keywords_login = KeywordsLogin()
+        -         keywords_login.execute_upgrade_option_for_connect_user()
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Implemented **
+
+        :return: Returns 1 if success. Returns -1 if not success.
+        """
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+        keyword_name = inspect.stack()[0][3]
+        self.keyword_utils.implementations.set_keyword_uuid("777346b6-8887-41e3-8d94-ef7bbc8f359d", keyword_name)
+        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+
+        # Assume a failure
+        return_code = -1
+
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, implementation_to_run)
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_execute_upgrade_option_for_connect_user()
+                else:
+                    self.common_validation.fault(**kwargs)
+                    kwargs['fail_msg'] = f"Keyword: {keyword_name} has not been implemented for XAPI"
+                    if return_code:
+                        return_code = 0
+                    else:
+                        return_code = -1
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
+
+        # Return the return value of the keyword
+        return return_code
+
+    def set_password(self, new_pwd, **kwargs):
+        """
+        Sets the new password for xiq account
+
+        This method sets a new password, but before executing this keyword, the account needs to be created in
+        Global settings- Account management in XIQ and receives the link to the provided email and then set the new password
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/login/KeywordsLogin.py
+        -      Set Password
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
+        -      Calling Keyword:
+        -         keywords_login = KeywordsLogin()
+        -         keywords_login.set_password()
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Supported **
+
+        :param new_pwd: New Password to set, must be in string format
+        :return: Returns 1 if success, -1 if not success.
+        """
+
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+        keyword_name = inspect.stack()[0][3]
+        self.keyword_utils.implementations.set_keyword_uuid("b1b6cc66-def9-4c73-ae94-f8a443815b8a", keyword_name)
+        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.xapi_implemented(keyword_name)
+
+        # Assume a failure
+        return_code = -1
+
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, 'GUI')
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_set_password(new_pwd)
+                else:
+                    self.keyword_utils.implementations.not_supported(**kwargs)
+                    # not_supported() returns True if keyword should pass else returns False
+                    if return_code:
+                        return_code = 0
+                    else:
+                        return_code = -1
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
+
+        # Return the return value of the keyword
+        return return_code
+
+    def reset_password(self, new_pwd, **kwargs):
+        """
+        Resets the password for xiq account
+
+        This method Resets the password, but before executing this keyword, the forgot password keyword and
+        Get Password Reset Link to be executed.
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/login/KeywordsLogin.py
+        -      Reset Password
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
+        -      Calling Keyword:
+        -         keywords_login = KeywordsLogin()
+        -         keywords_login.reset_password()
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Supported **
+
+        :param new_pwd: New Password to set, must be in string format
+        :return: Returns 1 if success, -1 if not success.
+        """
+
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+        keyword_name = inspect.stack()[0][3]
+        self.keyword_utils.implementations.set_keyword_uuid("64f127af-1231-4dd8-9314-ebc64702f092", keyword_name)
+        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.xapi_implemented(keyword_name)
+
+        # Assume a failure
+        return_code = -1
+
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, 'GUI')
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_reset_password(new_pwd)
+                else:
+                    self.keyword_utils.implementations.not_supported(**kwargs)
+                    # not_supported() returns True if keyword should pass else returns False
+                    if return_code:
+                        return_code = 0
+                    else:
+                        return_code = -1
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
+
+        # Return the return value of the keyword
+        return return_code
+
+    def xiq_soft_launch_feature_url(self, url, **kwargs):
+        """
+        XIQ uses a URL to enable or disable a 'soft launch' (beta) feature.
+
+        This Method is used to enable/disable an XIQ "beta" feature that is hidden by a "soft-launch" URL executed.
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/login/KeywordsLogin.py
+        -      xiq soft launch feature url
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
+        -      Calling Keyword:
+        -         keywords_login = KeywordsLogin()
+        -         keywords_login.xiq_soft_launch_feature_url()
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Supported **
+
+        :param url: Full url to load to enable or disable the 'hidden' feature. "XIQ_URL" is the "test_url" value obtained from the testbed environment YAML file.
+        :return: Returns 1 if success, -1 if not success.
+        """
+
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+        keyword_name = inspect.stack()[0][3]
+        self.keyword_utils.implementations.set_keyword_uuid("0a4a4f74-11f5-4732-ae78-073d5b0f8624", keyword_name)
+        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
+        self.keyword_utils.implementations.xapi_implemented(keyword_name)
+
+        # Assume a failure
+        return_code = -1
+
+        # Call the helper function that implements this keyword
+        try:
+            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
+            if implementation_to_run != '':
+                self.keyword_utils.timing.start(keyword_name, 'GUI')
+                if implementation_to_run == "GUI":
+                    return_code = self.login.gui_xiq_soft_launch_feature_url(url)
+                else:
+                    self.keyword_utils.implementations.not_supported(**kwargs)
+                    # not_supported() returns True if keyword should pass else returns False
+                    if return_code:
+                        return_code = 0
+                    else:
+                        return_code = -1
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
+            self.common_validation.fault(**kwargs)
+        finally:
+            self.keyword_utils.timing.end(keyword_name)
+
+        # Return the return value of the keyword
+        return return_code
