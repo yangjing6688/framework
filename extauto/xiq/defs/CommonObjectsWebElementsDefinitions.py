@@ -374,13 +374,13 @@ class CommonObjectsWebElementsDefinitions:
         
     common_object_supp_cli_grid_rows = \
         {
-            'CSS_SELECTOR': '.dojoxGridRow',
+            'CSS_SELECTOR': '.dojoxGridRowTable',
             'wait_for': 2
         }
 
     common_object_supp_cli_grid_row_cells = \
         {
-            'CSS_SELECTOR': '.dojoxGridCell',
+            'CSS_SELECTOR': '.dijitCheckBox',
             'wait_for': 2
         }
 

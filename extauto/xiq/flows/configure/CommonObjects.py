@@ -1181,7 +1181,7 @@ class CommonObjects(object):
         self.utils.print_info(f"Searching Supplemental Cli Profile: {supplemental_cli_name} on all pages...")
         current_page = 1
         found_scli = 0
-
+        self.navigator.wait_until_loading_is_done()
         while True:
             rows = self.cobj_web_elements.get_common_object_supp_cli_grid_rows()
             self.utils.print_info(f"Searching SCLI Profile: {supplemental_cli_name} on page: {current_page}...")
@@ -1191,7 +1191,7 @@ class CommonObjects(object):
                     found_scli = 1
 
                     self.utils.print_info("Clicking the row's checkbox...")
-                    check_box = self.cobj_web_elements.get_common_object_supp_cli_grid_row_cells(row, '0')
+                    check_box = self.cobj_web_elements.get_common_object_supp_cli_grid_row_cells(row)
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
