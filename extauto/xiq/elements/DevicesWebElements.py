@@ -32,6 +32,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_page_numbers(self):
         return self.weh.get_elements(self.devices_page_numbers)
+
     def get_devices_page_number_one(self):
         return self.weh.get_elements(self.devices_page_number_one)
 

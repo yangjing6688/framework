@@ -375,8 +375,9 @@ class Devices(object, metaclass=Singleton):
         if page_size_field and page_number_field.is_displayed():
             self.utils.print_info("Searching Device Entry with Search String : ", search_string)
             self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), search_string)
+            # Wait until 'loading' mask is cleared
+            self.navigator.wait_until_devices_load_spinner_cleared(retry_duration=1, retry_count=180)
             self.screen.save_screen_shot()
-            sleep(5)
 
         stale_retry = 1
         while stale_retry <= 10:
@@ -2537,9 +2538,13 @@ class Devices(object, metaclass=Singleton):
         :return: row if device found else False
         """
 
-        # reset the page number to 1
-        pageOne = self.devices_web_elements.get_devices_page_number_one()
-        if pageOne != None:
+        # See if there is multiple pages
+        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
+
+
+        if page_number_field.is_displayed():
+            # if there is multiple pages reset the page number to 1
+            pageOne = self.devices_web_elements.get_devices_page_number_one()
             self.utils.print_info("Clicking on Page 1 in devices page.")
             self.auto_actions.click(pageOne)
 
