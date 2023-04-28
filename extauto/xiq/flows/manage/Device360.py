@@ -14980,7 +14980,7 @@ class Device360(Device360WebElements):
         else:
             self.utils.print_info (f"Unable to display the success message")
 
-    def succesful_message_multi_edit_exos(self):
+    def succesful_message_multi_edit_config(self):
         """
          - This keyword will verify the success message for Multi Edit configuration for Switch Engine devices.
         :return: pass message if the success message is generated  and the same as the one in the function
@@ -14988,32 +14988,10 @@ class Device360(Device360WebElements):
         """
         start_time = int(time.time())
         max_wait = 180
-        success_message = self.dev360.get_d360_save_port_configuration_message_exos()
+        success_message = self.dev360.get_d360_save_port_configuration_message_config()
         while not success_message:
             if (int(time.time()) - start_time) < max_wait:
-                success_message = self.dev360.get_d360_save_port_configuration_message_exos()
-                self.utils.wait_till(delay=2)
-            else:
-                self.utils.print_info(f"Unable to display the success message")
-        if success_message:
-            success_message_info = success_message.get_attribute("innerText")
-            self.utils.print_info(f"The configuration was saved successfully: {success_message_info}")
-            return success_message.get_attribute("innerText")
-        else:
-            self.utils.print_info(f"Unable to display the success message")
-
-    def succesful_message_multi_edit_voss(self):
-        """
-         - This keyword will verify the success message for Multi Edit configuration for Fabric Engine devices.
-        :return: pass message if the success message is generated  and the same as the one in the function
-        :return: fail message if error (the message is not generated)
-        """
-        start_time = int(time.time())
-        max_wait = 180
-        success_message = self.dev360.get_d360_save_port_configuration_message_voss()
-        while not success_message:
-            if (int(time.time()) - start_time) < max_wait:
-                success_message = self.dev360.get_d360_save_port_configuration_message_voss()
+                success_message = self.dev360.get_d360_save_port_configuration_message_config()
                 self.utils.wait_till(delay=2)
             else:
                 self.utils.print_info(f"Unable to display the success message")
