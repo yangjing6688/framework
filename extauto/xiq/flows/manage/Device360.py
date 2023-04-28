@@ -14978,7 +14978,7 @@ class Device360(Device360WebElements):
             self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
             return success_message.text
         else:
-            self.utils.print_info (f"Unable to display the success message")
+            self.utils.print_info ("Unable to display the success message")
 
     def succesful_message_multi_edit_config(self):
         """
@@ -14994,13 +14994,13 @@ class Device360(Device360WebElements):
                 success_message = self.dev360.get_d360_save_port_configuration_message_config()
                 self.utils.wait_till(delay=2)
             else:
-                self.utils.print_info(f"Unable to display the success message")
+                self.utils.print_info("Unable to display the success message")
         if success_message:
             success_message_info = success_message.get_attribute("innerText")
             self.utils.print_info(f"The configuration was saved successfully: {success_message_info}")
             return success_message.get_attribute("innerText")
         else:
-            self.utils.print_info(f"Unable to display the success message")
+            self.utils.print_info("Unable to display the success message")
 
     def device360_get_stack_ports_by_type(self, port_type, **kwargs):
         """
