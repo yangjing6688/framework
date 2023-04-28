@@ -293,7 +293,7 @@ class DevicesWebElementsDefinitions:
 
     update_config_delta_radio_button = \
         {
-            "XPATH": "//input[@data-automation-tag='override-checkbox' and @value='override']"
+            "XPATH": "//input[@data-dojo-attach-point='update-delta']"
         }
 
     update_devices_button = \
