@@ -173,7 +173,7 @@ class SwitchTemplate(object):
                     self.common_validation.fault(**kwargs)
                     return -1
 
-                sleep(1)
+                sleep(3)
                 self.utils.print_info("Get Template Save Button")
                 save_btns = self.sw_template_web_elements.get_sw_template_save_button()
 
