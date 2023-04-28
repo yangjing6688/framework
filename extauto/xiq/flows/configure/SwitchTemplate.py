@@ -2517,7 +2517,7 @@ class SwitchTemplate(object):
         )
 
         if res != 1:
-            kwargs["fail_msg"] = f"Failed to click the policy switch template tab"
+            kwargs["fail_msg"] = "Failed to click the policy switch template tab"
             self.common_validation.failed(**kwargs)
             return -1
         
@@ -2604,7 +2604,7 @@ class SwitchTemplate(object):
         )
 
         if res != 1:
-            kwargs["fail_msg"] = f"Failed to click the policy switch template tab"
+            kwargs["fail_msg"] = "Failed to click the policy switch template tab"
             self.common_validation.failed(**kwargs)
             return -1
         
