@@ -138,6 +138,19 @@ class LoginXIQ:
             self.common_validation.fault(**kwargs)
             return -1
 
+    def login_iam_console(self, **kwargs):
+        try:
+            self.utils.print_info("Clicking on Logout Menu")
+            self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
+            self.auto_actions.click_reference(self.login_web_elements.get_logout_link)
+        except Exception as e:
+            self.utils.print_debug("Error: ", e)
+            kwargs['fail_msg'] = f"Error: {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
+
+
 
     def gui_logout_user(self, **kwargs):
         """

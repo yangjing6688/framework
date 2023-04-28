@@ -112,21 +112,27 @@ class IAMWebElementsDefinitions:
             'wait_for': 3,
         }
 
-    iam_idp_page_email = \
+    iam_idp_page_email_text = \
         {
             'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(1) > div.attr-item > div.attr-item-saml',
             'wait_for': 5
         }
 
-    iam_idp_page_group = \
+    iam_idp_page_group_text = \
         {
             'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(2) > div.attr-item > div.attr-item-saml > mat-form-field',
             'wait_for': 5
         }
 
-    iam_idp_page_default_group = \
+    iam_idp_page_default_group_dropdown = \
         {
             'XPATH': '//div[@class="group-default-field"]',
+            'wait_for': 3,
+        }
+
+    iam_idp_page_default_group_item = \
+        {
+            'XPATH': '//span[contains(text(),',
             'wait_for': 3,
         }
 
@@ -163,6 +169,12 @@ class IAMWebElementsDefinitions:
     iam_page_list_idp = \
         {
             'XPATH': '//span[contains(text(),',
+            'wait_for': 3,
+        }
+
+    iam_console_link = \
+        {
+            'XPATH': '//a[contains(text(),"Identity and Access Management")]',
             'wait_for': 3,
         }
 
