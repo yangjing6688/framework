@@ -4287,6 +4287,7 @@ class Devices(object, metaclass=Singleton):
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
+        sleep(2)
 
         if update_method == "Delta":
             self.utils.print_info("Using Delta method...")
