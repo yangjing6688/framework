@@ -504,20 +504,20 @@ class Location:
         """
         return self.devices.get_device_details(device_host, 'LOCATION')
 
-    def assign_location_with_device_actions_using_hostname(self, device_name="default", dev_location=None, **kwargs):
+    def assign_location_with_device_actions_using_serial(self, device_serial=None, dev_location=None, **kwargs):
         """
         - This keyword assigns location to device by clicking on Actions button in Devices page.
-        - Flow: Manage --> Devices --> selects the device based on host name --> Actions --> Assign Location
+        - Flow: Manage --> Devices --> selects the device based on serial number --> Actions --> Assign Location
         - Keyword Usage:
-        - ``Assign Location With Device Actions    ${SW_HOST}              San Jose, building_01, floor_02``
+        - ``Assign Location With Device Actions    ${serial}              San Jose, building_01, floor_02``
 
-        :param device_serial: device host name
+        :param device_serial: device serial number
         :param dev_location: location where the device is to be assigned in the above format
         :return: 1 if success else -1
         """
 
         self.navigator.navigate_to_devices()
-        if self.devices.select_device(device_name=device_name, skip_navigation=True):
+        if self.devices.select_device(device_serial=device_serial, skip_navigation=True):
             self.utils.print_info("Clicking on Actions Button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
             sleep(2)
@@ -527,7 +527,7 @@ class Location:
             sleep(2)
 
             self.screen.save_screen_shot()
-            return self._assign_location(device_name, dev_location)
+            return self._assign_location(device_serial, dev_location)
 
         else:
             kwargs['fail_msg'] = "Device not found in Devices Grid"

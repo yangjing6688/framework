@@ -86,14 +86,12 @@ class NavigatorWebElementDefinitions:
 
     user_management_dropdown_toggle = \
         {
-            'XPATH': '//div//span[@data-dojo-attach-point="dropdownToggle"]',
-            'wait_for': 5
+            'XPATH': '//div//span[@data-dojo-attach-point="dropdownToggle"]'
         }
 
     configure_users_user_management_side_menu = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-label-User-Management"]',
-            'wait_for': 5
+            'XPATH': '//div[@data-automation-tag="automation-header-label-User-Management"]'
         }
 
     deutcshe_configure_users_user_management_side_menu = \
@@ -434,8 +432,7 @@ class NavigatorWebElementDefinitions:
 
     ml_insight_network360plan = \
         {
-            'XPATH': '//div[@data-automation-tag="automation-header-nav-plan"]',
-            'wait_for': 5
+            'XPATH': '//div[@data-automation-tag="automation-header-nav-plan"]'
         }
 
     ml_insight_network360monitor = \
@@ -1220,8 +1217,7 @@ class NavigatorWebElementDefinitions:
 
     unbind_device_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-sider-list-unbinddevice"]',
-            'wait_for': 5
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-unbinddevice"]'
         }
 
     client_monitor_diagnosis_tab = \
