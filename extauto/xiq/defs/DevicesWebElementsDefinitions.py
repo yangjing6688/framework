@@ -234,7 +234,7 @@ class DevicesWebElementsDefinitions:
     device_select_check_box = \
         {
             'XPATH': './/td[contains(@Class, "dgrid-selector")]//input[@type="checkbox"]',
-            'wait_for': 2
+            'wait_for': 10
         }
 
     device_delete_confirm_ok_button = \
