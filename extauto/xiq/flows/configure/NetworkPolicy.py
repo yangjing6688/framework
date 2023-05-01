@@ -856,26 +856,10 @@ class NetworkPolicy(object):
                  -1 if elements are not found along the way
         """
 
-        self.utils.print_info("Navigating to the configure network policies")
-        self.navigator.navigate_configure_network_policies()
-
-        self.utils.print_info("Searching for network policy list view button...")
-        list_view_button = self.np_web_elements.get_network_policy_list_view()
-        if list_view_button:
-            self.utils.print_info("Network policy list view button found! Clicking... ")
-            self.auto_actions.click_reference(self.np_web_elements.get_network_policy_list_view)
-        else:
-            kwargs['fail_msg'] = "List view button not found!"
+        if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+            kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
             self.common_validation.fault(**kwargs)
             return -1
-
-        self.utils.print_info("Searching for network policy 100 rows per page button...")
-        view_all_pages = self.np_web_elements.get_nw_policy_port_types_view_all_pages()
-        if view_all_pages:
-            self.utils.print_info("Network Policy fill size is present on page. Clicking... ")
-            self.auto_actions.click(view_all_pages)
-        else:
-            self.utils.print_info("Network Policy fill size is not present on page. Continue running... ")
 
         self.utils.print_info("Select the network policy rows")
         current_page = 1
@@ -883,11 +867,14 @@ class NetworkPolicy(object):
 
         while True:
             self.utils.print_info(f"Current page: {current_page}")
-            self.utils.print_info("Waiting for Network Policy rows to load...")
-            self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
-            self.navigator.wait_until_loading_is_done()
-            self.utils.print_info("Network Policy rows have been loaded. Searching for "
-                                  f"Network Policy: {policy_name} ...")
+            # When we navigated to the policies list view, it took care of waiting for the policies to load.
+            # Thus only wait for the policies to load if we move to the next page
+            if current_page != 1:
+                self.utils.print_info("Waiting for Network Policy rows to load...")
+                self.utils.wait_till(self.np_web_elements.get_np_grid_rows, delay=5, timeout=60)
+                self.navigator.wait_until_loading_is_done()
+                self.screen.save_screen_shot()
+            self.utils.print_info("Network Policy rows have been loaded. Searching for "f"Network Policy: {policy_name} ...")
 
             try:
                 rows = self.np_web_elements.get_np_grid_rows()
@@ -934,6 +921,7 @@ class NetworkPolicy(object):
                                          f"all {current_page} pages. It was deleted or not created at all."
                     self.common_validation.failed(**kwargs)
                     return -1
+
 
     def add_wireless_nw_to_network_policy(self, policy_name, **wireless_profile):
         """
