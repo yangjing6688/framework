@@ -631,7 +631,7 @@ class DeviceTemplate(object):
                 break
 
         self.utils.print_info(f"CLicking Delete Button for AP Template {ap_template_name}")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_delete_ap_template_button)
+        self.auto_actions.click_reference(self.device_template_web_elements.get_remove_ap_template_from_policy_button)
 
         sleep(5)
         self.screen.save_screen_shot()

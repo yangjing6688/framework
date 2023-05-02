@@ -977,11 +977,11 @@ class CommonObjects(object):
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
-        if "Template was successfully removed from policy." in tool_tp_text[-1]:
+        if "Template was successfully removed from policy." in tool_tp_text:
             kwargs['pass_msg'] = "Template was successfully removed from policy."
             self.common_validation.passed(**kwargs)
             return 1
-        elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text[-1]:
+        elif "The Device Template cannot be removed because it is used by another object" in tool_tp_text:
             kwargs['fail_msg'] = "The Device Template cannot be removed because it is used by another object"
             self.common_validation.fault(**kwargs)
             return -1

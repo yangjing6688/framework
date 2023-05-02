@@ -184,6 +184,9 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
     def get_delete_ap_template_button(self):
         return self.weh.get_element(self.delete_ap_template_button)
 
+    def get_remove_ap_template_from_policy_button(self):
+        return self.weh.get_element(self.remove_ap_template_from_policy_button)
+
     def get_select_rule_in_templates_view_all_pages(self):
         return self.weh.get_element(self.select_rule_in_templates_view_all_pages)
 

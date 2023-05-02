@@ -273,6 +273,12 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 3
         }
 
+    remove_ap_template_from_policy_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-wireless-device-templates-speRemove-btn"]',
+            'wait_for': 3
+        }
+
     select_rule_in_templates_view_all_pages = \
         {
             'XPATH': '//div[@data-dojo-attach-point="listArea"]//div[@data-dojo-attach-point="gridBottomLeft"]'

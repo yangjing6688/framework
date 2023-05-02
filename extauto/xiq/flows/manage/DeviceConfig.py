@@ -661,9 +661,15 @@ class DeviceConfig(DeviceConfigElements):
         if interface_name == "WIFI1":
             self._configure_wifi1_interface_radio_status(status)
 
+        if self.get_manage_device_interface_settings_save_button_disabled():
+            kwargs['pass_msg'] = "No update required on wireless radio interface"
+            self.utils.print_info("Click Interface Settings Close Button")
+            self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_close_button)
+            self.common_validation.passed(**kwargs)
+            return 1
+
         self.utils.print_info("Click Interface Settings Save Button")
-        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save_button)
-        sleep(2)
+        self.auto_actions.click_reference(self.get_manage_device_edit_wireless_interface_save_button)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.screen.save_screen_shot()
