@@ -2505,7 +2505,7 @@ class SwitchTemplate(object):
 
         tab = self.np_web_elements.get_switching_tab()
         if tab.is_displayed():
-            print("Click on Switch Templates tab")
+            self.utils.print_info("Click on Switch Templates tab")
             self.auto_actions.click_reference(lambda: tab)
             sleep(2)
 
@@ -2521,7 +2521,7 @@ class SwitchTemplate(object):
             self.common_validation.failed(**kwargs)
             return -1
         
-        print("Switch Template: " + sw_template)
+        self.utils.print_info("Switch Template: " + sw_template)
         res, _ = self.utils.wait_till(
             func=lambda: self.auto_actions.click_reference(lambda: self.get_sw_template_row_hyperlink(sw_template)),
             exp_func_resp=True,
@@ -2537,13 +2537,15 @@ class SwitchTemplate(object):
         self.set_override_policy_common_settings(state=True)
         sleep(5)
 
-        self.auto_actions.click_reference(
-            self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down)
+        dropdown = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down()
+        if dropdown:
+            dropdown.location_once_scrolled_into_view
+        self.auto_actions.click_reference(self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down)
         sleep(2)
 
         container = self.sw_template_web_elements.get_sw_template_device_sett_forward_delay_drop_down_container()
         delay_container = container.text[:2]
-        print(f"Default STP forward delay value in device template is {delay_container}")
+        self.utils.print_info(f"Default STP forward delay value in device template is {delay_container}")
 
         sleep(3)
         self.auto_actions.click_reference(
@@ -2553,18 +2555,18 @@ class SwitchTemplate(object):
         delay_container = container_val
 
         sleep(3)
-        print("Get Template Save Button")
+        self.utils.print_info("Get Template Save Button")
         save_btns = self.sw_template_web_elements.get_sw_template_save_button_adv_tab()
 
         for save_btn in save_btns:
             if save_btn.is_displayed():
-                print("Click on the save template button")
+                self.utils.print_info("Click on the save template button")
                 self.auto_actions.click(save_btn)
                 sleep(10)
                 break;
 
         sleep(3)
-        print("Click on network policy exit button")
+        self.utils.print_info("Click on network policy exit button")
         self.auto_actions.click_reference(self.np_web_elements.get_np_exit_button)
         sleep(2)
 
