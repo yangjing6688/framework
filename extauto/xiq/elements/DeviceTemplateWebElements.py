@@ -231,6 +231,15 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
     def get_select_device_template(self):
         return self.weh.get_element(self.select_device_template)
 
+    def get_select_sr_dell_tab(self):
+        return self.weh.get_element(self.select_sr_dell_tab)
+
+    def get_select_wireless_tab(self):
+        return self.weh.get_element(self.select_wireless_tab)
+
+    def get_select_ap_template_tab(self):
+        return self.weh.get_element(self.select_ap_template_tab)
+
     def get_select_ap_template(self):
         return self.weh.get_element(self.select_ap_template)
 
@@ -272,3 +281,15 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
 
     def get_device_ap_template_search_inputfield(self):
         return self.weh.get_element(self.device_ap_template_search_inputfield)
+
+    def get_policy_switching_tab(self):
+        return self.weh.get_element(self.policy_switching_tab)
+
+    def get_policy_switch_templates_tab(self):
+        return self.weh.get_element(self.policy_switch_templates_tab)
+
+    def get_policy_sr_dell_switching_tab(self):
+        return self.weh.get_element(self.policy_sr_dell_switching_tab )
+
+    def get_policy_sr_dell_switch_templates_tab(self):
+        return self.weh.get_element(self.policy_sr_dell_switch_templates_tab)
