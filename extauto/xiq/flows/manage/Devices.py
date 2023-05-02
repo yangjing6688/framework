@@ -2655,9 +2655,18 @@ class Devices(object, metaclass=Singleton):
         if row:
             kwargs['pass_msg'] = f"Device with {device_keys} was found!"
             if select_device:
-                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
-                self.screen.save_screen_shot()
-                kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
+                checkbox_webelement = self.devices_web_elements.get_device_select_checkbox(row)
+                if checkbox_webelement.is_selected():
+                    kwargs['pass_msg'] = f"Device matching '{device_keys}' was found and was already selected"
+                else:
+                    self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                    if checkbox_webelement.is_selected():
+                        kwargs['pass_msg'] = f"Device matching '{device_keys}' was found and has been selected"
+                    else:
+                        kwargs['fail_msg'] = f"Device matching '{device_keys}' was found and but could not be selected"
+                        self.common_validation.fault(**kwargs)
+
+            self.screen.save_screen_shot()
             self.common_validation.passed(**kwargs)
             return 1
 
