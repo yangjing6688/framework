@@ -293,9 +293,7 @@ class DevicesWebElementsDefinitions:
 
     update_config_delta_radio_button = \
         {
-            'CLASS_NAME': 'J-up',
-            'index': 1,
-            'wait_for': 1
+            "XPATH": "//input[@data-automation-tag='override-checkbox' and @value='override']"
         }
 
     update_devices_button = \
@@ -1938,7 +1936,7 @@ class DevicesWebElementsDefinitions:
 
     global_settings_management_dialog_yes_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
+            'XPATH': '//*[@class="ui-tipbox-con"]//*[@data-automation-tag="automation-notification-yes-btn"]',
         }
 
     device_actions_change_os = \
