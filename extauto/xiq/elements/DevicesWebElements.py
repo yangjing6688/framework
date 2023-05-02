@@ -34,9 +34,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_elements(self.devices_page_numbers)
 
     def get_devices_page_number_one(self):
-        el = self.weh.get_element(self.devices_page_number_one)
-        if el.is_displayed():
-            return el
+        return self.weh.get_element(self.devices_page_number_one)
 
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
