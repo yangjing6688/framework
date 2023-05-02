@@ -125,6 +125,7 @@ class AutoActions:
     def click_with_js(self, element):
         CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
         sleep(2)
+        return 1
 
     def move_to_element(self, element):
         """

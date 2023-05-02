@@ -2377,11 +2377,11 @@ class NetworkPolicy(object):
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
+    # This is not a real keyword, it only clicks on an element. Let it comment as I do not know who else is using it.
+    # def get_switching_tab(self):
+    #     self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
 
-    def get_switching_tab(self):
-        self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
-
-    def get_port_types_section(self, **kwargs):
+    def check_port_types_section(self, **kwargs):
         """
         - This keyword will navigate to Port Types section in Network Policies tab
         - Assumption: Already Opened Network Policy
@@ -2393,6 +2393,7 @@ class NetworkPolicy(object):
         # this sleep is necessary for allowing the page to load before performing any action
         time.sleep(1)
         self.auto_actions.click_reference(self.np_web_elements.get_port_types_section)
+        self.navigator.wait_until_loading_is_done()
         self.screen.save_screen_shot()
         title = self.np_web_elements.get_port_types_title_page()
         title_text = title.text
@@ -2686,7 +2687,7 @@ class NetworkPolicy(object):
                 self.common_validation.fault(**kwargs)
                 return -1, {}
 
-            if self.auto_actions.click(save_button) == 1:
+            if self.auto_actions.click_with_js(save_button) == 1:
                 self.utils.print_info("Successfully clicked on the Save element")
             else:
                 kwargs['fail_msg'] = "Failed to click on the Save element"
@@ -2706,13 +2707,13 @@ class NetworkPolicy(object):
         cli_type = cli_type.upper()
         if cli_type is not None:
             if cli_type == "VOSS":
-                self.auto_actions.click_reference(self.np_web_elements.get_select_platform_voss)
+                self.auto_actions.click_with_js(self.np_web_elements.get_select_platform_voss())
                 kwargs['pass_msg'] = "Selected Platform VOSS"
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
                 return 1
             elif cli_type == "EXOS":
-                self.auto_actions.click_reference(self.np_web_elements.get_select_platform_exos)
+                self.auto_actions.click_with_js(self.np_web_elements.get_select_platform_exos())
                 kwargs['pass_msg'] = "Selected Platform EXOS"
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
@@ -2731,19 +2732,35 @@ class NetworkPolicy(object):
 
         if self.dev360.get_d360_switch_port_view_all_pages_button():
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_with_js(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.navigator.wait_until_loading_is_done()
             self.screen.save_screen_shot()
-        sleep(2)
+
         if port_type_name is not None:
+            self.utils.print_info(f"Searching {port_type_name} on first page.")
             port_type_table_item = self.get_port_type_row(port_type_name)
-            sleep(3)
+            if not port_type_table_item:
+                self.utils.print_info(f"Searching {port_type_name} on next page page.")
+                next_page_button = self.dev360.get_device360_pagination_next_button()
+                assert next_page_button, "Did not find the next page button"
+                self.auto_actions.click_with_js(next_page_button)
+                self.navigator.wait_until_loading_is_done()
+                port_type_table_item = self.get_port_type_row(port_type_name)
+            if not port_type_table_item:
+                self.utils.print_info(f"Searching {port_type_name} on next page page.")
+                next_page_button = self.dev360.get_device360_pagination_next_button()
+                assert next_page_button, "Did not find the next page button"
+                self.auto_actions.click_with_js(next_page_button)
+                self.navigator.wait_until_loading_is_done()
+                port_type_table_item = self.get_port_type_row(port_type_name)
             self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.np_web_elements.get_port_type_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.auto_actions.click_with_js(self.np_web_elements.get_port_type_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.navigator.wait_until_loading_is_done()
             self.screen.save_screen_shot()
             sleep(3)
             self.utils.print_info(f"Editing port_type {port_type_name} ")
-            if self.auto_actions.click(self.np_web_elements.get_edit_port_type()) == 1:
+            if self.auto_actions.click_with_js(self.np_web_elements.get_edit_port_type()) == 1:
                 kwargs['pass_msg'] = f"Successfully opened configuration window for port_type {port_type_name} "
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
@@ -2765,17 +2782,32 @@ class NetworkPolicy(object):
         """
         if self.dev360.get_d360_switch_port_view_all_pages_button():
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_with_js(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.navigator.wait_until_loading_is_done()
             self.screen.save_screen_shot()
-        sleep(2)
+
         if port_type_name is not None:
+            self.utils.print_info(f"Searching {port_type_name} on first page.")
             port_type_table_item = self.get_port_type_row(port_type_name)
-            sleep(2)
+            if not port_type_table_item:
+                self.utils.print_info(f"Searching {port_type_name} on next page page.")
+                next_page_button = self.dev360.get_device360_pagination_next_button()
+                assert next_page_button, "Did not find the next page button"
+                self.auto_actions.click_with_js(next_page_button)
+                self.navigator.wait_until_loading_is_done()
+                port_type_table_item = self.get_port_type_row(port_type_name)
+            if not port_type_table_item:
+                self.utils.print_info(f"Searching {port_type_name} on next page page.")
+                next_page_button = self.dev360.get_device360_pagination_next_button()
+                assert next_page_button, "Did not find the next page button"
+                self.auto_actions.click_with_js(next_page_button)
+                self.navigator.wait_until_loading_is_done()
+                port_type_table_item = self.get_port_type_row(port_type_name)
             self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
-            self.auto_actions.click(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.auto_actions.click_with_js(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
             self.screen.save_screen_shot()
             self.utils.print_info(f"Deleting port_type {port_type_name} ")
-            if self.auto_actions.click(self.np_web_elements.get_delete_port_type()) == 1:
+            if self.auto_actions.click_with_js(self.np_web_elements.get_delete_port_type()) == 1:
                 kwargs['pass_msg'] = f"Deleting port_type {port_type_name} "
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
@@ -2918,18 +2950,6 @@ class NetworkPolicy(object):
         self.utils.print_info(f"Policy name is: {policy_name}")
         return policy_name
 
-    def navigate_to_switching_tab(self, policy_name):
-        """
-        Method used to create a Network Policy, navigate to Edit Tab then Switching Tab
-        :param policy_name: the name of the policy
-        :return:
-        """
-
-        assert self.navigate_to_np_edit_tab(policy_name=policy_name) == 1, \
-            "Failed to navigate to Network Policy Edit Tab"
-
-        self.get_switching_tab()
-
     def open_network_policy_ssid_page(self, policy_name, ssid_name, **kwargs):
         """
         - This Keyword will Open Particular SSID name of the wireless network in the network policy
@@ -2967,4 +2987,101 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -1
 
+    def set_dns_server_status(self, status="enable", **kwargs):
+        
+        if not status in ["enable", "disable"]:
+            kwargs["fail_msg"] = "given status should be enable or disable"
+            self.common_validation.fault(**kwargs)
+        
+        button, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_dns_server_status,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
 
+        if button is None:
+            kwargs["fail_msg"] = "Failed to get the dns server status button"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
+        if (button.is_selected() and status == "disable") or (not button.is_selected() and status == "enable"):
+            self.utils.print_info(f"{status} dns server")
+            
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(button),
+                exp_func_resp=True,
+                delay=4,
+                silent_failure=True
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the dns server status button"
+                self.common_validation.fault(**kwargs)
+                return -1
+        else:
+            self.utils.print_info(f"status of dns server is already {status}d")
+            
+        kwargs["pass_msg"] = f"Successfully set the status of dns server - {status}d"
+        self.common_validation.passed(**kwargs)
+        return 1
+        
+    def go_to_dns_server_tab(self, **kwargs):
+        
+        tab, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_nw_policy_additional_settings_dns_server_tab,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if tab is None:
+            kwargs["fail_msg"] = "Failed to get the dns server tab"
+            self.common_validation.fault(**kwargs)
+            return -1
+    
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(tab),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the dns server status tab"
+            self.common_validation.fault(**kwargs)
+            return -1
+            
+        kwargs["pass_msg"] = "Successfully went to the dns server tab"
+        self.common_validation.passed(**kwargs)
+        return 1
+    
+    def save_dns_server_tab(self, **kwargs):
+
+        button, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_dns_server_save_button,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if button is None:
+            kwargs["fail_msg"] = "Failed to get the dns server save button"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(button),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the dns server save button"
+            self.common_validation.fault(**kwargs)
+            return -1
+            
+        kwargs["pass_msg"] = "Successfully clicked the dns server save button"
+        self.common_validation.passed(**kwargs)
+        return 1

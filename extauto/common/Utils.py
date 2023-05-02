@@ -901,7 +901,7 @@ class Utils:
             if len(custom_response_list) > 0:
                 if callback_response_lower in custom_response_list:
                     if is_logging_enabled:
-                        self.print_info(f"Wail_till is success, callback response is '{callback_response}'")
+                        self.print_info(f"wail_till() successful, callback response is '{callback_response}'")
                         self.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
                     return callback_response, elapsed_time_hms
                 else:
@@ -909,7 +909,7 @@ class Utils:
             # This block checks callback response matches with expected response and or custom_response, if so returns the func() response
             elif callback_response_bool == exp_func_resp:
                 if is_logging_enabled:
-                    self.print_info(f"Wail_till is success, callback response is '{callback_response_bool}'")
+                    self.print_info(f"wail_till() successful, callback response is '{callback_response_bool}'")
                     self.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
                 return callback_response, elapsed_time_hms
 
@@ -922,7 +922,7 @@ class Utils:
         # if enable_log is True then callback response and time left in seconds will be printed
         if is_logging_enabled:
             self.print_info(
-                f"Wait_till is unsuccess, function response was '{callback_response}' after waiting for '{max_wait_time} seconds' ")
+                f"wait_till() unsuccessful, function response was '{callback_response}' after waiting for '{max_wait_time} seconds' ")
             self.print_info(f"Execution Time (HH:MM:SS): {elapsed_time_hms}")
 
         # silent failure is True then this function will not raise timeout exception but returns the func() response
@@ -930,7 +930,7 @@ class Utils:
             return callback_response, elapsed_time_hms
 
         # Raise timeout exception if silent_failure is set as false
-        raise Exception("Request Timedout")
+        raise Exception(f"wait_till() - Waited {max_wait_time} seconds but the request timed out")
 
     def _parse_group(self, group):
         try:
