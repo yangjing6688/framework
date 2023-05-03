@@ -3550,7 +3550,19 @@ class Device360(Device360WebElements):
         if event_type == "config":
             self.utils.print_info("Clicking on 'Configurations Events' tab!")
             self.auto_actions.click(self.dev360.get_d360_config_events())
-        search_box = self.dev360.get_d360Event_search_textbox()
+
+        search_box, _ = self.utils.wait_till(
+            func=self.dev360.get_d360Event_search_textbox,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if search_box is None:
+            kwargs["fail_msg"] = "Failed to get the search_textbox element"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
         if search_box:
             self.utils.print_info("Entering info to search : ", search_value)
             self.auto_actions.send_keys(self.dev360.get_d360Event_search_textbox(), search_value)
