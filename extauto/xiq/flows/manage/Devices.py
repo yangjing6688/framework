@@ -1226,7 +1226,19 @@ class Devices(object, metaclass=Singleton):
                     self.auto_actions.click(uptd)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox),
+                exp_func_resp=True,
+                delay=10,
+                silent_failure=True,
+                timeout=40
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to select the upgrade IQ Engine checkbox"
+                self.common_validation.fault(**kwargs)
+                return -1
+            
             sleep(5)
 
             if version is None:
@@ -4275,6 +4287,7 @@ class Devices(object, metaclass=Singleton):
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
+        sleep(2)
 
         if update_method == "Delta":
             self.utils.print_info("Using Delta method...")
@@ -12527,11 +12540,23 @@ class Devices(object, metaclass=Singleton):
             def _click_update_devices_button():
                 return self.auto_actions.click(DeviceUpdate().get_update_devices_button())
 
-            self.utils.wait_till(_click_update_devices_button, timeout=30, delay=20,
+            self.utils.wait_till(_click_update_devices_button, timeout=40, delay=30,
                                  msg="Selecting Update Devices button")
 
-            checkbox_status = DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
+            checkbox_element, _ = self.utils.wait_till(
+                func=DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
 
+            if not checkbox_element:
+                kwargs["fail_msg"] = "Failed to get upgrade_IQ_engine_and_extreme_network_switch_images_checkbox element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            checkbox_status = checkbox_element.get_attribute("checked")
+            
             if checkbox_status == "true":
                 self.utils.print_info("Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
             else:
