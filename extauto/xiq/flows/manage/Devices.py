@@ -214,7 +214,16 @@ class Devices(object, metaclass=Singleton):
             self.utils.print_info('No exit level defined')
             return 1
 
-    def get_os_change(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def get_os_change(self, device_serial=None, device_mac=None, **kwargs):
+        """
+        - Changing OS of a specific device
+        - Selects a device -> clicks on "action" button -> clicks on "change OS" button -> clicks on "yes" button
+
+        :param device_serial: serial number of the device
+        :param device_mac: MAC of the device
+        :return: 1 if the OS was changed successfully, else -1
+        """
+
         if device_mac:
             search_result = self.search_device(device_mac=device_mac)
             if search_result != -1:
@@ -264,30 +273,10 @@ class Devices(object, metaclass=Singleton):
                 kwargs['fail_msg'] = f"Device with device serial {device_serial} is not EXOS or VOSS device"
                 self.common_validation.failed(**kwargs)
                 return -1
-        if device_name:
-            search_result = self.search_device(device_name=device_name)
-            if search_result != -1:
-                if self.select_device(device_name=device_name):
-                    self.utils.print_info("Click ACTION button")
-                    self.auto_actions.click_reference(self.devices_web_elements.get_action_button)
-                    self.utils.print_info("Click change os Button")
-                    self.auto_actions.click_reference(self.devices_web_elements.device_actions_change_os_button)
-                    self.screen.save_screen_shot()
-                    sleep(2)
-                    self.utils.print_info("Check for error message")
-                    device_error_message = self.devices_web_elements.get_os_change_error_message()
-                    self.utils.print_info("Error message: ", device_error_message.text)
-                    self.utils.print_info("Click confirmation Yes Button")
-                    self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button)
-                    sleep(2)
-                    self.screen.save_screen_shot()
-                    kwargs['pass_msg'] = f"Successfully Selected NOS change for device named {device_name} "
-                    self.common_validation.passed(**kwargs)
-                    return 1
-            else:
-                kwargs['fail_msg'] = f"Device with device name {device_name} is not EXOS or VOSS device"
-                self.common_validation.failed(**kwargs)
-                return -1
+
+        kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac"
+        self.common_validation.fault(**kwargs)
+        return -1
 
     def clear_search_field(self):
         """
@@ -2287,10 +2276,10 @@ class Devices(object, metaclass=Singleton):
 
     # This method will not be deprecated until the keywords from the entire file have been moved and tested
     # @deprecated('Please use the {delete_device} keyword from keywords/gui/manage/KeywordsDevices.py. This method can be removed after 7/1/2023')
-    def delete_device(self, *device_dict, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def delete_device(self, *device_dict, device_serial=None, device_mac=None, **kwargs):
         """
-        - Deletes a device matching either one of serial, name, MAC or deletes a device identified by 'serial', 'mac'
-        or 'name' provided in device_dict
+        - Deletes a device matching either one of serial, MAC or deletes a device identified by 'serial' or 'mac'
+        provided in device_dict
 
         - Keyword Usage:
         - ``Delete Device    device_serial=${DEVICE_SERIAL}``
@@ -2302,7 +2291,6 @@ class Devices(object, metaclass=Singleton):
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param device_serial: device serial number
-        :param device_name: name of the device
         :param device_mac: mac address of the device
         :param kwargs: Supports all standard kwargs
 
@@ -2313,18 +2301,15 @@ class Devices(object, metaclass=Singleton):
             device_dict = device_dict[0]
             device_serial = device_dict.get("serial")
             device_mac = device_dict.get("mac")
-            device_name = device_dict.get("name")
             device_type = device_dict.get("platform")
 
-            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_name=device_name,
-                                                                     device_mac=device_mac, device_type=device_type)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_mac=device_mac,
+                                                                     device_type=device_type)
         else:
-            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
-                                                                     device_name=device_name, device_mac=device_mac)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_mac=device_mac)
 
         if self.xapiDevices.is_xapi_enabled(**kwargs):
-            return self.xapiDevices.xapi_delete_device(device_serial=device_serial, device_name=device_name,
-                                                       device_mac=device_mac, **kwargs)
+            return self.xapiDevices.xapi_delete_device(device_serial=device_serial, device_mac=device_mac, **kwargs)
 
         return self.gui_delete_device(device_object, **kwargs)
 
@@ -2379,18 +2364,16 @@ class Devices(object, metaclass=Singleton):
         device_dict = device_dict[0]
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
-        device_name = device_dict.get("name")
         device_type = device_dict.get("platform")
 
         device_keys = {
             "mac": device_mac,
             "serial": device_serial,
-            "name": device_name,
             "platform": device_type
         }
         device_keys = {key: value for key, value in device_keys.items() if value}
         if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2437,7 +2420,7 @@ class Devices(object, metaclass=Singleton):
             search_result = self.gui_search_device(device_keys, ignore_failure=True)
             if search_result != -1:
                 if self.wait_until_device_update_done(device_serial=device_serial, device_mac=device_mac,
-                                                      device_name=device_name, skip_navigation=True, skip_refresh=True):
+                                                      skip_navigation=True, skip_refresh=True):
                     if self._select_and_delete(device_keys):
                         kwargs['pass_msg'] = "Deleted Device Successfully!"
                         self.common_validation.passed(**kwargs)
@@ -2514,13 +2497,11 @@ class Devices(object, metaclass=Singleton):
             self.common_validation.passed(**kwargs)
         return ret_val
 
-    def _change_parameters_to_device_object(self, device_serial=None, device_name=None, device_mac=None,
-                                            device_type=None, **kwargs):
+    def _change_parameters_to_device_object(self, device_serial=None, device_mac=None, device_type=None, **kwargs):
         """
         - Helper function to change parameters to a device object
 
         :param device_serial: device Serial
-        :param device_name: device host name
         :param device_mac: device MAC address
         :param device_type: device platform: E.g: aerohive, stack
         :param kwargs: keyword arguments
@@ -2530,13 +2511,12 @@ class Devices(object, metaclass=Singleton):
         device_object = {
             "mac": device_mac,
             "serial": device_serial,
-            "name": device_name,
             "platform": device_type
         }
         device_object = {key: value for key, value in device_object.items() if value}
 
         if len(device_object.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2610,10 +2590,10 @@ class Devices(object, metaclass=Singleton):
 
     # This method will not be deprecated until the keywords from the entire file have been moved and tested
     # @deprecated('Please use the {search_device} keyword from keywords/gui/manage/KeywordsDevices.py. This method can be removed after 7/1/2023')
-    def search_device(self, *device_dict, device_serial=None, device_name=None, device_mac=None, select_device=False,
-                      skip_refresh=False, skip_navigation=False, **kwargs):
+    def search_device(self, *device_dict, device_serial=None, device_mac=None, select_device=False, skip_refresh=False,
+                      skip_navigation=False, **kwargs):
         """
-        - Searches for the device using serial, name or MAC passed, or provided in device_dict.
+        - Searches for the device using serial or MAC passed, or serial/MAC provided in device_dict.
         The device (if found) can be optionally selected.
 
         - Keyword Usage:
@@ -2626,7 +2606,6 @@ class Devices(object, metaclass=Singleton):
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param device_serial: serial number of the device
-        :param device_name: name of the device
         :param device_mac: MAC of the device
         :param select_device: True - to select the device, default set to False
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
@@ -2640,26 +2619,21 @@ class Devices(object, metaclass=Singleton):
             device_dict = device_dict[0]
             device_serial = device_dict.get("serial")
             device_mac = device_dict.get("mac")
-            device_name = device_dict.get("name")
 
-            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
-                                                                     device_name=device_name, device_mac=device_mac)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_mac=device_mac)
         else:
-            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
-                                                                     device_name=device_name, device_mac=device_mac)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_mac=device_mac)
 
         # We need to skip this when we are selecting a device
         if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
-            return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_name=device_name,
-                                                       device_mac=device_mac, **kwargs)
+            return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_mac=device_mac, **kwargs)
 
         return self.gui_search_device(device_object, select_device=select_device,
                                       skip_refresh=skip_refresh, skip_navigation=skip_navigation, **kwargs)
 
-
     def gui_search_device(self, *device_dict, select_device=False, skip_refresh=False, skip_navigation=False, **kwargs):
         """
-        - Searches for a device identified by 'serial', 'mac' or 'name' provided in device_dict
+        - Searches for a device identified by 'serial' or 'mac' provided in device_dict
 
         - Supported Modes:
           - UI - default mode
@@ -2676,17 +2650,15 @@ class Devices(object, metaclass=Singleton):
         device_dict = device_dict[0]
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
-        device_name = device_dict.get("name")
 
         device_keys = {
             "mac": device_mac,
-            "serial": device_serial,
-            "name": device_name
+            "serial": device_serial
         }
 
         device_keys = {key: value for key, value in device_keys.items() if value}
         if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -2700,9 +2672,18 @@ class Devices(object, metaclass=Singleton):
         if row:
             kwargs['pass_msg'] = f"Device with {device_keys} was found!"
             if select_device:
-                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
-                self.screen.save_screen_shot()
-                kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
+                checkbox_webelement = self.devices_web_elements.get_device_select_checkbox(row)
+                if checkbox_webelement.is_selected():
+                    kwargs['pass_msg'] = f"Device matching '{device_keys}' was found and was already selected"
+                else:
+                    self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                    if checkbox_webelement.is_selected():
+                        kwargs['pass_msg'] = f"Device matching '{device_keys}' was found and has been selected"
+                    else:
+                        kwargs['fail_msg'] = f"Device matching '{device_keys}' was found and but could not be selected"
+                        self.common_validation.fault(**kwargs)
+
+            self.screen.save_screen_shot()
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -2731,18 +2712,16 @@ class Devices(object, metaclass=Singleton):
 
     # This method will not be deprecated until the keywords from the entire file have been moved and tested
     # @deprecated('Please use the {select_device} keyword from keywords/gui/manage/KeywordsDevices.py. This method can be removed after 7/1/2023')
-    def select_device(self, *device_dict, device_serial=None, device_name=None, device_mac=None,
-                      skip_refresh=False, skip_navigation=False, **kwargs):
+    def select_device(self, *device_dict, device_serial=None, device_mac=None, skip_refresh=False,
+                      skip_navigation=False, **kwargs):
         """
-        - Selects the device matching device's Serial Number,Device Mac address and device name passed or
-        provided in device_dict
+        - Selects the device matching device's Serial or Mac address, or serial/mac provided in device_dict
 
         - Keyword Usage:
         - ``Select Device      device_serial=${DEVICE_SERIAL}``
         - ``Select Device      ${ap1}
 
         :param device_serial: device Serial, by default set to None
-        :param device_name: device host name, by default set to None
         :param device_mac: device MAC address, by default set to None
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
         :param skip_navigation: True - to skip the navigation to the devices page, default set to False
@@ -2753,19 +2732,16 @@ class Devices(object, metaclass=Singleton):
             device_dict = device_dict[0]
             device_serial = device_dict.get("serial")
             device_mac = device_dict.get("mac")
-            device_name = device_dict.get("name")
 
-            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
-                                                                     device_name=device_name, device_mac=device_mac)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_mac=device_mac)
         else:
-            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
-                                                                     device_name=device_name, device_mac=device_mac)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_mac=device_mac)
 
         return self.gui_select_device(device_object, skip_refresh=skip_refresh, skip_navigation=skip_navigation, **kwargs)
 
     def gui_select_device(self, *device_dict, skip_refresh=False, skip_navigation=False, **kwargs):
         """
-        - Selects a device identified by 'serial', 'mac' and 'name' provided in device_dict
+        - Selects a device identified by 'serial' and 'mac' provided in device_dict
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1):
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
@@ -4549,28 +4525,28 @@ class Devices(object, metaclass=Singleton):
                         floor_set = True
                         sleep(5)
 
-    def update_switch_policy_and_configuration(self, device_serial=None, device_name=None, device_mac=None):
+    def update_switch_policy_and_configuration(self, device_serial=None, device_mac=None):
         """
-        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration" check button in the Device Update dialog.
+        - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
+         check button in the Device Update dialog.
         - Go To Manage-->Devices-->Select switch row to apply the network policy
         - Select Switch-->Update device
         - Keyword Usage:
         - ``Update Switch Policy and Configuration  ${SWITCH_SERIAL}``
 
         :param device_serial: serial number of the switch to update, by default set to None
-        :param device_name: device Name, by default set to None
         :param device_mac: device MAC, by default set to None
+
         :return: 1
         """
         self.utils.print_info("Select Switch row")
-        self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
+        self.select_device(device_serial=device_serial, device_mac=device_mac)
 
         self._update_switch(update_method="PolicyAndConfig")
 
         self.screen.save_screen_shot()
 
-        return self._check_device_update_status(device_serial=device_serial, device_name=device_name,
-                                                device_mac=device_mac)
+        return self._check_device_update_status(device_serial=device_serial, device_mac=device_mac)
 
     def update_switch_iq_engine_and_images(self, serial):
         """
@@ -4802,14 +4778,15 @@ class Devices(object, metaclass=Singleton):
         - It will poll the "update status" every 30 seconds
         - Assuming that config push will take a maximum of five minutes
 
-        :param  device_serial_mac_or_name: device serial number, device mac or device name to check the config push status,
-                                           by default set to None
+        :param device_serial: device serial number, to check the config push status, by default set to None
+        :param device_name: name of the device, to check the config push status, by default set to None
+        :param device_mac: device serial number, to check the config push status, by default set to None
+
         :return: 1 if config push success else -1
         """
         retry_count = 0
         while retry_count <= 300:
-            device_update_status = self.get_device_updated_status(device_serial=device_serial, device_name=device_name,
-                                                                  device_mac=device_mac)
+            device_update_status = self.get_device_updated_status(device_serial=device_serial, device_mac=device_mac)
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif device_update_status == "Device Update Failed":
@@ -5382,8 +5359,7 @@ class Devices(object, metaclass=Singleton):
             self.common_validation.passed(**kwargs)
         return 1
 
-    def wait_until_device_added(self, device_serial=None, device_name=None, device_mac=None, retry_duration=30,
-                                retry_count=10, **kwargs):
+    def wait_until_device_added(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword is used to wait for the device to show up in XIQ.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists
@@ -5392,14 +5368,13 @@ class Devices(object, metaclass=Singleton):
         - search for the device based on specified device criteria
         - Keyword Usage:
         - ``Wait Until Device Added    device_serial=${DEVICE_SERIAL}    retry_duration=15    retry_count=20``
-        - ``Wait Until Device Added    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
         - ``Wait Until Device Added    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
 
         :param device_serial: device serial number to look for, by default set to None
-        :param device_name: device name to look for, by default set to None
         :param device_mac: device MAC address to look for, by default set to None
         :param retry_duration: duration between each retry, by default set to 30
         :param retry_count: retry count, by default set to 10
+
         :return: 1 if device added within time; else -1
         """
         self.utils.print_info("Navigate to Manage> Devices")
@@ -5417,22 +5392,6 @@ class Devices(object, metaclass=Singleton):
                 else:
                     self.utils.print_info(
                         f"Device with serial {device_serial} is not yet present. Waiting for {retry_duration} seconds...")
-                    sleep(retry_duration)
-                    self.refresh_devices_page()
-                count += 1
-
-        # Search by Name
-        elif device_name:
-            count = 1
-            while count <= retry_count:
-                self.utils.print_info(f"Searching for device by Name: loop {count}")
-                if self.search_device(device_name=device_name, ignore_failure=True) == 1:
-                    kwargs['pass_msg'] = f"Device with name {device_name} has been added"
-                    self.common_validation.passed(**kwargs)
-                    return 1
-                else:
-                    self.utils.print_info(
-                        f"Device with name {device_name} is not yet present. Waiting for {retry_duration} seconds...")
                     sleep(retry_duration)
                     self.refresh_devices_page()
                 count += 1
@@ -5455,7 +5414,7 @@ class Devices(object, metaclass=Singleton):
 
         # Unknown device search parameter
         else:
-            kwargs['fail_msg'] = "Unknown device search parameter sent; please use Serial, Name, or MAC Address"
+            kwargs['fail_msg'] = "Unknown device search parameter sent; please use Serial or MAC Address"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -5465,8 +5424,7 @@ class Devices(object, metaclass=Singleton):
 
     # This method will not be deprecated until the keywords from the entire file have been moved and tested
     # @deprecated('Please use the {wait_until_device_removed} keyword from keywords/gui/manage/KeywordsDevices.py. This method can be removed after 7/1/2023')
-    def wait_until_device_removed(self, *device_dict, device_serial=None, device_name=None, device_mac=None,
-                                  retry_duration=10, retry_count=30, **kwargs):
+    def wait_until_device_removed(self, *device_dict, device_serial=None, device_mac=None, retry_duration=10, retry_count=30, **kwargs):
         """
         - This keyword is used to wait for the device to be removed from extauto.xiq.
         - This keyword by default loops 10 times every 30 seconds to check if the device exists
@@ -5475,28 +5433,24 @@ class Devices(object, metaclass=Singleton):
         - search for the device based on specified device criteria
         - Keyword Usage:
         - ``Wait Until Device Removed    device_serial=${DEVICE_SERIAL}    retry_duration=15    retry_count=20``
-        - ``Wait Until Device Removed    device_name=${DEVICE_NAME}        retry_duration=20    retry_count=15``
         - ``Wait Until Device Removed    device_mac=${DEVICE_MAC}          retry_duration=30    retry_count=10``
         - ``Wait Until Device Removed    ${ap1}          retry_duration=30    retry_count=10``
 
         :param device_serial: device serial number to look for, by default set to None
-        :param device_name: device name to look for, by default set to None
         :param device_mac: device MAC address to look for, by default set to None
         :param retry_duration: duration between each retry, by default set to 10
         :param retry_count: retry count, by default set to 30
+
         :return: 1 if device removed within time; else -1
         """
         if len(device_dict) != 0:
             device_dict = device_dict[0]
             device_serial = device_dict.get("serial")
             device_mac = device_dict.get("mac")
-            device_name = device_dict.get("name")
 
-            device_object = self._change_parameters_to_device_object(device_serial=device_serial,
-                                                                     device_name=device_name, device_mac=device_mac)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_mac=device_mac)
         else:
-            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_name=device_name,
-                                                                     device_mac=device_mac)
+            device_object = self._change_parameters_to_device_object(device_serial=device_serial, device_mac=device_mac)
 
         return self.gui_wait_until_device_removed(device_object, retry_duration=retry_duration,
                                                   retry_count=retry_count, **kwargs)
@@ -5519,12 +5473,11 @@ class Devices(object, metaclass=Singleton):
         device_keys = {
             "mac": device_dict[0].get("mac"),
             "serial": device_dict[0].get("serial"),
-            "name": device_dict[0].get("name")
         }
         device_keys = {key: value for key, value in device_keys.items() if value}
 
         if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -10202,21 +10155,20 @@ class Devices(object, metaclass=Singleton):
                 sleep(30)
                 self.utils.print_info("time has waited so far:  " + str(round(int(n_time) / 2, 2)) + " min(s)")
 
-    def wait_until_device_update_done(self, device_serial=None, device_mac=None, device_name=None, wait_time_in_min=15,
+    def wait_until_device_update_done(self, device_serial=None, device_mac=None, wait_time_in_min=15,
                                       skip_navigation=False, skip_refresh=False, **kwargs):
         """
         - This keyword checks if the expected device is done with updating - even if the update failed
         - Keyword Usage:
         - ``wait_until_device_update_done   device_serial=${DEVICE_SERIAL}``
         - ``wait_until_device_update_done   device_mac=${DEVICE_MAC}``
-        - ``wait_until_device_update_done   device_name=${DEVICE_NAME}``
 
         :param device_serial: serial number of the device. Example: "01301511060005", by default set to None
         :param device_mac: mac of the device. Example: 885BDD4BE380, by default set to None
-        :param device_name: name of the device. Example: bui-flo-0005, by default set to None
         :param wait_time_in_min: time to wait in min, by default set to 15
         :param skip_refresh: skipping the refresh of the devices page, by default set to False
         :param skip_navigation: skipping the navigation to the devices page, by default set to False
+
         :return: 1 if done, -1 if not
         """
         if not skip_navigation:
@@ -10237,9 +10189,6 @@ class Devices(object, metaclass=Singleton):
             elif device_mac:
                 update_status = self.get_device_details(device_mac, 'UPDATED')
                 self.utils.print_info("Updated status is: '" + str(update_status) + "' for the device_mac: " + str(device_mac))
-            elif device_name:
-                update_status = self.get_device_details(device_name, 'UPDATED')
-                self.utils.print_info("Updated status is: '" + str(update_status) + "' for the device_name: " + str(device_name))
 
             # There are multiple conditions were a device can be decalared that the update has completed
             # 1) There is no update to do
@@ -10523,14 +10472,12 @@ class Devices(object, metaclass=Singleton):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def change_manage_device_status(self, manage_type='MANAGE', device_serial=None, device_mac=None,
-                                    device_name=None, **kwargs):
+    def change_manage_device_status(self, manage_type='MANAGE', device_serial=None, device_mac=None, **kwargs):
         """
         This Keyword changes the management status of the device.
         - Keyword Usage:
         - ``Change Manage Device Status    MANAGE      device_serial=${DEVICE_SERIAL}``
         - ``Change Manage Device Status    UNMANAGE    device_mac=${DEVICE_MAC}``
-        - ``Change Manage Device Status    MANAGE    device_mac=${DEVICE_NAME}``
 
         Supported Modes:
             UI - default mode
@@ -10538,12 +10485,14 @@ class Devices(object, metaclass=Singleton):
 
         :param device_serial: device Serial, by default set to None
         :param device_mac: device MAC address, by default set to None
-        :param device_name: device name, by default set to None
         :param manage_type: Manage/Unmanage device
+        
         :return: 1 if the management status was changed
         """
         if self.xapiDevices.is_xapi_enabled(**kwargs):
-            return self.xapiDevices.xapi_change_manage_device_status(manage_type=manage_type, device_serial=device_serial, device_mac=device_mac, device_name=device_name, **kwargs)
+            return self.xapiDevices.xapi_change_manage_device_status(manage_type=manage_type,
+                                                                     device_serial=device_serial,
+                                                                     device_mac=device_mac, **kwargs)
 
         # Commented on 1/18/23 because it is unused
         # manage_setting = 'MANAGE'
@@ -10572,19 +10521,11 @@ class Devices(object, metaclass=Singleton):
                 kwargs['fail_msg'] = f"Device with mac {device_mac} has not been selected"
                 self.common_validation.fault(**kwargs)
                 return -1
-        elif device_name:
-            select_flag = False
-            if self.select_device(device_name=device_name):
-                self.utils.print_info("Device with name {} was selected".format(device_name))
-                select_flag = True
-            else:
-                kwargs['fail_msg'] = f"Device with name {device_name} has not been selected"
-                self.common_validation.fault(**kwargs)
-                return -1
         else:
-            kwargs['fail_msg'] = "No device serial, device mac or device name has been given."
+            kwargs['fail_msg'] = "No device serial or device mac has been given."
             self.common_validation.fault(**kwargs)
             return -1
+
         if select_flag:
             self.utils.print_info("Selecting Actions button")
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
@@ -10648,6 +10589,7 @@ class Devices(object, metaclass=Singleton):
                     kwargs['fail_msg'] = "Manage button not found"
                     self.common_validation.fault(**kwargs)
                     return -1
+
             elif str(manage_type).upper() in 'UNMANAGE':
                 unmanage_btn = self.device_actions.get_unmanage_device_btn()
                 if unmanage_btn:
@@ -11339,7 +11281,7 @@ class Devices(object, metaclass=Singleton):
             self.common_validation.passed(**kwargs)
             return 1
 
-    def update_policy_and_configuration_stack(self,  device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def update_policy_and_configuration_stack(self, device_serial=None, device_mac=None, **kwargs):
         """
         - This keyword does a config push for a switch, selecting just the "Update Network Policy and Configuration"
         check button in the Device Update dialog.
@@ -11348,15 +11290,14 @@ class Devices(object, metaclass=Singleton):
         - Keyword Usage:
         - ``Update Policy and Configuration  ${SWITCH_SERIAL}``
         - ``Update Policy and Configuration  ${SWITCH_MAC}``
-        - ``Update Policy and Configuration  ${SWITCH_NAME}``
 
         :param device_mac: MAC address of the device, by default set to None
-        :param device_name: name of the device, by default set to None
         :param device_serial: serial of the device, by default set to None
+
         :return: 1 if config push success else -1
         """
         self.utils.print_info("Select Stack")
-        if not self.select_device(device_serial=device_serial, device_name=device_name, device_mac=device_mac):
+        if not self.select_device(device_serial=device_serial, device_mac=device_mac):
             kwargs['fail_msg'] = "The device cannot be selected"
             self.common_validation.fault(**kwargs)
             return -1
@@ -11367,7 +11308,7 @@ class Devices(object, metaclass=Singleton):
             return -1
 
         self.screen.save_screen_shot()
-        return self._check_device_update_status(device_serial=device_serial, device_name=device_name, device_mac=device_mac)
+        return self._check_device_update_status(device_serial=device_serial, device_mac=device_mac)
 
     def enable_device_wan_access(self, device_serial, **kwargs):
         """

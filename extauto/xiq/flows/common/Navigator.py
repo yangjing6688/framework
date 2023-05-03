@@ -957,7 +957,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_manage_tab()
         self.utils.print_info("Click on Network 360 tab..")
         self.auto_actions.click_reference(self.get_ml_insight_network360plan)
-        sleep(5)
+
         kwargs['pass_msg'] = "Navigation Successful to network360plan on Manage Menu"
         self.common_validation.passed(**kwargs)
         return 1
@@ -3344,11 +3344,9 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_configure_tab()
         self.navigate_to_configure_user_sub_tab()
-        sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
             self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
-            sleep(5)
 
         self.utils.print_info("Click on Locked Users sub menu")
         locked_users_ele = self.weh.get_element(self.locked_users_tab)
@@ -3372,11 +3370,9 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_configure_tab()
         self.navigate_to_configure_user_sub_tab()
-        sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
             self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
-            sleep(5)
 
         self.utils.print_info("Click on Unbind Device sub menu")
         unbind_device_ele = self.weh.get_element(self.unbind_device_tab)

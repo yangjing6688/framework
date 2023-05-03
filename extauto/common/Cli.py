@@ -895,9 +895,11 @@ class Cli(object):
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             self.send(connection, f'do hivemanager address {server_name}')
 
-        elif  NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(connection, f'capwap client server name {server_name}')
+        elif NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, 'no capwap client enable')
+            self.send(connection, f'capwap client server name {server_name}')
+            self.send(connection, f'capwap client default-server-name {server_name}')
+            self.send(connection, f'capwap client server backup name {server_name}')
             self.send(connection, 'capwap client enable')
             self.send(connection, 'save config')
 
@@ -1237,8 +1239,10 @@ class Cli(object):
         """
         if NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, 'no capwap client server name')
+            self.send(connection, 'no capwap client default-server-name')
+            self.send(connection, 'no capwap client server backup name')
+            self.send(connection, 'no capwap client vhm-name')
             self.send(connection, 'no capwap client enable')
-            self.send(connection, 'capwap client enable')
             self.send(connection, 'save config')
             count = 1
             while count <= retry_count:
