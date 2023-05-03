@@ -93,6 +93,55 @@ class ManageUsers():
             self.common_validation.failed(**kwargs)
             return -1
 
+    def create_xiq_account(self,customerName,firstName,lastName,adminEmail,adminPassword,**kwargs):
+        """
+        - This keyword can be used in USERS page,it will create a msp-admin account on Portal
+        - Keyword Usage
+        - ``Create MSP User  ${username}  ${user_email}``
+        :param username: - the username of msp-admin
+        :param useremail: - the email of msp-amin
+        :return: returns 1 if successfully get the created user in USERS list else -1
+        """
+        self.utils.print_info("Click on Add button")
+        self.auto_actions.click_reference(self.portal_web_elements.get_users_page_add_button)
+        element_status = self.web_element_controller.is_web_element_present(self.portal_web_elements.get_add_customers_page_customername_text())
+        if not element_status:
+            kwargs['fail_msg'] = "Not able to find the input 'Customer Name' which means the create customer account page may not open"
+            self.common_validation.fault(**kwargs)
+            return -1
+        self.screen.save_screen_shot()
+        self.utils.print_info("Entering Customer Name...")
+        self.auto_actions.send_keys(self.portal_web_elements.get_add_customers_page_customername_text(), customerName)
+        sleep(1)
+        self.utils.print_info("Entering Admin First Name...")
+        self.auto_actions.send_keys(self.portal_web_elements.get_add_customers_page_firstname_text(), firstName)
+        sleep(1)
+        self.utils.print_info("Entering Admin Last Name...")
+        self.auto_actions.send_keys(self.portal_web_elements.get_add_customers_page_lastname_text(), lastName)
+        sleep(1)
+        self.utils.print_info("Entering Admin Email Address...")
+        self.auto_actions.send_keys(self.portal_web_elements.get_add_customers_page_adminemail_text(), adminEmail)
+        sleep(1)
+        self.utils.print_info("Entering Admin Password...")
+        self.auto_actions.send_keys(self.portal_web_elements.get_add_customers_page_adminpasswored_text(), adminPassword)
+        sleep(1)
+        self.utils.print_info("Clicking on submit button")
+        self.auto_actions.click_reference(self.portal_web_elements.get_add_customers_page_submit_button)
+        sleep(2)
+        self.utils.print_info("check whether the new customer is in the customer list")
+        fail_msg = "The created user" + customerName + " is not in the customer list"
+        self.utils.print_info("Filter the customer by name...")
+        self.auto_actions.send_keys(self.portal_web_elements.get_customers_page_filter_text(), customerName)
+        sleep(2)
+        if self.check_users_list(customerName) != -1:
+            kwargs['pass_msg'] = customerName + " is in customers list page "
+            self.common_validation.passed(**kwargs)
+            return 1
+        else:
+            kwargs['fail_msg'] = fail_msg
+            self.common_validation.failed(**kwargs)
+            return -1
+
     def check_role_type(self, user_type, **kwargs):
         """
         - This keyword can be used in Create User Account page,it'll check the role's type that present in the page
@@ -263,6 +312,36 @@ class ManageUsers():
             self.auto_actions.click_reference(self.portal_web_elements.get_delete_confirm_yes_item)
             sleep(2)
             self.utils.print_info(username + " is deleted")
+            return 1
+        else:
+            self.utils.print_info(username + " is not in USERS list")
+            return -1
+
+    def delete_customer(self, username, **kwargs):
+        """
+            - This can be used in USERS page
+            - Keyword Usage
+            - ``Delete User    ${MSP_USER}``
+            :param: username - the created user's name
+            :return: returns 1 if the created user is in USERS list of current page else -1
+        """
+        self.utils.print_info("Click on customer menu")
+        self.auto_actions.click_reference(self.portal_web_elements.get_customers_menu_item)
+        sleep(1)
+        self.utils.print_info("Filter the customer by name...")
+        self.auto_actions.send_keys(self.portal_web_elements.get_customers_page_filter_text(), username)
+        number = 1
+        if self.check_users_list(username) != -1:
+            self.utils.print_info(username + " is in USERS list page " + str(number))
+            element = self.web.get_element(self.portal_web_elements.get_users_page_displayName_item(username))
+            self.auto_actions.click(element)
+            sleep(1)
+            self.auto_actions.click_reference(self.portal_web_elements.get_delete_button_portal)
+            sleep(1)
+            self.auto_actions.click_reference(self.portal_web_elements.get_delete_confirm_yes_item)
+            sleep(2)
+            kwargs['delete_success_msg'] = username + "is deleted"
+            self.common_validation.passed(**kwargs)
             return 1
         else:
             self.utils.print_info(username + " is not in USERS list")

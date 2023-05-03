@@ -71,17 +71,15 @@ class KeywordsDevices(object, metaclass=Singleton):
         device_dict = device_dict[0]
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
-        device_name = device_dict.get("name")
 
         device_keys = {
             "mac": device_mac,
-            "serial": device_serial,
-            "name": device_name
+            "serial": device_serial
         }
 
         device_keys = {key: value for key, value in device_keys.items() if value}
         if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial  or mac!"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -100,7 +98,6 @@ class KeywordsDevices(object, metaclass=Singleton):
                 else:
                     if not select_device:
                         return_code = self.xapiDevices.xapi_search_device(device_serial=device_serial,
-                                                                          device_name=device_name,
                                                                           device_mac=device_mac, **kwargs)
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
@@ -154,16 +151,14 @@ class KeywordsDevices(object, metaclass=Singleton):
         device_dict = device_dict[0]
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
-        device_name = device_dict.get("name")
 
         device_keys = {
             "mac": device_mac,
-            "serial": device_serial,
-            "name": device_name
+            "serial": device_serial
         }
         device_keys = {key: value for key, value in device_keys.items() if value}
         if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -237,19 +232,17 @@ class KeywordsDevices(object, metaclass=Singleton):
         device_dict = device_dict[0]
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
-        device_name = device_dict.get("name")
         device_type = device_dict.get("platform")
 
         device_keys = {
             "mac": device_mac,
             "serial":  device_serial,
-            "name": device_name,
             "platform": device_type
         }
 
         device_keys = {key: value for key, value in device_keys.items() if value}
         if len(device_keys.keys()) == 0 or device_keys.get('platform') == None:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
             self.common_validation.fault(**kwargs)
             return -1
 
@@ -265,7 +258,7 @@ class KeywordsDevices(object, metaclass=Singleton):
                     return_code = self.devices.gui_delete_device(device_keys, **kwargs)
 
                 else:
-                    return_code = self.xapiDevices.xapi_delete_device(device_serial=device_serial, device_name=device_name,
+                    return_code = self.xapiDevices.xapi_delete_device(device_serial=device_serial,
                                                                       device_mac=device_mac, **kwargs)
 
         except Exception as e:
@@ -317,12 +310,11 @@ class KeywordsDevices(object, metaclass=Singleton):
 
         device_keys = {
             "mac": device_dict[0].get("mac"),
-            "serial": device_dict[0].get("serial"),
-            "name": device_dict[0].get("name")
+            "serial": device_dict[0].get("serial")
         }
         device_keys = {key: value for key, value in device_keys.items() if value}
         if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial, name, or mac!"
+            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
             self.common_validation.fault(**kwargs)
             return -1
 
