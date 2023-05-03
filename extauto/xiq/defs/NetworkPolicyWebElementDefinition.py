@@ -756,7 +756,7 @@ class NetworkPolicyWebElementDefinition:
 
     switching_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-tab-switching"]',
+            'XPATH': '//*[@data-automation-tag="automation-tab-switch-settings"]',
             'wait_for': 3
         }
 
@@ -824,6 +824,24 @@ class NetworkPolicyWebElementDefinition:
         {
             'CSS_SELECTOR': '.dgrid-cell',
             'wait_for': 3
+        }
+
+    nw_policy_additional_settings_dns_server_tab = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-dnsServer"]',
+            'wait_for': 5
+        }
+
+    dns_server_status = \
+        {
+            "XPATH": "//input[@data-automation-tag='automation-dns-server-enable']",
+            'wait_for': 5
+        }
+
+    dns_server_save_button = \
+        {
+            "XPATH": '//button[@data-dojo-attach-point="saveButton" and text()="Save DNS Server"]',
+            'wait_for': 5
         }
 
     common_settings_exos = \

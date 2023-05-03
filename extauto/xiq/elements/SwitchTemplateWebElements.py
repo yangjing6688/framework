@@ -14,11 +14,11 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.device_template_switch_template_tab)
 
     def get_sw_template_rows(self):
-        """
-
-        :return:
-        """
-        return self.weh.get_elements(self.sw_device_template_grid_rows)
+        rows = []
+        for el in self.weh.get_elements(self.sw_device_template_grid_rows) or []:  
+            if el.is_displayed():          
+                rows.append(el)   
+        return rows
 
     def get_sw_template_platform_from_drop_down(self):
         """
@@ -817,3 +817,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_device_template_override_policy(self):
         return self.weh.get_element(self.device_template_override_policy)
+
+    def get_sw_template_enable_mac_locking_confirm_message(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message)
