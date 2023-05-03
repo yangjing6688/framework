@@ -222,11 +222,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_supp_cli_grid_rows(self):
         return self.weh.get_elements(self.common_object_supp_cli_grid_rows)
 
-    def get_common_object_supp_cli_grid_row_cells(self, row, field='field-name'):
-        cells = self.weh.get_elements(self.common_object_supp_cli_grid_row_cells, row)
-        for cell in cells:
-            if field in cell.get_attribute("idx"):
-                return cell
+    def get_common_object_supp_cli_grid_row_cells(self, row):
+        return self.weh.get_element(self.common_object_supp_cli_grid_row_cells, row)
+
 
     def get_common_object_edit_button(self):
         """
@@ -776,3 +774,6 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         for el in elements:
             if el.is_displayed():
                 return el
+
+    def get_scli_grid_bottom(self):
+        return self.weh.get_element(self.scli_grid_bottom)

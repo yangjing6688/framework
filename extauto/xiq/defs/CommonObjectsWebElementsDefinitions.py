@@ -374,13 +374,13 @@ class CommonObjectsWebElementsDefinitions:
         
     common_object_supp_cli_grid_rows = \
         {
-            'CSS_SELECTOR': '.dojoxGridRow',
+            'CSS_SELECTOR': '.dojoxGridRowTable',
             'wait_for': 2
         }
 
     common_object_supp_cli_grid_row_cells = \
         {
-            'CSS_SELECTOR': '.dojoxGridCell',
+            'CSS_SELECTOR': '.dijitCheckBox',
             'wait_for': 2
         }
 
@@ -1308,4 +1308,10 @@ class CommonObjectsWebElementsDefinitions:
         {
             'XPATH': '//li[@data-dojo-attach-point="pagePrev"]//a[@data-dojo-attach-point="prev-item1"]',
             'index': 0
+        }
+
+    scli_grid_bottom = \
+        {
+            'CSS_SELECTOR': '.clisupplement [data-dojo-attach-point="gridBottom"]',
+            'wait_for': 1
         }

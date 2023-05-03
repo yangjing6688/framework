@@ -12381,13 +12381,26 @@ class Devices(object, metaclass=Singleton):
             self.select_device(device_serial=device_serial)
         if device_mac:
             self.select_device(device_mac=device_mac)
-        self.utils.print_info("Checking the update the status")
-        sleep(5)
-        status = self.devices_web_elements.get_status_update_failed_after_reboot()
-        if status is not None and "The device was rebooted and reverted to previous configuration" in status:
-            kwargs['pass_msg'] = f"Update status: {status}"
+        self.utils.print_info("Checking the update status")
+        self.navigator.wait_until_loading_is_done()
+        updated_box = self.devices_web_elements.get_status_update_failed_after_reboot()
+        err_title = None
+        err_code = None
+        if updated_box:
+            err_title = updated_box.get_attribute("title")
+            err_code = updated_box.get_attribute("errcode")
+        else:
+            kwargs['fail_msg'] = "Web element for 'UPDATED' column not found"
+            self.common_validation.failed(**kwargs)
+            return -1
+        if err_code:
+            kwargs['pass_msg'] = f"Update status: {err_code}"
             self.common_validation.passed(**kwargs)
-            return status
+            return err_code
+        elif err_title:
+            kwargs['pass_msg'] = f"Update status: {err_title}"
+            self.common_validation.passed(**kwargs)
+            return err_title
         else:
             kwargs['fail_msg'] = "Update status not found"
             self.common_validation.failed(**kwargs)
@@ -12606,7 +12619,7 @@ class Devices(object, metaclass=Singleton):
                 self.common_validation.failed(**kwargs)
                 return -1
 
-        current_message = self.get_device_updated_fail_message_after_reboot(device_serial=device_serial, ignore_failure=True)
+        current_message = self.get_device_updated_fail_message_after_reboot(device_serial=device_serial)
 
         if failure_message != current_message:
             kwargs["fail_msg"] = f"Update process ended up with another failure message: {current_message}"
