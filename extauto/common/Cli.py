@@ -1264,9 +1264,7 @@ class Cli(object):
                 sleep(10)
                 hm_status = self.send(connection, 'show hivemanager status | include Status')
                 self.utils.print_info(f"hm_status:, {hm_status}")
-                hm_address = self.send(connection, 'do show hivemanager address')
-                self.utils.print_info(f"hm_address:, {hm_address}")
-                
+
                 if 'CONNECTED TO HIVEMANAGER' not in hm_status:
                     self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
