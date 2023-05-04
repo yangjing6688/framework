@@ -3,7 +3,7 @@ import time
 from time import sleep
 
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import StaleElementReferenceException, ElementNotInteractableException
+from selenium.common.exceptions import StaleElementReferenceException
 
 from extauto.common.AutoActions import AutoActions
 from extauto.common.Utils import Utils
@@ -3550,7 +3550,19 @@ class Device360(Device360WebElements):
         if event_type == "config":
             self.utils.print_info("Clicking on 'Configurations Events' tab!")
             self.auto_actions.click(self.dev360.get_d360_config_events())
-        search_box = self.dev360.get_d360Event_search_textbox()
+
+        search_box, _ = self.utils.wait_till(
+            func=self.dev360.get_d360Event_search_textbox,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if search_box is None:
+            kwargs["fail_msg"] = "Failed to get the search_textbox element"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
         if search_box:
             self.utils.print_info("Entering info to search : ", search_value)
             self.auto_actions.send_keys(self.dev360.get_d360Event_search_textbox(), search_value)
@@ -5282,10 +5294,12 @@ class Device360(Device360WebElements):
                 pass
         sleep(3)
 
+        self.screen.save_screen_shot()
         cli = self.dev360.get_cli_button()
         if cli:
+            self.screen.save_screen_shot()
             self.utils.print_info("Clicking on Device CLI")
-            self.auto_actions.click(cli)
+            self.auto_actions.click_reference(self.dev360.get_cli_button)
         else:
             kwargs['fail_msg'] = "Device CLI button not found"
             self.common_validation.fault(**kwargs)
@@ -6440,6 +6454,10 @@ class Device360(Device360WebElements):
                                         'poe status':[None,'on'],           #['click'/None, 'on'/'off'/None]
 
                                         'page8 summaryPage': ["next_page", None]
+
+                                        #To navigate directly to last page (summaryPage)
+                                        'page summaryPage': ["next_all_pages", None],
+
                                     }
 
         :param port: the port where new port type will be created
@@ -7475,36 +7493,32 @@ class Device360(Device360WebElements):
                 self.utils.print_info("Click - > Open dropbox")
                 self.auto_actions.click(get_pse_profile)
                 more_button_times_found = 0
-                while self.get_select_element_port_type('pse_more_button'):
-                    more_button_times_found += 1
-                    self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
-                                          "Scrolling down...")
-                    try:
-                        def _check_stale_element_exception_more_button():
-                            try:
-                                self.auto_actions.move_to_element(self.get_select_element_port_type('pse_more_button'))
-                                self.utils.print_info("move to element ",more_button_times_found)
-                                self.screen.save_screen_shot()
-                                return True
-                            except StaleElementReferenceException as e:
-                                self.utils.print_info("Scrolling to 'More' button failed. Stale element exception "
-                                                      f"error detected {e} ; Retrying...")
-                                return False
+                if self.get_select_element_port_type('pse_more_button'):
+                    while more_button_times_found < 10:
+                        get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
+                        if get_pse_profile_items:
+                            self.utils.print_info(f" {len(get_pse_profile_items)} options are into dropdown and 'more'"
+                                                  f" button is present. Loop {more_button_times_found}")
 
-                        self.utils.wait_till(_check_stale_element_exception_more_button, is_logging_enabled=True,
-                                             msg="Waiting for StaleElementException to dissapear...")
-                        self.utils.print_info("Clicking 'More' button...")
-                        self.auto_actions.click(self.get_select_element_port_type('pse_more_button'))
-                        self.screen.save_screen_shot()
-                    except ElementNotInteractableException as e:
-                        self.utils.print_info(f"Element not interactable error: {e} ; Element is inactive! "
-                                              "Breaking loop. \n\nNOTE: If 'More' button is visible and active, but "
-                                              "still getting: ElementNotInteractable error ; "
-                                              "check that the CSS_SELECTOR is correct.")
-                        break
+                        more_button = self.get_select_element_port_type('pse_more_button')
+                        if more_button:
+                            more_button_times_found += 1
+                            self.utils.print_info(f"'More' button present {more_button_times_found} times in PSE dropdown. "
+                                                "Scrolling down...")
+                            self.auto_actions.move_to_element(more_button)
+                            self.screen.save_screen_shot()
+
+                            self.utils.print_info("Clicking 'More' button...")
+                            self.auto_actions.click(more_button)
+                            self.screen.save_screen_shot()
+                        else:
+                            self.utils.print_info(" The 'More' button is not present anymore ")
+                            break
 
                 sleep(2)
                 get_pse_profile_items = self.get_select_element_port_type("pse_profile_items")
+                self.utils.print_info(
+                    f" {len(get_pse_profile_items)} options are into dropdown and 'more' button is not present")
                 pse_profile_name = value['pse_profile_name']
 
                 if self.auto_actions.select_drop_down_options(get_pse_profile_items, pse_profile_name):
@@ -14978,9 +14992,9 @@ class Device360(Device360WebElements):
             self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
             return success_message.text
         else:
-            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+            self.utils.print_info ("Unable to display the success message")
 
-    def succesful_message_multi_edit_exos(self):
+    def succesful_message_multi_edit_config(self):
         """
          - This keyword will verify the success message for Multi Edit configuration for Switch Engine devices.
         :return: pass message if the success message is generated  and the same as the one in the function
@@ -14988,39 +15002,19 @@ class Device360(Device360WebElements):
         """
         start_time = int(time.time())
         max_wait = 180
-        success_message = self.dev360.get_d360_save_port_configuration_message_exos()
-        while not success_message.is_displayed():
+        success_message = self.dev360.get_d360_save_port_configuration_message_config()
+        while not success_message:
             if (int(time.time()) - start_time) < max_wait:
-                success_message = self.dev360.get_d360_save_port_configuration_message_exos()
+                success_message = self.dev360.get_d360_save_port_configuration_message_config()
                 self.utils.wait_till(delay=2)
             else:
-                self.utils.print_info(f"Unable to display the success message: {success_message.text}")
+                self.utils.print_info("Unable to display the success message")
         if success_message:
-            self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
-            return success_message.text
+            success_message_info = success_message.get_attribute("innerText")
+            self.utils.print_info(f"The configuration was saved successfully: {success_message_info}")
+            return success_message.get_attribute("innerText")
         else:
-            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
-
-    def succesful_message_multi_edit_voss(self):
-        """
-         - This keyword will verify the success message for Multi Edit configuration for Fabric Engine devices.
-        :return: pass message if the success message is generated  and the same as the one in the function
-        :return: fail message if error (the message is not generated)
-        """
-        start_time = int(time.time())
-        max_wait = 180
-        success_message = self.dev360.get_d360_save_port_configuration_message_voss()
-        while not success_message.is_displayed():
-            if (int(time.time()) - start_time) < max_wait:
-                success_message = self.dev360.get_d360_save_port_configuration_message_voss()
-                self.utils.wait_till(delay=2)
-            else:
-                self.utils.print_info(f"Unable to display the success message: {success_message.text}")
-        if success_message:
-            self.utils.print_info (f"The configuration was saved successfully: {success_message.text}")
-            return success_message.text
-        else:
-            self.utils.print_info (f"Unable to display the success message: {success_message.text}")
+            self.utils.print_info("Unable to display the success message")
 
     def device360_get_stack_ports_by_type(self, port_type, **kwargs):
         """
