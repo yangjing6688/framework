@@ -453,7 +453,7 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         return self.weh.get_element(self.common_object_wifi1_radio_status_button)
 
     def get_common_object_wifi2_radio_status_button(self):
-        return self.weh.get_element(self.common_object_wifi1_radio_status_button)
+        return self.weh.get_element(self.common_object_wifi2_radio_status_button)
 
     def get_common_object_wifi0_radio_profile_button(self):
         return self.weh.get_element(self.common_object_wifi0_radio_profile_button)
