@@ -946,8 +946,8 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Saving template ... ")
         self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_save_template)
-
         self.screen.save_screen_shot()
+        sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
