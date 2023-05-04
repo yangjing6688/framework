@@ -369,7 +369,7 @@ class DeviceTemplateWebElementDefinitions:
     network_policy_add_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@class="table-action-icons table-add"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     network_policy_name_text = \
