@@ -1028,14 +1028,22 @@ class Navigator(NavigatorWebElements):
         self.auto_actions.click_reference(self.get_network_policy_list_view)
         self.screen.save_screen_shot()
 
-        if self.get_network_policy_page_size():
-            self.auto_actions.click_reference(self.get_network_policy_page_size)
 
-        self.utils.print_info("Waiting for Network Policy rows to load...")
-        self.utils.wait_till(self.networkPolicy.get_np_grid_rows, delay=5, timeout=60)
-        self.wait_until_loading_is_done()
-        self.utils.print_info("Network Policy rows have been loaded. ")
-        self.screen.save_screen_shot()
+        if self.networkPolicy.get_np_grid_rows():
+            
+            if self.get_network_policy_page_size():
+                self.auto_actions.click_reference(self.get_network_policy_page_size)
+
+            self.utils.print_info("Waiting for Network Policy rows to load...")
+            self.utils.wait_till(self.networkPolicy.get_np_grid_rows, delay=5, timeout=60)
+            self.wait_until_loading_is_done()
+            self.utils.print_info("Network Policy rows have been loaded. ")
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("No Network Policy rows available")
+            self.screen.save_screen_shot()
+
+
         kwargs['pass_msg'] = "Navigation Successful to policies list view page"
         self.common_validation.passed(**kwargs)
         return 1
