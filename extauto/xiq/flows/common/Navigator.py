@@ -4,6 +4,7 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
+from extauto.xiq.elements.Device360WebElements import Device360WebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.common.CommonValidation import CommonValidation
 
@@ -13,6 +14,7 @@ class Navigator(NavigatorWebElements):
         self.utils = Utils()
         self.auto_actions = AutoActions()
         self.screen = Screen()
+        self.dev360 = Device360WebElements()
         self.device_common = DeviceCommon()
         self.common_validation = CommonValidation()
 
@@ -142,6 +144,12 @@ class Navigator(NavigatorWebElements):
         """
         if self.get_devices_page():
             self.utils.print_info("Already in Devices page")
+            self.utils.print_info("Checking for Unknown Tooltip Error message in Devices Page..")
+            unknown_error = self.get_unknown_tooltip_error()
+            if unknown_error is not None and unknown_error.is_displayed():
+                self.screen.save_screen_shot()
+                self.utils.print_info("Found Unknown Tooltip Error In Devices Page.So Closing the Error Message")
+                self.auto_actions.click_reference(self.get_unknown_error_tooltip_close_icon)
             sleep(10)
             self.enable_page_size(page_size='100')
             return 1
@@ -154,6 +162,12 @@ class Navigator(NavigatorWebElements):
                     self.enable_page_size(page_size='100')
                     kwargs['pass_msg'] = "Navigation Successful to Devices Sub tab on Monitor Tab"
                     self.common_validation.passed(**kwargs)
+                    self.utils.print_info("Checking for Unknown Tooltip Error message In Devices Page..")
+                    unknown_error = self.get_unknown_tooltip_error()
+                    if unknown_error is not None and unknown_error.is_displayed():
+                        self.screen.save_screen_shot()
+                        self.utils.print_info("Found Unknown Tooltip Error In Devices Page.So Closing the Error Message")
+                        self.auto_actions.click_reference(self.get_unknown_error_tooltip_close_icon)
                     return 1
                 else:
                     kwargs['fail_msg'] = "Unable to navigate to Devices tab"
@@ -941,7 +955,7 @@ class Navigator(NavigatorWebElements):
         self.navigate_to_manage_tab()
         self.utils.print_info("Click on Network 360 tab..")
         self.auto_actions.click_reference(self.get_ml_insight_network360plan)
-        sleep(5)
+
         kwargs['pass_msg'] = "Navigation Successful to network360plan on Manage Menu"
         self.common_validation.passed(**kwargs)
         return 1
@@ -3323,11 +3337,9 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_configure_tab()
         self.navigate_to_configure_user_sub_tab()
-        sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
             self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
-            sleep(5)
 
         self.utils.print_info("Click on Locked Users sub menu")
         locked_users_ele = self.weh.get_element(self.locked_users_tab)
@@ -3351,11 +3363,9 @@ class Navigator(NavigatorWebElements):
         """
         self.navigate_to_configure_tab()
         self.navigate_to_configure_user_sub_tab()
-        sleep(5)
 
         if self.get_configure_users_user_management_side_menu():
             self.auto_actions.click_reference(self.get_configure_users_user_management_side_menu)
-            sleep(5)
 
         self.utils.print_info("Click on Unbind Device sub menu")
         unbind_device_ele = self.weh.get_element(self.unbind_device_tab)
@@ -3669,11 +3679,13 @@ class Navigator(NavigatorWebElements):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def navigate_to_port_configuration_d360(self, **kwargs):
+    def navigate_to_port_configuration_d360(self, unlock_button_flag=True,**kwargs):
         """
         - Assumes that D360 poge is already open
         - Flow: Clicks 'Configure' button -> Scrolls down -> Clicks 'Port Configuration" ->
                  Waits for the port rows to load
+        - Starting in 23R3, the user has to unlock the configuration in order to change it.
+        - The keyword will automatically the configuration
         :return: 1 if 'Port Configuration' has been clicked and the port rows have been loaded on the page
                  -1 if elements are not found along the way
         """
@@ -3696,6 +3708,40 @@ class Navigator(NavigatorWebElements):
                 self.utils.print_info("SAVING SCREENSHOT FOR D360 PORT CONFIGURATION PAGE...")
                 self.screen.save_screen_shot()
                 self.utils.print_info("Rows have been loaded! 'Port Configuration' button clicked!")
+                # Need for 23R3 unlock feature
+                if unlock_button_flag:
+                    unlock_button, _ = self.utils.wait_till(
+                        func=self.dev360.get_device360_unlock_port_config_button,
+                        exp_func_resp=True,
+                        silent_failure=True,
+                        delay=3
+                    )
+
+                    if unlock_button and unlock_button.is_displayed():
+                        if self.auto_actions.click_reference(lambda: unlock_button) != 1:
+                            kwargs["fail_msg"] = "Failed to click the device360_unlock_port_config_button element"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        confirmation_button, _ = self.utils.wait_till(
+                            func=self.dev360.get_device360_unlock_port_config_confirmation_button,
+                            exp_func_resp=True,
+                            silent_failure=True,
+                            delay=3
+                        )
+
+                        if not confirmation_button:
+                            kwargs[
+                                "fail_msg"] = "Failed to get the device360_unlock_port_config_confirmation_button element"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+
+                        if self.auto_actions.click_reference(lambda: confirmation_button) != 1:
+                            kwargs[
+                                "fail_msg"] = "Failed to click the device360_unlock_port_config_confirmation_button element"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+                        self.screen.save_screen_shot()
                 kwargs['pass_msg'] = " 'Port Configuration' button clicked!"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -3770,8 +3816,21 @@ class Navigator(NavigatorWebElements):
 
         :return: 1 if Successfully Clicked Configure menu and then Navigated to Network Policies Menu else return -1
         """
+        
+        configure_tab, _ = self.utils.wait_till(
+            func=self.get_configure_tab,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=6
+        )
+
+        if not configure_tab:
+            kwargs["fail_msg"] = "Failed to get configure_tab element"
+            self.common_validation.fault(**kwargs)
+            return -1
+            
         self.utils.print_info("Selecting Configure tab...")
-        if self.get_configure_tab().is_displayed():
+        if configure_tab.is_displayed():
             self.navigate_to_configure_tab()
             kwargs['pass_msg'] = " Successfully Clicked Configure Menu"
             self.common_validation.passed(**kwargs)
@@ -3865,8 +3924,10 @@ class Navigator(NavigatorWebElements):
         retry = 1
         load_grid_complete = False
         load_spinner_complete = False
+        load_loading_mark_complete = False
         grid_marks = self.get_grid_loading_wheel()
         grid_spinners = self.get_grid_spinner()
+        grid_loading_marks = self.get_grid_loading_mark()
         if grid_marks:
             self.utils.print_info(f"Found {len(grid_marks)} loading grids on the page.")
             self.utils.print_info("Checking if the grid is still loading.")
@@ -3906,6 +3967,27 @@ class Navigator(NavigatorWebElements):
                     grid_spinners = self.get_grid_spinner()
         else:
             self.utils.print_info("Spinner is not present on this page. No wait is needed.")
+
+        retry = 1
+        if grid_loading_marks:
+            self.utils.print_info(f"Found {len(grid_loading_marks)} loading marks on the page.")
+            self.utils.print_info("Checking if loading mark is still loading.")
+            while not load_loading_mark_complete and retry < 10:
+                load_mark_fully_loaded = 0
+                for loading_mark in grid_loading_marks:
+                    if "fn-hidden" not in loading_mark.get_attribute("class"):
+                        self.utils.print_info(f"Loading mark is still loading. Retry: {retry}")
+                        retry += 1
+                        sleep(2)
+                    else:
+                        self.utils.print_info("Loading mark is not loading anymore.")
+                        load_mark_fully_loaded += 1
+                if load_mark_fully_loaded == len(grid_loading_marks):
+                    load_loading_mark_complete = True
+                else:
+                    grid_loading_marks = self.get_grid_loading_mark()
+        else:
+            self.utils.print_info("Loading mark is not present on this page. No wait is needed.")
         kwargs['pass_msg'] = "Page finished loading."
         self.common_validation.passed(**kwargs)
         return 1

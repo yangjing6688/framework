@@ -31,14 +31,10 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             return False
 
     def get_page_numbers(self):
-        page_numbers = self.weh.get_elements(self.devices_page_numbers)
-        if page_numbers:
-            return page_numbers
-        else:
-            return False
+        return self.weh.get_elements(self.devices_page_numbers)
 
     def get_devices_page_number_one(self):
-        return self.weh.get_elements(self.devices_page_number_one)
+        return self.weh.get_element(self.devices_page_number_one)
 
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)

@@ -13,7 +13,7 @@ from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.WebElementController import WebElementController
-
+from extauto.common.CommonValidation import CommonValidation
 
 class AutoActions:
     def __init__(self):
@@ -22,6 +22,7 @@ class AutoActions:
         self.utils = Utils()
         self.screen = Screen()
         self.builtin = BuiltIn()
+        self.common_validation = CommonValidation()
         self.web_element_ctrl = WebElementController()
 
     def click_reference(self, element_object_ref):
@@ -35,17 +36,33 @@ class AutoActions:
         :return: None
         """
 
+        # The following code is used to complete the click process using javascript which is necessary when certain
+        # exceptions are raised.
+        java_script = """
+                      function do_click(element_to_click)
+                      {
+                        try {
+                           element_to_click.click();
+                           return true;
+                        }
+                        catch(err) {
+                          return false;
+                        }
+                      }
+                      return do_click(arguments[0])
+                      """
+
         if element is None:
             self.screen.save_screen_shot()
-            self.builtin.fail(msg="Unable to Click the Element. The element is None. No WebElement Handler Present for the Element."
-                                  "So Exiting the Testcase")
+            self.builtin.fail(msg="Unable to Click the Element. The element is passed in is 'None'. No WebElement Handler Present for the Element.")
             return -1
 
         else:
             # this line should be uncommented only when debugging
             # self.utils.print_debug("Clicking Element: ", element)
-            count = 0
-            while count < self.retries:
+            attempt_count = 0
+            wait_time = 5
+            while attempt_count < self.retries:
                 try:
                     if type(element) is tuple:
                         self.click_image(element)
@@ -55,56 +72,60 @@ class AutoActions:
                             ele.click()
                     else:
                         element.click()
+
+                    # Click was successful.  If we previously failed print a message to confirm success
+                    if attempt_count:
+                        self.utils.print_info("Element click successful after previous failed attempt")
                     return 1
                 except ElementClickInterceptedException:
-                    # To Overcome the Click Intercepted Exception we need to wait either explicit or implicit wait
-                    # due to Xiq Application limitation we need to scroll the el into view, which is not visible on the page
-                    # If scroll the el into view is not working will scroll down to the end of the page.
-                    if count == 0:
-                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView(true)]")
-                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView(true); ", element)
-                        sleep(2)
-                    elif count == 1:
-                        self.utils.print_info("'Element Click Intercepted Exception': Scroll element into view [arguments[0].scrollIntoView({block:'nearest'})]")
-                        CloudDriver().cloud_driver.execute_script("arguments[0].scrollIntoView({block:'nearest'});", element)
-                        sleep(2)
-                    elif count == 2:
-                        self.utils.print_info("'Element Click Intercepted Exception': Scroll down to page")
-                        self.scroll_down()
-                        sleep(2)
-                    elif count == 3:
-                        self.utils.print_info("'Element Click Intercepted Exception': Scroll up to page")
-                        self.scroll_up()
-                        sleep(2)
-                    elif count == 4:
-                        self.utils.print_info("'Element Click Intercepted Exception': trying javascript click().")
-                        CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
-                        sleep(2)
-                    count += 1
+                    # The ElementClickIntercepted exception happens when selenium cannot click on the element.  An
+                    # example would be if an element is not in view due to the element being off the screen.  Another
+                    # example is when the element is covered up by another element preventing the user from seeing the
+                    # element and therefore preventing the user from clicking the element.
+                    #
+                    # In this case we'll use DOM to click the element via a Javascript method.
+                    self.utils.print_info("'Element Click Intercepted Exception': trying javascript click()")
+                    click_successful = CloudDriver().cloud_driver.execute_script(java_script, element)
+                    if click_successful:
+                        self.utils.print_info("Javascript click was successful")
+                        return 1
+                    self.utils.print_info("Error: Javascript click was not successful. Retrying after {} seconds...".format(wait_time))
 
                 except StaleElementReferenceException:
-                    self.utils.print_debug("Error: StaleElementReferenceException. Retrying after 5 seconds...")
-                    count += 1
-                    sleep(5)
+                    self.utils.print_info("Error: StaleElementReferenceException. Retrying after {} seconds...".format(wait_time))
+                    # If you are experiencing StaleElementReference exceptions it's an indication that the element
+                    # changed after you obtained it.  If you called click_reference() instead of click() the code will
+                    # attempt to get a fresh copy of the element that changed.  If not using click_reference() changing
+                    # from click() to click_reference() should resolve this issue.
+                    #
+                    # Return immediately so we aren't trying to click 5 times before attempting to get a fresh copy
+                    # of the element
+                    return -1
 
                 except ElementNotInteractableException:
-                    self.utils.print_debug("Error: ElementNotInteractableException. Retrying after 5 seconds...")
-                    count += 1
-                    sleep(5)
+                    self.utils.print_info("'Element Not Interactable Exception': trying javascript click()")
+                    click_successful = CloudDriver().cloud_driver.execute_script(java_script, element)
+                    if click_successful:
+                        self.utils.print_info("Javascript click was successful")
+                        return 1
+                    self.utils.print_info("Error: Javascript click was not successful. Retrying after {} seconds...".format(wait_time))
 
                 except Exception as e:
-                    self.utils.print_info("Exception while click: ", e)
-                    self.utils.print_info("Retrying after 5 seconds...")
-                    sleep(5)
-                    count += 1
-                    if count == self.retries:
-                        self.utils.print_warning("Unable to click the element. Saving Screenshot...")
-                        self.screen.save_screen_shot()
+                    self.utils.print_info("An exception occurred while attempting a click. Retrying after {} seconds Error: {}".format(wait_time, e))
+
+                attempt_count = attempt_count + 1
+                sleep(wait_time)
+                if attempt_count >= self.retries:
+                    kwargs = {}
+                    kwargs['fail_msg'] = "FAIL - Unable to click the element"
+                    self.common_validation.fault(**kwargs)
+
         return -1
 
     def click_with_js(self, element):
         CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
         sleep(2)
+        return 1
 
     def move_to_element(self, element):
         """

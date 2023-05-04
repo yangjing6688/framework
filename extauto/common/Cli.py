@@ -29,6 +29,10 @@ from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.Network
     NetworkElementLacpGenKeywords
 from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementMltGenKeywords import \
     NetworkElementMltGenKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementSpanningtreeGenKeywords import \
+    NetworkElementSpanningtreeGenKeywords
+from ExtremeAutomation.Keywords.NetworkElementKeywords.GeneratedKeywords.NetworkElementVlanGenKeywords import \
+    NetworkElementVlanGenKeywords
 from itertools import islice
 from ExtremeAutomation.Keywords.NetworkElementKeywords.Utils.NetworkElementCliSend import NetworkElementCliSend
 from ExtremeAutomation.Library.Device.NetworkElement.Constants.NetworkElementConstants import NetworkElementConstants
@@ -53,6 +57,8 @@ class Cli(object):
         self.end_system_types = ['MU-WINDOWS', 'MU-MAC', 'MU-LINUX', 'A3']
         self.networkElementMltGenKeywords = NetworkElementMltGenKeywords()
         self.networkElementLacpGenKeywords = NetworkElementLacpGenKeywords()
+        self.networkElementSpanningtreeGenKeywords = NetworkElementSpanningtreeGenKeywords()
+        self.networkElementVlanGenKeywords = NetworkElementVlanGenKeywords()
 
     def close_spawn(self, spawn, pxssh=False, **kwargs):
         """
@@ -885,12 +891,15 @@ class Cli(object):
         return "1".
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             self.send(connection, f'do hivemanager address {server_name}')
 
-        elif  NetworkElementConstants.OS_AHXR in cli_type.upper():
-            self.send(connection, f'capwap client server name {server_name}')
+        elif NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, 'no capwap client enable')
+            self.send(connection, f'capwap client server name {server_name}')
+            self.send(connection, f'capwap client default-server-name {server_name}')
+            self.send(connection, f'capwap client server backup name {server_name}')
             self.send(connection, 'capwap client enable')
             self.send(connection, 'save config')
 
@@ -956,6 +965,7 @@ class Cli(object):
         return "1".
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
             count = 1
             while count <= retry_count:
@@ -1035,6 +1045,7 @@ class Cli(object):
        :param connection: The open connection
        :return: 1 commands successfully configured  else -1
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if cli_type.upper() == 'VOSS':
             return self.downgrade_iqagent_voss(cli_type, connection, **kwargs)
         elif cli_type.upper() == 'EXOS':
@@ -1064,6 +1075,7 @@ class Cli(object):
         :return:  1 if commands successfully configured else -1
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if NetworkElementConstants.OS_VOSS in cli_type.upper():
             self.send(connection, 'enable')
             self.send(connection, 'config t')
@@ -1089,6 +1101,7 @@ class Cli(object):
         :return:  1 if commands successfully configured else -1
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         returnCode = -1
         try:
             # Make sure the iqagent is enabled
@@ -1226,8 +1239,10 @@ class Cli(object):
         """
         if NetworkElementConstants.OS_AHXR in cli_type.upper():
             self.send(connection, 'no capwap client server name')
+            self.send(connection, 'no capwap client default-server-name')
+            self.send(connection, 'no capwap client server backup name')
+            self.send(connection, 'no capwap client vhm-name')
             self.send(connection, 'no capwap client enable')
-            self.send(connection, 'capwap client enable')
             self.send(connection, 'save config')
             count = 1
             while count <= retry_count:
@@ -1242,14 +1257,14 @@ class Cli(object):
             self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
-            self.send(connection, 'no Hivemanager address ')
-            self.send(connection, 'Application stop hiveagent')
-            self.send(connection, 'Application start hiveagent')
+            self.send(connection, 'do no Hivemanager address ')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 sleep(10)
                 hm_status = self.send(connection, 'show hivemanager status | include Status')
+                self.utils.print_info(f"hm_status:, {hm_status}")
+
                 if 'CONNECTED TO HIVEMANAGER' not in hm_status:
                     self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
@@ -1423,6 +1438,7 @@ class Cli(object):
         :return: CLI Command Output
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
         output = None
@@ -1453,6 +1469,8 @@ class Cli(object):
         :param dut: the dut, e.g. tb.dut1
         :return: CLI Command Output
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         if dut.cli_type.upper() == "VOSS":
 
             sleep(10)
@@ -1463,7 +1481,7 @@ class Cli(object):
 
             p = re.compile(r'^\d+\/\d+', re.M)
             match_port = re.findall(p, output[0].return_text)
-            print(f"{match_port}")
+            self.utils.print_info(f"{match_port}")
 
             # remove elements with two /
             p2 = re.compile(r'\d+\/\d+\/\d+', re.M)
@@ -1509,6 +1527,8 @@ class Cli(object):
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2838 CDP Support
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2839 LLDP Support for VOSS
         if dut.cli_type.upper() == "EXOS":
             if action == "enable":
                 self.networkElementCliSend.send_cmd(dut.name, 'enable cdp ports all', max_wait=10, interval=2)
@@ -1549,6 +1569,7 @@ class Cli(object):
             self.close_connection_with_error_handling(dut)
             self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845 CLI Support for iqagent
         if dut.cli_type.upper() == "EXOS":
             self.networkElementCliSend.send_cmd(dut.name, 'disable iqagent', max_wait=10, interval=2,
                                                 confirmation_phrases='Do you want to continue?',
@@ -1585,6 +1606,7 @@ class Cli(object):
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         if dut.cli_type.upper() == "VOSS":
 
             self.networkElementCliSend.send_cmd(dut.name, 'enable',
@@ -1593,7 +1615,7 @@ class Cli(object):
                                                          max_wait=10, interval=2)
             p = re.compile(r'^\d+\/\d+\/?\d*', re.M)
             match_port = re.findall(p, output[0].return_text)
-            print(f"{match_port}")
+            self.utils.print_info(f"{match_port}")
             no_ports = len(match_port)
             no_ports = int(no_ports)
 
@@ -1607,7 +1629,7 @@ class Cli(object):
             no_ports = len(match_port)
             no_ports = int(no_ports)
 
-        print(f'Number of ports for this switch is {no_ports}')
+        self.utils.print_info(f'Number of ports for this switch is {no_ports}')
         self.close_connection_with_error_handling(dut)
         kwargs['pass_msg'] = f'Number of ports for this switch is {no_ports}'
         self.commonValidation.passed(**kwargs)
@@ -1621,7 +1643,9 @@ class Cli(object):
         self.close_connection_with_error_handling(onboarded_switch)
         self.networkElementConnectionManager.connect_to_network_element_name(onboarded_switch.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2869
         logger.info("Wait 120 seconds for the configuration of the ports to update on the dut")
+
         start_time = time()
         while time() - start_time < 120:
 
@@ -1664,6 +1688,7 @@ class Cli(object):
          - This keyword sends 'no channelize enable' on all ports in CLI
         :return:
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         output = self.networkElementCliSend.send_cmd(onboarded_switch.name, 'show interface GigabitEthernet channelize',
                                       max_wait=10,
                                       interval=2)[0].return_text
@@ -1686,8 +1711,8 @@ class Cli(object):
         """
         if networkElementCliSend is None or dut is None:
             return
-
         # get the required information from the device CLI
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         if dut.cli_type.upper() == 'VOSS':
             sleep(10)
             output = networkElementCliSend.send_cmd(
@@ -1713,8 +1738,8 @@ class Cli(object):
                 row_text = re.search(fr"\r\n{port}\s.*\r\n", output[0].return_text).group(0)
                 cli_ports_status[port] = "up" if re.search(r"\s+A\s+", row_text) else "down"
 
-        print("****************** Device ports status dictionary: ******************")
-        print(cli_ports_status)
+        self.utils.print_info("****************** Device ports status dictionary: ******************")
+        self.utils.print_info(cli_ports_status)
         kwargs['pass_msg'] = f'get_device_port_status() passed. Device ports status dictionary: {cli_ports_status}'
         self.commonValidation.passed(**kwargs)
         return cli_ports_status
@@ -1730,6 +1755,7 @@ class Cli(object):
         match_port = None
         device_ports_speed = None
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842 Add CLI support for all ports
         # get the required information from the device CLI
         if dut.cli_type.upper() == 'VOSS':
             output = networkElementCliSend.send_cmd(dut.name, 'show interfaces gigabitEthernet name | no-more', max_wait=10, interval=2)
@@ -1781,11 +1807,11 @@ class Cli(object):
             # get a dictionary with ports as the keys and their corresponding speeds as the values
             device_ports_speed = dict(zip(match_port, match_device_ports_speed))
 
-        print("****************** Device port list: ******************")
-        print(match_port)
+        self.utils.print_info("****************** Device port list: ******************")
+        self.utils.print_info(match_port)
 
-        print("****************** Device ports speed dictionary: ******************")
-        print(device_ports_speed)
+        self.utils.print_info("****************** Device ports speed dictionary: ******************")
+        self.utils.print_info(device_ports_speed)
         kwargs['pass_msg'] = f'get_device_ports_speed() passed. Device ports speed dictionary:{device_ports_speed}'
         self.commonValidation.passed(**kwargs)
         return device_ports_speed
@@ -1798,6 +1824,7 @@ class Cli(object):
          first_port: e.g. self.tb.dut1_tgen_port_a.ifname
          second_port: e.g. self.tb.dut1_tgen_port_b.ifname
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2846
         if dut.cli_type.upper() == "EXOS":
             self.networkElementCliSend.send_cmd(
                 dut.name, "clear counters ports all", max_wait=10, interval=2)
@@ -1816,7 +1843,7 @@ class Cli(object):
          second_port: e.g. self.tb.dut1_tgen_port_b.ifname
         return: received traffic list
         """
-
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2847
         if dut.cli_type.upper() == "VOSS":
             sleep(10)
 
@@ -1826,17 +1853,17 @@ class Cli(object):
                 interval=2)
 
             sleep(2)
-            print(output[0].return_text)
+            self.utils.print_info(output[0].return_text)
             p = re.compile(r'(^\d+\/\d+)\s+(\d+)', re.M)
             match_port = re.findall(p, output[0].return_text)
-            print(f"{match_port}")
+            self.utils.print_info(f"{match_port}")
 
             received_traffic_list = []
             received_traffic_list.append(match_port[0][1])
             received_traffic_list.append(match_port[1][1])
 
-            print(f"received_traffic for port {first_port} is {match_port[0][1]} octets")
-            print(f"received_traffic for port {second_port} is {match_port[1][1]} octets")
+            self.utils.print_info(f"received_traffic for port {first_port} is {match_port[0][1]} octets")
+            self.utils.print_info(f"received_traffic for port {second_port} is {match_port[1][1]} octets")
 
         elif dut.cli_type.upper() == "EXOS":
             sleep(10)
@@ -1845,17 +1872,17 @@ class Cli(object):
             output = self.networkElementCliSend.send_cmd(dut.name, f'show port {first_port},{second_port} statistics no-refresh',
                                             max_wait=10,
                                             interval=2)
-            print(output[0].return_text)
+            self.utils.print_info(output[0].return_text)
             p = re.compile(r'(^\d+)\s+(\D+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)', re.M)
             match_port = re.findall(p, output[0].return_text)
-            print(f"{match_port}")
+            self.utils.print_info(f"{match_port}")
 
             received_traffic_list = []
             received_traffic_list.append(match_port[0][5])
             received_traffic_list.append(match_port[1][5])
 
-            print(f"received_traffic for port {first_port} is {match_port[0][5]} octets")
-            print(f"received_traffic for port {second_port} is {match_port[1][5]} octets")
+            self.utils.print_info(f"received_traffic for port {first_port} is {match_port[0][5]} octets")
+            self.utils.print_info(f"received_traffic for port {second_port} is {match_port[1][5]} octets")
         kwargs['pass_msg'] = f'get_received_traffic_list_from_dut() passed. Received traffic list: {received_traffic_list}'
         self.commonValidation.passed(**kwargs)
         return received_traffic_list
@@ -1871,6 +1898,7 @@ class Cli(object):
         :return: transmitted traffic list
         """
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2847
         if dut.cli_type.upper() == "VOSS":
             sleep(10)
 
@@ -1880,19 +1908,19 @@ class Cli(object):
                 interval=2)
 
             sleep(2)
-            print(output[0].return_text)
+            self.utils.print_info(output[0].return_text)
             p = re.compile(r'(^\d+\/\d+)\s+(\d+)\s+(\d+)', re.M)
             match_port = re.findall(p, output[0].return_text)
-            print(f"{match_port}")
+            self.utils.print_info(f"{match_port}")
 
             transmitted_traffic_list = []
             transmitted_traffic_list.append(match_port[0][2])
             transmitted_traffic_list.append(match_port[1][2])
 
-            print(f"transmitted traffic for port {first_port} is {match_port[0][2]} octets")
-            print(f"transmitted traffic for port {second_port} is {match_port[1][2]} octets")
+            self.utils.print_info(f"transmitted traffic for port {first_port} is {match_port[0][2]} octets")
+            self.utils.print_info(f"transmitted traffic for port {second_port} is {match_port[1][2]} octets")
 
-            print("list from dut is ", transmitted_traffic_list)
+            self.utils.print_info("list from dut is ", transmitted_traffic_list)
 
         elif dut.cli_type.upper() == "EXOS":
             sleep(10)
@@ -1900,17 +1928,17 @@ class Cli(object):
                                  max_wait=10, interval=2)
             output = self.networkElementCliSend.send_cmd(dut.name, f'show port {first_port},{second_port} statistics no-refresh',
                                           max_wait=10, interval=2)
-            print(output[0].return_text)
+            self.utils.print_info(output[0].return_text)
             p = re.compile(r'(^\d+)\s+(\D+)\s+(\d+)\s+(\d+)', re.M)
             match_port = re.findall(p, output[0].return_text)
-            print(f"{match_port}")
+            self.utils.print_info(f"{match_port}")
 
             transmitted_traffic_list = []
             transmitted_traffic_list.append(match_port[0][3])
             transmitted_traffic_list.append(match_port[1][3])
 
-            print(f"transmitted_traffic_list for port {first_port} is {match_port[0][3]} octets")
-            print(f"transmitted_traffic_list for port {second_port} is {match_port[1][3]} octets")
+            self.utils.print_info(f"transmitted_traffic_list for port {first_port} is {match_port[0][3]} octets")
+            self.utils.print_info(f"transmitted_traffic_list for port {second_port} is {match_port[1][3]} octets")
         kwargs['pass_msg'] = 'get_transmitted_traffic_list_from_dut() passed.'
         self.commonValidation.passed(**kwargs)
         return transmitted_traffic_list
@@ -1937,6 +1965,7 @@ class Cli(object):
         Returns:
             int: 1 if the function call has succeeded else -1
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2848
         for _ in range(retries):
             try:
 
@@ -2020,6 +2049,7 @@ class Cli(object):
             self.close_connection_with_error_handling(dut)
             self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+            # TODO: https://jira.extremenetworks.com/browse/AIQ-2849
             if NetworkElementConstants.OS_EXOS in dut.cli_type.upper():
                 if port_type == "access":
                     try:
@@ -2070,6 +2100,8 @@ class Cli(object):
         Returns:
             int: slot number for master unit
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2850
         output = self.networkElementCliSend.send_cmd(onboarded_stack.name, "show stacking")[0].return_text
         rows = output.split("\r\n")
         for row in rows:
@@ -2095,6 +2127,7 @@ class Cli(object):
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2851
         if dut.cli_type.upper() == "EXOS":
             self.networkElementLacpGenKeywords.lacp_create_lag(dut.name, f"{port}", f"{port}-{port}", '')
         elif dut.cli_type.upper() == "VOSS":
@@ -2128,6 +2161,7 @@ class Cli(object):
         self.close_connection_with_error_handling(dut)
         self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2851
         if dut.cli_type.upper() == "EXOS":
             self.networkElementLacpGenKeywords.lacp_delete_lag(dut.name, port, '', '')
         elif dut.cli_type.upper() == "VOSS":
@@ -2154,8 +2188,9 @@ class Cli(object):
         :return: a list of tuples
         """
         units_list = []
-
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2867
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
+            self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
 
             stacking_details_output = self.networkElementCliSend.send_cmd(dut.name, 'show stacking', max_wait=10, interval=2)
@@ -2180,6 +2215,7 @@ class Cli(object):
         """
         info_list = []
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845
         if (dut.cli_type.upper() == "EXOS") and (dut.platform.upper() == "STACK"):
             self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging', max_wait=10, interval=2)
             ip_list_cli = []
@@ -2194,10 +2230,10 @@ class Cli(object):
             info_list.append(ip_list_cli)
 
             stacking_info_cli = self.get_stacking_details_cli(dut)
-            print(f"Stacking details cli: {stacking_info_cli}")
+            self.utils.print_info(f"Stacking details cli: {stacking_info_cli}")
             stacking_info_cli_list_of_tuples= stacking_info_cli[0]
             sorted_by_second = sorted(stacking_info_cli_list_of_tuples, key=lambda tup: tup[1])
-            print(f"Stacking details cli sorted_by_second: {sorted_by_second}")
+            self.utils.print_info(f"Stacking details cli sorted_by_second: {sorted_by_second}")
             mac_add_list_cli = []
             for i in range(0, len(sorted_by_second)):
                 unit_i_mac_address = sorted_by_second[i][0]
@@ -2276,6 +2312,7 @@ class Cli(object):
            :return match.group(12): the name of VR used by EXOS / Switch Engine device
                                     or -1 if is unable to get virtual router info
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2852
         global vrName
         if dut.cli_type.upper() == "EXOS":
             result = self.networkElementCliSend.send_cmd(dut.name, 'show vlan', max_wait=10, interval=2)
@@ -2284,27 +2321,27 @@ class Cli(object):
             match = re.search(pattern, output)
 
             if match:
-                print(f"Mgmt Vlan Name : {match.group(1)}")
-                print(f"Vlan ID        : {match.group(3)}")
-                print(f"Mgmt IPaddress : {match.group(5)}")
-                print(f"Active ports   : {match.group(9)}")
-                print(f"Total ports    : {match.group(11)}")
-                print(f"Virtual router : {match.group(12)}")
+                self.utils.print_info(f"Mgmt Vlan Name : {match.group(1)}")
+                self.utils.print_info(f"Vlan ID        : {match.group(3)}")
+                self.utils.print_info(f"Mgmt IPaddress : {match.group(5)}")
+                self.utils.print_info(f"Active ports   : {match.group(9)}")
+                self.utils.print_info(f"Total ports    : {match.group(11)}")
+                self.utils.print_info(f"Virtual router : {match.group(12)}")
 
                 if int(match.group(9)) > 0:
                     return match.group(12)
                 else:
-                    print(f"There is no active port in the mgmt vlan {match.group(1)}")
+                    self.utils.print_info(f"There is no active port in the mgmt vlan {match.group(1)}")
                     kwargs['fail_msg'] = f"There is no active port in the mgmt vlan {match.group(1)}"
                     self.commonValidation.failed(**kwargs)
                     return -1
             else:
-                print("Pattern not found, unable to get virtual router info!")
+                self.utils.print_info("Pattern not found, unable to get virtual router info!")
                 kwargs['fail_msg'] = "Pattern not found, unable to get virtual router info!"
                 self.commonValidation.failed(**kwargs)
                 return -1
         else:
-            print("Device is not an EXOS/Switch Engine device, unable to get virtual router info!")
+            self.utils.print_info("Device is not an EXOS/Switch Engine device, unable to get virtual router info!")
             kwargs['fail_msg'] = "Device is not an EXOS/Switch Engine device, unable to get virtual router info!"
             self.commonValidation.failed(**kwargs)
             return -1
@@ -2318,6 +2355,8 @@ class Cli(object):
            :param cli_type: the type of device : EXOS / VOSS
            :return system_type_string: a string with device model
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2853
         if cli_type.lower() == 'exos':
             device_system_output = self.networkElementCliSend.send_cmd(dut.name, 'show system | include System')[0].cmd_obj._return_text
             system_type_regex = '(System Type:[ ]{2,}.{0,})'
@@ -2335,7 +2374,7 @@ class Cli(object):
             else:
                 system_type_string = system_type_string.replace(system_type_string[:4], system_type_string[:4] + '-')
                 system_type_string = system_type_string.replace('\r', '')
-            print(f"Model name is:{system_type_string}")
+            self.utils.print_info(f"Model name is:{system_type_string}")
             return system_type_string
 
         elif cli_type.lower() == 'voss':
@@ -2355,7 +2394,7 @@ class Cli(object):
             else:
                 system_type_string = system_type_string.replace(system_type_string[:4], system_type_string[:4] + '-')
                 system_type_string = system_type_string.replace('\r', '')
-            print(f"Model name is:{system_type_string}")
+            self.utils.print_info(f"Model name is:{system_type_string}")
             return system_type_string
         else:
             kwargs['fail_msg'] = "Didn't find any switch model"
@@ -2376,6 +2415,7 @@ class Cli(object):
         cli_type_device_1 = dut1.cli_type
         cli_type_device_2 = dut2.cli_type
 
+        # TODO https://jira.extremenetworks.com/browse/AIQ-2855
         if cli_type_device_1.lower() == 'exos' and cli_type_device_2.lower() == 'exos':
             output_1 = self.networkElementCliSend.send_cmd(device_1, 'show version | grep IMG')
             check_image_version_1 = output_1[0].return_text
@@ -2389,14 +2429,14 @@ class Cli(object):
             image_version_2 = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
             image_version_2_string = image_version_2.replace(self.utils.get_regexp_matches(image_version_2,
                                                                                                '([ ])')[0], '')
-            print(f"OS version for clone device: {image_version_1_string}")
-            print(f"OS version for replacement device: {image_version_2_string}")
+            self.utils.print_info(f"OS version for clone device: {image_version_1_string}")
+            self.utils.print_info(f"OS version for replacement device: {image_version_2_string}")
 
             if image_version_1_string == image_version_2_string:
-                print("OS versions are the same")
+                self.utils.print_info("OS versions are the same")
                 return 'same'
             else:
-                print("OS version are different")
+                self.utils.print_info("OS version are different")
                 return 'different'
 
         elif cli_type_device_1.lower() == 'voss' and cli_type_device_2.lower() == 'voss':
@@ -2404,18 +2444,18 @@ class Cli(object):
             check_image_version_1 = output_descr_1[0].return_text
             image_version_regex = '(\\d+[.]\\d+[.]\\d+[.]\\d+)'
             image_version_1_string = self.utils.get_regexp_matches(check_image_version_1, image_version_regex, 1)[0]
-            print(f"OS version for clone device: {image_version_1_string}")
+            self.utils.print_info(f"OS version for clone device: {image_version_1_string}")
 
             output_descr_2 = self.networkElementCliSend.send_cmd(device_2, 'show sys-info | include SysDescr')
             check_image_version_2 = output_descr_2[0].return_text
             image_version_2_string = self.utils.get_regexp_matches(check_image_version_2, image_version_regex, 1)[0]
-            print(f"OS version for replacement device: {image_version_2_string}")
+            self.utils.print_info(f"OS version for replacement device: {image_version_2_string}")
 
             if image_version_1_string == image_version_2_string:
-                print("OS versions are the same")
+                self.utils.print_info("OS versions are the same")
                 return 'same'
             else:
-                print("OS version are different")
+                self.utils.print_info("OS version are different")
                 return 'different'
         else:
             kwargs['fail_msg'] = "Unable to check OS version for devices"
@@ -2429,6 +2469,7 @@ class Cli(object):
                 :param iqagent_option: "enable" or "disable" option for iqagent
                 :return 1 if sucess or -1 if fails
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2845
         device_1 = device.name
         cli_type_device_1 = device.cli_type
         if iqagent_option == 'disable':
@@ -2473,6 +2514,7 @@ class Cli(object):
         dut - device to test
         lacp_list_ports = ["port1, "port2", "port3", "port4", ...]
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2856
         if dut.cli_type == 'exos':
             for attempts in range(3):
                 self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
@@ -2507,6 +2549,314 @@ class Cli(object):
             self.commonValidation.failed(**kwargs)
             return False
 
+    def verify_poe_supported(self, dut, **kwargs):
+        """
+        Method that verifies if the device has power over ethernet capabilities.
+        Currently this method supports only devices with cli_type exos/voss.
+        
+        :param dut: the dut, e.g. tb.dut1
+        :return: 1 if the function call has succeeded else -1
+        """
+        
+        if dut.cli_type.lower() not in ["exos", "voss"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
+            return -1
+        
+        check_poe = 1
+        if dut.cli_type.lower() == "voss":
+            
+            self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=30, interval=10)
+            self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=30, interval=10)
+            self.utils.print_info("Trying to see if device supoorts POE")
+            result = self.networkElementCliSend.send_cmd(dut.name, 'show poe-main-status', max_wait=30, interval=10)[0].cmd_obj._return_text
+            self.utils.print_info(f"Result was: {result}")
+            
+            if "PoE Main Status" in result:
+                check_poe = 1
+            elif "POE not supported by device" in result:
+                kwargs['fail_msg'] = "POE not supported by device"
+                self.commonValidation.failed(**kwargs)
+                return -1
+            
+        elif dut.cli_type.lower() == "exos" and not dut.platform == 'Stack':
+            
+            self.networkElementCliSend.send_cmd(dut.name, 'enable telnet')
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging')
+            self.utils.print_info("Trying to see if device supoorts POE")
+            
+            try:
+                result = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
+            except Exception:
+                kwargs['fail_msg'] = "POE not supported by device"
+                self.commonValidation.failed(**kwargs)
+                return -1
+            
+            self.utils.print_info(f"Result was: {result}")
+            if 'Inline Power System Information' in result:
+                self.utils.print_info("EXOS device supports PoE")
+                check_poe = 1
+            else:
+                kwargs['fail_msg'] = "POE not supported by device"
+                self.commonValidation.failed(**kwargs)
+                return -1
+            
+        elif dut.cli_type.lower() == "exos" and dut.platform == 'Stack':
+            
+            self.networkElementCliSend.send_cmd(dut.name, 'enable telnet')
+            self.networkElementCliSend.send_cmd(dut.name, 'disable cli paging')
+            
+            self.utils.print_info("Trying to see if device supoorts POE")
+            try:
+                result = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
+            except Exception:
+                kwargs["fail_msg"] = "Failed! PoE not supported"
+                self.commonValidation.fault(**kwargs)
+                return -1
+            
+            self.utils.print_info(f"Result was: {result}")
+            if 'Firmware Status' in result:
+                self.utils.print_info("EXOS device supports PoE")
+                check_poe = 1
+            else:
+                kwargs['fail_msg'] = "POE not supported by device"
+                self.commonValidation.failed(**kwargs)
+                return -1
+            
+        else:
+            kwargs['fail_msg'] = "CLI type not supported"
+            self.commonValidation.failed(**kwargs)
+            return -1
+        
+        self.commonValidation.passed(**kwargs)
+        return check_poe
+
+    def get_cli_poe_details(self, dut, **kwargs):
+        """
+        Method that returns string with power details from switch CLI.
+        Currently this method supports only devices with cli_type exos.
+        
+        :param dut: the dut, e.g. tb.dut1
+        :return: a list with two string elements (the threshold power and the operation power) if the function call has succeeded else -1
+        """
+
+        if dut.cli_type.lower() not in ["exos"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
+            return -1
+        
+        if dut.cli_type == "exos":
+            
+            elem = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
+            inline_power_info = self.utils.get_regexp_matches(elem,
+                            r"(\w+['Inline']\s+\w+['Power]\s+\w+['System']\s+\w+['Information'])",1)
+            
+            if not inline_power_info:
+                kwargs['fail_msg'] = "POE not supported by device"
+                self.commonValidation.failed(**kwargs)
+                return -1
+            
+            else:
+                self.utils.print_info("EXOS device supports PoE")
+                #get PoE values
+                var_operational_power = self.utils.get_regexp_matches(elem, r"\w+['Operational']\s+(\d+)", 1)
+                
+                if not var_operational_power:
+                    kwargs['fail_msg'] = "Device POE is not opperational"
+                    self.commonValidation.failed(**kwargs)
+                    return -1
+                
+                var_operational_power =  var_operational_power[0]
+                var_threshold_power_procents = self.utils.get_regexp_matches(elem, r"\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)[0]
+                self.utils.print_info("Operational Values from CLI is :", var_operational_power)
+                self.utils.print_info("Power Threshold value from CLI is :", var_threshold_power_procents)
+
+                # Transform the POE threshold power in watts
+                var_threshold_power_watts = int(var_operational_power) * int(var_threshold_power_procents) / 100
+                self.utils.print_info("Power Threshold value from CLI is :", var_threshold_power_watts)
+                self.utils.print_info("Power Threshold value int from CLI is :", int(var_threshold_power_watts))
+
+                self.commonValidation.passed(**kwargs)
+                return [str(int(var_threshold_power_watts)), str(var_operational_power)]
+
+    def get_cli_poe_details_updated(self, dut, **kwargs):
+        """
+        Method that returns power usage threshold int value from switch CLI.
+        Currently this method supports only devices with cli_type exos.
+        
+        :param dut: the dut, e.g. tb.dut1
+        :return: the power usage as int if the function call has succeeded else -1
+        """
+
+        if dut.cli_type.lower() not in ["exos"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
+            return -1
+        
+        if dut.cli_type.lower() == "exos":
+            elem = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
+            inline_power_info = self.utils.get_regexp_matches(elem, r"\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)
+            
+            if inline_power_info:
+                inline_power_info = inline_power_info[0]
+                self.utils.print_info("CLI value is ", inline_power_info)
+
+                self.commonValidation.passed(**kwargs)
+                return int(inline_power_info)
+            
+            kwargs["fail_msg"] = "Failed to get power usage threshold value from switch CLI"
+            self.commonValidation.failed(**kwargs)
+            return -1
+
+    def get_stack_slot_poe(self, dut, **kwargs):
+        """
+        Method that checks if there is an available stack slot with POE.
+        Currently this method supports only devices with cli_type exos.
+        
+        :param dut: the dut, e.g. tb.dut1
+        :return: a list of strings (where each string is a slot of the stack) if the function call has succeeded else -1
+        """
+
+        if dut.cli_type.lower() not in ["exos"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
+            return -1
+
+        if dut.cli_type.lower() == "exos":
+            elem = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
+            inline_power_slot = self.utils.get_regexp_matches(elem, r"(\d)\s+\w+['Enabled']\s+\w+['Operational']", 1)
+            self.utils.print_info(inline_power_slot)
+
+            if type(inline_power_slot) == list:
+                self.commonValidation.passed(**kwargs)
+                return inline_power_slot
+
+            kwargs['fail_msg'] = "POE not supported by device"
+            self.commonValidation.failed(**kwargs)
+            return -1
+
+    def get_stack_slot_psu(self, dut, **kwargs):
+        """
+        Method that shows slot power details from CLI.
+        Currently this method supports only devices with cli_type exos.
+        
+        :param dut: the dut, e.g. tb.dut1
+        :return: a list of strings if the function call has succeeded else -1
+        """
+        
+        if dut.cli_type.lower() not in ["exos"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
+            return -1
+        
+        if dut.cli_type.lower() == "exos":
+            
+            power_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Power', max_wait=30, interval=10)[0].cmd_obj._return_text
+            power_slot = self.utils.get_regexp_matches(
+                power_details, r"\w+['Slot'].(\d)\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+\d+.\d+", 1)
+            self.utils.print_info(power_slot)
+
+            if type(power_slot) == list or type(power_slot) == str:
+                self.commonValidation.passed(**kwargs)
+                return power_slot
+
+            else:
+                kwargs['fail_msg'] = "PSU details cannot be collected"
+                self.commonValidation.failed(**kwargs)
+                return -1
+
+    def get_cli_psu_details(self, dut, **kwargs):
+        """
+        Method that shows power details for stack or standalone device.
+        Currently this method supports only devices with cli_type exos.
+        
+        :param dut: the dut, e.g. tb.dut1
+        :return: a list of strings if the function call has succeeded else -1
+        """
+
+        if dut.cli_type.lower() not in ["exos"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
+            return -1
+
+        if dut.cli_type == "exos":
+
+            if dut.platform == 'Stack':
+                all_powers_list = []
+
+                operational_power_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Output', max_wait=30, interval=10)[0].cmd_obj._return_text
+                operational_power_slot = self.utils.get_regexp_matches(operational_power_details, r"\d+['V]\/(\d+)['W]\s+\w+", 1)
+                power_usage_details = self.networkElementCliSend.send_cmd(dut.name, 'show power detail | grep Power', max_wait=30, interval=10)[0].cmd_obj._return_text
+                power_usage_slot = self.utils.get_regexp_matches(power_usage_details, r"\w+['Slot'].\d\s+\w+['PowerSupply']\s+\d+\s+\w+['information'].\s+\w+\s+.\s+\w+['Powered']\s+\w+['On']\s+\w+['Power']\s+\w+['Usage']\s+.\s+(\d+.\d+)\s+\w+", 1)
+                for operational_power_slot_element in operational_power_slot:
+                    all_powers_list.append(operational_power_slot_element)
+                for power_per_slot in power_usage_slot:
+                    power_per_slot_int = int(float(power_per_slot))
+                    all_powers_list.append(str(power_per_slot_int))
+                self.utils.print_info(all_powers_list)
+
+                self.commonValidation.passed(**kwargs)
+                return all_powers_list
+
+            else:
+                powerdetails = self.networkElementCliSend.send_cmd(dut.name, 'show power detail', max_wait=30, interval=10)[0].cmd_obj._return_text
+                psu_details = self.utils.get_regexp_matches(powerdetails, r"(\w+['PowerSupply']\s\w\s\w+['information'])", 1)[0]
+
+                if psu_details in powerdetails:
+                    total_power_available = self.utils.get_regexp_matches(powerdetails, r"\w+['Output']\s+\d+\s*\S\s\d*.\d*\s+\w+.\s+\d+.\d+\s+\w+\s+\S\d+\w\/(\d+)", 1)[0]
+                    total_power_consumed = self.utils.get_regexp_matches(powerdetails, r"\w+['System']\s+\w+['Power']\s+\w+['Usage']\s+.\s+(\d+.\d+)", 1)[0]
+                    self.utils.print_info(total_power_available)
+                    new_total_power_consumed = int(float(total_power_consumed))
+                    self.utils.print_info(new_total_power_consumed)
+
+                    self.commonValidation.passed(**kwargs)
+                    return [total_power_available, str(new_total_power_consumed)]
+
+                else:
+                    kwargs['fail_msg'] = "Total and Consumed power can't be collected"
+                    self.commonValidation.fault(**kwargs)
+                    return -1
+
+    def change_threshold_power_from_cli(self, dut, new_threshold_value, **kwargs):
+        """
+        Method that changes the threshold power value from CLI.
+        Currently this method supports only devices with cli_type exos.
+        
+        :param dut: the dut, e.g. tb.dut1
+        :param new_threshold_value: the int value of the new_threshold_value, 0-100
+        :return: a list of strings if the function call has succeeded else -1
+        """
+
+        if dut.cli_type.lower() not in ["exos"]:
+            kwargs["fail_msg"] = "Failed! OS not supported."
+            self.commonValidation.fault(**kwargs)
+            return -1
+        
+        if dut.cli_type == "exos":
+            
+            elem = self.networkElementCliSend.send_cmd(dut.name, 'show inline-power', max_wait=30, interval=10)[0].cmd_obj._return_text
+            inline_power_info = self.utils.get_regexp_matches(elem, r"(\w+['Inline']\s+\w+['Power]\s+\w+['System']\s+\w+['Information'])", 1)[0]
+
+            if inline_power_info in elem:
+                self.utils.print_info("EXOS device supports PoE")
+                #get the Threshold POwer value
+                var_operational_power = self.utils.get_regexp_matches(elem, r"\w+['Operational']\s+(\d+)", 1)[0]
+                var_threshold_power_procents = self.utils.get_regexp_matches(elem, r"\w+['Power']\s+\w+['Usage']\s+\w+['Threshold']\s+.\s+(\d+)", 1)[0]
+                self.utils.print_info(var_operational_power)
+                self.utils.print_info(var_threshold_power_procents)
+                #change the Threshold Power value from CLI
+                threshold_power_changed_procents = self.networkElementCliSend.send_cmd(dut.name, f'configure inline-power usage-threshold {new_threshold_value}', max_wait=30, interval=10)[0].cmd_obj._return_text
+                self.utils.print_info(threshold_power_changed_procents)
+                # Transform the POE threshold power in watts
+                threshold_power_changed_watts = int(var_operational_power) * int(new_threshold_value) / 100
+
+                self.commonValidation.passed(**kwargs)
+                return [str(int(threshold_power_changed_watts)), var_operational_power]
+
+            kwargs['fail_msg'] = "POE not supported by device"
+            self.commonValidation.failed(**kwargs)
+            return -1
+
     def search_last_command_cli_journal(self, info: str, command, **kwargs):
         """
            - This keyword is used to check if the command presented as last command in "show cli-journal"
@@ -2529,11 +2879,11 @@ class Cli(object):
         flag = False
         for row in reversed(table):
             if log_time < datetime.strptime(row[0], '%m/%d/%Y %H:%M:%S.%f') and command in row[-1]:
-                print(row)
+                self.utils.print_info(row)
                 flag = True
                 break
             else:
-                print(row)
+                self.utils.print_info(row)
                 flag = False
         if flag:
             kwargs['pass_msg'] = f"'{command}' found as last command in cli journal"
@@ -2551,6 +2901,7 @@ class Cli(object):
         :param dut: device to test
         :return: -1 if fails
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2857 AIQ-2857 - Add Support for CLI journaling
         spawn = self.open_spawn(dut.ip, dut.port, dut.username,
                                 dut.password, dut.cli_type)
         if dut.cli_type.upper() in ["VOSS", "AH-FASTPATH"]:
@@ -2579,6 +2930,7 @@ class Cli(object):
         dut1 = dut1.name
         dut2 = dut2.name
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2857 AIQ-2857 - Add Support for CLI journaling
         if cli_type_1.lower() and cli_type_2.lower() == 'exos':
             self.networkElementCliSend.send_cmd(dut1, 'configure cli journal size 200', max_wait=10, interval=2)
             self.networkElementCliSend.send_cmd(dut2, 'configure cli journal size 200', max_wait=10, interval=2)
@@ -2609,17 +2961,18 @@ class Cli(object):
         cli_type_1 = dut1.cli_type
         cli_type_2 = dut2.cli_type
 
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2857 AIQ-2857 - Add Support for CLI journaling
         if cli_type_1.lower() and cli_type_2.lower() == 'exos':
             cli_journal_1 = self.send_commands(dut1.name, "show cli journal | include hivemanager")
             commands_device_1 = self.get_cli_commands(cli_journal_1, cli_type=dut1.cli_type)
-            print(commands_device_1)
+            self.utils.print_info(commands_device_1)
             cli_journal_2 = self.send_commands(dut2.name, "show cli journal | include hivemanager")
             commands_device_2 = self.get_cli_commands(cli_journal_2, cli_type=dut2.cli_type)
-            print(commands_device_2)
+            self.utils.print_info(commands_device_2)
             a = set(commands_device_1)
             b = set(commands_device_2)
             if a == b:
-                print("Commands are the same")
+                self.utils.print_info("Commands are the same")
                 kwargs['pass_msg'] = "check_clone_configuration() passed"
                 self.commonValidation.passed(**kwargs)
             else:
@@ -2631,16 +2984,16 @@ class Cli(object):
             cli_journal_1 = self.send_commands(dut1.name,
                                                        'show logging file detail | include "127.0.0.1 hivemanager"')
             commands_device_1 = self.get_cli_commands(cli_journal_1, cli_type=dut1.cli_type)
-            print(commands_device_1)
+            self.utils.print_info(commands_device_1)
             self.send_commands(dut1.name, "terminal more disable")
             cli_journal_2 = self.send_commands(dut2.name,
                                                        'show logging file detail | include "127.0.0.1 hivemanager"')
             commands_device_2 = self.get_cli_commands(cli_journal_2, cli_type=dut2.cli_type)
-            print(commands_device_2)
+            self.utils.print_info(commands_device_2)
             a = set(commands_device_1)
             b = set(commands_device_2)
             if a == b:
-                print("Commands are the same")
+                self.utils.print_info("Commands are the same")
                 kwargs['pass_msg'] = "check_clone_configuration() passed."
                 self.commonValidation.passed(**kwargs)
             else:
@@ -2710,7 +3063,7 @@ class Cli(object):
         """
 
         supported_devices = ["EXOS"]
-
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842
         if dut.cli_type.upper() not in supported_devices:
             kwargs["fail_msg"] = f"Chosen device is not currently supported. Supported devices: {supported_devices}"
             self.commonValidation.fault(**kwargs)
@@ -2756,6 +3109,8 @@ class Cli(object):
         :param : dut (dict): the dut, e.g. dut1, node_1
         :return: connected_ports: a list of all connected ports on device if the function call has succeeded else -1
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2858
         if dut.cli_type.lower() == "voss":
             self.utils.print_info("Checking for connected ports on voss switch...")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show lldp neighbor', max_wait=10, interval=2)
@@ -2787,6 +3142,8 @@ class Cli(object):
         :param: connected_ports: list of connected ports detected on dut
         :return: disconnected_ports: a list of all disconnected ports on device if the function call has succeeded else -1
         """
+
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2842
         if dut.cli_type.lower() == "voss":
             system_type_regex = "(\\d+/\\d+)\\s+\\w+"
             self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=30, interval=10)
@@ -2812,6 +3169,7 @@ class Cli(object):
         :param: dut (dict): the dut, e.g. dut1, node_1
         :return: poe_ports: a list of all poe ports on device if the function call has succeeded else -1
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2859
         if dut.cli_type.lower() == "voss":
             self.utils.print_info("Checking for POE ports on voss switch...")
             output = self.networkElementCliSend.send_cmd(dut.name, 'show poe-port-status | include Searching', max_wait=10, interval=2)
@@ -2839,7 +3197,7 @@ class Cli(object):
         :param: dut (dict): the dut, e.g. dut1, node_1
         :return: 1 if the function call has succeeded else -1
         """
-
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2857
         if dut.cli_type.lower() == 'voss':
             cli_dut = self.networkElementCliSend.send_cmd(dut.name, "show logging file detail | include SSH:127.0.0.1")
         elif dut.cli_type.lower() == 'exos':
@@ -2868,6 +3226,7 @@ class Cli(object):
         :return: a list of pairs(port number and mac locking state for each port)
         :return: -1 if error
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2860
         if dut.cli_type.upper() != "EXOS":
             kwargs["fail_msg"] = "Wrong cli_type"
             self.commonValidation.fault(**kwargs)
@@ -2900,17 +3259,17 @@ class Cli(object):
                                                       max_wait=10,
                                                       interval=2)
                 self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
-                print(output[0].return_text)
+                self.utils.print_info(output[0].return_text)
 
                 p = re.compile(r'(CfgBrForwardDelay:\s+)+(\d+)', re.M)
 
                 match_text = re.findall(p, output[0].return_text)
-                print(f"{match_text}")
+                self.utils.print_info(f"{match_text}")
 
                 sw_model = []
                 sw_model.append(match_text[0][1])
 
-                print(f"forward delay is {match_text[0][1]} seconds")
+                self.utils.print_info(f"forward delay is {match_text[0][1]} seconds")
 
                 kwargs['pass_msg'] = f"Forw delay for device is: {match_text[0][1]}"
                 self.commonValidation.passed(**kwargs)
@@ -2928,24 +3287,31 @@ class Cli(object):
         :param forward_delay: the value of the forward delay to be set
         :return: the forward delay after being set
         '''
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2867
         if dut.cli_type.upper() == "EXOS":
 
             for attempts in range(3):
                 sleep(5)
+                # once support is added for any of the stories, the code will look like this:
+                # self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
+                # output = self.networkElementSpanningtreeGenKeywords.spanningtree_set_fwd_delay(dut.name, forward_delay, "0")
+                # print(output)
+                # output = self.networkElementSpanningtreeGenKeywords.spanningtree_verify_bridge_forward_delay(dut.name,
+                #                                                                                     forward_delay, "0")
+                # print(output)
                 self.networkElementConnectionManager.connect_to_network_element_name(dut.name)
                 self.networkElementCliSend.send_cmd(dut.name, f'configure stpd s0 forwarddelay {forward_delay}',
                                      max_wait=10, interval=2)
-
                 output = self.networkElementCliSend.send_cmd(dut.name, 'show stpd detail',
                                               max_wait=10,
                                               interval=2)
                 self.networkElementConnectionManager.close_connection_to_network_element(dut.name)
-                print(output[0].return_text)
+                self.utils.print_info(output[0].return_text)
 
                 p = re.compile(r'(CfgBrForwardDelay:\s+)+(\d+)', re.M)
 
                 match_text = re.findall(p, output[0].return_text)
-                print(f"{match_text}")
+                self.utils.print_info(f"{match_text}")
 
                 sw_model = []
                 sw_model.append(match_text[0][1])
@@ -2969,6 +3335,7 @@ class Cli(object):
         :param client_mac: Client Mac Address
         :return:  1 if commands successfully configured and client is getting removed from AP else -1
         """
+        # TODO: https://jira.extremenetworks.com/browse/AIQ-2861
         if NetworkElementConstants.OS_AHAP in cli_type.upper():
             self.send(connection, f'clear auth station mac {client_mac}')
             self.send(connection, f'clear auth local-cache mac {client_mac}')

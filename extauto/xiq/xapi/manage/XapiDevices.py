@@ -181,29 +181,28 @@ class XapiDevices(XapiHelper):
 
         return self.xapiBaseDeviceApi.xapi_base_reboot_device(id=id)
 
-    def xapi_search_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def xapi_search_device(self, device_serial=None, device_mac=None, **kwargs):
         """
         This function will search for the device based on the serial, name or mac
 
         :param device_serial: The device serial number
-        :param device_name: The device hostname
         :param device_mac: The device mac address
         :param kwargs:
         :return: 1 if the device was found and -1 if the device wasn't found
         """
 
-        device_id = self._xapi_search_for_device_id(device_serial=device_serial, device_name=device_name, device_mac=device_mac, **kwargs)
+        device_id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if device_id != -1:
-            kwargs['pass_msg'] = f"Found the device with serial:{device_serial}, name: {device_name} or MAC: {device_mac}"
+            kwargs['pass_msg'] = f"Found the device with serial:{device_serial}, or MAC: {device_mac}"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = f"Failed to find the device with serial:{device_serial}, name: {device_name} or MAC: {device_mac}"
+            kwargs['fail_msg'] = f"Failed to find the device with serial:{device_serial}, or MAC: {device_mac}"
             self.common_validation.failed(**kwargs)
             return -1
 
-    def xapi_wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=5, retry_count=120,
-                                     **kwargs):
+
+    def xapi_wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=5, retry_count=120, **kwargs):
         """
            This function will search for the device and wait until the device is offline
 
@@ -243,7 +242,7 @@ class XapiDevices(XapiHelper):
         return -1
 
     def xapi_wait_until_device_online(self, device_serial=None, device_mac=None, retry_duration=5, retry_count=120,
-                                     **kwargs):
+                                      **kwargs):
         """
            This function will search for the device and wait until the device is online
 
@@ -282,7 +281,7 @@ class XapiDevices(XapiHelper):
         return -1
 
     def xapi_wait_until_device_managed(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
-                                      **kwargs):
+                                       **kwargs):
         """
               This function will search for the device and wait until the device is managed
 
@@ -321,22 +320,21 @@ class XapiDevices(XapiHelper):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def xapi_delete_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def xapi_delete_device(self, device_serial=None, device_mac=None, **kwargs):
         """
             This function will delete the device
 
             :param device_serial: The device serial number
             :param device_mac: The device MAC address
-            :param device_name: The device Name
 
             :return: The device ID for success and -1 for failure
        """
 
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
-            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
-            self.common_validation.failed(**kwargs)
-            return -1
+            kwargs['pass_msg'] = "Didn't find the device. Already deleted/ nothing to delete."
+            self.common_validation.passed(**kwargs)
+            return 1
 
         try:
             self.xapiBaseDeviceApi.xapi_base_delete_device(id=id)
@@ -391,7 +389,7 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return -1
 
-        # Get the configuration from the Global varibles
+        # Get the configuration from the Global variables
         configuration = self.get_xapi_configuration()
         api_response = None
 
@@ -426,7 +424,7 @@ class XapiDevices(XapiHelper):
 
            :return: An Array of devices (JSON)
         """
-        # Get the configuration from the Global varibles
+        # Get the configuration from the Global variables
         configuration = self.get_xapi_configuration()
         api_response = None
 
@@ -482,7 +480,6 @@ class XapiDevices(XapiHelper):
         :return: Device the management ip address ...
         """
 
-
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
             kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
@@ -503,7 +500,7 @@ class XapiDevices(XapiHelper):
             return -1
 
     def xapi_wait_until_device_unmanaged(self, device_serial=None, device_mac=None, retry_duration=30, retry_count=20,
-                                      **kwargs):
+                                         **kwargs):
         """
               This function will search for the device and wait until the device is unmanaged
 
@@ -574,20 +571,18 @@ class XapiDevices(XapiHelper):
 
         return self.xapiBaseDeviceApi.xapi_base_change_device_status_to_unmanage(id=id)
 
-    def xapi_change_manage_device_status(self, manage_type='MANAGE', device_serial=None, device_mac=None, device_name=None, **kwargs):
+    def xapi_change_manage_device_status(self, manage_type='MANAGE', device_serial=None, device_mac=None, **kwargs):
         """
             This Keyword changes the management status of the device.
             - Keyword Usage:
             - ``Change Manage Device Status    MANAGE      device_serial=${DEVICE_SERIAL}``
             - ``Change Manage Device Status    UNMANAGE    device_mac=${DEVICE_MAC}``
-            - ``Change Manage Device Status    MANAGE    device_mac=${DEVICE_NAME}``
 
             :param device_serial: device Serial
             :param device_mac: device MAC address
             :param manage_type: Manage/Unmanage device
             :return: 1 if the management status was changed
         """
-
 
         id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
@@ -619,9 +614,11 @@ class XapiDevices(XapiHelper):
                 self.common_validation.passed(**kwargs)
                 return 1
         else:
-            kwargs['fail_msg'] = f"Failed - device_admin_state '{device_admin_state}' does not match either 'MANAGED' or 'UNMANAGED' or manage_type '{manage_type}' is not a valid option"
+            kwargs['fail_msg'] = f"Failed - device_admin_state '{device_admin_state}' does not match either 'MANAGED' " \
+                                 f"or 'UNMANAGED' or manage_type '{manage_type}' is not a valid option"
             self.common_validation.fault(**kwargs)
             return -1
+
 
     def xapi_update_network_policy(self, policy_name, device_serial, **kwargs):
         """
@@ -644,7 +641,6 @@ class XapiDevices(XapiHelper):
             return -1
         self.xapiBaseDeviceApi.xapi_base_assign_device_network_policy(id=device_id, network_policy_id=policy_id, _preload_content=False)
         return 1
-
 
 
     def xapi_get_device_status(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
@@ -682,19 +678,16 @@ class XapiDevices(XapiHelper):
             self.common_validation.fault(**kwargs)
             return 'disconnected'
 
-
-
     #########################################################################
     # Helper functions
     #########################################################################
 
-    def _xapi_search_for_device_id(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def _xapi_search_for_device_id(self, device_serial=None, device_mac=None, **kwargs):
         """
            This helper function will search for the device ID given the parameters that were passed in.
            This ID is used in all of the XAPI keywords as the device ID
 
            :param device_serial: The device serial number
-           :param device_name: The device hostname
            :param device_mac: The device MAC address
            :return: The device ID for success and -1 for failure
         """
@@ -705,9 +698,6 @@ class XapiDevices(XapiHelper):
         if device_serial:
             self.utils.print_info(f"XAPI - Searching for device based on serial {device_serial}")
             search_type = device_serial
-        elif device_name:
-            self.utils.print_info(f"XAPI - Searching for device based on name {device_name}")
-            search_type = device_name
         elif device_mac:
             self.utils.print_info(f"XAPI - Searching for device based on mac {device_mac}")
             search_type = device_mac
@@ -719,10 +709,7 @@ class XapiDevices(XapiHelper):
             return device_id
 
         # Get all of the devices
-        device_api_data = self.xapi_get_device(device_serial=device_serial,
-                                               device_name=device_name,
-                                               device_mac=device_mac,
-                                               **kwargs)
+        device_api_data = self.xapi_get_device(device_serial=device_serial, device_mac=device_mac, **kwargs)
 
         device_list = device_api_data['data']
 
@@ -735,12 +722,6 @@ class XapiDevices(XapiHelper):
                         self.utils.print_info(
                             f"Setting global value for device [serial]: {device_serial}:{device_id}")
                         self.set_xapi_global_device(device_serial, device_id)
-                        break
-                elif device_name:
-                    if device['hostname'] == device_name:
-                        device_id = device['id']
-                        self.utils.print_info(f"Setting global value for device [name]: {device_name}:{device_id}")
-                        self.set_xapi_global_device(device_name, device_id)
                         break
                 elif device_mac:
                     if device['mac_address'] == device_mac:
@@ -767,34 +748,33 @@ class XapiDevices(XapiHelper):
         return policy_id
 
 
-    def xapi_search_for_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+
+    def xapi_search_for_device(self, device_serial=None, device_mac=None, **kwargs):
         """
             This function will search for a device with the serial, name or mac address that is passed in.
 
             :param device_serial: The device serial number
-            :param device_name: The device hostname
             :param device_mac: The device MAC address
             :return: 1 for success and -1 for failure
         """
-        id = self._xapi_search_for_device_id(device_serial=device_serial, device_name=device_name, device_mac=device_mac, **kwargs)
+        id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if id == -1:
-            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac} or name: {device_name}"
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial} or mac:{device_mac}"
             self.common_validation.failed(**kwargs)
             return -1
 
         return self.xapiBaseDeviceApi.xapi_base_get_device(id=id, _preload_content=False)
 
-    def xapi_get_device(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def xapi_get_device(self, device_serial=None, device_mac=None, **kwargs):
         """
-           This helper function will get the device given the parmeters that are passed in for
+           This helper function will get the device given the parameters that are passed in for
            device_serial, device_name or device_mac
 
            :param: device_serial - The device serial
-           :param: device_name - The device name
            :param: device_mac - The device mac
-           :return: The device JSON or -1 if an error occured
+           :return: The device JSON or -1 if an error occurred
         """
-        # Get the configuration from the Global varibles
+        # Get the configuration from the Global variables
         configuration = self.get_xapi_configuration()
         api_response = None
 
@@ -808,13 +788,11 @@ class XapiDevices(XapiHelper):
             device_args['_async'] = True
             device_args['_preload_content'] = False
             if device_serial:
-                device_args['sns']=[device_serial]
-            elif device_name:
-                device_args['hostnames']=[device_name]
+                device_args['sns'] = [device_serial]
             elif device_mac:
-                device_args['mac_addresses']=[device_mac]
+                device_args['mac_addresses'] = [device_mac]
             else:
-                kwargs['fail_msg'] = f"xapi_get_device -> device_serial: {device_serial}, device_name: {device_name}, device_mac: {device_mac} are not set!"
+                kwargs['fail_msg'] = f"xapi_get_device -> device_serial: {device_serial}, device_mac: {device_mac} are not set!"
                 self.common_validation.fault(**kwargs)
                 return -1
             api_response = self.xapiBaseDeviceApi.xapi_base_list_devices(**device_args)
