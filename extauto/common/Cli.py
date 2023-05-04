@@ -1257,14 +1257,14 @@ class Cli(object):
             self.builtin.fail(msg="Device is not Disconnected Successfully With CAPWAP Server")
 
         elif NetworkElementConstants.OS_AHFASTPATH in cli_type.upper():
-            self.send(connection, 'no Hivemanager address ')
-            self.send(connection, 'Application stop hiveagent')
-            self.send(connection, 'Application start hiveagent')
+            self.send(connection, 'do no Hivemanager address ')
             count = 1
             while count <= retry_count:
                 self.utils.print_info(f"Verifying CAPWAP Server Connection Status On Device- Loop: {count}")
                 sleep(10)
                 hm_status = self.send(connection, 'show hivemanager status | include Status')
+                self.utils.print_info(f"hm_status:, {hm_status}")
+
                 if 'CONNECTED TO HIVEMANAGER' not in hm_status:
                     self.utils.print_info("Device Successfully Disconnected from CAPWAP server")
                     return 1
