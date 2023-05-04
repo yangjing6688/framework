@@ -5294,10 +5294,12 @@ class Device360(Device360WebElements):
                 pass
         sleep(3)
 
+        self.screen.save_screen_shot()
         cli = self.dev360.get_cli_button()
         if cli:
+            self.screen.save_screen_shot()
             self.utils.print_info("Clicking on Device CLI")
-            self.auto_actions.click(cli)
+            self.auto_actions.click_reference(self.dev360.get_cli_button)
         else:
             kwargs['fail_msg'] = "Device CLI button not found"
             self.common_validation.fault(**kwargs)
