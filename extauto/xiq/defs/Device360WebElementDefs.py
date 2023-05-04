@@ -2022,9 +2022,10 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+
     cli_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-switch-cli-access"]',
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag, "-cli-access")]',
             'wait_for': 5
         }
 
