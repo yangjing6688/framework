@@ -1456,6 +1456,8 @@ class Devices(object, metaclass=Singleton):
         # Arguments for device_type == "Digital Twin"
         os_version = device_dict.get("digital_twin_version")
         os_persona = device_dict.get("digital_twin_persona")
+        expansion_slot = device_dict.get("digital_twin_vim", "")
+        feature_licenses = device_dict.get("digital_twin_licenses", "")
 
         # Execute the XAPI call and return the value
         if self.xapiDevices.is_xapi_enabled(**kwargs):
@@ -1519,7 +1521,7 @@ class Devices(object, metaclass=Singleton):
 
         elif device_type.lower() == "digital twin":
             list_initial_serial_dt = self.get_device_serial_numbers(device_model)
-            if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
+            if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version, expansion_slot, feature_licenses) != 1:
                 kwargs['fail_msg'] = "Fail onboarded device with device_type == Digital Twin"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -1891,25 +1893,11 @@ class Devices(object, metaclass=Singleton):
         self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), device_count)
         return 1
 
-    def set_onboard_values_for_digital_twin(self, os_persona, device_model, os_version, **kwargs):
+    def set_onboard_values_for_digital_twin(self, os_persona, device_model, os_version, expansion_slot=None, feature_licenses=None, **kwargs):
         """
         This method sets the onboard device options when the device_type == Digital Twin
         """
-
-        # Code specific to Digital Twin devices - Code copied from 'onboard_device_dt'
-        self.retries = 3
-        count = 0
-        while count < self.retries:
-            # Commented on 1/18/23 because it is unused
-            # add_device_button = "Launch Digital Twin"
-            sleep(1)
-            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
-            try:
-                assert attribute == "fn-hidden"
-            except AssertionError:
-                count += 1
-        if count == self.retries:
-            self.utils.print_warning("Unable to get the attribute...")
+        attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
 
         if "fn-hidden" not in attribute:
             self.utils.print_info("Selecting 'Digital Twin' radio button")
@@ -1925,6 +1913,7 @@ class Devices(object, metaclass=Singleton):
                 kwargs['fail_msg'] = f"Could not select OS Persona: {os_persona}"
                 self.common_validation.failed(**kwargs)
                 return -1
+
             self.utils.print_debug(f"Selecting Device Model: {device_model}")
             self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_device_model_dropdown)
             sleep(2)
@@ -1946,6 +1935,33 @@ class Devices(object, metaclass=Singleton):
                 kwargs['fail_msg'] = f"Could not select OS Version: {os_version}"
                 self.common_validation.failed(**kwargs)
                 return -1
+
+            if expansion_slot and self.devices_web_elements.get_digital_twin_expansion_slot_dropdown().is_displayed():
+                self.utils.print_debug(f"Selecting Expansion Slot: {expansion_slot}")
+                self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_expansion_slot_dropdown)
+                sleep(2)
+                if self.auto_actions.select_drop_down_options(
+                        self.devices_web_elements.get_digital_twin_expansion_slot_dropdown_items(), expansion_slot):
+                    self.utils.print_info(f"Expansion Slot set to: {expansion_slot}")
+                else:
+                    kwargs['fail_msg'] = f"Could not select Expansion Slot: {expansion_slot}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+            if feature_licenses and self.devices_web_elements.get_digital_twin_license_type_dropdown().is_displayed():
+                self.utils.print_debug(f"Selecting Feature License(s): {feature_licenses}")
+                feature_list = feature_licenses.split(",")
+
+                self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_license_type_dropdown)
+                sleep(2)
+                for feature in feature_list:
+                    if self.auto_actions.select_drop_down_options(
+                            self.devices_web_elements.get_digital_twin_license_type_dropdown_items(), feature):
+                        self.utils.print_info(f"Enabled Feature License: {feature}")
+                    else:
+                        kwargs['fail_msg'] = f"Could not select Feature License: {feature}"
+                        self.common_validation.failed(**kwargs)
+                        return -1
 
         else:
             kwargs['fail_msg'] = "Digital Twin option is not available..."
