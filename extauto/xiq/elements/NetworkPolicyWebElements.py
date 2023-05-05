@@ -14,7 +14,8 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
         return self.weh.get_element(self.card_view)
 
     def get_np_grid_rows(self):
-        return self.weh.get_elements(self.np_grid_rows)[1:]
+        elements = self.weh.get_elements(self.np_grid_rows)
+        return [] if elements is None else elements[1:]
 
     def get_np_row_cell(self, row, field='field-name'):
         """

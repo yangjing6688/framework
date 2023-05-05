@@ -1312,7 +1312,12 @@ class Device360WebElements(Device360WebElementDefs):
         return self.weh.get_elements(self.advanced_button)
 
     def get_cli_button(self):
-        return self.weh.get_element(self.cli_button)
+        # The identifier differs depending on which type of device is selected,
+        # so need to get all and select the displayed element
+        elements = self.weh.get_elements(self.cli_button)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_actions_button(self):
         return self.weh.get_element(self.actions_button)
@@ -2322,11 +2327,8 @@ class Device360WebElements(Device360WebElementDefs):
     def get_d360_save_port_configuration_message_multi_edit(self):
         return self.weh.get_element(self.d360_save_port_configuration_message_multi_edit)
 
-    def get_d360_save_port_configuration_message_exos(self):
-        return self.weh.get_element(self.d360_save_port_configuration_message_exos)
-
-    def get_d360_save_port_configuration_message_voss(self):
-        return self.weh.get_element(self.d360_save_port_configuration_message_voss)
+    def get_d360_save_port_configuration_message_config(self):
+        return self.weh.get_element(self.d360_save_port_configuration_message_config)
 
     def get_d360_save_multi_edit(self):
         return self.weh.get_element(self.d360_save_multi_edit)

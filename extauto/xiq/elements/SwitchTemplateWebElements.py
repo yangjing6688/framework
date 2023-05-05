@@ -477,13 +477,22 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.sw_template_adv_settings_upgr_firm_specific_button)
 
     def get_sw_template_device_sett_forward_delay_drop_down(self):
-        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down)
+        elements = self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_sw_template_device_sett_forward_delay_drop_down_container(self):
-        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_container)
+        elements = self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down_container)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_sw_template_device_sett_forward_delay_drop_down_item16(self):
-        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item16)
+        elements = self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down_item16)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_sw_template_device_sett_forward_delay_drop_down_item15(self):
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item15)
