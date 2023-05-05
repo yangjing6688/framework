@@ -1919,6 +1919,33 @@ class DevicesWebElementsDefinitions:
                      '//tr[contains(@class, "dijitMenuItem")]'
         }
 
+    digital_twin_expansion_slot_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > Expansion Slot dropdown menu',
+            'XPATH': '//div[@data-dojo-attach-point="expansionModulSection"]'
+                     '//table[@data-dojo-attach-point="_buttonNode,tableNode,focusNode,_popupStateNode"]'
+        }
+
+    digital_twin_expansion_slot_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > Expansion Slot dropdown menu items',
+            'XPATH': '//table[@data-automation-tag="-dropdown"]'
+                     '//tr[@data-dojo-attach-point="focusNode"]'
+        }
+
+    digital_twin_license_type_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > License Type dropdown menu',
+            'XPATH': '//td[@data-dojo-attach-point="buttonNode"]'
+        }
+
+    digital_twin_license_type_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > License Type dropdown menu items',
+            'XPATH': '//div[@id="dijit_form_ComboButton_0_dropdown"]'
+                     '//td[@class="dijitReset dijitMenuItemLabel"]'
+        }
+
     one_hundred_rows_per_page_button = \
         {
             'XPATH': '//a[@data-size="100"]'
