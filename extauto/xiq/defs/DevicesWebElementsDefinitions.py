@@ -10,7 +10,7 @@ class DevicesWebElementsDefinitions:
     devices_page_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td/..',
-            'wait_for': 15
+            'wait_for': 20
             
          }
 
