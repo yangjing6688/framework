@@ -760,6 +760,7 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Navigating to network policies...")
         self.navigator.navigate_to_network_policies_tab()
+        self.utils.wait_till(self.device_template_web_elements.get_network_policy_add_button)
 
         self.utils.print_info("Click on network policy add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
