@@ -151,17 +151,16 @@ class DevicesActions:
         :param device_list: serial numbers of the devices
         :return: 1 if Reset is Successful else -1
         """
-        self.utils.print_info("Device serial(s) : ", device_list)
+        self.utils.print_info("reset_device_to_default() -- Device serial(s) : ", device_list)
         select = self.select_device_utilities(*device_list)
         self.screen.save_screen_shot()
-        sleep(2)
         if select == -1:
             return ['False'], ['Unable to select any device(s)']
 
         self.utils.print_info("Click Reset Device to Default.")
         self.auto_actions.click_reference(self.device_actions.get_reset_devices_to_default)
         self.screen.save_screen_shot()
-        sleep(2)
+
         self.utils.print_info(self.device_actions.get_device_reset_warning_msg().text)
         self.utils.print_info("Click 'yes' button ")
         self.auto_actions.click_reference(self.device_actions.get_device_reset_yes_dialog)
@@ -272,24 +271,30 @@ class DevicesActions:
         """
         self.navigator.navigate_to_devices()
         self.navigator.enable_page_size()
-        select = False
+        device_selected = False
         for device in device_list:
+            # Refresh the devices table before searching for the first device
             if device == device_list[0]:
-                self.devices.select_device(device_serial=device, skip_navigation=True)
-                select = True
+                # This is the search for the first device so we won't skip the refresh but will skip navigation
+                skip_refresh = False
             else:
-                self.devices.select_device(device_serial=device, skip_refresh=True, skip_navigation=True)
-                select = True
+                skip_refresh = True
 
-        if select:
+            # Select the device
+            select_result = self.devices.select_device(device_serial=device, skip_navigation=True, skip_refresh=skip_refresh)
+            if select_result == 1:
+                device_selected = True
+            else:
+                self.utils.print_warning(f"NOTICE: Unable to select device with serial '{device}'")
+
+        if device_selected:
             self.utils.print_info("Clicking on Utilities")
             self.auto_actions.click_reference(self.device_actions.get_device_utilities)
-            sleep(2)
-            kwargs['pass_msg'] = "Successfully clicking on Utilities"
+            kwargs['pass_msg'] = "Successfully selected device(s) and clicked the 'Utilities' button"
             self.common_validation.passed(**kwargs)
             return 1
         else:
-            kwargs['fail_msg'] = "UnSuccessfully clicking on Utilities"
+            kwargs['fail_msg'] = "Unable to select device(s) and click the 'Utilities' button"
             self.common_validation.failed(**kwargs)
             return -1
 

@@ -32,7 +32,7 @@ class DeviceCommonDefs:
     device360_cells_href = \
         {
             'TAG_NAME': 'a',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     manage_devices_select_all_devices_checkbox = \

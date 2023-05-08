@@ -222,11 +222,9 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_common_object_supp_cli_grid_rows(self):
         return self.weh.get_elements(self.common_object_supp_cli_grid_rows)
 
-    def get_common_object_supp_cli_grid_row_cells(self, row, field='field-name'):
-        cells = self.weh.get_elements(self.common_object_supp_cli_grid_row_cells, row)
-        for cell in cells:
-            if field in cell.get_attribute("idx"):
-                return cell
+    def get_common_object_supp_cli_grid_row_cells(self, row):
+        return self.weh.get_element(self.common_object_supp_cli_grid_row_cells, row)
+
 
     def get_common_object_edit_button(self):
         """
@@ -259,8 +257,8 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
     def get_page_numbers(self):
         return self.weh.get_elements(self.page_numbers)
 
-    def get_next_page_element(self, page_size='50'):
-        return self.weh.get_elements(self.next_page_element)
+    def get_next_page_element(self):
+        return self.weh.get_element(self.next_page_element)
 
     def get_common_object_authentication_aaa_server_settings(self):
         """
@@ -453,7 +451,7 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         return self.weh.get_element(self.common_object_wifi1_radio_status_button)
 
     def get_common_object_wifi2_radio_status_button(self):
-        return self.weh.get_element(self.common_object_wifi1_radio_status_button)
+        return self.weh.get_element(self.common_object_wifi2_radio_status_button)
 
     def get_common_object_wifi0_radio_profile_button(self):
         return self.weh.get_element(self.common_object_wifi0_radio_profile_button)
@@ -776,3 +774,6 @@ class CommonObjectsWebElements(CommonObjectsWebElementsDefinitions):
         for el in elements:
             if el.is_displayed():
                 return el
+
+    def get_scli_grid_bottom(self):
+        return self.weh.get_element(self.scli_grid_bottom)

@@ -1804,14 +1804,11 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi0 Interface: ",
                                   wifi0_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi0 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
+        if sensor_status_wifi0 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable():
                 wifi0_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.get_wireless_wifi0_radio_usage_sensor_checkbox().is_selected())
-        finally:
+            else:
+                wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(self.get_wireless_wifi0_radio_usage_sensor_checkbox().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiFi0 Interface: ", wifi0_profile['sensor'])
 
         if enable_SDR_wifi0 != 'None':
@@ -1867,14 +1864,11 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi1 Interface: ",
                                   wifi1_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi1 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
+        if sensor_status_wifi1 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable():
                 wifi1_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.get_wireless_wifi1_radio_usage_sensor_checkbox().is_selected())
-        finally:
+            else:
+                wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(self.get_wireless_wifi1_radio_usage_sensor_checkbox().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiFi1 Interface: ", wifi1_profile['sensor'])
 
         return wifi1_profile
@@ -1922,14 +1916,11 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi2 Interface: ",
                                   wifi2_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi2 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
+        if sensor_status_wifi2 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable():
                 wifi2_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.get_wireless_wifi2_radio_usage_sensor_checkbox().is_selected())
-        finally:
+            else:
+                wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(self.get_wireless_wifi2_radio_usage_sensor_checkbox().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiF2 Interface: ", wifi2_profile['sensor'])
 
         return wifi2_profile

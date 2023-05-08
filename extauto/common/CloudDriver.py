@@ -10,7 +10,6 @@ from robot.libraries.BuiltIn import BuiltIn
 from urllib3.exceptions import MaxRetryError
 from extauto.common.Utils import Utils
 
-
 class CloudDriver():
     __instance = None
 
@@ -119,6 +118,13 @@ class CloudDriver():
 
         if "sso" in url:
             element_identify_value_name = "UserName"
+            element_identify = "name"
+
+        if "google" in url:
+            element_identify = 'q'
+
+        if "sso.xcloudiq" in url:
+            element_identify_value_name = "username"
             element_identify = "name"
 
         mode = BuiltIn().get_variable_value("${WEB_DRIVER_LOC}")

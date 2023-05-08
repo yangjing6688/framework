@@ -40,9 +40,11 @@ class DeviceTemplate(object):
         :param ap_template: Ap Template Name ie AP630,AP410C
         :return: True if AP Template Found on Grid else False
         """
-        self.utils.print_info("Click on Device Template tab button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_add_device_template_menu)
-        sleep(2)
+        self.utils.print_info("Click on Wireless tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_wireless_tab)
+
+        self.utils.print_info("Click on AP Template tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template_tab)
 
         self.utils.print_info("Click on AP Template Menu button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_tab)
@@ -665,37 +667,33 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Selecting Configure tab...")
         self.navigator.navigate_to_configure_tab()
-        sleep(5)
 
         self.utils.print_info("Navigating to network policies...")
         self.navigator.navigate_to_network_policies_tab()
-        sleep(2)
 
         self.utils.print_info("Click on network policy add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
-        sleep(2)
 
         self.utils.print_info("Enter the policy name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
-        sleep(3)
+        self.utils.wait_till(self.device_template_web_elements.get_network_policy_save_button)
 
         self.screen.save_screen_shot()
-        sleep(2)
 
         self.utils.print_info("Click on network policy save button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_save_button)
-        sleep(3)
+        sleep(2)
 
-        self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
-        sleep(5)
+        self.utils.print_info("Click on Wireless tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_wireless_tab)
+
+        self.utils.print_info("Click on AP Template tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template_tab)
 
         self.utils.print_info("Click on AP Template add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
-        sleep(2)
 
         self.screen.save_screen_shot()
-        sleep(2)
 
         self.utils.print_info("select the AP: ", ap_model)
         ap_list_items = self.device_template_web_elements.get_ap_template_platform_from_drop_down()
@@ -706,39 +704,29 @@ class DeviceTemplate(object):
                 self.auto_actions.click(el)
                 break
             print(el.text)
-        sleep(3)
 
         self.utils.print_info("Enter the AP Template Name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_text(), ap_template_name)
-        sleep(3)
 
         self.screen.save_screen_shot()
-        sleep(2)
 
         self.utils.print_info("Clicking Advanced Settings ... ")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_advanced_settings)
-        sleep(2)
 
         self.utils.print_info("Click to enable Supplemental CLI ... ")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_enable_scli)
-        sleep(2)
 
         self.utils.print_info("Entering Supplemental Cli Name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_scli_config_enter_name(),
                                     suppl_cli_name)
-        sleep(2)
 
-        self.auto_actions.scroll_down()
-        sleep(3)
         self.utils.print_info("Entering Supplemental Cli Commands")
+        self.auto_actions.scroll_down()
         self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_scli_enter_commands(),
                                     suppl_cli_cmds)
-        sleep(2)
 
         self.utils.print_info("Saving template ... ")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_save_template)
-        sleep(2)
-
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -772,41 +760,28 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Selecting Configure tab...")
         self.navigator.navigate_to_configure_tab()
-        sleep(5)
 
         self.utils.print_info("Navigating to network policies...")
         self.navigator.navigate_to_network_policies_tab()
-        sleep(2)
 
         self.utils.print_info("Click on network policy add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
-        sleep(2)
 
         self.utils.print_info("Enter the policy name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
-        sleep(3)
-
         self.screen.save_screen_shot()
-        sleep(2)
 
         self.utils.print_info("Click on network policy save button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_save_button)
-        sleep(3)
+        sleep(2)
 
-        self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
-        sleep(5)
-
-        self.utils.print_info("Click on Switch Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_select_switch_template)
-        sleep(5)
+        self.utils.print_info("Click on SR/Dell Switching tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_sr_dell_tab)
 
         self.utils.print_info("Click on Switch Template add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_add_button)
-        sleep(2)
-
         self.screen.save_screen_shot()
-        sleep(2)
+
 
         self.utils.print_info("select the Switch: ", switch_model)
         switch_list_items = self.device_template_web_elements.get_switch_template_platform_from_drop_down()
@@ -817,39 +792,28 @@ class DeviceTemplate(object):
                 self.auto_actions.click(el)
                 break
             print(el.text)
-        sleep(3)
 
         self.utils.print_info("Enter the Switch Template Name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_text(), switch_template_name)
-        sleep(3)
-
         self.screen.save_screen_shot()
-        sleep(2)
 
         self.utils.print_info("Clicking Advanced Settings ... ")
         self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_advanced_settings)
-        sleep(2)
 
         self.utils.print_info("Click to enable Supplemental CLI ... ")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_enable_scli)
-        sleep(2)
 
         self.utils.print_info("Entering Supplemental Cli Name")
         self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_scli_config_enter_name(),
                                     suppl_cli_name)
-        sleep(2)
 
         self.auto_actions.scroll_down()
-        sleep(3)
         self.utils.print_info("Entering Supplemental Cli Commands")
         self.auto_actions.send_keys(self.device_template_web_elements.get_ap_template_scli_enter_commands(),
                                     suppl_cli_cmds)
-        sleep(2)
 
         self.utils.print_info("Saving template ... ")
         self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_save_template)
-        sleep(2)
-
         self.screen.save_screen_shot()
         sleep(2)
 
@@ -896,8 +860,13 @@ class DeviceTemplate(object):
 
         self.screen.save_screen_shot()
 
-        self.utils.print_info("Click on Device Template tab")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_select_device_template)
+        self.utils.print_info("Click on Wireless tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_wireless_tab)
+
+        self.utils.print_info("Click on AP Template tab")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template_tab)
+
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Click on AP Template add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
@@ -943,8 +912,8 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Saving template ... ")
         self.auto_actions.click_reference(self.device_template_web_elements.get_switch_template_save_template)
-
         self.screen.save_screen_shot()
+        sleep(2)
 
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)

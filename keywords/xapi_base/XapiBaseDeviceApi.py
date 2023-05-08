@@ -81,7 +81,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -169,7 +169,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -256,7 +256,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -343,7 +343,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -430,7 +430,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -518,7 +518,95 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        self.common_validation.passed(**kwargs)
+                        return returnValue
+                    else:
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
+                        self.common_validation.fault(**kwargs)
+                        return -1
+                else:
+                    # Make sure this is not a async call because the thread will be returned and the
+                    # api_response is not None
+                    if not kwargs.get('async_req', False) and api_response:
+                        # Non async call, check the http return
+                        self.valid_http_response(api_response)
+                    self.common_validation.passed(**kwargs)
+                    return api_response
+
+            except self.ApiException as e:
+                kwargs['fail_msg'] = f"ApiException : {e}"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+    def xapi_base_bounce_device_port(self, **kwargs):
+
+        """
+            Bounce port of a device  # noqa: E501
+            
+            Bounce port for the given device id.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+            >>> thread = api.bounce_device_port(id, xiq_bounce_device_port_request, async_req=True)
+            >>> result = thread.get()
+            
+            **Note - The kwargs options are explained in the :param section below.
+            These can be placed in the kwargs dict as key / values pairs or 
+            passed into the function as key / value pairs as separate arguments.
+            
+            Robot ->
+            
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
+            
+                bounce device port    **kwargs
+            
+            Pytest ->
+            
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
+            
+                xapiBaseDeviceApi = XapiBaseDeviceApi()
+                xapiBaseDeviceApi.bounce_device_port(**kwargs)
+            
+            :param async_req bool: execute request asynchronously
+            :param int id: The device id (required)
+            :param XiqBounceDevicePortRequest xiq_bounce_device_port_request: (required)
+            :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                     be returned without reading/decoding response
+                                     data. Default is True.
+            :param _request_timeout: timeout setting for this request. If one
+                                     number provided, it will be total request
+                                     timeout. It can also be a pair (tuple) of
+                                     (connection, read) timeouts.
+            :return: XiqBounceDevicePortResponse
+                     If the method is called asynchronously,
+                     returns the request thread.
+
+                    -1 if there is a error (fault)
+        """
+
+
+        # Get the configuration from the Global variables
+        configuration = self.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                api_response = api_instance.bounce_device_port(**kwargs)
+                # If the _async is True, we will use the Long Running Operation methods
+                if kwargs.get('_async', False):
+                    # Get the ID
+                    operation_id = self.getLongRunningOperationId(api_response)
+                    # Query the ID until completed
+                    returnValue = self.getAsyncLongRunningOperation(operation_id)
+                    if returnValue:
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -606,7 +694,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -694,7 +782,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -781,7 +869,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -868,7 +956,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -955,7 +1043,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1042,7 +1130,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1130,7 +1218,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1217,7 +1305,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1304,7 +1392,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1391,7 +1479,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1478,7 +1566,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1567,7 +1655,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1657,7 +1745,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1744,7 +1832,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1831,7 +1919,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -1918,7 +2006,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2005,7 +2093,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2092,7 +2180,183 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        self.common_validation.passed(**kwargs)
+                        return returnValue
+                    else:
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
+                        self.common_validation.fault(**kwargs)
+                        return -1
+                else:
+                    # Make sure this is not a async call because the thread will be returned and the
+                    # api_response is not None
+                    if not kwargs.get('async_req', False) and api_response:
+                        # Non async call, check the http return
+                        self.valid_http_response(api_response)
+                    self.common_validation.passed(**kwargs)
+                    return api_response
+
+            except self.ApiException as e:
+                kwargs['fail_msg'] = f"ApiException : {e}"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+    def xapi_base_get_device_wifi_interface(self, **kwargs):
+
+        """
+            Get the device WiFi interfaces stats  # noqa: E501
+            
+            Get the device WiFi interfaces stats by device ID.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+            >>> thread = api.get_device_wifi_interface(id, start_time, end_time, async_req=True)
+            >>> result = thread.get()
+            
+            **Note - The kwargs options are explained in the :param section below.
+            These can be placed in the kwargs dict as key / values pairs or 
+            passed into the function as key / value pairs as separate arguments.
+            
+            Robot ->
+            
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
+            
+                get device wifi interface    **kwargs
+            
+            Pytest ->
+            
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
+            
+                xapiBaseDeviceApi = XapiBaseDeviceApi()
+                xapiBaseDeviceApi.get_device_wifi_interface(**kwargs)
+            
+            :param async_req bool: execute request asynchronously
+            :param int id: The device ID (required)
+            :param int start_time: The start time for collecting the wifi interfaces stat (required)
+            :param int end_time: The end time for collecting the wifi interfaces stat (required)
+            :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                     be returned without reading/decoding response
+                                     data. Default is True.
+            :param _request_timeout: timeout setting for this request. If one
+                                     number provided, it will be total request
+                                     timeout. It can also be a pair (tuple) of
+                                     (connection, read) timeouts.
+            :return: list[XiqDeviceWifiInterface]
+                     If the method is called asynchronously,
+                     returns the request thread.
+
+                    -1 if there is a error (fault)
+        """
+
+
+        # Get the configuration from the Global variables
+        configuration = self.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                api_response = api_instance.get_device_wifi_interface(**kwargs)
+                # If the _async is True, we will use the Long Running Operation methods
+                if kwargs.get('_async', False):
+                    # Get the ID
+                    operation_id = self.getLongRunningOperationId(api_response)
+                    # Query the ID until completed
+                    returnValue = self.getAsyncLongRunningOperation(operation_id)
+                    if returnValue:
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
+                        self.common_validation.passed(**kwargs)
+                        return returnValue
+                    else:
+                        kwargs['fail_msg'] = "getAsyncLongRunningOperation failed to return SUCCESS"
+                        self.common_validation.fault(**kwargs)
+                        return -1
+                else:
+                    # Make sure this is not a async call because the thread will be returned and the
+                    # api_response is not None
+                    if not kwargs.get('async_req', False) and api_response:
+                        # Non async call, check the http return
+                        self.valid_http_response(api_response)
+                    self.common_validation.passed(**kwargs)
+                    return api_response
+
+            except self.ApiException as e:
+                kwargs['fail_msg'] = f"ApiException : {e}"
+                self.common_validation.fault(**kwargs)
+                return -1
+
+    def xapi_base_get_xiq_device_installation_report(self, **kwargs):
+
+        """
+            Get device installation report  # noqa: E501
+            
+            Get device installation report of a specific device.  # noqa: E501
+            This method makes a synchronous HTTP request by default. To make an
+            asynchronous HTTP request, please pass async_req=True
+            >>> thread = api.get_xiq_device_installation_report(id, async_req=True)
+            >>> result = thread.get()
+            
+            **Note - The kwargs options are explained in the :param section below.
+            These can be placed in the kwargs dict as key / values pairs or 
+            passed into the function as key / value pairs as separate arguments.
+            
+            Robot ->
+            
+                Library    keywords/xapi_base/XapiBaseDeviceApi.py
+            
+                get xiq device installation report    **kwargs
+            
+            Pytest ->
+            
+                from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
+            
+                xapiBaseDeviceApi = XapiBaseDeviceApi()
+                xapiBaseDeviceApi.get_xiq_device_installation_report(**kwargs)
+            
+            :param async_req bool: execute request asynchronously
+            :param int id: The device ID (required)
+            :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                     be returned without reading/decoding response
+                                     data. Default is True.
+            :param _request_timeout: timeout setting for this request. If one
+                                     number provided, it will be total request
+                                     timeout. It can also be a pair (tuple) of
+                                     (connection, read) timeouts.
+            :return: XiqDeviceInstallationReport
+                     If the method is called asynchronously,
+                     returns the request thread.
+
+                    -1 if there is a error (fault)
+        """
+
+
+        # Get the configuration from the Global variables
+        configuration = self.get_xapi_configuration()
+        api_response = None
+
+        # Check that the access_token is in
+        if configuration.access_token == None:
+            raise Exception("Error: access_token is None in the configuration")
+
+        # Enter a context with an instance of the API client
+        with self.extremecloudiq.ApiClient(configuration) as api_client:
+            # Create an instance of the API class
+            api_instance = self.extremecloudiq.DeviceApi(api_client)
+            try:
+                api_response = api_instance.get_xiq_device_installation_report(**kwargs)
+                # If the _async is True, we will use the Long Running Operation methods
+                if kwargs.get('_async', False):
+                    # Get the ID
+                    operation_id = self.getLongRunningOperationId(api_response)
+                    # Query the ID until completed
+                    returnValue = self.getAsyncLongRunningOperation(operation_id)
+                    if returnValue:
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2183,7 +2447,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2283,7 +2547,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2372,7 +2636,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2459,7 +2723,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2547,7 +2811,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2634,7 +2898,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2721,7 +2985,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2808,7 +3072,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2895,7 +3159,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -2983,7 +3247,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -3070,7 +3334,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -3157,7 +3421,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -3244,7 +3508,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -3331,7 +3595,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -3418,7 +3682,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -3506,7 +3770,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:
@@ -3594,7 +3858,7 @@ class XapiBaseDeviceApi(XapiHelper):
                     # Query the ID until completed
                     returnValue = self.getAsyncLongRunningOperation(operation_id)
                     if returnValue:
-                        kwargs['pass_msg'] = "returned: {returnValue}"
+                        kwargs['pass_msg'] = f"returned: {returnValue}"
                         self.common_validation.passed(**kwargs)
                         return returnValue
                     else:

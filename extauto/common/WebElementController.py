@@ -52,15 +52,15 @@ class WebElementController:
                     action_method(web_element)
                     return 1
                 else:
-                    method_name = get_web_element_method.__name__
+                    method_name = str(get_web_element_method)
                     self.utils.print_info(f"web_element returned from: {method_name} is not present")
             except Exception as e:
-                self.utils.print_info(f"Exception on action for an element {e}")
+                self.utils.print_info(f"Exception on action for an element: '{e}'")
 
-            self.utils.print_info(f"Retry the action on element {web_element} for {retry_count} times")
+            self.utils.print_info(f"Retrying the action on element: '{web_element}' Attempt number: {retry_count+1} of {retry_times}")
             sleep(5)
 
-        action_method_name = action_method.__name__
+        action_method_name = str(action_method)
         kwargs['fail_msg'] = f"FAIL - Unable to complete the action {action_method_name}"
         self.common_validation.fault(**kwargs)
         return -1

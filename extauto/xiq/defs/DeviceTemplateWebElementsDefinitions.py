@@ -5,6 +5,26 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    policy_switching_tab = \
+        {
+            'XPATH': "//div[@data-automation-tag='automation-tab-switch-settings']",
+        }
+
+    policy_sr_dell_switching_tab = \
+        {
+            'XPATH': "//div[@data-automation-tag='automation-tab-sr-dell-switching']",
+        }
+
+    policy_sr_dell_switch_templates_tab = \
+        {
+            'XPATH': "//li[@data-automation-tag='automation-sider-list-switchtemplates']",
+        }
+
+    policy_switch_templates_tab = \
+        {
+            'XPATH': "//li[@data-automation-tag='policy-switching-templates']",
+        }
+
     device_template_ap_template_tab = \
         {
             'XPATH': "//*[@data-dojo-attach-point='showAP']",
@@ -361,7 +381,7 @@ class DeviceTemplateWebElementDefinitions:
     network_policy_add_button = \
         {
             'XPATH': '//div[@data-automation-tag="automation-network-policies-grid"]//span[@class="table-action-icons table-add"]',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     network_policy_name_text = \
@@ -373,13 +393,29 @@ class DeviceTemplateWebElementDefinitions:
     network_policy_save_button = \
         {
             'XPATH': "//button[@data-automation-tag='automation-policy-save']",
-            'wait_for': 10
+            'wait_for': 15
         }
 
     select_device_template = \
         {
             'XPATH': '//div[@data-dojo-attach-point="configwizardNav"]//li[@class="wiz-item wiz-item-2"]',
             'wait_for': 10
+        }
+
+    select_sr_dell_tab = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tab-sr-dell-switching"]',
+            'wait_for': 5
+        }
+
+    select_wireless_tab = \
+        {
+            'XPATH': '//div[@data-automation-tag="automation-tab-wireless-networks"]'
+        }
+
+    select_ap_template_tab = \
+        {
+            'XPATH': '//li[@data-automation-tag="automation-sider-list-aptemplate"]'
         }
 
     select_ap_template = \
@@ -402,20 +438,19 @@ class DeviceTemplateWebElementDefinitions:
 
     ap_template_scli_config_enter_name = \
         {
-            'XPATH': '//input[@data-dojo-attach-point="name"]',
-            'wait_for': 5
+            'XPATH': '//input[@data-dojo-attach-point="name"]'
         }
 
     ap_template_scli_enter_commands = \
         {
-            'XPATH': '//div[@id="ah/comp/configuration/commonObject/CLISupplementObject_1"]//textarea[@data-dojo-attach-point="cli"]',
-            'wait_for': 5
+            'XPATH': '//div[contains(@id, "ah/comp/configuration/commonObject/CLISupplementObject")]'
+                     '//textarea[@data-dojo-attach-point="cli"]',
+            'wait_for': 15
         }
 
     ap_template_save_template = \
         {
-            'XPATH': '//fixed-bar[@data-dojo-attach-point="btnCtn"]//button[@class="btn btn-primary"]',
-            'wait_for': 5
+            'XPATH': '//fixed-bar[@data-dojo-attach-point="btnCtn"]//button[@class="btn btn-primary"]'
         }
 
     select_switch_template = \
