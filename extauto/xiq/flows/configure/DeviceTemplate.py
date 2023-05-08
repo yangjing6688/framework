@@ -45,7 +45,7 @@ class DeviceTemplate(object):
         sleep(2)
 
         self.utils.print_info("Click on AP Template Menu button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_side_menu)
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_tab)
         sleep(2)
 
         ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()

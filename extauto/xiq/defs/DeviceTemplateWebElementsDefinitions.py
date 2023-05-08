@@ -1,13 +1,13 @@
 class DeviceTemplateWebElementDefinitions:
     device_template_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-tab-wireless-networks"]',
+            'XPATH': "//*[@data-automation-tag='automation-sider-list-aptemplate']",
             'wait_for': 5
         }
 
-    device_template_side_menu = \
+    device_template_menu = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-sider-list-aptemplate"]',
+            'XPATH': '//*[@data-automation-tag="automation-tab-wireless-networks"]',
             'wait_for': 5
         }
 
