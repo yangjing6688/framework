@@ -1000,6 +1000,11 @@ class CommonObjects(object):
             self.common_validation.fault(**kwargs)
             return -1
 
+        elif "An unknown error has occurred during the execution of this request." in tool_tp_text[-1]:
+            kwargs['fail_msg'] = "An unknown error has occurred during the execution of this request."
+            self.common_validation.fault(**kwargs)
+            return -1
+
         kwargs['fail_msg'] = "Failed to delete ap template profile."
         self.common_validation.failed(**kwargs)
         return -1
