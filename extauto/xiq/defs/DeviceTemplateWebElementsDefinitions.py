@@ -5,12 +5,6 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
-    device_template_menu = \
-        {
-            'XPATH': '//*[@data-automation-tag="automation-tab-wireless-networks"]',
-            'wait_for': 5
-        }
-
     device_template_ap_template_tab = \
         {
             'XPATH': "//*[@data-dojo-attach-point='showAP']",
@@ -20,6 +14,12 @@ class DeviceTemplateWebElementDefinitions:
     device_template_switch_template_tab = \
         {
             'XPATH': "//*[@data-dojo-attach-point='showSwitch']",
+            'wait_for': 5
+        }
+
+    device_template_menu = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tab-wireless-networks"]',
             'wait_for': 5
         }
 
