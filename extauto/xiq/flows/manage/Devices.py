@@ -413,7 +413,7 @@ class Devices(object, metaclass=Singleton):
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-
+        self.navigator.wait_until_loading_is_done()
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         network_policy = self.get_device_details(search_string, 'POLICY')
         if network_policy:
