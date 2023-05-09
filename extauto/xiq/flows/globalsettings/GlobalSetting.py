@@ -162,32 +162,6 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("******************Authentication log details************************")
             for key, value in auth_logs_dict.items():
                 self.utils.print_info(f"{key}:{value}")
-        # else:
-        #     self.utils.print_info("No logs found.. Sleep for 60secs and checking again..")
-        #     sleep(60)
-        #     self.navigate.navigate_to_devices()
-        #     self.navigate.navigate_to_authentication_logs()
-        #     self.auto_actions.send_keys(self.get_authentication_logs_search_text_field(),
-        #                                 search_filter)
-        #     sleep(2)
-        #     auth_logs_row = self.get_authentication_logs_row(search_string)
-        #     self.screen.save_screen_shot()
-        #
-        #     if auth_logs_row:
-        #         cells = self.get_authentication_logs_row_cells(auth_logs_row)
-        #         for cell in cells:
-        #             if re.search(r'field-\w*', cell.get_attribute("class")):
-        #                 label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
-        #
-        #                 if label == 'reply':
-        #                     auth_cell = self.get_authentication_logs_auth_status_cell(cell)
-        #                     auth_logs_dict[label] = auth_cell.get_attribute("class").split()[-1]
-        #                     self.screen.save_screen_shot()
-        #                 else:
-        #                     auth_logs_dict[label] = cell.text
-        #         self.utils.print_info("******************Authentication log details************************")
-        #         for key, value in auth_logs_dict.items():
-        #             self.utils.print_info(f"{key}:{value}")
 
         return auth_logs_dict
 
