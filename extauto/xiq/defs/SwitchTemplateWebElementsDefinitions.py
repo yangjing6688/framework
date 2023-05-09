@@ -42,19 +42,19 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_enable_stp = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpMode-stp']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-stp-mode']",
             'wait_for': 5
         }
 
     sw_template_enable_rstp = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpMode-rstp']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-rapid-stp']",
             'wait_for': 5
         }
 
     sw_template_enable_mstp = \
         {
-            'XPATH': "//*[@data-dojo-attach-point='stpMode-mstp']",
+            'XPATH': "//input[@data-automation-tag='automation-switch-template-multiple-stp']",
             'wait_for': 5
         }
 
@@ -243,7 +243,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_stack_add_button = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="switchesMenu"]//div//button',
+            'XPATH': "//div[@data-dojo-attach-point='switchesMenu']//div//button[text()='Add']",
             'wait_for': 5
         }
 
@@ -774,13 +774,13 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_device_sett_forward_delay_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-arrow-down"]',
+            'XPATH': '//div[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-arrow-down"]',
             'wait_for': 2
         }
 
     sw_template_device_sett_forward_delay_drop_down_container = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-container-ctn"]',
+            'XPATH': '//div[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-container-ctn"]',
             'wait_for': 2
         }
 
@@ -802,7 +802,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_device_sett_forward_delay_drop_down_item16 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-16"]',
+            'XPATH': '//li[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-16"]',
             'wait_for': 2
         }
 
@@ -874,7 +874,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_enable_mac_locking = \
         {
-            'XPATH': "//input[@data-automation-tag='template-maclock-enable']",
+            'XPATH': "//section[@class='mac-locking state-configuration-device']//input[@data-automation-tag='template-maclock-enable']",
             'wait_for': 5
         }
     sw_template_enable_mac_locking_confirm_message_yes_button = \
@@ -1226,4 +1226,10 @@ class SwitchTemplateWebElementDefinitions:
         {
             'XPATH': '//input[@data-automation-tag="switch-template-override-settings"]',
             'wait_for': 2
+        }
+
+    sw_template_enable_mac_locking_confirm_message = \
+        {
+            'CSS_SELECTOR': '.ui-cfmsg.confirm',
+            'wait_for': 10
         }

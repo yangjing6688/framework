@@ -233,8 +233,8 @@ class DevicesWebElementsDefinitions:
 
     device_select_check_box = \
         {
-            'CSS_SELECTOR': '.dgrid-cell.dgrid-column-0.w30.dgrid-selector',
-            'wait_for': 2
+            'XPATH': './/td[contains(@Class, "dgrid-selector")]//input[@type="checkbox"]',
+            'wait_for': 10
         }
 
     device_delete_confirm_ok_button = \
@@ -293,9 +293,7 @@ class DevicesWebElementsDefinitions:
 
     update_config_delta_radio_button = \
         {
-            'CLASS_NAME': 'J-up',
-            'index': 1,
-            'wait_for': 1
+            "XPATH": "//input[@data-automation-tag='override-checkbox']"
         }
 
     update_devices_button = \
@@ -1921,6 +1919,33 @@ class DevicesWebElementsDefinitions:
                      '//tr[contains(@class, "dijitMenuItem")]'
         }
 
+    digital_twin_expansion_slot_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > Expansion Slot dropdown menu',
+            'XPATH': '//div[@data-dojo-attach-point="expansionModulSection"]'
+                     '//table[@data-dojo-attach-point="_buttonNode,tableNode,focusNode,_popupStateNode"]'
+        }
+
+    digital_twin_expansion_slot_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > Expansion Slot dropdown menu items',
+            'XPATH': '//table[@data-automation-tag="-dropdown"]'
+                     '//tr[@data-dojo-attach-point="focusNode"]'
+        }
+
+    digital_twin_license_type_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > License Type dropdown menu',
+            'XPATH': '//td[@data-dojo-attach-point="buttonNode"]'
+        }
+
+    digital_twin_license_type_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > License Type dropdown menu items',
+            'XPATH': '//div[@id="dijit_form_ComboButton_0_dropdown"]'
+                     '//td[@class="dijitReset dijitMenuItemLabel"]'
+        }
+
     one_hundred_rows_per_page_button = \
         {
             'XPATH': '//a[@data-size="100"]'
@@ -1938,7 +1963,7 @@ class DevicesWebElementsDefinitions:
 
     global_settings_management_dialog_yes_button = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="yesBtn"]',
+            'XPATH': '//*[@class="ui-tipbox-con"]//*[@data-automation-tag="automation-notification-yes-btn"]',
         }
 
     device_actions_change_os = \
