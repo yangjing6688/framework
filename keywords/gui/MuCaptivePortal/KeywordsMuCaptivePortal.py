@@ -2,13 +2,10 @@
 from extauto.common.CommonValidation import CommonValidation
 from extauto.common.KeywordUtils import KeywordUtils
 import inspect
-from tools.xapi.XapiHelper import XapiHelper
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
-from extauto.xiq.xapi.globalsettings.XapiGlobalSettings import XapiGlobalSettings
 
 
 # Keyword imports required to run keywords implemented in this file
-from extauto.xiq.xapi.common.XapiLogin import XapiLogin
 from extauto.xiq.flows.common.MuCaptivePortal import MuCaptivePortal
 
 
@@ -22,21 +19,26 @@ class KeywordsMuCaptivePortal(object, metaclass=Singleton):
         # Objects used by all keywords
         self.common_validation = CommonValidation()
         self.keyword_utils = KeywordUtils()
-        self.xapi_helper = XapiHelper()
-        self.XapiGlobalSettings = XapiGlobalSettings()
 
         # Object used to run keywords implemented in this file
         self.mucaptiveportal = MuCaptivePortal()
-        self.xapi_login = XapiLogin()
 
     def validate_cwp_social_login_with_facebook(self, username, password, **kwargs):
         """
         Register network via facebook login Captive Web Portal(CWP)
 
-        This method validates Captive Web Portal social login with facebook credentials.
-        Pre-requisites for this keyword is Onboard device, configure device, online device check, Get device status,
-        Device Reboot, Create network policy, update network policy.
+        This keyword is neither XAPI nor GUI based.
+        This keyword validates Captive Web Portal social login with facebook credentials.
 
+        - Keyword Prerequisites:
+        -       Device is onboarded             [Onboard Device Quick]
+        -       Device connected to cloud       [Configure Device To Connect To Cloud]
+        -       Device upgraded                 [Upgrade Device]
+        -       Network policy is created       [Create Network Policy]
+        -       Network policy is updated to AP [Update Network Policy To Ap]
+        -       Connect MU to open ssid         [Connect Open Network]
+        -       Opening CP Web browser on MU    [Open Cp Browser]
+        -
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/MuCaptivePortal/KeywordsMuCaptivePortal.py
@@ -49,8 +51,7 @@ class KeywordsMuCaptivePortal(object, metaclass=Singleton):
         -         keywords_MuCaptivePortal.validate_cwp_social_login_with_facebook()
         -
         - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        -    This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
 
         :param username: Username of FB Account
         :param password: Password of FB Account
@@ -62,26 +63,14 @@ class KeywordsMuCaptivePortal(object, metaclass=Singleton):
         #   - This method will catch any errors that are raised and not handled in the keyword
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("b66f8e51-55f8-4670-83ca-57bcd399fa5c", keyword_name)
-        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
-        self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
-        # Assume a failure
+        # We'll assume a failure and change the value if successful
         return_code = -1
 
         # Call the helper function that implements this keyword
         try:
-            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
-            if implementation_to_run != '':
-                self.keyword_utils.timing.start(keyword_name, implementation_to_run)
-                if implementation_to_run == "GUI":
-                    return_code = self.mucaptiveportal.gui_validate_cwp_social_login_with_facebook(username, password)
-                else:
-                    return_code = self.keyword_utils.implementations.not_supported(**kwargs)
-                    # not_supported() returns True if keyword should pass else returns False
-                    if return_code:
-                        return_code = 0
-                    else:
-                        return_code = -1
+            self.keyword_utils.timing.start(keyword_name, "GUI")
+            return_code = self.mucaptiveportal.gui_validate_cwp_social_login_with_facebook(username, password)
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
@@ -95,10 +84,18 @@ class KeywordsMuCaptivePortal(object, metaclass=Singleton):
         """
         Register network via Linkedin login Captive Web Portal(CWP)
 
-        This method validates Captive Web Portal social login with linkedin credentials.
-        Pre-requisites for this keyword is Onboard device, configure device, online device check, Get device status,
-        Device Reboot, Create network policy, update network policy.
+        This keyword is neither XAPI nor GUI based.
+        This keyword validates Captive Web Portal social login with Linkedin credentials.
 
+        - Keyword Prerequisites:
+        -       Device is onboarded             [Onboard Device Quick]
+        -       Device connected to cloud       [Configure Device To Connect To Cloud]
+        -       Device upgraded                 [Upgrade Device]
+        -       Network policy is created       [Create Network Policy]
+        -       Network policy is updated to AP [Update Network Policy To Ap]
+        -       Connect MU to open ssid         [Connect Open Network]
+        -       Opening CP Web browser on MU    [Open Cp Browser]
+        -
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/MuCaptivePortal/KeywordsMuCaptivePortal.py
@@ -111,8 +108,7 @@ class KeywordsMuCaptivePortal(object, metaclass=Singleton):
         -         keywords_MuCaptivePortal.validate_cwp_social_login_with_linkedin_account()
         -
         - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        -    This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
 
         :param username: Username of Linkedin Account
         :param password: Password of Linkedin Account
@@ -123,27 +119,15 @@ class KeywordsMuCaptivePortal(object, metaclass=Singleton):
         #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
         #   - This method will catch any errors that are raised and not handled in the keyword
         keyword_name = inspect.stack()[0][3]
-        self.keyword_utils.implementations.set_keyword_uuid("79bed63f-3a92-460f-bb6e-07cff041ff88", keyword_name)
-        self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
-        self.keyword_utils.implementations.xapi_implemented(keyword_name)
+        self.keyword_utils.implementations.set_keyword_uuid("48206a8d-2eb3-4c5c-9179-2e7090ac968f", keyword_name)
 
-        # Assume a failure
+        # We'll assume a failure and change the value if successful
         return_code = -1
 
         # Call the helper function that implements this keyword
         try:
-            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name, **kwargs)
-            if implementation_to_run != '':
-                self.keyword_utils.timing.start(keyword_name, implementation_to_run)
-                if implementation_to_run == "GUI":
-                    return_code = self.mucaptiveportal.gui_validate_cwp_social_login_with_linkedin_account(username, password)
-                else:
-                    return_code = self.keyword_utils.implementations.not_supported(**kwargs)
-                    # not_supported() returns True if keyword should pass else returns False
-                    if return_code:
-                        return_code = 0
-                    else:
-                        return_code = -1
+            self.keyword_utils.timing.start(keyword_name, "GUI")
+            return_code = self.mucaptiveportal.gui_validate_cwp_social_login_with_linkedin_account(username, password)
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
