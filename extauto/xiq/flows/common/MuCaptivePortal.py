@@ -181,9 +181,9 @@ class MuCaptivePortal(MuCPWebElement):
     # @deprecated('Please use the {validate_cwp_social_login_with_facebook} keyword in keywords/KeywordsLogin.py.
     # This method can be removed after 7/1/2023')
     def validate_cwp_social_login_with_facebook(self, username, password, **kwargs):
-        return self.gui_validate_cwp_social_login_with_facebook(username, password, **kwargs)
+        return self.util_validate_cwp_social_login_with_facebook(username, password, **kwargs)
 
-    def gui_validate_cwp_social_login_with_facebook(self, username, password, **kwargs):
+    def util_validate_cwp_social_login_with_facebook(self, username, password, **kwargs):
         """
         - Register network via facebook login CWP
         - Validate Captive Web Portal social login with facebook credentials
@@ -308,9 +308,9 @@ class MuCaptivePortal(MuCPWebElement):
     # @deprecated('Please use the {validate_cwp_social_login_with_linkedin_account} keyword in keywords/KeywordsLogin.py
     # This method can be removed after 7/1/2023')
     def validate_cwp_social_login_with_linkedin_account(self, username, password, **kwargs):
-        return self.gui_validate_cwp_social_login_with_linkedin_account(username, password, **kwargs)
+        return self.util_validate_cwp_social_login_with_linkedin_account(username, password, **kwargs)
 
-    def gui_validate_cwp_social_login_with_linkedin_account(self, username, password, **kwargs):
+    def util_validate_cwp_social_login_with_linkedin_account(self, username, password, **kwargs):
         """
         - Register network via Linkedin login CWP
         - Validate Captive Web Portal social login with linkedin credentials

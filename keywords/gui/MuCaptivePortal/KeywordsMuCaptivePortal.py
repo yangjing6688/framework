@@ -70,7 +70,7 @@ class KeywordsMuCaptivePortal(object, metaclass=Singleton):
         # Call the helper function that implements this keyword
         try:
             self.keyword_utils.timing.start(keyword_name, "GUI")
-            return_code = self.mucaptiveportal.gui_validate_cwp_social_login_with_facebook(username, password)
+            return_code = self.mucaptiveportal.util_validate_cwp_social_login_with_facebook(username, password)
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
@@ -127,7 +127,7 @@ class KeywordsMuCaptivePortal(object, metaclass=Singleton):
         # Call the helper function that implements this keyword
         try:
             self.keyword_utils.timing.start(keyword_name, "GUI")
-            return_code = self.mucaptiveportal.gui_validate_cwp_social_login_with_linkedin_account(username, password)
+            return_code = self.mucaptiveportal.util_validate_cwp_social_login_with_linkedin_account(username, password)
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
