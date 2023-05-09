@@ -293,6 +293,7 @@ class DeviceCommon(DeviceCommonElements):
                     for cell in self.get_device_row_cells_with_row(row):
                         if search_strg in cell.text:
                             self.utils.print_info("click on device cell")
+                            sleep(5)
                             if self.get_cell_href(cell):
                                 self.auto_actions.click(self.get_cell_href(cell))
                                 sleep(5)

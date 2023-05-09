@@ -5,6 +5,7 @@ from extauto.common.Screen import Screen
 from extauto.common.AutoActions import AutoActions
 from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.elements.Device360WebElements import Device360WebElements
+from extauto.xiq.elements.NetworkPolicyWebElements import NetworkPolicyWebElements
 from extauto.xiq.flows.common.DeviceCommon import DeviceCommon
 from extauto.common.CommonValidation import CommonValidation
 
@@ -15,6 +16,7 @@ class Navigator(NavigatorWebElements):
         self.auto_actions = AutoActions()
         self.screen = Screen()
         self.dev360 = Device360WebElements()
+        self.networkPolicy = NetworkPolicyWebElements()
         self.device_common = DeviceCommon()
         self.common_validation = CommonValidation()
 
@@ -1024,15 +1026,28 @@ class Navigator(NavigatorWebElements):
         self.utils.print_info("click on list view button")
         self.screen.save_screen_shot()
         self.auto_actions.click_reference(self.get_network_policy_list_view)
-        self.utils.print_info("Click on network policy full size page")
         self.screen.save_screen_shot()
-        if self.get_network_policy_page_size():
-            self.auto_actions.click_reference(self.get_network_policy_page_size)
-            sleep(2)
+
+
+        if self.networkPolicy.get_np_grid_rows():
+            
+            if self.get_network_policy_page_size():
+                self.auto_actions.click_reference(self.get_network_policy_page_size)
+
+            self.utils.print_info("Waiting for Network Policy rows to load...")
+            self.utils.wait_till(self.networkPolicy.get_np_grid_rows, delay=5, timeout=60)
+            self.wait_until_loading_is_done()
+            self.utils.print_info("Network Policy rows have been loaded. ")
+            self.screen.save_screen_shot()
+        else:
+            self.utils.print_info("No Network Policy rows available")
+            self.screen.save_screen_shot()
+
 
         kwargs['pass_msg'] = "Navigation Successful to policies list view page"
         self.common_validation.passed(**kwargs)
         return 1
+
 
     def navigate_to_network_policies_card_view_page(self, **kwargs):
         """
