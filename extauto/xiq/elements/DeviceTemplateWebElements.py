@@ -11,6 +11,13 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
 
         :return:
         """
+        return self.weh.get_element(self.device_template_menu)
+
+    def get_ap_template_tab(self):
+        """
+
+        :return:
+        """
         return self.weh.get_element(self.device_template_tab)
 
     def get_ap_template_add_button(self):
@@ -177,6 +184,9 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
     def get_delete_ap_template_button(self):
         return self.weh.get_element(self.delete_ap_template_button)
 
+    def get_remove_ap_template_from_policy_button(self):
+        return self.weh.get_element(self.remove_ap_template_from_policy_button)
+
     def get_select_rule_in_templates_view_all_pages(self):
         return self.weh.get_element(self.select_rule_in_templates_view_all_pages)
 
@@ -231,6 +241,15 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
     def get_select_device_template(self):
         return self.weh.get_element(self.select_device_template)
 
+    def get_select_sr_dell_tab(self):
+        return self.weh.get_element(self.select_sr_dell_tab)
+
+    def get_select_wireless_tab(self):
+        return self.weh.get_element(self.select_wireless_tab)
+
+    def get_select_ap_template_tab(self):
+        return self.weh.get_element(self.select_ap_template_tab)
+
     def get_select_ap_template(self):
         return self.weh.get_element(self.select_ap_template)
 
@@ -272,3 +291,15 @@ class DeviceTemplateWebElements(DeviceTemplateWebElementDefinitions):
 
     def get_device_ap_template_search_inputfield(self):
         return self.weh.get_element(self.device_ap_template_search_inputfield)
+
+    def get_policy_switching_tab(self):
+        return self.weh.get_element(self.policy_switching_tab)
+
+    def get_policy_switch_templates_tab(self):
+        return self.weh.get_element(self.policy_switch_templates_tab)
+
+    def get_policy_sr_dell_switching_tab(self):
+        return self.weh.get_element(self.policy_sr_dell_switching_tab )
+
+    def get_policy_sr_dell_switch_templates_tab(self):
+        return self.weh.get_element(self.policy_sr_dell_switch_templates_tab)

@@ -5,6 +5,8 @@ import time
 import re
 from datetime import datetime
 from datetime import timedelta
+from extauto.common.CommonValidation import CommonValidation
+
 
 class XapiGlobalSettings(XapiHelper):
 
@@ -12,6 +14,24 @@ class XapiGlobalSettings(XapiHelper):
         super().__init__()
         self.xapiBaseAccountApi = XapiBaseAccountApi()
         self.xapiBaseLogApi = XapiBaseLogApi()
+        self.common_validation = CommonValidation()
+
+    def xapi_get_viq_id(self, **kwargs):
+        """
+            - Gets the VIQ ID
+
+            :return: returns the VIQ ID if success. return "" if not success.
+        """
+        try:
+            json_response = self.get_viq_info(**kwargs)
+            viq_id = json_response.owner_id
+            return str(viq_id)
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Error raised for keyword xapi_get_viq_id Error: {e}"
+            self.common_validation.fault(**kwargs)
+            return ""
+          
 
     def get_viq_info(self, **kwargs):
         """

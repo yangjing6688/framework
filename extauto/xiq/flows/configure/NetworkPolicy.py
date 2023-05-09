@@ -33,7 +33,7 @@ from extauto.xiq.elements.Device360WebElements import Device360WebElements
 import extauto.xiq.flows.configure.SwitchTemplate
 from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
 
-
+from extauto.common.KeywordUtils import KeywordUtils
 
 
 class NetworkPolicy(object):
@@ -62,6 +62,7 @@ class NetworkPolicy(object):
         # self.driver = extauto.common.CloudDriver.cloud_driver
         self.switch_template = extauto.xiq.flows.configure.SwitchTemplate.SwitchTemplate()
         self.xapiNetworkPolicy = XapiNetworkPolicy()
+        self.keyword_utils = KeywordUtils()
 
     def select_network_policy_row(self, policy):
         """
@@ -276,44 +277,116 @@ class NetworkPolicy(object):
             self.common_validation.fault(**kwargs)
             return -1
 
-        if self._search_network_policy_in_list_view(policy) == -1:
-            kwargs['pass_msg'] = f"Network policy {policy} doesn't exist in the network policies list"
+        # Get the total pages
+        pages = self.common_objects.cobj_web_elements.get_page_numbers()
+        if pages.is_displayed():
+            last_page = int(pages.text[-1])
+        select_flag = None
+        policy_delete_attempted = False
+        if pages.is_displayed() and last_page != 1:
+            page_counter = 1
+            self.utils.print_info(f"There are '{last_page}' page(s) to check")
+            while page_counter <= last_page:
+                if self._search_network_policy_in_list_view(policy) == 1:
+                    self.utils.print_info("Select Network policy row")
+                    self.select_network_policy_row(policy)
+                    self.screen.save_screen_shot()
+                    self._perform_np_delete()
+                    select_flag = True
+                    policy_delete_attempted = True
+                    sleep(1)
+                    self.utils.print_info(f"Network policy '{policy}' existed on page '{page_counter}' and was deleted")
+                    # Once we have deleted the policy if we are not on page one reset to page one and stop
+                    # walking thru the pages
+                    if page_counter != 1:
+                        # See if still have a pages, we might have delete the last policy on the page
+                        still_have_pages = self.common_objects.cobj_web_elements.get_page_numbers()
+                        if still_have_pages.is_displayed():
+                            pageOne = self.devices_web_elements.get_devices_page_number_one()
+                            self.utils.print_info("Clicking on Page 1 in network policy page.")
+                            self.auto_actions.click(pageOne)
+                            sleep(5)
+                            self.screen.save_screen_shot()
+                        else:
+                            # We do not have pages so we will rest the screen
+                            # This is hack to work around XIQ, the only way to refresh the screen
+                            # is switch to devices than back to policies
+                            if not self.navigator.navigate_to_devices() == 1:
+                                kwargs['fail_msg'] = "Couldn't Navigate to devices page"
+                                self.common_validation.fault(**kwargs)
+                                return -1
+                            if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+                                kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
+                                self.common_validation.fault(**kwargs)
+                                return -1
+                    break
+                else:
+                    self.utils.print_info(f"Network policy '{policy}' doesn't exist in page '{page_counter}'")
+                    # If we did walk thru pages and did not find the device reset to page 1
+                    if page_counter != 1:
+                        pageOne = self.devices_web_elements.get_devices_page_number_one()
+                        self.utils.print_info("Clicking on Page 1 in network policy page.")
+                        self.auto_actions.click(pageOne)
+                        sleep(5)
+                        self.screen.save_screen_shot()
+
+                # goto the next page
+                page_counter += 1
+                if page_counter <= last_page:
+                    self.utils.print_info(f"Move to next page '{page_counter}'")
+                    self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
+                    sleep(5)
+                    self.screen.save_screen_shot()
+
+        else:
+            if self._search_network_policy_in_list_view(policy) == 1:
+                self.utils.print_info("Select Network policy row")
+                self.select_network_policy_row(policy)
+                self.screen.save_screen_shot()
+                self._perform_np_delete()
+                select_flag = True
+                policy_delete_attempted = True
+                sleep(1)
+            else:
+                self.utils.print_info(f"Network policy '{policy}' doesn't exist in the network policies list")
+                self.screen.save_screen_shot()
+
+        if not select_flag:
+            kwargs['pass_msg'] = f"Given Network policy {policy} is not present. Nothing to delete!"
             self.common_validation.passed(**kwargs)
             return 1
 
-        self.utils.print_info("Select Network policy row")
-        self.select_network_policy_row(policy)
+        if policy_delete_attempted:
+            self.screen.save_screen_shot()
 
-        self._perform_np_delete()
-        sleep(2)
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
+            tool_tp_text = tool_tip.tool_tip_text
 
-        for value in reversed(tool_tp_text):
-            if "Network policy was deleted successfully" in value:
-                kwargs['pass_msg'] = "Network policy was deleted successfully!"
-                self.common_validation.passed(**kwargs)
-                return 1
-            elif "The Network Policy cannot be removed " in value:
-                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}!"
-                self.common_validation.fault(**kwargs)
-                return -1
-            elif "An unknown error has occurred" in value:
-                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}!"
-                self.common_validation.fault(**kwargs)
-                return -1
+            for value in reversed(tool_tp_text):
+                if "Network policy was deleted successfully" in value:
+                    kwargs['pass_msg'] = f"Network policy '{policy}' was deleted successfully"
+                    self.common_validation.passed(**kwargs)
+                    return 1
+                elif "The Network Policy cannot be removed " in value:
+                    kwargs['fail_msg'] = f"The Network Policy '{policy}' cannot be removed, {value}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                elif "The Network Policy cannot be deleted " in value:
+                    kwargs['fail_msg'] = f"The Network Policy '{policy}' cannot be delete, {value}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+                elif "An unknown error has occurred" in value:
+                    kwargs['fail_msg'] = f"Unable to delete the network policy '{policy}', {value}"
+                    self.common_validation.failed(**kwargs)
+                    return -2
 
-        # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
-        # if it's gone assume success. Retry if it still appears b/c apparrently policy still appears after delete
-        #    for a few moments.
-        for chk in range(2):
-            if chk == 2:
+            # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
+            # if it's gone assume success.
+            # JPS - May 1, 2023 - This makes a bad assumption- this does not walk thru pages if pages are present
+            # This should be updated in the future
+            if self._search_network_policy_in_list_view(policy) == 1:
                 kwargs['fail_msg'] = f"Unable to perform the delete for network policy {policy}!"
                 self.common_validation.failed(**kwargs)
                 return -1
-            if self._search_network_policy_in_list_view(policy) == 1:
-                self.utils.print_info("Network policy still visible. Wait 5 seconds and try again")
-                sleep(5)
 
         kwargs['pass_msg'] = f"Successfully deleted Network Policy {policy}!"
         self.common_validation.passed(**kwargs)
@@ -333,6 +406,7 @@ class NetworkPolicy(object):
         :return: 1 if deleted successfully else -1
         """
 
+
         if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
             return self.xapiNetworkPolicy.xapi_delete_network_polices(policies, **kwargs)
 
@@ -341,78 +415,129 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -2
 
-        # Get the total pages
-        pages = self.common_objects.cobj_web_elements.get_page_numbers()
-        select_flag = None
-        if pages.is_displayed():
-            last_page = int(pages.text[-1])
-            page_counter = 0
-            self.utils.print_info(f"There are {last_page} page(s) to check")
-            while page_counter < last_page:
-                for policy in policies:
+        policies_delete = []
+        policies_not_present = []
+
+        for policy in policies:
+            # See if we have pages of policies
+            pages = self.common_objects.cobj_web_elements.get_page_numbers()
+            if pages.is_displayed():
+                last_page = int(pages.text[-1])
+            select_flag = None
+            policy_delete_attempted = False
+            if pages.is_displayed() and last_page != 1:
+                page_counter = 1
+                self.utils.print_info(f"There are '{last_page}' page(s) to check")
+                while page_counter <= last_page:
                     if self._search_network_policy_in_list_view(policy) == 1:
                         self.utils.print_info("Select Network policy row")
                         self.select_network_policy_row(policy)
                         self.screen.save_screen_shot()
                         self._perform_np_delete()
-                        self.screen.save_screen_shot()
                         select_flag = True
+                        policy_delete_attempted = True
                         sleep(1)
+                        self.utils.print_info(f"Network policy '{policy}' existed on page '{page_counter}' and delete was attempted")
+                        # Once we have deleted the policy if we are not on page one reset to page one and stop
+                        # walking thru the pages
+                        if page_counter != 1:
+                            # See if still have a pages, we might have delete the last policy on the page
+                            still_have_pages = self.common_objects.cobj_web_elements.get_page_numbers()
+                            if still_have_pages.is_displayed():
+                                pageOne = self.devices_web_elements.get_devices_page_number_one()
+                                self.utils.print_info("Clicking on Page 1 in network policy page.")
+                                self.auto_actions.click(pageOne)
+                                sleep(1)
+                                self.screen.save_screen_shot()
+                            else:
+                                # We do not have pages so we will rest the screen
+                                # This is hack to work around XIQ, the only way to refresh the screen
+                                # is switch to devices than back to policies
+                                if not self.navigator.navigate_to_devices() == 1:
+                                    kwargs['fail_msg'] = "Couldn't Navigate to devices page"
+                                    self.common_validation.fault(**kwargs)
+                                    return -1
+                                if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+                                    kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
+                                    self.common_validation.fault(**kwargs)
+                                    return -1
+                        break
                     else:
-                        self.utils.print_info(f"Network policy {policy} doesn't exist in page {page_counter + 1}")
+                        self.utils.print_info(f"Network policy '{policy}' doesn't exist in page '{page_counter}'")
+                        if page_counter != 1:
+                            pageOne = self.devices_web_elements.get_devices_page_number_one()
+                            self.utils.print_info("Clicking on Page 1 in network policy page.")
+                            self.auto_actions.click(pageOne)
+                            sleep(1)
+                            self.screen.save_screen_shot()
 
-                # goto the next page
-                page_counter += 1
-                self.utils.print_info(f"Move to next page {page_counter + 1}")
-                self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
-                self.screen.save_screen_shot()
-                sleep(5)
-        else:
-            for policy in policies:
+                    # goto the next page
+                    page_counter += 1
+                    if page_counter <= last_page:
+                        self.utils.print_info(f"Move to next page {page_counter}")
+                        self.auto_actions.click_reference(self.common_objects.cobj_web_elements.get_next_page_element)
+                        sleep(1)
+                        self.screen.save_screen_shot()
+            else:
                 if self._search_network_policy_in_list_view(policy) == 1:
                     self.utils.print_info("Select Network policy row")
                     self.select_network_policy_row(policy)
                     self.screen.save_screen_shot()
                     self._perform_np_delete()
-                    self.screen.save_screen_shot()
                     select_flag = True
+                    policy_delete_attempted = True
+
                     sleep(1)
                 else:
-                    self.utils.print_info(f"Network policy {policy} doesn't exist in the network policies list")
+                    self.utils.print_info(f"Network policy '{policy}' doesn't exist in the network policies list")
                     self.screen.save_screen_shot()
 
-        if not select_flag:
-            kwargs['pass_msg'] = "Given Network policies are not present. Nothing to delete!"
-            self.common_validation.passed(**kwargs)
-            return 1
-
-        self.screen.save_screen_shot()
-
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-
-        for value in reversed(tool_tp_text):
-            if "Network policy was deleted successfully" in value:
-                kwargs['pass_msg'] = "Network policy was deleted successfully"
+            if not select_flag:
+                kwargs['pass_msg'] = f"Given Network policy '{policy}' is not present. Nothing to delete!"
                 self.common_validation.passed(**kwargs)
-                return 1
-            elif "The Network Policy cannot be removed " in value:
-                kwargs['fail_msg'] = f"The Network Policy cannot be removed, {value}"
-                self.common_validation.failed(**kwargs)
-                return -1
-            elif "An unknown error has occurred" in value:
-                kwargs['fail_msg'] = f"Unable to delete the network policy, {value}"
-                self.common_validation.failed(**kwargs)
-                return -2
+                policies_not_present.append(policy)
 
-        # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
-        # if it's gone assume success.
-        for policy in policies:
-            if self._search_network_policy_in_list_view(policy) == 1:
-                kwargs['fail_msg'] = "Unable to perform the delete!"
-                self.common_validation.failed(**kwargs)
-                return -1
-        kwargs['pass_msg'] = "Successfully deleted Network Policies!"
+
+            # If the desired policy was delete check for confirmation
+            if policy_delete_attempted:
+                self.screen.save_screen_shot()
+
+                policy_delete_confirmed = False
+                tool_tp_text = tool_tip.tool_tip_text
+                self.utils.print_info(tool_tp_text)
+
+                # Get the last tool tip generated
+
+                for value in reversed(tool_tp_text):
+                    if "Network policy was deleted successfully" in value:
+                        kwargs['pass_msg'] = f"Network policy '{policy}' was deleted successfully"
+                        self.common_validation.passed(**kwargs)
+                        policy_delete_confirmed = True
+                        policies_delete.append(policy)
+                    elif "The Network Policy cannot be removed " in value:
+                        kwargs['fail_msg'] = f"The Network Policy '{policy}' cannot be removed, {value}"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                    elif "The Network Policy cannot be deleted " in value:
+                        kwargs['fail_msg'] = f"The Network Policy '{policy}' cannot be delete, {value}"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+                    elif "An unknown error has occurred" in value:
+                        kwargs['fail_msg'] = f"Unable to delete the network policy '{policy}', {value}"
+                        self.common_validation.failed(**kwargs)
+                        return -2
+
+                # If we get here we didn't get an expected tooltip message. Check to see if the policy no longer exists,
+                # if it's gone assume success.
+                # JPS - May 1, 2023 - This makes a bad assumption- this does not walk thru pages if pages are present
+                # This should be updated in the future
+                if policy_delete_confirmed == False:
+                    for policy in policies:
+                        if self._search_network_policy_in_list_view(policy) == 1:
+                            kwargs['fail_msg'] = "Unable to perform the delete!"
+                            self.common_validation.failed(**kwargs)
+                            return -1
+        kwargs['pass_msg'] = f"Successfully deleted Network Policies! '{policies_delete}' and the following policies were not present '{policies_not_present}'"
         self.common_validation.passed(**kwargs)
         return 1
 
@@ -481,17 +606,22 @@ class NetworkPolicy(object):
         self.utils.print_info("Click on Network Policy card view button")
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_card_view)
         self.utils.wait_till(self.np_web_elements.get_network_policy_card_item,timeout=6, delay=2)
-
-        policy_cards = self.np_web_elements.get_network_policy_card_items()
-        if policy_cards is None:
+        policy_card = self.np_web_elements.get_network_policy_card_item()
+        if policy_card is None:
             kwargs['fail_msg'] = "No Network Policy cards present. No policy configured"
+            self.common_validation.failed(**kwargs)
+            return -1
+        try:
+            policy_cards = self.keyword_utils.wait_for_elements_to_load(self.np_web_elements.get_network_policy_card_items, 2)
+        except Exception as e:
+            kwargs['fail_msg'] = f"The number of Network Policy cards changed {e} times"
             self.common_validation.failed(**kwargs)
             return -1
 
         for policy_card in policy_cards:
             if policy_name.upper() in policy_card.text.upper():
                 self.utils.print_info(policy_card.text)
-                self.auto_actions.click(self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
+                self.auto_actions.click_reference(lambda: self.np_web_elements.get_network_policy_card_item_edit_icon(policy_card))
                 kwargs['pass_msg'] = "Network Policy card/s present"
                 self.common_validation.passed(**kwargs)
                 return 1
@@ -726,26 +856,10 @@ class NetworkPolicy(object):
                  -1 if elements are not found along the way
         """
 
-        self.utils.print_info("Navigating to the configure network policies")
-        self.navigator.navigate_configure_network_policies()
-
-        self.utils.print_info("Searching for network policy list view button...")
-        list_view_button = self.np_web_elements.get_network_policy_list_view()
-        if list_view_button:
-            self.utils.print_info("Network policy list view button found! Clicking... ")
-            self.auto_actions.click_reference(self.np_web_elements.get_network_policy_list_view)
-        else:
-            kwargs['fail_msg'] = "List view button not found!"
+        if not self.navigator.navigate_to_network_policies_list_view_page() == 1:
+            kwargs['fail_msg'] = "Couldn't Navigate to policies list view page"
             self.common_validation.fault(**kwargs)
             return -1
-
-        self.utils.print_info("Searching for network policy 100 rows per page button...")
-        view_all_pages = self.np_web_elements.get_nw_policy_port_types_view_all_pages()
-        if view_all_pages:
-            self.utils.print_info("Network Policy fill size is present on page. Clicking... ")
-            self.auto_actions.click(view_all_pages)
-        else:
-            self.utils.print_info("Network Policy fill size is not present on page. Continue running... ")
 
         self.utils.print_info("Select the network policy rows")
         current_page = 1
@@ -753,11 +867,14 @@ class NetworkPolicy(object):
 
         while True:
             self.utils.print_info(f"Current page: {current_page}")
-            self.utils.print_info("Waiting for Network Policy rows to load...")
-            self.utils.wait_till(self.np_web_elements.get_np_grid_rows)
-            self.navigator.wait_until_loading_is_done()
-            self.utils.print_info("Network Policy rows have been loaded. Searching for "
-                                  f"Network Policy: {policy_name} ...")
+            # When we navigated to the policies list view, it took care of waiting for the policies to load.
+            # Thus only wait for the policies to load if we move to the next page
+            if current_page != 1:
+                self.utils.print_info("Waiting for Network Policy rows to load...")
+                self.utils.wait_till(self.np_web_elements.get_np_grid_rows, delay=5, timeout=60)
+                self.navigator.wait_until_loading_is_done()
+                self.screen.save_screen_shot()
+            self.utils.print_info("Network Policy rows have been loaded. Searching for "f"Network Policy: {policy_name} ...")
 
             try:
                 rows = self.np_web_elements.get_np_grid_rows()
@@ -804,6 +921,7 @@ class NetworkPolicy(object):
                                          f"all {current_page} pages. It was deleted or not created at all."
                     self.common_validation.failed(**kwargs)
                     return -1
+
 
     def add_wireless_nw_to_network_policy(self, policy_name, **wireless_profile):
         """
@@ -891,6 +1009,7 @@ class NetworkPolicy(object):
         :return: 1 if success else -1
         """
 
+        # Need to write up a bug on this XAPI not working correctly
         # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
         #     if cli_type == 'AH-AP':
         #         self.utils.print_info("ClI Type: AH-AP detected, updated type to Complete")
@@ -951,11 +1070,12 @@ class NetworkPolicy(object):
         :param devices: Device serial number
         :return:
         """
+        # need to write up a bug on this XAPI
         # if self.xapiNetworkPolicy.is_xapi_enabled(**kwargs):
-        #     self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
-        #                                                                            devices,
-        #                                                                            'delta')
-        # else:
+        #     return self.xapiNetworkPolicy.xapi_deploy_network_policy_with_delta_update(policy_name,
+        #                                                                                devices,
+        #                                                                                 'delta')
+        #else:
         return self.deploy_network_policy(policy_name, devices, 'delta')
 
     def _check_navigation_to_network_policy_page(self):
@@ -2369,11 +2489,11 @@ class NetworkPolicy(object):
         self.auto_actions.click_reference(self.np_web_elements.get_network_policy_wireless_networks_save_button)
 
         return 1
+    # This is not a real keyword, it only clicks on an element. Let it comment as I do not know who else is using it.
+    # def get_switching_tab(self):
+    #     self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
 
-    def get_switching_tab(self):
-        self.auto_actions.click_reference(self.np_web_elements.get_switching_tab)
-
-    def get_port_types_section(self, **kwargs):
+    def check_port_types_section(self, **kwargs):
         """
         - This keyword will navigate to Port Types section in Network Policies tab
         - Assumption: Already Opened Network Policy
@@ -2385,6 +2505,7 @@ class NetworkPolicy(object):
         # this sleep is necessary for allowing the page to load before performing any action
         time.sleep(1)
         self.auto_actions.click_reference(self.np_web_elements.get_port_types_section)
+        self.navigator.wait_until_loading_is_done()
         self.screen.save_screen_shot()
         title = self.np_web_elements.get_port_types_title_page()
         title_text = title.text
@@ -2678,7 +2799,7 @@ class NetworkPolicy(object):
                 self.common_validation.fault(**kwargs)
                 return -1, {}
 
-            if self.auto_actions.click(save_button) == 1:
+            if self.auto_actions.click_with_js(save_button) == 1:
                 self.utils.print_info("Successfully clicked on the Save element")
             else:
                 kwargs['fail_msg'] = "Failed to click on the Save element"
@@ -2698,13 +2819,13 @@ class NetworkPolicy(object):
         cli_type = cli_type.upper()
         if cli_type is not None:
             if cli_type == "VOSS":
-                self.auto_actions.click_reference(self.np_web_elements.get_select_platform_voss)
+                self.auto_actions.click_with_js(self.np_web_elements.get_select_platform_voss())
                 kwargs['pass_msg'] = "Selected Platform VOSS"
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
                 return 1
             elif cli_type == "EXOS":
-                self.auto_actions.click_reference(self.np_web_elements.get_select_platform_exos)
+                self.auto_actions.click_with_js(self.np_web_elements.get_select_platform_exos())
                 kwargs['pass_msg'] = "Selected Platform EXOS"
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
@@ -2723,19 +2844,35 @@ class NetworkPolicy(object):
 
         if self.dev360.get_d360_switch_port_view_all_pages_button():
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_with_js(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.navigator.wait_until_loading_is_done()
             self.screen.save_screen_shot()
-        sleep(2)
+
         if port_type_name is not None:
+            self.utils.print_info(f"Searching {port_type_name} on first page.")
             port_type_table_item = self.get_port_type_row(port_type_name)
-            sleep(3)
+            if not port_type_table_item:
+                self.utils.print_info(f"Searching {port_type_name} on next page page.")
+                next_page_button = self.dev360.get_device360_pagination_next_button()
+                assert next_page_button, "Did not find the next page button"
+                self.auto_actions.click_with_js(next_page_button)
+                self.navigator.wait_until_loading_is_done()
+                port_type_table_item = self.get_port_type_row(port_type_name)
+            if not port_type_table_item:
+                self.utils.print_info(f"Searching {port_type_name} on next page page.")
+                next_page_button = self.dev360.get_device360_pagination_next_button()
+                assert next_page_button, "Did not find the next page button"
+                self.auto_actions.click_with_js(next_page_button)
+                self.navigator.wait_until_loading_is_done()
+                port_type_table_item = self.get_port_type_row(port_type_name)
             self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.np_web_elements.get_port_type_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.auto_actions.click_with_js(self.np_web_elements.get_port_type_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.navigator.wait_until_loading_is_done()
             self.screen.save_screen_shot()
             sleep(3)
             self.utils.print_info(f"Editing port_type {port_type_name} ")
-            if self.auto_actions.click(self.np_web_elements.get_edit_port_type()) == 1:
+            if self.auto_actions.click_with_js(self.np_web_elements.get_edit_port_type()) == 1:
                 kwargs['pass_msg'] = f"Successfully opened configuration window for port_type {port_type_name} "
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
@@ -2757,17 +2894,32 @@ class NetworkPolicy(object):
         """
         if self.dev360.get_d360_switch_port_view_all_pages_button():
             self.auto_actions.scroll_down()
-            self.auto_actions.click(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.auto_actions.click_with_js(self.dev360.get_d360_switch_port_view_all_pages_button())
+            self.navigator.wait_until_loading_is_done()
             self.screen.save_screen_shot()
-        sleep(2)
+
         if port_type_name is not None:
+            self.utils.print_info(f"Searching {port_type_name} on first page.")
             port_type_table_item = self.get_port_type_row(port_type_name)
-            sleep(2)
+            if not port_type_table_item:
+                self.utils.print_info(f"Searching {port_type_name} on next page page.")
+                next_page_button = self.dev360.get_device360_pagination_next_button()
+                assert next_page_button, "Did not find the next page button"
+                self.auto_actions.click_with_js(next_page_button)
+                self.navigator.wait_until_loading_is_done()
+                port_type_table_item = self.get_port_type_row(port_type_name)
+            if not port_type_table_item:
+                self.utils.print_info(f"Searching {port_type_name} on next page page.")
+                next_page_button = self.dev360.get_device360_pagination_next_button()
+                assert next_page_button, "Did not find the next page button"
+                self.auto_actions.click_with_js(next_page_button)
+                self.navigator.wait_until_loading_is_done()
+                port_type_table_item = self.get_port_type_row(port_type_name)
             self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
-            self.auto_actions.click(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
+            self.auto_actions.click_with_js(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
             self.screen.save_screen_shot()
             self.utils.print_info(f"Deleting port_type {port_type_name} ")
-            if self.auto_actions.click(self.np_web_elements.get_delete_port_type()) == 1:
+            if self.auto_actions.click_with_js(self.np_web_elements.get_delete_port_type()) == 1:
                 kwargs['pass_msg'] = f"Deleting port_type {port_type_name} "
                 self.common_validation.passed(**kwargs)
                 self.screen.save_screen_shot()
@@ -2910,18 +3062,6 @@ class NetworkPolicy(object):
         self.utils.print_info(f"Policy name is: {policy_name}")
         return policy_name
 
-    def navigate_to_switching_tab(self, policy_name):
-        """
-        Method used to create a Network Policy, navigate to Edit Tab then Switching Tab
-        :param policy_name: the name of the policy
-        :return:
-        """
-
-        assert self.navigate_to_np_edit_tab(policy_name=policy_name) == 1, \
-            "Failed to navigate to Network Policy Edit Tab"
-
-        self.get_switching_tab()
-
     def open_network_policy_ssid_page(self, policy_name, ssid_name, **kwargs):
         """
         - This Keyword will Open Particular SSID name of the wireless network in the network policy
@@ -2959,4 +3099,101 @@ class NetworkPolicy(object):
             self.common_validation.failed(**kwargs)
             return -1
 
+    def set_dns_server_status(self, status="enable", **kwargs):
+        
+        if not status in ["enable", "disable"]:
+            kwargs["fail_msg"] = "given status should be enable or disable"
+            self.common_validation.fault(**kwargs)
+        
+        button, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_dns_server_status,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
 
+        if button is None:
+            kwargs["fail_msg"] = "Failed to get the dns server status button"
+            self.common_validation.fault(**kwargs)
+            return -1
+        
+        if (button.is_selected() and status == "disable") or (not button.is_selected() and status == "enable"):
+            self.utils.print_info(f"{status} dns server")
+            
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click(button),
+                exp_func_resp=True,
+                delay=4,
+                silent_failure=True
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to click the dns server status button"
+                self.common_validation.fault(**kwargs)
+                return -1
+        else:
+            self.utils.print_info(f"status of dns server is already {status}d")
+            
+        kwargs["pass_msg"] = f"Successfully set the status of dns server - {status}d"
+        self.common_validation.passed(**kwargs)
+        return 1
+        
+    def go_to_dns_server_tab(self, **kwargs):
+        
+        tab, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_nw_policy_additional_settings_dns_server_tab,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if tab is None:
+            kwargs["fail_msg"] = "Failed to get the dns server tab"
+            self.common_validation.fault(**kwargs)
+            return -1
+    
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(tab),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the dns server status tab"
+            self.common_validation.fault(**kwargs)
+            return -1
+            
+        kwargs["pass_msg"] = "Successfully went to the dns server tab"
+        self.common_validation.passed(**kwargs)
+        return 1
+    
+    def save_dns_server_tab(self, **kwargs):
+
+        button, _ = self.utils.wait_till(
+            func=self.np_web_elements.get_dns_server_save_button,
+            silent_failure=True,
+            exp_func_resp=True,
+            delay=5
+        )
+
+        if button is None:
+            kwargs["fail_msg"] = "Failed to get the dns server save button"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        res, _ = self.utils.wait_till(
+            func=lambda: self.auto_actions.click(button),
+            exp_func_resp=True,
+            delay=4,
+            silent_failure=True
+        )
+
+        if res != 1:
+            kwargs["fail_msg"] = "Failed to click the dns server save button"
+            self.common_validation.fault(**kwargs)
+            return -1
+            
+        kwargs["pass_msg"] = "Successfully clicked the dns server save button"
+        self.common_validation.passed(**kwargs)
+        return 1

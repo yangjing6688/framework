@@ -715,6 +715,12 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
     def get_100_devices_per_page(self):
         return self.weh.get_element(self.no_100_devices_per_page)
 
+    def get_unknown_tooltip_error(self):
+        return self.weh.get_element(self.unknown_tooltip_error)
+
+    def get_unknown_error_tooltip_close_icon(self):
+        return self.weh.get_element(self.unknown_error_tooltip_close_icon)
+    
     def get_grid_loading_wheel(self):
         return self.weh.get_elements(self.grid_loading_wheel)
 
@@ -723,3 +729,6 @@ class NavigatorWebElements(NavigatorWebElementDefinitions):
 
     def get_tools_page(self):
         return self.weh.get_element(self.tools_page)
+
+    def get_grid_loading_mark(self):
+        return self.weh.get_elements(self.grid_loading_mark)

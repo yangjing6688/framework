@@ -145,6 +145,9 @@ class DeviceUpdate(DeviceUpdateDefs):
     def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status(self):
         return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox).get_attribute("checked")
 
+    def get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox(self):
+        return self.weh.get_element(self.upgrade_IQ_engine_and_extreme_network_switch_images_checkbox)
+
     def get_perform_upgrade_if_the_versions_are_the_same_checkbox_status(self):
         return self.weh.get_element(self.perform_upgrade_if_the_versions_are_the_same_checkbox).get_attribute("checked")
 
