@@ -88,7 +88,6 @@ class XapiGlobalSettings(XapiHelper):
 
         # Get the configuration from the Global varibles
         configuration = self.get_xapi_configuration()
-        api_response = None
         # Check that the access_token is in
         if configuration.access_token == None:
             raise "Error: access_token is None in the configuration"
@@ -148,7 +147,6 @@ class XapiGlobalSettings(XapiHelper):
             # Let's normalize the data
             for record in filtered_data:
                 # Return the 1st record in the list
-                new_record = normalized_template.copy()
                 if record.reply == 'Access-Accept':
                     normalized_template['reply'] = 'auth-logs-accept'
                 else:
