@@ -1000,6 +1000,11 @@ class CommonObjects(object):
             self.common_validation.fault(**kwargs)
             return -1
 
+        elif "An unknown error has occurred during the execution of this request." in tool_tp_text[-1]:
+            kwargs['fail_msg'] = "An unknown error has occurred during the execution of this request."
+            self.common_validation.fault(**kwargs)
+            return -1
+
         kwargs['fail_msg'] = "Failed to delete ap template profile."
         self.common_validation.failed(**kwargs)
         return -1
@@ -1181,7 +1186,7 @@ class CommonObjects(object):
         self.utils.print_info(f"Searching Supplemental Cli Profile: {supplemental_cli_name} on all pages...")
         current_page = 1
         found_scli = 0
-
+        self.navigator.wait_until_loading_is_done()
         while True:
             rows = self.cobj_web_elements.get_common_object_supp_cli_grid_rows()
             self.utils.print_info(f"Searching SCLI Profile: {supplemental_cli_name} on page: {current_page}...")
@@ -1191,7 +1196,7 @@ class CommonObjects(object):
                     found_scli = 1
 
                     self.utils.print_info("Clicking the row's checkbox...")
-                    check_box = self.cobj_web_elements.get_common_object_supp_cli_grid_row_cells(row, '0')
+                    check_box = self.cobj_web_elements.get_common_object_supp_cli_grid_row_cells(row)
                     if check_box:
                         self.auto_actions.click(check_box)
                     else:
@@ -1225,7 +1230,7 @@ class CommonObjects(object):
             if not found_scli:
                 self.utils.print_info(f"Supplemental Cli Profile: {supplemental_cli_name} is not present on page: "
                                       f"{str(current_page)}")
-                if not self.cobj_web_elements.get_next_page_element_disabled():
+                if not self.cobj_web_elements.get_next_page_element_disabled() and self.cobj_web_elements.get_scli_grid_bottom().is_displayed():
                     self.utils.print_info("Checking the next page: ", str(current_page + 1) + ' ...')
                     self.utils.print_info("Clicking next page...")
                     next_page_button = self.cobj_web_elements.get_next_page_element()
@@ -1943,14 +1948,11 @@ class CommonObjects(object):
                 self.cobj_web_elements.get_common_object_wifi0_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi0 Interface: ", wifi0_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi0 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
+        if sensor_status_wifi0 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable():
                 wifi0_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected())
-        finally:
+            else:
+                wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(self.cobj_web_elements.get_common_object_wifi0_sensor().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiFi0 Interface: ", wifi0_profile['sensor'])
 
         if enable_SDR_wifi0 != 'None':
@@ -2007,14 +2009,11 @@ class CommonObjects(object):
                 self.cobj_web_elements.get_common_object_wifi1_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi1 Interface: ", wifi1_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi1 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
+        if sensor_status_wifi1 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable():
                 wifi1_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected())
-        finally:
+            else:
+                wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(self.cobj_web_elements.get_common_object_wifi1_sensor().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiFi1 Interface: ", wifi1_profile['sensor'])
 
         return wifi1_profile
@@ -2063,14 +2062,11 @@ class CommonObjects(object):
                 self.cobj_web_elements.get_common_object_wifi2_mesh_link().is_selected())
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi2 Interface: ", wifi2_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi2 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
+        if sensor_status_wifi2 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable():
                 wifi2_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected())
-        finally:
+            else:
+                wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(self.cobj_web_elements.get_common_object_wifi2_sensor().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiFi2 Interface: ", wifi2_profile['sensor'])
 
         return wifi2_profile
@@ -2426,14 +2422,14 @@ class CommonObjects(object):
 
         self.auto_actions.scroll_down()
 
-        if radio_status_wifi2.upper() == "Off":
+        if radio_status_wifi2.upper() == "OFF":
             self.utils.print_info("Disable Radio Status on WiFi2 Interface")
-            if not self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected():
+            if self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_radio_status_button())
             return 1
         else:
             self.utils.print_info("Enable Radio Status on WiFi2 Interface")
-            if self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected():
+            if not self.cobj_web_elements.get_common_object_wifi2_radio_status_button().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_radio_status_button())
 
         if client_access_status_wifi2.upper() == "ENABLE":
@@ -2441,7 +2437,7 @@ class CommonObjects(object):
             if not self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_client_access())
         else:
-            self.utils.print_info("Disable Client Mode check box on WiFi2Interface")
+            self.utils.print_info("Disable Client Mode check box on WiFi2 Interface")
             if self.cobj_web_elements.get_common_object_wifi2_client_access().is_selected():
                 self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_client_access())
 

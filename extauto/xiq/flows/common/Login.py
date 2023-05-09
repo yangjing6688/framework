@@ -362,6 +362,17 @@ class Login(object, metaclass=Singleton):
             sleep(2)
         else:
             sleep(10)
+
+        self.utils.print_info("Checking for Unknown Tooltip Error message after login..")
+        try:
+            unknown_error = self.nav_web_elements.get_unknown_tooltip_error()
+            if unknown_error is not None and unknown_error.is_displayed():
+                self.utils.print_info("Found Unknown Tooltip Error After Login.So Closing the Error Message!!")
+                self.screen.save_screen_shot()
+                self.auto_actions.click_reference(self.self.nav_web_elements.get_unknown_error_tooltip_close_icon)
+        except Exception:
+            pass
+
         if check_warning_msg:
             self.utils.print_info("Check for Warning Messages..")
             if self.login_web_elements.get_dialog_message():

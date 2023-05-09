@@ -32,8 +32,9 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
 
     def get_page_numbers(self):
         return self.weh.get_elements(self.devices_page_numbers)
+
     def get_devices_page_number_one(self):
-        return self.weh.get_elements(self.devices_page_number_one)
+        return self.weh.get_element(self.devices_page_number_one)
 
     def get_refresh_devices_page(self):
         refresh_icon = self.weh.get_element(self.refresh_devices_page)
@@ -1052,13 +1053,7 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.update_status_failed_selected_device)
 
     def get_status_update_failed_after_reboot(self):
-        el = self.weh.get_element(self.status_update_failed_after_reboot)
-        if el:
-            status = el.get_attribute("errcode")
-            new_status = status.replace("<br>", "")
-            return new_status
-        else:
-            return None
+        return self.weh.get_element(self.status_update_failed_after_reboot)
 
     def get_check_pop_message(self):
         return self.weh.get_element(self.check_pop_message)
@@ -1314,6 +1309,32 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         """
         parent = self.get_digital_twin_os_version_dropdown()
         return self.weh.get_elements(self.digital_twin_os_version_dropdown_items, parent)
+
+    def get_digital_twin_expansion_slot_dropdown(self):
+        """
+        :return: quick add > digital twin Expansion Slot dropdown to select a VIM module
+        """
+        return self.weh.get_element(self.digital_twin_expansion_slot_dropdown)
+
+    def get_digital_twin_expansion_slot_dropdown_items(self):
+        """
+        :return: quick add > digital twin Expansion Slot dropdown item
+        """
+        parent = self.get_digital_twin_expansion_slot_dropdown()
+        return self.weh.get_elements(self.digital_twin_expansion_slot_dropdown_items, parent)
+
+    def get_digital_twin_license_type_dropdown(self):
+        """
+        :return: quick add > digital twin License Type dropdown to select a Feature License
+        """
+        return self.weh.get_element(self.digital_twin_license_type_dropdown)
+
+    def get_digital_twin_license_type_dropdown_items(self):
+        """
+        :return: quick add > digital twin License Type dropdown item
+        """
+        parent = self.get_digital_twin_license_type_dropdown()
+        return self.weh.get_elements(self.digital_twin_license_type_dropdown_items, parent)
 
     def get_100_rows_per_page_button(self):
         """
