@@ -194,20 +194,6 @@ class SplashTemplate(object):
         self.auto_actions.send_keys(self.splash_web_elem.get_extreme_guest_clone_system_template_name_textbox(),
                                     template_name)
 
-        self.utils.print_info("Adding Login tab")
-        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_icon)
-        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_dropdown_login_item)
-
-        self.utils.print_info("Drag and Drop Layout1 to Login tab")
-        self.auto_actions.drag_and_drop_element(
-            self.splash_web_elem.get_extreme_guest_clone_system_template_theme_layout1(),
-            self.splash_web_elem.get_extreme_guest_clone_system_template_main_droppanel())
-
-        self.auto_actions.click_reference(self.splash_web_elem.get_extreme_guest_clone_system_template_selectwidget_icon)
-        self.auto_actions.drag_and_drop_element(
-            self.splash_web_elem.get_extreme_guest_clone_system_template_loginform_widget_icon(),
-            self.splash_web_elem.get_extreme_guest_clone_system_template_secondary_droppanel())
-
         self.screen.save_screen_shot()
         sleep(2)
 

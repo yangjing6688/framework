@@ -19,7 +19,7 @@ class DeviceCommonDefs:
 
     device_table_edit_button = \
         {
-            'XPATH': '//span[@class="table-action-icons table-edit"]',
+            'XPATH': '//span[@data-automation-tag="automation-device-list-bulkEdit-btn"]',
             'wait_for': 5,
         }
 
