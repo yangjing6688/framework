@@ -78,13 +78,8 @@ class KeywordsUpdateAllPpskEndUsers(object, metaclass=Singleton):
         self.xapiBaseAccountApi = XapiBaseAccountApi()
         self.xapiHelper = XapiHelper()
 
-        #     # Creae the new object for the Switch / Traffic Generator Libraries
-        # self.defaultLibrary = DefaultLibrary()
-        #
-        #     # Create the new object for the XIQ / XIQSE Libraries
-        # self.xiq = XiqLibrary()
 
-    def update_all_ppsk_end_users_email_phon_delivery_methods(self, domain = "extremenetworks.com"):
+    def update_all_ppsk_end_users_email_phone_delivery_methods(self, domain = "extremenetworks.com"):
         """
         # This method go through all pages and calls update user
         # default domain can be changed if needed.
@@ -127,13 +122,6 @@ class KeywordsUpdateAllPpskEndUsers(object, metaclass=Singleton):
                 # call below method update_end_user in this file
                 self.update_end_user(user_data.data[user_count], updated_indexes)
 
-                # Uncomment this if you need to update only few user not all like Eg. 5
-                # if updated_indexes == 5:
-                #     # return to main if users updated = 5
-                #     return
-                # else:
-                #     self.utils.print_info("Failed to get page:" + str(page))
-
         # Print total number of records updated and return to main
         self.utils.print_info("Total records updated :" + str(updated_indexes))
         return
@@ -164,6 +152,6 @@ class KeywordsUpdateAllPpskEndUsers(object, metaclass=Singleton):
         # Call xapi_base_update_end_user to update a user
         response = self.xapiBaseConfigurationUserManagementApi.xapi_base_update_end_user(id = data.id, xiq_update_end_user_request = payload)
 
-        # Return to bupdate_all_ppsk_end_users_email_phon_delivery_methods function above to get next user
+        # Return to function update_all_ppsk_end_users_email_phone_delivery_methods function
         return
 
