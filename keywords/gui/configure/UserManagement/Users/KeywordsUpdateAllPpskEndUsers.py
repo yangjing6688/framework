@@ -88,7 +88,7 @@ class KeywordsUpdateAllPpskEndUsers(object, metaclass=Singleton):
         """
         # This method go through all pages and calls update user
         # default domain can be changed if needed.
-        @param domain:default value is  "extremenetworks.com"
+        @param domain:default value is  "extremenetworks.com"( can be changed)
                 - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/configure/UserManagement/Users/KeywordsUpdateAllPpskEndUsers.py
