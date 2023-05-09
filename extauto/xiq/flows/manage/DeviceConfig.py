@@ -534,16 +534,16 @@ class DeviceConfig(DeviceConfigElements):
         sleep(2)
 
         if status == "ON":
-            if not self.get_manage_devices_edit_wireless_interface_wifi0_on_button().is_selected():
+            if not self.get_manage_devices_edit_wireless_interface_wifi0_button().is_selected():
                 self.utils.print_info("Changing WIFI0 Interface Radio Status to ON")
-                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_on_button)
+                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_button)
                 self.screen.save_screen_shot()
                 sleep(2)
 
         if status == "OFF":
-            if not self.get_manage_devices_edit_wireless_interface_wifi0_off_button().is_selected():
+            if self.get_manage_devices_edit_wireless_interface_wifi0_button().is_selected():
                 self.utils.print_info("Changing WIFI0 Interface Status to OFF")
-                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_off_button)
+                self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_wifi0_button)
                 self.screen.save_screen_shot()
                 sleep(2)
         kwargs['pass_msg'] = "Successfully configure wifi0 interface radio"
@@ -652,7 +652,7 @@ class DeviceConfig(DeviceConfigElements):
         self.auto_actions.click_reference(self.get_devices_edit_config_button)
         sleep(5)
         self.utils.print_info("Click on interface settings tab")
-        self.auto_actions.click_reference(self.get_interface_settings_tab)
+        self.auto_actions.click_reference(self.get_interface_settings_tab_single_device)
 
         self._go_to_wireless_interface_settings_page()
 
@@ -661,9 +661,15 @@ class DeviceConfig(DeviceConfigElements):
         if interface_name == "WIFI1":
             self._configure_wifi1_interface_radio_status(status)
 
+        if self.get_manage_device_interface_settings_save_button_disabled():
+            kwargs['pass_msg'] = "No update required on wireless radio interface"
+            self.utils.print_info("Click Interface Settings Close Button")
+            self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_close_button)
+            self.common_validation.passed(**kwargs)
+            return 1
+
         self.utils.print_info("Click Interface Settings Save Button")
-        self.auto_actions.click_reference(self.get_manage_devices_edit_wireless_interface_save_button)
-        sleep(2)
+        self.auto_actions.click_reference(self.get_manage_device_edit_wireless_interface_save_button)
 
         tool_tip_text = tool_tip.tool_tip_text
         self.screen.save_screen_shot()
@@ -868,10 +874,11 @@ class DeviceConfig(DeviceConfigElements):
                 current_value = self.get_wifi0_transmission_power_value_text().text
                 self.utils.print_info("Current Transmission Power Value is: ", current_value)
 
+
                 count = 1
                 while power_value != current_value:
                     self.utils.print_info("Click and Hold Slider")
-                    self.auto_actions.click_and_hold_element(self.get_wifi0_transmission_power_slider_button())
+                    self.auto_actions.click_and_hold_element(self.get_wifi0_transmission_power_slider_button(),10)
                     sleep(2)
 
                     updated_value = self.get_wifi0_transmission_power_value_text().text
@@ -921,7 +928,7 @@ class DeviceConfig(DeviceConfigElements):
                 count = 1
                 while power_value != current_value:
                     self.utils.print_info("Click and Hold Slider")
-                    self.auto_actions.click_and_hold_element(self.get_wifi1_transmission_power_slider_button())
+                    self.auto_actions.click_and_hold_element(self.get_wifi1_transmission_power_slider_button(),10)
                     sleep(2)
 
                     updated_value = self.get_wifi1_transmission_power_value_text().text
@@ -1797,14 +1804,11 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi0 Interface: ",
                                   wifi0_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi0 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable())
+        if sensor_status_wifi0 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi0_sensor_UI_disable():
                 wifi0_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.get_wireless_wifi0_radio_usage_sensor_checkbox().is_selected())
-        finally:
+            else:
+                wifi0_profile['sensor'] = self._convert_boolean_to_enable_disable(self.get_wireless_wifi0_radio_usage_sensor_checkbox().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiFi0 Interface: ", wifi0_profile['sensor'])
 
         if enable_SDR_wifi0 != 'None':
@@ -1860,14 +1864,11 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi1 Interface: ",
                                   wifi1_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi1 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable())
+        if sensor_status_wifi1 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi1_sensor_UI_disable():
                 wifi1_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.get_wireless_wifi1_radio_usage_sensor_checkbox().is_selected())
-        finally:
+            else:
+                wifi1_profile['sensor'] = self._convert_boolean_to_enable_disable(self.get_wireless_wifi1_radio_usage_sensor_checkbox().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiFi1 Interface: ", wifi1_profile['sensor'])
 
         return wifi1_profile
@@ -1915,14 +1916,11 @@ class DeviceConfig(DeviceConfigElements):
             self.utils.print_info("Get Backhaul Mesh Link Checkbox on WiFi2 Interface: ",
                                   wifi2_profile['backhaul_mesh_link'])
 
-        try:
-            if sensor_status_wifi2 != 'None':
-                self.auto_actions.click(self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable())
+        if sensor_status_wifi2 != 'None':
+            if self.cobj_web_elements.get_common_object_wifi2_sensor_UI_disable():
                 wifi2_profile['sensor'] = 'UIDisable'
-        except Exception:
-            wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(
-                self.get_wireless_wifi2_radio_usage_sensor_checkbox().is_selected())
-        finally:
+            else:
+                wifi2_profile['sensor'] = self._convert_boolean_to_enable_disable(self.get_wireless_wifi2_radio_usage_sensor_checkbox().is_selected())
             self.utils.print_info("Get Sensor Checkbox on WiF2 Interface: ", wifi2_profile['sensor'])
 
         return wifi2_profile

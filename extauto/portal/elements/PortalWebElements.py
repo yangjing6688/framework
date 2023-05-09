@@ -36,6 +36,9 @@ class PortalWebElements(PortalWebElementsDefinitions):
     def get_users_menu_item(self):
         return self.weh.get_element(self.users_menu_portal)
 
+    def get_customers_menu_item(self):
+        return self.weh.get_element(self.customers_menu_portal)
+
     def get_users_page_add_button(self):
         return self.weh.get_element(self.users_page_add_button)
 
@@ -107,5 +110,28 @@ class PortalWebElements(PortalWebElementsDefinitions):
 
     def get_edit_users_page_edit_accept_button(self):
         return self.weh.get_element(self.edit_users_page_edit_accept_button)
+
+    def get_add_customers_page_customername_text(self):
+        return self.weh.get_element(self.add_customers_page_customername_text)
+
+    def get_add_customers_page_firstname_text(self):
+        return self.weh.get_element(self.add_customers_page_firstname_text)
+
+    def get_add_customers_page_lastname_text(self):
+        return self.weh.get_element(self.add_customers_page_lastname_text)
+
+    def get_add_customers_page_adminemail_text(self):
+        return self.weh.get_element(self.add_customers_page_adminemail_text)
+
+    def get_add_customers_page_adminpasswored_text(self):
+        return self.weh.get_element(self.add_customers_page_adminpassword_text)
+
+    def get_add_customers_page_submit_button(self):
+        return self.weh.get_element(self.add_customers_page_submit_button)
+
+    def get_customers_page_filter_text(self):
+        return self.weh.get_element(self.customers_page_filter_text)
+
+
 
 

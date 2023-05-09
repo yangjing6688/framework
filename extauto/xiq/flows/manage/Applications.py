@@ -32,24 +32,19 @@ class Applications(object):
 
         self.utils.print_info("Click on Manage Applications Tab")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_applications)
-        sleep(2)
 
         self.utils.print_info("Click on Add Custom button")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom)
-        sleep(2)
 
         self.utils.print_info("Enter Application name")
         self.auto_actions.send_keys(self.app_web_elements.get_manage_add_custom_name_textfield(), application_name)
-        sleep(2)
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click on Add Custom applications")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_add_app)
-        sleep(2)
 
         self.utils.print_info("Enter Group name")
         self.auto_actions.send_keys(self.app_web_elements.get_manage_add_custom_group_name_textfield(), group_name)
-        sleep(2)
         self.screen.save_screen_shot()
 
         self.utils.print_info("clicking Save Button")
@@ -89,28 +84,23 @@ class Applications(object):
 
         self.utils.print_info("Click on Manage Applications Tab")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_applications)
-        sleep(2)
 
         self.utils.print_info("Click on Search Application field")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_app_search)
-        sleep(2)
 
         self.utils.print_info("Enter the Application name")
         self.auto_actions.send_keys(self.app_web_elements.get_manage_add_custom_search_text(), application_name)
-        sleep(5)
+        self.utils.wait_till(self.app_web_elements.get_manage_apps_cell, timeout=20, delay=5)
 
         self.utils.print_info("Click on Application Check box")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_apps_cell)
-        sleep(3)
 
         self.utils.print_info("Click on Edit button")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_edit)
-        sleep(3)
 
         self.utils.print_info("Enter the modified name")
         self.auto_actions.send_keys(self.app_web_elements.get_manage_add_custom_name_textfield(),
                                     application_name_modified)
-        sleep(2)
         self.screen.save_screen_shot()
 
         self.utils.print_info("clicking Save Button")
@@ -145,23 +135,19 @@ class Applications(object):
 
         self.utils.print_info("Click on Manage Applications Tab")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_applications)
-        sleep(2)
 
         self.utils.print_info("Click on Search Application field")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_app_search)
-        sleep(2)
 
         self.utils.print_info("Enter the Application name")
         self.auto_actions.send_keys(self.app_web_elements.get_manage_add_custom_search_text(), application_name_modified)
-        sleep(5)
+        self.utils.wait_till(self.app_web_elements.get_manage_apps_cell, timeout=20, delay=5)
 
         self.utils.print_info("Click on Application Check box")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_apps_cell)
-        sleep(3)
 
         self.utils.print_info("Click on Delete button")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_delete)
-        sleep(3)
 
         self.utils.print_info("clicking on Yes to confirm delete operation")
         self.auto_actions.click_reference(self.app_web_elements.get_manage_add_custom_delete_confirm)

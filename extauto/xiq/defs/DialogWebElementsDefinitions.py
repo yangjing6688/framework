@@ -56,3 +56,8 @@ class DialogWebElementsDefinitions:
             'XPATH': "//button[@class='btn btn-secondary']",
             'wait_for': 5
         }
+
+    tooltip_close_button = \
+        {
+            'XPATH': "//div[@class='ui-tipbox ui-tipbox-error']//i[@class='ui-tipbox-close']",
+        }
