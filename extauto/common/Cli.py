@@ -3149,11 +3149,12 @@ class Cli(object):
             self.networkElementCliSend.send_cmd(dut.name, 'enable', max_wait=30, interval=10)
             self.networkElementCliSend.send_cmd(dut.name, 'configure terminal', max_wait=30, interval=10)
             output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan')[0].cmd_obj._return_text
-            self.utils.print_info(f"All ports are: {output}")
+            self.utils.print_info(f"show ports vlan output: {output}")
             disconnected_ports = self.utils.get_regexp_matches(output, system_type_regex, 1)
-            self.utils.print_info(f"disconnected ports are: {disconnected_ports}")
+            self.utils.print_info(f"All ports found on device are: {disconnected_ports}")
             self.utils.print_info(f"connected ports are: {connected_ports}")
             for connected in connected_ports:
+                self.utils.print_info(f"Removing port : {connected}")
                 disconnected_ports.remove(connected)
 
         if dut.cli_type.lower() == "exos":
