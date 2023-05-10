@@ -64,6 +64,41 @@ class Devices(object, metaclass=Singleton):
         self.cloud_driver = CloudDriver()
         self.xapiDevices = XapiDevices()
 
+        self.device_column_values = {'LOCATION': 'locationName',
+                                    'NTP STATE': 'ntp_state',
+                                    'MGT IP ADDRESS': 'ipAddress',
+                                    'MAC': 'macAddress',
+                                    'CLIENTS': 'activeClientCount',
+                                    'HOST NAME': 'hostname',
+                                    'MODEL': 'productType',
+                                    'MAKE': 'make',
+                                    'UPDATED': 'updatedOn',
+                                    'UPTIME': 'systemUpTime',
+                                    'SERIAL': 'serialNumber',
+                                    'MGT VLAN': 'mgtVlan',
+                                    'POLICY': 'networkPolicyName',
+                                    'COUNTRY': 'countryCode',
+                                    'WIFI0 POWER': 'power24g',
+                                    'WIFI1 POWER': 'power5g',
+                                    'WIFI2 POWER': 'power6g',
+                                    'WIFI0 CHANNEL': 'channel24g',
+                                    'WIFI1 CHANNEL': 'channel5g',
+                                    'WIFI2 CHANNEL': 'channel6g',
+                                    'WIFI0 RADIO PROFILE': 'radioProfile24g',
+                                    'WIFI1 RADIO PROFILE': 'radioProfile5g',
+                                    'WIFI2 RADIO PROFILE': 'radioProfile6g',
+                                    'OS VERSION': 'softwareVersion',
+                                    'OS': 'os',
+                                    'IQAGENT': 'agentVersion',
+                                    'MANAGED': 'adminState',
+                                    'MANAGED BY': 'managedBy',
+                                    'CLOUD CONFIG GROUPS': 'cloudConfigGroups',
+                                    'WAN IP ADDRESS': 'wanIpAddress',
+                                    'PUBLIC IP ADDRESS': 'extIpAddress',
+                                    'DEVICE LICENSE': 'subscriptionLicense',
+                                    'COPILOT': 'copilotLicenseStatus'
+                                     }
+
     @deprecated("Please use onboard_device_quick(...)")
     def _onboard_ap(self, ap_serial, device_make, location, device_os=False, **kwargs):
         """
@@ -318,40 +353,6 @@ class Devices(object, metaclass=Singleton):
                       UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN, COPILOT
         :return: column header value
         """
-        label_map = {'LOCATION': 'locationName',
-                     'NTP STATE': 'ntp_state',
-                     'MGT IP ADDRESS': 'ipAddress',
-                     'MAC': 'macAddress',
-                     'CLIENTS': 'activeClientCount',
-                     'HOST NAME': 'hostname',
-                     'MODEL': 'productType',
-                     'MAKE': 'make',
-                     'UPDATED': 'updatedOn',
-                     'UPTIME': 'systemUpTime',
-                     'SERIAL': 'serialNumber',
-                     'MGT VLAN': 'mgtVlan',
-                     'POLICY': 'networkPolicyName',
-                     'COUNTRY': 'countryCode',
-                     'WIFI0 POWER': 'power24g',
-                     'WIFI1 POWER': 'power5g',
-                     'WIFI0 CHANNEL': 'channel24g',
-                     'WIFI1 CHANNEL': 'channel5g',
-                     'WIFI2 POWER': 'power6g',
-                     'WIFI2 CHANNEL': 'channel6g',
-                     'WIFI0 RADIO PROFILE': 'radioProfile24g',
-                     'WIFI1 RADIO PROFILE': 'radioProfile5g',
-                     'WIFI2 RADIO PROFILE': 'radioProfile6g',
-                     'OS VERSION': 'displayVer',
-                     'OS': 'os',
-                     'IQAGENT': 'agentVersion',
-                     'MANAGED': 'adminState',
-                     'MANAGED BY': 'managedBy',
-                     'CLOUD CONFIG GROUPS': 'cloudConfigGroups',
-                     'WAN IP ADDRESS': 'wanIpAddress',
-                     'PUBLIC IP ADDRESS': 'extIpAddress',
-                     'DEVICE LICENSE': 'subscriptionLicense',
-                     'COPILOT': 'copilotLicenseStatus'
-                     }
 
         self.utils.print_info("Navigate to Manage-->Devices")
         self.navigator.navigate_to_devices()
@@ -363,8 +364,9 @@ class Devices(object, metaclass=Singleton):
         if page_size_field and page_number_field.is_displayed():
             self.utils.print_info("Searching Device Entry with Search String : ", search_string)
             self.auto_actions.send_keys(self.devices_web_elements.get_manage_device_search_field(), search_string)
+            # Wait until 'loading' mask is cleared
+            self.navigator.wait_until_devices_load_spinner_cleared(retry_duration=1, retry_count=180)
             self.screen.save_screen_shot()
-            sleep(5)
 
         stale_retry = 1
         while stale_retry <= 10:
@@ -382,7 +384,7 @@ class Devices(object, metaclass=Singleton):
                                     device_detail_dict[label] = cell.text
                             else:
                                 device_detail_dict[label] = cell.text
-                    return device_detail_dict[label_map[label_str]]
+                    return device_detail_dict[self.device_column_values[label_str]]
                 else:
                     self.utils.print_info(f"Unable to retrieve device row for {search_string}")
                     self.screen.save_screen_shot()
@@ -725,30 +727,38 @@ class Devices(object, metaclass=Singleton):
         while True:
             self.utils.print_info(f"Time elapsed for device update: {update_time} seconds")
             device_update_status = self.get_device_updated_status(device_serial)
-            self.utils.print_info(f"Status returned: {device_serial}")
+            self.utils.print_info(f"Status returned: {device_update_status}")
             if re.search(r'\d+-\d+-\d+', device_update_status):
                 break
             elif 'Rebooting' in device_update_status:
                 reboot_res = self.wait_until_device_reboots(device_serial, retry_duration=15, retry_count=12)
                 if reboot_res == 1:
-                    self.utils.print_info(
-                        'Reboot for device with serial number: {} is successful'.format(device_serial))
+                    self.utils.print_info(f"Reboot for device with serial number: {device_serial} is successful")
                 else:
-                    self.utils.print_info('Reboot for device with serial number: {} is NOT successful: {}'.format(
-                        device_serial, reboot_res))
+                    kwargs['fail_msg'] = f"Reboot for device with serial number: '{device_serial}' is NOT successful: '{reboot_res}'"
+                    self.common_validation.failed(**kwargs)
                     return -1
             elif 'Certification' in device_update_status or 'Application' in device_update_status:
                 # Some other random push to the device is blocking my policy update!
-                self.utils.print_info("Non-update text in status :{}".format(device_update_status))
+                self.utils.print_info(f"Non-update text in status :{device_update_status}")
                 self.screen.save_screen_shot()
                 sleep(30)
                 update_time += 30
                 if update_time >= 300:
-                    self.utils.print_info("Config push to AP BLOCKED for more than 300 seconds")
+                    kwargs['fail_msg'] = "Config push to Device BLOCKED for more than 300 seconds"
+                    self.common_validation.failed(**kwargs)
                     return -1
                 continue
+            elif device_update_status == 'Device Update Failed':
+                # The actual update failed, so catch the error and report the error
+                # This may not report the error seen in the device info cell
+                # If the error is Device Update Failed To Proceed, this will not print that error becauase
+                # get_device_updated_status returns 'Device Update Failed' for both 'Device Update Failed' and 'Device Update Failed To Proceed'
+                kwargs['fail_msg'] = f"Policy update failed for device with serial number: '{device_serial}' for the following error condition: '{device_update_status}'"
+                self.common_validation.failed(**kwargs)
+                return -1
             elif retry_count >= int(max_config_push_wait):
-                self.utils.print_info(f"Config push to AP taking more than {max_config_push_wait} seconds")
+                self.utils.print_info(f"Config push to device taking more than {max_config_push_wait} seconds")
                 return -1
             sleep(30)
             update_time += 30
@@ -756,7 +766,7 @@ class Devices(object, metaclass=Singleton):
 
         policy_applied = self.get_ap_network_policy(ap_serial=device_serial)
         if policy_name.upper() == policy_applied.upper():
-            self.utils.print_info("Applied network policy:{}".format(policy_applied))
+            self.utils.print_info(f"Applied network policy:{policy_applied}")
             return 1
         self.utils.print_info(f"Policy applied:{policy_name} is not matching with policy updated:{policy_applied}")
         return -1
@@ -1205,7 +1215,19 @@ class Devices(object, metaclass=Singleton):
                     self.auto_actions.click(uptd)
 
             self.utils.print_info("Selecting upgrade IQ Engine checkbox")
-            self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox)
+            res, _ = self.utils.wait_till(
+                func=lambda: self.auto_actions.click_reference(self.device_update.get_upgrade_iq_engine_checkbox),
+                exp_func_resp=True,
+                delay=10,
+                silent_failure=True,
+                timeout=40
+            )
+
+            if res != 1:
+                kwargs["fail_msg"] = "Failed to select the upgrade IQ Engine checkbox"
+                self.common_validation.fault(**kwargs)
+                return -1
+            
             sleep(5)
 
             if version is None:
@@ -1434,6 +1456,8 @@ class Devices(object, metaclass=Singleton):
         # Arguments for device_type == "Digital Twin"
         os_version = device_dict.get("digital_twin_version")
         os_persona = device_dict.get("digital_twin_persona")
+        expansion_slot = device_dict.get("digital_twin_vim", "")
+        feature_licenses = device_dict.get("digital_twin_licenses", "")
 
         # Execute the XAPI call and return the value
         if self.xapiDevices.is_xapi_enabled(**kwargs):
@@ -1497,7 +1521,7 @@ class Devices(object, metaclass=Singleton):
 
         elif device_type.lower() == "digital twin":
             list_initial_serial_dt = self.get_device_serial_numbers(device_model)
-            if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version) != 1:
+            if self.set_onboard_values_for_digital_twin(os_persona, device_model, os_version, expansion_slot, feature_licenses) != 1:
                 kwargs['fail_msg'] = "Fail onboarded device with device_type == Digital Twin"
                 self.common_validation.fault(**kwargs)
                 return -1
@@ -1764,7 +1788,6 @@ class Devices(object, metaclass=Singleton):
                 self.auto_actions.select_drop_down_options(self.switch_web_elements.get_switch_make_drop_down_options()
                                                            , "VOSS")
                 self.screen.save_screen_shot()
-
             else:
                 self.utils.print_info(f"Select {device_make} Radio Button")
                 self.auto_actions.click_reference(self.devices_web_elements.get_device_os_voss_radio)
@@ -1870,25 +1893,11 @@ class Devices(object, metaclass=Singleton):
         self.auto_actions.send_keys(self.devices_web_elements.get_simulation_device_count_input_field(), device_count)
         return 1
 
-    def set_onboard_values_for_digital_twin(self, os_persona, device_model, os_version, **kwargs):
+    def set_onboard_values_for_digital_twin(self, os_persona, device_model, os_version, expansion_slot=None, feature_licenses=None, **kwargs):
         """
         This method sets the onboard device options when the device_type == Digital Twin
         """
-
-        # Code specific to Digital Twin devices - Code copied from 'onboard_device_dt'
-        self.retries = 3
-        count = 0
-        while count < self.retries:
-            # Commented on 1/18/23 because it is unused
-            # add_device_button = "Launch Digital Twin"
-            sleep(1)
-            attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
-            try:
-                assert attribute == "fn-hidden"
-            except AssertionError:
-                count += 1
-        if count == self.retries:
-            self.utils.print_warning("Unable to get the attribute...")
+        attribute = self.devices_web_elements.get_digital_twin_container_feature().get_attribute("class")
 
         if "fn-hidden" not in attribute:
             self.utils.print_info("Selecting 'Digital Twin' radio button")
@@ -1904,6 +1913,7 @@ class Devices(object, metaclass=Singleton):
                 kwargs['fail_msg'] = f"Could not select OS Persona: {os_persona}"
                 self.common_validation.failed(**kwargs)
                 return -1
+
             self.utils.print_debug(f"Selecting Device Model: {device_model}")
             self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_device_model_dropdown)
             sleep(2)
@@ -1925,6 +1935,33 @@ class Devices(object, metaclass=Singleton):
                 kwargs['fail_msg'] = f"Could not select OS Version: {os_version}"
                 self.common_validation.failed(**kwargs)
                 return -1
+
+            if expansion_slot and self.devices_web_elements.get_digital_twin_expansion_slot_dropdown().is_displayed():
+                self.utils.print_debug(f"Selecting Expansion Slot: {expansion_slot}")
+                self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_expansion_slot_dropdown)
+                sleep(2)
+                if self.auto_actions.select_drop_down_options(
+                        self.devices_web_elements.get_digital_twin_expansion_slot_dropdown_items(), expansion_slot):
+                    self.utils.print_info(f"Expansion Slot set to: {expansion_slot}")
+                else:
+                    kwargs['fail_msg'] = f"Could not select Expansion Slot: {expansion_slot}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+            if feature_licenses and self.devices_web_elements.get_digital_twin_license_type_dropdown().is_displayed():
+                self.utils.print_debug(f"Selecting Feature License(s): {feature_licenses}")
+                feature_list = feature_licenses.split(",")
+
+                self.auto_actions.click_reference(self.devices_web_elements.get_digital_twin_license_type_dropdown)
+                sleep(2)
+                for feature in feature_list:
+                    if self.auto_actions.select_drop_down_options(
+                            self.devices_web_elements.get_digital_twin_license_type_dropdown_items(), feature):
+                        self.utils.print_info(f"Enabled Feature License: {feature}")
+                    else:
+                        kwargs['fail_msg'] = f"Could not select Feature License: {feature}"
+                        self.common_validation.failed(**kwargs)
+                        return -1
 
         else:
             kwargs['fail_msg'] = "Digital Twin option is not available..."
@@ -2509,9 +2546,13 @@ class Devices(object, metaclass=Singleton):
         :return: row if device found else False
         """
 
-        # reset the page number to 1
-        pageOne = self.devices_web_elements.get_devices_page_number_one()
-        if pageOne != None:
+        # See if there is multiple pages
+        page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
+
+
+        if page_number_field.is_displayed():
+            # if there is multiple pages reset the page number to 1
+            pageOne = self.devices_web_elements.get_devices_page_number_one()
             self.utils.print_info("Clicking on Page 1 in devices page.")
             self.auto_actions.click(pageOne)
 
@@ -2647,9 +2688,18 @@ class Devices(object, metaclass=Singleton):
         if row:
             kwargs['pass_msg'] = f"Device with {device_keys} was found!"
             if select_device:
-                self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
-                self.screen.save_screen_shot()
-                kwargs['pass_msg'] = f"Device with {device_keys} was found and selected"
+                checkbox_webelement = self.devices_web_elements.get_device_select_checkbox(row)
+                if checkbox_webelement.is_selected():
+                    kwargs['pass_msg'] = f"Device matching '{device_keys}' was found and was already selected"
+                else:
+                    self.auto_actions.click_reference(lambda: self.devices_web_elements.get_device_select_checkbox(row))
+                    if checkbox_webelement.is_selected():
+                        kwargs['pass_msg'] = f"Device matching '{device_keys}' was found and has been selected"
+                    else:
+                        kwargs['fail_msg'] = f"Device matching '{device_keys}' was found and but could not be selected"
+                        self.common_validation.fault(**kwargs)
+
+            self.screen.save_screen_shot()
             self.common_validation.passed(**kwargs)
             return 1
 
@@ -3219,6 +3269,8 @@ class Devices(object, metaclass=Singleton):
         sleep(2)
         self.utils.print_info("Column list to select: ", columns)
         for filter_ in columns:
+            # Get the row index base on the name of the column
+            # This will be used when clicking on the element represetning that row
             filter_row, row_num = self._get_column_picker_filter_exact(filter_)
             if filter_row != "":
                 row_inputs = self.devices_web_elements.get_column_picker_row_input()
@@ -3228,14 +3280,27 @@ class Devices(object, metaclass=Singleton):
                     if row_input_count == row_num:
                         ans = row_inp.get_attribute("checked")
                         if ans == "true":
-                            self.utils.print_info(f"Column Picker Filter {filter_} is already checked")
+                            self.utils.print_info(f"Column Picker Filter '{filter_}' is already checked")
                             self.screen.save_screen_shot()
                             selected_columns.append(filter_)
+                            break
                         else:
+                            self.utils.print_info(f"Column Picker Filter '{filter_}' is not already checked - checking")
                             self.auto_actions.click(filter_row)
                             self.screen.save_screen_shot()
-                            self.utils.print_info(f"Column Picker Filter {filter_} is not already checked - checking")
-                            selected_columns.append(filter_)
+                            value_after_click_action = row_inp.get_attribute("checked")
+                            if value_after_click_action != "true":
+                                self.utils.print_info(f"Column Picker Filter '{filter_}' is not enable")
+                                self.screen.save_screen_shot()
+                                self.close_last_refreshed_tooltip()
+                                self.auto_actions.click_reference(self.devices_web_elements.get_column_picker_icon)
+                                sleep(2)
+                                kwargs['fail_msg'] = f"Failed to enable '{filter_}' via the Column Picker Filter"
+                                self.common_validation.fault(**kwargs)
+                                return -1
+                            else:
+                                selected_columns.append(filter_)
+                            break
             else:
                 self.utils.print_info("Unable to select the Column Picker Filter ", filter_)
                 unselected_columns.append(filter_)
@@ -4214,6 +4279,7 @@ class Devices(object, metaclass=Singleton):
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
+        sleep(2)
 
         if update_method == "Delta":
             self.utils.print_info("Using Delta method...")
@@ -4681,10 +4747,10 @@ class Devices(object, metaclass=Singleton):
 
         the_dlg = self.devices_web_elements.get_global_settings_management_dialog()
 
-        if the_dlg:
+        if the_dlg and the_dlg.is_displayed():
             self.utils.print_debug("The account credential managed by global setting pop-up is displayed")
             yes_btn = self.devices_web_elements.get_global_settings_management_dialog_yes_button()
-            if yes_btn:
+            if yes_btn and yes_btn.is_displayed():
                 self.utils.print_info("Clicking 'Yes' in the account credential managed by global setting pop-up dialog")
                 self.auto_actions.click_reference(self.devices_web_elements.get_global_settings_management_dialog_yes_button)
             else:
@@ -5448,7 +5514,7 @@ class Devices(object, metaclass=Singleton):
         self.common_validation.failed(**kwargs)
         return -1
 
-    def wait_until_device_managed(self, device_serial, retry_duration=30, retry_count=10, **kwargs):
+    def wait_until_device_managed(self, device_serial=None, device_mac=None, device_name=None, retry_duration=30, retry_count=10, **kwargs):
         """
         - This keyword waits until the MANAGED column for the specified device to contains 'Managed' state.
         - This keyword by default loops every 30 seconds for 10 times to check the MANAGED column data
@@ -5463,14 +5529,17 @@ class Devices(object, metaclass=Singleton):
             XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
 
         :param device_serial: device serial number to check the device 'managed' state
+        :param device_mac: device mac address to check the device 'managed' state
+        :param device_name: device name to check the device 'managed' state
         :param retry_duration: duration between each retry
         :param retry_count: retry count
         :param kwargs: keyword arguments XAPI_ENABLE
         :return: 1 if MANAGED column contains 'Managed' within the specified time, else -1
         """
-
-        if self.xapiDevices.is_xapi_enabled(**kwargs):
-            return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, retry_duration=retry_duration, retry_count=retry_count)
+        if self.xapiDevices.is_xapi_enabled():
+            return self.xapiDevices.xapi_wait_until_device_managed(device_serial=device_serial, device_mac=device_mac,
+                                                                   device_name=device_name, retry_duration=retry_duration,
+                                                                   retry_count=retry_count)
 
         # UI Support
         self.utils.print_info("Navigate to Manage-->Devices")
@@ -5480,25 +5549,88 @@ class Devices(object, metaclass=Singleton):
         self.column_picker_select('Managed')
 
         count = 1
-
+        passing_message = ""
+        retry_message = ""
+        failing_message = ""
+        method_used_to_find_device = ""
         while count <= retry_count:
             self.utils.print_info(f"Searching for device {device_serial}: loop {count}")
-            col_value = self.get_device_details(device_serial, 'MANAGED')
-            if col_value == "Managed":
-                kwargs['pass_msg'] = f"MANAGED column for device {device_serial} contains expected data: '{col_value}"
-                self.common_validation.passed(**kwargs)
-                return 1
+            if device_mac:
+                managed_status = self.get_device_details(device_mac, 'MANAGED')
+                self.utils.print_info(f"Managed status is: '{managed_status}' for the device_mac: '{device_mac}'")
+                passing_message = f"MANAGED column for device '{device_mac}' contains expected data: '{managed_status}'"
+                retry_message =   f"MANAGED column for device '{device_mac}' contains value: '{managed_status}'"
+                failing_message = f"MANAGED column for device '{device_mac}' does not contain expected value 'Managed'"
+                method_used_to_find_device = "mac"
+            elif device_serial:
+                managed_status = self.get_device_details(device_serial, 'MANAGED')
+                self.utils.print_info(f"Managed status is: '{managed_status}' for the device_serial: '{device_serial}'")
+                passing_message = f"MANAGED column for device '{device_serial}' contains expected data: '{managed_status}'"
+                retry_message =   f"MANAGED column for device '{device_serial}' contains value: '{managed_status}'"
+                failing_message = f"MANAGED column for device '{device_serial}' does not contain expected value 'Managed'"
+                method_used_to_find_device = "serial"
+            elif device_name:
+                managed_status = self.get_device_details(device_name, 'MANAGED')
+                self.utils.print_info(f"Managed status is: '{managed_status}' for the device_name: '{device_name}'")
+                passing_message = f"MANAGED column for device '{device_name}' contains expected data: '{managed_status}'"
+                retry_message =   f"MANAGED column for device '{device_name}' contains value: '{managed_status}'"
+                failing_message = f"MANAGED column for device '{device_name}' does not contain expected value 'Managed'"
+                method_used_to_find_device = "name"
+
+            if managed_status == "Managed":
+                # At this time only a device found via mac address can be a stack, so only checking if we validate via mac
+                if method_used_to_find_device == "mac":
+                    # We do not care if this calls pass/fails we just want to get the status to see if it a stack
+                    stack_status = self.get_stack_status(device_mac=device_mac, ignore_failure=True)
+                    if stack_status != -1:
+                        count = 0
+                        while count <= retry_count:
+                            self.utils.print_info(f"Count is {count} and retry_count is {retry_count}")
+                            stack_status = self.get_stack_status(device_mac=device_mac)
+                            self.utils.print_info(f"Stack Status is {stack_status} ")
+                            if stack_status == "blue":
+
+                                stack_row = self.get_device_row(device_mac=device_mac)
+                                self.utils.print_info("Click on stack icon")
+                                self.auto_actions.click(self.devices_web_elements.get_stack_status_icon(stack_row))
+                                self.screen.save_screen_shot()
+                                self.utils.print_info("Click on stack icon")
+                                self.auto_actions.click(self.devices_web_elements.get_stack_status_icon(stack_row))
+                                self.screen.save_screen_shot()
+
+                                kwargs['pass_msg'] = passing_message
+                                self.common_validation.passed(**kwargs)
+                                return 1
+                            else:
+                                self.utils.print_info(f"Stack is not formed. Waiting for {retry_duration} seconds...")
+                                sleep(retry_duration)
+                                self.refresh_devices_page()
+                                count += 1
+
+                        kwargs['fail_msg'] = "Stack never formed"
+                        self.common_validation.failed(**kwargs)
+                        return -1
+
+                    else:
+                        # We are not a stack so print the success message and move on
+                        kwargs['pass_msg'] = passing_message
+                        self.common_validation.passed(**kwargs)
+                        return 1
+                else:
+                    kwargs['pass_msg'] = passing_message
+                    self.common_validation.passed(**kwargs)
+                    return 1
             else:
-                self.utils.print_info(
-                    f"MANAGED column for device {device_serial} contains value: '{col_value}' "
-                    f"still not matching expected value 'Managed'. Waiting for {retry_duration} seconds...")
+                self.utils.print_info(retry_message)
+                self.utils.print_info(f"still not matching expected value 'Managed'. Waiting for {retry_duration} seconds...")
                 sleep(retry_duration)
                 self.refresh_devices_page()
             count += 1
 
-        kwargs['fail_msg'] = f"MANAGED column for device {device_serial} does not contain expected value 'Managed'"
+        kwargs['fail_msg'] = failing_message
         self.common_validation.failed(**kwargs)
         return -1
+
 
     def wait_until_device_data_present(self, device_serial, col, retry_duration=30, retry_count=10, **kwargs):
         """
@@ -5658,35 +5790,6 @@ class Devices(object, metaclass=Singleton):
         :param col_list: comma-separated list of column headers (e.g., LOCATION,MAC,MGT IP ADDRESS)
         :return: dictionary containing the values for each of the specified columns
         """
-        label_map = {'LOCATION': 'locationName',
-                     'NTP STATE': 'ntp_state',
-                     'MGT IP ADDRESS': 'ipAddress',
-                     'MAC': 'macAddress',
-                     'CLIENTS': 'activeClientCount',
-                     'HOST NAME': 'hostname',
-                     'MODEL': 'productType',
-                     'MAKE': 'make',
-                     'UPDATED': 'updatedOn',
-                     'UPTIME': 'systemUpTime',
-                     'SERIAL': 'serialNumber',
-                     'MGT VLAN': 'mgtVlan',
-                     'POLICY': 'networkPolicyName',
-                     'COUNTRY': 'countryCode',
-                     'WIFI0 POWER': 'power24g',
-                     'WIFI1 POWER': 'power5g',
-                     'WIFI0 CHANNEL': 'channel24g',
-                     'WIFI1 CHANNEL': 'channel5g',
-                     'WIFI0 RADIO PROFILE': 'radioProfile24g',
-                     'WIFI1 RADIO PROFILE': 'radioProfile5g',
-                     'OS VERSION': 'displayVer',
-                     'OS': 'os',
-                     'IQAGENT': 'agentVersion',
-                     'MANAGED': 'adminState',
-                     'MANAGED BY': 'managedBy',
-                     'CLOUD CONFIG GROUPS': 'cloudConfigGroups',
-                     'WAN IP ADDRESS': 'wanIpAddress',
-                     'PUBLIC IP ADDRESS': 'extIpAddress'
-                     }
 
         device_detail_dict = dict()
 
@@ -5700,7 +5803,7 @@ class Devices(object, metaclass=Singleton):
                 if re.search(r'field-\w*', cell.get_attribute("class")):
                     label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
                     for label_str in col_labels:
-                        map_value = label_map.get(label_str)
+                        map_value = self.device_column_values.get(label_str)
                         if label == map_value:
                             if label == "productType":
                                 if cell.text:
@@ -5713,10 +5816,10 @@ class Devices(object, metaclass=Singleton):
         else:
             self.utils.print_info(f"Could not find device row matching the search parameter {search_string}")
 
-        self.utils.print_info("****************** DEVICE ROW VALUES ************************")
+        self.utils.print_info("****************** START DEVICE ROW VALUES ************************")
         for key, value in device_detail_dict.items():
             self.utils.print_info(f"{key}:{value}")
-
+        self.utils.print_info("****************** END DEVICE ROW VALUES ************************")
         return device_detail_dict
 
     def confirm_no_duplicate_rows(self, search_string, **kwargs):
@@ -6230,6 +6333,8 @@ class Devices(object, metaclass=Singleton):
         while retry_count <= 300:
             device_update_status = self.get_device_updated_status(device_mac=device_mac)
             if re.search(r'\d+-\d+-\d+', device_update_status):
+                kwargs['pass_msg'] = f"device update successful. Device update status : {device_update_status}"
+                self.common_validation.passed(**kwargs)
                 break
             elif retry_count == 300:
                 kwargs['fail_msg'] = "Config push to switch taking more than 5 minute"
@@ -6242,7 +6347,6 @@ class Devices(object, metaclass=Singleton):
             sleep(30)
             self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
             retry_count += 30
-        self.utils.print_info("return 1  ", device_update_status)
         return 1
 
     def get_device_stack_status(self, device_mac=None, device_serial=None, duration_retry=300, **kwargs):
@@ -11094,10 +11198,10 @@ class Devices(object, metaclass=Singleton):
         self.utils.print_info("Click on device update button")
 
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
-
+        sleep(3)
         self.utils.print_info("Selecting image option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
-
+        sleep(3)
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
@@ -11107,13 +11211,13 @@ class Devices(object, metaclass=Singleton):
 
         self.utils.print_info("Click on device update button")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_device_button)
-
+        sleep(3)
         self.utils.print_info("Selecting image option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_image_checkbox)
 
         self.utils.print_info("Deselecting upgrade configuration option")
         self.auto_actions.click_reference(self.devices_web_elements.get_update_config_checkbox)
-
+        sleep(3)
         self.utils.print_info("Clicking on perform update")
         self.auto_actions.click_reference(self.devices_web_elements.get_perform_update_button)
 
@@ -11134,7 +11238,7 @@ class Devices(object, metaclass=Singleton):
             self.auto_actions.click_reference(self.device_actions.get_device_actions_button)
 
             self.utils.print_info("Clicking on Reboot")
-            self.auto_actions.click_reference(self.device_actions.get_device_actions_reboot_menu_item)
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_reboot_button)
 
             self.utils.print_info("Confirming...")
             self.auto_actions.click_reference(self.dialogue_web_elements.get_confirm_yes_button_reboot)
@@ -11154,11 +11258,11 @@ class Devices(object, metaclass=Singleton):
         self.select_device(device_serial=device_serial)
         if self.select_device(device_serial=device_serial):
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_button)
 
         self.utils.print_info("Checking if License option is displayed")
         license_button = self.devices_web_elements.get_license_action_button()
-        if license_button.is_displayed():
+        if license_button:
             kwargs['fail_msg'] = "License action is available"
             self.common_validation.failed(**kwargs)
             return -1
@@ -11181,11 +11285,11 @@ class Devices(object, metaclass=Singleton):
         self.select_device(device_serial=device_serial)
         if self.select_device(device_serial=device_serial):
             self.utils.print_info("Selecting Actions button")
-            self.auto_actions.click(self.devices_web_elements.get_device_actions_button)
+            self.auto_actions.click_reference(self.devices_web_elements.get_device_actions_button)
 
-        self.utils.print_info("Checking if License option is displayed")
-        reboot_button = self.device_actions.get_device_actions_reboot_menu_item()
-        if reboot_button.is_displayed():
+        self.utils.print_info("Checking if Reboot option is displayed")
+        reboot_button = self.devices_web_elements.get_device_actions_reboot_button()
+        if reboot_button:
             kwargs['fail_msg'] = "Reboot button is available"
             self.common_validation.failed(**kwargs)
             return -1
@@ -12139,8 +12243,14 @@ class Devices(object, metaclass=Singleton):
                     return 1
 
                 else:
-                    self.utils.wait_till()
-                    close_button = self.device_actions.get_close_button()
+                    close_button, _ = self.utils.wait_till(
+                        func=self.device_actions.get_close_button, 
+                        exp_func_resp=True,
+                        silent_failure=True,
+                        timeout=60,
+                        delay=20
+                    )
+                    
                     if close_button:
 
                         self.utils.print_info("Closing the Device Update window")
@@ -12229,13 +12339,26 @@ class Devices(object, metaclass=Singleton):
             self.select_device(device_serial=device_serial)
         if device_mac:
             self.select_device(device_mac=device_mac)
-        self.utils.print_info("Checking the update the status")
-        sleep(5)
-        status = self.devices_web_elements.get_status_update_failed_after_reboot()
-        if status is not None and "The device was rebooted and reverted to previous configuration" in status:
-            kwargs['pass_msg'] = f"Update status: {status}"
+        self.utils.print_info("Checking the update status")
+        self.navigator.wait_until_loading_is_done()
+        updated_box = self.devices_web_elements.get_status_update_failed_after_reboot()
+        err_title = None
+        err_code = None
+        if updated_box:
+            err_title = updated_box.get_attribute("title")
+            err_code = updated_box.get_attribute("errcode")
+        else:
+            kwargs['fail_msg'] = "Web element for 'UPDATED' column not found"
+            self.common_validation.failed(**kwargs)
+            return -1
+        if err_code:
+            kwargs['pass_msg'] = f"Update status: {err_code}"
             self.common_validation.passed(**kwargs)
-            return status
+            return err_code
+        elif err_title:
+            kwargs['pass_msg'] = f"Update status: {err_title}"
+            self.common_validation.passed(**kwargs)
+            return err_title
         else:
             kwargs['fail_msg'] = "Update status not found"
             self.common_validation.failed(**kwargs)
@@ -12375,11 +12498,23 @@ class Devices(object, metaclass=Singleton):
             def _click_update_devices_button():
                 return self.auto_actions.click(DeviceUpdate().get_update_devices_button())
 
-            self.utils.wait_till(_click_update_devices_button, timeout=30, delay=20,
+            self.utils.wait_till(_click_update_devices_button, timeout=40, delay=30,
                                  msg="Selecting Update Devices button")
 
-            checkbox_status = DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox_status()
+            checkbox_element, _ = self.utils.wait_till(
+                func=DeviceUpdate().get_upgrade_IQ_engine_and_extreme_network_switch_images_checkbox,
+                silent_failure=True,
+                exp_func_resp=True,
+                delay=5
+            )
 
+            if not checkbox_element:
+                kwargs["fail_msg"] = "Failed to get upgrade_IQ_engine_and_extreme_network_switch_images_checkbox element"
+                self.common_validation.failed(**kwargs)
+                return -1
+
+            checkbox_status = checkbox_element.get_attribute("checked")
+            
             if checkbox_status == "true":
                 self.utils.print_info("Upgrade IQ Engine and Extreme Network Switch Images checkbox is already checked")
             else:
@@ -12442,7 +12577,7 @@ class Devices(object, metaclass=Singleton):
                 self.common_validation.failed(**kwargs)
                 return -1
 
-        current_message = self.get_device_updated_fail_message_after_reboot(device_serial=device_serial, ignore_failure=True)
+        current_message = self.get_device_updated_fail_message_after_reboot(device_serial=device_serial)
 
         if failure_message != current_message:
             kwargs["fail_msg"] = f"Update process ended up with another failure message: {current_message}"

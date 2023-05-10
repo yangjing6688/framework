@@ -36,6 +36,22 @@ class AutoActions:
         :return: None
         """
 
+        # The following code is used to complete the click process using javascript which is necessary when certain
+        # exceptions are raised.
+        java_script = """
+                      function do_click(element_to_click)
+                      {
+                        try {
+                           element_to_click.click();
+                           return true;
+                        }
+                        catch(err) {
+                          return false;
+                        }
+                      }
+                      return do_click(arguments[0])
+                      """
+
         if element is None:
             self.screen.save_screen_shot()
             self.builtin.fail(msg="Unable to Click the Element. The element is passed in is 'None'. No WebElement Handler Present for the Element.")
@@ -68,20 +84,7 @@ class AutoActions:
                     # element and therefore preventing the user from clicking the element.
                     #
                     # In this case we'll use DOM to click the element via a Javascript method.
-                    java_script = """
-                                  function do_click(element_to_click)
-                                  {
-                                    try {
-                                       element_to_click.click();
-                                       return true;
-                                    }
-                                    catch(err) {
-                                      return false;
-                                    }
-                                  }
-                                  return do_click(arguments[0])
-                                  """
-                    self.utils.print_info("'Element Click Intercepted Exception': trying javascript click().")
+                    self.utils.print_info("'Element Click Intercepted Exception': trying javascript click()")
                     click_successful = CloudDriver().cloud_driver.execute_script(java_script, element)
                     if click_successful:
                         self.utils.print_info("Javascript click was successful")
@@ -100,7 +103,12 @@ class AutoActions:
                     return -1
 
                 except ElementNotInteractableException:
-                    self.utils.print_debug("Error: ElementNotInteractableException. Retrying after {} seconds...".format(wait_time))
+                    self.utils.print_info("'Element Not Interactable Exception': trying javascript click()")
+                    click_successful = CloudDriver().cloud_driver.execute_script(java_script, element)
+                    if click_successful:
+                        self.utils.print_info("Javascript click was successful")
+                        return 1
+                    self.utils.print_info("Error: Javascript click was not successful. Retrying after {} seconds...".format(wait_time))
 
                 except Exception as e:
                     self.utils.print_info("An exception occurred while attempting a click. Retrying after {} seconds Error: {}".format(wait_time, e))
@@ -117,6 +125,7 @@ class AutoActions:
     def click_with_js(self, element):
         CloudDriver().cloud_driver.execute_script("arguments[0].click(); ", element)
         sleep(2)
+        return 1
 
     def move_to_element(self, element):
         """
@@ -515,3 +524,16 @@ class AutoActions:
         actions = ActionChains(CloudDriver().cloud_driver)
         actions.click().perform()
 
+    def scroll_to_element(self, element):
+        '''
+        - This Keyword Uses to Scroll the page until the element is displayed into visible area
+        :param element: Web element
+        :return:
+        '''
+        try:
+            coordinates = element.location_once_scrolled_into_view  # returns dict of X, Y coordinates
+            CloudDriver().cloud_driver.execute_script(
+                'window.scrollTo({}, {});'.format(coordinates['x'], coordinates['y']))
+
+        except Exception as error_name:
+            self.utils.print_info(" Error:", error_name)
