@@ -4682,7 +4682,7 @@ class SwitchTemplate(object):
                 kwargs["pass_msg"] = f"Successfully add {ports} to lag {main_lag_port}"
                 self.common_validation.passed(**kwargs)
 
-    def remove_lag_in_template(self, main_lag_port, ports, device='', **kwargs):
+    def remove_lag_in_template(self,  main_lag_port, ports, policy_name=None, template_name=None, cli_type=None, **kwargs):
 
         """
         This keyword is used to remove ports from LAG
@@ -4690,10 +4690,14 @@ class SwitchTemplate(object):
         :param main_lag_port: Master port
         :param ports: list with all ports that need to be removed
         """
+
+        self.navigator.navigate_to_network_policies_list_view_page()
+        self.select_sw_template(policy_name,template_name,cli_type)
+        self.go_to_port_configuration()
+        self.screen.save_screen_shot()
+
         lag_text = main_lag_port + " LAG"
         self.utils.wait_till(timeout=5)
-        self.auto_actions.scroll_down()
-        self.auto_actions.scroll_bottom()
         lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
         is_lag_found = False
         if lag_link is not None:
@@ -4702,26 +4706,33 @@ class SwitchTemplate(object):
                 is_lag_found = True
                 self.utils.print_info(f"LAG {main_lag_port} found on the page.")
                 self.auto_actions.click(lag_link)
+                self.screen.save_screen_shot()
         if not is_lag_found:
             kwargs["fail_msg"] = f"{lag_text} wasn't found"
             self.common_validation.failed(**kwargs)
         for port in ports:
+            self.utils.print_info(f"Removing port '{port}'")
             if not self.sw_template_web_elements.get_selected_port(port=port).is_selected():
                 self.auto_actions.click(self.sw_template_web_elements.get_selected_port(port=port))
             self.auto_actions.click(self.sw_template_web_elements.get_lag_remove_port_button())
-            sleep(2)
-        self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
+            agg_port_list = self.sw_template_web_elements.get_port_in_agg()
+            if agg_port_list:
+                val = self.sw_template_web_elements.get_port_in_agg()[-1]
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_ports_in_agg_drop_down)
+                self.auto_actions.control_click(val)
         sleep(2)
-        if device == 'stack':
-            self.auto_actions.click(self.sw_template_web_elements.get_switch_temp_save_button())
-        elif device == 'standalone':
-            self.auto_actions.click(self.sw_template_web_elements.save_device_template())
-        else:
-            kwargs["fail_msg"] = "Please specify a device type."
-            self.common_validation.failed(**kwargs)
+        self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.auto_actions.click(self.sw_template_web_elements.save_device_template())
+        sleep(2)
+
+
+        self.screen.save_screen_shot()
         kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"
         self.common_validation.passed(**kwargs)
-
+    
     def global_mac_locking_status_change(self, policy_name, template_name, **kwargs):
         """
          - This keyword will enable mac locking from Device Template(Device Configuration)
