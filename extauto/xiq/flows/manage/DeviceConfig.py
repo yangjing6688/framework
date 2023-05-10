@@ -2895,6 +2895,7 @@ class DeviceConfig(DeviceConfigElements):
                             if self.get_config_audit_delta_view_button_yellow(row_check):
                                 return True
                             else:
+                                self.screen.save_screen_shot()
                                 return False
                 else:
                     kwargs['fail_msg'] = f"The mac {str(device_mac)} is invalid."
@@ -2915,11 +2916,15 @@ class DeviceConfig(DeviceConfigElements):
             if device_mac in row.text:
                 self.utils.print_debug(f"Found device with mac: {device_mac}")
                 self.utils.print_info("Attempting to click audit delta view button...")
+
+                def local_delta_view_button():
+                    return self.get_config_audit_delta_view_button_yellow(row)
+
                 audit_delta_view_button = self.get_config_audit_delta_view_button_yellow(row)
                 if audit_delta_view_button:
                     self.utils.print_info("Found the delta view button!")
                     self.utils.print_info("Clicking the delta view button...")
-                    self.auto_actions.click(audit_delta_view_button)
+                    self.auto_actions.click_reference(local_delta_view_button)
                 else:
                     kwargs['fail_msg'] = "Did not find the delta view button"
                     self.common_validation.failed(**kwargs)
@@ -2936,7 +2941,7 @@ class DeviceConfig(DeviceConfigElements):
                         return True
                     else:
                         return False
-                self.utils.wait_till(check_audit_config_content, is_logging_enabled=True, timeout=30, delay=10)
+                self.utils.wait_till(check_audit_config_content, is_logging_enabled=True, timeout=60, delay=10)
                 self.utils.print_info(f"Audit content: {self.get_config_audit_content().text}")
                 self.utils.print_info("Attempting to locate delta view...")
 
@@ -2957,7 +2962,7 @@ class DeviceConfig(DeviceConfigElements):
                         return bool(self.get_device_config_audit_delta_view_content().text)
 
                     self.utils.wait_till(check_device_config_audit_delta_view_content, is_logging_enabled=True,
-                                         timeout=50, delay=10)
+                                         timeout=160, delay=10)
                     delta_configs = self.get_device_config_audit_delta_view_content().text
                 else:
                     kwargs['fail_msg'] = "Did not manage to locate the content..."
