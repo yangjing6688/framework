@@ -1,6 +1,7 @@
 from time import sleep
 import json
 from keywords.xapi_base.XapiBaseDeviceApi import XapiBaseDeviceApi
+from keywords.xapi_base.XapiBaseNetworkPolicyApi import XapiBaseNetworkPolicyApi
 from tools.xapi.XapiHelper import XapiHelper
 
 class XapiDevices(XapiHelper):
@@ -8,6 +9,7 @@ class XapiDevices(XapiHelper):
     def __init__(self):
         super().__init__()
         self.xapiBaseDeviceApi = XapiBaseDeviceApi()
+        self.xapiBaseNetworkPolicyApi = XapiBaseNetworkPolicyApi()
         # Supported UI to XAPI column selector
         self.NOT_SUPPORTED = 'not_supported'
         self.device_column_ui_to_xapi = {}
@@ -200,6 +202,7 @@ class XapiDevices(XapiHelper):
             kwargs['fail_msg'] = f"Failed to find the device with serial:{device_serial}, or MAC: {device_mac}"
             self.common_validation.failed(**kwargs)
             return -1
+
 
     def xapi_wait_until_device_offline(self, device_serial=None, device_mac=None, retry_duration=5, retry_count=120, **kwargs):
         """
@@ -590,7 +593,6 @@ class XapiDevices(XapiHelper):
             return -1
 
         api_response = self.xapiBaseDeviceApi.xapi_base_get_device(id=id, fields=['device_admin_state'], _preload_content=False)
-        self.valid_http_response(api_response)
         data = json.loads(api_response.data)
         device_admin_state = data.get('device_admin_state', '')
         if manage_type == "MANAGE":
@@ -618,6 +620,30 @@ class XapiDevices(XapiHelper):
                                  f"or 'UNMANAGED' or manage_type '{manage_type}' is not a valid option"
             self.common_validation.fault(**kwargs)
             return -1
+
+
+    def xapi_update_network_policy(self, policy_name, device_serial, **kwargs):
+        """
+            This function will update the policy on the device
+
+        :param policy_name: The device policy name
+        :param device_serial: The device serial number
+        :return: 1 for success and -1 for failure
+        """
+        device_id = self._xapi_search_for_device_id(device_serial=device_serial, **kwargs)
+        if device_id == -1:
+            kwargs['fail_msg'] = f"Failed to get the device ID for serial:{device_serial}"
+            self.common_validation.fault(**kwargs)
+            return -1
+
+        policy_id = self._xapi_search_for_policy_id(policy_name, **kwargs)
+        if policy_id == -1:
+            kwargs['fail_msg'] = f"Failed to get the policy ID for serial:{policy_name}"
+            self.common_validation.fault(**kwargs)
+            return -1
+        self.xapiBaseDeviceApi.xapi_base_assign_device_network_policy(id=device_id, network_policy_id=policy_id, _preload_content=False)
+        return 1
+
 
     def xapi_get_device_status(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
         """
@@ -706,6 +732,24 @@ class XapiDevices(XapiHelper):
                         self.set_xapi_global_device(device_mac, device_id)
                         break
         return device_id
+
+    def _xapi_search_for_policy_id(self, policy_name, **kwargs):
+        """
+           This helper function will search for the policy ID given the parameters that were passed in.
+           This ID is used in all of the XAPI keywords as the device ID
+
+           :param policy_name: The policy name
+           :return: The policy ID for success and -1 for failure
+        """
+        policy_id = -1
+
+        # Call the API to get the policy ID
+        policy_data = self.xapiBaseNetworkPolicyApi.xapi_base_list_network_polices(policy_names=[policy_name])
+        if len(policy_data.data) != 0:
+            policy_id = policy_data.data[0].id
+        return policy_id
+
+
 
     def xapi_search_for_device(self, device_serial=None, device_mac=None, **kwargs):
         """
