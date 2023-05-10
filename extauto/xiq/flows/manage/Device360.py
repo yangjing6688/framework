@@ -1443,11 +1443,12 @@ class Device360(Device360WebElements):
 
         return ret_val
 
-    def device360_get_port_row(self, port_name, **kwargs):
+    def device360_get_port_row(self, port_name, scroll_to_row = False, **kwargs):
         """
         - Get the port row object matching the specified port_name from Device360 --> Configure --> Port Configuration
 
         :param port_name: name of the port to return the row for
+        :scroll_to_row: scroll the page until the row is displayed into visible area
         :return: row element if row exists else return None
         """
         ret_val = None
@@ -1459,6 +1460,8 @@ class Device360(Device360WebElements):
             for row in rows:
                 row_text = row.text
                 if row_text.startswith(port_name):
+                    if scroll_to_row:
+                        self.auto_actions.scroll_to_element(row)
                     ret_val = row
                     break
 
@@ -7634,19 +7637,25 @@ class Device360(Device360WebElements):
 
                 self.utils.wait_till(_wait_for_port_row)
 
-                port_row = self.device360_get_port_row(port_number)
+                port_row = self.device360_get_port_row(port_number, scroll_to_row = True)
                 if port_row:
                     self.utils.print_debug("Found row for port: ", port_row.text)
+                    def drop_down_button_func():
+                        return self.get_device360_configure_port_usage_drop_down_button(port_row)
+
                     self.utils.print_info("Click Port Usage drop down")
-                    drop_down_button = self.get_device360_configure_port_usage_drop_down_button(port_row)
-                    self.auto_actions.click(drop_down_button)
-                    if self.get_device360_configure_port_usage_drop_down_options_presence(port_row):
-                        pass
+                    self.auto_actions.click_reference(drop_down_button_func)
+
+                    drop_down_port_usage_items = self.get_device360_configure_port_usage_drop_down_options(port_row)
+                    if drop_down_port_usage_items:
+                        for item_pu in drop_down_port_usage_items:
+                            self.utils.print_debug(f"items {item_pu.text} for port {port_number}")
                     else:
-                        self.auto_actions.click(drop_down_button)
+                        self.utils.print_debug("the items were not found")
+
                     self.utils.print_info("Selecting Port Usage")
-                    self.auto_actions.select_drop_down_options(
-                        self.get_device360_configure_port_usage_drop_down_options(port_row), port_type)
+                    self.auto_actions.select_drop_down_options(drop_down_port_usage_items, port_type)
+
                     self.utils.print_info("Entering Trunk Native Vlan TextField...")
                     self.auto_actions.send_keys(self.get_device360_configure_port_trunk_native_vlan_textfield(port_row),
                                                 Keys.CONTROL + "a")

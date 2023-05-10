@@ -37,6 +37,12 @@ class DeviceTemplateWebElementDefinitions:
             'wait_for': 5
         }
 
+    device_template_menu = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-tab-wireless-networks"]',
+            'wait_for': 5
+        }
+
     device_template_ap_template_add_button = \
         {
             'CSS_SELECTOR': '.table-action-buttons.table-action-icons.table-drop-add',
@@ -284,6 +290,12 @@ class DeviceTemplateWebElementDefinitions:
     delete_ap_template_button = \
         {
             'XPATH': '//div[@data-dojo-attach-point="apTemplateCtn"]//span[@data-tip="Delete"]',
+            'wait_for': 3
+        }
+
+    remove_ap_template_from_policy_button = \
+        {
+            'XPATH': '//*[@data-automation-tag="automation-wireless-device-templates-speRemove-btn"]',
             'wait_for': 3
         }
 
