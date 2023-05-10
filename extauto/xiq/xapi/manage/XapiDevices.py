@@ -179,15 +179,17 @@ class XapiDevices(XapiHelper):
 
         return self.xapiBaseDeviceApi.xapi_base_reboot_device(id=id)
 
-    def xapi_search_device(self, device_serial=None, device_mac=None, **kwargs):
+    def xapi_search_device(self, device_dict, **kwargs):
         """
         This function will search for the device based on the serial, name or mac
 
-        :param device_serial: The device serial number
-        :param device_mac: The device mac address
+        :param device_dict: The device object
         :param kwargs:
         :return: 1 if the device was found and -1 if the device wasn't found
         """
+
+        device_serial = device_dict.get("serial", None)
+        device_mac = device_dict.get("mac", None)
 
         device_id = self._xapi_search_for_device_id(device_serial=device_serial, device_mac=device_mac, **kwargs)
         if device_id != -1:
