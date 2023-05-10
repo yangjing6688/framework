@@ -6333,6 +6333,8 @@ class Devices(object, metaclass=Singleton):
         while retry_count <= 300:
             device_update_status = self.get_device_updated_status(device_mac=device_mac)
             if re.search(r'\d+-\d+-\d+', device_update_status):
+                kwargs['pass_msg'] = f"device update successful. Device update status : {device_update_status}"
+                self.common_validation.passed(**kwargs)
                 break
             elif retry_count == 300:
                 kwargs['fail_msg'] = "Config push to switch taking more than 5 minute"
@@ -6345,7 +6347,6 @@ class Devices(object, metaclass=Singleton):
             sleep(30)
             self.utils.print_info(f"Time elapsed for device update: {retry_count} seconds")
             retry_count += 30
-        self.utils.print_info("return 1  ", device_update_status)
         return 1
 
     def get_device_stack_status(self, device_mac=None, device_serial=None, duration_retry=300, **kwargs):
