@@ -524,3 +524,16 @@ class AutoActions:
         actions = ActionChains(CloudDriver().cloud_driver)
         actions.click().perform()
 
+    def scroll_to_element(self, element):
+        '''
+        - This Keyword Uses to Scroll the page until the element is displayed into visible area
+        :param element: Web element
+        :return:
+        '''
+        try:
+            coordinates = element.location_once_scrolled_into_view  # returns dict of X, Y coordinates
+            CloudDriver().cloud_driver.execute_script(
+                'window.scrollTo({}, {});'.format(coordinates['x'], coordinates['y']))
+
+        except Exception as error_name:
+            self.utils.print_info(" Error:", error_name)

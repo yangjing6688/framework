@@ -2004,16 +2004,22 @@ class SwitchTemplate(object):
                                             return "Trunk Port has been saved successfully." in tool_tip_text
                                         else:
                                             return False
-
-                                    confirmation_message_trunk = self.utils.wait_till(check_for_confirmation_trunk,
-                                                                                      is_logging_enabled=True)[0]
-                                    if confirmation_message_trunk:
-                                        self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to"
-                                                              f"the ports: {ports}")
-                                    else:
-                                        kwargs['fail_msg'] = "Did not find the successful Trunk Port message."
-                                        self.common_validation.failed(**kwargs)
-                                        return -1
+                                    cnt = 0
+                                    while cnt < 3:
+                                        if check_for_confirmation_trunk():
+                                            break
+                                        cnt = cnt + 1
+                                    if cnt == 3:
+                                        self.screen.save_screen_shot()
+                                        confirmation_message_trunk = self.utils.wait_till(check_for_confirmation_trunk,
+                                                                    timeout=4, delay=0.1, is_logging_enabled=True)[0]
+                                        if confirmation_message_trunk:
+                                            self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to "
+                                                                  f"the ports: {ports}")
+                                        else:
+                                            kwargs['fail_msg'] = "Did not find the successful Trunk Port message."
+                                            self.common_validation.failed(**kwargs)
+                                            return -1
 
                                 else:
                                     kwargs['fail_msg'] = "Unable to find the 'Save' button in this section!"
@@ -2038,17 +2044,24 @@ class SwitchTemplate(object):
                                         else:
                                             self.screen.save_screen_shot()
                                             return False
-
-                                    confirmation_message = self.utils.wait_till(check_for_confirmation,
-                                                                                is_logging_enabled=True)[0]
-                                    if confirmation_message:
-                                        rc = 1
-                                        kwargs['pass_msg'] = "Template has been saved successfully."
-                                        self.common_validation.passed(**kwargs)
-                                    else:
-                                        kwargs['fail_msg'] = "Successful message not found"
-                                        self.common_validation.failed(**kwargs)
-                                        return -1
+                                    cnt = 0
+                                    while cnt < 3:
+                                        if check_for_confirmation():
+                                            rc = 1
+                                            break
+                                        cnt = cnt + 1
+                                    if cnt == 3:
+                                        confirmation_message = self.utils.wait_till(check_for_confirmation,
+                                                                                    timeout=7, delay=0.1,
+                                                                                    is_logging_enabled=True)[0]
+                                        if confirmation_message:
+                                            rc = 1
+                                            kwargs['pass_msg'] = "Template has been saved successfully."
+                                            self.common_validation.passed(**kwargs)
+                                        else:
+                                            kwargs['fail_msg'] = "Successful message not found"
+                                            self.common_validation.failed(**kwargs)
+                                            return -1
                                     break
                             return rc
                         else:

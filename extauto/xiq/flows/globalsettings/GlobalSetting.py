@@ -9,6 +9,7 @@ from extauto.common.CommonValidation import CommonValidation
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.GlobalSettingWebElements import GlobalSettingWebElements
 from extauto.xiq.elements.DevicesWebElements import DevicesWebElements
+from extauto.xiq.xapi.globalsettings.XapiGlobalSettings import XapiGlobalSettings
 
 
 class GlobalSetting(GlobalSettingWebElements):
@@ -22,6 +23,7 @@ class GlobalSetting(GlobalSettingWebElements):
         self.builtin = BuiltIn()
         self.devices_web_elements = DevicesWebElements()
         self.common_validation = CommonValidation()
+        self.xapiGlobalSettings = XapiGlobalSettings()
 
     def get_authentication_logs_row(self, search_string):
         """
@@ -35,13 +37,24 @@ class GlobalSetting(GlobalSettingWebElements):
         :return: row element if row exists else return None
         """
         self.utils.print_info("Getting authentication logs rows")
+        sleep(5)
         rows = self.get_authentication_logs_grid_rows()
         if not rows:
             self.utils.print_info("Authentication Logs rows are not available in the page")
             return False
-        for row in rows:
-            if search_string in row.text:
-                return row
+        try:
+            for row in rows:
+                row_text = row.text.lower()
+                row_inner_text = row.get_attribute("innerText").lower()
+                search_string_lower = search_string.lower()
+                self.utils.print_info(f"Authentication Logs row text: {row_text} / {row_inner_text} = {search_string}")
+                if search_string_lower in row_text or search_string_lower in row_inner_text:
+                    self.utils.print_info("Authentication Logs row found")
+                    return row
+        except Exception as e:
+            self.utils.print_error("Exception when getting the row element: %s\n" % e)
+            raise e
+
 
     def get_accounting_logs_row(self, search_string):
         """
@@ -63,46 +76,77 @@ class GlobalSetting(GlobalSettingWebElements):
             if search_string in row.text:
                 return row
 
-    def get_authentication_logs_details(self, search_string, search_filter=None):
+    def get_authentication_logs_details(self, search_string, search_filter=None, **kwargs):
         """
         - Filter the logs based on the Filter arguments Allowed Filters are: Client or user name
-        - Gets all authentication details from the row
+        - Gets all authentication details from the row will try up to ten minutes to get the correct row
         - Flow : User account image-->Global Settings--> Authentication Logs
         - Keyword Usage
         - ``Get Authentication Logs Details   ${SEARCH_STRING}    ${SEARCH_FILTER``
 
-        :param search_filter:  filter string
-        :param search_string:  row search string i.e client mac or user name
+        Supported Modes:
+            UI - default mode
+            XAPI - kwargs XAPI_ENABLE=True (Will only support XAPI keywords in your test)
+
+        :param search_string:  row search
+        :param search_filter:  filter string - i.e client mac or user name
         :return: authentication details dict
         """
-        self.utils.print_info("Navigate to Global Settings-->Authentication Logs")
-        self.navigate.navigate_to_authentication_logs()
-        sleep(5)
 
-        if close_icon := self.get_authentication_logs_unknown_error_close_icon():
-            if close_icon.is_displayed():
-                self.utils.print_info("Click close icon")
-                self.auto_actions.click_reference(self.get_authentication_logs_unknown_error_close_icon)
+        row_data = None
+        max_time = 600
+        counter = 0
+        if self.xapiGlobalSettings.is_xapi_enabled(**kwargs):
+            while(row_data is None or counter > max_time):
+                row_data = self.xapiGlobalSettings.xapi_get_authentication_logs_details(search_string=search_string, search_filter=search_filter, **kwargs)
+                if row_data is not None:
+                    return row_data
+                else:
+                    self.utils.print_info("Row data is None, retrying...")
+                    counter += 1
+                    sleep(1)
+            return row_data
+
+
+
+        while (row_data is None or counter > max_time):
+            self.utils.print_info("Navigate to Global Settings-->Authentication Logs")
+            self.navigate.navigate_to_authentication_logs()
+            sleep(5)
+            if close_icon := self.get_authentication_logs_unknown_error_close_icon():
+                if close_icon.is_displayed():
+                    self.utils.print_info("Click close icon")
+                    self.auto_actions.click_reference(self.get_authentication_logs_unknown_error_close_icon)
+                    sleep(2)
+
+            if search_filter:
+                self.utils.print_info("Search grid based on search_filter in Auth logs")
+                self.utils.print_info("Entering search_string  ", search_filter)
+                self.auto_actions.send_keys(self.get_authentication_logs_search_text_field(),
+                                            search_filter)
+                self.screen.save_screen_shot()
                 sleep(2)
 
-        if search_filter:
-            self.utils.print_info("Search grid based on search_filter in Auth logs")
-            self.utils.print_info("Entering search_string  ", search_filter)
-            self.auto_actions.send_keys(self.get_authentication_logs_search_text_field(),
-                                        search_filter)
-            self.screen.save_screen_shot()
-            sleep(2)
 
-        if view_log := self.get_authentication_logs_view_all_pages_button():
-            if view_log.is_displayed():
-                self.utils.print_info("Click Full pages button")
-                self.auto_actions.click_reference(self.get_authentication_logs_view_all_pages_button)
-                sleep(2)
+            if view_log := self.get_authentication_logs_view_all_pages_button():
+                if view_log.is_displayed():
+                    self.utils.print_info("Click Full pages button")
+                    self.auto_actions.click_reference(self.get_authentication_logs_view_all_pages_button)
+                    sleep(2)
 
-        auth_logs_dict = {}
-        auth_logs_row = self.get_authentication_logs_row(search_string)
+            auth_logs_dict = {}
+            auth_logs_row = self.get_authentication_logs_row(search_string)
+
+            if auth_logs_row is not None:
+                self.utils.print_info("Authentication Logs row found")
+                break;
+            else:
+                counter += 1
+                self.utils.print_info("Row data is None, retrying...")
+                self.navigate.navigate_to_devices()
+                sleep(60)
+
         self.screen.save_screen_shot()
-
         if auth_logs_row:
             cells = self.get_authentication_logs_row_cells(auth_logs_row)
             for cell in cells:
@@ -118,32 +162,6 @@ class GlobalSetting(GlobalSettingWebElements):
             self.utils.print_info("******************Authentication log details************************")
             for key, value in auth_logs_dict.items():
                 self.utils.print_info(f"{key}:{value}")
-        else:
-            self.utils.print_info("No logs found.. Sleep for 60secs and checking again..")
-            sleep(60)
-            self.navigate.navigate_to_devices()
-            self.navigate.navigate_to_authentication_logs()
-            self.auto_actions.send_keys(self.get_authentication_logs_search_text_field(),
-                                        search_filter)
-            sleep(2)
-            auth_logs_row = self.get_authentication_logs_row(search_string)
-            self.screen.save_screen_shot()
-
-            if auth_logs_row:
-                cells = self.get_authentication_logs_row_cells(auth_logs_row)
-                for cell in cells:
-                    if re.search(r'field-\w*', cell.get_attribute("class")):
-                        label = re.search(r'field-\w*', cell.get_attribute("class")).group().split("field-")[-1]
-
-                        if label == 'reply':
-                            auth_cell = self.get_authentication_logs_auth_status_cell(cell)
-                            auth_logs_dict[label] = auth_cell.get_attribute("class").split()[-1]
-                            self.screen.save_screen_shot()
-                        else:
-                            auth_logs_dict[label] = cell.text
-                self.utils.print_info("******************Authentication log details************************")
-                for key, value in auth_logs_dict.items():
-                    self.utils.print_info(f"{key}:{value}")
 
         return auth_logs_dict
 
