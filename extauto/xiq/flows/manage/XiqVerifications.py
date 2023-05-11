@@ -430,6 +430,8 @@ class XiqVerifications:
         if dut.cli_type.upper() == "EXOS":
 
             output = self.cli.networkElementCliSend.send_cmd(dut.name, 'show ports vlan ')[0].cmd_obj._return_text
+            self.utils.print_debug("output", output)
+            self.utils.print_debug("ports ", ports)
 
             if dut.platform.upper() == 'STACK':
 
@@ -621,13 +623,7 @@ class XiqVerifications:
                          'page2 trunkVlanPage': ['next_page', None],
                          'native vlan': ['1', '1'],
                          'allowed vlans': [vlan_range, vlan_range],
-                         'page3 transmissionSettings': ["next_page", None],
-                         'page4 stp': ["next_page", None],
-                         'page5 stormControlSettings': ["next_page", None],
-                         'page6 MACLocking': ["next_page", None],
-                         'page7 ELRP': ["next_page", None],
-                         'page8 pseSettings': ["next_page", None],
-                         'page9 summary': ["next_page", None]
+                         'page summary': ["next_all_pages", None],
                          }
 
         self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
