@@ -4689,6 +4689,9 @@ class SwitchTemplate(object):
         :param device: either stack or standalone
         :param main_lag_port: Master port
         :param ports: list with all ports that need to be removed
+        :param policy_name: The name of policy to use to get the template that lag will added to
+        :param template_name: The name of template to that lag will be added to
+        :param cli_type: This is need to pick the correct type of switch template to work with
         """
 
         self.navigator.navigate_to_network_policies_list_view_page()
