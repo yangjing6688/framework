@@ -3163,8 +3163,11 @@ class Cli(object):
                 system_type_regex = "(\\d+:\\d+)"
             output = self.networkElementCliSend.send_cmd(dut.name, 'show ports vlan')[0].cmd_obj._return_text
             disconnected_ports = self.utils.get_regexp_matches(output, system_type_regex, 1)
+            self.utils.print_info(f"All ports found on device are: {disconnected_ports}")
+            self.utils.print_info(f"connected ports are: {connected_ports}")
             for connected in connected_ports:
                 if connected in disconnected_ports:
+                    self.utils.print_info(f"Removing port : {connected}")
                     disconnected_ports.remove(connected)
         return disconnected_ports
 
