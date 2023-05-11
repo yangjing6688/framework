@@ -80,20 +80,23 @@ def create_rst_for_directory(base_directory, docs_rst_files_directory):
             print(f'Creating documentation for: {entire_directory}')
 
             # Add the directory to the TOC
-            final_toc = "docs/" + keyword_directory
-            if not fileContainsPattern(toc_file, final_toc):
-                print(f'Adding {final_toc} to TOC')
-                replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
+            partial_directory = entire_directory[entire_directory.index("../../")+6:]
+            final_toc = "docs/" + partial_directory
 
-            # Generate the doc files
-            os.system("export SPHINX_APIDOC_OPTIONS=members,undoc-members && sphinx-apidoc -d 1 -M --tocfile " + keyword_directory + " -o " + docs_rst_files_directory + " " + os.path.join(base_directory, keyword_directory))
+            if partial_directory == 'keywords/gui' or partial_directory == 'keywords/xapi_base':
+                if not fileContainsPattern(toc_file, final_toc):
+                    print(f'Adding {final_toc} to TOC')
+                    replaceFileContents(toc_file, index_rst_toc, index_rst_toc  + "\n   " + final_toc)
 
-            # Replace the name for the TOC
-            toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
-            keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+                # Generate the doc files
+                os.system("export SPHINX_APIDOC_OPTIONS=members,undoc-members && sphinx-apidoc -d 1 -M --tocfile " + keyword_directory + " -o " + docs_rst_files_directory + " " + os.path.join(base_directory, keyword_directory))
 
-            # Check this directory for other directories
-            create_rst_for_directory(entire_directory, docs_rst_files_directory)
+                # Replace the name for the TOC
+                toc_replace_string = 'keywords.' + keyword_directory.replace('_', '\_') + ' package'
+                keyword_file = os.path.join(docs_rst_files_directory,'keywords.' + keyword_directory + '.rst')
+
+                # Check this directory for other directories
+                create_rst_for_directory(entire_directory, docs_rst_files_directory)
 
 # Remove all of the old files
 docs_rst_files_directory = os.path.join(source_file_path, 'source','docs')
@@ -127,7 +130,7 @@ os.system("make html")
 print('Completed')
 
 # Debugging the page
-# import webbrowser
-# new = 2 # open in a new tab, if possible
-# url = f"file:{source_file_path}/build/index.html"
-# webbrowser.open(url,new=new)
+import webbrowser
+new = 2 # open in a new tab, if possible
+url = f"file:{source_file_path}/build/index.html"
+webbrowser.open(url,new=new)
