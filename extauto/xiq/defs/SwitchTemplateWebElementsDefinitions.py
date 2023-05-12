@@ -1233,3 +1233,10 @@ class SwitchTemplateWebElementDefinitions:
             'CSS_SELECTOR': '.ui-cfmsg.confirm',
             'wait_for': 10
         }
+
+
+    ports_in_agg_drop_down = \
+        {
+            'XPATH': './/*[@data-dojo-attach-point="portsInAgg"]',
+            'wait_for': 5
+        }
