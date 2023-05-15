@@ -1,13 +1,13 @@
 class DeviceConfigDefs:
     interface_settings_tab = \
         {
-            'XPATH': '//*[@data-dojo-attach-point="interfaceSettingsTab"]',
+            'XPATH': '//*[@data-automation-tag="automation-sider-list-interfaceSettings"]',
             'wait_for': 5
         }
 
     interface_settings_tab_single_device = \
         {
-            'XPATH': '//li[@data-dojo-attach-point="interfaceSettingsTab"]',
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-interface-settings"]',
             'wait_for': 5
         }
 
@@ -346,7 +346,7 @@ class DeviceConfigDefs:
 
     manage_devices_edit_wireless_interface_save_button = \
         {
-            'XPATH': '//*[@class="interface-settings"]//button[@data-dojo-attach-point="saveButton"]',
+            'XPATH': '//*[@data-dojo-attach-point="saveButton"]',
             'wait_for': 5
         }
 
@@ -506,7 +506,7 @@ class DeviceConfigDefs:
     device_edit_template_drop_down = \
         {
             'XPATH': '//div[@data-dojo-attach-point="deviceTemplateArea"]'
-                     '//div[@data-automation-tag="chzn-container-ctn"]/a',
+                     '//div[@data-automation-tag="automation-chzn-container-ctn"]',
             'wait_for': 5
         }
 

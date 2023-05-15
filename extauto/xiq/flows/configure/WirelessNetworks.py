@@ -650,7 +650,7 @@ class WirelessNetworks:
             if not self.user_group.select_wireless_user_profile(usr_profile_name, ignore_failure=True):
                 self.utils.print_info(f"User Profile:{usr_profile_name} not created !!!")
                 return -1
-
+        sleep(2)
         self.utils.print_info("click on wireless network save button")
         self.auto_actions.click_reference(self.wireless_web_elements.get_wireless_network_save_button)
         sleep(2)

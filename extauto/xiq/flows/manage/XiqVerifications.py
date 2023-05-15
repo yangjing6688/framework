@@ -37,7 +37,7 @@ class XiqVerifications:
         self.cli = Cli()
 
     def verify_path_cost_at_template_level(
-        self, onboarded_switch, path_cost, template_switch,
+        self, onboarded_switch, cli_type, path_cost, template_switch,
         network_policy, default_path_cost="", revert_mode="revert_template",
         port_type="access", verify_delta_cli=False, stp_mode="mstp",
         revert_configuration=True, port_order_in_asic=None, ports=None, slot=None):
@@ -46,6 +46,7 @@ class XiqVerifications:
 
         Args:
             onboarded_switch (dict): the switch - e.g. tb.dut1
+            cli_type (str): switch CLI type- e.g. VOSS, EXOS
             path_cost (int): the path cost value
             template_switch (str): the name of the switch template
             network_policy (str): the name of the network policy
@@ -80,7 +81,8 @@ class XiqVerifications:
         self.utils.print_info(
             f"Go to the port configuration of '{template_switch}' template")
         self.switch_template.select_sw_template(
-            network_policy, template_switch)
+            network_policy, template_switch, cli_type)
+        self.switch_template.set_override_policy_common_settings(state=True)
         self.switch_template.set_stp(enable=True)
         self.switch_template.choose_stp_mode(mode=stp_mode)
         self.switch_template.go_to_port_configuration()
@@ -140,7 +142,7 @@ class XiqVerifications:
 
             finally:
 
-                self.utils.wait_till(timeout=5)
+                self.utils.wait_till(timeout=10)
                 self.switch_template.switch_template_save()
                 self.utils.wait_till(timeout=10)
 
@@ -148,7 +150,7 @@ class XiqVerifications:
                 self.utils.print_info(
                     f"Verifying STP tab for port {port}: {port_type_config}")
                 self.switch_template.verify_path_cost_in_port_configuration_stp_tab(
-                    template_switch, network_policy, port,
+                    onboarded_switch.cli_type, template_switch, network_policy, port,
                     port_type_config["path_cost"], slot=slot
                 )
 
@@ -218,7 +220,7 @@ class XiqVerifications:
                         f" '{template_switch} 'template"
                     )
                     self.switch_template.select_sw_template(
-                        network_policy, template_switch)
+                        network_policy, template_switch, cli_type)
                     self.switch_template.go_to_port_configuration()
 
                     if slot:
@@ -244,7 +246,7 @@ class XiqVerifications:
 
                 finally:
 
-                    self.utils.wait_till(timeout=5)
+                    self.utils.wait_till(timeout=10)
                     self.switch_template.switch_template_save()
                     self.utils.wait_till(timeout=10)
 
@@ -428,6 +430,8 @@ class XiqVerifications:
         if dut.cli_type.upper() == "EXOS":
 
             output = self.cli.networkElementCliSend.send_cmd(dut.name, 'show ports vlan ')[0].cmd_obj._return_text
+            self.utils.print_debug("output", output)
+            self.utils.print_debug("ports ", ports)
 
             if dut.platform.upper() == 'STACK':
 
@@ -619,16 +623,10 @@ class XiqVerifications:
                          'page2 trunkVlanPage': ['next_page', None],
                          'native vlan': ['1', '1'],
                          'allowed vlans': [vlan_range, vlan_range],
-                         'page3 transmissionSettings': ["next_page", None],
-                         'page4 stp': ["next_page", None],
-                         'page5 stormControlSettings': ["next_page", None],
-                         'page6 MACLocking': ["next_page", None],
-                         'page7 ELRP': ["next_page", None],
-                         'page8 pseSettings': ["next_page", None],
-                         'page9 summary': ["next_page", None]
+                         'page summary': ["next_all_pages", None],
                          }
 
-        self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+        self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
         self.switch_template.go_to_port_configuration()
         self.device360.create_new_port_type(template_exos, port_numbers.split(',')[0])
 
@@ -637,7 +635,7 @@ class XiqVerifications:
 
                 for slot in range(1, len(dut.serial.split(',')) + 1):
                     def _check_sw_template_selection():
-                        return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+                        return self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
 
                     self.utils.wait_till(_check_sw_template_selection, timeout=30, delay=5)
 
@@ -646,7 +644,7 @@ class XiqVerifications:
                     self.switch_template.template_assign_ports_to_an_existing_port_type(port_numbers, trunk_port_type_name)
             else:
                 def _check_sw_template_selection():
-                    return self.switch_template.select_sw_template(network_policy_name, sw_template_name)
+                    return self.switch_template.select_sw_template(network_policy_name, sw_template_name, dut.cli_type)
 
                 self.utils.wait_till(_check_sw_template_selection, timeout=30, delay=5)
 

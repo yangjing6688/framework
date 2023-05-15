@@ -14,7 +14,8 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
         return self.weh.get_element(self.card_view)
 
     def get_np_grid_rows(self):
-        return self.weh.get_elements(self.np_grid_rows)[1:]
+        elements = self.weh.get_elements(self.np_grid_rows)
+        return [] if elements is None else elements[1:]
 
     def get_np_row_cell(self, row, field='field-name'):
         """
@@ -502,6 +503,15 @@ class NetworkPolicyWebElements(NetworkPolicyWebElementDefinition):
         :return: device row cell elements
         """
         return self.weh.get_elements(self.port_type_row_cells, row)
+
+    def get_nw_policy_additional_settings_dns_server_tab(self):
+        return self.weh.get_element(self.nw_policy_additional_settings_dns_server_tab)
+
+    def get_dns_server_status(self):
+        return self.weh.get_element(self.dns_server_status)
+
+    def get_dns_server_save_button(self):
+        return self.weh.get_element(self.dns_server_save_button)
 
     def get_port_type_row_cell(self, row, field='field-name'):
         """

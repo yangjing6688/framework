@@ -14,11 +14,11 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.device_template_switch_template_tab)
 
     def get_sw_template_rows(self):
-        """
-
-        :return:
-        """
-        return self.weh.get_elements(self.sw_device_template_grid_rows)
+        rows = []
+        for el in self.weh.get_elements(self.sw_device_template_grid_rows) or []:  
+            if el.is_displayed():          
+                rows.append(el)   
+        return rows
 
     def get_sw_template_platform_from_drop_down(self):
         """
@@ -477,13 +477,22 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
         return self.weh.get_element(self.sw_template_adv_settings_upgr_firm_specific_button)
 
     def get_sw_template_device_sett_forward_delay_drop_down(self):
-        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down)
+        elements = self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_sw_template_device_sett_forward_delay_drop_down_container(self):
-        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_container)
+        elements = self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down_container)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_sw_template_device_sett_forward_delay_drop_down_item16(self):
-        return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item16)
+        elements = self.weh.get_elements(self.sw_template_device_sett_forward_delay_drop_down_item16)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_sw_template_device_sett_forward_delay_drop_down_item15(self):
         return self.weh.get_element(self.sw_template_device_sett_forward_delay_drop_down_item15)
@@ -817,3 +826,9 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_device_template_override_policy(self):
         return self.weh.get_element(self.device_template_override_policy)
+
+    def get_sw_template_enable_mac_locking_confirm_message(self):
+        return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message)
+
+    def get_ports_in_agg_drop_down(self):
+        return self.weh.get_elements(self.ports_in_agg_drop_down)

@@ -378,7 +378,7 @@ class NavigatorWebElementDefinitions:
 
     common_object_policy_ap_template = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-sider-list-ApTemplate"]',
+            'XPATH': '//div[@data-automation-tag="automation-sider-list-ApTemplate"]',
             'wait_for': 5
         }
 
@@ -1346,6 +1346,14 @@ class NavigatorWebElementDefinitions:
         "XPATH": '//a[@data-size="100"]'
         }
 
+    unknown_tooltip_error = {
+        'XPATH': '//*[contains(@class,"ui-tipbox-error")]'
+    }
+
+    unknown_error_tooltip_close_icon = {
+        'XPATH': '//*[contains(@class,"ui-tipbox-close")]'
+    }
+
     grid_loading_wheel = \
         {
             'XPATH': '//div[@class="grid-mark"]',
@@ -1361,5 +1369,11 @@ class NavigatorWebElementDefinitions:
     tools_page = \
         {
             'CSS_SELECTOR': '.tools-controller',
+            'wait_for': 5
+        }
+
+    grid_loading_mark = \
+        {
+            'XPATH': '//div[@data-dojo-attach-point="loadingMark"]',
             'wait_for': 5
         }
