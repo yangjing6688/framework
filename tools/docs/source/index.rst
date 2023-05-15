@@ -19,34 +19,8 @@ into the keyword.
    :name: mastertoc
    :caption: Table of Contents:
 
-   docs/keywords/xapi_base
-   docs/keywords/gui/login
-   docs/keywords/gui/configure/UserManagement/Users
-   docs/keywords/gui/configure/UserManagement
-   docs/keywords/gui/configure
-   docs/keywords/gui/manage
-   docs/keywords/gui/ml_insights
-   docs/keywords/gui/a3
-   docs/keywords/gui/essentials
-   docs/keywords/gui/banner_top
-   docs/keywords/gui/MuCaptivePortal
-   docs/keywords/gui/help_support
-   docs/keywords/gui/copilot
-   docs/keywords/gui
-   docs/login
-   docs/Users
-   docs/UserManagement
-   docs/configure
-   docs/manage
-   docs/ml_insights
-   docs/a3
-   docs/essentials
-   docs/banner_top
-   docs/MuCaptivePortal
-   docs/help_support
-   docs/copilot
-   docs/gui
    docs/xapi_base
+   docs/gui
 
 Indices and tables
 ==================

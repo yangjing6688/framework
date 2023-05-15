@@ -81,7 +81,7 @@ def create_rst_for_directory(base_directory, docs_rst_files_directory):
 
             # Add the directory to the TOC
             partial_directory = entire_directory[entire_directory.index("../../")+6:]
-            final_toc = "docs/" + partial_directory
+            final_toc = "docs/" + partial_directory.replace('keywords/', '')
 
             if partial_directory == 'keywords/gui' or partial_directory == 'keywords/xapi_base':
                 if not fileContainsPattern(toc_file, final_toc):
