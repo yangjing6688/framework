@@ -21,7 +21,7 @@ class IAMWebElements(IAMWebElementsDefinitions):
 
     def get_saml_login_page_idp_server_item(self, username):
         item = {}
-        item['XPATH'] = self.xiq_page_account_username_title['XPATH'] + '"' + username + '"' + ')]'
+        item['XPATH'] = self.saml_login_page_idp_server_item['XPATH'] + '"' + username + '"' + ')]'
         item['wait_for'] = 3
         return item
 
@@ -65,8 +65,12 @@ class IAMWebElements(IAMWebElementsDefinitions):
     def get_iam_idp_page_description_text(self):
         return self.weh.get_element(self.iam_idp_page_description_text)
 
-    def get_iam_idp_page_continue_button(self):
-        return self.weh.get_element(self.iam_idp_page_continue_button)
+    def get_iam_idp_page_continue_button_1(self):
+        return self.weh.get_element(self.iam_idp_page_continue_button_1)
+
+
+    def get_iam_idp_page_continue_button_2(self):
+        return self.weh.get_element(self.iam_idp_page_continue_button_2)
 
     def get_iam_idp_page_import_from_url_button(self):
         return self.weh.get_element(self.iam_idp_page_import_from_url_button)

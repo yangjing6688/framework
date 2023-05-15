@@ -43,7 +43,7 @@ class IAMWebElementsDefinitions:
 
     adfs_page_password_button = \
         {
-            'XPATH': '//span[@id="submitButton"]',
+            'XPATH': '(//button[@type="submit"])[1]',
             'wait_for': 3,
         }
 
@@ -72,7 +72,7 @@ class IAMWebElementsDefinitions:
 
     iam_idp_page_add_idp_button = \
         {
-            'XPATH': '//span[@class="mat-mdc-button-touch-target"]',
+            'XPATH': '//mat-icon[contains(text(),"add")]',
             'wait_for': 3,
         }
 
@@ -88,9 +88,17 @@ class IAMWebElementsDefinitions:
             'wait_for': 3,
         }
 
-    iam_idp_page_continue_button = \
+    iam_idp_page_continue_button_1 = \
         {
-            'XPATH': '//span[contains(text(),"Continue")]',
+            'XPATH': '(//span[contains(text(),"Continue")])[1]',
+            #'CSS_SELECTOR': 'span.mdc-button__label:nth-of-type(1)',
+            'wait_for': 3,
+        }
+
+    iam_idp_page_continue_button_2 = \
+        {
+            'XPATH': '(//span[contains(text(),"Continue")])[2]',
+            # 'CSS_SELECTOR': 'span.mdc-button__label:nth-of-type(1)',
             'wait_for': 3,
         }
 
@@ -114,13 +122,15 @@ class IAMWebElementsDefinitions:
 
     iam_idp_page_email_text = \
         {
-            'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(1) > div.attr-item > div.attr-item-saml',
+            #'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(1) > div.attr-item > div.attr-item-saml',
+            'XPATH': '(//input[@name="field"])[1]',
             'wait_for': 5
         }
 
     iam_idp_page_group_text = \
         {
-            'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(2) > div.attr-item > div.attr-item-saml > mat-form-field',
+            #'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(2) > div.attr-item > div.attr-item-saml > mat-form-field',
+            'XPATH': '(//input[@name="field"])[2]',
             'wait_for': 5
         }
 
