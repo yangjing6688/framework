@@ -2004,16 +2004,22 @@ class SwitchTemplate(object):
                                             return "Trunk Port has been saved successfully." in tool_tip_text
                                         else:
                                             return False
-
-                                    confirmation_message_trunk = self.utils.wait_till(check_for_confirmation_trunk,
-                                                                                      is_logging_enabled=True)[0]
-                                    if confirmation_message_trunk:
-                                        self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to"
-                                                              f"the ports: {ports}")
-                                    else:
-                                        kwargs['fail_msg'] = "Did not find the successful Trunk Port message."
-                                        self.common_validation.failed(**kwargs)
-                                        return -1
+                                    cnt = 0
+                                    while cnt < 3:
+                                        if check_for_confirmation_trunk():
+                                            break
+                                        cnt = cnt + 1
+                                    if cnt == 3:
+                                        self.screen.save_screen_shot()
+                                        confirmation_message_trunk = self.utils.wait_till(check_for_confirmation_trunk,
+                                                                    timeout=4, delay=0.1, is_logging_enabled=True)[0]
+                                        if confirmation_message_trunk:
+                                            self.utils.print_info(f"Saved. Port Type {port_type_name} has been assigned to "
+                                                                  f"the ports: {ports}")
+                                        else:
+                                            kwargs['fail_msg'] = "Did not find the successful Trunk Port message."
+                                            self.common_validation.failed(**kwargs)
+                                            return -1
 
                                 else:
                                     kwargs['fail_msg'] = "Unable to find the 'Save' button in this section!"
@@ -2038,17 +2044,24 @@ class SwitchTemplate(object):
                                         else:
                                             self.screen.save_screen_shot()
                                             return False
-
-                                    confirmation_message = self.utils.wait_till(check_for_confirmation,
-                                                                                is_logging_enabled=True)[0]
-                                    if confirmation_message:
-                                        rc = 1
-                                        kwargs['pass_msg'] = "Template has been saved successfully."
-                                        self.common_validation.passed(**kwargs)
-                                    else:
-                                        kwargs['fail_msg'] = "Successful message not found"
-                                        self.common_validation.failed(**kwargs)
-                                        return -1
+                                    cnt = 0
+                                    while cnt < 3:
+                                        if check_for_confirmation():
+                                            rc = 1
+                                            break
+                                        cnt = cnt + 1
+                                    if cnt == 3:
+                                        confirmation_message = self.utils.wait_till(check_for_confirmation,
+                                                                                    timeout=7, delay=0.1,
+                                                                                    is_logging_enabled=True)[0]
+                                        if confirmation_message:
+                                            rc = 1
+                                            kwargs['pass_msg'] = "Template has been saved successfully."
+                                            self.common_validation.passed(**kwargs)
+                                        else:
+                                            kwargs['fail_msg'] = "Successful message not found"
+                                            self.common_validation.failed(**kwargs)
+                                            return -1
                                     break
                             return rc
                         else:
@@ -4669,18 +4682,25 @@ class SwitchTemplate(object):
                 kwargs["pass_msg"] = f"Successfully add {ports} to lag {main_lag_port}"
                 self.common_validation.passed(**kwargs)
 
-    def remove_lag_in_template(self, main_lag_port, ports, device='', **kwargs):
+    def remove_lag_in_template(self,  main_lag_port, ports, policy_name=None, template_name=None, cli_type=None, **kwargs):
 
         """
         This keyword is used to remove ports from LAG
         :param device: either stack or standalone
         :param main_lag_port: Master port
         :param ports: list with all ports that need to be removed
+        :param policy_name: The name of policy to use to get the template that lag will added to
+        :param template_name: The name of template to that lag will be added to
+        :param cli_type: This is need to pick the correct type of switch template to work with
         """
+
+        self.navigator.navigate_to_network_policies_list_view_page()
+        self.select_sw_template(policy_name,template_name,cli_type)
+        self.go_to_port_configuration()
+        self.screen.save_screen_shot()
+
         lag_text = main_lag_port + " LAG"
         self.utils.wait_till(timeout=5)
-        self.auto_actions.scroll_down()
-        self.auto_actions.scroll_bottom()
         lag_link = self.sw_template_web_elements.get_lag_span(lag=main_lag_port)
         is_lag_found = False
         if lag_link is not None:
@@ -4689,26 +4709,33 @@ class SwitchTemplate(object):
                 is_lag_found = True
                 self.utils.print_info(f"LAG {main_lag_port} found on the page.")
                 self.auto_actions.click(lag_link)
+                self.screen.save_screen_shot()
         if not is_lag_found:
             kwargs["fail_msg"] = f"{lag_text} wasn't found"
             self.common_validation.failed(**kwargs)
         for port in ports:
+            self.utils.print_info(f"Removing port '{port}'")
             if not self.sw_template_web_elements.get_selected_port(port=port).is_selected():
                 self.auto_actions.click(self.sw_template_web_elements.get_selected_port(port=port))
             self.auto_actions.click(self.sw_template_web_elements.get_lag_remove_port_button())
-            sleep(2)
-        self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
+            agg_port_list = self.sw_template_web_elements.get_port_in_agg()
+            if agg_port_list:
+                val = self.sw_template_web_elements.get_port_in_agg()[-1]
+                self.auto_actions.click_reference(self.sw_template_web_elements.get_ports_in_agg_drop_down)
+                self.auto_actions.control_click(val)
         sleep(2)
-        if device == 'stack':
-            self.auto_actions.click(self.sw_template_web_elements.get_switch_temp_save_button())
-        elif device == 'standalone':
-            self.auto_actions.click(self.sw_template_web_elements.save_device_template())
-        else:
-            kwargs["fail_msg"] = "Please specify a device type."
-            self.common_validation.failed(**kwargs)
+        self.auto_actions.click(self.sw_template_web_elements.get_save_port_type_button())
+        self.screen.save_screen_shot()
+        sleep(2)
+
+        self.auto_actions.click(self.sw_template_web_elements.save_device_template())
+        sleep(2)
+
+
+        self.screen.save_screen_shot()
         kwargs["pass_msg"] = f"Successfully removed {ports} from lag {main_lag_port}"
         self.common_validation.passed(**kwargs)
-
+    
     def global_mac_locking_status_change(self, policy_name, template_name, **kwargs):
         """
          - This keyword will enable mac locking from Device Template(Device Configuration)
