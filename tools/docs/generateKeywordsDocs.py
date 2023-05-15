@@ -130,7 +130,7 @@ os.system("make html")
 print('Completed')
 
 # Debugging the page
-import webbrowser
-new = 2 # open in a new tab, if possible
-url = f"file:{source_file_path}/build/index.html"
-webbrowser.open(url,new=new)
+# import webbrowser
+# new = 2 # open in a new tab, if possible
+# url = f"file:{source_file_path}/build/index.html"
+# webbrowser.open(url,new=new)
