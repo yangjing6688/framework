@@ -1101,8 +1101,5 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
                 self.utils.print_info("Configure the Radius server")
                 self.radius_server.config_radius_server(**rs_group_config)
                 return self._add_user_authentication_on_cwp(cwp_name, authentication_method)
-            elif enable_self_reg.upper() == "ENABLE":
-                # TO-DO
-                return 1
             else:
                 return -1
