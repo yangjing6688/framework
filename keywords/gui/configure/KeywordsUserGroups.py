@@ -81,4 +81,4 @@ class KeywordsUserGroups(object, metaclass=Singleton):
             self.keyword_utils.timing.end(keyword_name)
 
         # Return an error if any of the create user group failed
-        return -1 if (return_code == -1) else 1
+        return return_code
