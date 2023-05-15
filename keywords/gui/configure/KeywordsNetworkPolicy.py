@@ -92,5 +92,5 @@ class KeywordsNetworkPolicy(object, metaclass=Singleton):
         finally:
             self.keyword_utils.timing.end(keyword_name)
 
-        # Return an error if any of the create user group failed
+        # Return an error if create network policy failed
         return return_code
