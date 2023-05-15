@@ -3,14 +3,13 @@ from extauto.common.CommonValidation import CommonValidation
 from extauto.common.KeywordUtils import KeywordUtils
 import inspect
 from tools.xapi.XapiHelper import XapiHelper
+from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 # Keyword imports required to run keywords implemented in this file
 from extauto.xiq.flows.configure.UserGroups import UserGroups
 
-from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
-
-class KeywordsUserGroups(object, metaclass=Singleton):  # Example line: Change as needed
+class KeywordsUserGroups(object, metaclass=Singleton):
     def __init__(self):
         # This is a singleton, avoid initializing for each instance
         if hasattr(self, 'initialized'):
@@ -28,13 +27,15 @@ class KeywordsUserGroups(object, metaclass=Singleton):  # Example line: Change a
     def create_user_group(self, group_name='Demo', user_group_profile=None, **kwargs):
         """
         Create User Groups and add users to user Groups
+        This keyword creates the user group and bulk users
         Flow: Configure --> Users --> User Groups
+        Example:
+        Create User Group   group_name=${GROUP_NAME}   user_group_profile=&{USER_GROUP_PROFILE}
+        for supported combination of  &{USER_GROUP_PROFILE} creation refer  "user_group_config.robot"
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/configure/KeywordsUserGroups.py
-        -      Create User Group   group_name=${GROUP_NAME}   user_group_profile=&{USER_GROUP_PROFILE}
-        -      for supported combination of  &{USER_GROUP_PROFILE} creation refer  "user_group_config.robot"
         -
         -   Pytest:
         -      Imports:
@@ -61,7 +62,7 @@ class KeywordsUserGroups(object, metaclass=Singleton):  # Example line: Change a
 
         # The value returned will be based on which implementations we run.  We'll return -1 if we fail to create
         # user groups to any implementations.  We'll return 1 if there is no error raised in any of the implementations.
-        return_code = ""
+        return_code = -1
 
         try:
             implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name,

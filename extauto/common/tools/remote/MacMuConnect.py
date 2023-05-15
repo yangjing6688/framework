@@ -164,9 +164,9 @@ class MacMuConnect(object):
 
     @deprecated('Please use the {connect_wpa2_ppsk_network} keyword keywords/gui/configure/KeywordsMacMuConnect.py. This method can removed after 5/20/2023')
     def connect_wpa2_ppsk_network(self, ssid, key, retry_count=5):
-        return self.gui_connect_wpa2_ppsk_network(ssid, key, retry_count)
+        return self.util_connect_wpa2_ppsk_network(ssid, key, retry_count)
 
-    def gui_connect_wpa2_ppsk_network(self, ssid, key, retry_count=5):
+    def util_connect_wpa2_ppsk_network(self, ssid, key, retry_count=5):
         """
         - Connect the wpa2 ppsk network
         - This keyword is used with robot remote server
@@ -242,9 +242,9 @@ class MacMuConnect(object):
 
     @deprecated('Please use the {connectivity_check} keyword keywords/gui/configure/KeywordsMacMuConnect.py. This method can removed after 5/20/2023')
     def connectivity_check(self, destination='https://www.facebook.com/'):
-        return self.gui_connectivity_check(destination)
+        return self.util_connectivity_check(destination)
 
-    def gui_connectivity_check(self, destination='https://www.facebook.com/'):
+    def util_connectivity_check(self, destination='https://www.facebook.com/'):
         """
         - Connectivity check using curl
         - Keyword Usage:

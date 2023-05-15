@@ -3,14 +3,13 @@ from extauto.common.CommonValidation import CommonValidation
 from extauto.common.KeywordUtils import KeywordUtils
 import inspect
 from tools.xapi.XapiHelper import XapiHelper
+from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 # Keyword imports required to run keywords implemented in this file
 from extauto.xiq.flows.configure.NetworkPolicy import NetworkPolicy
 
-from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
-
-class KeywordsNetworkPolicy(object, metaclass=Singleton):  # Example line: Change as needed
+class KeywordsNetworkPolicy(object, metaclass=Singleton):
     def __init__(self):
         # This is a singleton, avoid initializing for each instance
         if hasattr(self, 'initialized'):
@@ -30,7 +29,7 @@ class KeywordsNetworkPolicy(object, metaclass=Singleton):  # Example line: Chang
         - Create the network policy from CONFIGURE-->NETWORK POLICIES
         - This keyword will create the network policy and wireless network
         - Wireless network includes open, ppsk, psk and enterprise network
-        - Keyword Usage:
+        - Example:
         - ``Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}``
         - ``Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}     ${CLI_TYPE}``
         - ${POLICY_NAME} --> Name of the network policy to create
@@ -72,9 +71,10 @@ class KeywordsNetworkPolicy(object, metaclass=Singleton):  # Example line: Chang
         self.keyword_utils.implementations.set_keyword_uuid("8161d55f-4dca-4ab0-bd73-a01e41d4da42", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name)
 
-        # The value returned will be based on which implementations we run.  We'll return -1 if we fail to create
-        # network policy to any implementations.  We'll return 1 if there is no error raised in any of the implementations.
-        return_code = ""
+        # The value returned will be based on which implementations we run.  We'll return -1 if we fail to
+        # create network policy to any implementations.  We'll return 1 if there is no error raised in
+        # any of the implementations.
+        return_code = -1
 
         try:
             implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name,

@@ -3,13 +3,13 @@ from extauto.common.CommonValidation import CommonValidation
 from extauto.common.KeywordUtils import KeywordUtils
 import inspect
 from tools.xapi.XapiHelper import XapiHelper
+from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 # Keyword imports required to run keywords implemented in this file
 from extauto.common.tools.remote.MacMuConnect import MacMuConnect
-from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 
-class KeywordsMacMuConnect(object, metaclass=Singleton):  # Example line: Change as needed
+class KeywordsMacMuConnect(object, metaclass=Singleton):
     def __init__(self):
         # This is a singleton, avoid initializing for each instance
         if hasattr(self, 'initialized'):
@@ -31,11 +31,12 @@ class KeywordsMacMuConnect(object, metaclass=Singleton):  # Example line: Change
         This keyword uses curl to check the connectivity of the network of the Mobile Unit (MU).
         The method checks to see if the MU can connect to the specified destination internet address by only fetching headers.
         If the curl command's result contains a successful status then the connection is considered good.
+        Example:
+        Template.Connectivity Check
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/configure/KeywordsMacMuConnect.py
-        -       MU1.Connectivity Check
         -
         -   Pytest:
         -      Imports:
@@ -45,33 +46,26 @@ class KeywordsMacMuConnect(object, metaclass=Singleton):  # Example line: Change
         -         keywords_mac_mu_connect.connectivity_check(destination='https://www.facebook.com/')
         -
         - Keyword Implementations:
-        -    GUI
-
-        Supported Modes:
-            GUI  - default mode
-            XAPI - not implemented
-
+        -   This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
         :param destination: destination url
         :return: 1 if internet access available else -1
         """
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
+
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("6597f13f-9386-4bbd-9bc0-d5e4331b9e0a", keyword_name)
-        self.keyword_utils.implementations.gui_implemented(keyword_name)
 
-        # The value returned will be based on which implementations we run.  We'll return -1 if we fail to do
-        # connectivity check to any implementations.  We'll return 1 if there is no error raised in any of the implementations.
+        # The value returned will be based on which implementations we run.  We'll return -1 if we fail to
+        # do connectivity check to any implementations.  We'll return 1 if there is no error raised in
+        # any of the implementations.
         return_code = -1
 
         try:
-            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name,
-                                                                                                     **kwargs)
-            if implementation_to_run != '':
-                self.keyword_utils.timing.start(keyword_name, 'GUI')
-                if implementation_to_run == "GUI":
-                    return_code = self.mac_mu_connect.connectivity_check(destination)
-                else:
-                    kwargs['fail_msg'] = f"Keyword: {keyword_name} has not been implemented for XAPI"
-                    self.common_validation.fault(**kwargs)
+            self.keyword_utils.timing.start(keyword_name, 'GUI')
+            return_code = self.mac_mu_connect.connectivity_check(destination)
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
@@ -89,11 +83,12 @@ class KeywordsMacMuConnect(object, metaclass=Singleton):  # Example line: Change
         The method checks for the MU's interface to be in available state, waits for the network to be reachable by the MU,
         then attempts to connect the MU successfully to the network for the specified amount of retries.
         If the MU's connection is made without any issues then the connection is considered good.
+        Example:
+        Template.Connect Wpa2 Ppsk Network   ${SSID}   ${PSK_KEY}
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/configure/KeywordsMacMuConnect.py
-        -       MU1.Connect Wpa2 Ppsk Network   ${SSID}   ${PSK_KEY}
         -
         -   Pytest:
         -      Imports:
@@ -103,36 +98,29 @@ class KeywordsMacMuConnect(object, metaclass=Singleton):  # Example line: Change
         -         keywords_mac_mu_connect.connect_wpa2_ppsk_network(policy, ssid, key, retry_count=5)
         -
         - Keyword Implementations:
-        -    GUI
-
-        Supported Modes:
-            GUI  - default mode
-            XAPI - not implemented
+        -   This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
 
         :param ssid: name of the ssid to connect
         :param key: password for connection
         :param retry_count: Retry count to connect the ppsk network
         :return: 1 for connected else -1
         """
+        # Notes:
+        #   - The work for this keyword is in a separate file
+        #   - The amount of time this keyword takes will be recorded and optionally recorded in a database
+        #   - This method will catch any errors that are raised and not handled in the keyword
 
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("8161d55f-4dca-4ab0-bd73-a01e41d4da42", keyword_name)
-        self.keyword_utils.implementations.gui_implemented(keyword_name)
 
-        # The value returned will be based on which implementations we run.  We'll return -1 if we fail to connect
-        # the wpa2 ppsk network to any implementations.  We'll return 1 if there is no error raised in any of the implementations.
+        # The value returned will be based on which implementations we run.  We'll return -1 if we fail to
+        # connect the wpa2 ppsk network to any implementations.  We'll return 1 if there is no error raised in
+        # any of the implementations.
         return_code = -1
 
         try:
-            implementation_to_run = self.keyword_utils.implementations.select_keyword_implementation(keyword_name,
-                                                                                                     **kwargs)
-            if implementation_to_run != '':
-                self.keyword_utils.timing.start(keyword_name, 'GUI')
-                if implementation_to_run == "GUI":
-                    return_code = self.mac_mu_connect.connect_wpa2_ppsk_network(ssid, key, retry_count)
-                else:
-                    kwargs['fail_msg'] = f"Keyword: {keyword_name} has not been implemented for XAPI"
-                    self.common_validation.fault(**kwargs)
+            self.keyword_utils.timing.start(keyword_name, 'GUI')
+            return_code = self.mac_mu_connect.connect_wpa2_ppsk_network(ssid, key, retry_count)
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)
