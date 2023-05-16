@@ -415,7 +415,7 @@ class Devices(object, metaclass=Singleton):
         self.navigator.navigate_to_manage_tab()
         sleep(5)
         self.refresh_devices_page()
-
+        self.navigator.wait_until_loading_is_done()
         search_string = [value for value in [ap_serial, ap_mac, ap_name] if value][0]
         network_policy = self.get_device_details(search_string, 'POLICY')
         if network_policy:
@@ -2654,7 +2654,7 @@ class Devices(object, metaclass=Singleton):
 
         # We need to skip this when we are selecting a device
         if self.xapiDevices.is_xapi_enabled(**kwargs) and not select_device:
-            return self.xapiDevices.xapi_search_device(device_serial=device_serial, device_mac=device_mac, **kwargs)
+            return self.xapiDevices.xapi_search_device(device_dict=device_object, **kwargs)
 
         return self.gui_search_device(device_object, select_device=select_device,
                                       skip_refresh=skip_refresh, skip_navigation=skip_navigation, **kwargs)

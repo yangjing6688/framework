@@ -829,3 +829,6 @@ class SwitchTemplateWebElements(SwitchTemplateWebElementDefinitions):
 
     def get_sw_template_enable_mac_locking_confirm_message(self):
         return self.weh.get_element(self.sw_template_enable_mac_locking_confirm_message)
+
+    def get_ports_in_agg_drop_down(self):
+        return self.weh.get_elements(self.ports_in_agg_drop_down)

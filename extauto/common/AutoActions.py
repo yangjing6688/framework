@@ -537,3 +537,18 @@ class AutoActions:
 
         except Exception as error_name:
             self.utils.print_info(" Error:", error_name)
+
+    def control_click(self, source_el):
+        """
+        - Holds Control while performing the click.  This is useful for De-selecting items in a table.
+        :param source_el: element to click with the Control modifier
+        :return:  1 if action was successful, else -1
+        """
+        try:
+            actions = ActionChains(CloudDriver().cloud_driver)
+            actions.key_down(Keys.CONTROL).click(source_el).key_up(Keys.CONTROL).perform()
+            sleep(2)
+            return 1
+        except Exception:
+            self.utils.print_info("Ctrl+click element failed")
+            return -1
