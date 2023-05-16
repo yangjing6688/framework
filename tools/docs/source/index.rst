@@ -20,6 +20,7 @@ into the keyword.
    :caption: Table of Contents:
 
    docs/xapi_base
+   docs/gui
 
 Indices and tables
 ==================
