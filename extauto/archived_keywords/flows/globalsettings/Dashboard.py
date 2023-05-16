@@ -1,3 +1,11 @@
+""" This file contains code for keywords that have been archived.
+    If the keywords need to be available again copy the code to xiq/flows/globalsettings/Dashboard.py
+    and implement the keyword move process.
+    Instructions for moving a keyword can be found here:
+    https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords """
+
+# All Archived keywords will be deleted after December 2023
+
 from time import sleep
 from extauto.common.Utils import Utils
 from extauto.common.Screen import Screen
@@ -5,6 +13,7 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.DashboardElements import DashboardElements
 from extauto.common.CommonValidation import CommonValidation
+from ExtremeAutomation.Utilities.deprecated import deprecated
 
 
 class Dashboard:
@@ -16,6 +25,7 @@ class Dashboard:
         self.dashboard_elements = DashboardElements()
         self.common_validation = CommonValidation()
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_stats_total_application_usage(self):
         """
         - This keyword will get total Application usage in Dashboard Page
@@ -42,6 +52,7 @@ class Dashboard:
             self.utils.print_info("Total Application Usage: ", total_app_usage)
         return total_app_usage
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_connection_status_online_count(self, **kwargs):
         """
         - This keyword will get total Connection status online count in dashboard health card
@@ -63,6 +74,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_connection_status_offline_count(self, **kwargs):
         """
         - This keyword will get total Connection status offline count in dashboard health card
@@ -84,6 +96,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_total_application_count(self, **kwargs):
         """
         - This keyword will get total aps count in dashboard health card
@@ -105,6 +118,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_total_clients_count(self, **kwargs):
         """
         - This keyword will get total clients count in dashboard health card
@@ -126,6 +140,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_total_users_count(self, **kwargs):
         """
         - This keyword will get total Users count in dashboard health card
@@ -147,6 +162,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_total_critical_alarm_count(self, **kwargs):
         """
         - This keyword will get total critical alarm count in dashboard health card
@@ -168,6 +184,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_total_major_alarm_count(self, **kwargs):
         """
         - This keyword will get total Major alarm count in dashboard health card
@@ -189,6 +206,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_total_minor_alarm_count(self, **kwargs):
         """
         - This keyword will get total Minor alarm count in dashboard health card
@@ -210,6 +228,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_total_rogue_aps_count(self, **kwargs):
         """
         - This keyword will get total Rogue Aps Count in dashboard health card
@@ -231,6 +250,7 @@ class Dashboard:
             self.common_validation.fault(**kwargs)
             return -1
 
+    @deprecated('This keyword is deprecated. If it is required, implement the keyword move process')
     def dashboard_cards_total_rogue_clients_count(self, **kwargs):
         """
         - This keyword will get total Rogue Aps Count in dashboard health card
