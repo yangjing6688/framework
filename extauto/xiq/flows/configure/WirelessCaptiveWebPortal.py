@@ -1056,50 +1056,55 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         authentication_method = cwp_config.get('authentication_method', 'CHAP')
         rs_group_config = cwp_config.get('radius_server_group_config')
 
-        if enable_cwp.upper() == 'ENABLE':
-            self.utils.print_info('Enable Captive Web Portal.')
-            self.auto_actions.enable_radio_button(self.get_enable_captive_web_portal())
-        else:
-            self.utils.print_info('Disable Captive Web Portal.')
-            self.auto_actions.disable_radio_button(self.get_enable_captive_web_portal())
-            return 1
-
-        self.utils.wait_till(self.get_enable_upa, delay=2, timeout=6, is_logging_enabled=True)
-        if enable_upa.upper() == 'ENABLE':
-            self.utils.print_info('Enable UPA.')
-            self.auto_actions.enable_check_box(self.get_enable_upa())
-        else:
-            self.utils.print_info('Disable UPA.')
-            self.auto_actions.disable_check_box(self.get_enable_upa())
-
-        if user_auth_on_cwp.upper() == 'ENABLE':
-            self.utils.print_info('Enable user auth on cwp.')
-            self.auto_actions.enable_check_box(self.get_user_auth_on_captive_web_portal())
-        else:
-            self.utils.print_info('Disable user auth on cwp.')
-            self.auto_actions.disable_check_box(self.get_user_auth_on_captive_web_portal())
-
-        if enable_self_reg.upper() == "ENABLE":
-            self.utils.print_info("Enable self registration check box")
-            self.auto_actions.enable_check_box(self.get_enable_self_registration())
-        else:
-            self.utils.print_info("Disable self registration check box")
-            self.auto_actions.disable_check_box(self.get_enable_self_registration())
-
-        self.screen.save_screen_shot()
-        sleep(2)
-        self.utils.print_info(f"Check the CWP: {cwp_name}  already exists")
-        if self._select_default_captive_web_portal(cwp_name):
-            if user_auth_on_cwp.upper() == 'ENABLE':
-                self.utils.print_info("Configure the Radius server")
-                self.radius_server.config_radius_server(**rs_group_config)
-            return 1
-        else:
-            if enable_upa.upper() == 'ENABLE':
-                return self._add_default_cwp_wireless_network(cwp_name)
-            elif user_auth_on_cwp.upper() == 'ENABLE':
-                self.utils.print_info("Configure the Radius server")
-                self.radius_server.config_radius_server(**rs_group_config)
-                return self._add_user_authentication_on_cwp(cwp_name, authentication_method)
+        try:
+            if enable_cwp.upper() == 'ENABLE':
+                self.utils.print_info('Enable Captive Web Portal.')
+                self.auto_actions.enable_radio_button(self.get_enable_captive_web_portal())
             else:
-                return -1
+                self.utils.print_info('Disable Captive Web Portal.')
+                self.auto_actions.disable_radio_button(self.get_enable_captive_web_portal())
+                return 1
+
+            self.utils.wait_till(self.get_enable_upa, delay=2, timeout=6, is_logging_enabled=True)
+            if enable_upa.upper() == 'ENABLE':
+                self.utils.print_info('Enable UPA.')
+                self.auto_actions.enable_check_box(self.get_enable_upa())
+            else:
+                self.utils.print_info('Disable UPA.')
+                self.auto_actions.disable_check_box(self.get_enable_upa())
+
+            if user_auth_on_cwp.upper() == 'ENABLE':
+                self.utils.print_info('Enable user auth on cwp.')
+                self.auto_actions.enable_check_box(self.get_user_auth_on_captive_web_portal())
+            else:
+                self.utils.print_info('Disable user auth on cwp.')
+                self.auto_actions.disable_check_box(self.get_user_auth_on_captive_web_portal())
+
+            if enable_self_reg.upper() == "ENABLE":
+                self.utils.print_info("Enable self registration check box")
+                self.auto_actions.enable_check_box(self.get_enable_self_registration())
+            else:
+                self.utils.print_info("Disable self registration check box")
+                self.auto_actions.disable_check_box(self.get_enable_self_registration())
+
+            self.screen.save_screen_shot()
+            sleep(2)
+            self.utils.print_info(f"Check the CWP: {cwp_name}  already exists")
+            if self._select_default_captive_web_portal(cwp_name):
+                if user_auth_on_cwp.upper() == 'ENABLE':
+                    self.utils.print_info("Configure the Radius server")
+                    self.radius_server.config_radius_server(**rs_group_config)
+                return 1
+            else:
+                if enable_upa.upper() == 'ENABLE':
+                    return self._add_default_cwp_wireless_network(cwp_name)
+                elif user_auth_on_cwp.upper() == 'ENABLE':
+                    self.utils.print_info("Configure the Radius server")
+                    self.radius_server.config_radius_server(**rs_group_config)
+                    return self._add_user_authentication_on_cwp(cwp_name, authentication_method)
+                else:
+                    return -1
+
+        except Exception as e:
+            self.utils.print_info(f"Unable to create_psk_wireless_network_cwp(): {e}")
+            return -1
