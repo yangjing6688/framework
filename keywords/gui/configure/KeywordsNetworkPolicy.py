@@ -26,26 +26,57 @@ class KeywordsNetworkPolicy(object, metaclass=Singleton):
 
     def create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
         """
-        - Create the network policy from CONFIGURE-->NETWORK POLICIES
-        - This keyword will create the network policy and wireless network
-        - Wireless network includes open, ppsk, psk and enterprise network
-        - Example:
-        - ``Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}``
-        - ``Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}     ${CLI_TYPE}``
-        - ${POLICY_NAME} --> Name of the network policy to create
-        - ${WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-        - For Creating  ${WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
-        - ${CLI_TYPE} --> Device type of the DUT. Default is 'AH-AP'.
+        Create the network policy from CONFIGURE-->NETWORK POLICIES
+        This keyword will create the network policy and wireless network
+        Wireless network includes open, ppsk, psk and enterprise network
+        Example:
+        Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}     ${CLI_TYPE}
+        ${POLICY_NAME} --> Name of the network policy to create
+        ${CLI_TYPE} --> Device type of the DUT. Default is 'AH-AP'.
+
+        Each of the remaining parameters as dictionaries are exemplified in turn under below sections
+
+        Example of valid network profile:
+        &{WIRELESS_NW_PROFILE}=    ssid_name=SSID_01         network_type=standard    ssid_profile=&{SSID_PROFILE}   auth_profile=&{AUTH_PROFILE}
+        ssid_name --> The name of the SSID to be created
+        network_type --> Describes the type of network. Values can be "standard" or left unspecified
+        ssid_profile --> This is a dictionary used to specify the SSID profile parameters
+        auth_profile --> This is a dictionary used to specify the authentication profile parameters
+
+        Example of a valid SSID profile:
+        &{SSID_PROFILE}=            WIFI0=Disable       WIFI1=Enable
+        WIFI0 --> Specify to enable or disable the WIFI0 interface
+        WIFI1 --> Specify to enable or disable the WIFI1 interface
+
+        Example of a valid authentication profile:
+        &{AUTH_PROFILE}     auth_type=Open    cwp_profile=&{CWP_Profile}
+        auth_type --> Specify the type of authentication. Valid values are: open, psk, ppsk, enhanced or enterprise
+        cwp_profile --> This is a dictionary used to specify the CWP profile
+
+        Example of a valid CWP profile:
+        &{CWP_Profile}      enable_cwp=Enable   cloud_captive_web_portal=Enable  social_login=Enable   request_pin=Disable   open_cwp_config=&{OPEN_CWP_CONFIG}
+        enable_cwp --> Specify to enable or disable CWP
+        cloud_captive_web_portal --> Specify to enable or disable Cloud Captive Web Portal
+        social_login --> Specify to enable or disable social login
+        request_pin --> Specify to enable or disable request pin
+        open_cwp_config --> This is a dictionary used to specify the Open CWP Configuration settings
+
+        Example of a valid Open CWP Configuration:
+        &{OPEN_CWP_CONFIG}=     social_cwp_config=&{SOCIAL_CWP_CONFIG}    cloud_cwp_name=cloudcwpsocialfacebook
+        social_cwp_config --> This is a dictionary used to specify the Social CWP Configuration settings
+        cloud_cwp_name --> Specify the Cloud CWP name
+
+        Example of a valid Social CWP Configuration:
+        &{SOCIAL_CWP_CONFIG}=    social_login_type=Facebook   restrict_access=default    auth_cache_duration=2
+        social_login_type --> Specify the social login type. Values can be one of Facebook, Google, Linkedin
+        restrict_access --> Specify the restrict access to domains. Values can be default or arbitrary
+        auth_cache_duration --> Specify the authentication cache duration. Values can be "default" or arbitrary
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/configure/KeywordsNetworkPolicy.py
         -      Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}
         -      Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}     ${CLI_TYPE}
-        -      ${POLICY_NAME} --> Name of the network policy to create
-        -      ${WIRELESS_NW_PROFILE} --> This is dictionary, include all key value pair to create wireless network
-        -      For Creating  ${WIRELESS_NW_PROFILE} dict refer wireless_network_config.robot
-        -      ${CLI_TYPE} --> Device type of the DUT. Default is 'AH-AP'.
         -
         -   Pytest:
         -      Imports:

@@ -162,7 +162,7 @@ class MacMuConnect(object):
 
         return self._connect_to_network(ssid)
 
-    @deprecated('Please use the {connect_wpa2_ppsk_network} keyword keywords/gui/configure/KeywordsMacMuConnect.py. This method can removed after 5/20/2023')
+    @deprecated('Please use the {connect_wpa2_ppsk_network} keyword keywords/gui/configure/KeywordsMacMuConnect.py. This method can removed after 6/17/2023')
     def connect_wpa2_ppsk_network(self, ssid, key, retry_count=5):
         return self.util_connect_wpa2_ppsk_network(ssid, key, retry_count)
 
@@ -240,7 +240,7 @@ class MacMuConnect(object):
 
         return self._connect_to_network(ssid)
 
-    @deprecated('Please use the {connectivity_check} keyword keywords/gui/configure/KeywordsMacMuConnect.py. This method can removed after 5/20/2023')
+    @deprecated('Please use the {connectivity_check} keyword keywords/gui/configure/KeywordsMacMuConnect.py. This method can removed after 6/17/2023')
     def connectivity_check(self, destination='https://www.facebook.com/'):
         return self.util_connectivity_check(destination)
 

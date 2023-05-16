@@ -32,11 +32,13 @@ class KeywordsMacMuConnect(object, metaclass=Singleton):
         The method checks to see if the MU can connect to the specified destination internet address by only fetching headers.
         If the curl command's result contains a successful status then the connection is considered good.
         Example:
-        Template.Connectivity Check
+        ${RESULT}=   MU.Connectivity Check
+        result = keywords_win_mu_connect.connectivity_check(destination='https://www.facebook.com/')
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/configure/KeywordsMacMuConnect.py
+        -      MU1.Connectivity Check
         -
         -   Pytest:
         -      Imports:
@@ -84,18 +86,19 @@ class KeywordsMacMuConnect(object, metaclass=Singleton):
         then attempts to connect the MU successfully to the network for the specified amount of retries.
         If the MU's connection is made without any issues then the connection is considered good.
         Example:
-        Template.Connect Wpa2 Ppsk Network   ${SSID}   ${PSK_KEY}
+        ${RESULT}= Connect Wpa2 Ppsk Network   SSID_01   Passw0rd
+        result = keywords_win_mu_connect.connect_wpa2_ppsk_network("SSID_01", "Passw0rd")
 
         - Keyword Usage:
         -   Robot:
         -      Library  keywords/gui/configure/KeywordsMacMuConnect.py
-        -
+        -      MU1.Connect Wpa2 Ppsk Network   ${SSID}   ${PSK_KEY}
         -   Pytest:
         -      Imports:
         -         from keywords.gui.configure.KeywordsMacMuConnect import KeywordsMacMuConnect
         -      Calling Keyword:
         -         keywords_mac_mu_connect = KeywordsMacMuConnect()
-        -         keywords_mac_mu_connect.connect_wpa2_ppsk_network(policy, ssid, key, retry_count=5)
+        -         keywords_mac_mu_connect.connect_wpa2_ppsk_network(ssid, key, retry_count=5)
         -
         - Keyword Implementations:
         -   This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
