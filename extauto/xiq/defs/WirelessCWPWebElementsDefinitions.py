@@ -66,6 +66,18 @@ class WirelessCWPWebElementsDefinitions:
             'wait_for': 5
         }
 
+    cwp_auth_method_dropdown = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dynamic-auth"]//*[@data-automation-tag="automation-chzn-arrow-down"]',
+            'wait_for': 5
+        }
+
+    cwp_auth_method_dropdown_options = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="dynamic-auth"]//*[@data-automation-tag="automation-chzn-results-ctn"]/li',
+            'wait_for': 5
+        }
+
     open_template_cloud_cwp_restrict_domain = \
         {
             'XPATH': '//div//input[@data-dojo-attach-point="cloudCwpAllowDomains"]',
