@@ -14425,6 +14425,8 @@ class Device360(Device360WebElements):
             logger.info("PORT =  {}".format(port))
             
             for retry in range(4):
+                self.utils.print_info(f"retry {retry + 1} to get the get_ports_from_device360_up_lldp_neighbour element for port {port}.")
+            
                 self.utils.print_info(f"Click on port {port}")
                 self.auto_actions.click(real_ports[port - 1])
             
@@ -14439,7 +14441,7 @@ class Device360(Device360WebElements):
                 if elem:
                     self.utils.print_info(f"Successfully found the get_ports_from_device360_up_lldp_neighbour element for port {port}.")
                     break
-                self.utils.print_info(f"retry {retry + 1} to get the get_ports_from_device360_up_lldp_neighbour element for port {port}.")
+                self.utils.print_info(f"get_ports_from_device360_up_lldp_neighbour element for port {port} is not yet visible.")
             else:
                 kwargs["fail_msg"] = "Failed to get the get_ports_from_device360_up_lldp_neighbour element"
                 self.common_validation.failed(**kwargs)
