@@ -933,9 +933,15 @@ class DeviceConfigDefs:
 
     wireless_wifi0_radio_mode = \
         {
-            'XPATH': '//label[@data-dojo-attach-point="radioMode2GHz,radioMode5DualGHz"]',
+            'XPATH': '//label[@data-dojo-attach-point="radioMode2GHz,radioMode5DualGHz,radioMode6Dual6GHz"]',
             'wait_for': 5
         }
+
+    # wireless_wifi0_radio_mode = \
+    #     {
+    #         'XPATH': '//label[@data-dojo-attach-point="radioMode2GHz,radioMode5DualGHz"]',
+    #         'wait_for': 5
+    #     }
 
     wireless_wifi2_default_radio_profile_drop_down = \
         {
