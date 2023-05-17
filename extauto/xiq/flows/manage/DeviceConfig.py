@@ -2325,13 +2325,9 @@ class DeviceConfig(DeviceConfigElements):
         self.utils.print_info("Retrieve the device configuration interface wireless Wifi2")
         interface_info = dict()
         interface_info["device_model"] = self.get_wireless_wifi_device_model().text
-        self.utils.print_info("Test 1")
         interface_info["device_template"] = self.get_wireless_wifi_device_template().text
-        self.utils.print_info("Test 2")
         interface_info["radio_status"] = self._check_wifi0_radio_status()
-        self.utils.print_info("Test 3")
         interface_info["radio_mode"] = self.get_wireless_wifi0_radio_mode().text
-        self.utils.print_info("Test 4")
         interface_info["radio_profile"] = self.get_default_wireless_wifi0_radio_profile_drop_down().text
         self.utils.print_info("Radio profile selected as WiFi0")
         interface_info["channel"] = self.get_wireless_wifi0_channel_dropdown().text

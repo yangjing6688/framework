@@ -937,12 +937,6 @@ class DeviceConfigDefs:
             'wait_for': 5
         }
 
-    # wireless_wifi0_radio_mode = \
-    #     {
-    #         'XPATH': '//label[@data-dojo-attach-point="radioMode2GHz,radioMode5DualGHz"]',
-    #         'wait_for': 5
-    #     }
-
     wireless_wifi2_default_radio_profile_drop_down = \
         {
             'XPATH': '//div[@data-dojo-attach-point="radioProfileChange6"]/div/a/span',
@@ -1092,12 +1086,6 @@ class DeviceConfigDefs:
             'XPATH': '//input[@data-automation-tag="interface-settings-wifi0-exclude-channels"]',
             'wait_for': 5
         }
-
-    # wireless_wifi0_override_channel_exclusion_setting_radio_profile_checkbox = \
-    #     {
-    #         'XPATH': '//div[@data-dojo-attach-point="excludeChannels2Area,excludeChannels5DualArea"]/div/label/input',
-    #         'wait_for': 5
-    #     }
 
     wireless_wifi1_override_channel_exclusion_setting_radio_profile_checkbox = \
         {
