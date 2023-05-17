@@ -31,9 +31,11 @@ class KeywordsWinMuConnect(object, metaclass=Singleton):
         This keyword uses curl to check the connectivity of the network of the Mobile Unit (MU).
         The method checks to see if the MU can connect to the specified destination internet address by only fetching headers.
         If the curl command's result contains a successful status then the connection is considered good.
-        Example:
-        ${RESULT}=   MU.Connectivity Check
-        result = keywords_win_mu_connect.connectivity_check(destination='https://www.facebook.com/')
+        This keyword runs on a remote device (Mobile Unit). To connect to the MU use a keyword like:
+        Library Remote http://${mu1.ip}:${mu1.port} WITH NAME mu1
+
+        Then refer to the named device when running the keyword. For example:
+        ${RESULT}=   MU1.Connectivity Check
 
         - Keyword Usage:
         -   Robot:
@@ -85,9 +87,11 @@ class KeywordsWinMuConnect(object, metaclass=Singleton):
         The method checks for the MU's interface to be in available state, waits for the network to be reachable by the MU,
         then attempts to connect the MU successfully to the network for the specified amount of retries.
         If the MU's connection is made without any issues then the connection is considered good.
-        Example:
-        ${RESULT}= Connect Wpa2 Ppsk Network   SSID_01   Passw0rd
-        result = keywords_win_mu_connect.connect_wpa2_ppsk_network("SSID_01", "Passw0rd")
+        This keyword runs on a remote device (Mobile Unit). To connect to the MU use a keyword like:
+        Library Remote http://${mu1.ip}:${mu1.port} WITH NAME mu1
+
+        Then refer to the named device when running the keyword. For example:
+        ${RESULT}=   MU1.Connect Wpa2 Ppsk Network   SSID_01   Passw0rd
 
         - Keyword Usage:
         -   Robot:
