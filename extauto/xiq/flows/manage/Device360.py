@@ -14420,13 +14420,31 @@ class Device360(Device360WebElements):
         """
         lldp_neighbour = {}
         success = 1
+
         for port in ports_isl:
             logger.info("PORT =  {}".format(port))
-            self.auto_actions.click(real_ports[port - 1])
-            elem = Device360WebElements().get_ports_from_device360_up_lldp_neighbour()
-            if not elem:
-                elem = Device360WebElements().weh.get_element(
-                    {"XPATH": '//div[contains(@class, "port-info port-lldp-neighbor")]'})
+            
+            for retry in range(4):
+                self.utils.print_info(f"Click on port {port}")
+                self.auto_actions.click(real_ports[port - 1])
+            
+                elem, _ = self.utils.wait_till(
+                    func=Device360WebElements().get_ports_from_device360_up_lldp_neighbour,
+                    exp_func_resp=True,
+                    silent_failure=True,
+                    delay=1,
+                    timeout=4
+                )
+
+                if elem:
+                    self.utils.print_info(f"Successfully found the get_ports_from_device360_up_lldp_neighbour element for port {port}.")
+                    break
+                self.utils.print_info(f"retry {retry + 1} to get the get_ports_from_device360_up_lldp_neighbour element for port {port}.")
+            else:
+                kwargs["fail_msg"] = "Failed to get the get_ports_from_device360_up_lldp_neighbour element"
+                self.common_validation.failed(**kwargs)
+                return -1
+            
             lldp_neighbour[port] = elem
             logger.info("lldp_neighbour =  {}".format(lldp_neighbour[port].text))
             lldp_hyper_link = Device360WebElements().get_cell_href(lldp_neighbour[port])
