@@ -47,6 +47,12 @@ class IAMWebElementsDefinitions:
             'wait_for': 3,
         }
 
+    adfs_page_submit_button = \
+        {
+            'XPATH': '//span[@id="submitButton"]',
+            'wait_for': 3,
+        }
+
     xiq_page_account_username_title = \
         {
             'XPATH': '//div[contains(text(),',

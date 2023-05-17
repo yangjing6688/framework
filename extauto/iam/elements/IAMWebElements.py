@@ -32,7 +32,7 @@ class IAMWebElements(IAMWebElementsDefinitions):
         return self.weh.get_element(self.adfs_page_password_text)
 
     def get_adfs_page_submit_button(self):
-        return self.weh.get_element(self.adfs_page_password_button)
+        return self.weh.get_element(self.adfs_page_submit_button)
 
     def get_xiq_page_account_username_title(self, username):
         item = {}
