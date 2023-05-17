@@ -2819,6 +2819,7 @@ class Devices(object, metaclass=Singleton):
 
         # Printing all the rows in the table for troubleshooting
         self.utils.print_info("*** Print all rows in devices table: START ***")
+        self.utils.wait_till(self.devices_web_elements.get_grid_rows)
         rows = self.devices_web_elements.get_grid_rows()
         if rows:
             for row in rows:
