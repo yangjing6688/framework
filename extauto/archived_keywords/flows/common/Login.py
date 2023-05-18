@@ -41,7 +41,7 @@ class Login(object, metaclass=Singleton):
         self.screen = Screen()
         self.xapiLogin = XapiLogin()
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def reset_password_for_new_customer(self, password, url="default", **kwargs):
         """
         - Reset password for xiq account with passed reset password url link
@@ -74,7 +74,7 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def skip_if_account_90_days(self, **kwargs):
         """
         - This keyword detects a license of 90 days and clicks on the option of 90 days
@@ -95,7 +95,7 @@ class Login(object, metaclass=Singleton):
             return -1, "Could not select the option of 90 days trial "
         return str(1), None
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def xiq_get_child_window_list(self, win_index):
         """
         - Obtain the Child Window Index List
@@ -107,7 +107,7 @@ class Login(object, metaclass=Singleton):
         window_index_list = CloudDriver().get_child_window_list(win_index)
         return window_index_list
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def login_for_first_time(self, **kwargs):
         """
         - This keyword used to login for the first time user based on option provided in test case
@@ -185,7 +185,7 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def create_new_user_portal(self, customer_name, admin_first_name, admin_last_name, admin_password,
                                sw_connection_host, **kwargs):
         """
@@ -360,7 +360,7 @@ class Login(object, metaclass=Singleton):
             self.common_validation.fault(**kwargs)
             return -1
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def delete_user_portal(self, customer_name, check_delete_devices=-1, **kwargs):
         """
         This function deletes the account created in portal
@@ -459,7 +459,7 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def log_out_portal(self, **kwargs):
         """
         This function logs out from portal
@@ -481,7 +481,7 @@ class Login(object, metaclass=Singleton):
             self.common_validation.failed(**kwargs)
             return -1
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def get_portal_url(self, sw_connection_host, **kwargs):
         """
         :param sw_connection_host: the url of the RDC
@@ -505,7 +505,7 @@ class Login(object, metaclass=Singleton):
             self.common_validation.fault(**kwargs)
             return -1
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/KeywordsLogin.py')
+    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/login/KeywordsLogin.py')
     def check_if_xiq_user_exists(self, customer_name, **kwargs):
         """
         This function check if the XIQ user exists into portal page
