@@ -113,7 +113,7 @@ class ExtremeGuestOnboardingWebElementsDefs:
 
     extreme_guest_onboarding_policy_close_button = \
         {
-            'XPATH': '(//div[contains(@data-automation-tag, "eguest-popup-message-OK")])[2]',
+            'XPATH': '//span[text()="OK"]',
         }
 
     extreme_guest_onboarding_rule_tab = \
