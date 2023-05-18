@@ -6,8 +6,10 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.Cli import Cli
+from extauto.xiq.flows.configure.RadiusServer import RadiusServer
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
+from extauto.common.CommonValidation import CommonValidation
 
 
 class WirelessCaptiveWebPortal(WirelessCWPWebElements):
@@ -17,7 +19,9 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self.screen = Screen()
         self.cli = Cli()
         self.auto_actions = AutoActions()
+        self.radius_server = RadiusServer()
         self.custom_file_dir = os.getcwd() + '/custom_cwp_pages/'
+        self.common_validation = CommonValidation()
 
     def _config_approver_email_domain_list(self, domain):
         """
@@ -598,6 +602,47 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
                 return -1
         return 1
 
+    def _add_user_authentication_on_cwp(self, cwp_name, auth_method, **kwargs):
+        """
+        For auth type personal(psk), add user authentication on captive web portal
+
+        :param cwp_name: (str) captive web portal name
+        :param auth_method: (str) 'PAP', 'CHAP', or 'MS-CHAP V2'
+        :return: 1 if created else -1
+        """
+        try:
+            self.utils.print_info("Click on CWP add button")
+            self.auto_actions.click_reference(self.get_default_cwp_add_button)
+            sleep(2)
+
+            self.utils.print_info("Enter CWP name:{}".format(cwp_name))
+            self.auto_actions.send_keys(self.get_default_cwp_name_field(), cwp_name)
+            self.utils.print_info(f"Click on authentication method dropdown: {auth_method}")
+            self.auto_actions.click_reference(self.get_cwp_auth_method_dropdown)
+            self.auto_actions.select_drop_down_options(self.get_cwp_auth_method_dropdown_options(), auth_method)
+
+            self.screen.save_screen_shot()
+            sleep(2)
+            self.utils.print_info("Click CWP save button")
+            self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
+
+            tool_tp_text = tool_tip.tool_tip_text
+            self.utils.print_info(tool_tp_text)
+            for tip_text in tool_tp_text:
+                if "The Captive Web Portal cannot be saved because the name" in tip_text:
+                    kwargs['fail_msg'] = f"Unable to _add_user_authentication_on_cwp(): {tip_text}"
+                    self.common_validation.failed(**kwargs)
+                    return -1
+
+            kwargs['pass_msg'] = "Successfully able to _add_user_authentication_on_cwp()"
+            self.common_validation.passed(**kwargs)
+            return 1
+
+        except Exception as e:
+            kwargs['fail_msg'] = f"Unable to _add_user_authentication_on_cwp(): {e}"
+            self.common_validation.failed(**kwargs)
+            return -1
+
     def create_ppsk_wireless_network_cwp(self, **cwp_config):
         """
         - Create captive web portal for  PPSK wireless network
@@ -1003,24 +1048,63 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         :param cwp_config: (dict) configuration
         :return: 1 if created else -1
         """
-        enable_cwp = cwp_config.get('enable_cwp').upper()
+        enable_cwp = cwp_config.get('enable_cwp', 'DISABLE')
+        user_auth_on_cwp = cwp_config.get('user_auth_on_cwp', 'DISABLE')
+        enable_self_reg = cwp_config.get('enable_self_reg', 'DISABLE')
+        enable_upa = cwp_config.get('enable_upa', 'ENABLE')
         cwp_name = cwp_config.get('cwp_name')
-        enable_upa = cwp_config.get('enable_upa')
+        authentication_method = cwp_config.get('authentication_method', 'CHAP')
+        rs_group_config = cwp_config.get('radius_server_group_config')
 
-        if enable_cwp.upper() == "DISABLE":
-            self.auto_actions.disable_radio_button(self.get_enable_captive_web_portal())
-            return 1
+        try:
+            if enable_cwp.upper() == 'ENABLE':
+                self.utils.print_info('Enable Captive Web Portal.')
+                self.auto_actions.enable_radio_button(self.get_enable_captive_web_portal())
+            else:
+                self.utils.print_info('Disable Captive Web Portal.')
+                self.auto_actions.disable_radio_button(self.get_enable_captive_web_portal())
+                return 1
 
-        self.utils.print_info("Enable Captive Web Portal Button")
-        self.auto_actions.select_radio_button(self.get_enable_captive_web_portal())
-        sleep(2)
+            self.utils.wait_till(self.get_enable_upa, delay=2, timeout=6, is_logging_enabled=True)
+            if enable_upa.upper() == 'ENABLE':
+                self.utils.print_info('Enable UPA.')
+                self.auto_actions.enable_check_box(self.get_enable_upa())
+            else:
+                self.utils.print_info('Disable UPA.')
+                self.auto_actions.disable_check_box(self.get_enable_upa())
 
-        if enable_upa == "Enable":
-            self.utils.print_info("Enable the UPA Check box")
-            self.auto_actions.enable_check_box(self.get_enable_upa())
+            if user_auth_on_cwp.upper() == 'ENABLE':
+                self.utils.print_info('Enable user auth on cwp.')
+                self.auto_actions.enable_check_box(self.get_user_auth_on_captive_web_portal())
+            else:
+                self.utils.print_info('Disable user auth on cwp.')
+                self.auto_actions.disable_check_box(self.get_user_auth_on_captive_web_portal())
+
+            if enable_self_reg.upper() == "ENABLE":
+                self.utils.print_info("Enable self registration check box")
+                self.auto_actions.enable_check_box(self.get_enable_self_registration())
+            else:
+                self.utils.print_info("Disable self registration check box")
+                self.auto_actions.disable_check_box(self.get_enable_self_registration())
+
+            self.screen.save_screen_shot()
             sleep(2)
-
             self.utils.print_info(f"Check the CWP: {cwp_name}  already exists")
             if self._select_default_captive_web_portal(cwp_name):
+                if user_auth_on_cwp.upper() == 'ENABLE':
+                    self.utils.print_info("Configure the Radius server")
+                    self.radius_server.config_radius_server(**rs_group_config)
                 return 1
-            return self._add_default_cwp_wireless_network(cwp_name)
+            else:
+                if enable_upa.upper() == 'ENABLE':
+                    return self._add_default_cwp_wireless_network(cwp_name)
+                elif user_auth_on_cwp.upper() == 'ENABLE':
+                    self.utils.print_info("Configure the Radius server")
+                    self.radius_server.config_radius_server(**rs_group_config)
+                    return self._add_user_authentication_on_cwp(cwp_name, authentication_method)
+                else:
+                    return -1
+
+        except Exception as e:
+            self.utils.print_info(f"Unable to create_psk_wireless_network_cwp(): {e}")
+            return -1

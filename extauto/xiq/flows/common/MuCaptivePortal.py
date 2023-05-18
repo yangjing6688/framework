@@ -120,7 +120,7 @@ class MuCaptivePortal(MuCPWebElement):
 
         :return: if success ppsk pass code else -1
         """
-        if passcode_el:= self.get_ppsk_pascode():
+        if passcode_el := self.get_ppsk_pascode():
             self.utils.print_info(f"User PPSK Passcode for PPSK Network:{passcode_el.text} ")
             return passcode_el.text
 
@@ -177,7 +177,13 @@ class MuCaptivePortal(MuCPWebElement):
             self.common_validation.failed(**kwargs)
             return -1
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {validate_cwp_social_login_with_facebook} keyword in keywords/KeywordsLogin.py.
+    # This method can be removed after 7/1/2023')
     def validate_cwp_social_login_with_facebook(self, username, password, **kwargs):
+        return self.util_validate_cwp_social_login_with_facebook(username, password, **kwargs)
+
+    def util_validate_cwp_social_login_with_facebook(self, username, password, **kwargs):
         """
         - Register network via facebook login CWP
         - Validate Captive Web Portal social login with facebook credentials
@@ -211,7 +217,6 @@ class MuCaptivePortal(MuCPWebElement):
             else:
                 self.utils.print_info(f"Break b/c result is {sendres}")
                 break
-
 
         self.utils.print_info("Enter Facebook Password")
         self.auto_actions.send_keys(self.get_social_login_with_facebook_password_field(), password)
@@ -299,12 +304,18 @@ class MuCaptivePortal(MuCPWebElement):
             self.common_validation.failed(**kwargs)
             return -1
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    # @deprecated('Please use the {validate_cwp_social_login_with_linkedin_account} keyword in keywords/KeywordsLogin.py
+    # This method can be removed after 7/1/2023')
     def validate_cwp_social_login_with_linkedin_account(self, username, password, **kwargs):
+        return self.util_validate_cwp_social_login_with_linkedin_account(username, password, **kwargs)
+
+    def util_validate_cwp_social_login_with_linkedin_account(self, username, password, **kwargs):
         """
-        - Register network via Linkdin login CWP
-        - Validate Captive Web Portal social login with linkdin credentials
+        - Register network via Linkedin login CWP
+        - Validate Captive Web Portal social login with linkedin credentials
         - Keyword Usage:
-        - ``Validate CWP Social Login With Facebook  ${LINKDIN_USERNAME}   ${LINKDIN_PASSWORD}``
+        - ``Validate CWP Social Login With Facebook  ${LINKEDIN_USERNAME}   ${LINKEDIN_PASSWORD}``
 
         :return: 1 if successfully connected with internet with social login type Linkedin else -1
         """
