@@ -2329,12 +2329,15 @@ class DeviceConfig(DeviceConfigElements):
         interface_info["radio_status"] = self._check_wifi0_radio_status()
         interface_info["radio_mode"] = self.get_wireless_wifi0_radio_mode().text
         interface_info["radio_profile"] = self.get_default_wireless_wifi0_radio_profile_drop_down().text
+        self.utils.print_info("Radio profile selected as WiFi0")
         interface_info["channel"] = self.get_wireless_wifi0_channel_dropdown().text
         channel = self.get_wireless_wifi0_channel_width_text().text
         interface_info["channel_width"] = channel[-5:]
+        self.utils.print_info("Channel width displayed")
         interface_info["override_channel"] = self._check_override_channel_exclusion_setting_radio_profile_status(
             interface='wifi0')
         interface_info["client_access"] = self._check_wifi_client_access_status(interface='wifi0')
+        self.utils.print_info("Client access enabled")
         interface_info["blackhaul_mesh_link"] = self._check_wifi_usage_blackhaul_mesh_link_status(interface='wifi0')
 
         return interface_info
