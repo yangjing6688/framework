@@ -8,9 +8,11 @@ from extauto.xiq.elements.NavigatorWebElements import NavigatorWebElements
 from extauto.xiq.elements.CommunicationsWebElements import CommunicationsWebElements
 from extauto.common.CloudDriver import CloudDriver
 from extauto.common.CommonValidation import CommonValidation
+from ExtremeAutomation.Utilities.deprecated import deprecated
+from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 
-class Communications(CommunicationsWebElements):
+class Communications(object, metaclass=Singleton):
 
     def __init__(self):
         super().__init__()
@@ -21,9 +23,15 @@ class Communications(CommunicationsWebElements):
         self.navigate = Navigator()
         self.builtin = BuiltIn()
         self.common_validation = CommonValidation()
+        self.communications_web_elements = CommunicationsWebElements()
         # self.driver = extauto.common.CloudDriver.cloud_driver
 
+    # This method will not be deprecated until the keywords for the entire file have been moved and tested
+    @deprecated('Please use the {validate_communications_page} keyword in keywords/gui/banner_top/KeywordsCommunications.py. This method can removed after 8/1/2023')
     def validate_communications_page(self, **kwargs):
+        return self.gui_validate_communications_page(**kwargs)
+
+    def gui_validate_communications_page(self, **kwargs):
         """
         - This Keyword Navigate to communications menu in Global settings page
         - Keyword Usage
@@ -38,11 +46,11 @@ class Communications(CommunicationsWebElements):
         try:
             self.utils.print_info("Switching to iframe and reading page header...")
             self.utils.switch_to_iframe(CloudDriver().cloud_driver)
-            comm_txt = self.get_communications_page_text().text
+            comm_txt = self.communications_web_elements.get_communications_page_text().text
             sleep(2)
             self.utils.print_info("Communications text: ", comm_txt)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
-            comm_url = self.get_iframe_url()
+            comm_url = self.communications_web_elements.get_iframe_url()
             sleep(2)
             self.utils.print_info("Communications url: ", comm_url)
 
@@ -78,7 +86,7 @@ class Communications(CommunicationsWebElements):
             self.utils.print_info("Switching to iframe and reading page header...")
             self.utils.switch_to_iframe_n(CloudDriver().cloud_driver, 1)
             sleep(2)
-            notification_txt = self.get_notifications_page_text().text
+            notification_txt = self.communications_web_elements.get_notifications_page_text().text
             sleep(5)
             self.utils.print_info("Notifications page header: ", notification_txt)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -115,7 +123,7 @@ class Communications(CommunicationsWebElements):
             self.utils.print_info("Switching to iframe and reading page header...")
             self.utils.switch_to_iframe_n(CloudDriver().cloud_driver, 2)
             sleep(2)
-            preview_txt = self.get_previews_page_text().text
+            preview_txt = self.communications_web_elements.get_previews_page_text().text
             sleep(5)
             self.utils.print_info("Preview page header: ", preview_txt)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
@@ -152,7 +160,7 @@ class Communications(CommunicationsWebElements):
             self.utils.print_info("Switching to iframe and reading page header...")
             self.utils.switch_to_iframe_n(CloudDriver().cloud_driver, 2)
             sleep(2)
-            new_comm_txt = self.get_new_in_extremecloud_page_text().text
+            new_comm_txt = self.communications_web_elements.get_new_in_extremecloud_page_text().text
             sleep(5)
             self.utils.print_info("New in XIQ Page header: ", new_comm_txt)
             self.utils.switch_to_default(CloudDriver().cloud_driver)
