@@ -142,12 +142,13 @@ class Onboarding(object):
 
         self.utils.print_info("Clicking Save Button")
         self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_button)
-
+        sleep(2)
         self.utils.print_info("Clicking OK Button")
         self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_save_ok_button)
 
         try:
             if self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_get_close_button().is_displayed():
+                sleep(2)
                 self.auto_actions.click_reference(self.onboarding_web_elem.get_extreme_guest_onboarding_policy_add_get_close_button)
                 self.screen.save_screen_shot()
                 self.utils.print_info("Click Duplicate OK Button")

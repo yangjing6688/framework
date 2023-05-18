@@ -46,6 +46,10 @@ class DeviceTemplate(object):
         self.utils.print_info("Click on AP Template tab")
         self.auto_actions.click_reference(self.device_template_web_elements.get_select_ap_template_tab)
 
+        self.utils.print_info("Click on AP Template Menu button")
+        self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_tab)
+        sleep(2)
+
         ap_template_rows_elements = self.device_template_web_elements.get_ap_template_rows()
         if not ap_template_rows_elements:
             kwargs['fail_msg'] = "check_ap_template() failed. AP Template NOT Found "
@@ -629,7 +633,7 @@ class DeviceTemplate(object):
                 break
 
         self.utils.print_info(f"CLicking Delete Button for AP Template {ap_template_name}")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_delete_ap_template_button)
+        self.auto_actions.click_reference(self.device_template_web_elements.get_remove_ap_template_from_policy_button)
 
         sleep(5)
         self.screen.save_screen_shot()
