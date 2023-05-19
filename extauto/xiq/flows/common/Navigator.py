@@ -3669,9 +3669,9 @@ class Navigator(NavigatorWebElements):
                     self.common_validation.passed(**kwargs)
                     return 1
 
-                # Sleep for ~one second then try again
-                count += 1
-                sleep(retry_duration)
+            # Sleep for ~one second then try again
+            count += 1
+            sleep(retry_duration)
 
         # After trying {retry_count} times we the spinner never went away or we couldn't get it from selenium
         kwargs['fail_msg'] = f"The 'loading' mask is either still visible or could not be " \
