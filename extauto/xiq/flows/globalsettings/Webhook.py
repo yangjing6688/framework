@@ -22,7 +22,7 @@ class Webhook(WebhookWebElements, metaclass=Singleton):
         self.common_validation = CommonValidation()
 
     def create_webhook(self, webhook, **kwargs):
-        return self.gui_create_webhook(webhook)
+        return self.gui_create_webhook(webhook, **kwargs)
 
     def gui_create_webhook(self, webhook, **kwargs):
         """
@@ -39,13 +39,12 @@ class Webhook(WebhookWebElements, metaclass=Singleton):
         self.auto_actions.click_reference(self.get_webhook_save_btn)
         sleep(2)
         self.screen.save_screen_shot()
-        return self._find_url_in_webhook_grid(webhook)
+        return self._find_url_in_webhook_grid(webhook, **kwargs)
 
     def edit_webhook(self, webhook1, webhook2, **kwargs):
         return self.gui_edit_webhook(webhook1, webhook2, **kwargs)
 
-
-    def gui_edit_webhook(self,webhook1,webhook2, **kwargs):
+    def gui_edit_webhook(self, webhook1, webhook2, **kwargs):
         """
         - check edit webhook works
         - Keyword Usage
@@ -68,7 +67,7 @@ class Webhook(WebhookWebElements, metaclass=Singleton):
             self.common_validation.fault(**kwargs)
             return -1
 
-    def _webhook_dialog_input(self,webhook):
+    def _webhook_dialog_input(self, webhook):
         self.utils.print_info("Inputing webhook - start")
         self.utils.print_info("Inputing webhook post url:"+webhook.url)
         self.auto_actions.send_keys(self.get_webhook_url_input(), webhook.url)
@@ -93,7 +92,7 @@ class Webhook(WebhookWebElements, metaclass=Singleton):
         self.screen.save_screen_shot()
         self.utils.print_info("Inputing webhook - end")
 
-    def _find_url_in_webhook_grid(self,webhook, **kwargs):
+    def _find_url_in_webhook_grid(self, webhook, **kwargs):
         """
         - find one webhook url if it in the grid
         - if it can be found also click on it(select the one)
@@ -118,7 +117,7 @@ class Webhook(WebhookWebElements, metaclass=Singleton):
     def delete_webhook(self, webhook, **kwargs):
         return self.gui_delete_webhook(webhook, **kwargs)
 
-    def gui_delete_webhook(self,webhook, **kwargs):
+    def gui_delete_webhook(self, webhook, **kwargs):
         """
         - check delete webhook works
         - Keyword Usage

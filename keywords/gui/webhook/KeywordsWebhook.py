@@ -1,10 +1,9 @@
-from time import sleep
+
 # Standard Keyword imports
 from extauto.common.CommonValidation import CommonValidation
 from extauto.common.KeywordUtils import KeywordUtils
 import inspect
 from tools.xapi.XapiHelper import XapiHelper
-from extauto.xiq.xapi.globalsettings.XapiGlobalSettings import XapiGlobalSettings
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
 from extauto.xiq.elements.WebhookWebElements import WebhookWebElements
 from extauto.xiq.flows.globalsettings.Webhook import Webhook
@@ -25,11 +24,34 @@ class KeywordsWebhook(WebhookWebElements, metaclass=Singleton):
 
     def create_webhook(self, webhook, **kwargs):
         """
-        - check create webhook works
-        - Keyword Usage
-        - ``Create Webhook  ${webhook}``
+        Create a new webhook
 
-        :return: returns 1 if successfully create webhook else -1
+        This method creates a webhook from GlobalSettings->Webhooks which is under AlertNotifications tab
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/webhook/KeywordsWebhook.py
+        -      Create Webhook  ${webhook1}
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
+        -      Calling Keyword:
+        -         webhook = KeywordsWebhook()
+        -         webhook.create_webhook(webhook)
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Implemented **
+
+        :param webhook: This parameter accepts webhook.yaml which will have webhook settings.
+            For Example the yaml file will have:
+                webhook1:
+                    url: "https://58l8z.mocklab.io/"
+                    secret: ""
+                    description: "this is a test webhook can not use it"
+                    sendme: true
+                    enable: true
+        :return: Returns 1 if success, -1 if not success.
         """
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("b2e4e076-f612-11ed-b67e-0242ac120002", keyword_name)
@@ -56,13 +78,38 @@ class KeywordsWebhook(WebhookWebElements, metaclass=Singleton):
 
         return return_code
 
-    def edit_webhook(self,webhook1,webhook2, **kwargs):
+    def edit_webhook(self, webhook1, webhook2, **kwargs):
         """
-        - check edit webhook works
-        - Keyword Usage
-        - ``Edit Webhook  ${webhook}``
+        Edits an existing webhook
 
-        :return: returns 1 if successfully edit webhook else -1
+        This method modifies the configuration of webhook 1  to webhook 2
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/webhook/KeywordsWebhook.py
+        -      Edit Webhook  ${webhook1}    ${webhook2}
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
+        -      Calling Keyword:
+        -         webhook = KeywordsWebhook()
+        -         webhook.edit_webhook(webhook1, webhook2)
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Implemented **
+
+        :param webhook1: This parameter will have the webhook needs to be modified.
+        :param webhook2:  This parameter  will have the new webhook settings
+            Both params accepts yaml file.
+            For Example the yaml file will have webhook settings as below:
+                webhook1:
+                    url: "https://58l8z.mocklab.io/"
+                    secret: ""
+                    description: "this is a test webhook can not use it"
+                    sendme: true
+                    enable: true
+        :return: Returns 1 if success, -1 if not success.
         """
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("b2e4e404-f612-11ed-b67e-0242ac120002", keyword_name)
@@ -89,14 +136,38 @@ class KeywordsWebhook(WebhookWebElements, metaclass=Singleton):
 
         return return_code
 
-    def delete_webhook(self,webhook, **kwargs):
+    def delete_webhook(self, webhook, **kwargs):
         """
-        - check delete webhook works
-        - Keyword Usage
-        - ``Delete Webhook  ${webhook}``
+        Edits an existing webhook
 
-        :return: returns 1 if successfully delete webhook else -1
+        This method modifies the configuration of webhook 1  to webhook 2
+
+        - Keyword Usage:
+        -   Robot:
+        -      Library  keywords/gui/webhook/KeywordsWebhook.py
+        -      Delete Webhook  ${webhook}
+        -   Pytest:
+        -      Imports:
+        -         from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
+        -      Calling Keyword:
+        -         webhook = KeywordsWebhook()
+        -         webhook.delete_webhook(webhook)
+        -
+        - Keyword Implementations:
+        -    GUI
+        -    XAPI - ** Not Implemented **
+
+        :param webhook: This parameter accepts webhook.yaml which will have a webhook settings.
+        For Example the yaml file will have:
+                webhook1:
+                    url: "https://58l8z.mocklab.io/"
+                    secret: ""
+                    description: "this is a test webhook can not use it"
+                    sendme: true
+                    enable: true
+        :return: Returns 1 if success, -1 if not success.
         """
+
         keyword_name = inspect.stack()[0][3]
         self.keyword_utils.implementations.set_keyword_uuid("b2e4e53a-f612-11ed-b67e-0242ac120002", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)

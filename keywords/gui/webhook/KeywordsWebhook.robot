@@ -3,7 +3,6 @@
 
 *** Settings ***
 
-Variables   TestBeds/${TESTBED}
 Variables   Environments/${TOPO}
 Variables   Environments/${ENV}
 Variables   ../Resources/Webhook.yaml
