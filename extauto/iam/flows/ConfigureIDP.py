@@ -128,7 +128,8 @@ class ConfigureIDP():
         try:
             self.driver.find_element_by_xpath(element.get('XPATH'))
         except NoSuchElementException:
-            print(domain+" is not exist in this page")
+            kwargs['fail_msg'] = domain+" is not exist in this page"
+            self.common_validation.failed(**kwargs)
             return -1
         return 1
 
