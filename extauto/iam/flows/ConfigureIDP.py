@@ -64,7 +64,12 @@ class ConfigureIDP():
         sleep(2)
         self.utils.print_info("Click on add button")
         self.auto_actions.click_reference(self.iam_web_elements.get_add_idp_button)
-        sleep(7)
+        #sleep(7)
+        for i in range(7):
+            element_status = self.web_element_controller.is_web_element_present(self.iam_web_elements.get_iam_idp_page_domain_text())
+            if element_status:
+                break
+            sleep(1)
         element_status = self.web_element_controller.is_web_element_present(self.iam_web_elements.get_iam_idp_page_domain_text())
         if not element_status:
             kwargs['fail_msg'] = "Not able to find the input 'Domain' which means the New Identity Provider Profile page may not open"
