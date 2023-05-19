@@ -774,13 +774,13 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_device_sett_forward_delay_drop_down = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-arrow-down"]',
+            'XPATH': '//div[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-arrow-down"]',
             'wait_for': 2
         }
 
     sw_template_device_sett_forward_delay_drop_down_container = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-container-ctn"]',
+            'XPATH': '//div[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-container-ctn"]',
             'wait_for': 2
         }
 
@@ -802,7 +802,7 @@ class SwitchTemplateWebElementDefinitions:
 
     sw_template_device_sett_forward_delay_drop_down_item16 = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-16"]',
+            'XPATH': '//li[@data-automation-tag="automation-switch-template-forward-dropdown-chzn-option-16"]',
             'wait_for': 2
         }
 
@@ -1232,4 +1232,11 @@ class SwitchTemplateWebElementDefinitions:
         {
             'CSS_SELECTOR': '.ui-cfmsg.confirm',
             'wait_for': 10
+        }
+
+
+    ports_in_agg_drop_down = \
+        {
+            'XPATH': './/*[@data-dojo-attach-point="portsInAgg"]',
+            'wait_for': 5
         }
