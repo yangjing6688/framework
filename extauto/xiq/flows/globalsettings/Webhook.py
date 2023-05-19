@@ -5,10 +5,15 @@ from extauto.common.AutoActions import AutoActions
 from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.WebhookWebElements import WebhookWebElements
 from extauto.common.CommonValidation import CommonValidation
+from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
 
-class Webhook(WebhookWebElements):
+class Webhook(WebhookWebElements, metaclass=Singleton):
     def __init__(self):
+        # This is a singleton, avoid initializing for each instance
+        if hasattr(self, 'initialized'):
+            return
+        self.initialized = True
         super().__init__()
         self.navigator = Navigator()
         self.screen = Screen()
@@ -16,7 +21,10 @@ class Webhook(WebhookWebElements):
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
 
-    def create_webhook(self,webhook):
+    def create_webhook(self, webhook, **kwargs):
+        return self.gui_create_webhook(webhook)
+
+    def gui_create_webhook(self, webhook, **kwargs):
         """
         - check create webhook works
         - Keyword Usage
@@ -31,9 +39,13 @@ class Webhook(WebhookWebElements):
         self.auto_actions.click_reference(self.get_webhook_save_btn)
         sleep(2)
         self.screen.save_screen_shot()
-        return self.find_url_in_webhook_grid(webhook)
+        return self._find_url_in_webhook_grid(webhook)
 
-    def edit_webhook(self,webhook1,webhook2, **kwargs):
+    def edit_webhook(self, webhook1, webhook2, **kwargs):
+        return self.gui_edit_webhook(webhook1, webhook2, **kwargs)
+
+
+    def gui_edit_webhook(self,webhook1,webhook2, **kwargs):
         """
         - check edit webhook works
         - Keyword Usage
@@ -42,7 +54,7 @@ class Webhook(WebhookWebElements):
         :return: returns 1 if successfully edit webhook else -1
         """
         self.utils.print_info("Searching webhook url:"+webhook1.url)
-        if self.find_url_in_webhook_grid(webhook1) == 1:
+        if self._find_url_in_webhook_grid(webhook1) == 1:
             self.utils.print_info("Opening webhook dialog for edit")
             self.auto_actions.click_reference(self.get_webhook_edit_btn)
             sleep(2)
@@ -50,7 +62,7 @@ class Webhook(WebhookWebElements):
             self.auto_actions.click_reference(self.get_webhook_save_btn)
             sleep(2)
             self.screen.save_screen_shot()
-            return self.find_url_in_webhook_grid(webhook2)
+            return self._find_url_in_webhook_grid(webhook2)
         else:
             kwargs['fail_msg'] = "Unable to edit webhook"
             self.common_validation.fault(**kwargs)
@@ -81,7 +93,7 @@ class Webhook(WebhookWebElements):
         self.screen.save_screen_shot()
         self.utils.print_info("Inputing webhook - end")
 
-    def find_url_in_webhook_grid(self,webhook, **kwargs):
+    def _find_url_in_webhook_grid(self,webhook, **kwargs):
         """
         - find one webhook url if it in the grid
         - if it can be found also click on it(select the one)
@@ -103,7 +115,10 @@ class Webhook(WebhookWebElements):
         #self.common_validation.fault(**kwargs)
         return -1
 
-    def delete_webhook(self,webhook, **kwargs):
+    def delete_webhook(self, webhook, **kwargs):
+        return self.gui_delete_webhook(webhook, **kwargs)
+
+    def gui_delete_webhook(self,webhook, **kwargs):
         """
         - check delete webhook works
         - Keyword Usage
@@ -113,12 +128,12 @@ class Webhook(WebhookWebElements):
         """
         sleep(2)
         self.utils.print_info("Searching webhook url:"+webhook.url)
-        if self.find_url_in_webhook_grid(webhook) == 1:
+        if self._find_url_in_webhook_grid(webhook) == 1:
             self.auto_actions.click_reference(self.get_webhook_del_btn)
             sleep(2)
             self.auto_actions.click_reference(self.get_confirm_yes_btn)
             sleep(2)
-            if self.find_url_in_webhook_grid(webhook) == -1:
+            if self._find_url_in_webhook_grid(webhook) == -1:
                 kwargs['pass_msg'] = f"Successfully delete webhook url: {webhook.url}"
                 self.common_validation.passed(**kwargs)
                 return 1
