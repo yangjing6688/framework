@@ -97,8 +97,7 @@ class KeywordsDevices(object, metaclass=Singleton):
 
                 else:
                     if not select_device:
-                        return_code = self.xapiDevices.xapi_search_device(device_serial=device_serial,
-                                                                          device_mac=device_mac, **kwargs)
+                        return_code = self.xapiDevices.xapi_search_device(device_dict=device_dict, **kwargs)
         except Exception as e:
             kwargs['fail_msg'] = f"Error raised for keyword [{keyword_name}] Error: {e}"
             self.common_validation.fault(**kwargs)

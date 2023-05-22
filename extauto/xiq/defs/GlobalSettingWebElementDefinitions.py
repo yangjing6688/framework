@@ -2,7 +2,7 @@ class GlobalSettingWebElementDefinitions:
     authentication_logs_grid_rows = \
         {
             'CSS_SELECTOR': '.dgrid-row',
-            
+            'wait_for': 5
         }
 
     authentication_logs_grid_row_cells = \

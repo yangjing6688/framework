@@ -19,7 +19,7 @@ class DeviceCommonDefs:
 
     device_table_edit_button = \
         {
-            'XPATH': '//span[@class="table-action-icons table-edit"]',
+            'XPATH': '//span[@data-automation-tag="automation-device-list-bulkEdit-btn"]',
             'wait_for': 5,
         }
 
@@ -32,7 +32,7 @@ class DeviceCommonDefs:
     device360_cells_href = \
         {
             'TAG_NAME': 'a',
-            'wait_for': 5
+            'wait_for': 15
         }
 
     manage_devices_select_all_devices_checkbox = \
