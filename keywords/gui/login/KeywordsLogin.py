@@ -37,21 +37,21 @@ class KeywordsLogin(object, metaclass=Singleton):
 
          Note: By default the url will load from the topology file
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Login User  ${USERNAME}   ${PASSWORD}    capture_version=True
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.login_user(username, password, capture_version=True)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI
+        Keyword Usage:
+          Robot:
+            Library  keywords/gui/login/KeywordsLogin.py
+             Login User  ${USERNAME}   ${PASSWORD}    capture_version=True
+
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.login_user(username, password, capture_version=True)
+
+        Keyword Implementations:
+           GUI
+           XAPI
 
         Supported Modes:
             GUI  - default mode
