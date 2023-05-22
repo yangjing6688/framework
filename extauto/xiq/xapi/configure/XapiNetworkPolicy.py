@@ -173,7 +173,7 @@ class XapiNetworkPolicy(XapiHelper):
         """
         return self.xapi_deploy_network_policy_with_complete_update( policy_name, device_serial, update_type)
 
-    def xapi_deploy_network_policy_with_complete_update(self, policy_name, device_serial, update_type, next_reboot=True, **kwargs):
+    def xapi_deploy_network_policy_with_complete_update(self, policy_name, device_serial, update_type, next_reboot=True, skip_update_check=False,  **kwargs):
         """
             This will deploy the nextwork policy to the devices that were selected
 
@@ -181,6 +181,7 @@ class XapiNetworkPolicy(XapiHelper):
         :param device_serial: The devices that were selected
         :param update_type: The update type [complete or delta]
         :param next_reboot: Do the update on the next reboot (default = True)
+        :param skip_update_check: skip the update check (in case you are calling the UI keyword) (Deafult = False)
         :return: 1 for success or -1 for failure
         """
         update_type_value = True # Complete
@@ -218,42 +219,43 @@ class XapiNetworkPolicy(XapiHelper):
             # Do the deployment
             self.xapiBaseConfigurationDeploymentApi.xapi_base_deploy_config(xiq_deployment_request=deployment, _preload_content=False)
 
-            # Get the status
-            finished = False
-            count = 0
-            max_count = 600 # # 10 minutes
-            while not finished:
-                deployment_status_reponse = self.xapiBaseConfigurationDeploymentApi.xapi_base_get_deploy_status(device_ids=[device_id], _preload_content=False)
-                deployment_data = self.convert_preload_content_data_to_object(deployment_status_reponse.data)
-                data = deployment_data[str(device_id)]
-                finished = data.finished
-                if not finished:
-                    if count % 10 == 0: # only print this message every 10 times
-                        self.utils.print_info(f"Device serial: {device_serial}, Status: {data.current_step_message}, Completed: {finished}")
-                    time.sleep(1)
-                    if count >= max_count:
-                        kwargs['fail_msg'] = f'Failed to completed the deployment -> Device serial: {device_serial}, Status: {data.current_step_message}, Completed: {finished}" '
-                        self.common_validation.failed(**kwargs)
-                else:
-                    self.utils.print_info(f"Device serial: {device_serial}, Deployment Sucessful: {data.is_finished_successful}, Completed: {finished} Full Data: {data}")
-                    if not data.is_finished_successful:
-                        try:
-                            # Try and navigate to the devices page and see the UI result (if enabled)
-                            from extauto.xiq.flows.common.Navigator import Navigator
-                            Navigator().navigate_to_devices()
-                        except Exception:
-                            pass
-                        kwargs['fail_msg'] = f'Failed to completed the deployment with status: {data.is_finished_successful}"'
-                        self.common_validation.failed(**kwargs)
-                        return -1
+            if not skip_update_check:
+                # Get the status
+                finished = False
+                count = 0
+                max_count = 600 # # 10 minutes
+                while not finished:
+                    deployment_status_reponse = self.xapiBaseConfigurationDeploymentApi.xapi_base_get_deploy_status(device_ids=[device_id], _preload_content=False)
+                    deployment_data = self.convert_preload_content_data_to_object(deployment_status_reponse.data)
+                    data = deployment_data[str(device_id)]
+                    finished = data.finished
+                    if not finished:
+                        if count % 10 == 0: # only print this message every 10 times
+                            self.utils.print_info(f"Device serial: {device_serial}, Status: {data.current_step_message}, Completed: {finished}")
+                        time.sleep(1)
+                        if count >= max_count:
+                            kwargs['fail_msg'] = f'Failed to completed the deployment -> Device serial: {device_serial}, Status: {data.current_step_message}, Completed: {finished}" '
+                            self.common_validation.failed(**kwargs)
+                    else:
+                        self.utils.print_info(f"Device serial: {device_serial}, Deployment Sucessful: {data.is_finished_successful}, Completed: {finished} Full Data: {data}")
+                        if not data.is_finished_successful:
+                            try:
+                                # Try and navigate to the devices page and see the UI result (if enabled)
+                                from extauto.xiq.flows.common.Navigator import Navigator
+                                Navigator().navigate_to_devices()
+                            except Exception:
+                                pass
+                            kwargs['fail_msg'] = f'Failed to completed the deployment with status: {data.is_finished_successful}"'
+                            self.common_validation.failed(**kwargs)
+                            return -1
 
-                count = count +1
+                    count = count +1
         except Exception as e:
-            kwargs['fail_msg'] = f'Failed to completed the deployment with exception {e}" '
+            kwargs['fail_msg'] = f'Failed to completed the deployment with exception {e}'
             self.common_validation.fault(**kwargs)
             return -1
 
-        kwargs['pass_msg'] = 'The deployment is completed'
+        kwargs['pass_msg'] = 'The deployment is sent'
         self.common_validation.passed(**kwargs)
         return 1
 

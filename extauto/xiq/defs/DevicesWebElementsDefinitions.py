@@ -10,6 +10,7 @@ class DevicesWebElementsDefinitions:
     devices_page_grid_rows = \
         {
             'XPATH': '//div[@data-dojo-attach-point="gridContent"]//table[@class="dgrid-row-table"]/tr/td/..',
+            'wait_for': 20
             
          }
 
@@ -293,7 +294,7 @@ class DevicesWebElementsDefinitions:
 
     update_config_delta_radio_button = \
         {
-            "XPATH": "//input[@data-automation-tag='override-checkbox' and @value='override']"
+            "XPATH": "//input[@data-automation-tag='override-checkbox']"
         }
 
     update_devices_button = \
@@ -816,7 +817,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_switch = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-device-actions-switch-assign-policy']",
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag, "-assign-policy")]',
             'wait_for': 5
         }
 
@@ -1917,6 +1918,33 @@ class DevicesWebElementsDefinitions:
             'DESC': 'Quick Add Devices - Digital Twin > OS Version dropdown menu items',
             'XPATH': '//*[@data-automation-tag="automation-quick-add-onboard-dt-os-version-select-dropdown"]'
                      '//tr[contains(@class, "dijitMenuItem")]'
+        }
+
+    digital_twin_expansion_slot_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > Expansion Slot dropdown menu',
+            'XPATH': '//div[@data-dojo-attach-point="expansionModulSection"]'
+                     '//table[@data-dojo-attach-point="_buttonNode,tableNode,focusNode,_popupStateNode"]'
+        }
+
+    digital_twin_expansion_slot_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > Expansion Slot dropdown menu items',
+            'XPATH': '//table[@data-automation-tag="-dropdown"]'
+                     '//tr[@data-dojo-attach-point="focusNode"]'
+        }
+
+    digital_twin_license_type_dropdown = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > License Type dropdown menu',
+            'XPATH': '//td[@data-dojo-attach-point="buttonNode"]'
+        }
+
+    digital_twin_license_type_dropdown_items = \
+        {
+            'DESC': 'Quick Add Devices - Digital Twin > License Type dropdown menu items',
+            'XPATH': '//div[@id="dijit_form_ComboButton_0_dropdown"]'
+                     '//td[@class="dijitReset dijitMenuItemLabel"]'
         }
 
     one_hundred_rows_per_page_button = \

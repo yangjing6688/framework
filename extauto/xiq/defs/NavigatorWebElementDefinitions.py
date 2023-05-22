@@ -378,7 +378,7 @@ class NavigatorWebElementDefinitions:
 
     common_object_policy_ap_template = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-sider-list-ApTemplate"]',
+            'XPATH': '//div[@data-automation-tag="automation-sider-list-ApTemplate"]',
             'wait_for': 5
         }
 

@@ -2,7 +2,7 @@ class Device360WebElementDefs:
 
     ports_from_device360_up_lldp_neighbour = \
         {
-            'XPATH': '//div[@class="port-info port-lldp-neighbor  "]',
+            'XPATH': '//div[contains(@class, "port-info port-lldp-neighbor")]',
             'wait_for': 5
         }
 
@@ -2022,9 +2022,10 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+
     cli_button = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-manage-device-actions-switch-cli-access"]',
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag, "-cli-access")]',
             'wait_for': 5
         }
 
@@ -3963,15 +3964,9 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
-    d360_save_port_configuration_message_exos = \
+    d360_save_port_configuration_message_config = \
         {
             'XPATH': '//div[@class="ui-tipbox ui-tipbox-success"]//*[contains(text(), "Port Configuration Saved")]',
-            'wait_for': 5
-        }
-
-    d360_save_port_configuration_message_voss = \
-        {
-            'XPATH': '//div[@class="ui-tipbox ui-tipbox-success"]//*[contains(text(), "updated successfully")]',
             'wait_for': 5
         }
 
