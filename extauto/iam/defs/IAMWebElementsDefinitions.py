@@ -79,7 +79,7 @@ class IAMWebElementsDefinitions:
     iam_idp_page_add_idp_button = \
         {
             'XPATH': '//mat-icon[contains(text(),"add")]',
-            'wait_for': 3,
+            'wait_for': 5,
         }
 
     iam_idp_page_domain_text = \
@@ -94,30 +94,28 @@ class IAMWebElementsDefinitions:
             'wait_for': 3,
         }
 
-    iam_idp_page_continue_button_1 = \
+    iam_idp_page_profile_continue_button = \
         {
             'XPATH': '(//span[contains(text(),"Continue")])[1]',
-            #'CSS_SELECTOR': 'span.mdc-button__label:nth-of-type(1)',
-            'wait_for': 3,
+            'wait_for': 6,
         }
 
-    iam_idp_page_continue_button_2 = \
+    iam_idp_page_connection_continue_button = \
         {
             'XPATH': '(//span[contains(text(),"Continue")])[2]',
-            # 'CSS_SELECTOR': 'span.mdc-button__label:nth-of-type(1)',
             'wait_for': 3,
         }
 
     iam_idp_page_import_from_url_button = \
         {
             'XPATH': '//input[@value="url"]',
-            'wait_for': 3,
+            'wait_for': 6,
         }
 
     iam_idp_page_idp_metadata_url_text = \
         {
             'XPATH': '//input[@name="url"]',
-            'wait_for': 3,
+            'wait_for': 5,
         }
 
     iam_idp_page_import_button = \
@@ -155,7 +153,7 @@ class IAMWebElementsDefinitions:
     iam_idp_page_entity_id = \
         {
             'XPATH': '//input[@name="entityId"]',
-            'wait_for': 3,
+            'wait_for': 5,
         }
 
     iam_idp_page_sso_binding = \
@@ -179,7 +177,7 @@ class IAMWebElementsDefinitions:
     iam_idp_page_save_button = \
         {
             'XPATH': '//span[contains(text(),"Save")]',
-            'wait_for': 3,
+            'wait_for': 5,
         }
 
     iam_page_list_idp = \

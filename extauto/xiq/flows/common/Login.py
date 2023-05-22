@@ -249,25 +249,20 @@ class Login(object, metaclass=Singleton):
             self.utils.print_info("Clicking on SSO Sign In button")
             self.auto_actions.click_reference(self.login_web_elements.get_iam_login_sso_page_login_button)
             self.screen.save_screen_shot()
-            if quick:
-                sleep(2)
-            else:
-                sleep(5)
-
             self.utils.print_info("Check for wrong credentials..")
             credential_warnings = self.login_web_elements.get_credentials_error_message()
-            self.utils.print_info("Litianwu test I'm tired...................")
             print(credential_warnings)
             self.utils.print_info("Wrong Credential Message: ", credential_warnings)
-            if 'No Message' in credential_warnings:
-                self.utils.print_info("Litianwu11111 test I'm tired...................")
-                return 1
-            else:
+            try:
+                if 'No Message' in credential_warnings:
+                    return 1
+            except Exception:
                 if "Looks like the email or password does not match our records. Please try again." in credential_warnings:
-                    # self.utils.print_info("Wrong Credentials. Try Again")
                     kwargs['fail_msg'] = "Wrong Credentials. Try Again"
                     self.common_validation.failed(**kwargs)
                     return -1
+            return 1
+
 
         if test_url and ('sso' in test_url and 'xcloudiq' not in test_url or 'tinyurl' in test_url):
             self.utils.print_info("Loading SSO Login URL")

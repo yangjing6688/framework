@@ -118,7 +118,6 @@ class LoginXIQ:
             if self.check_mutiple_idp_configured_same_domain() == 1:
                 self.utils.print_info("Choose the orgname " + orgname)
                 element = self.web.get_element(self.login_web_elements.get_saml_login_page_idp_server_item(orgname))
-                print(element)
                 self.auto_actions.click(element)
             self.utils.print_info("Entering Username and Password")
             self.auto_actions.send_keys(self.login_web_elements.get_adfs_page_username_text(), username)

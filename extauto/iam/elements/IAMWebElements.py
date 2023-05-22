@@ -65,12 +65,12 @@ class IAMWebElements(IAMWebElementsDefinitions):
     def get_iam_idp_page_description_text(self):
         return self.weh.get_element(self.iam_idp_page_description_text)
 
-    def get_iam_idp_page_continue_button_1(self):
-        return self.weh.get_element(self.iam_idp_page_continue_button_1)
+    def get_iam_idp_page_profile_continue_button(self):
+        return self.weh.get_element(self.iam_idp_page_profile_continue_button)
 
 
-    def get_iam_idp_page_continue_button_2(self):
-        return self.weh.get_element(self.iam_idp_page_continue_button_2)
+    def get_iam_idp_page_connection_continue_button(self):
+        return self.weh.get_element(self.iam_idp_page_connection_continue_button)
 
     def get_iam_idp_page_import_from_url_button(self):
         return self.weh.get_element(self.iam_idp_page_import_from_url_button)
@@ -113,7 +113,7 @@ class IAMWebElements(IAMWebElementsDefinitions):
     def get_iam_page_list_idp(self,idp_name):
         item = {}
         item['XPATH'] = self.iam_page_list_idp['XPATH'] + '"' + idp_name + '"' + ')]'
-        item['wait_for'] = 3
+        item['wait_for'] = 6
         return item
 
     def get_iam_console_link(self):
