@@ -817,7 +817,7 @@ class DevicesWebElementsDefinitions:
 
     actions_assign_network_policy_switch = \
         {
-            'XPATH': "//*[@data-automation-tag='automation-manage-device-actions-switch-assign-policy']",
+            'XPATH': '//*[contains(@data-automation-tag, "automation-manage-device-actions-") and contains(@data-automation-tag, "-assign-policy")]',
             'wait_for': 5
         }
 

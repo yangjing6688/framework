@@ -2,7 +2,7 @@ class Device360WebElementDefs:
 
     ports_from_device360_up_lldp_neighbour = \
         {
-            'XPATH': '//div[@class="port-info port-lldp-neighbor  "]',
+            'XPATH': '//div[contains(@class, "port-info port-lldp-neighbor")]',
             'wait_for': 5
         }
 
