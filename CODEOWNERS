@@ -5,11 +5,5 @@
 # the repo. Unless a later match takes precedence, and
 # will be requested for review when someone opens a pull request.
 #
-*   @extremenetworks/autoiq-framework @jsubler93 
-/extauto/xiq/           @extremenetworks/autoiq-framework @jsubler93 @damccarth @shreenbanu @pdungdo @rvellasamy 
-/extauto/xca/           @extremenetworks/autoiq-framework @jsubler93 @damccarth 
-/extauto/common/        @extremenetworks/autoiq-framework @jsubler93 @damccarth @shreenbanu @pdungdo @rvellasamy 
-/extauto/xiqse/         @extremenetworks/autoiq-framework @jsubler93 @damccarth 
+*   @extremenetworks/autoiq-framework
 
-# Michael White wants to review all items in the following directory
-/extauto/ucp/ @mike-white-extr @extremenetworks/autoiq-framework
