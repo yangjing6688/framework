@@ -148,6 +148,7 @@ class ConfigureIDP():
         try:
             self.driver.find_element_by_xpath(element.get('XPATH'))
         except Exception as e:
+            self.utils.print_debug("Error: ", e)
             kwargs['fail_msg'] = domain+" is not exist in this page"
             self.common_validation.failed(**kwargs)
             return -1
