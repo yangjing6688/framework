@@ -933,7 +933,7 @@ class DeviceConfigDefs:
 
     wireless_wifi0_radio_mode = \
         {
-            'XPATH': '//label[@data-dojo-attach-point="radioMode2GHz,radioMode5DualGHz"]',
+            'XPATH': '//label[@data-dojo-attach-point="radioMode2GHz,radioMode5DualGHz,radioMode6Dual6GHz"]',
             'wait_for': 5
         }
 
@@ -1083,7 +1083,7 @@ class DeviceConfigDefs:
 
     wireless_wifi0_override_channel_exclusion_setting_radio_profile_checkbox = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="excludeChannels2Area,excludeChannels5DualArea"]/div/label/input',
+            'XPATH': '//input[@data-automation-tag="interface-settings-wifi0-exclude-channels"]',
             'wait_for': 5
         }
 

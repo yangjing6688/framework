@@ -533,8 +533,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.device_update_close_button)
 
     def get_actions_assign_network_policy_combo_switch(self):
+        # The identifier differs depending on which type of device is selected,
+        # so need to get all and select the displayed element
         elements = self.weh.get_elements(self.actions_assign_network_policy_switch)
-        return self.get_dislayed_element(elements)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_devices_exos_serial_text_area(self):
         """

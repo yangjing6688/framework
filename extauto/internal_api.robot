@@ -18,7 +18,8 @@ ${GETPATH}                  acct-webapp/oauth/cookietoken
 
 *** Settings ***
 Library     common/Screen.py
-Library     xiq/flows/common/Login.py
+#Library     xiq/flows/common/Login.py
+Library     keywords/gui/login/KeywordsLogin.py
 Library     xiq/flows/manage/Devices.py
 Library     common/Internal_api.py
 Library     common/Utils.py
