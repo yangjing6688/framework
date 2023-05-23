@@ -6,7 +6,7 @@ from extauto.xiq.flows.common.Navigator import Navigator
 from extauto.xiq.elements.WebhookWebElements import WebhookWebElements
 from extauto.common.CommonValidation import CommonValidation
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
-
+from ExtremeAutomation.Utilities.deprecated import deprecated
 
 class Webhook(WebhookWebElements, metaclass=Singleton):
     def __init__(self):
@@ -21,6 +21,8 @@ class Webhook(WebhookWebElements, metaclass=Singleton):
         self.auto_actions = AutoActions()
         self.common_validation = CommonValidation()
 
+    @deprecated('Please use the {create_webhook} keyword in keywords/gui/webhook/KeywordsWebhook.py'
+                'This method can be removed after 7/1/2023')
     def create_webhook(self, webhook, **kwargs):
         return self.gui_create_webhook(webhook, **kwargs)
 
@@ -41,6 +43,8 @@ class Webhook(WebhookWebElements, metaclass=Singleton):
         self.screen.save_screen_shot()
         return self._find_url_in_webhook_grid(webhook, **kwargs)
 
+    @deprecated('Please use the {edit_webhook} keyword in keywords/gui/webhook/KeywordsWebhook.py'
+                'This method can be removed after 7/1/2023')
     def edit_webhook(self, webhook1, webhook2, **kwargs):
         return self.gui_edit_webhook(webhook1, webhook2, **kwargs)
 
@@ -114,6 +118,8 @@ class Webhook(WebhookWebElements, metaclass=Singleton):
         #self.common_validation.fault(**kwargs)
         return -1
 
+    @deprecated('Please use the {delete_webhook} keyword in keywords/gui/webhook/KeywordsWebhook.py'
+                'This method can be removed after 7/1/2023')
     def delete_webhook(self, webhook, **kwargs):
         return self.gui_delete_webhook(webhook, **kwargs)
 

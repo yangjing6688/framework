@@ -138,9 +138,9 @@ class KeywordsWebhook(WebhookWebElements, metaclass=Singleton):
 
     def delete_webhook(self, webhook, **kwargs):
         """
-        Edits an existing webhook
+        Deletes an existing webhook
 
-        This method modifies the configuration of webhook 1  to webhook 2
+        This method deletes the webhook from the page GlobalSettings->Webhooks which is under AlertNotifications tab
 
         - Keyword Usage:
         -   Robot:
