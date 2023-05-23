@@ -69,7 +69,10 @@ class Login(object, metaclass=Singleton):
             self.window_index = CloudDriver().open_window(url)
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {get_page_title} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {get_page_title} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def get_page_title(self):
         return self.gui_get_page_title()
 
@@ -83,7 +86,10 @@ class Login(object, metaclass=Singleton):
         return CloudDriver().cloud_driver.title
 
     # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
-    #@deprecated('Please use the {login_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {login_user} keyword keywords/gui/login/KeywordsLogin.py.'
+                ' This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def get_window_index(self):
         return self.gui_get_window_index()
     def gui_get_window_index(self):
@@ -96,7 +102,10 @@ class Login(object, metaclass=Singleton):
         return self.window_index
 
     # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
-    #@deprecated('Please use the {login_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {login_user} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def login_user(self, username, password, capture_version=False, login_option="30-day-trial", url="default",
                    incognito_mode="False", co_pilot_status=False, entitlement_key=False, salesforce_username=False,
                    salesforce_password=False, salesforce_shared_cuid=False, quick=False, check_warning_msg=False,
@@ -485,7 +494,10 @@ class Login(object, metaclass=Singleton):
         return 1
 
     # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
-    #@deprecated('Please use the {logout_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {logout_user} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def logout_user(self, **kwargs):
 
         if self.xapiLogin.is_xapi_enabled(**kwargs):
@@ -539,7 +551,10 @@ class Login(object, metaclass=Singleton):
         return 1
 
     # jefjones - This method will not be deprecated until the keywords for the entire file have been moved and tested
-    #@deprecated('Please use the {quit_browser} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {quit_browser} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def quit_browser(self, _driver=None, **kwargs):
         return self.gui_quit_browser(_driver, **kwargs)
 
@@ -608,7 +623,10 @@ class Login(object, metaclass=Singleton):
         return response_code, json_response, total_time
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    #@deprecated('Please use the {load_web_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {load_web_page} keyword keywords/gui/login/KeywordsLogin.py.'
+                ' This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def load_web_page(self, url="default"):
         return self.gui_load_web_page(url)
 
@@ -626,7 +644,10 @@ class Login(object, metaclass=Singleton):
             return self._init(url)
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    #@deprecated('Please use the {set_password} keyword keywords/KeywordsLogin.py. This method can removed after 7/1/2023')
+    @deprecated('Please use the {set_password} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 7/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def set_password(self, new_pwd, **kwargs):
         return self.gui_set_password(new_pwd)
     def gui_set_password(self, new_pwd, **kwargs):
@@ -666,7 +687,10 @@ class Login(object, metaclass=Singleton):
         return 1
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    #@deprecated('Please use the {reset_password} keyword keywords/KeywordsLogin.py. This method can removed after 7/1/2023')
+    @deprecated('Please use the {reset_password} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 7/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def reset_password(self, new_pwd, **kwargs):
         return self.gui_reset_password(new_pwd)
     def gui_reset_password(self, new_pwd, **kwargs):
@@ -698,7 +722,10 @@ class Login(object, metaclass=Singleton):
         return 1
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    #@deprecated('Please use the {forgot_password} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {forgot_password} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def forgot_password(self, _email, url='default', **kwargs):
         return self.gui_forgot_password(_email, url, **kwargs)
 
@@ -801,7 +828,10 @@ class Login(object, metaclass=Singleton):
         return xiq_version
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {get_switch_connection_host} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {get_switch_connection_host} keyword keywords/gui/login/KeywordsLogin.py.'
+                ' This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def get_switch_connection_host(self):
         return self.gui_get_switch_connection_host()
 
@@ -841,7 +871,10 @@ class Login(object, metaclass=Singleton):
             self.common_validation.failed(**kwargs)
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {get_viq_id} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {get_viq_id} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def get_viq_id(self, **kwargs):
         return self.gui_get_viq_id()
 
@@ -872,7 +905,10 @@ class Login(object, metaclass=Singleton):
         return viq_id
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {get_base_url_of_current_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {get_base_url_of_current_page} keyword keywords/gui/login/KeywordsLogin.py.'
+                ' This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def get_base_url_of_current_page(self, **kwargs):
         return self.gui_get_base_url_of_current_page()
 
@@ -889,7 +925,10 @@ class Login(object, metaclass=Singleton):
         return base_url.group()
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {get_current_page_url} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {get_current_page_url} keyword keywords/gui/login/KeywordsLogin.py.'
+                ' This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def get_current_page_url(self):
         return self.gui_get_current_page_url()
 
@@ -903,7 +942,10 @@ class Login(object, metaclass=Singleton):
         return CloudDriver().cloud_driver.current_url
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {get_data_center_name} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {get_data_center_name} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def get_data_center_name(self):
         return self.gui_get_data_center_name()
 
@@ -916,7 +958,10 @@ class Login(object, metaclass=Singleton):
         return self._capture_data_center_name()
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {get_xiq_version} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {get_xiq_version} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def get_xiq_version(self):
         return self.gui_get_xiq_version()
 
@@ -928,7 +973,10 @@ class Login(object, metaclass=Singleton):
         return self._capture_xiq_version()
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {switch_to_window} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {switch_to_window} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def switch_to_window(self, win_index):
         return self.gui_switch_to_window(win_index)
 
@@ -942,7 +990,10 @@ class Login(object, metaclass=Singleton):
 
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {close_window} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {close_window} keyword keywords/gui/login/KeywordsLogin.py.'
+                ' This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def close_window(self, win_index):
         return self.gui_close_window(win_index)
 
@@ -954,7 +1005,10 @@ class Login(object, metaclass=Singleton):
         """
         CloudDriver().close_window(win_index)
 
-    @deprecated('This keyword is a duplicate of quit_browser and will be removed after July 1st 2023. Please change your test to use quit_browser instead')
+    @deprecated('This keyword is a duplicate of quit_browser and will be removed after July 1st 2023. '
+                'Please change your test to use quit_browser instead. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def xiq_quit_browser(self, _driver=None, **kwargs):
         """
         - Closes all the browser windows and ends the WebDriver session gracefully.
@@ -988,7 +1042,10 @@ class Login(object, metaclass=Singleton):
             return -1
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {logo_check_on_login_screen} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {logo_check_on_login_screen} keyword keywords/gui/login/KeywordsLogin.py.'
+                ' This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def logo_check_on_login_screen(self):
         return self.gui_logo_check_on_login_screen()
 
@@ -1243,7 +1300,10 @@ class Login(object, metaclass=Singleton):
             return -1
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {gui_execute_upgrade_option_for_connect_user} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {gui_execute_upgrade_option_for_connect_user} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def verify_upgrade_option_for_connect_user(self):
         return self.gui_execute_upgrade_option_for_connect_user()
 
@@ -1609,7 +1669,10 @@ class Login(object, metaclass=Singleton):
             return 1
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {refresh_page} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {refresh_page} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def refresh_page(self, refresh_delay=10):
         return self.gui_refresh_page(refresh_delay)
 
@@ -1628,7 +1691,10 @@ class Login(object, metaclass=Singleton):
             self.utils.print_info(e)
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {click_advanced_onboard_popup} keyword keywords/KeywordsLogin.py. This method can removed after 4/1/2023')
+    @deprecated('Please use the {click_advanced_onboard_popup} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 6/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def click_advanced_onboard_popup(self):
         return self.gui_click_advanced_onboard_popup()
 
@@ -1647,7 +1713,10 @@ class Login(object, metaclass=Singleton):
             pass
 
     # This method will not be deprecated until the keywords for the entire file have been moved and tested
-    # @deprecated('Please use the {xiq_soft_launch_feature_url} keyword keywords/KeywordsLogin.py. This method can removed after 7/1/2023')
+    @deprecated('Please use the {xiq_soft_launch_feature_url} keyword keywords/gui/login/KeywordsLogin.py. '
+                'This method can removed after 7/1/2023. '
+                'Instructions for moving keywords can be found here: '
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def xiq_soft_launch_feature_url(self, url):
         return self.gui_xiq_soft_launch_feature_url(url)
 
@@ -1667,7 +1736,8 @@ class Login(object, metaclass=Singleton):
         self.common_validation.passed(**kwargs)
         return 1
 
-    @deprecated('This keyword is a duplicate of switch_to_window and will be removed after July 1st 2023. Please change your test to use switch_to_window instead')
+    @deprecated('This keyword is a duplicate of switch_to_window and will be removed after July 1st 2023. '
+                'Please change your test to use switch_to_window instead')
     def switch_to_extreme_guest_window(self, win_index=1):
         """
         - Switches to the specified window
@@ -1677,7 +1747,8 @@ class Login(object, metaclass=Singleton):
         CloudDriver().switch_to_window(win_index)
         return 1
 
-    @deprecated('This keyword is a duplicate of close_window and will be removed after July 1st 2023. Please change your test to use close_window instead')
+    @deprecated('This keyword is a duplicate of close_window and will be removed after July 1st 2023. '
+                'Please change your test to use close_window instead')
     def close_extreme_guest_window(self, win_index=1):
         """
         - Closes the specified window
