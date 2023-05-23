@@ -30,6 +30,7 @@ class ConfigureIDP():
     def login_iam_console(self, **kwargs):
         """
         - This keyword is used to open global setting-> iam console link
+        - Keyword Usage:
         -   Robot:
         -      Library     iam/flows/ConfigureIDP.py
         -      login iam console
@@ -74,47 +75,48 @@ class ConfigureIDP():
         :param default_group: the attribute mapping(user profile attribute<->SAML attribute) defautl group which is mapped the roles of XIQ
         :return: returns 1 if successfully get the created user in USERS list else -1
         """
-        self.utils.print_info("Open Identity and Access Management link")
-        self.login_iam_console()
-        self.utils.print_info("Click on add button")
-        self.auto_actions.click_reference(self.iam_web_elements.get_add_idp_button)
-        for i in range(7):
-            element_status = self.web_element_controller.is_web_element_present(self.iam_web_elements.get_iam_idp_page_domain_text())
-            if element_status:
-                break
-            sleep(1)
-        element_status = self.web_element_controller.is_web_element_present(self.iam_web_elements.get_iam_idp_page_domain_text())
-        if not element_status:
-            kwargs['fail_msg'] = "Not able to find the input 'Domain' which means the New Identity Provider Profile page may not open"
-            self.common_validation.failed(**kwargs)
-            return -1
-        self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_domain_text(), domain)
-        self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_description_text(), description)
-        sleep(1)
-        self.utils.print_info("Click on continue button")
-        self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_profile_continue_button)
-        self.utils.print_info("Import metadata by URL")
-        self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_import_from_url_button)
-        self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_idp_metadata_url_text(), meta_data_url)
-        self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_import_button)
-        sleep(1)
-        element_status = self.web_element_controller.is_web_element_present(self.iam_web_elements.get_iam_idp_page_entity_id)
-        if not element_status:
-            kwargs['fail_msg'] = "Import metadate from url failed!"
-            self.common_validation.failed(**kwargs)
-            return -1
-        self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_connection_continue_button)
-        self.utils.print_info("Input Email and Group attribute")
-        self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_email_text(), email)
-        self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_group_text(), group)
-        self.utils.print_info("Select Default Group")
-        self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_default_group_dropdown)
-        element = self.web.get_element(self.iam_web_elements.get_iam_idp_page_default_group_item(default_group))
-        self.auto_actions.click(element)
-        self.utils.print_info("Click Save & Finish button")
-        self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_save_button)
-        self.utils.print_info("Check the new idp is in the Identity Providers list")
         try:
+            self.utils.print_info("Open Identity and Access Management link")
+            self.login_iam_console()
+            self.utils.print_info("Click on add button")
+            self.auto_actions.click_reference(self.iam_web_elements.get_add_idp_button)
+            for i in range(7):
+                element_status = self.web_element_controller.is_web_element_present(self.iam_web_elements.get_iam_idp_page_domain_text())
+                if element_status:
+                    break
+                sleep(1)
+            element_status = self.web_element_controller.is_web_element_present(self.iam_web_elements.get_iam_idp_page_domain_text())
+            if not element_status:
+                kwargs['fail_msg'] = "Not able to find the input 'Domain' which means the New Identity Provider Profile page may not open"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_domain_text(), domain)
+            self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_description_text(), description)
+            sleep(1)
+            self.utils.print_info("Click on continue button")
+            self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_profile_continue_button)
+            sleep(1)
+            self.utils.print_info("Import metadata by URL")
+            self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_import_from_url_button)
+            self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_idp_metadata_url_text(), meta_data_url)
+            self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_import_button)
+            sleep(1)
+            element_status = self.web_element_controller.is_web_element_present(self.iam_web_elements.get_iam_idp_page_entity_id)
+            if not element_status:
+                kwargs['fail_msg'] = "Import metadate from url failed!"
+                self.common_validation.failed(**kwargs)
+                return -1
+            self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_connection_continue_button)
+            self.utils.print_info("Input Email and Group attribute")
+            self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_email_text(), email)
+            self.auto_actions.send_keys(self.iam_web_elements.get_iam_idp_page_group_text(), group)
+            self.utils.print_info("Select Default Group")
+            self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_default_group_dropdown)
+            element = self.web.get_element(self.iam_web_elements.get_iam_idp_page_default_group_item(default_group))
+            self.auto_actions.click(element)
+            self.utils.print_info("Click Save & Finish button")
+            self.auto_actions.click_reference(self.iam_web_elements.get_iam_idp_page_save_button)
+            self.utils.print_info("Check the new idp is in the Identity Providers list")
             if self.check_idp_list(domain) != -1:
                 kwargs['pass_msg'] = domain + " is in idp list page "
                 self.common_validation.passed(**kwargs)
@@ -123,8 +125,6 @@ class ConfigureIDP():
             kwargs['fail_msg'] = "Create idp failed!"
             self.common_validation.failed(**kwargs)
             return -1
-        else:
-            return 1
 
 
 
@@ -134,7 +134,7 @@ class ConfigureIDP():
          - Keyword Usage:
         -   Robot:
         -      Library     iam/flows/ConfigureIDP.py
-        -      check idp list
+        -      check idp list       ${domain}
         -   Pytest:
         -      Imports:
         -         from extauto.iam.flows.ConfigureIDP import ConfigureIDP
@@ -144,8 +144,8 @@ class ConfigureIDP():
         :param: domain: the created idp's domain
         :return: returns 1 if the created user is in USERS list of current page else -1
         """
-        element = self.iam_web_elements.get_iam_page_list_idp(domain)
         try:
+            element = self.iam_web_elements.get_iam_page_list_idp(domain)
             self.driver.find_element_by_xpath(element.get('XPATH'))
         except Exception as e:
             self.utils.print_debug("Error: ", e)
@@ -153,7 +153,3 @@ class ConfigureIDP():
             self.common_validation.failed(**kwargs)
             return -1
         return 1
-
-
-
-
