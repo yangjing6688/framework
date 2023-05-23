@@ -37,21 +37,21 @@ class KeywordsLogin(object, metaclass=Singleton):
 
          Note: By default the url will load from the topology file
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Login User  ${USERNAME}   ${PASSWORD}    capture_version=True
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.login_user(username, password, capture_version=True)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI
+        Keyword Usage:
+          Robot:
+            Library  keywords/gui/login/KeywordsLogin.py
+             Login User  ${USERNAME}   ${PASSWORD}    capture_version=True
+
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.login_user(username, password, capture_version=True)
+
+        Keyword Implementations:
+           GUI
+           XAPI
 
         Supported Modes:
             GUI  - default mode
@@ -153,20 +153,20 @@ class KeywordsLogin(object, metaclass=Singleton):
         This method will log the user out of the active window and/or XAPI depending on whether or not the user has
         logged into XAPI and the GUI.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Logout User
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.logout_user()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Logout User
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.logout_user()
+
+        Keyword Implementations:
+           GUI
+           XAPI
 
         :return: 1 if logout successful, -1 if logout not successful
         """
@@ -222,20 +222,20 @@ class KeywordsLogin(object, metaclass=Singleton):
         Closes all the browser windows and ends the WebDriver session gracefully.  If the _driver object is passed in,
         then quit only the specified browser and return
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Quit Browser
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.quit_browser()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Quit Browser
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.quit_browser()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param _driver: Use this to close a specific browser window instead of all browser windows
         :return: 1 if success
@@ -287,20 +287,20 @@ class KeywordsLogin(object, metaclass=Singleton):
         Note: This value will change any time a new window is open.  If the value is not recorded after opening the
         window you can get the list of child window indexes via the 'get_child_window_list' method in CloudDriver.py
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get Window Index
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_window_index()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Get Window Index
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.get_window_index()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :return: Current index of the window handle.  -1 If a window has not been opened
         """
@@ -347,20 +347,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method gets the current page title.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get Page Title
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_page_title()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Get Page Title
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.get_page_title()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :return: Returns the page title that "ExtremeCloud IQ" if successful. Returns "" if not successful.
         """
@@ -402,20 +402,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method gets the current page url.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get Current Page URL
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_current_page_url()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Get Current Page URL
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.get_current_page_url()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :return: Returns the Current page URL if successful. Returns "" if not successful.
         """
@@ -457,20 +457,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method gets the website address of the current page for example https://va2.extremecloudiq.com
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get Base URL of Current Page
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_base_url_of_current_page()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Get Base URL of Current Page
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.get_base_url_of_current_page()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :return: Returns the base url of Current page that "https://va2.extremecloudiq.com" if successful. Returns "" if not successful.
         """
@@ -512,20 +512,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method clicks on "About ExtremeCloud IQ" at the top right and gets the Build version details from the "About ExtremeCloud IQ" popup. For example "Build Version: 23.2.0.30"
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get XIQ Version
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_xiq_version()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Get XIQ Version
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.get_xiq_version()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :return: Returns the XIQ Version details ex:23.1.5.4 if successful. Returns "" if not successful.
         """
@@ -567,20 +567,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method clicks on "About ExtremeCloud IQ" at the top right and gets the VIQ ID details from the "About ExtremeCloud IQ" popup. For example "VIQ ID: 306811".
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get viq id
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_viq_id()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Get viq id
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.get_viq_id()
+
+        Keyword Implementations:
+           GUI
+           XAPI
 
         :return: Returns the VIQ ID (string) if successful. Returns "" if not successful.
         """
@@ -622,20 +622,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method clicks on "About ExtremeCloud IQ" at the top right and gets the Data Center Name details from the "About ExtremeCloud IQ" popup. For example "Data Center Name: US_East2"
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get Data Center Name
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_data_center_name()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** "Not Implemented" **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Get Data Center Name
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.get_data_center_name()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** "Not Implemented" **
 
         :return: Returns the Data Center Name if successful. Returns "" if not successful.
         """
@@ -677,20 +677,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method checks the banner image on the right side of the login screen. For example "ExtremeCloud IQ  Mobile Companion"
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      logo check on login screen
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.logo_check_on_login_screen()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             logo check on login screen
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.logo_check_on_login_screen()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :return: Returns the login page logo screenshot if successful. Returns "" if not successful.
         """
@@ -732,20 +732,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method uses the browser's refresh button to refresh the current page. Default refresh delay is 10 seconds.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Refresh page
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.refresh_page()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Refresh page
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.refresh_page()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param refresh_delay: Default refresh delay is 10 seconds. Waits 10 seconds of time after the page is refreshed.
         :return: Returns None
@@ -781,20 +781,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method clicks the advanced Onboard popup sliding window that appears during the first login or after reset VIQ.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Click advanced Onboard popup
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.click_advanced_onboard_popup()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Click advanced Onboard popup
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.click_advanced_onboard_popup()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :return: Returns None
         """
@@ -830,20 +830,20 @@ class KeywordsLogin(object, metaclass=Singleton):
         This method loads the webpage url which is the ${TEST_URL} parameter provided in the internal_api.robot file if url='default'.
         To pass a url value, example url="https://10.16.118.155"
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Load web page
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.load_web_page()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Load web page
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.load_web_page()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param url: webpage url to load.For example url="https://extremecloud.com" or url="default". If url is default loads the "https://extremecloudiq.com" webpage.
         :return: Returns None
@@ -881,20 +881,20 @@ class KeywordsLogin(object, metaclass=Singleton):
         _email is the mandatory parameter.
         Examples of parameters _email = "xiqextremeqa+adess-va2@gmail.com" and url="https://extremecloud.com" or url="default"
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Forgot Password      _email=${email}   # ${email}= xiqextremeqa+adess-va2@gmail.com
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.forgot_password()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Forgot Password      _email=${email}   # ${email}= xiqextremeqa+adess-va2@gmail.com
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.forgot_password()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param _email: Email id of the user to reset the password. Example _email = "xiqextremeqa+adess-va2@gmail.com"
         :param url: Forgot Password URL. Examples url="https://extremecloud.com" or url="default"
@@ -942,20 +942,20 @@ class KeywordsLogin(object, metaclass=Singleton):
         This method clicks on "About ExtremeCloud IQ" at the top right and gets the Switch Connection Host details from the "About ExtremeCloud IQ" popup.
         For example "Switch Connection Host: va2.extremecloudiq.com"
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Get Switch Connection Host
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.get_switch_connection_host()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Implemented **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Get Switch Connection Host
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.get_switch_connection_host()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Implemented **
 
         :return: Returns the Switch Connection Host that "va2.extremecloudiq.com" if success. Returns "" if not success.
         """
@@ -997,20 +997,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method is used to switch from one window to another window of the browser.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Switch to window     ${win_index}
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.switch_to_window()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Switch to window     ${win_index}
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.switch_to_window()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param win_index:  Index of the window to switch to, this should be integer ex. 0 or 1 or 2
         :return: Returns None
@@ -1054,20 +1054,20 @@ class KeywordsLogin(object, metaclass=Singleton):
         This keyword will close Windows handles based on windows index value
         By default it will close windows handles index 0
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Close window     ${win_index}
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.close_window()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Close window     ${win_index}
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.close_window()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param win_index:  Index of the window to close, this should be integer ex. 0 or 1 or 2
         :return: Returns None
@@ -1110,20 +1110,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This method checks if upgrade button is displayed and clicks on the upgrade button and navigates connect user to license management UI
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Execute Upgrade Option For Connect User
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.execute_upgrade_option_for_connect_user()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Implemented **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Execute Upgrade Option For Connect User
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.execute_upgrade_option_for_connect_user()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Implemented **
 
         :return: Returns 1 if success. Returns -1 if not success.
         """
@@ -1166,22 +1166,22 @@ class KeywordsLogin(object, metaclass=Singleton):
         Sets the new password for xiq account
 
         This method sets a new password, but before executing this keyword, the account needs to be created in
-        Global settings- Account management in XIQ and receives the link to the provided email and then set the new password
+        Global settings Account management in XIQ and receives the link to the provided email and then set the new password
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Set Password
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.set_password()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Set Password
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.set_password()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param new_pwd: New Password to set, must be in string format
         :return: Returns 1 if success, -1 if not success.
@@ -1229,20 +1229,20 @@ class KeywordsLogin(object, metaclass=Singleton):
         This method Resets the password, but before executing this keyword, the forgot password keyword and
         Get Password Reset Link to be executed.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      Reset Password
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.reset_password()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             Reset Password
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.reset_password()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param new_pwd: New Password to set, must be in string format
         :return: Returns 1 if success, -1 if not success.
@@ -1289,20 +1289,20 @@ class KeywordsLogin(object, metaclass=Singleton):
 
         This Method is used to enable/disable an XIQ "beta" feature that is hidden by a "soft-launch" URL executed.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/login/KeywordsLogin.py
-        -      xiq soft launch feature url
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.login.KeywordsLogin import KeywordsLogin
-        -      Calling Keyword:
-        -         keywords_login = KeywordsLogin()
-        -         keywords_login.xiq_soft_launch_feature_url()
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Supported **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/login/KeywordsLogin.py
+             xiq soft launch feature url
+          Pytest:
+             Imports:
+                from keywords.gui.login.KeywordsLogin import KeywordsLogin
+             Calling Keyword:
+                keywords_login = KeywordsLogin()
+                keywords_login.xiq_soft_launch_feature_url()
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Supported **
 
         :param url: Full url to load to enable or disable the 'hidden' feature. "XIQ_URL" is the "test_url" value obtained from the testbed environment YAML file.
         :return: Returns 1 if success, -1 if not success.

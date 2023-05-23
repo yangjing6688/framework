@@ -1364,6 +1364,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
             if field in cell.get_attribute("class"):
                 return cell
 
+    def get_device_value(self, row, field=None):
+        """
+        Returns the table cell of the passed in row that contains the value for the passed in field.
+
+        :param row: the device parent row
+        :param field: field attribute. E.g. serialNumber, macAddress, ipAddress, hostname
+        :return: The table cell () of the passed in "row" that contains the passed in "field" if the passed in field
+        exists in the row, otherwise returns: None.
+        """
+        cells = self.weh.get_elements(self.devices_page_grid_cells, row)
+        for cell in cells:
+            if "field-" + field in cell.get_attribute("class"):
+                return cell
+
     def get_global_settings_management_dialog(self):
         return self.weh.get_element(self.global_settings_management_dialog)
 
