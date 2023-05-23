@@ -3,7 +3,7 @@ class WirelessNetworksDefinitions:
     wireless_nw_tab_button = \
         {
             'XPATH': '//*[@data-automation-tag="automation-tab-wireless-networks"]',
-            'wait_for': 1
+            'wait_for': 10
         }
 
     wireless_nw_grid_rows = \
