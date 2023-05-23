@@ -28,29 +28,29 @@ class KeywordsWebhook(WebhookWebElements, metaclass=Singleton):
 
         This method creates a webhook from GlobalSettings->Webhooks which is under AlertNotifications tab
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/webhook/KeywordsWebhook.py
-        -      Create Webhook  ${webhook1}
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
-        -      Calling Keyword:
-        -         webhook = KeywordsWebhook()
-        -         webhook.create_webhook(webhook)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Implemented **
+        Keyword Usage:
+            Robot:
+                Library  keywords/gui/webhook/KeywordsWebhook.py
+                Create Webhook  ${webhook1}
+            Pytest:
+                Imports:
+                    from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
+                Calling Keyword:
+                    webhook = KeywordsWebhook()
+                    webhook.create_webhook(webhook)
+
+        Keyword Implementations:
+            GUI
+            XAPI - ** Not Implemented **
 
         :param webhook: This parameter accepts webhook.yaml which will have webhook settings.
-            For Example the yaml file will have:
-                webhook1:
-                    url: "https://58l8z.mocklab.io/"
-                    secret: ""
-                    description: "this is a test webhook can not use it"
-                    sendme: true
-                    enable: true
+                        For Example the yaml file will have:
+                            webhook1:
+                                url: "https://58l8z.mocklab.io/"
+                                secret: ""
+                                description: "this is a test webhook can not use it"
+                                sendme: true
+                                enable: true
         :return: Returns 1 if success, -1 if not success.
         """
         keyword_name = inspect.stack()[0][3]
@@ -84,31 +84,31 @@ class KeywordsWebhook(WebhookWebElements, metaclass=Singleton):
 
         This method modifies the configuration of webhook 1  to webhook 2
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/webhook/KeywordsWebhook.py
-        -      Edit Webhook  ${webhook1}    ${webhook2}
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
-        -      Calling Keyword:
-        -         webhook = KeywordsWebhook()
-        -         webhook.edit_webhook(webhook1, webhook2)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Implemented **
+        Keyword Usage:
+            Robot:
+                Library  keywords/gui/webhook/KeywordsWebhook.py
+                Edit Webhook  ${webhook1}    ${webhook2}
+            Pytest:
+                Imports:
+                    from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
+                Calling Keyword:
+                    webhook = KeywordsWebhook()
+                    webhook.edit_webhook(webhook1, webhook2)
+
+        Keyword Implementations:
+            GUI
+            XAPI - ** Not Implemented **
 
         :param webhook1: This parameter will have the webhook needs to be modified.
-        :param webhook2:  This parameter  will have the new webhook settings
-            Both params accepts yaml file.
-            For Example the yaml file will have webhook settings as below:
-                webhook1:
-                    url: "https://58l8z.mocklab.io/"
-                    secret: ""
-                    description: "this is a test webhook can not use it"
-                    sendme: true
-                    enable: true
+        :param webhook2: This parameter  will have the new webhook settings
+                         Both params accepts yaml file.
+                         For Example the yaml file will have webhook settings as below:
+                            webhook1:
+                                url: "https://58l8z.mocklab.io/"
+                                secret: ""
+                                description: "this is a test webhook can not use it"
+                                sendme: true
+                                enable: true
         :return: Returns 1 if success, -1 if not success.
         """
         keyword_name = inspect.stack()[0][3]
@@ -142,29 +142,29 @@ class KeywordsWebhook(WebhookWebElements, metaclass=Singleton):
 
         This method deletes the webhook from the page GlobalSettings->Webhooks which is under AlertNotifications tab
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/webhook/KeywordsWebhook.py
-        -      Delete Webhook  ${webhook}
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
-        -      Calling Keyword:
-        -         webhook = KeywordsWebhook()
-        -         webhook.delete_webhook(webhook)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Implemented **
+        Keyword Usage:
+            Robot:
+                Library  keywords/gui/webhook/KeywordsWebhook.py
+                Delete Webhook  ${webhook}
+            Pytest:
+                Imports:
+                    from keywords.gui.webhook.KeywordsWebhook import KeywordsWebhook
+                Calling Keyword:
+                    webhook = KeywordsWebhook()
+                    webhook.delete_webhook(webhook)
+
+        Keyword Implementations:
+            GUI
+            XAPI - ** Not Implemented **
 
         :param webhook: This parameter accepts webhook.yaml which will have a webhook settings.
-        For Example the yaml file will have:
-                webhook1:
-                    url: "https://58l8z.mocklab.io/"
-                    secret: ""
-                    description: "this is a test webhook can not use it"
-                    sendme: true
-                    enable: true
+                        For Example the yaml file will have:
+                            webhook1:
+                                url: "https://58l8z.mocklab.io/"
+                                secret: ""
+                                description: "this is a test webhook can not use it"
+                                sendme: true
+                                enable: true
         :return: Returns 1 if success, -1 if not success.
         """
 
