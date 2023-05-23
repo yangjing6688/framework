@@ -93,19 +93,19 @@ class KeywordsMacMuConnect(object, metaclass=Singleton):
         Then refer to the named device when running the keyword. For example:
         ${RESULT}=   MU1.Connect Wpa2 Ppsk Network   SSID_01   Passw0rd
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/configure/KeywordsMacMuConnect.py
-        -      MU1.Connect Wpa2 Ppsk Network   ${SSID}   ${PSK_KEY}
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.configure.KeywordsMacMuConnect import KeywordsMacMuConnect
-        -      Calling Keyword:
-        -         keywords_mac_mu_connect = KeywordsMacMuConnect()
-        -         keywords_mac_mu_connect.connect_wpa2_ppsk_network(ssid, key, retry_count=5)
-        -
-        - Keyword Implementations:
-        -   This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
+         Keyword Usage:
+           Robot:
+              Library  keywords/gui/configure/KeywordsMacMuConnect.py
+              MU1.Connect Wpa2 Ppsk Network   ${SSID}   ${PSK_KEY}
+           Pytest:
+              Imports:
+                 from keywords.gui.configure.KeywordsMacMuConnect import KeywordsMacMuConnect
+              Calling Keyword:
+                 keywords_mac_mu_connect = KeywordsMacMuConnect()
+                 keywords_mac_mu_connect.connect_wpa2_ppsk_network(ssid, key, retry_count=5)
+
+         Keyword Implementations:
+           This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
 
         :param ssid: name of the ssid to connect
         :param key: password for connection

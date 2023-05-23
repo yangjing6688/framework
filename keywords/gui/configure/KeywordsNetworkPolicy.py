@@ -72,21 +72,21 @@ class KeywordsNetworkPolicy(object, metaclass=Singleton):
         restrict_access --> Specify the restrict access to domains. Values can be default or arbitrary
         auth_cache_duration --> Specify the authentication cache duration. Values can be "default" or arbitrary
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/configure/KeywordsNetworkPolicy.py
-        -      Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}
-        -      Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}     ${CLI_TYPE}
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.configure.KeywordsNetworkPolicy import KeywordsNetworkPolicy
-        -      Calling Keyword:
-        -         keywords_network_policy = KeywordsNetworkPolicy()
-        -         keywords_network_policy.create_network_policy(policy, wireless_profile, cli_type='AH-AP')
-        -
-        - Keyword Implementations:
-        -    GUI
+         Keyword Usage:
+           Robot:
+              Library  keywords/gui/configure/KeywordsNetworkPolicy.py
+              Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}
+              Create Network Policy   ${POLICY_NAME}   ${WIRELESS_NW_PROFILE}     ${CLI_TYPE}
+
+           Pytest:
+              Imports:
+                 from keywords.gui.configure.KeywordsNetworkPolicy import KeywordsNetworkPolicy
+              Calling Keyword:
+                 keywords_network_policy = KeywordsNetworkPolicy()
+                 keywords_network_policy.create_network_policy(policy, wireless_profile, cli_type='AH-AP')
+
+         Keyword Implementations:
+            GUI
 
         Supported Modes:
             GUI  - default mode

@@ -37,20 +37,20 @@ class KeywordsWinMuConnect(object, metaclass=Singleton):
         Then refer to the named device when running the keyword. For example:
         ${RESULT}=   MU1.Connectivity Check
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/configure/KeywordsWinMuConnect.py
-        -      MU1.Connectivity Check
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.configure.KeywordsWinMuConnect import KeywordsWinMuConnect
-        -      Calling Keyword:
-        -         keywords_win_mu_connect = KeywordsWinMuConnect()
-        -         keywords_win_mu_connect.connectivity_check(destination='https://www.facebook.com/')
-        -
-        - Keyword Implementations:
-        -   This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
+         Keyword Usage:
+           Robot:
+              Library  keywords/gui/configure/KeywordsWinMuConnect.py
+              MU1.Connectivity Check
+
+           Pytest:
+              Imports:
+                 from keywords.gui.configure.KeywordsWinMuConnect import KeywordsWinMuConnect
+              Calling Keyword:
+                 keywords_win_mu_connect = KeywordsWinMuConnect()
+                 keywords_win_mu_connect.connectivity_check(destination='https://www.facebook.com/')
+
+         Keyword Implementations:
+           This does not access a WebApplication and therefore does not have a GUI or XAPI implementation
         :param destination: destination url
         :return: 1 if internet access available else -1
         """

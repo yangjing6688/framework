@@ -33,19 +33,19 @@ class KeywordsUserGroups(object, metaclass=Singleton):
         Create User Group   group_name=${GROUP_NAME}   user_group_profile=&{USER_GROUP_PROFILE}
         for supported combination of  &{USER_GROUP_PROFILE} creation refer  "user_group_config.robot"
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/configure/KeywordsUserGroups.py
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.configure.KeywordsUserGroups import KeywordsUserGroups
-        -      Calling Keyword:
-        -         keywords_user_groups = KeywordsUserGroups()
-        -         keywords_user_groups.create_user_group(group_name='Demo', user_group_profile=None)
-        -
-        - Keyword Implementations:
-        -    GUI
+         Keyword Usage:
+           Robot:
+              Library  keywords/gui/configure/KeywordsUserGroups.py
+
+           Pytest:
+              Imports:
+                 from keywords.gui.configure.KeywordsUserGroups import KeywordsUserGroups
+              Calling Keyword:
+                 keywords_user_groups = KeywordsUserGroups()
+                 keywords_user_groups.create_user_group(group_name='Demo', user_group_profile=None)
+
+         Keyword Implementations:
+            GUI
 
         Supported Modes:
             GUI  - default mode
