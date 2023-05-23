@@ -34,21 +34,21 @@ class KeywordsDevices(object, metaclass=Singleton):
         then 'serial' number. The device (if found) can be optionally selected. Normally this keyword will navigate
         to the devices page and refresh the table, both of these can be skipped.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/manage/KeywordsDevices.py
-        -      Search Device  ${ap1}    skip_refresh=True  skip_navigation=True
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.manage.KeywordsDevices import KeywordsDevices
-        -      Calling Keyword:
-        -         keywords_devices = KeywordsDevices()
-        -         keywords_devices.search_device(self.tb.dut1, skip_refresh=True, skip_navigation=True)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - Note that for XAPI, the refresh and navigation cannot be skipped, also the device cannot be selected
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/manage/KeywordsDevices.py
+             Search Device  ${ap1}    skip_refresh=True  skip_navigation=True
+
+          Pytest:
+             Imports:
+                from keywords.gui.manage.KeywordsDevices import KeywordsDevices
+             Calling Keyword:
+                keywords_devices = KeywordsDevices()
+                keywords_devices.search_device(self.tb.dut1, skip_refresh=True, skip_navigation=True)
+
+        Keyword Implementations:
+           GUI
+           XAPI - Note that for XAPI, the refresh and navigation cannot be skipped, also the device cannot be selected
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param select_device: True - to select the device, default set to False
@@ -115,21 +115,21 @@ class KeywordsDevices(object, metaclass=Singleton):
          then 'serial' number. Normally this keyword will navigate to the devices page and refresh the table,
          both of these can be skipped.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/manage/KeywordsDevices.py
-        -      Select Device  ${ap1}    skip_refresh=True  skip_navigation=True
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.manage.KeywordsDevices import KeywordsDevices
-        -      Calling Keyword:
-        -         keywords_devices = KeywordsDevices()
-        -         keywords_devices.select_device(self.tb.dut1, skip_refresh=True, skip_navigation=True)
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/manage/KeywordsDevices.py
+             Select Device  ${ap1}    skip_refresh=True  skip_navigation=True
 
-        - Keyword Implementations:
-            -    GUI
-            -    XAPI - ** Not Supported**
+          Pytest:
+             Imports:
+                from keywords.gui.manage.KeywordsDevices import KeywordsDevices
+             Calling Keyword:
+                keywords_devices = KeywordsDevices()
+                keywords_devices.select_device(self.tb.dut1, skip_refresh=True, skip_navigation=True)
+
+        Keyword Implementations:
+               GUI
+               XAPI - ** Not Supported**
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1):
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
@@ -198,21 +198,21 @@ class KeywordsDevices(object, metaclass=Singleton):
         of the stack, otherwise will delete individual devices by using every 'serial' number provided in
         device_dict.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/manage/KeywordsDevices.py
-        -      Delete Device  ${ap1}
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.manage.KeywordsDevices import KeywordsDevices
-        -      Calling Keyword:
-        -         keywords_devices = KeywordsDevices()
-        -         keywords_devices.delete_device(self.tb.dut1)
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/manage/KeywordsDevices.py
+             Delete Device  ${ap1}
 
-        - Keyword Implementations:
-            -    GUI
-            -    XAPI
+          Pytest:
+             Imports:
+                from keywords.gui.manage.KeywordsDevices import KeywordsDevices
+             Calling Keyword:
+                keywords_devices = KeywordsDevices()
+                keywords_devices.delete_device(self.tb.dut1)
+
+        Keyword Implementations:
+               GUI
+               XAPI
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param kwargs: Supports all standard kwargs
@@ -277,21 +277,21 @@ class KeywordsDevices(object, metaclass=Singleton):
          first, then 'serial' number to check if the device still exists in the devices page, or it was removed. By
          default loops 10 times every 30 seconds to check if the device still exists in the table.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/manage/KeywordsDevices.py
-        -      Wait Until Device Removed  ${ap1}    retry_duration=15    retry_count=20
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.manage.KeywordsDevices import KeywordsDevices
-        -      Calling Keyword:
-        -         keywords_devices = KeywordsDevices()
-        -         keywords_devices.wait_until_device_removed(self.tb.dut1, retry_duration=15, retry_count=20)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Implemented **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/manage/KeywordsDevices.py
+             Wait Until Device Removed  ${ap1}    retry_duration=15    retry_count=20
+
+          Pytest:
+             Imports:
+                from keywords.gui.manage.KeywordsDevices import KeywordsDevices
+             Calling Keyword:
+                keywords_devices = KeywordsDevices()
+                keywords_devices.wait_until_device_removed(self.tb.dut1, retry_duration=15, retry_count=20)
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Implemented **
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param retry_duration: duration between each retry, by default set to 10 (times)
