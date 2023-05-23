@@ -1,7 +1,6 @@
 class CommunicationsWebElementDefs:
     comm_page_text = \
         {
-            # 'XPATH': '//div[@id="container" and @class="communications"]//h1',
             'XPATH': '//h1//span[@class="s1"]//b[contains(text(), "NOTIFICATIONS")]',
         }
 

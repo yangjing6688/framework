@@ -1,8 +1,8 @@
 """ This file contains code for keywords that have been archived.
-    If the keywords need to be available again copy the code to xiq/flows/common/Login.py and implement the keyword move process.
-    Instructions for moving a keyword can be found here: https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords """
-
-# All Archived keywords will be deleted after December 2023
+    If the keywords need to be available again copy the code to xiq/flows/globalsettings/Communications.py
+    and implement the keyword move process.
+    Instructions for moving a keyword can be found here:
+    https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords """
 
 from time import sleep
 from extauto.common.Utils import Utils
@@ -31,7 +31,9 @@ class Communications(object, metaclass=Singleton):
         self.common_validation = CommonValidation()
         self.communications_web_elements = CommunicationsWebElements()
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/banner_top/KeywordsCommunications.py')
+    @deprecated('This keyword is deprecated. If it is required, re-implement the keyword in the original location '
+                'and complete the keyword move process. Instructions for moving keywords can be found here:'
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def validate_notifications_page(self, **kwargs):
         """
         - This Keyword Navigate to notifications page from communications page
@@ -70,7 +72,9 @@ class Communications(object, metaclass=Singleton):
             self.common_validation.failed(**kwargs)
             return -2
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/banner_top/KeywordsCommunications.py')
+    @deprecated('This keyword is deprecated. If it is required, re-implement the keyword in the original location '
+                'and complete the keyword move process. Instructions for moving keywords can be found here:'
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def validate_preview_page(self, **kwargs):
         """
         - This Keyword Navigate to preview page in communications
@@ -107,7 +111,9 @@ class Communications(object, metaclass=Singleton):
             self.common_validation.failed(**kwargs)
             return -2
 
-    @deprecated('This keyword is deprecated, to use it please move it to keywords/gui/banner_top/KeywordsCommunications.py')
+    @deprecated('This keyword is deprecated. If it is required, re-implement the keyword in the original location '
+                'and complete the keyword move process. Instructions for moving keywords can be found here:'
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
     def validate_new_in_extremecloud_page(self, **kwargs):
         """
         - This Keyword Navigate to New in ExtremeCLoud IQ
