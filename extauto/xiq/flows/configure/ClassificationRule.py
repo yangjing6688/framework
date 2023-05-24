@@ -81,7 +81,9 @@ class ClassificationRule(object):
             kwargs['fail_msg'] = f"Not able to Select CCG Match Type {match_type}"
             self.common_validation.fault(**kwargs)
             return -1
+
         self.utils.print_info(f"Selecting CCG policy :{ccg_policy}")
+        self.utils.wait_till(self.classification_rule_web_elements.get_ccg_policy_select_option)
         self.auto_actions.click_reference(self.classification_rule_web_elements.get_ccg_policy_select_option)
         sleep(2)
 
