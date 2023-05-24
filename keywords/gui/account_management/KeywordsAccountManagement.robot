@@ -21,6 +21,9 @@ Suite Teardown	Close Session
 *** Test Cases ***
 
 UnitTest-1: Deleting The Management Account
+
+	[Documentation]         Create Management Account and Delete
+
 	${ADD_ACCOUNT}=          Add Account         ${TENANT_NAME}          ${TENANT_EMAIL_ID}
     Should Be Equal as Integers     ${ADD_ACCOUNT}      1
 	
@@ -28,9 +31,9 @@ UnitTest-1: Deleting The Management Account
      Should Be Equal as Integers     ${DELETE_ACCOUNT}      1
 
 
-UnitTest-2: Guest Management Role - Adding users
+UnitTest-2: Guest Management Role - Adding and deleting users
 
-    [Documentation]         Create Guest Management Role
+    [Documentation]         Create Guest Management Role And Delete
 
     ${CREATE_ACCOUNT}=              Create Role Based Account   ${GUEST_MANAGEMENT_ROLE}
     should be equal as strings      '${CREATE_ACCOUNT}'    '1'
