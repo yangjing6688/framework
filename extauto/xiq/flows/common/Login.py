@@ -245,24 +245,25 @@ class Login(object, metaclass=Singleton):
 
         test_url = BuiltIn().get_variable_value("${TEST_URL}")
         if test_url and 'sso.xcloudiq' in test_url:
-            self.utils.print_info("Loading SSO Login URL")
-            self.screen.save_screen_shot()
-            self.utils.print_info("Entering SSO Username")
-            self.auto_actions.send_keys(self.login_web_elements.get_iam_login_sso_page_username_text(), username)
-            self.screen.save_screen_shot()
-
-            self.utils.print_info("Entering SSO Password")
-            self.auto_actions.send_keys(self.login_web_elements.get_iam_login_sso_page_password_text(), password)
-            self.screen.save_screen_shot()
-
-            self.utils.print_info("Clicking on SSO Sign In button")
-            self.auto_actions.click_reference(self.login_web_elements.get_iam_login_sso_page_login_button)
-            self.screen.save_screen_shot()
-            self.utils.print_info("Check for wrong credentials..")
-            credential_warnings = self.login_web_elements.get_credentials_error_message()
-            print(credential_warnings)
-            self.utils.print_info("Wrong Credential Message: ", credential_warnings)
             try:
+                self.utils.print_info("Loading SSO Login URL")
+                self.screen.save_screen_shot()
+                self.utils.print_info("Entering SSO Username")
+                self.auto_actions.send_keys(self.login_web_elements.get_iam_login_sso_page_username_text(), username)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Entering SSO Password")
+                self.auto_actions.send_keys(self.login_web_elements.get_iam_login_sso_page_password_text(), password)
+                self.screen.save_screen_shot()
+
+                self.utils.print_info("Clicking on SSO Sign In button")
+                self.auto_actions.click_reference(self.login_web_elements.get_iam_login_sso_page_login_button)
+                self.screen.save_screen_shot()
+                self.utils.print_info("Check for wrong credentials..")
+                credential_warnings = self.login_web_elements.get_credentials_error_message()
+                print(credential_warnings)
+                self.utils.print_info("Wrong Credential Message: ", credential_warnings)
+
                 if 'No Message' in credential_warnings:
                     return 1
             except Exception:
@@ -273,7 +274,7 @@ class Login(object, metaclass=Singleton):
             return 1
 
 
-        if test_url and ('sso' in test_url and 'xcloudiq' not in test_url or 'tinyurl' in test_url):
+        if test_url and (('sso' in test_url and 'xcloudiq' not in test_url) or 'tinyurl' in test_url):
             self.utils.print_info("Loading SSO Login URL")
             self.screen.save_screen_shot()
             self.utils.print_info("Entering SSO Username")
