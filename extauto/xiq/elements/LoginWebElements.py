@@ -419,3 +419,12 @@ class LoginWebElements(LoginWebElementsDefinitions):
                 return "No Message"
         except Exception:
             return "No Message"
+
+    def get_iam_login_sso_page_username_text(self):
+        return self.weh.get_element(self.iam_login_sso_page_username_text)
+
+    def get_iam_login_sso_page_password_text(self):
+        return self.weh.get_element(self.iam_login_sso_page_password_text)
+
+    def get_iam_login_sso_page_login_button(self):
+        return self.weh.get_element(self.iam_login_sso_page_login_button)

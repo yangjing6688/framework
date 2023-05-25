@@ -43,6 +43,12 @@ class IAMWebElementsDefinitions:
 
     adfs_page_password_button = \
         {
+            'XPATH': '(//button[@type="submit"])[1]',
+            'wait_for': 3,
+        }
+
+    adfs_page_submit_button = \
+        {
             'XPATH': '//span[@id="submitButton"]',
             'wait_for': 3,
         }
@@ -72,8 +78,8 @@ class IAMWebElementsDefinitions:
 
     iam_idp_page_add_idp_button = \
         {
-            'XPATH': '//span[@class="mat-mdc-button-touch-target"]',
-            'wait_for': 3,
+            'XPATH': '//mat-icon[contains(text(),"add")]',
+            'wait_for': 5,
         }
 
     iam_idp_page_domain_text = \
@@ -88,22 +94,28 @@ class IAMWebElementsDefinitions:
             'wait_for': 3,
         }
 
-    iam_idp_page_continue_button = \
+    iam_idp_page_profile_continue_button = \
         {
-            'XPATH': '//span[contains(text(),"Continue")]',
+            'XPATH': '(//span[contains(text(),"Continue")])[1]',
+            'wait_for': 6,
+        }
+
+    iam_idp_page_connection_continue_button = \
+        {
+            'XPATH': '(//span[contains(text(),"Continue")])[2]',
             'wait_for': 3,
         }
 
     iam_idp_page_import_from_url_button = \
         {
             'XPATH': '//input[@value="url"]',
-            'wait_for': 3,
+            'wait_for': 6,
         }
 
     iam_idp_page_idp_metadata_url_text = \
         {
             'XPATH': '//input[@name="url"]',
-            'wait_for': 3,
+            'wait_for': 5,
         }
 
     iam_idp_page_import_button = \
@@ -112,28 +124,36 @@ class IAMWebElementsDefinitions:
             'wait_for': 3,
         }
 
-    iam_idp_page_email = \
+    iam_idp_page_email_text = \
         {
-            'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(1) > div.attr-item > div.attr-item-saml',
+            #'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(1) > div.attr-item > div.attr-item-saml',
+            'XPATH': '(//input[@name="field"])[1]',
             'wait_for': 5
         }
 
-    iam_idp_page_group = \
+    iam_idp_page_group_text = \
         {
-            'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(2) > div.attr-item > div.attr-item-saml > mat-form-field',
+            #'CSS_SELECTOR': 'div.attr-list > form:nth-of-type(2) > div.attr-item > div.attr-item-saml > mat-form-field',
+            'XPATH': '(//input[@name="field"])[2]',
             'wait_for': 5
         }
 
-    iam_idp_page_default_group = \
+    iam_idp_page_default_group_dropdown = \
         {
             'XPATH': '//div[@class="group-default-field"]',
+            'wait_for': 3,
+        }
+
+    iam_idp_page_default_group_item = \
+        {
+            'XPATH': '//span[contains(text(),',
             'wait_for': 3,
         }
 
     iam_idp_page_entity_id = \
         {
             'XPATH': '//input[@name="entityId"]',
-            'wait_for': 3,
+            'wait_for': 5,
         }
 
     iam_idp_page_sso_binding = \
@@ -157,12 +177,18 @@ class IAMWebElementsDefinitions:
     iam_idp_page_save_button = \
         {
             'XPATH': '//span[contains(text(),"Save")]',
-            'wait_for': 3,
+            'wait_for': 5,
         }
 
     iam_page_list_idp = \
         {
             'XPATH': '//span[contains(text(),',
+            'wait_for': 3,
+        }
+
+    iam_console_link = \
+        {
+            'XPATH': '//a[contains(text(),"Identity and Access Management")]',
             'wait_for': 3,
         }
 
