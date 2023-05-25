@@ -3213,6 +3213,24 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_average_cpu_percent = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="avgCpuValue"]',
+            'wait_for': 5
+        }
+
+    device360_average_memory_utilization = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="avgMemUsageValue"]',
+            'wait_for': 5
+        }
+
+    device360_adequate_power_supply = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="adequatePowerSuppyValue"]',
+            'wait_for': 5
+        }
+
     device360_leftpane_unique_clients = \
         {
             'XPATH': '//*[@data-dojo-attach-point="clientsNum"]',
