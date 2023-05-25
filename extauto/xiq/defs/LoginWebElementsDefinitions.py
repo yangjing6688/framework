@@ -694,3 +694,21 @@ class LoginWebElementsDefinitions:
             'XPATH': '//*[@id="error"]//*[@id="errorText"]',
             'wait_for': 15,
         }
+
+    iam_login_sso_page_username_text = \
+        {
+            'XPATH': '//input[@name="username"]',
+            'wait_for': 15,
+        }
+
+    iam_login_sso_page_password_text = \
+        {
+            'XPATH': '//input[@name="password"]',
+            'wait_for': 15,
+        }
+
+    iam_login_sso_page_login_button = \
+        {
+            'XPATH': '//*[@type="submit"]',
+            'wait_for': 15,
+        }
