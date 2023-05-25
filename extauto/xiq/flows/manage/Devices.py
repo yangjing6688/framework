@@ -1662,13 +1662,12 @@ class Devices(object, metaclass=Singleton):
             self.utils.print_info("Models: ", models)
             for model in models:
                 list_final_simulated_serial = self.get_device_serial_numbers(model)
-                simulated_global_variable = "${" + name + ".serial}"
                 simulated_global_variable_list = []
                 for i in list_final_simulated_serial:
                     if i not in list_initial_simulated_serial:
                         simulated_global_variable_list.append(i)
                 if len(simulated_global_variable_list) == 1:
-                    BuiltIn().set_global_variable(simulated_global_variable, simulated_global_variable_list[0])
+                    device_dict["serial"] = simulated_global_variable_list[0]
                     kwargs['pass_msg'] = f"Successfully Onboarded Device with model : {model}"
                     self.common_validation.passed(**kwargs)
                     return 1
@@ -1677,7 +1676,7 @@ class Devices(object, metaclass=Singleton):
                     self.common_validation.failed(**kwargs)
                     return -1
                 elif len(simulated_global_variable_list) > 1:
-                    BuiltIn().set_global_variable(simulated_global_variable, simulated_global_variable_list)
+                    device_dict["serial"] = simulated_global_variable_list
                     kwargs['pass_msg'] = f"Successfully Onboarded {device_count} Devices with model : {model}"
                     self.common_validation.passed(**kwargs)
                     return 1
