@@ -182,6 +182,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         enable_upa = options.get('enable_upa')
         user_auth_on_captive_web_portal = options.get('user_auth_on_captive_web_portal')
 
+        self.auto_actions.scroll_down()
         self.utils.wait_till(self.get_enable_upa, delay=2, timeout=8, is_logging_enabled=True)
         if enable_upa.upper() == "ENABLE":
             self.utils.print_info("Select the enable upa check box")
@@ -190,7 +191,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             self.utils.print_info("Un select the enable upa check box")
             self.auto_actions.disable_check_box(self.get_enable_upa())
 
-        sleep(2)
         if enable_self_reg.upper() == "ENABLE":
             self.utils.print_info("Select the enable self registration check box")
             self.auto_actions.enable_check_box(self.get_enable_self_registration())
