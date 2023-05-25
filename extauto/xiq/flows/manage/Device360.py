@@ -16271,7 +16271,6 @@ class Device360(Device360WebElements):
 
                 if adequate_power_supply == 100:
                     device_hardware_health_score += 30
-
                 get_overview['expected_device_hardware_health'] = device_hardware_health_score
 
             kwargs['pass_msg'] = "Successfully able to get D360 Monitor Overview."
