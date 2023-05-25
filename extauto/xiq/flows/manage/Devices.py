@@ -344,7 +344,7 @@ class Devices(object, metaclass=Singleton):
         self.common_validation.failed(**kwargs)
         return False
 
-    def get_device_details(self, search_string, label_str):
+    def get_device_details(self, search_string, label_str, single_val = True):
         """
         - Gets the device row label value based on the passed label_str
         - Supported label_str are Column headers like IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
@@ -392,7 +392,14 @@ class Devices(object, metaclass=Singleton):
                                     device_detail_dict[label] = cell.text
                             else:
                                 device_detail_dict[label] = cell.text
-                    return device_detail_dict[self.device_column_values[label_str]]
+                    if single_val == True:
+                        return device_detail_dict[self.device_column_values[label_str]]
+                    else:
+                        device = label_str.get('device', 'None')
+                        if device != 'None':
+                            for i in device:
+                                device[i] = device_detail_dict[self.device_column_values[i.upper().replace('_', ' ')]]
+                            return label_str
                 else:
                     self.utils.print_info(f"Unable to retrieve device row for {search_string}")
                     self.screen.save_screen_shot()

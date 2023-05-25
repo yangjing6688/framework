@@ -3183,6 +3183,36 @@ class Device360WebElementDefs:
             'wait_for': 5
         }
 
+    device360_device_availability_score = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='scoreAvailabilityValue']",
+            'wait_for': 5
+        }
+
+    device360_device_hardware_health = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='scoreHardwareValue']",
+            'wait_for': 5
+        }
+
+    device360_Config_Firmware_Score = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="scoreConfFirmwareValue"]',
+            'wait_for': 5
+        }
+
+    device360_device_overall_score = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='overallScoreValue' and @class='score excellent']",
+            'wait_for': 5
+        }
+
+    device360_connected_device_status = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="statusValue"]',
+            'wait_for': 5
+        }
+
     device360_leftpane_unique_clients = \
         {
             'XPATH': '//*[@data-dojo-attach-point="clientsNum"]',

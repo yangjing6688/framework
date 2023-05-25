@@ -116,11 +116,13 @@ class LoginXIQ:
             self.auto_actions.click_reference(self.login_web_elements.get_saml_login_page_continue_button)
             sleep(3)
             if self.check_mutiple_idp_configured_same_domain() == 1:
-                self.utils.print_info("Choose the username" + username)
-                self.auto_actions.click(self.login_web_elements.get_saml_login_page_idp_server_item(username))
-            self.utils.print_info("Entering Username")
+                self.utils.print_info("Choose the orgname " + orgname)
+                element = self.web.get_element(self.login_web_elements.get_saml_login_page_idp_server_item(orgname))
+                self.auto_actions.click(element)
+            self.utils.print_info("Entering Username and Password")
             self.auto_actions.send_keys(self.login_web_elements.get_adfs_page_username_text(), username)
             self.auto_actions.send_keys(self.login_web_elements.get_adfs_page_password_text(), password)
+            self.utils.print_info("Click Sign in button")
             self.auto_actions.click_reference(self.login_web_elements.get_adfs_page_submit_button)
             sleep(2)
             self.screen.save_screen_shot()
@@ -137,83 +139,6 @@ class LoginXIQ:
             kwargs['pass_msg'] = "Login Failed or there is something wrong with the accout"
             self.common_validation.fault(**kwargs)
             return -1
-
-
-    def gui_logout_user(self, **kwargs):
-        """
-        - Logout the current user
-        - Keyword Usage:
-        - ``Logout User``
-        :return: 1 if logout success, -1 if logout not successful
-        Supported Modes:
-            UI - default mode
-            XAPI - kwargs XAPI_ONLY=True (Will only support XAPI keywords in your test)
-        :return: 1 if logout success
-        """
-
-        # stop tool tip text capture thread
-        self.utils.switch_to_default(CloudDriver().cloud_driver)
-        if self.t1:
-            try:
-                if self.t1.is_alive():
-                    self.t1.do_run = False
-                    # t1 is a thread used to check for messages on the webpage.  It loops every second.  Wait 2
-                    # seconds to give it time to shutdown
-                    sleep(2)
-            except Exception:
-                print("t1.do_run not initialized")
-
-        try:
-            self.utils.print_info("Clicking on Logout Menu")
-            self.auto_actions.move_to_element(self.login_web_elements.get_user_account_nav())
-            self.auto_actions.click_reference(self.login_web_elements.get_logout_link)
-        except Exception as e:
-            self.utils.print_debug("Error: ", e)
-            kwargs['fail_msg'] = f"Error: {e}"
-            self.common_validation.failed(**kwargs)
-            return -1
-
-        kwargs['pass_msg'] = "Logout Successful"
-        self.common_validation.passed(**kwargs)
-        return 1
-
-    def quit_browser(self, _driver=None, **kwargs):
-        """
-        - Closes all the browser windows and ends the WebDriver session gracefully.
-        - if the driver object is passed, quits and returns
-        - Keyword Usage:
-        - ``Quit Browser``
-
-        :param _driver
-        :return: 1 if success
-        """
-
-        if _driver:
-            _driver.quit()
-            kwargs['pass_msg'] = "Quit browser Successfully"
-            self.common_validation.passed(**kwargs)
-            return 1
-
-        # stop tool tip text capture thread
-        try:
-            if self.t1:
-                if self.t1.is_alive():
-                    self.t1.do_run = False
-                    sleep(10)
-                kwargs['pass_msg'] = "Quit browser Successfully"
-                self.common_validation.passed(**kwargs)
-                return 1
-            else:
-                # nothing to do
-                return 1
-        except Exception as e:
-            self.utils.print_debug("Error: ", e)
-            kwargs['fail_msg'] = f"'quit_browser()' -> Error: {e}"
-            self.common_validation.failed(**kwargs)
-            return -1
-        finally:
-            CloudDriver().close_browser()
-            self.utils.print_info("Resetting cloud driver to -1")
 
     def check_mutiple_idp_configured_same_domain(self, **kwargs):
         """
