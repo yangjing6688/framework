@@ -1,13 +1,20 @@
-# Standard Keyword imports 
-from extauto.common.CommonValidation import CommonValidation 
+""" This file contains code for keywords that have been archived.
+    If the keywords need to be available again copy the code to xiq/flows/common/Login.py
+    and implement the keyword move process.
+    Instructions for moving a keyword can be found here:
+    https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords """
+
+# All Archived keywords will be deleted after December 2023
+
+# Standard Keyword imports
+from ExtremeAutomation.Utilities.deprecated import deprecated
+from extauto.common.CommonValidation import CommonValidation
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
 from time import sleep
 from extauto.common.AutoActions import AutoActions
 from extauto.common.GmailHandler import GmailHandler
 from extauto.common.Utils import Utils
-import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.PasswordResetWebElements import PasswordResetWebElements
-from ExtremeAutomation.Utilities.deprecated import deprecated
 
 
 class PasswordReset(object, metaclass=Singleton):
@@ -15,42 +22,40 @@ class PasswordReset(object, metaclass=Singleton):
         # This is a singleton, avoid initializing for each instance 
         if hasattr(self, 'initialized'): 
             return 
-        self.initialized = True 
-        # self.driver = extauto.common.CloudDriver.cloud_driver
+        self.initialized = True
         self.pw_web_elements = PasswordResetWebElements()
         self.auto_actions = AutoActions()
         self.gm_handler = GmailHandler()
         self.utils = Utils()
         self.common_validation = CommonValidation()
 
-    @deprecated('Please use the {add_account} keyword in keywords/gui/passwordreset/KeywordsPasswordReset.py'
-                'This method can be removed after 7/1/2023')
-    def add_account(self, name, _email, **kwargs):
-        return self.gui_add_account(name, _email, **kwargs)
-        
-    def gui_add_account(self, name, _email, **kwargs):
+    @deprecated('This keyword is deprecated. If it is required, re-implement the keyword in the original location '
+                'and complete the keyword move process. Instructions for moving keywords can be found here:'
+                'https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords')
+    def password_reset(self, name, _email, _password):
         """
-        - adds an account under account management
-        - Adding administrative account
-        - Flow Global Settings --> Account Management
+        - Create administrative account and get the password reset link
+        -  Flow Global Settings --> Account Management
         - Keyword Usage:
-        - ``Add Account  ${NAME}   ${EMAIL``
+        - ``Password Reset   ${NAME}   ${EMAIL}   ${PASSWORD}
 
         :param name:
         :param _email:
-        :return: 1 if account created else -1
+        :param _password:
+        :return: password reset link
         """
-        self.utils.print_info("clicking on account icon..")
+
+        self.utils.print_info("clicking on account icon")
         self.auto_actions.click_reference(self.pw_web_elements.get_account_icon)
-        sleep(5)
+        sleep(3)
 
         self.utils.print_info("clicking on global settings")
         self.auto_actions.click_reference(self.pw_web_elements.get_global_settings)
-        sleep(5)
+        sleep(3)
 
         self.utils.print_info("clicking on account management")
         self.auto_actions.click_reference(self.pw_web_elements.get_account_management)
-        sleep(5)
+        sleep(3)
 
         result = self.pw_web_elements.get_user_table()
         for res in result:
@@ -79,33 +84,7 @@ class PasswordReset(object, metaclass=Singleton):
         self.auto_actions.click_reference(self.pw_web_elements.get_save_button)
         sleep(10)
 
-        tool_tp_text = tool_tip.tool_tip_text
-        self.utils.print_info(tool_tp_text)
-        for value in tool_tp_text:
-            if "already exists. Please try again using a different email address" in value:
-                self.utils.print_info(value)
-                kwargs['fail_msg'] = "Failed to  add(create) account"
-                self.common_validation.failed(**kwargs)
-                return -1
-        kwargs['pass_msg'] = "Successfully added(created) account"
-        self.common_validation.passed(**kwargs)
-        return 1
+        reset_link = self.gm_handler.get_url_to_set_password_for_new_user(_email, _password)
+        self.utils.print_info("Redirecting URL: ", reset_link)
 
-    @deprecated('Please use the {get_link} keyword in keywords/gui/passwordreset/KeywordsPasswordReset.py'
-                'This method can be removed after 7/1/2023')
-    def get_link(self, _email, _password):
-        return self.gui_get_link(_email, _password)
-
-    def gui_get_link(self, _email, _password):
-        """
-        - Get the url link for password set to new account sent to email
-        - Keyword Usage:
-        - ``Get Link   ${EMAIL}   ${PASSWORD}``
-
-        :param _email:
-        :param _password:
-        :return: password reset link
-        """
-        link = self.gm_handler.get_url_to_set_password_for_new_user(_email, _password)
-        self.utils.print_info("Redirecting URL: ", link)
-        return link
+        return reset_link

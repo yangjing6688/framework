@@ -21,7 +21,7 @@ class IAMWebElements(IAMWebElementsDefinitions):
 
     def get_saml_login_page_idp_server_item(self, username):
         item = {}
-        item['XPATH'] = self.xiq_page_account_username_title['XPATH'] + '"' + username + '"' + ')]'
+        item['XPATH'] = self.saml_login_page_idp_server_item['XPATH'] + '"' + username + '"' + ')]'
         item['wait_for'] = 3
         return item
 
@@ -32,7 +32,7 @@ class IAMWebElements(IAMWebElementsDefinitions):
         return self.weh.get_element(self.adfs_page_password_text)
 
     def get_adfs_page_submit_button(self):
-        return self.weh.get_element(self.adfs_page_password_button)
+        return self.weh.get_element(self.adfs_page_submit_button)
 
     def get_xiq_page_account_username_title(self, username):
         item = {}
@@ -65,8 +65,12 @@ class IAMWebElements(IAMWebElementsDefinitions):
     def get_iam_idp_page_description_text(self):
         return self.weh.get_element(self.iam_idp_page_description_text)
 
-    def get_iam_idp_page_continue_button(self):
-        return self.weh.get_element(self.iam_idp_page_continue_button)
+    def get_iam_idp_page_profile_continue_button(self):
+        return self.weh.get_element(self.iam_idp_page_profile_continue_button)
+
+
+    def get_iam_idp_page_connection_continue_button(self):
+        return self.weh.get_element(self.iam_idp_page_connection_continue_button)
 
     def get_iam_idp_page_import_from_url_button(self):
         return self.weh.get_element(self.iam_idp_page_import_from_url_button)
@@ -77,8 +81,8 @@ class IAMWebElements(IAMWebElementsDefinitions):
     def get_iam_idp_page_import_button(self):
         return self.weh.get_element(self.iam_idp_page_import_button)
 
-    def get_iam_idp_page_email(self):
-        return self.weh.get_element(self.iam_idp_page_email)
+    def get_iam_idp_page_email_text(self):
+        return self.weh.get_element(self.iam_idp_page_email_text)
 
     def get_iam_idp_page_entity_id(self):
         return self.weh.get_element(self.iam_idp_page_entity_id)
@@ -92,16 +96,27 @@ class IAMWebElements(IAMWebElementsDefinitions):
     def get_iam_idp_page_sloResponse_binding(self):
         return self.weh.get_element(self.iam_idp_page_sloResponse_binding)
 
-    def get_iam_idp_page_group(self):
-        return self.weh.get_element(self.iam_idp_page_group)
+    def get_iam_idp_page_group_text(self):
+        return self.weh.get_element(self.iam_idp_page_group_text)
 
-    def get_iam_idp_page_default_group(self):
-        return self.weh.get_element(self.iam_idp_page_default_group)
+    def get_iam_idp_page_default_group_dropdown(self):
+        return self.weh.get_element(self.iam_idp_page_default_group_dropdown)
 
+    def get_iam_idp_page_default_group_item(self, default_group):
+        item = {}
+        item['XPATH'] = self.iam_idp_page_default_group_item['XPATH'] + '"' + default_group + '"' + ')]'
+        item['wait_for'] = 3
+        return item
     def get_iam_idp_page_save_button(self):
         return self.weh.get_element(self.iam_idp_page_save_button)
 
-    def get_iam_page_list_idp(self):
-        return self.weh.get_element(self.iam_page_list_idp)
+    def get_iam_page_list_idp(self,idp_name):
+        item = {}
+        item['XPATH'] = self.iam_page_list_idp['XPATH'] + '"' + idp_name + '"' + ')]'
+        item['wait_for'] = 6
+        return item
+
+    def get_iam_console_link(self):
+        return self.weh.get_element(self.iam_console_link)
 
 
