@@ -190,6 +190,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             self.utils.print_info("Un select the enable upa check box")
             self.auto_actions.disable_check_box(self.get_enable_upa())
 
+        sleep(2)
         if enable_self_reg.upper() == "ENABLE":
             self.utils.print_info("Select the enable self registration check box")
             self.auto_actions.enable_check_box(self.get_enable_self_registration())
@@ -498,7 +499,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         return_aerohive_ppsk = cwp_config.get("return_aerohive_private_psk")
         auth_with_extcldiq_service = cwp_config.get("auth_with_extcldiq_service", "Disable")
 
-        self.utils.wait_till(self.get_enable_captive_web_portal, delay=2, timeout=8, is_logging_enabled=True)
         self.utils.print_info("Enable 'Enable Captive Web Portal' radio button")
         self.auto_actions.enable_radio_button(self.get_enable_captive_web_portal())
 
