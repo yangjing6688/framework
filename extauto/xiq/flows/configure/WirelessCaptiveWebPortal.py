@@ -425,7 +425,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             self.auto_actions.click_reference(self.get_auth_method_drop_down)
             self.utils.print_info(f"select the authentication method:{auth_method}")
             self.auto_actions.select_drop_down_options(self.get_auth_method_drop_down_options(), auth_method)
-        self.utils.print_info(f"Click Save CWP button")
+        self.utils.print_info("Click Save CWP button")
         self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
 
         sleep(3)
