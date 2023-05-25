@@ -498,6 +498,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         return_aerohive_ppsk = cwp_config.get("return_aerohive_private_psk")
         auth_with_extcldiq_service = cwp_config.get("auth_with_extcldiq_service", "Disable")
 
+        self.utils.wait_till(self.get_enable_captive_web_portal, delay=2, timeout=8, is_logging_enabled=True)
         self.utils.print_info("Enable 'Enable Captive Web Portal' radio button")
         self.auto_actions.enable_radio_button(self.get_enable_captive_web_portal())
 
