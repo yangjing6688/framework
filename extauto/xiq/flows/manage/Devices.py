@@ -349,16 +349,27 @@ class Devices(object, metaclass=Singleton):
         - Gets the device row label value based on the passed label_str
         - Supported label_str are Column headers like IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
         - If the Column is not visible also it will get the value for particular  column header
-        - Keyword Usage:
+        - Keyword Usage if single_val = True:
         - ``${POLICY}        Get Device Details    ${AP1_MAC}     POLICY``
         - ``${UPDATED}       Get Device Details    ${AP1_MAC}     UPDATED``
         - ``${MGT_IP_ADDR}   Get Device Details    ${AP1_MAC}     MGT IP ADDRESS``
         - ``${MAC}           Get Device Details    ${AP1_MAC}     MAC``
+        - Keyword Usage if single_val = False:
+        - &{DEVICE}   create dictionary    make=get    model=get   serial=get  managed=get     managed_by=get    mgt_ip_address=get   mgt_vlan=get
+        - &{MANAGE_DEVICE_INFO}   create dictionary    device=&{DEVICE}
+        - ${OUTP}  Get Device Details      ${AP1_MAC}  ${MANAGE_DEVICE_INFO}  False
+        - Should Be Equal As Strings   '${OUTP}[device][make]'              '${MAKE}'
+        - Should Be Equal As Strings   '${OUTP}[device][model]'             '${MODEL}'
 
         :param search_string: string to uniquely identify the row in device grid
-        :param label_str: supported labels are Column headers ex: LOCATION, IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
+        :param label_str: if single_val = True:
+        supported labels are Column headers ex: LOCATION, IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
                           MAC, CLIENTS
                       UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN, COPILOT
+        :param label_str: if single_val = False:
+        supported labels are dict of Column headers ex: {make=get    model=get   serial=get  managed=get     managed_by=get
+        mgt_ip_address=get   mgt_vlan=get}
+        :param single_val: supported True or False (by default it is True)
         :return: column header value
         """
 
