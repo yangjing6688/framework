@@ -13,7 +13,7 @@ class KeywordsAccountManagement(AccntMgmtWebElements, metaclass=Singleton):
             return
         self.initialized = True
         super().__init__()
-        # Objects used by all keywords
+
         self.common_validation = CommonValidation()
         self.keyword_utils = KeywordUtils()
         self.xapi_helper = XapiHelper()
@@ -26,7 +26,7 @@ class KeywordsAccountManagement(AccntMgmtWebElements, metaclass=Singleton):
 
         This method creates a new account and will configure the role for the account
         For example:
-            &{OPERATOR_ROLE} or &{MONITOR_ROLE} or &{HELPDESK_ROLE} or &{Guest_Management_Role}or &{Observer_Role}
+            &{OPERATOR_ROLE} or &{MONITOR_ROLE} or &{HELPDESK_ROLE} or &{GUEST_MANAGEMENT_ROLE} or &{OBSERVER_ROLE}
         Keyword Usage:
             Robot:
                 Library  keywords/gui/account_management/KeywordsAccountManagement.py
@@ -36,13 +36,19 @@ class KeywordsAccountManagement(AccntMgmtWebElements, metaclass=Singleton):
                     from keywords.gui.account_management.KeywordsAccountManagement import KeywordsAccountManagement
                 Calling Keyword:
                     account_mgmt = KeywordsAccountManagement()
-                    account_mgmt.create_role_based_account(accnt_config, **kwargs)
+                    account_mgmt.create_role_based_account(account_config, **kwargs)
 
         Keyword Implementations:
             GUI
             XAPI - ** Not Implemented **
 
-        :param account_config: Name of the new account
+        :param   account_config: Dictionary -This parameter has the configuration of user account.
+                 Example: &{GUEST_MANAGEMENT_ROLE}
+                 email=${USER_EMAIL}
+                 name=${USER_NAME}
+                 timeout=30
+                 role=GuestManagement
+                 organization=All Organizations
         :return: Returns 1 if success, -1 if not success.
         """
 
@@ -130,7 +136,8 @@ class KeywordsAccountManagement(AccntMgmtWebElements, metaclass=Singleton):
         """
         Deletes guest management accounts
 
-        This method will delete all the guest management account from the list of Account Management tab
+        This method will delete all the guest management accounts
+        from the list of guest users in the Account Management tab
 
         Keyword Usage:
             Robot:

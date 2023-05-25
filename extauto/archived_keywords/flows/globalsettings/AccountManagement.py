@@ -4,7 +4,6 @@
     Instructions for moving a keyword can be found here:
     https://wiki.iq.extremenetworks.com/wiki/display/AUT/Instructions+for+Moving+Keywords """
 
-# All Archived keywords will be deleted after December 2023
 
 from time import sleep
 from extauto.common.Screen import Screen

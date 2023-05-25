@@ -31,16 +31,64 @@ UnitTest-1: Deleting The Management Account
      Should Be Equal as Integers     ${DELETE_ACCOUNT}      1
 
 
-UnitTest-2: Guest Management Role - Adding and deleting users
+UnitTest-2: Guest Management Role - Adding and deleting multiple users
 
     [Documentation]         Create Guest Management Role And Delete
 
     ${CREATE_ACCOUNT}=              Create Role Based Account   ${GUEST_MANAGEMENT_ROLE}
     should be equal as strings      '${CREATE_ACCOUNT}'    '1'
 	
+	${CREATE_ACCOUNT}=              Create Role Based Account   ${GUEST_MANAGEMENT_ROLE2}
+    should be equal as strings      '${CREATE_ACCOUNT}'    '1'
+	
+	${CREATE_ACCOUNT}=              Create Role Based Account   ${GUEST_MANAGEMENT_ROLE3}
+    should be equal as strings      '${CREATE_ACCOUNT}'    '1'
+	
 	${DELETE_ACCOUNT}=                   Delete Guest Management Accounts
     Should Be Equal As Strings      '${DELETE_ACCOUNT}'     '1'
+	
 
+UnitTest-3: Operator Role - Adding and deleting users
+
+    [Documentation]         Create Operator Role And Delete
+
+    ${CREATE_ACCOUNT}=              Create Role Based Account   ${OPERATOR}
+    should be equal as strings      '${CREATE_ACCOUNT}'    '1'
+
+	${DELETE_ACCOUNT}=         		Delete Management Account       ${USER_EMAIL}
+    Should Be Equal as Integers     ${DELETE_ACCOUNT}		1
+	
+	
+UnitTest-4: Monitor Role - Adding and deleting users
+
+    [Documentation]         Create Guest Management Role And Delete
+
+    ${CREATE_ACCOUNT}=              Create Role Based Account   ${GUEST_MANAGEMENT_MONITOR_ROLE}
+    should be equal as strings      '${CREATE_ACCOUNT}'    '1'
+	
+	${DELETE_ACCOUNT}=         		Delete Management Account       ${USER_EMAIL}
+    Should Be Equal as Integers     ${DELETE_ACCOUNT}		1
+	
+UnitTest-5: Help Desk Role - Adding and deleting users
+
+    [Documentation]         Create Help Desk Role And Delete
+
+    ${CREATE_ACCOUNT}=              Create Role Based Account   ${HELP_DESK_ROLE}
+    should be equal as strings      '${CREATE_ACCOUNT}'    '1'
+	
+	${DELETE_ACCOUNT}=         		Delete Management Account       ${USER_EMAIL}
+    Should Be Equal as Integers     ${DELETE_ACCOUNT}		1
+	
+UnitTest-6: Observer Role - Adding and deleting users
+
+    [Documentation]         Create Observer Role And Delete
+
+    ${CREATE_ACCOUNT}=              Create Role Based Account   ${OBSERVER_ROLE}
+    should be equal as strings      '${CREATE_ACCOUNT}'    '1'
+	
+	${DELETE_ACCOUNT}=         		Delete Management Account       ${USER_EMAIL}
+    Should Be Equal as Integers     ${DELETE_ACCOUNT}		1
+	
  
 *** Keywords ***
 
