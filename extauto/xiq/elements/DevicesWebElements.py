@@ -533,8 +533,12 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         return self.weh.get_element(self.device_update_close_button)
 
     def get_actions_assign_network_policy_combo_switch(self):
+        # The identifier differs depending on which type of device is selected,
+        # so need to get all and select the displayed element
         elements = self.weh.get_elements(self.actions_assign_network_policy_switch)
-        return self.get_dislayed_element(elements)
+        for el in elements:
+            if el.is_displayed():
+                return el
 
     def get_devices_exos_serial_text_area(self):
         """
@@ -1358,6 +1362,20 @@ class DevicesWebElements(DevicesWebElementsDefinitions):
         cells = self.weh.get_elements(self.devices_page_grid_cells, row)
         for cell in cells:
             if field in cell.get_attribute("class"):
+                return cell
+
+    def get_device_value(self, row, field=None):
+        """
+        Returns the table cell of the passed in row that contains the value for the passed in field.
+
+        :param row: the device parent row
+        :param field: field attribute. E.g. serialNumber, macAddress, ipAddress, hostname
+        :return: The table cell () of the passed in "row" that contains the passed in "field" if the passed in field
+        exists in the row, otherwise returns: None.
+        """
+        cells = self.weh.get_elements(self.devices_page_grid_cells, row)
+        for cell in cells:
+            if "field-" + field in cell.get_attribute("class"):
                 return cell
 
     def get_global_settings_management_dialog(self):

@@ -858,7 +858,7 @@ class NetworkPolicyWebElementDefinition:
 
     common_settings_voss_stp_toogle = \
         {
-            'CSS_SELECTOR': '.panel-container.exos-settings.fn-hidden [data-automation-tag="automation-common-settings-stp-toggle"]',
+            'CSS_SELECTOR': '.panel-container.voss-settings [data-automation-tag="automation-common-settings-stp-toggle"]',
             'wait_for': 3
         }
 

@@ -2,7 +2,7 @@ class Device360WebElementDefs:
 
     ports_from_device360_up_lldp_neighbour = \
         {
-            'XPATH': '//div[@class="port-info port-lldp-neighbor  "]',
+            'XPATH': '//div[contains(@class, "port-info port-lldp-neighbor")]',
             'wait_for': 5
         }
 
@@ -3180,6 +3180,36 @@ class Device360WebElementDefs:
     device360_connected_clients_count = \
         {
             'XPATH': '//*[@data-dojo-attach-point="connectedTotal"]',
+            'wait_for': 5
+        }
+
+    device360_device_availability_score = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='scoreAvailabilityValue']",
+            'wait_for': 5
+        }
+
+    device360_device_hardware_health = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='scoreHardwareValue']",
+            'wait_for': 5
+        }
+
+    device360_Config_Firmware_Score = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="scoreConfFirmwareValue"]',
+            'wait_for': 5
+        }
+
+    device360_device_overall_score = \
+        {
+            'XPATH': "//*[@data-dojo-attach-point='overallScoreValue' and @class='score excellent']",
+            'wait_for': 5
+        }
+
+    device360_connected_device_status = \
+        {
+            'XPATH': '//*[@data-dojo-attach-point="statusValue"]',
             'wait_for': 5
         }
 

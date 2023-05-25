@@ -34,6 +34,7 @@ import extauto.xiq.flows.configure.SwitchTemplate
 from extauto.xiq.xapi.configure.XapiNetworkPolicy import XapiNetworkPolicy
 
 from extauto.common.KeywordUtils import KeywordUtils
+from ExtremeAutomation.Utilities.deprecated import deprecated
 
 
 class NetworkPolicy(object):
@@ -160,7 +161,11 @@ class NetworkPolicy(object):
             return self.create_network_policy(policy, wireless_profile, cli_type)
         return 1
 
+    @deprecated('Please use the {create_network_policy} keyword keywords/gui/configure/KeywordsNetworkPolicy.py. This method can removed after 6/17/2023')
     def create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
+        return self.gui_create_network_policy(policy, wireless_profile, cli_type, **kwargs)
+
+    def gui_create_network_policy(self, policy, wireless_profile, cli_type='AH-AP', **kwargs):
         """
         - Create the network policy from CONFIGURE-->NETWORK POLICIES
         - This keyword will create the network policy and wireless network
@@ -2851,20 +2856,18 @@ class NetworkPolicy(object):
         if port_type_name is not None:
             self.utils.print_info(f"Searching {port_type_name} on first page.")
             port_type_table_item = self.get_port_type_row(port_type_name)
-            if not port_type_table_item:
+            next_page_button = self.dev360.get_device360_pagination_next_button()
+            while not port_type_table_item and next_page_button:
                 self.utils.print_info(f"Searching {port_type_name} on next page page.")
-                next_page_button = self.dev360.get_device360_pagination_next_button()
-                assert next_page_button, "Did not find the next page button"
                 self.auto_actions.click_with_js(next_page_button)
                 self.navigator.wait_until_loading_is_done()
                 port_type_table_item = self.get_port_type_row(port_type_name)
-            if not port_type_table_item:
-                self.utils.print_info(f"Searching {port_type_name} on next page page.")
                 next_page_button = self.dev360.get_device360_pagination_next_button()
-                assert next_page_button, "Did not find the next page button"
-                self.auto_actions.click_with_js(next_page_button)
-                self.navigator.wait_until_loading_is_done()
-                port_type_table_item = self.get_port_type_row(port_type_name)
+
+            if not port_type_table_item:
+                kwargs['fail_msg'] = f"Failed to find port-type {port_type_name} on all the pages."
+                self.common_validation.fault(**kwargs)
+                return -1
             self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
             self.auto_actions.scroll_down()
             self.auto_actions.click_with_js(self.np_web_elements.get_port_type_row_cell(port_type_table_item, 'dgrid-selector'))
@@ -2901,20 +2904,18 @@ class NetworkPolicy(object):
         if port_type_name is not None:
             self.utils.print_info(f"Searching {port_type_name} on first page.")
             port_type_table_item = self.get_port_type_row(port_type_name)
-            if not port_type_table_item:
+            next_page_button = self.dev360.get_device360_pagination_next_button()
+            while not port_type_table_item and next_page_button:
                 self.utils.print_info(f"Searching {port_type_name} on next page page.")
-                next_page_button = self.dev360.get_device360_pagination_next_button()
-                assert next_page_button, "Did not find the next page button"
                 self.auto_actions.click_with_js(next_page_button)
                 self.navigator.wait_until_loading_is_done()
                 port_type_table_item = self.get_port_type_row(port_type_name)
-            if not port_type_table_item:
-                self.utils.print_info(f"Searching {port_type_name} on next page page.")
                 next_page_button = self.dev360.get_device360_pagination_next_button()
-                assert next_page_button, "Did not find the next page button"
-                self.auto_actions.click_with_js(next_page_button)
-                self.navigator.wait_until_loading_is_done()
-                port_type_table_item = self.get_port_type_row(port_type_name)
+
+            if not port_type_table_item:
+                kwargs['fail_msg'] = f"Failed to find port-type {port_type_name} on all the pages."
+                self.common_validation.fault(**kwargs)
+                return -1
             self.utils.print_info(f"Selecting port-type named {port_type_name} from table")
             self.auto_actions.click_with_js(self.np_web_elements.get_np_row_cell(port_type_table_item, 'dgrid-selector'))
             self.screen.save_screen_shot()

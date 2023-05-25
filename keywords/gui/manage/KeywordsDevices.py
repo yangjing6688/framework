@@ -26,7 +26,7 @@ class KeywordsDevices(object, metaclass=Singleton):
         self.devices = Devices()
         self.xapiDevices = XapiDevices()
 
-    def search_device(self, *device_dict, select_device=False, skip_refresh=False, skip_navigation=False, **kwargs):
+    def search_device(self, device_dict, select_device=False, skip_refresh=False, skip_navigation=False, **kwargs):
         """
         Searches for a device identified by 'serial' or 'mac' provided in device_dict
 
@@ -34,21 +34,21 @@ class KeywordsDevices(object, metaclass=Singleton):
         then 'serial' number. The device (if found) can be optionally selected. Normally this keyword will navigate
         to the devices page and refresh the table, both of these can be skipped.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/manage/KeywordsDevices.py
-        -      Search Device  ${ap1}    skip_refresh=True  skip_navigation=True
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.manage.KeywordsDevices import KeywordsDevices
-        -      Calling Keyword:
-        -         keywords_devices = KeywordsDevices()
-        -         keywords_devices.search_device(self.tb.dut1, skip_refresh=True, skip_navigation=True)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - Note that for XAPI, the refresh and navigation cannot be skipped, also the device cannot be selected
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/manage/KeywordsDevices.py
+             Search Device  ${ap1}    skip_refresh=True  skip_navigation=True
+
+          Pytest:
+             Imports:
+                from keywords.gui.manage.KeywordsDevices import KeywordsDevices
+             Calling Keyword:
+                kwDevices = KeywordsDevices()
+                kwDevices.search_device(self.tb.dut1, skip_refresh=True, skip_navigation=True)
+
+        Keyword Implementations:
+           GUI
+           XAPI - Note that for XAPI, the refresh and navigation cannot be skipped, also the device cannot be selected
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param select_device: True - to select the device, default set to False
@@ -67,21 +67,8 @@ class KeywordsDevices(object, metaclass=Singleton):
         self.keyword_utils.implementations.gui_implemented(keyword_name)
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
-        # Getting data from the dictionary
-        device_dict = device_dict[0]
-        device_serial = device_dict.get("serial")
-        device_mac = device_dict.get("mac")
-
-        device_keys = {
-            "mac": device_mac,
-            "serial": device_serial
-        }
-
-        device_keys = {key: value for key, value in device_keys.items() if value}
-        if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial  or mac!"
-            self.common_validation.fault(**kwargs)
-            return -1
+        if 'serial' not in device_dict.keys() and 'mac' not in device_dict.keys():
+            kwargs['fail_msg'] = "Invalid keyword arguments: ‘serial’ or ‘mac’ must be included in device_dict"
 
         # Assume a failure
         return_code = -1
@@ -92,7 +79,7 @@ class KeywordsDevices(object, metaclass=Singleton):
             if implementation_to_run != '':
                 self.keyword_utils.timing.start(keyword_name, implementation_to_run)
                 if implementation_to_run == "GUI":
-                    return_code = self.devices.gui_select_device(device_keys, skip_refresh=skip_refresh,
+                    return_code = self.devices.gui_search_device(device_dict, skip_refresh=skip_refresh,
                                                                  skip_navigation=skip_navigation, **kwargs)
 
                 else:
@@ -107,7 +94,7 @@ class KeywordsDevices(object, metaclass=Singleton):
         # Return the return value of the keyword
         return return_code
 
-    def select_device(self, *device_dict, skip_refresh=False, skip_navigation=False, **kwargs):
+    def select_device(self, device_dict, skip_refresh=False, skip_navigation=False, **kwargs):
         """
          Selects a device identified by 'serial' or 'mac' provided in device_dict
 
@@ -115,21 +102,21 @@ class KeywordsDevices(object, metaclass=Singleton):
          then 'serial' number. Normally this keyword will navigate to the devices page and refresh the table,
          both of these can be skipped.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/manage/KeywordsDevices.py
-        -      Select Device  ${ap1}    skip_refresh=True  skip_navigation=True
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.manage.KeywordsDevices import KeywordsDevices
-        -      Calling Keyword:
-        -         keywords_devices = KeywordsDevices()
-        -         keywords_devices.select_device(self.tb.dut1, skip_refresh=True, skip_navigation=True)
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/manage/KeywordsDevices.py
+             Select Device  ${ap1}    skip_refresh=True  skip_navigation=True
 
-        - Keyword Implementations:
-            -    GUI
-            -    XAPI - ** Not Supported**
+          Pytest:
+             Imports:
+                from keywords.gui.manage.KeywordsDevices import KeywordsDevices
+             Calling Keyword:
+                kwDevices = KeywordsDevices()
+                kwDevices.select_device(self.tb.dut1, skip_refresh=True, skip_navigation=True)
+
+        Keyword Implementations:
+               GUI
+               XAPI - ** Not Supported**
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1):
         :param skip_refresh: True - to skip the refresh of the devices page, default set to False
@@ -147,19 +134,8 @@ class KeywordsDevices(object, metaclass=Singleton):
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
-        device_dict = device_dict[0]
-        device_serial = device_dict.get("serial")
-        device_mac = device_dict.get("mac")
-
-        device_keys = {
-            "mac": device_mac,
-            "serial": device_serial
-        }
-        device_keys = {key: value for key, value in device_keys.items() if value}
-        if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
-            self.common_validation.fault(**kwargs)
-            return -1
+        if 'serial' not in device_dict.keys() and 'mac' not in device_dict.keys():
+            kwargs['fail_msg'] = "Invalid keyword arguments: ‘serial’ or ‘mac’ must be included in device_dict"
 
         # Assume a failure
         return_code = -1
@@ -170,7 +146,7 @@ class KeywordsDevices(object, metaclass=Singleton):
             if implementation_to_run != '':
                 self.keyword_utils.timing.start(keyword_name, implementation_to_run)
                 if implementation_to_run == "GUI":
-                    return_code = self.devices.gui_select_device(device_keys, skip_refresh=skip_refresh,
+                    return_code = self.devices.gui_select_device(device_dict, skip_refresh=skip_refresh,
                                                                  skip_navigation=skip_navigation, **kwargs)
 
                 else:
@@ -189,7 +165,7 @@ class KeywordsDevices(object, metaclass=Singleton):
         # Return the return value of the keyword
         return return_code
 
-    def delete_device(self, *device_dict, **kwargs):
+    def delete_device(self, device_dict, **kwargs):
         """
         Deletes a device identified by 'serial' or 'mac' provided in device_dict
 
@@ -197,22 +173,22 @@ class KeywordsDevices(object, metaclass=Singleton):
         number. If the device platform is a "stack" then delete_device will try to delete the device using 'mac' address
         of the stack, otherwise will delete individual devices by using every 'serial' number provided in
         device_dict.
+        
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/manage/KeywordsDevices.py
+             Delete Device  ${ap1}
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/manage/KeywordsDevices.py
-        -      Delete Device  ${ap1}
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.manage.KeywordsDevices import KeywordsDevices
-        -      Calling Keyword:
-        -         keywords_devices = KeywordsDevices()
-        -         keywords_devices.delete_device(self.tb.dut1)
+          Pytest:
+             Imports:
+                from keywords.gui.manage.KeywordsDevices import KeywordsDevices
+             Calling Keyword:
+                kwDevices = KeywordsDevices()
+                kwDevices.delete_device(self.tb.dut1)
 
-        - Keyword Implementations:
-            -    GUI
-            -    XAPI
+        Keyword Implementations:
+               GUI
+               XAPI
 
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param kwargs: Supports all standard kwargs
@@ -228,22 +204,12 @@ class KeywordsDevices(object, metaclass=Singleton):
         self.keyword_utils.implementations.gui_implemented(keyword_name)
         self.keyword_utils.implementations.xapi_implemented(keyword_name)
 
-        device_dict = device_dict[0]
+        # Getting data from the dictionary for XAPI
         device_serial = device_dict.get("serial")
         device_mac = device_dict.get("mac")
-        device_type = device_dict.get("platform")
 
-        device_keys = {
-            "mac": device_mac,
-            "serial":  device_serial,
-            "platform": device_type
-        }
-
-        device_keys = {key: value for key, value in device_keys.items() if value}
-        if len(device_keys.keys()) == 0 or device_keys.get('platform') == None:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
-            self.common_validation.fault(**kwargs)
-            return -1
+        if 'serial' not in device_dict.keys() and 'mac' not in device_dict.keys():
+            kwargs['fail_msg'] = "Invalid keyword arguments: ‘serial’ or ‘mac’ must be included in device_dict"
 
         # Assume a failure
         return_code = -1
@@ -254,7 +220,7 @@ class KeywordsDevices(object, metaclass=Singleton):
             if implementation_to_run != '':
                 self.keyword_utils.timing.start(keyword_name, implementation_to_run)
                 if implementation_to_run == "GUI":
-                    return_code = self.devices.gui_delete_device(device_keys, **kwargs)
+                    return_code = self.devices.gui_delete_device(device_dict, **kwargs)
 
                 else:
                     return_code = self.xapiDevices.xapi_delete_device(device_serial=device_serial,
@@ -269,7 +235,7 @@ class KeywordsDevices(object, metaclass=Singleton):
         # Return the return value of the keyword
         return return_code
 
-    def wait_until_device_removed(self, *device_dict, retry_duration=10, retry_count=30, **kwargs):
+    def wait_until_device_removed(self, device_dict, retry_duration=10, retry_count=30, **kwargs):
         """
          Waits for the device to be removed from the devices page
 
@@ -277,22 +243,22 @@ class KeywordsDevices(object, metaclass=Singleton):
          first, then 'serial' number to check if the device still exists in the devices page, or it was removed. By
          default loops 10 times every 30 seconds to check if the device still exists in the table.
 
-        - Keyword Usage:
-        -   Robot:
-        -      Library  keywords/gui/manage/KeywordsDevices.py
-        -      Wait Until Device Removed  ${ap1}    retry_duration=15    retry_count=20
-        -
-        -   Pytest:
-        -      Imports:
-        -         from keywords.gui.manage.KeywordsDevices import KeywordsDevices
-        -      Calling Keyword:
-        -         keywords_devices = KeywordsDevices()
-        -         keywords_devices.wait_until_device_removed(self.tb.dut1, retry_duration=15, retry_count=20)
-        -
-        - Keyword Implementations:
-        -    GUI
-        -    XAPI - ** Not Implemented **
+        Keyword Usage:
+          Robot:
+             Library  keywords/gui/manage/KeywordsDevices.py
+             Wait Until Device Removed  ${ap1}    retry_duration=15    retry_count=20
 
+          Pytest:
+             Imports:
+                from keywords.gui.manage.KeywordsDevices import KeywordsDevices
+             Calling Keyword:
+                kwDevices = KeywordsDevices()
+                kwDevices.wait_until_device_removed(self.tb.dut1, retry_duration=15, retry_count=20)
+
+        Keyword Implementations:
+           GUI
+           XAPI - ** Not Implemented **
+           
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param retry_duration: duration between each retry, by default set to 10 (times)
         :param retry_count: retry count, by default set to 30 (seconds)
@@ -307,15 +273,8 @@ class KeywordsDevices(object, metaclass=Singleton):
         self.keyword_utils.implementations.set_keyword_uuid("31c2990b-c22f-4cd9-b9d4-139b2e28e6ca", keyword_name)
         self.keyword_utils.implementations.gui_implemented(keyword_name, prefer_gui=True)
 
-        device_keys = {
-            "mac": device_dict[0].get("mac"),
-            "serial": device_dict[0].get("serial")
-        }
-        device_keys = {key: value for key, value in device_keys.items() if value}
-        if len(device_keys.keys()) == 0:
-            kwargs['fail_msg'] = "Invalid args. You must pass in at least one of the following: serial or mac!"
-            self.common_validation.fault(**kwargs)
-            return -1
+        if 'serial' not in device_dict.keys() and 'mac' not in device_dict.keys():
+            kwargs['fail_msg'] = "Invalid keyword arguments: ‘serial’ or ‘mac’ must be included in device_dict"
 
         # Assume a failure
         return_code = -1
@@ -326,7 +285,7 @@ class KeywordsDevices(object, metaclass=Singleton):
             if implementation_to_run != '':
                 self.keyword_utils.timing.start(keyword_name, implementation_to_run)
                 if implementation_to_run == "GUI":
-                    return_code = self.devices.gui_wait_until_device_removed(device_keys, retry_duration=retry_duration,
+                    return_code = self.devices.gui_wait_until_device_removed(device_dict, retry_duration=retry_duration,
                                                                              retry_count=retry_count, **kwargs)
 
                 else:
