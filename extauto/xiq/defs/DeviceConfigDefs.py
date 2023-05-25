@@ -1,7 +1,7 @@
 class DeviceConfigDefs:
     interface_settings_tab = \
         {
-            'XPATH': '//*[@data-automation-tag="automation-sider-list-interfaceSettings"]',
+            'XPATH': '//*[@data-automation-tag="device-entity-nav-menu-interface-settings"]',
             'wait_for': 5
         }
 

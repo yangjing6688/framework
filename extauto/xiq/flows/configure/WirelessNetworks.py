@@ -229,6 +229,7 @@ class WirelessNetworks:
 
         auth_type = auth_profile.get('auth_type')
         cwp_profile = auth_profile.get('cwp_profile')
+        auth_settings_profile = auth_profile.get('auth_settings_profile')
         user_group_config = auth_profile.get('user_group_config', 'None')
         user_profile_config = auth_profile.get('user_profile_config', 'None')
 
@@ -241,6 +242,11 @@ class WirelessNetworks:
         if not self.captive_portal.create_open_network_captive_web_portal(**cwp_profile) == 1:
             self.utils.print_info("Issue in creating the captive web portal")
             return -1
+
+        if auth_settings_profile:
+            self.utils.print_info("Configuring Open authentication network settings sub section")
+            if not self._config_enterprise_authentication_settings(**auth_settings_profile) == 1:
+                return -2
 
         self.utils.print_info("Selecting User Profiles")
         if not user_profile_config == 'None':
@@ -591,6 +597,7 @@ class WirelessNetworks:
 
         key_encryption = auth_profile['key_encryption']
         cwp_config = auth_profile['cwp_config']
+        auth_settings_profile = auth_profile.get('auth_settings_profile')
         user_profile_config = auth_profile.get('user_profile_config', 'None')
 
         self.utils.print_info("Select Personal SSID Authentication Card Menu")
@@ -643,6 +650,10 @@ class WirelessNetworks:
             cp_status = self.captive_portal.create_psk_wireless_network_cwp(**cwp_config)
             if not cp_status == 1:
                 return cp_status
+
+        if auth_settings_profile:
+            self.utils.print_info("Configure the Radius server")
+            self.radius_server.config_radius_server(**auth_settings_profile['radius_server_group_config'])
 
         self.utils.print_info("Selecting User Profiles")
         if not user_profile_config == 'None':

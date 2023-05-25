@@ -6,7 +6,6 @@ from extauto.common.AutoActions import AutoActions
 from extauto.common.Screen import Screen
 from extauto.common.Utils import Utils
 from extauto.common.Cli import Cli
-from extauto.xiq.flows.configure.RadiusServer import RadiusServer
 import extauto.xiq.flows.common.ToolTipCapture as tool_tip
 from extauto.xiq.elements.WirelessCWPWebElements import WirelessCWPWebElements
 from extauto.common.CommonValidation import CommonValidation
@@ -19,7 +18,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self.screen = Screen()
         self.cli = Cli()
         self.auto_actions = AutoActions()
-        self.radius_server = RadiusServer()
         self.custom_file_dir = os.getcwd() + '/custom_cwp_pages/'
         self.common_validation = CommonValidation()
 
@@ -89,6 +87,8 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         """
         cwp_name = open_cwp_config.get('captive_web_portal_name')
         employee_approval = open_cwp_config.get('employee_approval')
+        customize_and_preview = open_cwp_config.get('customize_and_preview')
+        auth_method = open_cwp_config.get('auth_method')
 
         self.utils.print_info(f"Check the cwp: {cwp_name}  already exists")
         if self._select_default_captive_web_portal(cwp_name):
@@ -101,12 +101,20 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         self.utils.print_info(f"Enter cwp name:{cwp_name}")
         self.auto_actions.send_keys(self.get_default_cwp_name_field(), cwp_name)
 
-        if employee_approval.upper() == "ENABLE":
+        if employee_approval and employee_approval.upper() == "ENABLE":
             self.auto_actions.enable_radio_button(self.get_employee_approval_radio_button())
             self.utils.print_info("Configure Approver email domain list ")
             self._config_approver_email_domain_list(open_cwp_config['domain'])
         else:
             self.auto_actions.disable_radio_button(self.get_employee_approval_radio_button())
+
+        if customize_and_preview and customize_and_preview.upper() == "ENABLE":
+            self.utils.print_info("Click on customise and preview button")
+            self.auto_actions.click_reference(self.get_customise_and_preview_button)
+            self.utils.print_info("Click on authentication drop down")
+            self.auto_actions.click_reference(self.get_auth_method_drop_down)
+            self.utils.print_info(f"select the authentication method:{auth_method}")
+            self.auto_actions.select_drop_down_options(self.get_auth_method_drop_down_options(), auth_method)
 
         self.screen.save_screen_shot()
         sleep(2)
@@ -174,6 +182,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         enable_upa = options.get('enable_upa')
         user_auth_on_captive_web_portal = options.get('user_auth_on_captive_web_portal')
 
+        self.utils.wait_till(self.get_enable_upa, delay=2, timeout=8, is_logging_enabled=True)
         if enable_upa.upper() == "ENABLE":
             self.utils.print_info("Select the enable upa check box")
             self.auto_actions.enable_check_box(self.get_enable_upa())
@@ -181,7 +190,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             self.utils.print_info("Un select the enable upa check box")
             self.auto_actions.disable_check_box(self.get_enable_upa())
 
-        sleep(2)
         if enable_self_reg.upper() == "ENABLE":
             self.utils.print_info("Select the enable self registration check box")
             self.auto_actions.enable_check_box(self.get_enable_self_registration())
@@ -189,7 +197,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             self.utils.print_info("un select the enable self registration check box")
             self.auto_actions.disable_check_box(self.get_enable_self_registration())
 
-        sleep(2)
         if user_auth_on_captive_web_portal.upper() == "ENABLE":
             self.utils.print_info("Select auth on captive web portal")
             self.auto_actions.enable_check_box(self.get_user_auth_on_captive_web_portal())
@@ -197,7 +204,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             self.utils.print_info("Un select auth on captive web portal")
             self.auto_actions.disable_check_box(self.get_user_auth_on_captive_web_portal())
 
-        sleep(2)
         if return_aerohive_private_psk.upper() == "ENABLE":
             self.utils.print_info("select Return Aerohive private psk check box")
             self.auto_actions.enable_check_box(self.get_return_aerohive_private_psk())
@@ -205,7 +211,7 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             self.utils.print_info("un select Return Aerohive private psk check box")
             self.auto_actions.disable_check_box(self.get_return_aerohive_private_psk())
 
-        sleep(5)
+        sleep(3)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
@@ -407,25 +413,22 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
 
         self.utils.print_info("Click on default cwp add button")
         self.auto_actions.click_reference(self.get_default_cwp_add_button)
-        sleep(2)
 
+        self.utils.wait_till(self.get_default_cwp_name_field, delay=2, timeout=8, is_logging_enabled=True)
         self.utils.print_info(f"Enter CWP name:{cwp_name}")
         self.auto_actions.send_keys(self.get_default_cwp_name_field(), cwp_name)
 
         if customize_and_preview.upper() == "ENABLE":
             self.utils.print_info("Click on customise and preview button")
             self.auto_actions.click_reference(self.get_customise_and_preview_button)
-
             self.utils.print_info("Click on authentication drop down")
             self.auto_actions.click_reference(self.get_auth_method_drop_down)
-            sleep(2)
-
             self.utils.print_info(f"select the authentication method:{auth_method}")
             self.auto_actions.select_drop_down_options(self.get_auth_method_drop_down_options(), auth_method)
-
+        self.utils.print_info(f"Click Save CWP button")
         self.auto_actions.click_reference(self.get_default_add_windows_cwp_save_cwp_button)
-        sleep(5)
 
+        sleep(3)
         tool_tp_text = tool_tip.tool_tip_text
         self.utils.print_info(tool_tp_text)
 
@@ -497,11 +500,10 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
 
         self.utils.print_info("Enable 'Enable Captive Web Portal' radio button")
         self.auto_actions.enable_radio_button(self.get_enable_captive_web_portal())
-        sleep(5)
 
+        self.utils.wait_till(self.get_enable_captive_web_portal_cwp_radio_button, delay=2, timeout=8, is_logging_enabled=True)
         self.utils.print_info("Enable captive web portal radio button")
         self.auto_actions.enable_radio_button(self.get_enable_captive_web_portal_cwp_radio_button())
-        sleep(2)
 
         self.utils.print_info("select and unselect the various options under cwp")
         if not self._select_unselect_captive_web_portal_options(**cwp_config):
@@ -613,13 +615,12 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         try:
             self.utils.print_info("Click on CWP add button")
             self.auto_actions.click_reference(self.get_default_cwp_add_button)
-            sleep(2)
-
+            self.utils.wait_till(self.get_default_cwp_name_field, delay=2, timeout=6, is_logging_enabled=True)
             self.utils.print_info("Enter CWP name:{}".format(cwp_name))
             self.auto_actions.send_keys(self.get_default_cwp_name_field(), cwp_name)
             self.utils.print_info(f"Click on authentication method dropdown: {auth_method}")
-            self.auto_actions.click_reference(self.get_cwp_auth_method_dropdown)
-            self.auto_actions.select_drop_down_options(self.get_cwp_auth_method_dropdown_options(), auth_method)
+            self.auto_actions.click_reference(self.get_auth_method_drop_down)
+            self.auto_actions.select_drop_down_options(self.get_auth_method_drop_down_options(), auth_method)
 
             self.screen.save_screen_shot()
             sleep(2)
@@ -1054,7 +1055,6 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
         enable_upa = cwp_config.get('enable_upa', 'ENABLE')
         cwp_name = cwp_config.get('cwp_name')
         authentication_method = cwp_config.get('authentication_method', 'CHAP')
-        rs_group_config = cwp_config.get('radius_server_group_config')
 
         try:
             if enable_cwp.upper() == 'ENABLE':
@@ -1091,16 +1091,11 @@ class WirelessCaptiveWebPortal(WirelessCWPWebElements):
             sleep(2)
             self.utils.print_info(f"Check the CWP: {cwp_name}  already exists")
             if self._select_default_captive_web_portal(cwp_name):
-                if user_auth_on_cwp.upper() == 'ENABLE':
-                    self.utils.print_info("Configure the Radius server")
-                    self.radius_server.config_radius_server(**rs_group_config)
                 return 1
             else:
                 if enable_upa.upper() == 'ENABLE':
                     return self._add_default_cwp_wireless_network(cwp_name)
                 elif user_auth_on_cwp.upper() == 'ENABLE':
-                    self.utils.print_info("Configure the Radius server")
-                    self.radius_server.config_radius_server(**rs_group_config)
                     return self._add_user_authentication_on_cwp(cwp_name, authentication_method)
                 else:
                     return -1

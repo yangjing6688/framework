@@ -39,12 +39,6 @@ class WirelessCWPWebElements(WirelessCWPWebElementsDefinitions):
     def get_cloud_cwp_restrict_domain_field(self):
         return self.weh.get_element(self.open_template_cloud_cwp_restrict_domain)
 
-    def get_cwp_auth_method_dropdown(self):
-        return self.weh.get_element(self.cwp_auth_method_dropdown)
-
-    def get_cwp_auth_method_dropdown_options(self):
-        return self.weh.get_elements(self.cwp_auth_method_dropdown_options)
-
     def get_cloud_cwp_cache_duration_field(self):
         return self.weh.get_element(self.open_template_cloud_cwp_cache_duration)
 
