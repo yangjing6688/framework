@@ -344,7 +344,7 @@ class Devices(object, metaclass=Singleton):
         self.common_validation.failed(**kwargs)
         return False
 
-    def get_device_details(self, search_string, label_str, single_val = True):
+    def get_device_details(self, search_string, label_str, single_val=True, skip_navigation=False):
         """
         - Gets the device row label value based on the passed label_str
         - Supported label_str are Column headers like IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
@@ -357,14 +357,17 @@ class Devices(object, metaclass=Singleton):
 
         :param search_string: string to uniquely identify the row in device grid
         :param label_str: supported labels are Column headers ex: LOCATION, IQ ENGINE, POLICY, NTP STATE, MGT IP ADDRESS
-                          MAC, CLIENTS
-                      UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN, COPILOT
+                          MAC, CLIENTS, UPTIME, MODEL, SERIAL, UPDATED, MGT VLAN, COPILOT
+        :param single_val: Default value is True
+        :param skip_navigation: True - to skip the navigation to the devices page, default set to False
         :return: column header value
         """
 
-        self.utils.print_info("Navigate to Manage-->Devices")
-        self.navigator.navigate_to_devices()
-        sleep(5)
+        if not skip_navigation:
+            self.utils.print_info("Navigate to Manage-->Devices")
+            self.navigator.navigate_to_devices()
+        else:
+            self.utils.print_info("Skip Navigating to Manage-->Devices")
 
         page_size_field = self.devices_web_elements.get_devices_display_count_per_page_buttons()
         page_number_field = self.devices_web_elements.get_devices_pagination_buttons()
@@ -392,7 +395,7 @@ class Devices(object, metaclass=Singleton):
                                     device_detail_dict[label] = cell.text
                             else:
                                 device_detail_dict[label] = cell.text
-                    if single_val == True:
+                    if single_val:
                         return device_detail_dict[self.device_column_values[label_str]]
                     else:
                         device = label_str.get('device', 'None')
@@ -2896,7 +2899,7 @@ class Devices(object, metaclass=Singleton):
             device_row = self.get_device_row(device_name=value)
         return device_row
 
-    def get_device_status(self, device_serial=None, device_name=None, device_mac=None, **kwargs):
+    def get_device_status(self, device_serial=None, device_name=None, device_mac=None, skip_navigation=False, **kwargs):
         """
         - This keyword returns the device's connection status, audit log status
         - Keyword Usage:
@@ -2912,6 +2915,7 @@ class Devices(object, metaclass=Singleton):
         :param device_serial: device Serial, by default set to None
         :param device_name: device host name, by default set to None
         :param device_mac: device MAC address, by default set to None
+        :param skip_navigation: True - to skip the navigation to the devices page, default set to False
         :return:
         - 'green' if device connected and config audit match
         - 'config audit mismatch' if device connected and config audit mismatch
@@ -2925,8 +2929,11 @@ class Devices(object, metaclass=Singleton):
                                                        device_mac=device_mac, **kwargs)
 
         # UI Support
-        self.utils.print_info("Navigate to Manage-->Devices")
-        self.navigator.navigate_to_devices()
+        if not skip_navigation:
+            self.utils.print_info("Navigate to Manage-->Devices")
+            self.navigator.navigate_to_devices()
+        else:
+            self.utils.print_info("Skip Navigating to Manage-->Devices")
 
         device_row = ''
         device_keys = {}
