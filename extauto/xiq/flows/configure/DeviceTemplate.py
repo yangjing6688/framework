@@ -667,18 +667,21 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Selecting Configure tab...")
         self.navigator.navigate_to_configure_tab()
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Navigating to network policies...")
         self.navigator.navigate_to_network_policies_tab()
         self.utils.wait_till(self.device_template_web_elements.get_network_policy_add_button)
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Click on network policy add button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
-        self.utils.wait_till(self.device_template_web_elements.get_network_policy_name_text)
+        np_add_element = self.device_template_web_elements.get_network_policy_add_button()
+        if np_add_element is not None and np_add_element.is_displayed():
+            self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
 
         self.utils.print_info("Enter the policy name")
+        self.utils.wait_till(self.device_template_web_elements.get_network_policy_name_text)
         self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
-
         self.screen.save_screen_shot()
 
         self.utils.print_info("Click on network policy save button")
@@ -693,7 +696,6 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Click on AP Template add button")
         self.auto_actions.click_reference(self.device_template_web_elements.get_ap_template_add_button)
-
         self.screen.save_screen_shot()
 
         self.utils.print_info("select the AP: ", ap_model)
@@ -761,16 +763,20 @@ class DeviceTemplate(object):
 
         self.utils.print_info("Selecting Configure tab...")
         self.navigator.navigate_to_configure_tab()
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Navigating to network policies...")
         self.navigator.navigate_to_network_policies_tab()
         self.utils.wait_till(self.device_template_web_elements.get_network_policy_add_button)
+        self.screen.save_screen_shot()
 
         self.utils.print_info("Click on network policy add button")
-        self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
-        self.utils.wait_till(self.device_template_web_elements.get_network_policy_name_text)
+        np_add_element = self.device_template_web_elements.get_network_policy_add_button()
+        if np_add_element is not None and np_add_element.is_displayed():
+            self.auto_actions.click_reference(self.device_template_web_elements.get_network_policy_add_button)
 
         self.utils.print_info("Enter the policy name")
+        self.utils.wait_till(self.device_template_web_elements.get_network_policy_name_text)
         self.auto_actions.send_keys(self.device_template_web_elements.get_network_policy_name_text(), policy_name)
         self.screen.save_screen_shot()
 
