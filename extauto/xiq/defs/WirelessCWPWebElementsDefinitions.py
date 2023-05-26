@@ -66,18 +66,6 @@ class WirelessCWPWebElementsDefinitions:
             'wait_for': 5
         }
 
-    cwp_auth_method_dropdown = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="dynamic-auth"]//*[@data-automation-tag="automation-chzn-arrow-down"]',
-            'wait_for': 5
-        }
-
-    cwp_auth_method_dropdown_options = \
-        {
-            'XPATH': '//*[@data-dojo-attach-point="dynamic-auth"]//*[@data-automation-tag="automation-chzn-results-ctn"]/li',
-            'wait_for': 5
-        }
-
     open_template_cloud_cwp_restrict_domain = \
         {
             'XPATH': '//div//input[@data-dojo-attach-point="cloudCwpAllowDomains"]',
@@ -476,14 +464,13 @@ class WirelessCWPWebElementsDefinitions:
 
     auth_method_drop_down = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="dynamic-auth"]//div[@data-automation-tag="chzn-container-ctn"]',
+            'XPATH': '//*[@data-dojo-attach-point="dynamic-auth"]//*[@data-automation-tag="automation-chzn-arrow-down"]',
             'wait_for': 5
         }
 
     auth_method_drop_down_options = \
         {
-            'XPATH': '//div[@data-dojo-attach-point="dynamic-auth"]'
-                     '//div[@data-automation-tag="chzn-container-ctn"]//ul//li',
+            'XPATH': '//*[@data-dojo-attach-point="dynamic-auth"]//*[@data-automation-tag="automation-chzn-results-ctn"]/li',
             'wait_for': 5
         }
 
