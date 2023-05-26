@@ -128,9 +128,8 @@ jobs:
         printf '\n%s\n\n' "======== Running flake8 in /ExtremeAutomation/Keywords ========"
         python3 -m flake8 --config=${SETUP_CFG} ./ExtremeAutomation/Keywords
 
-        # TODO: uncomment once Eric cleans up the generation of the keywords
-        # printf '\n%s\n\n' "======== Running flake8 in /keywords ========"
-        # python3 -m flake8 --config=${SETUP_CFG} ./keywords
+        printf '\n%s\n\n' "======== Running flake8 in /keywords ========"
+        python3 -m flake8 --config=${SETUP_CFG} ./keywords
 
     - name: Set job status output
       if: ${{ always() }}

@@ -12,42 +12,16 @@
 #                 and set delivery method (sms/phone) to empty string when a new account is loaded in test environment.
 #                 keyword to be used: update_all_ppsk_end_users_email_phon_delivery_methods
 
-import pytest
-import sys
-import datetime
-import requests
-import json
-import time
-import random
-from pytest import fixture
 from extauto.common.Utils import Utils
-import os
-from ExtremeAutomation.Library.Logger.Logger import Logger
-from pytest_testconfig import config, load_yaml
-from ExtremeAutomation.Imports.DefaultLibrary import DefaultLibrary
-from ExtremeAutomation.Imports.pytestConfigHelper import PytestConfigHelper
-from ExtremeAutomation.Imports.pytestExecutionHelper import PytestExecutionHelper
-from ExtremeAutomation.Imports.XiqLibrary import XiqLibrary
-from ExtremeAutomation.Imports.XiqLibraryHelper import XiqLibraryHelper
-from Tests.Pytest.SystemTest.XIQ.Wired.Resources.SuiteUdks import SuiteUdks
 from keywords.xapi_base.XapiBaseAuthorizationApi import XapiBaseAuthorizationApi
 from keywords.xapi_base.XapiBaseAuthenticationApi import XapiBaseAuthenticationApi
 from keywords.xapi_base.XapiBaseAccountApi import XapiBaseAccountApi
-from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
-from tools.xapi.XapiHelper import XapiHelper
-from pytest import mark
-from pprint import pprint
-from ExtremeAutomation.Imports.pytestExecutionHelper import PytestExecutionHelper
-from ExtremeAutomation.Imports.XiqLibrary import XiqLibrary
-from ExtremeAutomation.Imports.XiqLibraryHelper import XiqLibraryHelper
-from extauto.xiq.xapi.globalsettings.XapiGlobalSettings import XapiGlobalSettings
 from keywords.xapi_base.XapiBaseConfigurationUserManagementApi import XapiBaseConfigurationUserManagementApi
 
 
 # Standard Keyword imports
 from extauto.common.CommonValidation import CommonValidation
 from extauto.common.KeywordUtils import KeywordUtils
-import inspect
 from tools.xapi.XapiHelper import XapiHelper
 from ExtremeAutomation.Library.Utils.Singleton import Singleton
 
@@ -150,8 +124,7 @@ class KeywordsUpdateAllPpskEndUsers(object, metaclass=Singleton):
         self.utils.print_info("Updating id: " + str(data.id))
 
         # Call xapi_base_update_end_user to update a user
-        response = self.xapiBaseConfigurationUserManagementApi.xapi_base_update_end_user(id = data.id, xiq_update_end_user_request = payload)
+        self.xapiBaseConfigurationUserManagementApi.xapi_base_update_end_user(id = data.id, xiq_update_end_user_request = payload)
 
         # Return to function update_all_ppsk_end_users_email_phone_delivery_methods function
         return
-

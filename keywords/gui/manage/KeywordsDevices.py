@@ -173,7 +173,7 @@ class KeywordsDevices(object, metaclass=Singleton):
         number. If the device platform is a "stack" then delete_device will try to delete the device using 'mac' address
         of the stack, otherwise will delete individual devices by using every 'serial' number provided in
         device_dict.
-        
+
         Keyword Usage:
           Robot:
              Library  keywords/gui/manage/KeywordsDevices.py
@@ -258,7 +258,7 @@ class KeywordsDevices(object, metaclass=Singleton):
         Keyword Implementations:
            GUI
            XAPI - ** Not Implemented **
-           
+
         :param device_dict: dictionary from .yaml testbed file (ex: ap1, netelem1)
         :param retry_duration: duration between each retry, by default set to 10 (times)
         :param retry_count: retry count, by default set to 30 (seconds)
@@ -289,7 +289,7 @@ class KeywordsDevices(object, metaclass=Singleton):
                                                                              retry_count=retry_count, **kwargs)
 
                 else:
-                    kwargs['fail_msg'] = f"XAPI version is not yet implemented for gui_wait_until_device_removed()."
+                    kwargs['fail_msg'] = "XAPI version is not yet implemented for gui_wait_until_device_removed()."
                     self.common_validation.fault(**kwargs)
                     return -1
 
