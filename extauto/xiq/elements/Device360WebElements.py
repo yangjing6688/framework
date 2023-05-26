@@ -58,6 +58,15 @@ class Device360WebElements(Device360WebElementDefs):
     def get_connected_device_status(self):
         return self.weh.get_element(self.device360_connected_device_status)
 
+    def get_average_cpu_percent(self):
+        return self.weh.get_element(self.device360_average_cpu_percent)
+
+    def get_average_memory_utilization(self):
+        return self.weh.get_element(self.device360_average_memory_utilization)
+
+    def get_adequate_power_supply(self):
+        return self.weh.get_element(self.device360_adequate_power_supply)
+
     def get_leftpane_unique_clients(self):
         return self.weh.get_element(self.device360_leftpane_unique_clients)
 

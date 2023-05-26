@@ -16170,7 +16170,11 @@ class Device360(Device360WebElements):
         config_firmware_score = get_overview.get('config_firmware_score', 'None')
         device_overall_score = get_overview.get('device_overall_score', 'None')
         connected_status = get_overview.get('connected_status', 'None')
+        average_cpu_percent = get_overview.get('average_cpu_percent', 'None')
+        average_memory_utilization = get_overview.get('average_memory_utilization', 'None')
+        adequate_power_supply = get_overview.get('adequate_power_supply', 'None')
         expected_device_overall_score = get_overview.get('expected_device_overall_score', 'None')
+        expected_device_hardware_health = get_overview.get('expected_device_hardware_health', 'None')
 
         try:
             if connected_clients != 'None':
@@ -16220,6 +16224,54 @@ class Device360(Device360WebElements):
 
                 total_overall_score = device_availability_score + device_hardware_health + config_firmware_score
                 get_overview['expected_device_overall_score'] = total_overall_score
+
+            if average_cpu_percent != 'None':
+                self.utils.wait_till(self.dev360.get_average_cpu_percent, timeout=20, delay=4, is_logging_enabled=True)
+                get_overview['average_cpu_percent'] = self.dev360.get_average_cpu_percent().text
+                self.utils.print_info("Average cpu percent: ", get_overview['average_cpu_percent'])
+
+            if average_memory_utilization != 'None':
+                self.utils.wait_till(self.dev360.get_average_memory_utilization, timeout=20, delay=4,
+                                     is_logging_enabled=True)
+                get_overview['average_memory_utilization'] = self.dev360.get_average_memory_utilization().text
+                self.utils.print_info("Average memory utilization: ", get_overview['average_memory_utilization'])
+
+            if adequate_power_supply != 'None':
+                self.utils.wait_till(self.dev360.get_adequate_power_supply, timeout=20, delay=4,
+                                     is_logging_enabled=True)
+                get_overview['adequate_power_supply'] = self.dev360.get_adequate_power_supply().text
+                self.utils.print_info("Adequate power supply: ", get_overview['adequate_power_supply'])
+
+            if expected_device_hardware_health != "None" and get_overview['device_hardware_health'] != '':
+                avg_cpu = get_overview['average_cpu_percent']
+                avg_cpu = int(avg_cpu.replace('%', ''))
+                avg_memory_utilization = get_overview['average_memory_utilization']
+                avg_memory_utilization = int(avg_memory_utilization.replace('%', ''))
+                adequate_power_supply = get_overview['adequate_power_supply']
+                adequate_power_supply = int(adequate_power_supply.replace('%', ''))
+                device_hardware_health_score = 0
+
+                if avg_cpu >= 95:
+                    device_hardware_health_score = (80 * 30) / 100
+                elif 90 <= avg_cpu < 95:
+                    device_hardware_health_score += (90 * 30) / 100
+                elif 85 <= avg_cpu < 90:
+                    device_hardware_health_score += (95 * 30) / 100
+                else:
+                    device_hardware_health_score += 30
+
+                if avg_memory_utilization >= 95:
+                    device_hardware_health_score += (80 * 40) / 100
+                elif 90 <= avg_memory_utilization < 95:
+                    device_hardware_health_score += (90 * 40) / 100
+                elif 80 <= avg_memory_utilization < 90:
+                    device_hardware_health_score += (95 * 40) / 100
+                else:
+                    device_hardware_health_score += 40
+
+                if adequate_power_supply == 100:
+                    device_hardware_health_score += 30
+                get_overview['expected_device_hardware_health'] = device_hardware_health_score
 
             kwargs['pass_msg'] = "Successfully able to get D360 Monitor Overview."
             self.common_validation.passed(**kwargs)
