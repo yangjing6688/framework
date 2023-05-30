@@ -1,6 +1,8 @@
 import json
 import subprocess
 import random
+import base64
+import xmltodict
 
 
 from extauto.common.Utils import Utils
@@ -67,6 +69,49 @@ class Xapi:
         self.at = access_token
         return access_token
 
+    def generate_tokens_by_internal(self, username, password, path="login"):
+        """
+        - This Keyword is used to get the access token
+
+        :param username: username
+        :param password: password
+        :param path: API Endpoint path
+        :return: returns access_token
+        """
+        self.utils.print_info("Username: ", username)
+        self.utils.print_info("Password: ", password)
+
+        access_token = -1
+        base_url = BuiltIn().get_variable_value("${BASE_URL}")
+        self.utils.print_info("Base URL: ", base_url)
+
+        username_passord_str = f'{username}:{password}'
+        base64_token = base64.b64encode(username_passord_str.encode('utf-8')).decode('utf-8')
+        data_urlencode_raw = '--data-urlencode "grant_type=client_credentials" '
+
+        curl_cmd = f'curl -k --location --request POST "{base_url}/{path}" --header "Content-Type: application/x-www-form-urlencoded" --header "Authorization: Basic {base64_token}" {data_urlencode_raw}'
+
+        self.utils.print_info("Curl Command: ", curl_cmd)
+
+        process = subprocess.Popen(curl_cmd, shell=True,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        self.utils.print_debug("stdout: ", stdout)
+        self.utils.print_debug("stderr: ", stderr)
+
+        try:
+            stdout = self._xml_to_json(stdout)
+            access_token = stdout['DefaultOAuth2AccessToken']['access_token']
+            self.utils.print_info("Access Token ", access_token)
+        except Exception as e:
+            self.utils.print_info(e)
+            return access_token
+        self.at = access_token
+        return access_token
+
+    def _xml_to_json(self,xml_string):
+        return xmltodict.parse(xml_string)
     def get_json_value(self, json_data, json_key, key_type='default'):
         """
          - This Keyword is used to get the  key_str value from the api response json raw data
@@ -167,7 +212,7 @@ class Xapi:
         self.utils.print_info("Base URL: ", base_url)
 
         url = base_url + path
-        curl_cmd = f"curl -v --location --request GET '{url}' --header 'Authorization: Bearer {access_token}'"
+        curl_cmd = f'curl -v --location --request GET "{url}" --header "Authorization: Bearer {access_token}"'
 
         self.utils.print_info("*****************************")
         self.utils.print_info("Curl Command: ", curl_cmd)
@@ -915,3 +960,4 @@ class Xapi:
         :return: JSON Value from list
         """
         return json_list[list_index][key]
+
